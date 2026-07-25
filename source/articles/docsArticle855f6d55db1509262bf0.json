@@ -1,0 +1,288 @@
+{
+  "code": "docsArticle855f6d55db1509262bf0",
+  "title": "nPublish",
+  "route": "/docs/modules/gframework/npublish",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nPublish/README.md",
+    "type": "module-readme",
+    "contentHash": "62a21f38bf05ab46fd7874a6243b3f6615c2ca960d72e91615c103609572154f"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "nPublish",
+      "anchor": "npublish"
+    },
+    {
+      "level": 2,
+      "text": "Capability Status",
+      "anchor": "capability-status"
+    },
+    {
+      "level": 2,
+      "text": "Publish Lifecycle Direction",
+      "anchor": "publish-lifecycle-direction"
+    },
+    {
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "nPublish",
+      "anchor": "npublish"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nPublish` provides framework publishing support for runtime/module activation patterns. It is the place for generic publish-time contracts, schemas, routes, and pipeline hooks that support publishable module variants."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for publish capability behavior that is not specific to one provider or domain. Variant modules such as `vDatabase` or `vMongodb` should contain variant wiring, not duplicated publish infrastructure."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Publishing behavior must remain source-of-truth driven, auditable, rollback-aware, and safe for layered overrides across environment, server, node, tenant, and customer layers."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Versioned persistence is provided through variant modules such as `vDatabase`, `vMongodb`, and `vService`. `nPublish` governs the provider-neutral business lifecycle for staged data, validation, approval, activation, online visibility, and rollback."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Capability Status",
+      "anchor": "capability-status"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The module now provides:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "authoritative generic `publicationRequest` contract with an atomically stored"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "transition journal and a query-oriented `publicationAudit` projection;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "governed Staged, validation, approval, activation, Online, failure, and rollback states;",
+        "layered transition, dependency-bound, event, domain-adapter, version-provider,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "and workflow-provider configuration;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "executable lifecycle orchestration for create, validate, approval, activation,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "failure, and rollback flows;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "optimistic revision enforcement, idempotent terminal replays, sanitized audit"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "evidence, bounded dependencies, and fail-fast provider resolution;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "a generated-service-backed repository extension point that atomically applies"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "state, optimistic revision, and immutable transition evidence in one CAS write;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "bounded, tenant-scoped, idempotent reconciliation of missing audit projections"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "from authoritative publication journals;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "layered configuration files;",
+        "router, schema, pipeline, utility, enum, and status extension slots;",
+        "common and environment-local smoke tests;",
+        "generated LLM context."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "CMS now supplies the first executable domain adapter and target deployment implementation. Additional domains remain extension work. Versioned storage remains owned by provider variants; workflow remains owned by `gCore/workflow`; business validation and dependency rules remain in owning domain adapters. No business module may introduce a parallel publication state machine."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The default deployment contract uses two independent runtime authorities:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Staged activates publish/version variants and stores editable immutable versions;",
+        "Online does not activate version variants and stores the deployed target form;",
+        "an approved workflow invokes the domain adapter, which deploys through an"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "authenticated target transport rather than writing the Online database;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "each publishable domain, including CMS or a product catalog, contributes its"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "own dependency resolver, validation, manifest/export shape, and target adapter."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Publish Lifecycle Direction",
+      "anchor": "publish-lifecycle-direction"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A complete publish lifecycle should cover:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "staged data creation;",
+        "validation;",
+        "approval request;",
+        "approval decision;",
+        "activation;",
+        "online visibility;",
+        "persisted published version;",
+        "rollback to a previous version;",
+        "audit history;",
+        "tenant isolation;",
+        "export/search/cache refresh where required."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "The source of truth must remain module definitions, schemas, services, pipelines, runtime governance, and persisted version records. Business users should be able to publish and revert data without modifying framework source files."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Projects may extend publish behavior by:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "using `vDatabase`, `vMongodb`, or `vService` where versioned behavior is required;",
+        "adding business-owned publish services and pipelines;",
+        "adding approval/activation/rollback models where required;",
+        "connecting publish events to search/cache/export refresh;",
+        "adding tenant-aware tests for stage, validate, approve, publish, rollback, and diagnostics."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep provider-specific version storage in provider variants. Keep business-specific catalog/content/product publish rules in the owning business module."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run structure:audit -- --fail\nnpm run quality:docs"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Add focused tests before this module owns executable publish behavior beyond scaffold extension slots."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The focused orchestration contract can be run with:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "node gFramework/nPublish/test/publicationLifecycleService.test.js\nnode gFramework/nPublish/test/publicationAtomicAuditContract.test.js\nnode gFramework/nPublish/test/publicationAuditReconciliationService.test.js"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "treating the generic lifecycle as a domain dependency resolver or target adapter;",
+        "duplicating versioned database behavior already owned by `vDatabase` or provider variants;",
+        "putting one project's content/product approval rules into the framework module;",
+        "making publish activation non-auditable or non-revertible;",
+        "changing generated artifacts manually."
+      ]
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

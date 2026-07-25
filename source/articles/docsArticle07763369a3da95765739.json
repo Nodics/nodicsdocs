@@ -1,0 +1,370 @@
+{
+  "code": "docsArticle07763369a3da95765739",
+  "title": "cronjob",
+  "route": "/docs/modules/gcore/cronjob",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gCore/cronjob/README.md",
+    "type": "module-readme",
+    "contentHash": "6b34113beab745bcb387d3ca6999d9e9ba9a94421a941aa42aa1bf23f67dc761"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "cronjob",
+      "anchor": "cronjob"
+    },
+    {
+      "level": 2,
+      "text": "Who Uses CronJob",
+      "anchor": "who-uses-cronjob"
+    },
+    {
+      "level": 2,
+      "text": "Ownership And Boundaries",
+      "anchor": "ownership-and-boundaries"
+    },
+    {
+      "level": 2,
+      "text": "Job Definition",
+      "anchor": "job-definition"
+    },
+    {
+      "level": 2,
+      "text": "Execution And Ownership Model",
+      "anchor": "execution-and-ownership-model"
+    },
+    {
+      "level": 2,
+      "text": "Lifecycle Commands",
+      "anchor": "lifecycle-commands"
+    },
+    {
+      "level": 2,
+      "text": "Resilience And Recovery",
+      "anchor": "resilience-and-recovery"
+    },
+    {
+      "level": 2,
+      "text": "Security",
+      "anchor": "security"
+    },
+    {
+      "level": 2,
+      "text": "Performance And Observability",
+      "anchor": "performance-and-observability"
+    },
+    {
+      "level": 2,
+      "text": "Verification And Release Evidence",
+      "anchor": "verification-and-release-evidence"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "cronjob",
+      "anchor": "cronjob"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`cronjob` runs business work at a planned time or on an approved manual request. A persisted job definition describes the schedule and execution handler; a process-local scheduler executes only jobs assigned to its node for the active tenant."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Who Uses CronJob",
+      "anchor": "who-uses-cronjob"
+    },
+    {
+      "kind": "table",
+      "headers": [
+        "Persona or caller",
+        "Typical workflow",
+        "Boundary"
+      ],
+      "rows": [
+        [
+          "Business operator",
+          "Inspect, run, pause, resume, or stop an allowed job",
+          "Secured command routes and tenant-scoped permissions"
+        ],
+        [
+          "Module or scheduled process",
+          "Execute work against another module",
+          "Tenant-bound internal token and target-module authorization"
+        ],
+        [
+          "Project developer",
+          "Add a project-specific schedule and handler",
+          "Later module definitions, services, pipelines, events, and tests"
+        ],
+        [
+          "Platform operator",
+          "Assign nodes, monitor runs, drain/restart processes, and recover failures",
+          "Environment/server/node configuration plus persisted CronJob state"
+        ],
+        [
+          "BackOffice client",
+          "Discover and invoke allowed CronJob operations",
+          "CronJob remains scheduler and route authority"
+        ]
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "**Maturity: Production-ready capability.** Multi-node production scheduling still requires project-owned topology, node monitoring, job idempotency, operational alerting, and release validation. Node failover handlers exist, but `nodePingableModules.cronjob.enabled` is disabled by default."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Ownership And Boundaries",
+      "anchor": "ownership-and-boundaries"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The module owns scheduled execution, lifecycle services, secured routes, persistence schemas, pipelines, interceptors, events, initializer data, and tests. It participates in the shared runtime lifecycle: drain stops new job acquisition and process-owned schedules before connection shutdown, while persisted definitions survive hard termination."
+    },
+    {
+      "kind": "paragraph",
+      "text": "CronJob is owned and activated as a **module**, not as a server capability. A server only hosts one or more active modules. `runOnNode` selects the normal execution node and `tempNode` can represent temporary failover ownership; these placement fields do not transfer module authority or create another registry."
+    },
+    {
+      "kind": "paragraph",
+      "text": "CronJob owns its optional BackOffice catalogue declaration in `package.json`. That declaration advertises discovery and navigation metadata only. CronJob continues to protect and execute every operation, and its effective System OpenAPI contract remains the route authority."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Job Definition",
+      "anchor": "job-definition"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A persisted definition describes:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "code, active state, tenant, schedule/trigger, start, and optional end;",
+        "handler/service and job-detail behavior;",
+        "normal node placement and temporary ownership where enabled;",
+        "run-on-initialization behavior and priority;",
+        "lifecycle state, last execution status, logs, and events;",
+        "access, timeout, retry, failure, retention, and operational expectations."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Definitions and defaults come from active modules and layered configuration. Project, environment, server, node, tenant, and runtime layers may override allowed behavior. Customer-specific jobs belong in project modules; reusable scheduler mechanics belong here. Do not edit generated files or rely on startup side effects that create duplicate definitions."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Execution And Ownership Model",
+      "anchor": "execution-and-ownership-model"
+    },
+    {
+      "kind": "code",
+      "language": "text",
+      "text": "persisted tenant job -> eligible CronJob module instance -> assigned node pool\n                    -> scheduled/manual trigger -> handler or target module\n                    -> state, log, event, and operational evidence"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The persisted definition is authoritative; the in-memory pool is disposable. A node creates a scheduler only when its identifier matches `runOnNode` or an approved temporary `tempNode`. Node-down handling may create temporary local ownership, and node-up handling removes that temporary copy. Projects must enable and qualify node monitoring before depending on failover in production."
+    },
+    {
+      "kind": "paragraph",
+      "text": "This model prevents intentional duplicate placement, but it is not a distributed transaction or universal exactly-once guarantee. Network partitions, delayed failure detection, process termination, and downstream timeouts can create uncertain outcomes. Jobs that change external state must define an idempotency key, duplicate/overlap policy, timeout, retry safety, and reconciliation or compensation behavior."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Lifecycle Commands",
+      "anchor": "lifecycle-commands"
+    },
+    {
+      "kind": "paragraph",
+      "text": "CronJob supports create/register, update, run, start, stop, remove, pause, and resume through its owning controller, service, and process-local container. State-changing routes are secured command APIs: `POST` for create, run, start, stop, pause, and resume; `PATCH` for update; and `DELETE` for removal. Do not expose these operations through `GET` or place business logic in route handlers."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Scheduled triggers and manual `run` commands share the job definition and handler contract. Manual execution must not bypass tenant context, node eligibility, running-job protection, target permissions, logging, or failure handling. A human bearer token can authorize a CronJob command; module calls performed by the job use the separate tenant-scoped internal service-token flow."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Resilience And Recovery",
+      "anchor": "resilience-and-recovery"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Graceful drain rejects new scheduler acquisition and stops process-owned"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "schedules before connection shutdown."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Startup rebuilds eligible local schedules from active tenant definitions."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Creation and start behavior must remain idempotent and report partial failure."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Distinguish handler failure, target timeout, node loss, invalid definition,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "and unknown completion. Retry only when the handler contract is safe."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Prevent or explicitly govern overlapping execution. A process-local running"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "flag cannot protect across nodes or after a crash."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Persist safe execution evidence and provide quarantine, reconciliation,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "replay, or compensation for business-critical jobs."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "CronJob startup must not block unrelated module readiness indefinitely while"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "waiting for Profile, BackOffice, NEMS, or a target module. Follow the shared bounded dependency and runtime lifecycle contracts."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Security",
+      "anchor": "security"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Every lifecycle route requires authentication and the effective route/schema authorization policy. Tenant context must constrain definition lookup and execution. Jobs calling another module use governed internal credentials and must satisfy that target module's permissions; human username/password login is never a module-to-module credential flow."
+    },
+    {
+      "kind": "paragraph",
+      "text": "An internal job may define `jobDetail.internal.timeoutMs`; CronJob passes that bound to the existing nService module transport. Transport retry remains governed by nService safety and idempotency rules rather than by a second CronJob retry implementation."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not accept arbitrary service names, URLs, node identifiers, credentials, or executable handlers from untrusted request data. Resolve approved definitions from active-module source/configuration and preserve audit, redaction, and secret-management boundaries."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Performance And Observability",
+      "anchor": "performance-and-observability"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Set project limits for active jobs per tenant/node, trigger frequency, concurrency, execution duration, payload size, log retention, and downstream rate. Avoid unbounded tenant scans or large payloads retained in scheduler memory."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Monitor scheduler readiness, pool size, due/started/completed/failed/skipped runs, schedule delay, duration, retry, overlap denial, temporary ownership, node handoff, downstream latency, and stale running state. Carry tenant, job code, execution/correlation identity, trigger type, assigned node, attempt, and safe outcome through logs and traces. Never record service tokens, credentials, or sensitive business payloads."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Verification And Release Evidence",
+      "anchor": "verification-and-release-evidence"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run `npm run test:suite -- --suite=cronjob`. Every real job also needs positive, invalid definition, unauthorized, cross-tenant, schedule-boundary, manual-run, duplicate/overlap, timeout, retry, partial-failure, restart, drain, node-loss, node-return, downstream-recovery, idempotency, reconciliation, integration, and regression tests. Multi-node and external-provider claims require guarded live topology tests in the deployment environment."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Core capability family: [gCore](../README.md)",
+        "Profile and service identity: [profile](../profile/README.md)",
+        "Messaging and events: [nEms](../../gFramework/nEms/README.md)",
+        "Runtime module lifecycle: [nService](../../gFramework/nService/README.md)",
+        "Capability maturity: [Provider And Capability Maturity Matrix](../../gDocs/reference/provider-capability-maturity-matrix.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "gCore",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcore",
+      "anchor": ""
+    },
+    {
+      "label": "profile",
+      "target": "../profile/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcore/profile",
+      "anchor": ""
+    },
+    {
+      "label": "nEms",
+      "target": "../../gFramework/nEms/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nems",
+      "anchor": ""
+    },
+    {
+      "label": "nService",
+      "target": "../../gFramework/nService/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nservice",
+      "anchor": ""
+    },
+    {
+      "label": "Provider And Capability Maturity Matrix",
+      "target": "../../gDocs/reference/provider-capability-maturity-matrix.md",
+      "kind": "internal",
+      "route": "/docs/reference/provider-capability-maturity-matrix",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

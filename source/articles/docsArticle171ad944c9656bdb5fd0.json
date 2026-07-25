@@ -1,0 +1,163 @@
+{
+  "code": "docsArticle171ad944c9656bdb5fd0",
+  "title": "flowSchema",
+  "route": "/docs/modules/gcore/workflow/flowschema",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gCore/workflow/flowSchema/README.md",
+    "type": "module-readme",
+    "contentHash": "b8d786642cf1ec04d5e0be3efc648e0424497e818113a36770ad6296b58ab2ec"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "flowSchema",
+      "anchor": "flowschema"
+    },
+    {
+      "level": 2,
+      "text": "Contract Rules",
+      "anchor": "contract-rules"
+    },
+    {
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "flowSchema",
+      "anchor": "flowschema"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`flowSchema` is the source of truth for application workflow definitions and durable runtime records. It defines workflows, actions, channels, action responses, carriers, items, carrier state, archives, and error carriers used by `flowCore` and `flowApi`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "**Maturity: Production-ready capability.** Generated schema/API/CRUD contracts cover the reusable models, but project definitions require domain validation, retention, migration, access-policy, and lifecycle tests."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Contract Rules",
+      "anchor": "contract-rules"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Give every definition a stable code and governed version/migration path.",
+        "Validate one head, reachable actions, valid channel targets, allowed"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "decisions, terminal paths, handler references, and cycle policy."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Keep tenant, carrier, item, source reference, state, action history, error,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "correlation, and definition-version data sufficient for recovery and audit."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Treat callback and item detail as classified business data. Define size,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "encryption, redaction, retention, archive, deletion, and legal-hold policy."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Use schema access policy and service commands for state changes; generated"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "CRUD existence does not authorize arbitrary workflow mutation."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Schema changes flow through later active modules and normal Nodics generation. Do not hand-edit generated artifacts or create a second workflow-definition store in BackOffice, tooling, or a project client."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run the workflow suite and generated contracts. Add tests for missing or duplicate heads, broken targets, forbidden decisions, invalid states, cycles, tenant isolation, ownership, optimistic/concurrent updates, old definition versions, archive/error records, payload boundaries, migration, and recovery."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Workflow family: [workflow](../README.md)",
+        "Runtime engine: [flowCore](../flowCore/README.md)",
+        "HTTP commands: [flowApi](../flowApi/README.md)",
+        "Database contracts: [nDatabase](../../../gFramework/nDatabase/README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "workflow",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcore/workflow",
+      "anchor": ""
+    },
+    {
+      "label": "flowCore",
+      "target": "../flowCore/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcore/workflow/flowcore",
+      "anchor": ""
+    },
+    {
+      "label": "flowApi",
+      "target": "../flowApi/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcore/workflow/flowapi",
+      "anchor": ""
+    },
+    {
+      "label": "nDatabase",
+      "target": "../../../gFramework/nDatabase/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndatabase",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

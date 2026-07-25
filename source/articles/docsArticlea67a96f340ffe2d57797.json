@@ -1,0 +1,51 @@
+{
+  "code": "docsArticlea67a96f340ffe2d57797",
+  "title": "monoServer",
+  "route": "/docs/modules/startio/envs/startiolocal/monoserver",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/envs/startioLocal/monoServer/README.md",
+    "type": "module-readme",
+    "contentHash": "00a40abae753c2717b8bbecc4815f0b15f4fe624079ebf6e4aadd5f88fe24486"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "monoServer",
+      "anchor": "monoserver"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "monoServer",
+      "anchor": "monoserver"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`monoServer` is the primary local server module for the `startio` application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for local server activation, node composition, route/service availability, and runtime topology. Business behavior belongs in active application or framework modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Local server settings should stay explicit and replaceable by higher environment server modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "For local Assistant acceptance, this server enables the globally deny-by-default read-tool boundary and contributes an enabled `axisAssistantReadOnly` policy through explicit init data. The policy exposes only the BackOffice catalogue read operation and the bounded Profile enterprise-search operation. Run init import for both `aiAssistant` and `monoServer` after policy changes. The local topology explicitly activates `openAiProvider` because the `assistantGeneration` profile selects OpenAI; `gAi` intentionally does not activate every vendor adapter. Provider credentials remain environment secret references and are never stored here."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

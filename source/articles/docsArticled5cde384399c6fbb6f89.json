@@ -1,0 +1,336 @@
+{
+  "code": "docsArticled5cde384399c6fbb6f89",
+  "title": "search Module",
+  "route": "/docs/modules/gframework/nsearch/search",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nSearch/search/README.md",
+    "type": "module-readme",
+    "contentHash": "e3ebb2aef222a48be7279fce6cdd720b31181be90cdd21a6fff5eebbbaf84f60"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "search Module",
+      "anchor": "search-module"
+    },
+    {
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "level": 2,
+      "text": "Route Contract",
+      "anchor": "route-contract"
+    },
+    {
+      "level": 2,
+      "text": "Index Definitions",
+      "anchor": "index-definitions"
+    },
+    {
+      "level": 2,
+      "text": "Engine Adapter Checklist",
+      "anchor": "engine-adapter-checklist"
+    },
+    {
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "level": 2,
+      "text": "Consistency, Failure, And Performance",
+      "anchor": "consistency-failure-and-performance"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "search Module",
+      "anchor": "search-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The `search` module is the provider-neutral authority for indexing and search behavior. Business modules define what is searchable; this module supplies the common lifecycle and delegates engine work to the configured provider."
+    },
+    {
+      "kind": "paragraph",
+      "text": "`search` is the provider-neutral search capability inside `nSearch`. It owns search facades, controllers, route contracts, index definitions, fallback behavior, cache policy integration, and shared search lifecycle rules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for search behavior that should apply across engines. Engine-specific connection and query adapter behavior belongs in modules such as `nSearch/elastic`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Search extensions should be driven by schemas, index definitions, layered configuration, and tests. Do not hardcode one project's indexing strategy into framework defaults."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The module contributes:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "secured schema-level search route definitions;",
+        "secured index-level search route definitions;",
+        "generated search service templates in `src/service/common.js`;",
+        "provider-neutral controller and facade structure;",
+        "`SearchEngine` runtime state for active engine options, connection options, connection, and active indexes;",
+        "`SearchError` for normalized search failure handling;",
+        "source-owned index definition slots in `src/search/indexes.js`;",
+        "pipeline extension points for indexing, querying, refresh, health, remove, schema, and cache behavior;",
+        "tests for route contracts, service pipeline dispatch, request mapping, indexing service behavior, and cache policy."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "The service template maps search operations to pipeline names. Generated schema services use this structure so every schema-specific search API follows the same provider-neutral dispatch path."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "A secured search route, service, or internal process receives a search operation.",
+        "The request resolves module, tenant, schema model, and index name.",
+        "The provider-neutral service retrieves the active `SearchModel` through `NODICS.getSearchModel`.",
+        "The operation dispatches into the matching search pipeline.",
+        "The active provider adapter maps the request to engine-specific client calls.",
+        "Cache policy is evaluated before eligible search results are written into cache.",
+        "Errors are normalized as `SearchError` values."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "The contract test verifies pipeline dispatch for refresh, health, exists, get, search, save, bulk, remove, remove-by-query, schema, index removal, and indexing preparation."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Route Contract",
+      "anchor": "route-contract"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Search routes must remain secured. The route contract currently verifies schema and index operations for:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "refresh;",
+        "cluster/index health;",
+        "exists;",
+        "get;",
+        "search;",
+        "save;",
+        "bulk;",
+        "remove;",
+        "remove by query;",
+        "schema get/update;",
+        "index execution."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "When adding or changing search routes, update route definitions, generated context, route contract tests, access groups, and documentation together."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Index Definitions",
+      "anchor": "index-definitions"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Index definitions belong in `src/search/indexes.js` for the module that owns the searchable data. A definition should describe the owned schema/index, identity property, indexing processors, indexed properties, tenant/customer partitioning, refresh behavior, and cache expectations."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep provider-neutral index ownership in this module family. Engine-specific options belong in provider configuration or adapter modules."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Engine Adapter Checklist",
+      "anchor": "engine-adapter-checklist"
+    },
+    {
+      "kind": "paragraph",
+      "text": "When adding a new search engine:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "keep facades, controllers, routes, cache policy, and generated search APIs"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "provider-neutral;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "add engine-specific behavior in an adapter module or later project module;",
+        "configure the active engine through layered `search` properties;",
+        "map schema/index definitions to provider indexes without hardcoding one"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "customer's model strategy;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "preserve tenant context, diagnostics, error envelopes, fallback behavior, and"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "cache invalidation;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "test activation, query behavior, indexing behavior, disabled-engine behavior,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "failures, and later-module overrides."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run focused provider-neutral search coverage with:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "node gFramework/nSearch/search/test/searchRouteContract.test.js\nnode gFramework/nSearch/search/test/searchServicePipelineContract.test.js\nnode gFramework/nSearch/search/test/searchControllerRequestMapping.test.js\nnode gFramework/nSearch/search/test/searchCachePolicyContract.test.js\nnode gFramework/nSearch/search/test/indexerServiceContract.test.js\nnpm run quality:docs"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "adding Elasticsearch/OpenSearch/Solr client calls to provider-neutral services;",
+        "creating unsecured search routes;",
+        "resolving search models without tenant context;",
+        "caching sensitive search payloads outside the shared cache policy;",
+        "putting customer-specific ranking, fields, or aliases into framework defaults;",
+        "editing generated schema search services manually."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Consistency, Failure, And Performance",
+      "anchor": "consistency-failure-and-performance"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Document whether each operation is synchronous or eventually consistent, how source changes reach the index, and what happens when indexing or querying is unavailable. Fallback-to-database must be explicit, bounded, permission-safe, and appropriate to query semantics; it is not a universal replacement for a search engine."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Preserve tenant/module/schema/index context in keys, models, logs, and errors. Measure indexer lag, batch size, query latency, result size, cache hit rate, provider failure, and reconciliation outcome without recording sensitive query content as unrestricted telemetry."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Provider selection: [nSearch](../README.md)",
+        "Elasticsearch adapter: [elastic](../elastic/README.md)",
+        "Cache policy: [How Cache Works](../../../gDocs/platform/how-cache-works.md)",
+        "Data guide: [How To Work With Data](../../../gDocs/data/how-to-work-with-data.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "nSearch",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nsearch",
+      "anchor": ""
+    },
+    {
+      "label": "elastic",
+      "target": "../elastic/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nsearch/elastic",
+      "anchor": ""
+    },
+    {
+      "label": "How Cache Works",
+      "target": "../../../gDocs/platform/how-cache-works.md",
+      "kind": "internal",
+      "route": "/docs/platform/how-cache-works",
+      "anchor": ""
+    },
+    {
+      "label": "How To Work With Data",
+      "target": "../../../gDocs/data/how-to-work-with-data.md",
+      "kind": "internal",
+      "route": "/docs/data/how-to-work-with-data",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

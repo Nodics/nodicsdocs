@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle1fca88d1746e85d62bed",
+  "title": "kickoffLocal",
+  "route": "/docs/modules/docs/kickoff/kickoffenvs/kickofflocal",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "docs/kickoff/kickoffEnvs/kickoffLocal/README.md",
+    "type": "module-readme",
+    "contentHash": "ea80e99875c8519c1c016cb09c745dd4a166f0e98763751c4099120116703dc4"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "kickoffLocal",
+      "anchor": "kickofflocal"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "kickoffLocal",
+      "anchor": "kickofflocal"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`kickoffLocal` is the local development environment module for the `kickoff` application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for local-only configuration and server composition. Shared application behavior belongs in `kickoffModules`, and server/node settings belong in child topology modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Local values should remain explicit, replaceable, and isolated from higher environments."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

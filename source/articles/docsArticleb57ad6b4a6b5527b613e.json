@@ -1,0 +1,59 @@
+{
+  "code": "docsArticleb57ad6b4a6b5527b613e",
+  "title": "Stock reconciliation foundation",
+  "route": "/docs/modules/gcomm/inventory/docs/stock-reconciliation-foundation",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gComm/inventory/docs/stock-reconciliation-foundation.md",
+    "type": "module-doc",
+    "contentHash": "e5e4562bfe46da43491c440c0376176cab2e9369a142c39a5aaa6e94fde11c0e"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Stock reconciliation foundation",
+      "anchor": "stock-reconciliation-foundation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Stock reconciliation foundation",
+      "anchor": "stock-reconciliation-foundation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Reconciliation detects inconsistencies without silently rewriting Stock. Service identities run bounded, dry-first scans. Repairable findings enter the existing Nodics Workflow engine. Each workflow action independently declares whether it is manual or automatic; the workflow is not globally classified as manual or automatic. Service identities execute approved corrections through Stock Movement."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The scanner detects reserved-quantity mismatches, forbidden negative balances, Allocation quantity inconsistencies, Transfer quantity inconsistencies, pending Movements, and stale Reservation transitions. Findings and runs are immutable operational evidence. Only negative balances have an automatic repair in this slice: an idempotent `CORRECTION` movement after human approval. Every other finding requires investigation through its owning lifecycle."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Configure batch size, total finding limit, stale-transition age, and dry-run default under `inventory.stockReconciliation` in `properties.js`. A run uses one idempotency key and a persisted per-evidence cursor; invoke the same request until its state is `COMPLETED`. CronJob may invoke the internal scan endpoint. Human approval uses `inventory.reconciliation.approve`; scan and repair routes require service tokens."
+    },
+    {
+      "kind": "paragraph",
+      "text": "`inventory.stockReconciliation.workflow` maps each finding type to `MANUAL` or `AUTOMATIC`. The OOTB manual graph contains an automatic head, a manual review action, and an automatic completion action. The OOTB automatic graph contains an automatic head and automatic completion action. Projects may layer different actions and channels through normal Workflow initializer data. Rejection and error use Workflow-owned terminal channels."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Manual completion records the authenticated human approver, then calls the internal repair endpoint with a runtime-bound module token. Automatic completion records the workflow carrier as approval evidence and requires service identity throughout. An automatic action never records itself as a human user."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The scanner does not reconstruct on-hand quantity from movement history because no opening-balance checkpoint contract exists yet. Treating an incomplete movement window as Stock truth would create false corrections. Add that capability only after a governed checkpoint and retention contract is implemented."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

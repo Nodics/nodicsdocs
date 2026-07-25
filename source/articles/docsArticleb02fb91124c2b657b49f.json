@@ -1,0 +1,47 @@
+{
+  "code": "docsArticleb02fb91124c2b657b49f",
+  "title": "gframesEnvs",
+  "route": "/docs/modules/docs/gframes/gframesenvs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "docs/gframes/gframesEnvs/README.md",
+    "type": "module-readme",
+    "contentHash": "1238ae5e2a7ceeb6d29454f89a22f4eb822b1a554b5fb55eff11158ab6824f30"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "gframesEnvs",
+      "anchor": "gframesenvs"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "gframesEnvs",
+      "anchor": "gframesenvs"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`gframesEnvs` groups the environment definitions for the `gframes` application. It composes environment modules such as `gframesLocal`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this group for environment composition and shared environment defaults. Environment-specific values belong in child environment modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep secrets, endpoints, and runtime topology in the appropriate layered configuration rather than in framework or capability code."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

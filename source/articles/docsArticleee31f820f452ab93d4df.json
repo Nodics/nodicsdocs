@@ -1,0 +1,398 @@
+{
+  "code": "docsArticleee31f820f452ab93d4df",
+  "title": "nToken",
+  "route": "/docs/modules/gframework/ntoken",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nToken/README.md",
+    "type": "module-readme",
+    "contentHash": "d1886b3d79b8ca3fb724b82218af5668cf828ff4c6f439e7d7084fa07793506a"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "nToken",
+      "anchor": "ntoken"
+    },
+    {
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "level": 2,
+      "text": "Source Contracts",
+      "anchor": "source-contracts"
+    },
+    {
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "level": 2,
+      "text": "Configuration",
+      "anchor": "configuration"
+    },
+    {
+      "level": 2,
+      "text": "Security And Abuse Boundaries",
+      "anchor": "security-and-abuse-boundaries"
+    },
+    {
+      "level": 2,
+      "text": "Secret-Safe Diagnostics",
+      "anchor": "secret-safe-diagnostics"
+    },
+    {
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "level": 2,
+      "text": "Operations And Observability",
+      "anchor": "operations-and-observability"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "nToken",
+      "anchor": "ntoken"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nToken` manages short-lived values that prove a specific operation, such as an OTP challenge. It is not the human-login or JWT identity provider. It supplies the reusable generation, expiry, attempt, validation, and deactivation engine that a capability can use behind its own secured boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nToken` owns the generic token lifecycle capability. It provides the token schema, generated token persistence contracts, token generation and validation pipelines, token handler delegation, validity checks, and the extension path used by capabilities such as OTP."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module when changing token mechanics that are independent of one application workflow. Authentication policy, login semantics, and delivery channels belong to their owning modules; `nToken` owns reusable token generation, lookup, expiry, validation, and persistence behavior."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The `token.token` schema stores generated tokens with:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`key`: the business key or subject for the token;",
+        "`ops`: the operation name the token belongs to;",
+        "`value`: the generated token value;",
+        "`expireAt`: expiration timestamp;",
+        "`type`: token type such as `OTP` or `ORDER`."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "The schema disables public generated routes by default. Token behavior is consumed by services and higher-level modules rather than exposed as a generic public API."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Token generation uses `generateTokenPipeline`:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "validate the request;",
+        "require `key` and `ops`;",
+        "apply the configured attempt limit;",
+        "look for an active existing token for the same key and operation;",
+        "reuse the active unexpired token when one exists;",
+        "save a new token when no valid token exists."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Token validation uses `validateTokenPipeline`:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "validate the request;",
+        "require `key`, `ops`, and `value`;",
+        "load the latest active token for the key and operation;",
+        "accept matching unexpired token values;",
+        "deactivate expired tokens;",
+        "decrement the remaining limit for wrong values and deactivate the token when the limit reaches zero;",
+        "return token validation success or a token error."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Source Contracts",
+      "anchor": "source-contracts"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`src/schemas/schemas.js` owns the token schema and generated service contract.",
+        "`config/properties.js` owns generic token defaults, including `token.TOKEN.attemptLimit`.",
+        "`src/pipelines/pipelines.js` owns generation and validation pipeline definitions.",
+        "`src/service/DefaultTokenService.js` starts the pipeline and passes the generated token service as `request.tokenService`.",
+        "`src/service/handler/defaultTokenHandlerService.js` delegates token value and expiry generation to the configured token-type handler.",
+        "`src/service/interceptor/defaultTokenValidityCheckInterceptorService.js` owns token validity interceptor behavior."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Projects or capability modules may extend token behavior by:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "adding a token type enum and schema support when a new reusable token category is required;",
+        "contributing token type configuration in `config/properties.js`;",
+        "providing a token handler service with `generateToken` and `generateExpiry`;",
+        "overriding pipeline services in later active modules;",
+        "adding validation interceptors when token usage needs additional lifecycle checks."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "For example, `nOtp` contributes `token.OTP` configuration and `DefaultOtpHandlerService`, while `nToken` remains the generic token lifecycle engine."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Configuration",
+      "anchor": "configuration"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Token configuration must stay layered:"
+    },
+    {
+      "kind": "code",
+      "language": "js",
+      "text": "module.exports = {\n    token: {\n        TOKEN: {\n            attemptLimit: 5\n        }\n    }\n};"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Token type-specific values such as numeric range, expiration, handler service, retry limit, or single-use policy belong under the token type namespace in `config/properties.js`."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Security And Abuse Boundaries",
+      "anchor": "security-and-abuse-boundaries"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Token lookup, validation, attempt state, and expiry must remain tenant-aware.",
+        "A token value must be scoped to its key, operation, and type; possession must"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "not grant unrelated capability access."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Single-use behavior must deactivate or consume the accepted token before a"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "replay can succeed under the selected persistence contract."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Attempt limits are challenge controls, not a complete public rate-limiting or"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "bot-abuse system. The owning API and deployment must also apply route, identity, address/device, and delivery controls appropriate to the risk."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Never return or log token values through generic diagnostics, persistence"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "administration, audit, or error responses."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Secret-Safe Diagnostics",
+      "anchor": "secret-safe-diagnostics"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Token services may log token type, operation, tenant, correlation id, expiry timestamp, attempt-limit decisions, and validation status. They must not log the generated token value or a caller-submitted token value."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The central logger redacts known sensitive fields, but token handlers should still emit safe metadata rather than relying on redaction to clean raw token material. When troubleshooting token behavior, inspect request type, configured handler, expiry, remaining attempt count, and pipeline failure reason instead of copying token values into logs."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The module owns generated schema coverage for the token schema. Token consumers such as `nOtp` add focused contract tests for route delegation and token-type behavior."
+    },
+    {
+      "kind": "paragraph",
+      "text": "When changing token lifecycle behavior, add focused tests for:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "request validation;",
+        "existing-token reuse;",
+        "expiry handling;",
+        "wrong token value decrement behavior;",
+        "single-use token deactivation;",
+        "handler delegation;",
+        "project override behavior."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run test:generated\nnpm run test:basic\nnpm run quality:docs"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "exposing generic token routes without a secured capability owner;",
+        "hardcoding token ranges, expiry, or handlers in pipeline services;",
+        "mixing authentication policy into token mechanics;",
+        "changing token persistence without generated schema tests;",
+        "bypassing `DefaultTokenService` from OTP or other token consumers;",
+        "storing secrets or credentials in token values."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Operations And Observability",
+      "anchor": "operations-and-observability"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Monitor generation volume, reuse, validation success/failure, expiry, deactivation, exhausted attempts, handler errors, and persistence latency using safe labels. Do not use the token value, submitted value, email address, phone number, or another sensitive subject as an unrestricted metric label."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Production qualification should test concurrent validation/replay, clock boundaries, expiry cleanup, datastore failure, tenant isolation, and the consumer capability's delivery and abuse policy."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "OTP consumer: [nOtp](../nOtp/README.md)",
+        "Authentication boundary: [nAuth](../nAuth/README.md)",
+        "Public security guide: [How Users, Tenants, And Permissions Work](../../gDocs/security/how-users-tenants-and-permissions-work.md)",
+        "Framework map: [gFramework](../README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "nOtp",
+      "target": "../nOtp/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/notp",
+      "anchor": ""
+    },
+    {
+      "label": "nAuth",
+      "target": "../nAuth/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nauth",
+      "anchor": ""
+    },
+    {
+      "label": "How Users, Tenants, And Permissions Work",
+      "target": "../../gDocs/security/how-users-tenants-and-permissions-work.md",
+      "kind": "internal",
+      "route": "/docs/security/how-users-tenants-and-permissions-work",
+      "anchor": ""
+    },
+    {
+      "label": "gFramework",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

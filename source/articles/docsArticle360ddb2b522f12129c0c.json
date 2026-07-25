@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle360ddb2b522f12129c0c",
+  "title": "gfapi Module",
+  "route": "/docs/modules/docs/gframes/gframesmodules/gfapi",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "docs/gframes/gframesModules/gfapi/README.md",
+    "type": "module-readme",
+    "contentHash": "57ea3f522b10b672e2b5c839d3ee1eef455019d91025d6530e9d0c7cd559995c"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "gfapi Module",
+      "anchor": "gfapi-module"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "gfapi Module",
+      "anchor": "gfapi-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`gfapi` owns API-facing behavior for the `gframes` application. It provides project-specific routes, schemas, pipelines, interceptors, utilities, configuration, and tests."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for request contracts and application APIs. Core project data and behavior should remain in `gfcore`, with profile and content behavior in their dedicated modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "API changes must preserve route governance, access control, tenant context, diagnostics, and generated contract alignment."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

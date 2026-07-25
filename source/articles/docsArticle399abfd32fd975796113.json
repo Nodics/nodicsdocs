@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle399abfd32fd975796113",
+  "title": "kickoffDevNemsServer",
+  "route": "/docs/modules/docs/kickoff/kickoffenvs/kickoffdev/kickoffdevnemsserver",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "docs/kickoff/kickoffEnvs/kickoffDev/kickoffDevNemsServer/README.md",
+    "type": "module-readme",
+    "contentHash": "3d793f6ebf6e90f25c4d192bafa79ed6f63507c17d10f8a593ceb92a59b796ca"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "kickoffDevNemsServer",
+      "anchor": "kickoffdevnemsserver"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "kickoffDevNemsServer",
+      "anchor": "kickoffdevnemsserver"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`kickoffDevNemsServer` is the development messaging server module for the `kickoff` application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for dev-scoped EMS/NEMS server activation and runtime topology. Messaging behavior and provider adapters belong in the messaging modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Server configuration should preserve provider governance, diagnostics, and layered overrides."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

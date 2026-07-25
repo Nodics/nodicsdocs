@@ -1,0 +1,47 @@
+{
+  "code": "docsArticled798e3dba64554542864",
+  "title": "kickoffEnvs",
+  "route": "/docs/modules/docs/kickoff/kickoffenvs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "docs/kickoff/kickoffEnvs/README.md",
+    "type": "module-readme",
+    "contentHash": "b7d0823830e8ba203df24fc50858d2cd3328bd3930857057b474eb585d3f0b64"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "kickoffEnvs",
+      "anchor": "kickoffenvs"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "kickoffEnvs",
+      "anchor": "kickoffenvs"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`kickoffEnvs` groups the environment definitions for the `kickoff` application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this group for environment composition and shared environment defaults. Concrete environment values belong in child modules such as `kickoffLocal`, `kickoffDev`, `kickoffQA`, `kickoffPreProd`, and `kickoffProd`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Environment configuration must remain layered so servers and nodes can override behavior without changing application or framework modules."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

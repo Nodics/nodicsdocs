@@ -1,0 +1,333 @@
+{
+  "code": "docsArticle38a0b99d978dba220f03",
+  "title": "redisCache",
+  "route": "/docs/modules/gframework/ncache/rediscache",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nCache/redisCache/README.md",
+    "type": "module-readme",
+    "contentHash": "ad47a93cc4182f0859a00690ab4c689357fa62d884a3d56099360825e490b6b0"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "redisCache",
+      "anchor": "rediscache"
+    },
+    {
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "level": 2,
+      "text": "Source Contracts",
+      "anchor": "source-contracts"
+    },
+    {
+      "level": 2,
+      "text": "Configuration",
+      "anchor": "configuration"
+    },
+    {
+      "level": 2,
+      "text": "Release Gate",
+      "anchor": "release-gate"
+    },
+    {
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "level": 2,
+      "text": "Operations, Recovery, And Performance",
+      "anchor": "operations-recovery-and-performance"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "redisCache",
+      "anchor": "rediscache"
+    },
+    {
+      "kind": "paragraph",
+      "text": "**Maturity: Guarded provider.** Production use requires explicit connection, secret, TLS/topology, isolation, operations, and live release validation."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The `redisCache` module implements the supported distributed cache adapter using Redis 6.2+ semantics."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module when cache state must be shared across Nodics nodes. Redis is the supported distributed cache path for shared item cache, API cache, search cache, auth/session acceleration, and other cross-process cache channels that require one shared backing store."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The Redis adapter supports:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "JSON serialization for stored values;",
+        "positive TTL values through Redis expiration;",
+        "explicit non-expiring entries when TTL is `0`;",
+        "standard cache miss errors;",
+        "atomic consume through Redis `GETDEL`;",
+        "tenant-aware storage keys;",
+        "explicit key deletion;",
+        "prefix cleanup through incremental `SCAN`;",
+        "Redis keyspace event subscription for configured expiration events."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Because all nodes share Redis, Nodics does not need redundant peer invalidation events for ordinary distributed cache writes."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "The cache engine resolves a channel to the Redis engine.",
+        "`DefaultRedisCacheEngineService.initCache` builds Redis client options from layered configuration.",
+        "Supported options include `url`, socket host/port/TLS, database, username, password, and client name.",
+        "The Redis client connects before the engine is exposed to cache channels.",
+        "`DefaultRedisCacheService` performs put, get, consume, prefix flush, and key flush operations through the canonical cache key builder.",
+        "Event registration configures `notify-keyspace-events` and subscribes to the configured database event channel."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Source Contracts",
+      "anchor": "source-contracts"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`src/service/engine/defaultRedisCacheEngineService.js` owns Redis client creation and event subscription.",
+        "`src/service/cache/defaultRedisCacheService.js` owns Redis put/get/consume/flush behavior.",
+        "`test/cacheRedisLive.test.js` owns optional live Redis qualification.",
+        "The provider participates in the generic cache contract owned by `gFramework/nCache/cache`."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Configuration",
+      "anchor": "configuration"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Redis connection data must come from layered configuration or secret-backed runtime configuration. Do not hardcode Redis URLs, credentials, database numbers, TLS settings, or key prefixes in services."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Typical engine options:"
+    },
+    {
+      "kind": "code",
+      "language": "js",
+      "text": "{\n    engine: 'redis',\n    options: {\n        url: 'redis://127.0.0.1:6379',\n        database: 0,\n        prefix: 'profile',\n        ttl: 30\n    }\n}"
+    },
+    {
+      "kind": "paragraph",
+      "text": "For secured environments, keep credentials and TLS settings in governed configuration or secrets."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Release Gate",
+      "anchor": "release-gate"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Live Redis qualification is optional during normal local development but mandatory for release pipelines that claim Redis support."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run a guarded live test with an isolated Redis endpoint:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "NODICS_CACHE_REDIS_URL=redis://127.0.0.1:6379 npm run test:suite -- --suite=cache-redis-live"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Release and CI pipelines should fail closed with:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "NODICS_CACHE_REDIS_URL=redis://127.0.0.1:6379 npm run test:cache:release"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The release command must use an isolated Redis endpoint. Never point the live gate at shared developer, staging, or production data."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Projects may customize Redis behavior by:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "contributing Redis engine/channel configuration in later modules;",
+        "overriding `DefaultRedisCacheEngineService` for advanced connection handling;",
+        "overriding `DefaultRedisCacheService` while preserving serialization, TTL, consume, and invalidation semantics;",
+        "adding live-provider tests for project-specific Redis topology."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The generic cache adapter contract verifies Redis operation parity through a mocked Redis client. `cacheRedisLive.test.js` verifies the same behavior against a real Redis endpoint when `NODICS_CACHE_REDIS_URL` is supplied."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Cross-module live-provider tests must obtain Redis clients through `test/support/liveRedisClientFactory.js`. This keeps direct Redis SDK ownership inside `redisCache` while allowing consumers to validate contracts against independent nCache-owned provider clients. The factory is test-only and must never become a production connection path."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "node gFramework/nCache/cache/test/cacheAdapterContract.test.js\nnpm run test:suite -- --suite=cache-redis-live\nnpm run quality:docs"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "making Redis required for `npm run test:basic`;",
+        "using shared Redis data for release gates;",
+        "hardcoding Redis credentials or endpoints in source code;",
+        "using Redis without tenant-aware key prefixes;",
+        "replacing `GETDEL` atomic consume with non-atomic get/delete behavior;",
+        "using blocking key scans for prefix cleanup."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Operations, Recovery, And Performance",
+      "anchor": "operations-recovery-and-performance"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Define Redis availability, persistence, backup, failover, eviction, memory, connection-pool, timeout, retry, TLS, and keyspace-notification expectations for the deployment. Monitor connection state, command latency, misses, evictions, memory pressure, `SCAN` cleanup duration, subscription failure, and reconnects."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Retries must not turn `consume` into replayable behavior. Test provider outage, reconnect, atomic consume, concurrent access, tenant isolation, TTL boundaries, prefix cleanup, and restart/failover using an isolated environment."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Generic cache contract: [cache](../cache/README.md)",
+        "Release qualification: [Provider And Capability Maturity Matrix](../../../gDocs/reference/provider-capability-maturity-matrix.md)",
+        "Authentication use: [nAuth](../../nAuth/README.md)",
+        "Public guide: [How Cache Works](../../../gDocs/platform/how-cache-works.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "cache",
+      "target": "../cache/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ncache/cache",
+      "anchor": ""
+    },
+    {
+      "label": "Provider And Capability Maturity Matrix",
+      "target": "../../../gDocs/reference/provider-capability-maturity-matrix.md",
+      "kind": "internal",
+      "route": "/docs/reference/provider-capability-maturity-matrix",
+      "anchor": ""
+    },
+    {
+      "label": "nAuth",
+      "target": "../../nAuth/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nauth",
+      "anchor": ""
+    },
+    {
+      "label": "How Cache Works",
+      "target": "../../../gDocs/platform/how-cache-works.md",
+      "kind": "internal",
+      "route": "/docs/platform/how-cache-works",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

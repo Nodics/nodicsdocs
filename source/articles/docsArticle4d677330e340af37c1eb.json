@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle4d677330e340af37c1eb",
+  "title": "kickoffLocalDeapNode2",
+  "route": "/docs/modules/docs/kickoff/kickoffenvs/kickofflocal/kickofflocaldeapserver/kickofflocaldeapnode2",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "docs/kickoff/kickoffEnvs/kickoffLocal/kickoffLocalDeapServer/kickoffLocalDeapNode2/README.md",
+    "type": "module-readme",
+    "contentHash": "39fc9748b3b1129016f0f6b60e1ea760e8b2a806c0739db7ad71c595fde3de73"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "kickoffLocalDeapNode2",
+      "anchor": "kickofflocaldeapnode2"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "kickoffLocalDeapNode2",
+      "anchor": "kickofflocaldeapnode2"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`kickoffLocalDeapNode2` is a local DEAP node module under `kickoffLocalDeapServer`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this node for node-scoped data pipeline configuration and activation. Server-wide topology belongs in `kickoffLocalDeapServer`, and data behavior belongs in DEAP modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Node settings should remain explicit, observable, and safe to rebalance across sibling nodes."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

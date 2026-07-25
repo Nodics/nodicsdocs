@@ -1,0 +1,94 @@
+{
+  "code": "docsArticle37d8a8741756a3afbf2a",
+  "title": "Pricing",
+  "route": "/docs/modules/gcomm/pricing",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gComm/pricing/README.md",
+    "type": "module-readme",
+    "contentHash": "126c10f7d6cd282abc6ffd68ea7b52f0e193dcea3aac3e77922204ad4124f2e2"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Pricing",
+      "anchor": "pricing"
+    },
+    {
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Pricing",
+      "anchor": "pricing"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Pricing is Nodics' enterprise-scoped authority for reusable Price Lists, contextual assignments, typed Price Groups, exact Price records, and deterministic price resolution."
+    },
+    {
+      "kind": "paragraph",
+      "text": "A Price List can be assigned to an enterprise, country, site, store, channel, customer segment, or customer without copying its Price records. A Price can target one item or Item Price Group, optionally specialize for a customer or Customer Price Group, define an exact currency amount, unit, unit factor, quantity tier, tax declaration, channel, and validity window."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Pricing does not own Stores, customers, products/items, Units, tax calculation, promotions, exchange rates, workflow, publishing, or cache providers. It composes those authorities through stable references and configured providers. `STORE` assignments now use the Store-owned reference provider locally when co-hosted or through Store's service-token reference intent when separately deployed."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Business changes are created in a versioned Staged runtime and released through Workflow and `nPublish` to a separate non-versioned Online runtime. A separate BackOffice client discovers Pricing through the BackOffice module registry and calls Pricing's human-only management and preview intent APIs directly. Modules use the service-token-only `POST /references/prices/resolve` intent. Customer applications use `POST /delivery/storefront/prices/resolve` with an opaque Storefront context handle; Pricing derives tenant, enterprise, Site, Store, currency, and channel from protected introspection before invoking the same resolver and cache. Generated persistence routers are disabled."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The management API submits a Price List release through `POST /management/publications/submit`. `pricing.workflow.defaultMode` selects the OOTB manual-review or automatic-approval path; both paths converge on `DefaultPublicationLifecycleService.publishApproved` and therefore preserve nPublish validation, deployment, retry, audit, and rollback authority."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The modular runtime acceptance suite proves this contract against distinct Staged and Online databases. It covers manual approval, manual rejection, automatic approval, idempotent replay, target authentication, cache invalidation, Online restart recovery, rollback, failed-closed target outage, and recovery publication. Pricing composes the existing Units, Workflow, nPublish, cache, and NEMS authorities; it does not replace them."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Read [Pricing Architecture and Operations](docs/pricing-architecture-and-operations.md) and the [business guide](../../gDocs/commerce/how-to-configure-and-operate-pricing.md)."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "node gComm/pricing/test/pricingFoundationContract.test.js\nnode gComm/pricing/test/priceResolutionContract.test.js\nnode gComm/pricing/test/pricingPublicationContract.test.js\nnode gComm/pricing/test/pricingManagementContract.test.js\nnode gComm/pricing/test/pricingPublicationWorkflowContract.test.js\nnode startio/envs/startioLocal/cmsOnlineServer/test/publicationTopologyContract.test.js\nnpm run test:topology:modular"
+    }
+  ],
+  "links": [
+    {
+      "label": "Pricing Architecture and Operations",
+      "target": "docs/pricing-architecture-and-operations.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcomm/pricing/docs/pricing-architecture-and-operations",
+      "anchor": ""
+    },
+    {
+      "label": "business guide",
+      "target": "../../gDocs/commerce/how-to-configure-and-operate-pricing.md",
+      "kind": "internal",
+      "route": "/docs/commerce/how-to-configure-and-operate-pricing",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

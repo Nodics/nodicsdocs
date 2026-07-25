@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle400c25beb91b8d60168c",
+  "title": "kickoffDevProfileServer",
+  "route": "/docs/modules/docs/kickoff/kickoffenvs/kickoffdev/kickoffdevprofileserver",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "docs/kickoff/kickoffEnvs/kickoffDev/kickoffDevProfileServer/README.md",
+    "type": "module-readme",
+    "contentHash": "e7ad9f54c022039b284986c85a037a12024c3ec66bf2a59cc6c34248c4275ff2"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "kickoffDevProfileServer",
+      "anchor": "kickoffdevprofileserver"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "kickoffDevProfileServer",
+      "anchor": "kickoffdevprofileserver"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`kickoffDevProfileServer` is the development profile server module for the `kickoff` application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for dev-scoped profile server activation and runtime topology. Profile capability behavior belongs in the active profile modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Server configuration should preserve privacy, access control, tenant context, and layered overrides."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

@@ -1,0 +1,154 @@
+{
+  "code": "docsArticlea600753c0b5d40513b82",
+  "title": "vService Module",
+  "route": "/docs/modules/gframework/nservice/vservice",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nService/vService/README.md",
+    "type": "module-readme",
+    "contentHash": "99a9cd2a756b92085cef8b35f0f93419a47c15f461c31df31cfe2b524dfd6a5b"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "vService Module",
+      "anchor": "vservice-module"
+    },
+    {
+      "level": 2,
+      "text": "Capability Status",
+      "anchor": "capability-status"
+    },
+    {
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "vService Module",
+      "anchor": "vservice-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`vService` is the publish/runtime variant module for the `nService` capability. It allows service behavior or activation defaults to vary by runtime package without changing the base service framework module."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for variant-level service wiring and configuration. Shared service contracts, service orchestration, and reusable service utilities belong in `nService`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Variant changes should be minimal, layered, and test-backed. Avoid duplicating base service logic unless the runtime variant owns a deliberate override."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Capability Status",
+      "anchor": "capability-status"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The module currently provides a standard variant module boundary:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "layered configuration files;",
+        "router, schema, pipeline, utility, enum, and status extension slots;",
+        "a sample service scaffold;",
+        "common and environment-local smoke tests;",
+        "generated LLM context."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "It does not replace the base service framework by default. It is a controlled location for variant-specific service behavior when a runtime package needs a different service activation profile."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use `vService` when a variant must:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "activate different service behavior for a versioned/publish runtime;",
+        "add variant-only pipelines or router metadata;",
+        "override a base service through the normal active-module hierarchy;",
+        "contribute variant-specific configuration without modifying `nService`;",
+        "test a publish/runtime service path independently from the base service module."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep provider-neutral service contracts in `nService`. Keep business publish lifecycle rules in the owning business module unless the rule is a true framework contract."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run structure:audit -- --fail\nnpm run quality:docs"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Add focused tests when this variant starts owning runtime behavior beyond scaffold extension slots."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "copying base `nService` logic without a clear variant-owned reason;",
+        "adding business module logic here;",
+        "hiding service overrides outside `src/service`;",
+        "changing generated artifacts manually;",
+        "enabling a variant behavior without tests proving the override path."
+      ]
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

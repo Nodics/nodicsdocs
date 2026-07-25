@@ -1,0 +1,47 @@
+{
+  "code": "docsArticlea82bd5ec85f816120863",
+  "title": "startioProd",
+  "route": "/docs/modules/startio/envs/startioprod",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/envs/startioProd/README.md",
+    "type": "module-readme",
+    "contentHash": "7b5fd4cfac0adeec00ac131cf9364bea901bc2345915f05adefa636db133d3bb"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "startioProd",
+      "anchor": "startioprod"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "startioProd",
+      "anchor": "startioprod"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`startioProd` is the production environment module for the `startio` application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for production composition and production-scoped configuration. Server-specific runtime settings belong in child server modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Production configuration must preserve governance, security, audit, diagnostics, and explicit override boundaries."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

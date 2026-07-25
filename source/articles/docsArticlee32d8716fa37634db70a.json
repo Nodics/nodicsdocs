@@ -1,0 +1,233 @@
+{
+  "code": "docsArticlee32d8716fa37634db70a",
+  "title": "mongodb Module",
+  "route": "/docs/modules/gframework/ndatabase/mongodb",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nDatabase/mongodb/README.md",
+    "type": "module-readme",
+    "contentHash": "23861800ee62577912986749a496b5dd1b6a82d5be82371c07a7fa8ed0ab9777"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "mongodb Module",
+      "anchor": "mongodb-module"
+    },
+    {
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "level": 2,
+      "text": "Configuration",
+      "anchor": "configuration"
+    },
+    {
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "mongodb Module",
+      "anchor": "mongodb-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`mongodb` is the MongoDB adapter module for `nDatabase`. It owns MongoDB connection defaults, provider handler wiring, MongoDB model behavior, schema/model adapter slots, and provider-specific pipeline extension points."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module when implementing or changing MongoDB-specific database behavior. Shared DAO contracts, schema access policy, generated CRUD behavior, tenant database validation, and provider-neutral database lifecycle rules belong in `nDatabase/database`."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The module contributes MongoDB defaults under `database.default.mongodb`, including:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "connection handler service name;",
+        "schema handler service name;",
+        "model handler service name;",
+        "interceptor handler service name;",
+        "MongoDB-supported schema properties;",
+        "default index behavior;",
+        "save, update, and remove operation options;",
+        "master and test database connection defaults."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "It also contributes `src/schemas/model.js`, which provides the MongoDB model operations used by generated services:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`getItems`;",
+        "`saveItems`;",
+        "`updateItems`;",
+        "`removeItems`."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "The adapter also implements provider-neutral transactions through `MongoClient.startSession()` and `session.withTransaction()`. MongoDB model operations translate the opaque Nodics transaction context into `{ session }` options for find, insert, update, upsert, and delete."
+    },
+    {
+      "kind": "paragraph",
+      "text": "MongoDB transactions require a replica set or sharded cluster. The default standalone `mongodb://127.0.0.1:27017` development topology is not qualified. During connection startup the adapter executes MongoDB topology discovery and records a fail-closed capability snapshot on the Nodics database wrapper. Merely exposing `startSession()` is not treated as transaction support. Use a local single-node replica set or a shared development cluster before enabling hierarchical AI budgets or another multi-record atomic capability."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "The database capability resolves the active database provider from layered configuration.",
+        "MongoDB connection, schema, model, and interceptor handlers are selected from `database.default.mongodb.options`.",
+        "Tenant and module database configuration are validated by the provider-neutral database layer.",
+        "Generated services call provider-neutral database abstractions.",
+        "MongoDB model functions translate those requests into MongoDB operations such as `find`, `findOneAndUpdate`, `insertOne`, `updateMany`, and `deleteMany`."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Configuration",
+      "anchor": "configuration"
+    },
+    {
+      "kind": "paragraph",
+      "text": "MongoDB configuration must remain layered. Do not hardcode project database names, credentials, cluster URLs, TLS settings, or pool settings in source code."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Default shape:"
+    },
+    {
+      "kind": "code",
+      "language": "js",
+      "text": "module.exports = {\n    database: {\n        default: {\n            mongodb: {\n                options: {\n                    connectionHandler: 'DefaultMongodbDatabaseConnectionHandlerService',\n                    schemaHandler: 'DefaultMongodbDatabaseSchemaHandlerService',\n                    modelHandler: 'DefaultMongodbDatabaseModelHandlerService',\n                    interceptorHandler: 'DefaultMongodbDatabaseInterceptorHandlerService'\n                },\n                master: {\n                    URI: 'mongodb://127.0.0.1:27017',\n                    databaseName: 'nodicsMaster'\n                },\n                test: {\n                    URI: 'mongodb://127.0.0.1:27017',\n                    databaseName: 'nodicsTest'\n                }\n            }\n        }\n    }\n};"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Projects must override connection values through project, environment, server, node, tenant, or secret-governed configuration."
+    },
+    {
+      "kind": "paragraph",
+      "text": "For transaction qualification, verify topology, majority write concern, connection stability, commit timeout, rollback behavior, and primary failover. Driver session availability alone is insufficient."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Projects may customize MongoDB behavior by:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "overriding `database.*.mongodb` configuration in later modules;",
+        "contributing a different connection, schema, model, or interceptor handler service;",
+        "overriding MongoDB model behavior in a later active module;",
+        "adding MongoDB-specific pipelines in `src/pipelines/pipelines.js`;",
+        "adding focused tests for tenant database resolution and provider behavior."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "If a project needs another database such as Oracle, add a provider module that implements the database contract instead of putting Oracle-specific behavior into this MongoDB adapter."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "kind": "paragraph",
+      "text": "MongoDB participates in the database and generated CRUD test suites. Versioned MongoDB behavior is covered in `mongodb/vMongodb/test/versionedModelContract.test.js`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Focused transaction tests:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "node gFramework/nDatabase/database/test/databaseTransactionContract.test.js\nnode gFramework/nDatabase/mongodb/test/mongodbTransactionContract.test.js\nnode gAi/aiProviders/test/aiMongoHierarchyRepositoryContract.test.js"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run test:config\nnpm run test:generated\nnpm run test:basic\nnpm run quality:docs"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "hardcoding customer database URIs or credentials;",
+        "mixing provider-neutral database rules into MongoDB-specific services;",
+        "adding Oracle, Cassandra, or Elasticsearch behavior to this adapter;",
+        "changing MongoDB model operation envelopes without generated service tests;",
+        "bypassing tenant database configuration validation;",
+        "editing generated CRUD artifacts manually."
+      ]
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

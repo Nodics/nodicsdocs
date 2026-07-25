@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle06cc17e197b70b298791",
+  "title": "kickoffApi Module",
+  "route": "/docs/modules/docs/kickoff/kickoffmodules/kickoffapi",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "docs/kickoff/kickoffModules/kickoffApi/README.md",
+    "type": "module-readme",
+    "contentHash": "53ac497ba88ef6cc8984e72d9ceef4bea5085d5fd3257dc106d6ed1521dfaad0"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "kickoffApi Module",
+      "anchor": "kickoffapi-module"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "kickoffApi Module",
+      "anchor": "kickoffapi-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`kickoffApi` owns API-facing behavior for the `kickoff` application. It provides project-specific schema, route, service, pipeline, utility, configuration, and test space for request contracts."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for application APIs. Core project behavior belongs in `kickoffCore`, and integration behavior belongs in `kickoffInt`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "API changes must preserve route governance, access control, tenant context, diagnostics, and generated contract alignment."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

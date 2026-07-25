@@ -1,0 +1,160 @@
+{
+  "code": "docsArticle8b0b7a631a16488f130c",
+  "title": "BackOffice Backend Release Readiness",
+  "route": "/docs/modules/gexp/backoffice/docs/backend-release-readiness",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gExp/backoffice/docs/backend-release-readiness.md",
+    "type": "module-doc",
+    "contentHash": "6f6096a5ce679820461d214499656a7bac722b8233ca8c7d7a121412feb6b684"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "BackOffice Backend Release Readiness",
+      "anchor": "backoffice-backend-release-readiness"
+    },
+    {
+      "level": 2,
+      "text": "Release boundary",
+      "anchor": "release-boundary"
+    },
+    {
+      "level": 2,
+      "text": "Environment configuration",
+      "anchor": "environment-configuration"
+    },
+    {
+      "level": 2,
+      "text": "Go-live gates",
+      "anchor": "go-live-gates"
+    },
+    {
+      "level": 2,
+      "text": "Rollback",
+      "anchor": "rollback"
+    },
+    {
+      "level": 2,
+      "text": "Current residual risks",
+      "anchor": "current-residual-risks"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "BackOffice Backend Release Readiness",
+      "anchor": "backoffice-backend-release-readiness"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Release boundary",
+      "anchor": "release-boundary"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This checklist covers the BackOffice backend capability only. Nodics Axis and other frontend code remain a separate future application and release stream. Target modules remain responsible for their APIs, authorization, health, and business data."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Environment configuration",
+      "anchor": "environment-configuration"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Production-like environment modules should override reusable defaults through the existing `envs` hierarchy. A typical policy requires distributed leases and tunes workload-specific thresholds without embedding provider secrets:"
+    },
+    {
+      "kind": "code",
+      "language": "js",
+      "text": "module.exports = {\n    backofficeRegistry: {\n        audit: {\n            enabled: true,\n            failClosed: true,\n            requireAcknowledgement: true,\n            publisherService: 'EnvironmentBackofficeAuditPublisher'\n        },\n        store: {\n            mode: 'distributed',\n            moduleName: 'backoffice',\n            engineName: 'redis',\n            keyPrefix: 'replace-with-environment-owned-prefix:'\n        },\n        operations: {\n            requireDistributedStore: true,\n            production: {\n                enabled: true,\n                requireHttpsOnly: true,\n                requireHostAllowlists: true,\n                requireStrictAudit: true,\n                requireStrictAlerts: true\n            },\n            alerts: {\n                enabled: true,\n                failClosed: true,\n                requireAcknowledgement: true,\n                publisherService: 'EnvironmentBackofficeAlertPublisher'\n            },\n            minimumSamples: 20,\n            thresholds: {\n                availabilityFailurePercent: 20,\n                availabilityQueuePercent: 70,\n                discoveryFailurePercent: 20,\n                storeErrors: 1,\n                conditionalDeleteConflicts: 10,\n                refreshThrottles: 1\n            }\n        }\n    }\n};"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Production configuration must also set strict acknowledged audit delivery and environment-owned discovery/availability host allowlists. Publisher service names are extension points implemented by the environment integration module; BackOffice does not own a second monitoring transport."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Provider URLs and credentials belong in governed secret/external configuration. Validate lease/sweep, readiness timeout/freshness, probe concurrency/queue, failure backoff, administrative rate/idempotency, audit, and contract-retention settings against the expected replica and module count."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Go-live gates",
+      "anchor": "go-live-gates"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Run `npm run release:check -- --execute --full` from a clean candidate.",
+        "Generate and validate BackOffice OpenAPI and module LLM context.",
+        "Prove the configured distributed store and atomic conditional delete support.",
+        "Verify readiness contributors for registry store and operational policy.",
+        "Verify human/service identity separation and every permission in the matrix.",
+        "Exercise module crash expiry, rolling module restart, BackOffice replica"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "restart, provider interruption/recovery, and active contract reconstruction."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Confirm diagnostics show `READY` with no unexplained alert codes.",
+        "Run environment-sized registration, renewal, probe, scan, and refresh load.",
+        "Confirm alert routing and sanitized audit delivery.",
+        "Record accepted residual risks, owners, and rollback decision authority."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Rollback",
+      "anchor": "rollback"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Roll back application replicas using the deployment platform while preserving the distributed lease namespace and durable contract database. Do not delete leases or contract history as part of binary rollback. If a new deployment changed configuration only, restore the previous environment-layer revision and roll replicas. Confirm atomic lease renewal, active contract hash/revision, readiness, diagnostics, and module registration recovery before closing the incident."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Current residual risks",
+      "anchor": "current-residual-risks"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Real provider throughput and latency depend on the selected nCache engine and"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "deployment topology and require environment-owned load evidence."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Alert delivery depends on the configured monitoring/audit integration.",
+        "Frontend usability, browser security, and direct-module client behavior remain"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "unvalidated until the separate Nodics Axis workstream begins."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

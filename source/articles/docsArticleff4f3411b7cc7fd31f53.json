@@ -1,0 +1,301 @@
+{
+  "code": "docsArticleff4f3411b7cc7fd31f53",
+  "title": "Product",
+  "route": "/docs/modules/gcomm/product",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gComm/product/README.md",
+    "type": "module-readme",
+    "contentHash": "205e85744ad2ee8f3e9a796f196cc091ef8304d99fbdb3497b326a12c08cb817"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Product",
+      "anchor": "product"
+    },
+    {
+      "level": 2,
+      "text": "Implemented capability",
+      "anchor": "implemented-capability"
+    },
+    {
+      "level": 2,
+      "text": "Runtime requirements",
+      "anchor": "runtime-requirements"
+    },
+    {
+      "level": 2,
+      "text": "Security",
+      "anchor": "security"
+    },
+    {
+      "level": 2,
+      "text": "Customization",
+      "anchor": "customization"
+    },
+    {
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    },
+    {
+      "level": 2,
+      "text": "Not yet implemented",
+      "anchor": "not-yet-implemented"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Product",
+      "anchor": "product"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Product is Nodics' enterprise-scoped authority for Product Item identity, descriptive information, lifecycle, alternate identifiers, merchandising categories, classifications, and Product variants."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The implemented capability supports configurable `PRODUCT`, `SKU`, `SERVICE`, `ASSET`, and `BUNDLE` item types. This lets an enterprise establish stable references for ordinary merchandise, services, uniquely identifiable assets such as land or real-estate units, and future bundles without putting industry-specific fields into the common model."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Implemented capability",
+      "anchor": "implemented-capability"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "tenant- and authenticated-enterprise-scoped Product Items;",
+        "stable catalog, item-type, and item-code identity;",
+        "alternate EAN, UPC, GTIN, ISBN, manufacturer, parcel, title, and external"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "identifiers;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Product-owned Category hierarchy inside an `nCatalog`-owned Catalog;",
+        "ordered, effective-dated Item-to-Category assignments;",
+        "bounded cycle-safe parent traversal and dependent-first retirement;",
+        "declarative Classification Classes and Item-to-class assignments;",
+        "typed text, boolean, exact integer, exact decimal, date, enumeration,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "reference, and measured Attribute Values;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "localized and multi-valued Attributes with bounded cardinality;",
+        "required Attribute enforcement before active classification assignment;",
+        "reusable variant axes backed by existing non-localized, single-valued"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Attribute Definitions;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "base-to-sellable-variant assignments with required-axis coverage, semantic"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "combination uniqueness, and bounded cycle-safe traversal;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "configurable directional and symmetric Product relations;",
+        "exact-quantity Bundle components with bounded nested-Bundle graphs;",
+        "Units-backed packaging quantities, dimensions, and weights;",
+        "ordered, localized, safe-scheme references to externally owned media;",
+        "manual or automatic Workflow submission of exact versioned Product changes;",
+        "immutable integrity-checked Product release manifests through `nPublish`;",
+        "authenticated delivery to a distinct non-versioned Online runtime with"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "idempotent receipts, atomic Catalog pointers, and rollback;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "direct customer Product delivery using an opaque, short-lived Storefront"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "context handle with service-authenticated audience introspection;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "customer-safe reads resolved exclusively from the active immutable manifest;",
+        "bounded locale-aware expansion of categories, attributes, classifications,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "variants, relations, bundles, packaging, and media;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "provider-neutral release-qualified caching through `DefaultCacheService`;",
+        "Product-owned search documents indexed through the existing nSearch"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "authority;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "durable cache/search projection jobs with partial-failure retry,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "reconciliation, and restricted operational diagnostics;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Units-backed measured values and unambiguous Product Item references;",
+        "configurable lifecycle transitions and retirement instead of deletion;",
+        "local `nCatalog` validation without copying catalog authority;",
+        "local or modular Unit validation through the Units-owned intent contract;",
+        "bounded human management operations with safe response projections;",
+        "service-token-only Product Item lookup for Inventory, Pricing, and other"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "modules;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "disabled generated CRUD routers;",
+        "later-layer policy and provider replacement."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Product does not own catalogs, prices, stock, Unit conversion, customers, stores, tax, promotions, Workflow state, `nPublish` lifecycle, search/cache engines, or binary media. Those capabilities remain with existing authorities."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Runtime requirements",
+      "anchor": "runtime-requirements"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Activate `product` with the framework modules required by normal generated schema/service operation. Activate `catalog` in the same Product composition so Product can validate catalog references. Activate `units` locally or configure the existing Units module connection for modular validation."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Runtime policies belong in `config/properties.js`. `package.json` contains only static module metadata."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Staged Product must run with Workflow and `nPublish`, set `product.publication.runtimeRole` to `STAGED`, configure a distinct Online connection, and enable versioning only through the Staged server schema layer. Online must set the role to `ONLINE`, keep `publishEnabled` false, and keep all Product schemas non-versioned."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Security",
+      "anchor": "security"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Human management routes require access tokens and either `product.backoffice.read` or `product.backoffice.manage`. The Product Item reference route requires the existing internal service-token permission. Service tokens cannot use human management operations, and human access tokens cannot use the internal reference operation."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Generated Product persistence routers are disabled. Client-provided enterprise or internal identity fields are discarded or rejected; enterprise scope comes from authenticated context."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Online Product delivery requires an access token and `product.online.read`. Alternatively, `GET /online/storefront/items/:itemType/:itemCode` accepts only the opaque `x-nodics-storefront-context` handle. Product introspects it as the `product` audience, derives tenant, enterprise, Catalog, and locale from the active Storefront context, and ignores caller overrides for those values. Expired, missing, wrong-audience, or unverifiable handles fail closed. Operational diagnostics and reconciliation require `product.operations.read` and `product.operations.manage`. Publication target routes remain service-token-only."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Customization",
+      "anchor": "customization"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Projects customize Product in later-loaded modules by extending `product.item.itemTypes`, `product.identifier.types`, lifecycle rules, limits, Attribute, Classification, and Variant policies, or configured reference providers. They may override named Product services or extend effective schemas through the standard Nodics hierarchy."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not copy Catalog, Units, Pricing, Inventory, generated CRUD, or authentication logic into Product customizations. See `llm/examples/extend-product-item-type.md` for the smallest supported path."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "node gComm/product/test/productFoundationContract.test.js\nnode gComm/product/test/productCategoryContract.test.js\nnode gComm/product/test/productClassificationContract.test.js\nnode gComm/product/test/productVariantContract.test.js\nnode gComm/product/test/productCompositionContract.test.js\nnode gComm/product/test/productPublicationContract.test.js\nnode gComm/product/test/productOnlineDeliveryAndProjectionContract.test.js\nnode gComm/product/test/productStorefrontDeliveryContract.test.js\nnode gComm/product/test/productManagementAndReferenceContract.test.js\nnode gComm/product/test/productProviderAndOverrideContract.test.js"
+    },
+    {
+      "kind": "paragraph",
+      "text": "See [Product foundation, Category, Classification, and Variant operations](docs/product-p0-operations.md) for business and developer procedures and [Product release-readiness evidence](docs/product-release-readiness.md) for the P4 validation matrix."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Not yet implemented",
+      "anchor": "not-yet-implemented"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Dedicated large-Catalog migration/import tooling and deployment-specific capacity certification are outside the implemented Product scope. Use existing Nodics import/export and database backup authorities; binary media, Pricing, and Inventory remain separate authorities."
+    }
+  ],
+  "links": [
+    {
+      "label": "Product foundation, Category, Classification, and Variant operations",
+      "target": "docs/product-p0-operations.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcomm/product/docs/product-p0-operations",
+      "anchor": ""
+    },
+    {
+      "label": "Product release-readiness evidence",
+      "target": "docs/product-release-readiness.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcomm/product/docs/product-release-readiness",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

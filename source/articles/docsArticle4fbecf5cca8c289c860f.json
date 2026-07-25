@@ -1,0 +1,445 @@
+{
+  "code": "docsArticle4fbecf5cca8c289c860f",
+  "title": "nSearch",
+  "route": "/docs/modules/gframework/nsearch",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nSearch/README.md",
+    "type": "module-readme",
+    "contentHash": "2c223b50c2af69f1d9b80917afa7c915bb2275d4da4f607884cfae7a5ecd9695"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "nSearch",
+      "anchor": "nsearch"
+    },
+    {
+      "level": 2,
+      "text": "Choose A Search Module",
+      "anchor": "choose-a-search-module"
+    },
+    {
+      "level": 2,
+      "text": "Module Family",
+      "anchor": "module-family"
+    },
+    {
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "level": 2,
+      "text": "Search Index Definitions",
+      "anchor": "search-index-definitions"
+    },
+    {
+      "level": 2,
+      "text": "Indexing And Retrieval Flow",
+      "anchor": "indexing-and-retrieval-flow"
+    },
+    {
+      "level": 2,
+      "text": "Adding A Search Engine",
+      "anchor": "adding-a-search-engine"
+    },
+    {
+      "level": 2,
+      "text": "Configuration",
+      "anchor": "configuration"
+    },
+    {
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "level": 2,
+      "text": "Operations And Qualification",
+      "anchor": "operations-and-qualification"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "nSearch",
+      "anchor": "nsearch"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nSearch` is the search capability group. It separates the business meaning of an index and query from the external engine that stores and searches documents."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Initialized search providers contribute optional readiness and close their unique connections through the central runtime lifecycle contract. Provider modules retain connection ownership; the lifecycle service only orders hooks."
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nSearch` is the framework search family. It provides search/indexing abstractions, generated search APIs, cache policy integration, and provider extension points for engines such as Elasticsearch."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this root module for family-level search ownership and defaults. Provider-neutral search behavior belongs in `nSearch/search`; engine-specific integration belongs in adapter modules such as `nSearch/elastic`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Search must remain schema-driven, tenant-aware, and governed by configuration. Projects can replace engines or tune policies without changing framework source."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Choose A Search Module",
+      "anchor": "choose-a-search-module"
+    },
+    {
+      "kind": "table",
+      "headers": [
+        "Module",
+        "Role",
+        "Current maturity"
+      ],
+      "rows": [
+        [
+          "[search](search/README.md)",
+          "Provider-neutral schemas, routes, indexing, query, cache, and error contract",
+          "Production-ready capability"
+        ],
+        [
+          "[elastic](elastic/README.md)",
+          "Elasticsearch client and operation adapter",
+          "Guarded provider"
+        ]
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Another engine such as OpenSearch or Solr belongs in its own provider module behind the `search` contract. Do not place its client calls in the group or generic capability."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Module Family",
+      "anchor": "module-family"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The search family is split by responsibility:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`search` owns provider-neutral search APIs, generated search service templates, secured route contracts, index definition structure, cache policy integration, pipeline dispatch, search errors, and shared lifecycle rules.",
+        "`elastic` owns Elasticsearch-specific configuration, connection handling, raw search model loading, operation mapping, and provider client calls."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "This split is important for framework extension. A project can replace Elasticsearch, add OpenSearch/Solr, tune ranking, or change indexing rules through active modules and layered configuration while the rest of Nodics continues to call the provider-neutral search contract."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nSearch` supports:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "source-owned index definitions in `src/search/indexes.js`;",
+        "secured schema-level search routes;",
+        "secured index-level search routes;",
+        "search model lookup through tenant, module, schema, and index context;",
+        "indexing, refresh, health, exists, get, search, save, bulk, remove, remove-by-query, schema, and index lifecycle operations;",
+        "pipeline dispatch for search operations;",
+        "cacheability policy integration for search results;",
+        "provider adapter registration and replacement;",
+        "normalized `SearchError` behavior."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Search Index Definitions",
+      "anchor": "search-index-definitions"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Search indexes are source definitions. Modules that expose searchable data should declare index ownership in `src/search/indexes.js` and keep index behavior aligned with schemas, routes, services, cache policy, tests, and generated context."
+    },
+    {
+      "kind": "paragraph",
+      "text": "An index definition should document:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "owning module and schema;",
+        "indexed fields;",
+        "tenant/customer partitioning;",
+        "indexing trigger;",
+        "refresh behavior;",
+        "search route/API exposure;",
+        "cache interaction;",
+        "fallback behavior when search is unavailable;",
+        "diagnostics and tests."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not make engine-specific index names or credentials part of generic search source code. Those belong to layered configuration or governed runtime/secret layers."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Indexing And Retrieval Flow",
+      "anchor": "indexing-and-retrieval-flow"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A search flow normally includes:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Source data changes through the owning schema/service.",
+        "Indexing service receives the record or batch.",
+        "Provider-neutral search service resolves effective engine/configuration.",
+        "Engine adapter writes, refreshes, queries, or deletes provider-specific"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "documents."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Search route or service returns normalized results.",
+        "Diagnostics capture failures, retries, and indexer logs."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Projects may tune ranking, fields, filters, provider selection, and fallback policy through later modules and configuration."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Adding A Search Engine",
+      "anchor": "adding-a-search-engine"
+    },
+    {
+      "kind": "paragraph",
+      "text": "New search engines must be added as provider modules or project modules behind the provider-neutral `nSearch/search` contract. For example, Solr, OpenSearch, Endeca, or a commerce-cloud search provider uses the existing `elastic` adapter shape, not by changing search call sites for one engine."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The implementation path is:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Create an owned engine module or project module.",
+        "Contribute layered `search` configuration for the active engine, timeout,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "fallback behavior, connection handler, credentials, index naming, and engine options."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Implement engine-specific indexing, querying, refresh, and error handling"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "behind the shared search service/adapter contract."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Preserve schema/index definitions, tenant context, cache policy,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "diagnostics, fallback-to-database semantics where enabled, and route contracts."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Add tests for engine activation, disabled engine behavior, query/index"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "contracts, failure handling, cache interaction, and later-module override behavior."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Endpoints, credentials, index names, aliases, tenant routing, and provider topology must come from layered configuration or governed runtime layers."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Configuration",
+      "anchor": "configuration"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Search configuration belongs in layered `properties.js` files and governed runtime/secret layers. Configuration should define:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "active engine name;",
+        "engine connection handler;",
+        "schema/index handler;",
+        "host or provider endpoint aliases;",
+        "retry, timeout, refresh, health, search, save, bulk, remove, and schema options;",
+        "index naming and alias policy;",
+        "tenant/customer routing policy;",
+        "fallback and cacheability behavior."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not place engine endpoints, credentials, customer-specific index names, tenant mappings, or target topology directly into provider-neutral source code."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Search behavior is covered through focused contract tests in `nSearch/search` and `nSearch/elastic`. Run:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "node gFramework/nSearch/search/test/searchRouteContract.test.js\nnode gFramework/nSearch/search/test/searchServicePipelineContract.test.js\nnode gFramework/nSearch/search/test/searchCachePolicyContract.test.js\nnode gFramework/nSearch/elastic/test/elasticConnectionHandlerContract.test.js\nnode gFramework/nSearch/elastic/test/elasticSearchModelOperationContract.test.js\nnpm run quality:docs"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "putting Elasticsearch-specific logic into provider-neutral search services;",
+        "hardcoding index names, aliases, credentials, or host URLs in source files;",
+        "bypassing tenant context when resolving search models;",
+        "caching search results without the centralized cacheability policy;",
+        "creating search routes that are not secured;",
+        "editing generated search artifacts manually."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Operations And Qualification",
+      "anchor": "operations-and-qualification"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Search is usually a derived view of authoritative data. Define reindex, reconciliation, alias/version migration, refresh, backup, recovery, outage, fallback, and stale-result behavior. Monitor indexing lag, rejected documents, query and bulk latency, error rate, cache effects, index size, and tenant isolation."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Provider-neutral deterministic tests do not qualify an external cluster. Run guarded live tests for connection, health, indexing, querying, failure, recovery, and cleanup before production enablement."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Generic search contract: [search](search/README.md)",
+        "Elasticsearch provider: [elastic](elastic/README.md)",
+        "Provider maturity: [Provider And Capability Maturity Matrix](../../gDocs/reference/provider-capability-maturity-matrix.md)",
+        "Public platform guide: [How Platform Capabilities Work](../../gDocs/platform/how-platform-capabilities-work.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "search",
+      "target": "search/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nsearch/search",
+      "anchor": ""
+    },
+    {
+      "label": "elastic",
+      "target": "elastic/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nsearch/elastic",
+      "anchor": ""
+    },
+    {
+      "label": "search",
+      "target": "search/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nsearch/search",
+      "anchor": ""
+    },
+    {
+      "label": "elastic",
+      "target": "elastic/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nsearch/elastic",
+      "anchor": ""
+    },
+    {
+      "label": "Provider And Capability Maturity Matrix",
+      "target": "../../gDocs/reference/provider-capability-maturity-matrix.md",
+      "kind": "internal",
+      "route": "/docs/reference/provider-capability-maturity-matrix",
+      "anchor": ""
+    },
+    {
+      "label": "How Platform Capabilities Work",
+      "target": "../../gDocs/platform/how-platform-capabilities-work.md",
+      "kind": "internal",
+      "route": "/docs/platform/how-platform-capabilities-work",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

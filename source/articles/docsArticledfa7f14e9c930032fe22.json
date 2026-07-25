@@ -1,0 +1,314 @@
+{
+  "code": "docsArticledfa7f14e9c930032fe22",
+  "title": "Enterprise Management Search and Confirmed Creation",
+  "route": "/docs/modules/gcore/profile/docs/enterprise-management-search",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gCore/profile/docs/enterprise-management-search.md",
+    "type": "module-doc",
+    "contentHash": "5a7dc640d70e0758a1ca8854836d1cc2d3ec62f6d4ad1413a4baee887ddd812e"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Enterprise Management Search and Confirmed Creation",
+      "anchor": "enterprise-management-search-and-confirmed-creation"
+    },
+    {
+      "level": 2,
+      "text": "What This Capability Does",
+      "anchor": "what-this-capability-does"
+    },
+    {
+      "level": 2,
+      "text": "Before You Start",
+      "anchor": "before-you-start"
+    },
+    {
+      "level": 2,
+      "text": "Business User Workflow",
+      "anchor": "business-user-workflow"
+    },
+    {
+      "level": 2,
+      "text": "Axis Assistant Workflow",
+      "anchor": "axis-assistant-workflow"
+    },
+    {
+      "level": 2,
+      "text": "Configuration",
+      "anchor": "configuration"
+    },
+    {
+      "level": 2,
+      "text": "Architecture And Data Contract",
+      "anchor": "architecture-and-data-contract"
+    },
+    {
+      "level": 2,
+      "text": "Security, Operations, And Performance",
+      "anchor": "security-operations-and-performance"
+    },
+    {
+      "level": 2,
+      "text": "Partner Extension Example",
+      "anchor": "partner-extension-example"
+    },
+    {
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Enterprise Management Search and Confirmed Creation",
+      "anchor": "enterprise-management-search-and-confirmed-creation"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What This Capability Does",
+      "anchor": "what-this-capability-does"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Enterprise search gives an authorized employee a safe way to find enterprise records for administrative work. Typical examples are selecting an enterprise before creating related data, confirming whether an enterprise is active, or asking Axis Assistant to find an enterprise by code."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Profile remains the business, validation, authorization, and persistence owner. BackOffice supplies current contract discovery, while Assistant supplies conversation and governed tool orchestration. Neither stores a second enterprise list."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Confirmed creation is exposed separately at `POST /nodics/profile/v0/enterprises`. It requires a human access token, `profile.enterprise.create`, bounded input, and an idempotency key. Profile checks duplicate code and uses the generated `DefaultEnterpriseService`; an AI module never writes the enterprise collection directly. Axis Assistant first creates and approves an immutable confirmation, then calls Profile or hands the approved work to Workflow."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Before You Start",
+      "anchor": "before-you-start"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The caller must:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "authenticate through the Profile employee login flow;",
+        "receive a human `access` token;",
+        "belong to a group that resolves `profile.enterprise.search` for search and"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "`profile.enterprise.create` for creation;"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "send the bearer token through the normal Nodics request pipeline."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Customer, service, module, and cron credentials are not accepted. The default bootstrap grants the permission to `runtimeConfigAdminUserGroup`; projects should grant it only to employee groups that genuinely need cross-enterprise administration."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Business User Workflow",
+      "anchor": "business-user-workflow"
+    },
+    {
+      "kind": "paragraph",
+      "text": "An authorized employee may search without filters to receive the first bounded page, or use exact filters:"
+    },
+    {
+      "kind": "code",
+      "language": "text",
+      "text": "GET /nodics/profile/v0/enterprises/search?code=default\nGET /nodics/profile/v0/enterprises/search?name=Default%20Enterprise&active=true\nGET /nodics/profile/v0/enterprises/search?page=2&limit=25"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The result contains `page`, `limit`, `count`, and `items`. Each item may contain the configured safe fields such as enterprise code, name, active state, tenant code, parent-enterprise code, and timestamps."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Expected rejected journeys include an employee without the permission, a customer or service credential, an unknown/operator filter, an invalid active value, or pagination beyond the configured boundary. Correct the credential, permission, or filter and retry. There is no partial write or rollback because this operation is read-only."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Axis Assistant Workflow",
+      "anchor": "axis-assistant-workflow"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The inactive OOTB `axisAssistantReadOnly` policy allowlists the logical tool `profile.enterprise.search`. A project or local environment may activate a reviewed layered policy. At execution time:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Assistant loads the employee-filtered BackOffice bootstrap;",
+        "it resolves operation `profile_searchenterprises` from the current Profile"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "OpenAPI observation;"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "it verifies read-only method and permission stability;",
+        "it forwards the employee bearer and scalar arguments to Profile;",
+        "Profile performs final authentication, authorization, validation, querying,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "and projection;"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Assistant applies its own top-level result-field allowlist before the data"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "enters model context."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Model output cannot choose a URL, HTTP method, credential, permission result, or unapproved response field."
+    },
+    {
+      "kind": "paragraph",
+      "text": "For confirmed creation, the employee first selects an existing unassigned tenant or completes the separately governed tenant-creation process. An enterprise owns one tenant under the current Profile schema, so attempting to associate a tenant that already belongs to another enterprise is rejected by the Profile management service before persistence and remains protected by the authoritative unique tenant database contract. The enterprise record itself is stored through Profile's configured default enterprise store; `tenantCode` is the business association and must not be used as a second database-model selection path."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Axis Assistant binds the operation, arguments, employee, tenant context, expiry, revision, and idempotency key into `assistantConfirmation`. Changed arguments or replay return conflict, expired confirmations return gone, and unsupported mutations return bad request. Direct execution forwards the human bearer to Profile. When `workflowCode` is selected, Assistant creates an active Workflow item and returns a durable carrier code; Workflow, not Assistant, owns all later manual or automatic actions."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Configuration",
+      "anchor": "configuration"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Layer the smallest required fragment instead of copying Profile:"
+    },
+    {
+      "kind": "code",
+      "language": "js",
+      "text": "module.exports = {\n    enterpriseManagement: {\n        search: {\n            defaultResultCount: 25,\n            maximumResultCount: 100,\n            maximumPageNumber: 10000,\n            maximumCodeLength: 128,\n            maximumNameLength: 256,\n            projectedFields: ['code', 'name', 'active', 'tenant', 'updatedAt']\n        }\n    }\n};"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Smaller result bounds or a smaller projection are safe customizations. Adding a field requires a disclosure review and tests. Do not add credentials, contacts, addresses, unrestricted metadata, or recursive references."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Architecture And Data Contract",
+      "anchor": "architecture-and-data-contract"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The router delegates to `DefaultEnterpriseManagementController`, then `DefaultEnterpriseManagementFacade`, then `DefaultEnterpriseManagementService`. The service calls the existing generated `DefaultEnterpriseService` with the configured default enterprise tenant, caller authentication evidence, exact filters, `recursive: false`, stable code sorting, and bounded pagination."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The enterprise schema and generated service remain authoritative. This design does not use nSearch or Elasticsearch because the implemented filters are bounded exact database queries and Profile search indexing is not enabled. If a future measured requirement needs full-text search, extend the existing nSearch authority rather than adding a second index."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Security, Operations, And Performance",
+      "anchor": "security-operations-and-performance"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Apply gateway and module rate limits appropriate to administrative users.",
+        "Audit authentication and authorization outcomes without logging returned"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "enterprise data or bearer tokens."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Monitor latency, stable error code, and result count with fixed-cardinality"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "metrics; do not label metrics with enterprise names or employee identifiers."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Keep `maximumResultCount` aligned with response-size and database objectives.",
+        "Deploy Profile in monoServer or a separate Profile server without changing"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "the contract. BackOffice and Assistant do not become runtime authorities."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Back up and restore enterprise records through existing Profile/database"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "procedures. This read-only projection introduces no migration or duplicate state."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Partner Extension Example",
+      "anchor": "partner-extension-example"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A partner that needs a non-sensitive `regionCode` may add it to the enterprise schema through the normal later module layer, add it to layered `projectedFields`, update the disclosure documentation, and extend the focused projection test. The partner must not copy the enterprise model, create an Assistant-owned enterprise collection, or bypass Profile permissions."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    },
+    {
+      "kind": "code",
+      "language": "text",
+      "text": "node gCore/profile/test/enterpriseManagementSearchContract.test.js\nnode gAi/aiAssistant/test/aiAssistantGovernedReadToolContract.test.js\nnode gAi/aiAssistant/test/aiAssistantConfirmationAndWorkflowContract.test.js\nnpm run test:profile\nnpm run llm:generate\nnpm run llm:validate"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The focused contract proves positive filtering, default-tenant authority, human-only access, unsafe-query rejection, pagination boundaries, sensitive field exclusion, and matching OOTB/local Assistant tool identities."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

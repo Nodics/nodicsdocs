@@ -1,0 +1,145 @@
+{
+  "code": "docsArticle31b48a0885bca1c2a9e2",
+  "title": "dataPublisher Module",
+  "route": "/docs/modules/gdeap/datapublisher",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gDeap/dataPublisher/README.md",
+    "type": "module-readme",
+    "contentHash": "c309f57575c2daa48f7da8cb7147ebd579717a0ac604084e716af36ea78b8531"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "dataPublisher Module",
+      "anchor": "datapublisher-module"
+    },
+    {
+      "level": 2,
+      "text": "Current Capability Status",
+      "anchor": "current-capability-status"
+    },
+    {
+      "level": 2,
+      "text": "Publishing Contract",
+      "anchor": "publishing-contract"
+    },
+    {
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "dataPublisher Module",
+      "anchor": "datapublisher-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`dataPublisher` owns outbound data publishing behavior in the DEAP layer. It provides configuration, schemas, routes, services, pipelines, interceptors, utilities, events, and tests for dispatching processed data."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for publishing contracts and outbound delivery behavior. Inbound consumption belongs in `dataConsumer`, and transformation belongs in `dataProcessor`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Publishing changes must preserve access control, auditability, tenant context, retry/rollback expectations, and provider configuration boundaries."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Current Capability Status",
+      "anchor": "current-capability-status"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This module currently provides the standard capability structure and extension slots, not a production destination provider. Projects must implement and qualify the selected API, broker, file, object-storage, search, database, or other destination through its owning provider contract."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Publishing Contract",
+      "anchor": "publishing-contract"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Each publisher must define the authoritative destination alias, output schema/version, access policy, tenant routing, idempotency key, ordering, batching, timeout, safe retry, acknowledgement, partial failure, dead-letter or quarantine behavior, retention/cleanup, reconciliation, and compensation."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not accept an arbitrary URL, queue, topic, bucket, path, credentials, or handler from a request. Resolve approved destinations from layered configuration and call the existing export, messaging, search, database, or integration provider contract instead of embedding another client."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Add tests for access-policy filtering, valid publish, cross-tenant denial, duplicate/idempotent retry, invalid destination, partial batch, timeout, provider outage/recovery, acknowledgement, reconciliation, sanitized diagnostics, and guarded live integration."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "DEAP lifecycle: [gDeap](../README.md)",
+        "Processing stage: [dataProcessor](../dataProcessor/README.md)",
+        "Export lifecycle: [nExport](../../gFramework/nData/nExport/README.md)",
+        "Messaging providers: [nEms](../../gFramework/nEms/README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "gDeap",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gdeap",
+      "anchor": ""
+    },
+    {
+      "label": "dataProcessor",
+      "target": "../dataProcessor/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gdeap/dataprocessor",
+      "anchor": ""
+    },
+    {
+      "label": "nExport",
+      "target": "../../gFramework/nData/nExport/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata/nexport",
+      "anchor": ""
+    },
+    {
+      "label": "nEms",
+      "target": "../../gFramework/nEms/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nems",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

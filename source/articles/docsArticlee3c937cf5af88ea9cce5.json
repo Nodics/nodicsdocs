@@ -1,0 +1,47 @@
+{
+  "code": "docsArticlee3c937cf5af88ea9cce5",
+  "title": "kycSchema Module",
+  "route": "/docs/modules/goptional/kyc/kycschema",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gOptional/kyc/kycSchema/README.md",
+    "type": "module-readme",
+    "contentHash": "0b78859894c1c6e263930ccd5d81716b75dc038dd81172cd7df16d6f940c906f"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "kycSchema Module",
+      "anchor": "kycschema-module"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "kycSchema Module",
+      "anchor": "kycschema-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`kycSchema` owns KYC schema and data-contract definitions. It is the source-of-truth module for KYC entities and metadata consumed by `kycCore` and `kycApi`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for KYC schema changes and generated artifact inputs. Runtime behavior belongs in `kycCore`, and API handling belongs in `kycApi`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Generated KYC artifacts must be regenerated from schema definitions and must preserve privacy, validation, access control, and tenant boundaries."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

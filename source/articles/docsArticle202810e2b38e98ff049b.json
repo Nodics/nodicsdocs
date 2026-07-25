@@ -1,0 +1,289 @@
+{
+  "code": "docsArticle202810e2b38e98ff049b",
+  "title": "dataCore",
+  "route": "/docs/modules/gframework/ndata/datacore",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nData/dataCore/README.md",
+    "type": "module-readme",
+    "contentHash": "b35dd45e55d49bf8aa4cec09860ba8f67ee198ab5a0842538f07d156a1e0c6ef"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "dataCore",
+      "anchor": "datacore"
+    },
+    {
+      "level": 2,
+      "text": "Ownership",
+      "anchor": "ownership"
+    },
+    {
+      "level": 2,
+      "text": "Extension Contract",
+      "anchor": "extension-contract"
+    },
+    {
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "level": 2,
+      "text": "Performance, Failure, And Recovery",
+      "anchor": "performance-failure-and-recovery"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "dataCore",
+      "anchor": "datacore"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`dataCore` is the provider-neutral processing layer shared by import and export. It runs governed processors, interceptors, validators, filters, finalizers, and writers after orchestration has established the tenant and data contract."
+    },
+    {
+      "kind": "paragraph",
+      "text": "`dataCore` owns shared data movement contracts used by import and export modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for reusable data abstractions that are not specific to import or export. Capability-specific behavior should stay in `nImport`, `nExport`, or project modules."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Ownership",
+      "anchor": "ownership"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`dataCore` may own:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "shared data processing contracts;",
+        "reusable validation or transformation helpers;",
+        "common diagnostics and result shapes;",
+        "shared test utilities for data movement."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Extension Contract",
+      "anchor": "extension-contract"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep shared contracts provider-neutral and tenant-aware. Project-specific data formats, storage providers, credentials, and mappings belong in later modules or configuration."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`dataCore` provides:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "shared import/export interceptor cache management;",
+        "shared import/export validator cache management;",
+        "schema data handler processing;",
+        "processor execution before schema data handling;",
+        "interceptor execution;",
+        "validator execution;",
+        "data filter pipeline execution;",
+        "per-record import dispatch;",
+        "optional finalized data file writing;",
+        "data writer services and file writer process services;",
+        "finalizer process services;",
+        "event listener extension slots."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "It is the common processing layer used by import/export capabilities. It should not know about one customer's file format, storage provider, credentials, or target system."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "A data movement request reaches import/export orchestration.",
+        "The header identifies target schema, module, processors, validators, interceptors, and processing pipeline.",
+        "`dataCore` applies processors if configured.",
+        "Import/export interceptors are resolved through data configuration.",
+        "Validators run for the tenant and schema.",
+        "A process pipeline filters or transforms the model set.",
+        "Models are dispatched into persistence or written as finalized files depending on header options.",
+        "Diagnostics can record dispatch, success, failure, and finalization counts."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Projects extend `dataCore` by:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "adding processors;",
+        "adding import/export interceptors;",
+        "adding import/export validators;",
+        "adding process pipelines;",
+        "overriding data writer behavior;",
+        "adding focused tests for transformation, validation, failure handling, tenant isolation, and diagnostics."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Format-specific readers belong in import/export format modules. Source/destination-specific integration belongs in project/provider modules."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run test:import\nnpm run quality:docs"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Add focused tests whenever shared data processing, validator/interceptor refresh, finalization, or writer behavior changes."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "putting CSV, Excel, JSON, JavaScript, SFTP, object storage, or customer API behavior into `dataCore`;",
+        "bypassing validators or interceptors during import/export;",
+        "processing tenant data without tenant context;",
+        "hiding diagnostics failures;",
+        "hardcoding customer mappings or storage paths."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Performance, Failure, And Recovery",
+      "anchor": "performance-failure-and-recovery"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Processing must define batch size, memory limits, record-level versus run-level failure, stop/continue policy, repeated-execution safety, finalizer behavior, and recovery evidence. Avoid loading unbounded files or model sets into memory. Keep processor order deterministic and preserve per-stage counts and errors so operators can distinguish parsing, validation, transformation, dispatch, and finalization failures."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Data family: [nData](../README.md)",
+        "Import lifecycle: [nImport](../nImport/README.md)",
+        "Export lifecycle: [nExport](../nExport/README.md)",
+        "Public data guide: [How To Work With Data](../../../gDocs/data/how-to-work-with-data.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "nData",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata",
+      "anchor": ""
+    },
+    {
+      "label": "nImport",
+      "target": "../nImport/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata/nimport",
+      "anchor": ""
+    },
+    {
+      "label": "nExport",
+      "target": "../nExport/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata/nexport",
+      "anchor": ""
+    },
+    {
+      "label": "How To Work With Data",
+      "target": "../../../gDocs/data/how-to-work-with-data.md",
+      "kind": "internal",
+      "route": "/docs/data/how-to-work-with-data",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

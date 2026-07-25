@@ -1,0 +1,47 @@
+{
+  "code": "docsArticlec5a07a9749710b684f6e",
+  "title": "kycCore Module",
+  "route": "/docs/modules/goptional/kyc/kyccore",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gOptional/kyc/kycCore/README.md",
+    "type": "module-readme",
+    "contentHash": "0216f0f7a4cb40b359eb1dd2c2e0d9b9302cd2ac87885bb4bc7dd18250cf81d1"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "kycCore Module",
+      "anchor": "kyccore-module"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "kycCore Module",
+      "anchor": "kyccore-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`kycCore` owns core KYC business behavior. It provides the service, pipeline, interceptor, utility, configuration, and test space for KYC lifecycle rules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for provider-neutral KYC logic and workflow. API request handling belongs in `kycApi`, and schema/data definitions belong in `kycSchema`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "KYC changes must be privacy-aware, auditable, tenant-isolated, configurable, and covered by tests."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

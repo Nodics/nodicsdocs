@@ -1,0 +1,118 @@
+{
+  "code": "docsArticle2b5499b38d1bd4e2a2a5",
+  "title": "How to reserve stock",
+  "route": "/docs/commerce/how-to-reserve-stock",
+  "category": "commerce",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gDocs/commerce/how-to-reserve-stock.md",
+    "type": "gdocs",
+    "contentHash": "0e6f15f0f1e69b2ead130b8dd5fa28a8722b2734c6bc5111659fe7b7659b9d30"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "How to reserve stock",
+      "anchor": "how-to-reserve-stock"
+    },
+    {
+      "level": 2,
+      "text": "Business sequence",
+      "anchor": "business-sequence"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "How to reserve stock",
+      "anchor": "how-to-reserve-stock"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A Stock Reservation protects units for a short-lived business process such as checkout, pickup preparation, or order allocation."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Business sequence",
+      "anchor": "business-sequence"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Sourcing identifies eligible Stock Pools and Warehouses.",
+        "Availability reports `ON_HAND`, `reservedQuantity`, and `AVAILABLE_TO_SELL`.",
+        "The checkout or order module requests a reservation with a unique idempotency key and expiry time.",
+        "Inventory atomically increases the balance's reserved quantity if enough stock remains.",
+        "Cancellation, release, or expiry returns the quantity to sale.",
+        "Fulfillment consumes the reservation and applies a matching Stock `ISSUE`; Inventory decreases on-hand and held quantity together."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Reservations operate on Online operational Stock. Staged publishing remains appropriate for stable Warehouse, Pool, and Sourcing configuration, not live holds or movements."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Only authenticated modules and CronJob processes use these commands. Human BackOffice users act through an approved business API or workflow rather than calling internal reservation routes directly."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "[How Stock Availability Works](how-stock-availability-works.md)",
+        "[How Stock Movements Work](how-stock-movements-work.md)",
+        "[How To Create Scheduled Jobs](../jobs/how-to-create-scheduled-jobs.md)",
+        "[Nodics Documentation](../README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "How Stock Availability Works",
+      "target": "how-stock-availability-works.md",
+      "kind": "internal",
+      "route": "/docs/commerce/how-stock-availability-works",
+      "anchor": ""
+    },
+    {
+      "label": "How Stock Movements Work",
+      "target": "how-stock-movements-work.md",
+      "kind": "internal",
+      "route": "/docs/commerce/how-stock-movements-work",
+      "anchor": ""
+    },
+    {
+      "label": "How To Create Scheduled Jobs",
+      "target": "../jobs/how-to-create-scheduled-jobs.md",
+      "kind": "internal",
+      "route": "/docs/jobs/how-to-create-scheduled-jobs",
+      "anchor": ""
+    },
+    {
+      "label": "Nodics Documentation",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

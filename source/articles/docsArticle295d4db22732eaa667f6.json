@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle295d4db22732eaa667f6",
+  "title": "gfprofile Module",
+  "route": "/docs/modules/docs/gframes/gframesmodules/gfprofile",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "docs/gframes/gframesModules/gfprofile/README.md",
+    "type": "module-readme",
+    "contentHash": "4eae30a4f6b8148a8ec351101102e6ec222413eecd3402dd9fbe1ebac2ffb03f"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "gfprofile Module",
+      "anchor": "gfprofile-module"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "gfprofile Module",
+      "anchor": "gfprofile-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`gfprofile` owns profile-related behavior for the `gframes` application. It provides project-specific profile data, schemas, routes, pipelines, interceptors, utilities, configuration, and tests."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for profile extensions that are specific to `gframes`. Shared profile capability behavior belongs in the reusable profile modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Profile changes must preserve privacy, validation, tenant isolation, access control, diagnostics, and generated contract alignment."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

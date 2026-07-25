@@ -1,0 +1,397 @@
+{
+  "code": "docsArticled6371d7a1434df5c1457",
+  "title": "Axis Content Catalog",
+  "route": "/docs/modules/gexp/backoffice/docs/axis-content-catalog",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gExp/backoffice/docs/axis-content-catalog.md",
+    "type": "module-doc",
+    "contentHash": "45a602c205a11a8031b25db4700635bcc07e90cbf90c272518fd45add129fdfe"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Axis Content Catalog",
+      "anchor": "axis-content-catalog"
+    },
+    {
+      "level": 2,
+      "text": "What this capability provides",
+      "anchor": "what-this-capability-provides"
+    },
+    {
+      "level": 2,
+      "text": "Ownership",
+      "anchor": "ownership"
+    },
+    {
+      "level": 2,
+      "text": "Security model",
+      "anchor": "security-model"
+    },
+    {
+      "level": 2,
+      "text": "Public Axis bootstrap",
+      "anchor": "public-axis-bootstrap"
+    },
+    {
+      "level": 2,
+      "text": "Importing the records",
+      "anchor": "importing-the-records"
+    },
+    {
+      "level": 2,
+      "text": "Customizing content",
+      "anchor": "customizing-content"
+    },
+    {
+      "level": 2,
+      "text": "Employee idle and lock policy",
+      "anchor": "employee-idle-and-lock-policy"
+    },
+    {
+      "level": 2,
+      "text": "Current limitations",
+      "anchor": "current-limitations"
+    },
+    {
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Axis Content Catalog",
+      "anchor": "axis-content-catalog"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What this capability provides",
+      "anchor": "what-this-capability-provides"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The BackOffice module contributes the initial content records used to compose Nodics Axis pages. Nodics Axis is an employee-only business administration application. Customers may be managed as business data, but customer accounts cannot use Axis."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The implemented core package creates:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`axisContentCatalog`;",
+        "`axisCmsSite`;",
+        "the public `/login` employee sign-in page;",
+        "the public `/forgot-password` employee recovery page;",
+        "the authenticated `/dashboard` employee page;",
+        "the authenticated `/lock-screen` employee re-verification page;",
+        "two page templates and their named slots;",
+        "declarative page and component type contracts;",
+        "logical renderer mappings;",
+        "client-safe component properties; and",
+        "ordered page-to-component relationships."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "This package contains no React code, authentication logic, API credentials, endpoint URLs, executable HTML, or business operations."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Ownership",
+      "anchor": "ownership"
+    },
+    {
+      "kind": "paragraph",
+      "text": "BackOffice owns the Axis-specific reference records because they package the BackOffice experience. Existing Nodics capabilities remain authoritative:"
+    },
+    {
+      "kind": "table",
+      "headers": [
+        "Concern",
+        "Authority"
+      ],
+      "rows": [
+        [
+          "Catalog schema and persistence",
+          "nCatalog"
+        ],
+        [
+          "CMS sites, pages, templates, slots, components, routes, and delivery",
+          "CMS"
+        ],
+        [
+          "Core-data execution, diagnostics, and history",
+          "nData import"
+        ],
+        [
+          "Employee authentication and recovery",
+          "Profile"
+        ],
+        [
+          "Module discovery and Axis bootstrap",
+          "BackOffice"
+        ],
+        [
+          "Rendering, interaction, accessibility, and responsive behavior",
+          "Nodics Axis"
+        ]
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not copy these schemas or create a BackOffice content loader. Project modules customize the records through later layered core-data contributions."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Security model",
+      "anchor": "security-model"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Public visibility is explicit and minimal:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`/login` is `PUBLIC`;",
+        "`/forgot-password` is `PUBLIC`;",
+        "every component referenced by either public page is `PUBLIC`;",
+        "`/dashboard` is `AUTHENTICATED`; and",
+        "every dashboard component is `AUTHENTICATED`;",
+        "`/lock-screen` is `AUTHENTICATED`; and",
+        "every lock-screen component is `AUTHENTICATED`."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "The authentication template uses a responsive split layout. On desktop, the `showcase` slot provides the left-side Nodics narrative while `brand`, `introduction`, `authentication`, `assistance`, and `legal` remain independent right-side content segments. On mobile webviews, the showcase panel is hidden and the employee form becomes the primary single-column experience. Content editors may change approved text and highlights, but cannot change the trusted Axis renderer implementation or inject executable presentation code."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The public pages permit an unauthenticated browser to obtain presentation only. Credentials and future employee recovery requests go to Profile, not CMS or BackOffice. The current recovery page does not claim to send instructions because Profile does not yet expose an approved employee self-recovery contract. A valid customer account must never receive an Axis employee session."
+    },
+    {
+      "kind": "paragraph",
+      "text": "CMS route authorization and each target module's API authorization remain mandatory. Hiding a component in Nodics Axis is not an authorization control."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Public Axis bootstrap",
+      "anchor": "public-axis-bootstrap"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Before an employee has a token, Axis calls `GET /nodics/backoffice/v0/bootstrap/public`. This endpoint returns only the currently observed client-callable Profile and CMS endpoints, Axis CMS composition identifiers, locale, channel, fallback mode, and contract version."
+    },
+    {
+      "kind": "paragraph",
+      "text": "It does not return module inventory, instance identifiers, server or node coordinates, lease timestamps, health details, permissions, secrets, or credentials. BackOffice derives the two endpoints from active module self-registration, so this does not create a manually maintained endpoint authority."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The endpoint fails closed when Profile or CMS is not actively registered, the client contract version is unsupported, or public bootstrap is disabled. Projects may override `backofficeRegistry.publicBootstrap` through normal configuration layering while preserving the low-disclosure contract."
+    },
+    {
+      "kind": "paragraph",
+      "text": "After employee authentication, Axis calls the existing secured `GET /nodics/backoffice/v0/bootstrap` endpoint with the human bearer token. That response remains permission-filtered and separate from public discovery. It includes the authenticated request tenant code as client-safe context. Axis uses that value for contextual display and destructive-operation confirmation; it must not infer or override tenant authority in the browser."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Importing the records",
+      "anchor": "importing-the-records"
+    },
+    {
+      "kind": "paragraph",
+      "text": "These records live under `gExp/backoffice/data/core`. They are intentionally imported through the existing nData core-import operation and are not written when BackOffice starts."
+    },
+    {
+      "kind": "paragraph",
+      "text": "For local development:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Start a Nodics runtime containing nCatalog, CMS, nData import, Profile, and"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "BackOffice."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Authenticate as an employee allowed to execute the governed core import.",
+        "Invoke the standard core-import operation with `backoffice` in the selected"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "module list and the intended tenant context."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Inspect the import-run result and history for rejected or skipped records.",
+        "Confirm that the four Axis routes resolve with their declared access mode.",
+        "Start Nodics Axis only after the core import succeeds."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "The headers use `saveAll` and stable `code` queries so repeated imports use the standard idempotent import path instead of creating duplicate identities. The import-run fingerprint also prevents an unchanged completed core package from being dispatched again. A second identical request therefore succeeds without adding another catalog, page, component, relationship, or completed run-history record."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Starting or restarting `monoServer` does not execute this package. Existing Axis records remain unchanged until an authorized operator explicitly invokes the core-import operation again. This separation is intentional: module startup registers runtime capability state, while nData import remains the only authority that creates the Axis CMS reference data."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Current local development deliberately uses records marked `ONLINE` while CMS publication mode is disabled. This is not a second publisher. Staged approval and nPublish integration remain deferred until the basic Axis composition and renderers are implemented."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Customizing content",
+      "anchor": "customizing-content"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A project may contribute later records with the same stable codes to refine labels, messages, templates, slots, component order, or approved renderer contracts. Preserve these rules:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "renderer values are logical keys, never URLs or executable module paths;",
+        "component properties contain client-safe presentation data only;",
+        "Profile endpoints, credentials, secrets, permission decisions, and workflow"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "behavior never belong in content;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "a public page may contain only public components;",
+        "post-login pages and components remain authenticated; and",
+        "customer-facing functionality belongs to the customer application, not Axis."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Employee idle and lock policy",
+      "anchor": "employee-idle-and-lock-policy"
+    },
+    {
+      "kind": "paragraph",
+      "text": "After authentication, the secured BackOffice bootstrap includes `axisPolicy`. Version 1 contains only implemented client behavior:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`screenLockEnabled`;",
+        "`idleTimeoutSeconds`;",
+        "`contractVersion`;",
+        "optimistic `revision`; and",
+        "`source`, which is `DEFAULT` or `PERSISTED`."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "The layered fail-safe default is configured under `properties.js#backofficeAxisPolicy`. Tenant-scoped operator changes are stored in the private `backofficeAxisPolicy` schema. Axis does not read that schema directly. BackOffice resolves the effective value and returns a client-safe projection through `/bootstrap`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Authorized operators can inspect or update the policy through:"
+    },
+    {
+      "kind": "code",
+      "language": "text",
+      "text": "GET /nodics/backoffice/v0/axis/policy\nPUT /nodics/backoffice/v0/axis/policy"
+    },
+    {
+      "kind": "paragraph",
+      "text": "An update requires `backoffice.axis.policy.update`, a human principal, and the current `expectedRevision`. The initial persistent write expects revision `0`. Later writes compare and advance the stored revision. Values below 60 seconds or above 86,400 seconds are rejected. Service tokens cannot perform the human operator update."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Example:"
+    },
+    {
+      "kind": "code",
+      "language": "json",
+      "text": "{\n  \"screenLockEnabled\": true,\n  \"idleTimeoutSeconds\": 900,\n  \"expectedRevision\": 0\n}"
+    },
+    {
+      "kind": "paragraph",
+      "text": "If the persistent store cannot be read, BackOffice returns the configured safe default rather than disabling screen lock. Operators should still investigate the logged persistence failure because their latest override may not be active."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Axis observes browser activity, locks the presentation when the effective deadline is reached, and uses the authenticated `/lock-screen` CMS page. The password is submitted directly to Profile for re-authentication and is never stored. Unlock obtains a fresh in-memory employee session and refreshes the authorized bootstrap policy before returning to the prior protected route. Choosing “Not you? Sign out” invokes Profile logout and returns to employee login."
+    },
+    {
+      "kind": "paragraph",
+      "text": "This is a presentation lock, not an authorization substitute. Target modules continue validating every bearer token, and token expiry or revocation still requires a normal login."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Current limitations",
+      "anchor": "current-limitations"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Profile employee self-recovery integration and live dashboard module data are not implemented. Recovery content and rendering exist, but the submit action must remain unavailable until Profile owns an approved anti-enumeration, rate-limited recovery contract."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The initial dashboard components intentionally contain empty placeholder collections. They must not be presented as real operational values."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "node gExp/backoffice/test/axisContentCatalogDataContract.test.js\nnode gExp/backoffice/test/backofficeAxisPolicyService.test.js\nnode gContent/cms/test/cmsContentDeliveryContract.test.js\nnode gFramework/nData/nImport/import/test/systemCoreSampleDataCatalog.test.js\nnpm run test:import"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The focused contract validates catalog ownership, renderer mappings, template and slot references, component types, route access, public composition safety, dashboard authentication, non-executable properties, stable idempotent header queries, and required record relationships."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The local lifecycle acceptance also covers a clean database, zero Axis records after monoServer startup, one explicit BackOffice core import, an unchanged second import, successful public login and recovery delivery, anonymous dashboard rejection, authenticated employee dashboard delivery, and an unchanged record set after runtime restart."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

@@ -1,0 +1,149 @@
+{
+  "code": "docsArticleedaa3989cf862e3497b3",
+  "title": "Hazelcast Cache",
+  "route": "/docs/modules/gframework/ncache/hazelcastcache",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nCache/hazelcastCache/README.md",
+    "type": "module-readme",
+    "contentHash": "61b4bdc62b0eb966ba7b53edfba2dbf39923a45dd5237360b9feb0c8eea331dd"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Hazelcast Cache",
+      "anchor": "hazelcast-cache"
+    },
+    {
+      "level": 2,
+      "text": "Capabilities",
+      "anchor": "capabilities"
+    },
+    {
+      "level": 2,
+      "text": "Configuration",
+      "anchor": "configuration"
+    },
+    {
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Hazelcast Cache",
+      "anchor": "hazelcast-cache"
+    },
+    {
+      "kind": "paragraph",
+      "text": "**Maturity: implemented provider; disabled by default; live-cluster qualification required for production.**"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The guarded live contract passed locally against a temporary Hazelcast 5.6 member on 2026-07-21. Each deployment must still run the same contract against its target cluster before enabling the provider in production."
+    },
+    {
+      "kind": "paragraph",
+      "text": "`hazelcastCache` implements the provider-neutral `nCache` contract with the official `hazelcast-client` package. It remains disabled by default so deployments select only the provider needed by a channel."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Capabilities",
+      "anchor": "capabilities"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "distributed-map JSON get and put;",
+        "per-entry TTL and non-expiring entries;",
+        "atomic consume through map removal;",
+        "tenant-scoped key and prefix invalidation;",
+        "connection readiness and central shutdown;",
+        "no redundant peer event when the selected engine is distributed."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Configuration",
+      "anchor": "configuration"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Enable the `hazelcast` engine and point a channel to it through layered `cache` configuration. Under engine `options`, configure `clusterName`, `clusterMembers`, `connectionTimeoutMs`, optional TLS/security/client properties, and `mapNamePrefix`. Keep credentials in the approved secret provider, not source control."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not call this adapter from business modules. They must use `DefaultCacheService`. Do not enable local, Redis, and Hazelcast for the same logical channel."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "node gFramework/nCache/cache/test/cacheAdapterContract.test.js\nNODICS_CACHE_HAZELCAST_MEMBERS=127.0.0.1:5701 node gFramework/nCache/hazelcastCache/test/cacheHazelcastLive.test.js --require-live"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Normal tests use a contract double and skip the guarded live test when no cluster is configured. Production release validation must require a live target matching the deployed Hazelcast version, security, discovery, and topology."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Generic cache contract: [cache](../cache/README.md)",
+        "Provider selection: [nCache](../README.md)",
+        "Public guide: [How Cache Works](../../../gDocs/platform/how-cache-works.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "cache",
+      "target": "../cache/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ncache/cache",
+      "anchor": ""
+    },
+    {
+      "label": "nCache",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ncache",
+      "anchor": ""
+    },
+    {
+      "label": "How Cache Works",
+      "target": "../../../gDocs/platform/how-cache-works.md",
+      "kind": "internal",
+      "route": "/docs/platform/how-cache-works",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

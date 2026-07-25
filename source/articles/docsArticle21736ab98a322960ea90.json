@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle21736ab98a322960ea90",
+  "title": "kickoffDevDeapServer",
+  "route": "/docs/modules/docs/kickoff/kickoffenvs/kickoffdev/kickoffdevdeapserver",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "docs/kickoff/kickoffEnvs/kickoffDev/kickoffDevDeapServer/README.md",
+    "type": "module-readme",
+    "contentHash": "c530cf4efe77bd86885381f117ac936116c90b27321a51ef703d061b3c546889"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "kickoffDevDeapServer",
+      "anchor": "kickoffdevdeapserver"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "kickoffDevDeapServer",
+      "anchor": "kickoffdevdeapserver"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`kickoffDevDeapServer` is the development DEAP server module for the `kickoff` application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for dev-scoped data pipeline server activation and runtime topology. Data consumer, processor, and publisher behavior belongs in DEAP modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Server configuration should remain layered and environment-scoped."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

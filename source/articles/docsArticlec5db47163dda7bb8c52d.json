@@ -1,0 +1,289 @@
+{
+  "code": "docsArticlec5db47163dda7bb8c52d",
+  "title": "backoffice",
+  "route": "/docs/modules/gexp/backoffice",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gExp/backoffice/README.md",
+    "type": "module-readme",
+    "contentHash": "1dd36a0c7604e6637b37263aa91aa812c3b94e6b1d3083a39e4794816642f1a6"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "backoffice",
+      "anchor": "backoffice"
+    },
+    {
+      "level": 2,
+      "text": "Responsibilities",
+      "anchor": "responsibilities"
+    },
+    {
+      "level": 2,
+      "text": "Explicit Exclusions",
+      "anchor": "explicit-exclusions"
+    },
+    {
+      "level": 2,
+      "text": "Runtime Interaction",
+      "anchor": "runtime-interaction"
+    },
+    {
+      "level": 2,
+      "text": "Customization",
+      "anchor": "customization"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "backoffice",
+      "anchor": "backoffice"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`backoffice` is the backend registry, discovery, catalogue, compatibility, and bootstrap capability for the separate Nodics Axis administration application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "BackOffice persistence schemas consume layered policies under `schemaPolicies.backoffice`. Partner modules may extend `contractReader` or `administrator` without copying BackOffice schemas; effective schema access groups remain authoritative."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Responsibilities",
+      "anchor": "responsibilities"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Receive authenticated module self-registration and refresh requests.",
+        "Maintain environment-bound observed deployment registrations.",
+        "Discover and validate module identity, versions, capabilities, contracts, and"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "sanitized health information."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Expose a permission-filtered, client-safe registry to Nodics Axis.",
+        "Select an optional CMS UI-composition provider without depending on CMS at"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "package or startup level."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Track BackOffice presentation enablement, compatibility, availability, and"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "registry/discovery audit history."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Persist and project tenant-scoped, client-safe Axis employee experience"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "policy with optimistic operator updates."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Explicit Exclusions",
+      "anchor": "explicit-exclusions"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "No frontend source or executable UI delivery.",
+        "No proxying of normal CRUD, job, workflow, CMS, or business operations.",
+        "No replacement of target-module permissions, validation, tenant isolation,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "runtime activation, or business audit."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "No credentials, internal tokens, private keys, or unapproved internal"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "endpoints in frontend registry responses."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "No parallel schema, router, topology, runtime-governance, or health authority."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Runtime Interaction",
+      "anchor": "runtime-interaction"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The frontend authenticates with Profile, retrieves its authorized registry from BackOffice, and then calls registered modules directly. Each target module independently validates the Profile-issued human token and authorizes the requested operation."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Axis first uses `/bootstrap/public`, which exposes only active Profile/CMS endpoints and non-sensitive CMS composition identifiers needed to display employee login. After Profile authentication, Axis uses the existing secured `/bootstrap` contract for the permission-filtered module catalogue and client-safe employee policy. The initial policy supports configured idle screen locking; private policy persistence and operator mutation remain owned by BackOffice."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Module registration uses the separate Nodics service-to-service identity path. Registration must be idempotent, environment-bound, auditable, retryable with bounded backoff, and safe when BackOffice is unavailable."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The store defaults to process memory for local and single-instance operation. Production replicas configure `backofficeRegistry.store.mode` as `distributed`; the same store service then uses the configured nCache-owned distributed engine with provider TTL leases and incremental key scanning. BackOffice never creates or owns a second Redis connection. Modules reconcile automatically after BackOffice or module restart through bounded retry and periodic renewal."
+    },
+    {
+      "kind": "paragraph",
+      "text": "See [the registry contract](docs/module-registry-contract.md) and [the operations runbook](docs/registry-operations-runbook.md). API, catalogue, compatibility, and audit behavior is defined by [the API catalogue contract](docs/api-catalogue-contract.md); deployment configuration follows [the environment deployment contract](docs/environment-deployment-contract.md). Module capability discovery, safe snapshot behavior, and CMS provider selection follow [the capability discovery contract](docs/capability-discovery-contract.md). Durable observation history, breaking-change approval, rejection, rollback, retention, and replica concurrency follow [the contract history lifecycle](docs/contract-history-lifecycle.md). Runtime readiness observation and multi-instance availability aggregation follow [the availability observation contract](docs/availability-observation-contract.md). The same contract governs deduplicated state-transition events and sanitized probe/publication metrics through Nodics' existing event capability. Bounded administrative inventory, detail, and governed refresh behavior follow [the registry administration contract](docs/registry-administration-contract.md). Human/service separation and the administrative permission matrix follow [the administrative security contract](docs/administrative-security-contract.md). Structural scale budgets and benchmark evidence follow [the performance and scale contract](docs/performance-and-scale-contract.md). Backend go-live, monitoring, rollback, and residual-risk gates follow [the backend release-readiness checklist](docs/backend-release-readiness.md). The current evidence, acceptance decision, and remaining production gates are recorded in [the backend acceptance report](docs/backend-acceptance-report.md). The module-owned core records for the initial Axis login, employee password recovery, secured screen lock, and dashboard composition are described in [the Axis content catalog guide](docs/axis-content-catalog.md)."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Customization",
+      "anchor": "customization"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Projects may override BackOffice configuration and contribute same-named services, facades, controllers, routers, schemas, pipelines, interceptors, and tests from later active modules. Override the smallest method or definition required; do not copy the whole capability."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Control-plane registration routes require the governed internal-token permission. Human discovery and diagnostics routes require distinct BackOffice permissions and return only configured client-safe metadata."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The bootstrap response contains only active `clientCallable` modules permitted for the authenticated human and fields selected by `backofficeRegistry.clientSafeMetadata`. It also returns the authenticated request tenant code so Axis can display the same tenant context without guessing, parsing an unverified browser token, or hardcoding `default`. It does not expose service or Cron credentials, registration secrets, or internal lease-expiry state. See [`gDocs/security/backoffice-browser-security.md`](../../gDocs/security/backoffice-browser-security.md)."
+    }
+  ],
+  "links": [
+    {
+      "label": "the registry contract",
+      "target": "docs/module-registry-contract.md",
+      "kind": "internal",
+      "route": "/docs/modules/gexp/backoffice/docs/module-registry-contract",
+      "anchor": ""
+    },
+    {
+      "label": "the operations runbook",
+      "target": "docs/registry-operations-runbook.md",
+      "kind": "internal",
+      "route": "/docs/modules/gexp/backoffice/docs/registry-operations-runbook",
+      "anchor": ""
+    },
+    {
+      "label": "the API catalogue contract",
+      "target": "docs/api-catalogue-contract.md",
+      "kind": "internal",
+      "route": "/docs/modules/gexp/backoffice/docs/api-catalogue-contract",
+      "anchor": ""
+    },
+    {
+      "label": "the environment deployment contract",
+      "target": "docs/environment-deployment-contract.md",
+      "kind": "internal",
+      "route": "/docs/modules/gexp/backoffice/docs/environment-deployment-contract",
+      "anchor": ""
+    },
+    {
+      "label": "the capability discovery contract",
+      "target": "docs/capability-discovery-contract.md",
+      "kind": "internal",
+      "route": "/docs/modules/gexp/backoffice/docs/capability-discovery-contract",
+      "anchor": ""
+    },
+    {
+      "label": "the contract history lifecycle",
+      "target": "docs/contract-history-lifecycle.md",
+      "kind": "internal",
+      "route": "/docs/modules/gexp/backoffice/docs/contract-history-lifecycle",
+      "anchor": ""
+    },
+    {
+      "label": "the availability observation contract",
+      "target": "docs/availability-observation-contract.md",
+      "kind": "internal",
+      "route": "/docs/modules/gexp/backoffice/docs/availability-observation-contract",
+      "anchor": ""
+    },
+    {
+      "label": "the registry administration contract",
+      "target": "docs/registry-administration-contract.md",
+      "kind": "internal",
+      "route": "/docs/modules/gexp/backoffice/docs/registry-administration-contract",
+      "anchor": ""
+    },
+    {
+      "label": "the administrative security contract",
+      "target": "docs/administrative-security-contract.md",
+      "kind": "internal",
+      "route": "/docs/modules/gexp/backoffice/docs/administrative-security-contract",
+      "anchor": ""
+    },
+    {
+      "label": "the performance and scale contract",
+      "target": "docs/performance-and-scale-contract.md",
+      "kind": "internal",
+      "route": "/docs/modules/gexp/backoffice/docs/performance-and-scale-contract",
+      "anchor": ""
+    },
+    {
+      "label": "the backend release-readiness checklist",
+      "target": "docs/backend-release-readiness.md",
+      "kind": "internal",
+      "route": "/docs/modules/gexp/backoffice/docs/backend-release-readiness",
+      "anchor": ""
+    },
+    {
+      "label": "the backend acceptance report",
+      "target": "docs/backend-acceptance-report.md",
+      "kind": "internal",
+      "route": "/docs/modules/gexp/backoffice/docs/backend-acceptance-report",
+      "anchor": ""
+    },
+    {
+      "label": "the Axis content catalog guide",
+      "target": "docs/axis-content-catalog.md",
+      "kind": "internal",
+      "route": "/docs/modules/gexp/backoffice/docs/axis-content-catalog",
+      "anchor": ""
+    },
+    {
+      "label": "`gDocs/security/backoffice-browser-security.md`",
+      "target": "../../gDocs/security/backoffice-browser-security.md",
+      "kind": "internal",
+      "route": "/docs/security/backoffice-browser-security",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

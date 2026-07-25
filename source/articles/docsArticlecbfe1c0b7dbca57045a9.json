@@ -1,0 +1,47 @@
+{
+  "code": "docsArticlecbfe1c0b7dbca57045a9",
+  "title": "kickoffDevServer",
+  "route": "/docs/modules/docs/kickoff/kickoffenvs/kickoffdev/kickoffdevserver",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "docs/kickoff/kickoffEnvs/kickoffDev/kickoffDevServer/README.md",
+    "type": "module-readme",
+    "contentHash": "179d66e890cb879befc144dda06bd47f07655fb45e0d7e1cd15a3e23d50ef0b9"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "kickoffDevServer",
+      "anchor": "kickoffdevserver"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "kickoffDevServer",
+      "anchor": "kickoffdevserver"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`kickoffDevServer` is the primary development server module for the `kickoff` application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for dev-scoped server activation, route/service availability, and runtime topology. Business behavior belongs in active application or framework modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Development server settings should stay explicit and replaceable by higher environment server modules."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

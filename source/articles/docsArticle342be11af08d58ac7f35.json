@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle342be11af08d58ac7f35",
+  "title": "kycApi Module",
+  "route": "/docs/modules/goptional/kyc/kycapi",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gOptional/kyc/kycApi/README.md",
+    "type": "module-readme",
+    "contentHash": "66962bf74d507addf0ae0952b43ab7a3c29fcb5c282f2f6004e23f99193e6363"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "kycApi Module",
+      "anchor": "kycapi-module"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "kycApi Module",
+      "anchor": "kycapi-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`kycApi` owns the API-facing KYC capability. It depends on `kycCore` and provides route, controller, facade, service, pipeline, interceptor, utility, and test space for KYC requests."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for KYC API contracts and request handling. Core KYC rules belong in `kycCore`, and schema/data definitions belong in `kycSchema`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "KYC API changes must preserve access control, audit, validation, tenant context, diagnostics, and privacy-sensitive data handling."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

@@ -1,0 +1,80 @@
+{
+  "code": "docsArticle8db23eaf2544adcc15c3",
+  "title": "gExp",
+  "route": "/docs/modules/gexp",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gExp/README.md",
+    "type": "module-readme",
+    "contentHash": "fa8d162a73f137763f19d50063d551812c39c2112511c5015f9e08d3c9ebce0d"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "gExp",
+      "anchor": "gexp"
+    },
+    {
+      "level": 2,
+      "text": "Modules",
+      "anchor": "modules"
+    },
+    {
+      "level": 2,
+      "text": "Boundary",
+      "anchor": "boundary"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "gExp",
+      "anchor": "gexp"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`gExp` is the Nodics backend experience-capability group. It composes reusable API modules that support administrative, customer, partner, storefront, mobile, and future client experiences while keeping frontend applications outside the Nodics backend runtime."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Modules",
+      "anchor": "modules"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`storefront` owns exact-hostname resolution and customer-experience composition while referencing CMS Sites and Stores through their owning contracts.",
+        "`backoffice` owns the registry, discovery, catalogue, and bootstrap contract"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "used by the separate Nodics Axis administration application."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Boundary",
+      "anchor": "boundary"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This group owns backend/API composition only. It must not contain frontend source, web bundles, static assets, or browser build tooling. Experience modules consume Nodics-owned contracts and must not replace target-module authorization, runtime configuration, topology, schemas, or business behavior. Storefront is backend/API-only; the future customer-facing frontend remains a separate application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Later project, environment, server, and node modules may override configuration and replace individual service methods through the standard Nodics hierarchy."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

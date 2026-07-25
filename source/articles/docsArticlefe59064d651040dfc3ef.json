@@ -1,0 +1,47 @@
+{
+  "code": "docsArticlefe59064d651040dfc3ef",
+  "title": "monoServer",
+  "route": "/docs/modules/startio/envs/startiodev/monoserver",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/envs/startioDev/monoServer/README.md",
+    "type": "module-readme",
+    "contentHash": "ef171295784852e7c28725cc437f4375fb560c85f490c884a4d5c50898869739"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "monoServer",
+      "anchor": "monoserver"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "monoServer",
+      "anchor": "monoserver"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`monoServer` is the primary development server module for the `startio` application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for dev-scoped server activation, route/service availability, and runtime topology. Business behavior belongs in active application or framework modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Development server settings should stay explicit and replaceable by higher environment server modules."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

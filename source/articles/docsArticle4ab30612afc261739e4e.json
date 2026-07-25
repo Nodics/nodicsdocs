@@ -1,0 +1,440 @@
+{
+  "code": "docsArticle4ab30612afc261739e4e",
+  "title": "How To Use Units And Land Measurements",
+  "route": "/docs/data/how-to-use-units-and-land-measurements",
+  "category": "data",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gDocs/data/how-to-use-units-and-land-measurements.md",
+    "type": "gdocs",
+    "contentHash": "1c4386c6a1f3ca9555834f83f2327221fc22b89140ca530ad4b8fe0520e2a641"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "How To Use Units And Land Measurements",
+      "anchor": "how-to-use-units-and-land-measurements"
+    },
+    {
+      "level": 2,
+      "text": "What This Capability Solves",
+      "anchor": "what-this-capability-solves"
+    },
+    {
+      "level": 2,
+      "text": "Important Land Rule",
+      "anchor": "important-land-rule"
+    },
+    {
+      "level": 2,
+      "text": "Administrator Workflow",
+      "anchor": "administrator-workflow"
+    },
+    {
+      "level": 2,
+      "text": "Beginner Example: Grams To Kilograms",
+      "anchor": "beginner-example-grams-to-kilograms"
+    },
+    {
+      "level": 2,
+      "text": "Common Business Uses",
+      "anchor": "common-business-uses"
+    },
+    {
+      "level": 2,
+      "text": "Choose Local Or Remote Use",
+      "anchor": "choose-local-or-remote-use"
+    },
+    {
+      "level": 2,
+      "text": "Developer Rules",
+      "anchor": "developer-rules"
+    },
+    {
+      "level": 2,
+      "text": "Common Problems And Recovery",
+      "anchor": "common-problems-and-recovery"
+    },
+    {
+      "level": 2,
+      "text": "What Operators Should Monitor",
+      "anchor": "what-operators-should-monitor"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "How To Use Units And Land Measurements",
+      "anchor": "how-to-use-units-and-land-measurements"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What This Capability Solves",
+      "anchor": "what-this-capability-solves"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Units gives every Nodics business module one consistent way to describe quantities and convert units. It supports pieces, weight, liquid volume, distance, land area, percentages, time, and compound quantities such as kilograms per hectare."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Units is reusable functionality, not necessarily a separate application or server. Most projects run it in the same process as Inventory, Product, or Pricing. A dedicated Units deployment is useful only when several independent runtimes need one centrally governed conversion authority."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Always keep the original value and unit supplied by the source. Store a normalized value separately when a consuming module implements normalization. This preserves legal, survey, supplier, scale, and operator evidence."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Important Land Rule",
+      "anchor": "important-land-rule"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Some traditional land-unit names have different sizes in different places. Never assume a universal conversion for bigha, kanal, marla, cent, guntha, or another regional unit. Supply the country and, where required, state/province or locality. The system rejects ambiguous conversion rather than guessing."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Units does not decide which area is legally correct. A property or farm may separately record registered area, surveyed area, polygon-calculated area, usable area, built-up area, carpet area, cultivable area, or irrigated area. The owning real-estate/agriculture module classifies those values; Units converts them."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Administrator Workflow",
+      "anchor": "administrator-workflow"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Define or verify the Dimension and its vector. AREA uses length exponent 2.",
+        "Define the Unit, symbol, precision, rounding, scope, and lifecycle.",
+        "For a linear Unit, create an exact numerator/denominator conversion to a recognized Unit of the same dimension.",
+        "For a regional land Unit, choose country, subdivision, or locality scope and effective dates.",
+        "Test the intended geography and at least one adjacent/nonmatching geography.",
+        "Activate only after business/legal verification.",
+        "Suspend or retire an incorrect rule; never delete a rule referenced by historical data."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "The current foundation keeps generated master-data APIs private. An administrator therefore uses the project's governed initialization/import path or a project-provided permissioned administration intent. Nodics does not yet provide a generic human Units-maintenance screen, and projects should not enable generated CRUD as a shortcut."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Beginner Example: Grams To Kilograms",
+      "anchor": "beginner-example-grams-to-kilograms"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Assume `MASS`, gram (`G`), kilogram (`KG`), and the exact conversion `G_TO_KG` with numerator `1` and denominator `1000` are active. Convert the canonical string `\"1000\"` from `G` to `KG`, requesting scale `3` and rounding `UNNECESSARY`. The result is `\"1.000\"`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not send the JavaScript number `0.1`. Send `\"0.1\"` so the source value has not already lost decimal precision."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Common Business Uses",
+      "anchor": "common-business-uses"
+    },
+    {
+      "kind": "table",
+      "headers": [
+        "Business need",
+        "Units responsibility",
+        "Owning business module responsibility"
+      ],
+      "rows": [
+        [
+          "Hold `2.500 KG` of stock",
+          "Validate `KG` and perform exact conversions",
+          "Inventory owns balances and movements"
+        ],
+        [
+          "Sell liquid by litre",
+          "Define `VOLUME`, `L`, and governed conversions",
+          "Product describes it; Pricing owns price; Inventory owns quantity"
+        ],
+        [
+          "Store package dimensions",
+          "Validate length and weight Unit codes",
+          "Product owns packaging meaning"
+        ],
+        [
+          "Price by kilogram or square metre",
+          "Supply the Unit basis and conversions",
+          "Pricing owns price selection and money"
+        ],
+        [
+          "Compare acres and hectares",
+          "Convert compatible AREA values",
+          "Land/agriculture owns area type and evidence"
+        ],
+        [
+          "Express kilograms per hectare",
+          "Validate a compound dimension vector",
+          "Agriculture owns yield meaning"
+        ]
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Choose Local Or Remote Use",
+      "anchor": "choose-local-or-remote-use"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Choose **co-hosted Units** for the normal case and latency-sensitive"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Inventory, Pricing, or Product operations."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Choose **remote Units** when independently deployed runtimes need centralized"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "definitions and the additional network dependency is acceptable."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Do not deploy Units separately merely because it is a Nodics module. Modules"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "define capability ownership; servers define deployment composition."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Examples in documentation illustrate structure only. Organizations must obtain authoritative local conversion factors from their accepted legal, survey, or industry source."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Developer Rules",
+      "anchor": "developer-rules"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Pass decimal values as strings, never JavaScript numbers. Declare target scale and rounding. Use `UNNECESSARY` when loss of precision must stop the operation. Compare dimension vectors before conversion. Retain conversion identity, geography, effective time, original value/unit, and normalized result in business evidence when the consuming module implements persistence."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Customize through later modules and the `units` properties. Do not create separate UOM tables or conversion services inside Inventory, Product, Pricing, agriculture, or real-estate modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "When modules run together, they invoke the Units intent service locally. When Units runs separately, they call its service-token-only conversion route through Nodics module communication. The result and selection rules are the same; operators configure topology through `servers.units`, not by copying Unit data into each domain."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Example remote request:"
+    },
+    {
+      "kind": "code",
+      "language": "http",
+      "text": "POST /nodics/units/v0/references/units/convert\nAuthorization: Bearer <runtime-service-token>\nx-enterprise-code: enterpriseA\nContent-Type: application/json\n\n{\n  \"quantity\": \"1000\",\n  \"fromUnitCode\": \"G\",\n  \"toUnitCode\": \"KG\",\n  \"targetScale\": 3,\n  \"roundingMode\": \"UNNECESSARY\"\n}"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The response contains the exact converted quantity plus selected Unit and conversion evidence. Consumers should retain this evidence when the calculation has financial, stock, legal, or audit significance."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Common Problems And Recovery",
+      "anchor": "common-problems-and-recovery"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "**Incompatible dimensions:** correct the source or target Unit; do not add a"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "false conversion between mass and volume."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "**Rounding required:** choose an approved rounding mode and target scale, or"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "retain `UNNECESSARY` when precision loss must stop processing."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "**Missing geography:** supply the country, subdivision, or locality required"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "by the regional rule."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "**Ambiguous regional result:** suspend or correct overlapping definitions;"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "never pick one arbitrarily."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "**Unit unavailable:** confirm it is active, effective, and visible to the"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "authenticated enterprise."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "**Multi-hop unavailable:** add a governed direct conversion or explicitly"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "enable bounded multi-hop conversion after testing its graph."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "**Remote request rejected:** use a runtime service token and verify the active"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "`servers.units` connection. Human credentials remain separate."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "**Incorrect conversion discovered:** suspend the bad rule, add a corrected"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "effective-dated rule, assess affected evidence, and never silently rewrite historical transactions."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What Operators Should Monitor",
+      "anchor": "what-operators-should-monitor"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Track failures by error code, dimension, geography, enterprise, and correlation identifier. Monitor latency and availability when Units is remote. Avoid logging sensitive quantities, prices, or parcel details merely to diagnose a conversion."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Back up Dimensions, Units, and Conversions together. Restore Dimensions first, then Units, then Conversions. Test representative business volume in the actual deployment; framework correctness tests are not universal capacity evidence."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Read the [Units module guide](../../gCore/units/docs/units-foundation.md) for schemas, arithmetic, regional selection, recovery, and tests, and the [deployment and integration guide](../../gCore/units/docs/units-deployment-and-integration.md) for configuration and topology decisions."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Inventory: [How Warehouse Management Works](../commerce/how-to-manage-warehouses.md)",
+        "Data: [How To Work With Data](how-to-work-with-data.md)",
+        "Customization: [How To Customize And Extend Nodics](../development/how-to-customize-and-extend-nodics.md)",
+        "Testing: [How To Test Nodics Changes](../testing/how-to-test-nodics-changes.md)",
+        "Documentation home: [Nodics Documentation](../README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "Units module guide",
+      "target": "../../gCore/units/docs/units-foundation.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcore/units/docs/units-foundation",
+      "anchor": ""
+    },
+    {
+      "label": "deployment and integration guide",
+      "target": "../../gCore/units/docs/units-deployment-and-integration.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcore/units/docs/units-deployment-and-integration",
+      "anchor": ""
+    },
+    {
+      "label": "How Warehouse Management Works",
+      "target": "../commerce/how-to-manage-warehouses.md",
+      "kind": "internal",
+      "route": "/docs/commerce/how-to-manage-warehouses",
+      "anchor": ""
+    },
+    {
+      "label": "How To Work With Data",
+      "target": "how-to-work-with-data.md",
+      "kind": "internal",
+      "route": "/docs/data/how-to-work-with-data",
+      "anchor": ""
+    },
+    {
+      "label": "How To Customize And Extend Nodics",
+      "target": "../development/how-to-customize-and-extend-nodics.md",
+      "kind": "internal",
+      "route": "/docs/development/how-to-customize-and-extend-nodics",
+      "anchor": ""
+    },
+    {
+      "label": "How To Test Nodics Changes",
+      "target": "../testing/how-to-test-nodics-changes.md",
+      "kind": "internal",
+      "route": "/docs/testing/how-to-test-nodics-changes",
+      "anchor": ""
+    },
+    {
+      "label": "Nodics Documentation",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

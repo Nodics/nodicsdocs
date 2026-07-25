@@ -1,0 +1,101 @@
+{
+  "code": "docsArticle472538b835aceb586ce1",
+  "title": "Units",
+  "route": "/docs/modules/gcore/units",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gCore/units/README.md",
+    "type": "module-readme",
+    "contentHash": "bfe31acbcefb597f7984beda190386cfbbef83d6abfbe289b82acc16bfc77472"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Units",
+      "anchor": "units"
+    },
+    {
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Units",
+      "anchor": "units"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Units is Nodics' domain-neutral authority for exact measured values, dimensions, units of measure, compound dimension vectors, rounding, and geographically scoped conversions."
+    },
+    {
+      "kind": "paragraph",
+      "text": "It supports count, mass, volume, length, area, time, percentage, custom dimensions, derived units, and regional land units. Commerce Inventory, agriculture, real estate, pricing, shipping, and future domains can reuse it without creating separate UOM registries."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Units is a capability module, not a requirement to operate a dedicated Units server. The normal topology is to activate it in the same runtime as Inventory, Product, or Pricing. A separate deployment is optional when an enterprise needs one remotely governed conversion authority shared by multiple runtimes."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Authoritative values are canonical decimal strings. Conversion factors are positive integer numerator/denominator pairs. Exact arithmetic uses BigInt and declared rounding, never JavaScript floating point."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Implemented schemas are `unitDimension`, `unitOfMeasure`, and `unitConversion`. Generated CRUD routers remain disabled. A narrow service-token-only `POST /references/units/convert` intent route lets other Nodics modules use the same exact conversion authority when Units is deployed separately."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The intent service supports same-Unit normalization, direct and inverse exact factors, optional bounded multi-hop conversion, enterprise-over-global definition selection, geographic specificity, effective dates, dimensional compatibility, bounded reads, and explicit rounding. It returns only the Unit and conversion evidence a consuming domain needs; it does not expose Units master-data CRUD."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Read [Units Foundation](docs/units-foundation.md), the [deployment and integration guide](docs/units-deployment-and-integration.md), and the [business guide](../../gDocs/data/how-to-use-units-and-land-measurements.md)."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "node gCore/units/test/unitsReferenceConversionContract.test.js\nnode gCore/units/test/unitsMultiHopConversionContract.test.js\nnode gCore/units/test/exactUnitsAndRegionalConversion.test.js\nnode gCore/units/test/unitsFoundationContract.test.js"
+    }
+  ],
+  "links": [
+    {
+      "label": "Units Foundation",
+      "target": "docs/units-foundation.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcore/units/docs/units-foundation",
+      "anchor": ""
+    },
+    {
+      "label": "deployment and integration guide",
+      "target": "docs/units-deployment-and-integration.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcore/units/docs/units-deployment-and-integration",
+      "anchor": ""
+    },
+    {
+      "label": "business guide",
+      "target": "../../gDocs/data/how-to-use-units-and-land-measurements.md",
+      "kind": "internal",
+      "route": "/docs/data/how-to-use-units-and-land-measurements",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

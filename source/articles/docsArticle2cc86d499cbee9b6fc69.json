@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle2cc86d499cbee9b6fc69",
+  "title": "kickoffDev",
+  "route": "/docs/modules/docs/kickoff/kickoffenvs/kickoffdev",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "docs/kickoff/kickoffEnvs/kickoffDev/README.md",
+    "type": "module-readme",
+    "contentHash": "21dd3d6fe303210f626317e4f1239341b65f754a239fc6af9446f0f3e7b3126e"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "kickoffDev",
+      "anchor": "kickoffdev"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "kickoffDev",
+      "anchor": "kickoffdev"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`kickoffDev` is the development environment module for the `kickoff` application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for development-only configuration and server composition. Shared application behavior belongs in `kickoffModules`, and server-specific runtime settings belong in child server modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Development defaults should stay overrideable and must not become framework defaults."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

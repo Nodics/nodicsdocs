@@ -1,0 +1,367 @@
+{
+  "code": "docsArticleebc64b9d99b6165f6c86",
+  "title": "Warehouse Foundation",
+  "route": "/docs/modules/gcomm/inventory/docs/warehouse-foundation",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gComm/inventory/docs/warehouse-foundation.md",
+    "type": "module-doc",
+    "contentHash": "4c259c18301b392af5cf00346ab228eb29a05a03a365fca27fcdcc5b679650b8"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Warehouse Foundation",
+      "anchor": "warehouse-foundation"
+    },
+    {
+      "level": 2,
+      "text": "Business Purpose",
+      "anchor": "business-purpose"
+    },
+    {
+      "level": 2,
+      "text": "Business Lifecycle",
+      "anchor": "business-lifecycle"
+    },
+    {
+      "level": 2,
+      "text": "Enterprise Isolation And Identity",
+      "anchor": "enterprise-isolation-and-identity"
+    },
+    {
+      "level": 2,
+      "text": "Location Hierarchy",
+      "anchor": "location-hierarchy"
+    },
+    {
+      "level": 2,
+      "text": "Administrator Configuration",
+      "anchor": "administrator-configuration"
+    },
+    {
+      "level": 2,
+      "text": "Developer Contract",
+      "anchor": "developer-contract"
+    },
+    {
+      "level": 2,
+      "text": "OOTB Customization",
+      "anchor": "ootb-customization"
+    },
+    {
+      "level": 2,
+      "text": "Failures And Recovery",
+      "anchor": "failures-and-recovery"
+    },
+    {
+      "level": 2,
+      "text": "Internal Warehouse Reference Lookup",
+      "anchor": "internal-warehouse-reference-lookup"
+    },
+    {
+      "level": 2,
+      "text": "Security And Operations",
+      "anchor": "security-and-operations"
+    },
+    {
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Warehouse Foundation",
+      "anchor": "warehouse-foundation"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Business Purpose",
+      "anchor": "business-purpose"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A warehouse is the enterprise-owned logical authority that will later hold and fulfill stock. A warehouse location is an optional position inside it, such as receiving, storage, aisle, rack, bin, sales floor, back room, pickup, returns, quarantine, or damaged stock."
+    },
+    {
+      "kind": "paragraph",
+      "text": "This foundation does not yet expose a business API or BackOffice page. Intent-specific administration APIs and permissions follow in a later slice."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Business Lifecycle",
+      "anchor": "business-lifecycle"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Create a warehouse in `DRAFT`, verify its identity and metadata, and move it to `ACTIVE`. An active warehouse may be `SUSPENDED` temporarily or `RETIRED` permanently. A suspended warehouse may return to active. A retired warehouse cannot be reactivated."
+    },
+    {
+      "kind": "code",
+      "language": "text",
+      "text": "DRAFT → ACTIVE → SUSPENDED → ACTIVE\n  └────→ RETIRED ←────┘"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Locations use the same transitions. Retire child locations before their parent and every location before its warehouse. Never hard-delete these records; future stock, ledger, transfer, store, and audit references require history."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Enterprise Isolation And Identity",
+      "anchor": "enterprise-isolation-and-identity"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Every operation resolves enterprise identity from authenticated claims. A body or query attempting another enterprise fails. The tenant selects the database boundary; `enterpriseCode` enforces the business-owner boundary inside it."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Business codes may repeat across enterprises because the primary code is derived:"
+    },
+    {
+      "kind": "code",
+      "language": "text",
+      "text": "enterpriseA::warehouse::dubaiCentral\nenterpriseB::warehouse::dubaiCentral\nenterpriseA::location::dubaiCentral::receiving"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Users supply `warehouseCode` and `locationCode`; they do not construct or override internal `code`."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Location Hierarchy",
+      "anchor": "location-hierarchy"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A location either has no parent or names one non-retired parent in the same enterprise and warehouse. The service derives `path` and `depth`, rejects self parenting and cycles, and enforces `inventory.location.maxDepth`."
+    },
+    {
+      "kind": "code",
+      "language": "text",
+      "text": "storage                       depth 0, path [storage]\n└── aisleA                    depth 1, path [storage, aisleA]\n    └── rack01                depth 2, path [storage, aisleA, rack01]\n        └── bin05            depth 3, path [storage, aisleA, rack01, bin05]"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Parentage is immutable. Later stock movement uses governed transfers rather than rewriting historical location identity."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Administrator Configuration",
+      "anchor": "administrator-configuration"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Layer configuration instead of editing OOTB inventory:"
+    },
+    {
+      "kind": "code",
+      "language": "js",
+      "text": "module.exports = {\n    inventory: {\n        warehouse: {\n            types: ['PHYSICAL', 'VIRTUAL', 'STORE', 'MICRO_FULFILLMENT'],\n            statuses: ['DRAFT', 'ACTIVE', 'SUSPENDED', 'RETIRED']\n        },\n        location: {\n            maxDepth: 6,\n            types: ['RECEIVING', 'ZONE', 'AISLE', 'RACK', 'BIN']\n        }\n    }\n};"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Verify effective array merging for the project. Removing a classification used by persisted records requires a governed migration. Changing the identity separator after data exists is also an identity migration."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Developer Contract",
+      "anchor": "developer-contract"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Schemas live in `src/schemas/schemas.js`; generated services own persistence. Interceptors execute before generated save/get/update/remove operations so callers cannot bypass foundation governance accidentally."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`DefaultInventoryEnterpriseScopeService` resolves claims, validates business"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "codes, derives identities, and scopes queries."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`DefaultInventoryWarehouseFoundationService` validates classifications,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "effective dates, identity, transitions, retirement, and deletion."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`DefaultInventoryWarehouseLocationFoundationService` validates the warehouse,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "parent, path, depth, identity, transitions, children, and deletion."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not call a database provider directly. Do not create another warehouse loader, hierarchy engine, lifecycle, or tenant/enterprise resolver."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "OOTB Customization",
+      "anchor": "ootb-customization"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Add classifications through a later module's properties and prove the effective configuration in its test. For another enterprise claim contract, replace the smallest scope method while retaining mismatch rejection and query scoping. For extra location rules, layer an interceptor or replace the smallest validation method rather than copying the module."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Failures And Recovery",
+      "anchor": "failures-and-recovery"
+    },
+    {
+      "kind": "table",
+      "headers": [
+        "Error",
+        "Meaning",
+        "Recovery"
+      ],
+      "rows": [
+        [
+          "`ERR_INV_00001`",
+          "No authenticated enterprise claim",
+          "Authenticate through Profile with the correct enterprise"
+        ],
+        [
+          "`ERR_INV_00002`",
+          "Body/query enterprise mismatch",
+          "Remove caller-owned scope or use the correct enterprise"
+        ],
+        [
+          "`ERR_INV_00003`",
+          "Invalid warehouse identity, classification, or dates",
+          "Correct the code/policy/data"
+        ],
+        [
+          "`ERR_INV_00004`",
+          "Invalid lifecycle transition",
+          "Follow the configured transition sequence"
+        ],
+        [
+          "`ERR_INV_00005`",
+          "Invalid location hierarchy or retirement order",
+          "Correct parent/warehouse/depth or retire children first"
+        ],
+        [
+          "`ERR_INV_00006`",
+          "Stable identity or parentage change",
+          "Create a new record and govern migration"
+        ],
+        [
+          "`ERR_INV_00007`",
+          "Hard delete attempted",
+          "Retire the record"
+        ],
+        [
+          "`ERR_INV_00008`",
+          "Warehouse has non-retired locations",
+          "Retire locations from leaves to root"
+        ],
+        [
+          "`ERR_INV_00009`",
+          "Warehouse reference is unavailable",
+          "Verify tenant, enterprise, code, lifecycle, and Inventory availability"
+        ],
+        [
+          "`ERR_INV_00010`",
+          "Non-service identity used internal lookup",
+          "Use the existing tenant-scoped module service token"
+        ]
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "A failed validation does not reach persistence. Stock atomicity, idempotency, and recovery are not claimed until the stock slice is implemented."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Internal Warehouse Reference Lookup",
+      "anchor": "internal-warehouse-reference-lookup"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`POST /nodics/inventory/v0/references/warehouses/resolve` is an Inventory-owned module-to-module intent route. It requires the existing internal service-token permission, authenticated tenant, and enterprise context; human access tokens are rejected. The request accepts only `warehouseCode`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The safe response contains enterprise code, warehouse code, status, type, country, and capabilities. It never returns internal primary identity, address, external references, operational details, or credentials. Missing, retired, duplicate, malformed, and cross-enterprise targets fail closed."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Security And Operations",
+      "anchor": "security-and-operations"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Generated CRUD routers are disabled; only the service-token Warehouse"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "reference intent route is enabled."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Human and service authentication remain separate Profile/nAuth concerns.",
+        "Enterprise identity comes from authenticated claims, not request bodies.",
+        "External references contain identifiers only, never credentials.",
+        "Monitor repeated scope mismatch, hierarchy, transition, and retirement errors.",
+        "Restore a warehouse with its location hierarchy; never restore orphaned"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "locations."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "node gComm/inventory/test/inventoryWarehouseSchemaContract.test.js\nnode gComm/inventory/test/inventoryWarehouseFoundationService.test.js\nnode gComm/inventory/test/inventoryWarehouseReferenceContract.test.js\nnpm run llm:generate\nnpm run llm:validate\nnpm run quality:docs"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Focused tests cover schema/index boundaries, private routing, interceptor wiring, identity, lifecycle, hierarchy, missing enterprise, cross-enterprise rejection, invalid codes/transitions, immutable identity, missing/self parents, depth, retirement order, hard-delete rejection, and configuration extension."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

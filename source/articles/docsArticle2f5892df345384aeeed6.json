@@ -1,0 +1,775 @@
+{
+  "code": "docsArticle2f5892df345384aeeed6",
+  "title": "How Users, Tenants, And Permissions Work",
+  "route": "/docs/security/how-users-tenants-and-permissions-work",
+  "category": "security",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gDocs/security/how-users-tenants-and-permissions-work.md",
+    "type": "gdocs",
+    "contentHash": "1a657d5a890bf87e8c573095680d8f831a5c4148d8137ab3f5f1c07c7353d43c"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "How Users, Tenants, And Permissions Work",
+      "anchor": "how-users-tenants-and-permissions-work"
+    },
+    {
+      "level": 2,
+      "text": "Beginner Summary",
+      "anchor": "beginner-summary"
+    },
+    {
+      "level": 2,
+      "text": "Why Tenants Matter",
+      "anchor": "why-tenants-matter"
+    },
+    {
+      "level": 2,
+      "text": "Shared Tenant And Dedicated Tenant Example",
+      "anchor": "shared-tenant-and-dedicated-tenant-example"
+    },
+    {
+      "level": 2,
+      "text": "Users And Groups",
+      "anchor": "users-and-groups"
+    },
+    {
+      "level": 2,
+      "text": "Where To Add Security Rules",
+      "anchor": "where-to-add-security-rules"
+    },
+    {
+      "level": 2,
+      "text": "NAAM System",
+      "anchor": "naam-system"
+    },
+    {
+      "level": 2,
+      "text": "Human Login",
+      "anchor": "human-login"
+    },
+    {
+      "level": 2,
+      "text": "Service-To-Service Access",
+      "anchor": "service-to-service-access"
+    },
+    {
+      "level": 2,
+      "text": "Runtime Security",
+      "anchor": "runtime-security"
+    },
+    {
+      "level": 2,
+      "text": "Add New Tenant",
+      "anchor": "add-new-tenant"
+    },
+    {
+      "level": 3,
+      "text": "Add In Installed Tenants",
+      "anchor": "add-in-installed-tenants"
+    },
+    {
+      "level": 2,
+      "text": "Testing Security",
+      "anchor": "testing-security"
+    },
+    {
+      "level": 2,
+      "text": "Bootstrap Credentials",
+      "anchor": "bootstrap-credentials"
+    },
+    {
+      "level": 2,
+      "text": "Control-Plane API Permissions",
+      "anchor": "control-plane-api-permissions"
+    },
+    {
+      "level": 2,
+      "text": "HTTP Hardening By Topology",
+      "anchor": "http-hardening-by-topology"
+    },
+    {
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "level": 2,
+      "text": "Beginner Troubleshooting",
+      "anchor": "beginner-troubleshooting"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "How Users, Tenants, And Permissions Work",
+      "anchor": "how-users-tenants-and-permissions-work"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics applications are tenant-aware."
+    },
+    {
+      "kind": "paragraph",
+      "text": "A tenant represents where data lives and how runtime behavior is isolated. It is not only a customer name. Different tenants can have different users, permissions, data stores, search indexes, cache namespaces, imports, exports, configuration, audit records, and runtime behavior."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Beginner Summary",
+      "anchor": "beginner-summary"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Security in Nodics has three common questions:"
+    },
+    {
+      "kind": "table",
+      "headers": [
+        "Question",
+        "Nodics concept"
+      ],
+      "rows": [
+        [
+          "Who is calling?",
+          "User, service account, token, or internal module identity"
+        ],
+        [
+          "What are they allowed to do?",
+          "Groups and permissions"
+        ],
+        [
+          "Which data/runtime boundary are they working inside?",
+          "Tenant and enterprise context"
+        ]
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "A user can be logged in and still be blocked if the user lacks the route permission. A user can also have permission but still be blocked if the tenant context is missing or not allowed."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The simple rule is:"
+    },
+    {
+      "kind": "code",
+      "language": "text",
+      "text": "Authentication proves identity. Authorization proves permission. Tenant context decides data placement and isolation."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Why Tenants Matter",
+      "anchor": "why-tenants-matter"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Tenant isolation helps one platform serve multiple business contexts safely."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Examples:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "One customer can use the same application without seeing another customer's data.",
+        "A business can test configuration for one tenant before enabling it for another.",
+        "Runtime configuration can be audited per tenant.",
+        "Data imports can target a specific tenant."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Shared Tenant And Dedicated Tenant Example",
+      "anchor": "shared-tenant-and-dedicated-tenant-example"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Imagine a retail marketplace running on Nodics."
+    },
+    {
+      "kind": "paragraph",
+      "text": "`BrandStyle` sells lifestyle products and is comfortable using the platform's shared data environment. The project can associate BrandStyle with the `default` tenant, so its data uses the default database configuration, shared search provider, shared cache configuration, standard import/export locations, and common operational governance for that runtime."
+    },
+    {
+      "kind": "paragraph",
+      "text": "`MedSupplyPro` sells regulated healthcare supplies and requires stronger data separation. The project can create a dedicated tenant such as `medSupplyPro`. That tenant can point schema persistence, search indexes, cache namespace, import/export locations, audit records, runtime configuration, service-account rules, and diagnostics to MedSupplyPro-owned or MedSupplyPro-approved infrastructure."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Both businesses can use the same Nodics modules and APIs. The tenant context decides where data is stored, indexed, cached, imported, exported, audited, and governed."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The rule is simple:"
+    },
+    {
+      "kind": "code",
+      "language": "text",
+      "text": "Tenant = data placement, isolation boundary, and runtime governance context."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Any route, service, DAO, search operation, cache operation, import/export run, job, event, audit record, or runtime configuration change that touches tenant-owned data must resolve and preserve tenant context before doing the work."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Users And Groups",
+      "anchor": "users-and-groups"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Users are assigned to groups."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Groups can hold permissions."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Permissions decide what a user or service account can do."
+    },
+    {
+      "kind": "paragraph",
+      "text": "When adding a feature, define the required permissions clearly. Do not rely on hidden checks that only one developer understands."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Where To Add Security Rules",
+      "anchor": "where-to-add-security-rules"
+    },
+    {
+      "kind": "table",
+      "headers": [
+        "Need",
+        "Change here"
+      ],
+      "rows": [
+        [
+          "Add a permission to an API",
+          "Route metadata `permission` or `permissionConfig`"
+        ],
+        [
+          "Add permission to the catalog",
+          "Auth configuration and identity governance defaults"
+        ],
+        [
+          "Give a group access",
+          "Group target or governed identity/runtime configuration"
+        ],
+        [
+          "Create pre-login route",
+          "Route metadata with explicit pre-authentication behavior"
+        ],
+        [
+          "Secure internal service route",
+          "Internal-token permission configuration"
+        ],
+        [
+          "Control whether an API family exists in a topology",
+          "`apiExposure.categories.<category>.enabled`"
+        ],
+        [
+          "Protect tenant-specific data",
+          "Tenant-aware service, DAO, search, cache, import/export, job, and event tests"
+        ],
+        [
+          "Change HTTP hardening",
+          "Router `httpHardening` configuration"
+        ]
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not add secret permission checks only inside services or controllers. Route metadata must explain the security contract so tests, OpenAPI, Swagger UI, and AI tools can see it."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "NAAM System",
+      "anchor": "naam-system"
+    },
+    {
+      "kind": "paragraph",
+      "text": "NAAM means Nodics Authentication And Authorization Management. It is the identity and access-control capability that protects users, service accounts, tenants, permissions, tokens, and secured routes."
+    },
+    {
+      "kind": "paragraph",
+      "text": "NAAM separates:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "human login;",
+        "employee/customer identity;",
+        "service-to-service access;",
+        "API key and service principal access;",
+        "authorization through permissions and user groups;",
+        "tenant isolation;",
+        "auth cache and invalidation;",
+        "safe diagnostics."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not treat login, internal tokens, API keys, permissions, and tenants as one interchangeable mechanism. Each has a separate security purpose."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Human Login",
+      "anchor": "human-login"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Human login routes are pre-authentication because the user does not have a token yet."
+    },
+    {
+      "kind": "paragraph",
+      "text": "![Authentication Flow](../assets/images/authentication-flow.jpg)"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Only true login or credential initiation routes are pre-authentication."
+    },
+    {
+      "kind": "paragraph",
+      "text": "After login, secured APIs must validate authentication, tenant context, and permissions."
+    },
+    {
+      "kind": "paragraph",
+      "text": "![Authorization Flow](../assets/images/authorization-flow.jpg)"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Service-To-Service Access",
+      "anchor": "service-to-service-access"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Internal module or service access is different from human login."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Internal access remains secured and uses the configured internal token or service-account permission model."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not make internal routes public just to make module-to-module calls easier."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Runtime Security",
+      "anchor": "runtime-security"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Runtime changes must be governed."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Important runtime actions should include:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Preview.",
+        "Request.",
+        "Approval.",
+        "Activation.",
+        "Audit.",
+        "Rollback.",
+        "Diagnostics."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "This applies especially to configuration, route permissions, schema behavior, and tenant-sensitive settings."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Add New Tenant",
+      "anchor": "add-new-tenant"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Adding a tenant means introducing a new isolated business/runtime context. A tenant may need users, groups, permissions, data, runtime configuration, import scope, cache partitioning, job behavior, and service-account access."
+    },
+    {
+      "kind": "paragraph",
+      "text": "When adding a tenant, document:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "tenant code and business owner;",
+        "enterprise or customer relationship;",
+        "required groups and permissions;",
+        "startup or initial data;",
+        "data provider or schema expectations;",
+        "runtime configuration;",
+        "import/export scope;",
+        "cache and auth invalidation behavior;",
+        "tests for isolation."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 3,
+      "text": "Add In Installed Tenants",
+      "anchor": "add-in-installed-tenants"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The installed or active tenant list defines which tenants the selected runtime is allowed to use. Keep tenant activation explicit and testable."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not activate a tenant only by passing a request header. The tenant must be known to the active runtime, backed by configuration/data, and verified by tests. Request tenant context may narrow execution, but it must not secretly create or broaden tenant scope."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Testing Security",
+      "anchor": "testing-security"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Security tests should cover:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Login route behavior.",
+        "Token validation.",
+        "Permission checks.",
+        "Tenant isolation.",
+        "Service account access.",
+        "Invalidation after security changes.",
+        "Audit records without secrets."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Bootstrap Credentials",
+      "anchor": "bootstrap-credentials"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Framework initializer data must not ship usable default passwords, API keys, or service credentials. Mandatory bootstrap may create missing non-secret groups, permissions, and principal metadata, but credential material must come from governed project/environment/server/node configuration, secret management, or an explicit credential-rotation operation."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Active bootstrap principals must use a declared secret source. Configure `bootstrapIdentity.source`, `adminPassword`, `servicePassword`, and `serviceApiKey` in the active project/environment/server/node layer or through a governed external/secret source. Production-like sources include `environment`, `externalProperty`, `secretManager`, and `runtimeSecret`. Local sample and test sources are accepted only when `authSecurity.compatibility.allowLocalBootstrapIdentity` is explicitly enabled by the local/test layer."
+    },
+    {
+      "kind": "paragraph",
+      "text": "When framework modules seed example users for capability ownership, keep those users inactive unless a project layer deliberately activates them, and generate non-reusable placeholder password material instead of source-controlled passwords. Service API keys must not be embedded in framework data files."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Control-Plane API Permissions",
+      "anchor": "control-plane-api-permissions"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Control-plane APIs are backend APIs used by administrators, support tooling, CLI tools, AI tools, or a future admin application to inspect or change runtime state. They are not UI screens."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Control-plane APIs use two separate gates:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "`apiExposure` decides whether an API category is available in the current"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "project, environment, server, or node."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Route permission metadata decides whether the authenticated caller may use"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "the exposed route."
+    },
+    {
+      "kind": "paragraph",
+      "text": "This separation matters in a micro-services topology. A local developer server can enable test execution, dynamic class inspection, file access, import/export, or diagnostics when those capabilities are needed for development. A production-like server should expose only the categories required for operations and should keep local-only utilities disabled even if a user has broad permissions."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Every control-plane route must declare an action-specific permission in route metadata or an explicit `permissionConfig`. Broad access groups such as `userGroup` may remain as a base authenticated-user boundary, but they are not enough for sensitive operations."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Examples of action-specific control-plane permissions include:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`runtime.config.preview`",
+        "`runtime.config.request.activate`",
+        "`system.file.read`",
+        "`system.log.level.update`",
+        "`system.schema.index.rebuild`",
+        "`system.schema.validator.rebuild`",
+        "`import.local.run`",
+        "`export.run`",
+        "`dynamo.class.update`"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "When adding a new control-plane API, update the permission catalog, seed or govern the correct user group, add a route contract test, and verify the cross-module control-plane route permission contract."
+    },
+    {
+      "kind": "paragraph",
+      "text": "When the API is sensitive to topology, also declare an `apiExposure` category in the route metadata and prove that disabled categories fail closed before route help or controller execution. Enable categories through layered `config/properties.js` only in the project, environment, server, or node where the category is intentionally available."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "HTTP Hardening By Topology",
+      "anchor": "http-hardening-by-topology"
+    },
+    {
+      "kind": "paragraph",
+      "text": "HTTP hardening protects how each Nodics server or node accepts traffic before a request reaches business behavior. It is separate from `apiExposure` and route permissions:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`httpHardening` controls CORS, response security headers, body limits, rate"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "limits, and proxy trust for the running topology."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`apiExposure` controls whether a sensitive API category exists in that"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "runtime."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "permissions control whether the authenticated caller may use an exposed API."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Framework defaults keep browser cross-origin access closed, security headers enabled, body parsing bounded, proxy trust disabled, and a conservative per-process rate limit enabled. Local project layers such as `startioLocal` may enable local browser origins for development. Production-like deployments should define only the origins, proxy behavior, body limits, and traffic limits required for that server or node."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not put CORS, rate-limit, proxy, body-size, or security-header policy inside controllers or feature services. Define the policy in layered `config/properties.js` or override the router hardening service in a later module when a deployment needs API gateway, service mesh, or provider-specific enforcement."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Useful commands:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run test:suite -- --suite=headers\nnpm run test:suite -- --suite=auth-p2\nnpm run test:basic"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Marking routes unsecured without a documented reason.",
+        "Mixing human login rules with service-to-service rules.",
+        "Skipping tenant context checks.",
+        "Logging secrets.",
+        "Creating permissions without documentation."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Beginner Troubleshooting",
+      "anchor": "beginner-troubleshooting"
+    },
+    {
+      "kind": "table",
+      "headers": [
+        "Problem",
+        "Likely cause",
+        "What to check"
+      ],
+      "rows": [
+        [
+          "Login route works but API fails",
+          "Token missing, expired, or not sent",
+          "`Authorization` header and token validation"
+        ],
+        [
+          "API says forbidden",
+          "User lacks required permission",
+          "Route permission, permission catalog, user group"
+        ],
+        [
+          "Tenant data is missing",
+          "Wrong tenant context",
+          "`X-Nodics-Tenant`, active tenant list, tenant configuration"
+        ],
+        [
+          "Internal module call fails",
+          "Internal token route is still secured",
+          "Internal-token permission and service account group"
+        ],
+        [
+          "API exists locally but not in another server",
+          "`apiExposure` disabled in that topology",
+          "Environment/server/node properties"
+        ],
+        [
+          "Security cache looks stale",
+          "User/group/token changed but cache was not invalidated",
+          "Auth cache invalidation and diagnostics"
+        ]
+      ]
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Adding runtime mutation paths without audit and rollback."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Business overview: [Why Businesses Can Trust Nodics](../business/security-and-trust.md)",
+        "Responsibilities: [Security Shared-Responsibility Model](shared-responsibility-model.md)",
+        "Expert evidence: [Security Evidence Guide](security-evidence-guide.md)",
+        "Operations: [Production Operating Model](../operations/production-operating-model.md)",
+        "Testing: [How To Test Nodics Changes](../testing/how-to-test-nodics-changes.md)",
+        "Owning modules: [Module Documentation Index](../reference/module-documentation-index.md)",
+        "Documentation home: [Nodics Documentation](../README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "Why Businesses Can Trust Nodics",
+      "target": "../business/security-and-trust.md",
+      "kind": "internal",
+      "route": "/docs/business/security-and-trust",
+      "anchor": ""
+    },
+    {
+      "label": "Security Shared-Responsibility Model",
+      "target": "shared-responsibility-model.md",
+      "kind": "internal",
+      "route": "/docs/security/shared-responsibility-model",
+      "anchor": ""
+    },
+    {
+      "label": "Security Evidence Guide",
+      "target": "security-evidence-guide.md",
+      "kind": "internal",
+      "route": "/docs/security/security-evidence-guide",
+      "anchor": ""
+    },
+    {
+      "label": "Production Operating Model",
+      "target": "../operations/production-operating-model.md",
+      "kind": "internal",
+      "route": "/docs/operations/production-operating-model",
+      "anchor": ""
+    },
+    {
+      "label": "How To Test Nodics Changes",
+      "target": "../testing/how-to-test-nodics-changes.md",
+      "kind": "internal",
+      "route": "/docs/testing/how-to-test-nodics-changes",
+      "anchor": ""
+    },
+    {
+      "label": "Module Documentation Index",
+      "target": "../reference/module-documentation-index.md",
+      "kind": "internal",
+      "route": "/docs/reference/module-documentation-index",
+      "anchor": ""
+    },
+    {
+      "label": "Nodics Documentation",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs",
+      "anchor": ""
+    }
+  ],
+  "media": [
+    {
+      "alt": "Authentication Flow",
+      "target": "../assets/images/authentication-flow.jpg",
+      "title": "",
+      "kind": "local",
+      "assetCode": "docsMedia10c3aee37421f6efd345",
+      "assetPath": "assets/images/c3589b67dcdfbef1.jpg",
+      "contentHash": "c3589b67dcdfbef11b44a85df5589988c873021909e38954b479470e25954032"
+    },
+    {
+      "alt": "Authorization Flow",
+      "target": "../assets/images/authorization-flow.jpg",
+      "title": "",
+      "kind": "local",
+      "assetCode": "docsMedia3c011e58b11e3e6aa735",
+      "assetPath": "assets/images/5748f710a8dca2fc.jpg",
+      "contentHash": "5748f710a8dca2fcb2d23b0197cd656d0b54df87896786c7708ebdc8c8f1bd5d"
+    }
+  ],
+  "unsupported": []
+}

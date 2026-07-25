@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle7777d335e742a4a15b85",
+  "title": "startioCore Module",
+  "route": "/docs/modules/startio/modules/startiocore",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/modules/startioCore/README.md",
+    "type": "module-readme",
+    "contentHash": "9f9f48a74d3ff03cdd862f4cb83ca7d18c5a9f95c6002225395431effdfa28d9"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "startioCore Module",
+      "anchor": "startiocore-module"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "startioCore Module",
+      "anchor": "startiocore-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`startioCore` owns core domain behavior for the `startio` application. It provides project-specific schema, route, service, pipeline, utility, configuration, and test space."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for application behavior that is not purely API or integration specific. Framework capabilities should be extended, not modified."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Core changes should preserve validation, tenant context, access control, diagnostics, and generated artifacts."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

@@ -1,0 +1,64 @@
+{
+  "code": "docsArticle869aec8f7f055fed6c0a",
+  "title": "gAi",
+  "route": "/docs/modules/gai",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gAi/README.md",
+    "type": "module-readme",
+    "contentHash": "275b2c182c15f9030d77b4b969a69756f494d6c9716abd6aa1de6a5c78abb8c3"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "gAi",
+      "anchor": "gai"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "gAi",
+      "anchor": "gai"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`gAi` is the optional cross-cutting Nodics backend group for AI capabilities. It is separate from `gFramework`, `gCore`, and `gExp` so a runtime activates AI only when required."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The implemented group contains:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`aiAssistant`: conversation, client streaming, governed tools, conversation"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "usage, and audit contracts;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`aiKnowledge`: corpus, ingestion, retrieval evidence, and citation contracts;",
+        "`aiProviders`: the sole provider-neutral gateway used by both capabilities."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "No vendor provider is implemented yet. All AI capabilities remain disabled by default until an environment activates the group, activates the required modules, configures usage profiles, and supplies registered provider adapters."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

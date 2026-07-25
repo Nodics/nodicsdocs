@@ -1,0 +1,47 @@
+{
+  "code": "docsArticled96eb9a384ec6564633e",
+  "title": "deapServer",
+  "route": "/docs/modules/startio/envs/startiodev/deapserver",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/envs/startioDev/deapServer/README.md",
+    "type": "module-readme",
+    "contentHash": "f1a3bff2694820c7806b62f7721844552c8ab85c557dff8b2c0ccd68622060f8"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "deapServer",
+      "anchor": "deapserver"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "deapServer",
+      "anchor": "deapserver"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`deapServer` is the development DEAP server module for the `startio` application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for dev-scoped data pipeline server activation and runtime topology. Data consumer, processor, and publisher behavior belongs in DEAP modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Server configuration should remain layered and environment-scoped."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

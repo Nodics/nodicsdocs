@@ -1,0 +1,43 @@
+{
+  "code": "docsArticleda3afc1cecce5db6819d",
+  "title": "OpenAI Provider",
+  "route": "/docs/modules/gai/aiproviders/openaiprovider",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gAi/aiProviders/openAiProvider/README.md",
+    "type": "module-readme",
+    "contentHash": "5b3999c3abe8d3abe498cf613524bb1125fe34f52c91994952d3aa591489d030"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "OpenAI Provider",
+      "anchor": "openai-provider"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "OpenAI Provider",
+      "anchor": "openai-provider"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This disabled provider module implements OpenAI Responses API translation for `aiProviders`: normalized generation, conservative estimation, tool calls, cancellation, completed-response normalization, and typed SSE text deltas."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Projects must activate this module explicitly. Callers continue to use an `aiProviders` usage profile and never call this module directly."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

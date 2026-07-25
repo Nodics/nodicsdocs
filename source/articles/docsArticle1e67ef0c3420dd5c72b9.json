@@ -1,0 +1,186 @@
+{
+  "code": "docsArticle1e67ef0c3420dd5c72b9",
+  "title": "How Stock Movements Work",
+  "route": "/docs/commerce/how-stock-movements-work",
+  "category": "commerce",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gDocs/commerce/how-stock-movements-work.md",
+    "type": "gdocs",
+    "contentHash": "ad9620552c26774e78ebf03190b7aad660b15cf05b78f5e300250b8b95851630"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "How Stock Movements Work",
+      "anchor": "how-stock-movements-work"
+    },
+    {
+      "level": 2,
+      "text": "What A Business User Needs To Know",
+      "anchor": "what-a-business-user-needs-to-know"
+    },
+    {
+      "level": 2,
+      "text": "Quantity And Unit Rules",
+      "anchor": "quantity-and-unit-rules"
+    },
+    {
+      "level": 2,
+      "text": "Operational Recovery",
+      "anchor": "operational-recovery"
+    },
+    {
+      "level": 2,
+      "text": "Current Scope",
+      "anchor": "current-scope"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "How Stock Movements Work",
+      "anchor": "how-stock-movements-work"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use Stock Movements when a business event changes the on-hand quantity of an item in a Warehouse or Warehouse Location. Examples include receiving goods, issuing goods, correcting a count, recording damage, or completing one leg of a transfer."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What A Business User Needs To Know",
+      "anchor": "what-a-business-user-needs-to-know"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Every change needs:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "the enterprise and Warehouse context;",
+        "the item being changed;",
+        "an exact quantity and Unit;",
+        "a movement type and business reason;",
+        "an idempotency key supplied by the calling process; and",
+        "the Stock Balance revision previously read by that process."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics records both the new balance and evidence of the attempted change. A repeated request with the same key does not change stock twice. Concurrent changes cannot silently overwrite one another because only the request holding the expected revision may update the balance."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Quantity And Unit Rules",
+      "anchor": "quantity-and-unit-rules"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Quantities are stored and calculated as exact decimal strings, supporting pieces, weight, liquid volume, land area, and other Units dimensions without floating-point drift. A movement may use another compatible Unit: for example, `1000 G` can be normalized into a `KG` balance. Units selects an active direct or inverse exact factor, applies geography and enterprise scope, and rejects incompatible, ambiguous, unavailable, or forbidden-rounding cases before Inventory changes stock."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Operational Recovery",
+      "anchor": "operational-recovery"
+    },
+    {
+      "kind": "paragraph",
+      "text": "If a node stops after changing a balance but before finalizing its movement record, retry the same request with the same idempotency key. Nodics recognizes the balance evidence and finishes the movement without applying it again."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not manually edit Stock Balance records. Corrections must be new movements with a reason so the audit history remains explainable."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Current Scope",
+      "anchor": "current-scope"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The implemented capability is the exact on-hand ledger with modular exact Unit conversion. Reservations, allocations, available-to-sell, sourcing, coordinated transfers, BackOffice screens, and public Stock APIs are not part of this slice."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Developers and operators should read the Inventory module's [Stock Core contract](../../gComm/inventory/docs/stock-core.md) for configuration, extension rules, failure codes, and verification."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Inventory: [How Warehouse Management Works](how-to-manage-warehouses.md)",
+        "Units: [How Units And Land Measurements Work](../data/how-to-use-units-and-land-measurements.md)",
+        "Security: [How Users, Tenants, And Permissions Work](../security/how-users-tenants-and-permissions-work.md)",
+        "Testing: [How To Test Nodics Changes](../testing/how-to-test-nodics-changes.md)",
+        "Documentation home: [Nodics Documentation](../README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "Stock Core contract",
+      "target": "../../gComm/inventory/docs/stock-core.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcomm/inventory/docs/stock-core",
+      "anchor": ""
+    },
+    {
+      "label": "How Warehouse Management Works",
+      "target": "how-to-manage-warehouses.md",
+      "kind": "internal",
+      "route": "/docs/commerce/how-to-manage-warehouses",
+      "anchor": ""
+    },
+    {
+      "label": "How Units And Land Measurements Work",
+      "target": "../data/how-to-use-units-and-land-measurements.md",
+      "kind": "internal",
+      "route": "/docs/data/how-to-use-units-and-land-measurements",
+      "anchor": ""
+    },
+    {
+      "label": "How Users, Tenants, And Permissions Work",
+      "target": "../security/how-users-tenants-and-permissions-work.md",
+      "kind": "internal",
+      "route": "/docs/security/how-users-tenants-and-permissions-work",
+      "anchor": ""
+    },
+    {
+      "label": "How To Test Nodics Changes",
+      "target": "../testing/how-to-test-nodics-changes.md",
+      "kind": "internal",
+      "route": "/docs/testing/how-to-test-nodics-changes",
+      "anchor": ""
+    },
+    {
+      "label": "Nodics Documentation",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

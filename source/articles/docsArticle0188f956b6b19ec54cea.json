@@ -1,0 +1,521 @@
+{
+  "code": "docsArticle0188f956b6b19ec54cea",
+  "title": "How To Maintain Documentation",
+  "route": "/docs/documentation/how-to-maintain-documentation",
+  "category": "documentation",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gDocs/documentation/how-to-maintain-documentation.md",
+    "type": "gdocs",
+    "contentHash": "ea918543d310168612cf2cceebeebced886d5ebf36644ff3c167def8273d164f"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "How To Maintain Documentation",
+      "anchor": "how-to-maintain-documentation"
+    },
+    {
+      "level": 2,
+      "text": "Documentation Types",
+      "anchor": "documentation-types"
+    },
+    {
+      "level": 2,
+      "text": "Documentation Source Map",
+      "anchor": "documentation-source-map"
+    },
+    {
+      "level": 2,
+      "text": "Writing Style",
+      "anchor": "writing-style"
+    },
+    {
+      "level": 2,
+      "text": "Required Detail",
+      "anchor": "required-detail"
+    },
+    {
+      "level": 2,
+      "text": "Write For Partial Discovery",
+      "anchor": "write-for-partial-discovery"
+    },
+    {
+      "level": 2,
+      "text": "Required Use Cases",
+      "anchor": "required-use-cases"
+    },
+    {
+      "level": 2,
+      "text": "Navigation Contract",
+      "anchor": "navigation-contract"
+    },
+    {
+      "level": 2,
+      "text": "Updating Documentation With Code",
+      "anchor": "updating-documentation-with-code"
+    },
+    {
+      "level": 2,
+      "text": "Using Planning Notes",
+      "anchor": "using-planning-notes"
+    },
+    {
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "How To Maintain Documentation",
+      "anchor": "how-to-maintain-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Documentation is part of the Nodics product."
+    },
+    {
+      "kind": "paragraph",
+      "text": "It helps new users learn, helps experienced developers move quickly, and helps AI tools avoid unsafe implementation choices."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Documentation Types",
+      "anchor": "documentation-types"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics has several documentation types."
+    },
+    {
+      "kind": "paragraph",
+      "text": "**Root README**"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The root README is the public entry point. Keep it short, friendly, and easy to scan."
+    },
+    {
+      "kind": "paragraph",
+      "text": "**Public documentation**"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The `gDocs` module contains permanent public business, user, developer, architecture, security, operations, and reference documentation."
+    },
+    {
+      "kind": "paragraph",
+      "text": "**Temporary root documentation workspace**"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The root `docs/` folder is an untracked, non-runtime workspace for temporary inventories, checklists, audits, drafts, proposed architecture, unresolved decisions, implementation backlogs, and action plans. It is not the Nodics documentation module or a source of runtime truth. Promote only functionality that has been implemented in authoritative Nodics contracts and verified into `gDocs`, a module `README.md`, or a module `docs/` folder."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Permanent repository documentation describes current implemented behavior. A plan may change during implementation, so it must not be linked into the public documentation journey or generated module context as though it were available. After implementation, reconcile the plan with the delivered source and tests, then promote only the implemented sections and leave unresolved work in root `docs/`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "**Module README files**"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Each module README explains the purpose, behavior, configuration, extension points, and tests for that module."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use [Module Documentation Index](../reference/module-documentation-index.md) to connect public task guides to module-owned README and docs pages."
+    },
+    {
+      "kind": "paragraph",
+      "text": "**AI and implementation contracts**"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`AGENTS.md` and `gSetup/llm` contain rules for AI tools and developers changing the codebase. They guide implementation work and do not replace user-facing documentation."
+    },
+    {
+      "kind": "paragraph",
+      "text": "**Generated documentation**"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Regenerate generated API docs, generated LLM context, and generated reports from source definitions."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Documentation Source Map",
+      "anchor": "documentation-source-map"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use the right documentation layer for the right audience."
+    },
+    {
+      "kind": "table",
+      "headers": [
+        "Documentation",
+        "Audience",
+        "Purpose"
+      ],
+      "rows": [
+        [
+          "Root `README.md`",
+          "New visitors, evaluators, and developers",
+          "Explain what Nodics is, why it exists, and where to start."
+        ],
+        [
+          "`gDocs`",
+          "Business owners, evaluators, users, application developers, framework developers, operators, and technical leads",
+          "Provide business decision journeys and task-based guides such as setup, APIs, data, jobs, security, testing, and deployment."
+        ],
+        [
+          "Module `README.md` files",
+          "Developers working inside one capability",
+          "Explain module purpose, owned schemas/routes/services/data/tests, configuration, extension paths, and verification."
+        ],
+        [
+          "Module `docs/` folders",
+          "Developers needing deeper module detail",
+          "Hold permanent module documentation that belongs with the product."
+        ],
+        [
+          "`gDocs/reference/module-documentation-index.md`",
+          "Users and developers moving from guide pages to module details",
+          "Maps task-based documentation to the module README and module docs that own exact capability behavior."
+        ],
+        [
+          "`AGENTS.md`",
+          "AI tools and developers changing code",
+          "Define local implementation behavior, ownership boundaries, and safety rules."
+        ],
+        [
+          "`gSetup/llm`",
+          "AI tools, automation, and developers doing implementation work",
+          "Define cross-cutting contracts, prompts, standards, generated context rules, and structure guidance."
+        ],
+        [
+          "Generated LLM context",
+          "AI tools and reviewers",
+          "Summarize source-derived module facts and documentation gaps after regeneration."
+        ]
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Writing Style",
+      "anchor": "writing-style"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Write for guided adoption first. A Nodics page should be understandable by a developer with basic programming knowledge, useful to an experienced developer, and explicit enough for an AI tool to place code in the correct folder without inventing a new structure."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Start with plain language:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "what the feature is;",
+        "why it exists;",
+        "when to use it;",
+        "what problem it solves;",
+        "where code belongs;",
+        "how to customize it safely;",
+        "how to verify it."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Then add deeper framework internals for advanced readers."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use task-based titles:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "How to set up Nodics.",
+        "How to create a scheduled job.",
+        "How to add configuration.",
+        "How to create an API.",
+        "How to test a change."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid internal-only titles unless the reader must know the internal name."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Prefer:"
+    },
+    {
+      "kind": "code",
+      "language": "text",
+      "text": "How To Create Scheduled Jobs"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Instead of:"
+    },
+    {
+      "kind": "code",
+      "language": "text",
+      "text": "cronjob module internals"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Required Detail",
+      "anchor": "required-detail"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Every page explains:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Purpose.",
+        "When to use it.",
+        "Step-by-step process.",
+        "Files or folders involved.",
+        "Which layer owns each change.",
+        "Where code should be written.",
+        "Configuration involved.",
+        "Security considerations.",
+        "Testing commands.",
+        "Common mistakes.",
+        "Extension or customization path.",
+        "Generated artifacts that must be regenerated.",
+        "AI/developer rules that must be preserved."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Write For Partial Discovery",
+      "anchor": "write-for-partial-discovery"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Most readers and AI tools will not read the whole documentation site. Write so that the nearest module boundary is safe and useful by itself:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Put global rules in root `AGENTS.md`.",
+        "Put module ownership and prohibitions in the nearest `AGENTS.md`.",
+        "Put human capability guidance in the module README and module `docs/`.",
+        "Put concise machine-oriented rules and examples in `llm/contracts/` and"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "`llm/examples/`."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Protect critical rules with tests.",
+        "Link the public task journey in `gDocs` to the owning module."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not force a reader to discover an unrelated planning note before learning a security, authority, persistence, or extension rule."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Required Use Cases",
+      "anchor": "required-use-cases"
+    },
+    {
+      "kind": "paragraph",
+      "text": "For a significant implemented capability, include:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "the simplest successful journey;",
+        "an unauthorized or invalid journey and the rejection users should see;",
+        "a realistic boundary or high-volume journey;",
+        "a failure, retry, rollback, or recovery journey;",
+        "a partner customization using a later-loaded module or layered property;",
+        "the expected result and verification method for every example."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use real Nodics terminology and source-backed behavior. Clearly mark any unimplemented limitation instead of documenting it as an available feature."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Navigation Contract",
+      "anchor": "navigation-contract"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The root README must provide short, visible journeys for business evaluators, beginners, builders, architects, operators, and readers seeking module detail."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Every permanent `gDocs` page must be reachable from the root README through `gDocs/README.md` or another visible public guide. A task guide should end with a small **Continue** section containing the most useful previous or next step, related capability documentation, and the documentation home. Do not add links merely to satisfy a count; each link must help the reader make a decision or complete the next task."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The module documentation index provides a curated task-to-capability map. The complete module catalog provides exhaustive package-to-README reachability. Package metadata and the module README remain authoritative for module identity and behavior."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Documentation quality validation must check:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "local Markdown link targets and path case;",
+        "reachability of permanent `gDocs` pages from the public entry point;",
+        "reachability of package-defined module READMEs through the module catalog;",
+        "required business, beginner, glossary, maturity, and module-index entry pages;",
+        "navigation out of task guides so readers are not left at dead ends."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Updating Documentation With Code",
+      "anchor": "updating-documentation-with-code"
+    },
+    {
+      "kind": "paragraph",
+      "text": "When code changes, ask:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Does the public behavior change?",
+        "Does configuration change?",
+        "Does a route, schema, service, job, import/export process, or permission change?",
+        "Does a module extension contract change?",
+        "Does the AI/developer implementation rule change?",
+        "Do generated docs need regeneration?"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "If yes, update the related docs in the same work."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Using Planning Notes",
+      "anchor": "using-planning-notes"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Planning notes and captured product notes preserve useful concepts and page structure. Final documentation states current Nodics behavior directly."
+    },
+    {
+      "kind": "paragraph",
+      "text": "For each topic:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Preserve the useful concept.",
+        "Verify the current implementation.",
+        "Update terminology.",
+        "Add current commands and tests.",
+        "Move module-specific detail to the module README.",
+        "Keep broad user guidance in `gDocs`."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run docs:coverage:source -- --limit=20\nnpm run docs:coverage:contracts -- --limit=20\nnpm run llm:generate\nnpm run llm:validate"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use documentation review as part of feature review, not as a cleanup task after the feature is finished."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Publishing: [How To Publish Documentation On GitHub](how-to-publish-documentation-on-github.md)",
+        "Module catalog: [Complete Module Catalog](../reference/module-catalog.md)",
+        "Documentation home: [Nodics Documentation](../README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "Module Documentation Index",
+      "target": "../reference/module-documentation-index.md",
+      "kind": "internal",
+      "route": "/docs/reference/module-documentation-index",
+      "anchor": ""
+    },
+    {
+      "label": "How To Publish Documentation On GitHub",
+      "target": "how-to-publish-documentation-on-github.md",
+      "kind": "internal",
+      "route": "/docs/documentation/how-to-publish-documentation-on-github",
+      "anchor": ""
+    },
+    {
+      "label": "Complete Module Catalog",
+      "target": "../reference/module-catalog.md",
+      "kind": "internal",
+      "route": "/docs/reference/module-catalog",
+      "anchor": ""
+    },
+    {
+      "label": "Nodics Documentation",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

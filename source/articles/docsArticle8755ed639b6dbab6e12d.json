@@ -1,0 +1,729 @@
+{
+  "code": "docsArticle8755ed639b6dbab6e12d",
+  "title": "Product Foundation, Category, Classification, And Variant Operations",
+  "route": "/docs/modules/gcomm/product/docs/product-p0-operations",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gComm/product/docs/product-p0-operations.md",
+    "type": "module-doc",
+    "contentHash": "03f3765ed03c738dd653b324c5a91d0fcb323551ab6f6aebca506eb7fb6cc87a"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Product Foundation, Category, Classification, And Variant Operations",
+      "anchor": "product-foundation-category-classification-and-variant-operations"
+    },
+    {
+      "level": 2,
+      "text": "Business overview",
+      "anchor": "business-overview"
+    },
+    {
+      "level": 2,
+      "text": "Roles and prerequisites",
+      "anchor": "roles-and-prerequisites"
+    },
+    {
+      "level": 2,
+      "text": "Create and maintain an Item",
+      "anchor": "create-and-maintain-an-item"
+    },
+    {
+      "level": 2,
+      "text": "Add an Identifier",
+      "anchor": "add-an-identifier"
+    },
+    {
+      "level": 2,
+      "text": "Create and maintain Categories",
+      "anchor": "create-and-maintain-categories"
+    },
+    {
+      "level": 2,
+      "text": "Define classifications and typed Attributes",
+      "anchor": "define-classifications-and-typed-attributes"
+    },
+    {
+      "level": 2,
+      "text": "Create variants",
+      "anchor": "create-variants"
+    },
+    {
+      "level": 2,
+      "text": "Add relations, bundles, packaging, and media",
+      "anchor": "add-relations-bundles-packaging-and-media"
+    },
+    {
+      "level": 2,
+      "text": "Approve and publish Product changes",
+      "anchor": "approve-and-publish-product-changes"
+    },
+    {
+      "level": 2,
+      "text": "Read and operate Online Product delivery",
+      "anchor": "read-and-operate-online-product-delivery"
+    },
+    {
+      "level": 2,
+      "text": "Failure and recovery",
+      "anchor": "failure-and-recovery"
+    },
+    {
+      "level": 2,
+      "text": "Developer architecture",
+      "anchor": "developer-architecture"
+    },
+    {
+      "level": 2,
+      "text": "Deployment and observability",
+      "anchor": "deployment-and-observability"
+    },
+    {
+      "level": 2,
+      "text": "Backup, migration, and troubleshooting",
+      "anchor": "backup-migration-and-troubleshooting"
+    },
+    {
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Product Foundation, Category, Classification, And Variant Operations",
+      "anchor": "product-foundation-category-classification-and-variant-operations"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Business overview",
+      "anchor": "business-overview"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A Product Item gives every sellable or managed offering a stable identity that other modules can reference. A Product Item can represent a product family, SKU, service, asset, or bundle. An Identifier adds another recognized code, such as a barcode, manufacturer code, parcel reference, or title reference, without changing the primary Product identity."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Product descriptions do not contain live prices or stock. Pricing and Inventory use the Product Item reference while remaining responsible for their own data."
+    },
+    {
+      "kind": "paragraph",
+      "text": "A Product Category organizes Items for navigation or merchandising inside one Catalog. It is different from an `nCatalog` sub-catalog: sub-catalogs organize Catalogs, while Product Categories organize Product Items."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Roles and prerequisites",
+      "anchor": "roles-and-prerequisites"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "A reader needs `product.backoffice.read`.",
+        "A maintainer needs `product.backoffice.manage`.",
+        "The authenticated user must have an enterprise context.",
+        "The target Catalog must already exist and be active in `nCatalog`.",
+        "A referenced base Unit must exist in Units."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "The current module provides API intents for a future BackOffice client; it does not provide a BackOffice frontend."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Create and maintain an Item",
+      "anchor": "create-and-maintain-an-item"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Choose the owning Catalog.",
+        "Choose an enabled item type.",
+        "Enter a stable item code and name.",
+        "Optionally enter a description and base Unit.",
+        "Mark the Item sellable or stock-managed only when the configured item type"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "allows it."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Create the Item through the Product management intent.",
+        "Move it through an allowed configured lifecycle transition.",
+        "Retire it when it must no longer be used. Do not delete it."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "The system derives the internal identity from enterprise, Catalog, item type, and item code. Those identity fields cannot be changed later."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Add an Identifier",
+      "anchor": "add-an-identifier"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Confirm the Product Item exists and is not retired.",
+        "Select a configured identifier type.",
+        "Provide an identifier record code and its external value.",
+        "Mark it primary only when that meaning is appropriate for the consuming"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "integration."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Create the Identifier through the Product management intent."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Invalid Catalogs, Units, item references, types, identities, and lifecycle changes fail without creating or changing a record."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Create and maintain Categories",
+      "anchor": "create-and-maintain-categories"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Choose the Catalog that owns the Category.",
+        "Enter a permanent Category code and name.",
+        "For a child Category, select an active parent in the same Catalog.",
+        "Set its order, navigation flag, and optional effective dates.",
+        "Create the Category through the Product management intent.",
+        "Assign Items using an Assignment code, Category, Item type/code, position,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "primary flag, and optional effective dates."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The hierarchy rejects missing parents, retired parents, self-parenting, cycles, and paths deeper than the configured maximum. Retire active assignments and child Categories before retiring their parent."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Define classifications and typed Attributes",
+      "anchor": "define-classifications-and-typed-attributes"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Create Attribute Definitions before creating a Classification Class.",
+        "Choose the exact value type: text, boolean, integer, decimal, date,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "enumeration, reference, or measured."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Choose whether the Attribute is localized or multi-valued and set its"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "minimum and maximum values."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "For an enumeration, provide the complete allowed-value list.",
+        "For a measured Attribute, require a Unit. Product stores the exact decimal"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "string while Units validates the Unit identity."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Create a Classification Class with its allowed and required Attribute codes.",
+        "Add typed Attribute Values to the Product Item.",
+        "Activate the Item-to-class assignment after all required values exist."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Localized Attributes require a valid locale on every value. Non-localized Attributes reject locale data. A Product Item reference needs both its Item type and Item code. Attribute Definitions and Classes cannot be retired while active Values, Classes, or assignments still depend on them."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Create variants",
+      "anchor": "create-variants"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A base Product describes a family such as a shirt or phone. A variant is the specific sellable Item selected by a customer, such as a red medium shirt. The variant remains an ordinary Product Item, so Inventory can own its stock and Pricing can independently target it."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Create and activate the base Item using a configured base Item type. The"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "default is `PRODUCT`."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Create and activate every sellable variant Item. The defaults are `SKU` and"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "`ASSET`."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Create non-localized, single-valued Attribute Definitions for each"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "selection dimension, such as colour and size."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Add the matching Attribute Values to every variant Item.",
+        "Create ordered Variant Axes on the base Item. Mark an axis required when"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "every variant must provide it."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Create a Variant Assignment from the base Item to each variant Item and"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "select one Attribute Value for every required axis."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Activate the assignment only after the base Item, variant Item, axes, and"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "values are active."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics derives `combinationKey` from typed value content, not from the value record code. Two records that both mean colour red and size medium are the same combination and cannot identify two variants under one base. Callers must not supply or modify this key."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Retire Variant Assignments before retiring an axis they use. A variant cannot be its own base, and configured graph depth and cycle checks protect projects that extend the default base/variant type policy."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Add relations, bundles, packaging, and media",
+      "anchor": "add-relations-bundles-packaging-and-media"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use a Product Relation for a governed association such as accessory, compatible, replacement, substitute, cross-sell, up-sell, or related. Choose the source, target, type, order, and optional effective dates. Product rejects self-links, duplicates, disallowed cross-Catalog links, excessive cardinality, and cycles for configured acyclic types. Symmetric types treat the reverse link as the same business relation."
+    },
+    {
+      "kind": "paragraph",
+      "text": "For a Bundle:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Create the owning `BUNDLE` Item and every component Item.",
+        "Add each component with a stable Entry code, exact positive quantity,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Units-owned Unit code, order, and optional flag."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Retain finite nested-Bundle depth. Product rejects duplicate components,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "duplicate positions, self-components, cycles, and scientific notation."
+    },
+    {
+      "kind": "paragraph",
+      "text": "For Packaging, record package type, contained quantity and Unit, and optional length, width, height, and weight. All three dimensions must be supplied together with one dimension Unit. Weight requires its own Unit. Product stores exact strings; Units remains responsible for conversion."
+    },
+    {
+      "kind": "paragraph",
+      "text": "For Media, record only an external URI plus type, role, locale, order, and alt text. The default accepts HTTPS. Product rejects credentials embedded in a URI and never uploads or stores the binary."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Approve and publish Product changes",
+      "anchor": "approve-and-publish-product-changes"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The Staged and Online runtimes use different databases. A business user never copies Product records directly to Online."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Create or update Product data in the versioned Staged runtime.",
+        "Submit a Product publication with a stable submission code, root Product"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Item and exact version, approval mode, and the exact changed-item versions."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Workflow creates either the configured manual review action or automatic"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "path. A flow may contain manual and automatic actions; mode selects the supplied default flow, not a second Workflow engine."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "A reviewer approves or rejects manual work. Rejection leaves Online"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "unchanged."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "The terminal automatic action calls the existing `nPublish` lifecycle.",
+        "Product freezes only the bounded business-active Catalog graph at exact versions, builds"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "and hashes an immutable manifest, and sends it with an internal service token to the configured distinct Online Product connection."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Online verifies integrity and contract version, imports records"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "idempotently, atomically activates the Catalog pointer, and records a receipt. Duplicate delivery returns the already active release."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Rollback through `nPublish` reactivates a previously accepted manifest."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "The previous pointer remains authoritative if validation or target delivery fails before activation. Operators should correct the dependency, connection, token, size, or contract issue and retry the governed publication rather than writing Online data manually."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Read and operate Online Product delivery",
+      "anchor": "read-and-operate-online-product-delivery"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Authenticated customers call the Product Online item operation with Catalog, Item type, Item code, optional locale, and an allow-listed comma-separated expansion list. The service first resolves the enterprise-scoped active Catalog pointer, loads and verifies its immutable manifest, and projects only safe fields. It never reads a partly imported release."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Supported expansions are identifiers, categories, attributes, classifications, variants, relations, bundles, packaging, and media. Limits in `product.delivery` bound expansion count and records. A missing Item returns a stable `found: false` response for the active release; a missing or corrupt release fails closed."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Product delivery caching uses `DefaultCacheService`. The key contains trusted enterprise, Catalog, Item, locale, expansions, and active release. Select NodeCache, Redis, or Hazelcast through the one active nCache channel provider; never call those adapters from Product. A cache outage falls back to the verified manifest."
+    },
+    {
+      "kind": "paragraph",
+      "text": "After activation or rollback, Product creates a durable projection job. Cache invalidation and nSearch indexing run independently. A failed search operation records `PARTIAL` state while the Product release remains Online; retry resumes only incomplete work. Search is a discoverability projection and never Product authority."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Operators with `product.operations.read` can inspect active/previous release, pointer revision, manifest hash/version/record count, receipts, correlation ID, and projection states. Operators with `product.operations.manage` can run a bounded reconciliation retry. Customer reads, human operations, and internal publication transport retain separate permissions and token types."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Failure and recovery",
+      "anchor": "failure-and-recovery"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Missing enterprise: authenticate in the correct enterprise context.",
+        "Unknown Catalog: create or activate it through `nCatalog`; do not create a"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "duplicate Catalog record in Product."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Unknown Unit: correct the Unit through Units or configure the proper Units"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "module connection."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Provider unavailable: restore the authoritative module or its configured"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "connection, then retry the same intent."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Invalid lifecycle transition: choose an allowed next state. A retired record"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "cannot be reactivated under the default policy."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Category retirement blocked: retire its active Item assignments and child"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Categories first."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Attribute value rejected: verify its Definition type, locale, ordinal,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "cardinality, enumeration value, exact-number syntax, and Unit."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Classification activation rejected: add all required active Attribute Values"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "and confirm the Item, Class, and Definitions are active."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Variant axis rejected: use an active non-localized, single-valued Attribute"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Definition and a unique axis position and Attribute for that base Item."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Variant assignment rejected: confirm the variant is sellable, all required"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "axes have values owned by that variant, and the semantic combination is new."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Axis retirement blocked: retire all Variant Assignments using that axis,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "then retry the axis retirement."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Publication rejected before Workflow: verify the root Item and every"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "associated schema/code/version, permission, enterprise, and configured mode."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Manifest rejected Online: investigate size, contract version, or integrity;"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "never edit and resend a signed manifest under the same identity."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Online unavailable: restore the configured distinct module connection and"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "retry through `nPublish`; do not point Staged at the Online database."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Pointer conflict: reload target status and let the governed lifecycle retry"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "or reconcile; do not overwrite the pointer outside its revision contract."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Duplicate or ambiguous record: investigate identity/data quality; never"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "bypass validation with generated persistence APIs."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Creation and updates are safe to retry only according to the normal persistence contract of the calling integration. Product management does not add a separate bulk-import idempotency contract."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Developer architecture",
+      "anchor": "developer-architecture"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`productItem`, `productIdentifier`, `productCategory`, and `productCategoryAssignment`, `productAttributeDefinition`, `productAttributeValue`, `productClassificationClass`, and `productClassificationAssignment`, `productVariantAxis`, and `productVariantAssignment` are Product-owned schemas with generated internal services and disabled generated routers. Schema interceptors add authenticated enterprise scope, derive identities, validate references, enforce immutable fields, validate lifecycle transitions, and reject hard deletion."
+    },
+    {
+      "kind": "paragraph",
+      "text": "`DefaultProductManagementService` exposes allow-listed human operations and safe fields. `DefaultProductItemReferenceService` exposes a service-token-only projection. `DefaultProductCatalogReferenceProviderService` composes the local `DefaultCatalogService`. `DefaultProductUnitsReferenceProviderService` composes the local or modular Units intent. `DefaultProductCategoryService` validates same-Catalog hierarchy, graph bounds, assignments, and safe retirement. `DefaultProductClassificationService` enforces typed storage, locale and cardinality rules, exact numbers, Unit references, required Class values, and classification dependency retirement. `DefaultProductVariantService` composes those existing Product authorities to validate axes and assignments. It derives canonical combinations, enforces sellable-variant and cardinality policy, traverses the association graph with a configured bound, and blocks unsafe axis retirement. It does not copy Attribute Values into a second value model. `DefaultProductCompositionService` validates relations, Bundle Entries, Packaging, and Media References. Publication services implement Product's domain adapter, immutable manifest, version provider, internal-token transport, Online target, Workflow bridge, and replaceable projection hook while delegating lifecycle to `nPublish`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "All limits, types, lifecycle transitions, and provider selections are layered under `product` in `properties.js`. Projects can override individual service methods or extend the effective schema in a later module."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Deployment and observability",
+      "anchor": "deployment-and-observability"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Product can run in a consolidated composition or its own modular composition. Catalog must currently be co-hosted with Product; Units may be local or remote. Health/readiness should treat missing mandatory Product dependencies as a composition error before business traffic is admitted."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use existing Nodics request, error, authentication, module-call, and database observability. Preserve correlation and authenticated actor context. Product does not introduce a new logger, registry, scheduler, cache engine, search engine, or event bus."
+    },
+    {
+      "kind": "paragraph",
+      "text": "For high-volume variant families, keep `maximumAxesPerBase`, `maximumVariantsPerBase`, and `maximumHierarchyDepth` finite. The validation path performs bounded reads by enterprise, Catalog, base Item, axis, variant Item, and combination. Monitor validation latency and conflict error rates using the existing request and database telemetry."
+    },
+    {
+      "kind": "paragraph",
+      "text": "For publication, monitor Workflow carrier, publication code, correlation ID, source version, dependency count, manifest bytes/hash, delivery attempts, target receipt, pointer revision, and rollback result. Back up Staged version history and the Online manifest, receipt, pointer, and non-versioned Product records using the configured database provider. Restore and reconciliation must preserve tenant and enterprise boundaries."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Backup, migration, and troubleshooting",
+      "anchor": "backup-migration-and-troubleshooting"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Back up Product records using the configured database provider's governed backup process. Preserve both Items and Identifiers and their enterprise and Catalog scope. Import/export must use existing Nodics data capabilities; no Product-specific parallel importer exists."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Before changing identity rules, inventory all persisted references from Pricing, Inventory, and integrations. Product identity fields are immutable, so identity migration requires an explicitly designed migration rather than an ordinary update."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run the focused tests listed in the module README, including `productCategoryContract.test.js` and `productClassificationContract.test.js` and `productVariantContract.test.js`, `productCompositionContract.test.js` and `productPublicationContract.test.js`, and `productOnlineDeliveryAndProjectionContract.test.js`. Then regenerate schema artifacts and run generated, configuration, documentation, and basic regression tests at the integration boundary. The complete positive, negative, boundary, security, integration, recovery, and regression mapping is maintained in `product-release-readiness.md`."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

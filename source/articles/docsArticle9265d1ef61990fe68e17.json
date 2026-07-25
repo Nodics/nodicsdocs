@@ -1,0 +1,244 @@
+{
+  "code": "docsArticle9265d1ef61990fe68e17",
+  "title": "jsExport Module",
+  "route": "/docs/modules/gframework/ndata/nexport/jsexport",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nData/nExport/jsExport/README.md",
+    "type": "module-readme",
+    "contentHash": "dcd1612dc591bcd5da508c8e9fca1bdf63463c122b26167177fd23c62cf76baa"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "jsExport Module",
+      "anchor": "jsexport-module"
+    },
+    {
+      "level": 2,
+      "text": "Capability Status",
+      "anchor": "capability-status"
+    },
+    {
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "level": 2,
+      "text": "Configuration",
+      "anchor": "configuration"
+    },
+    {
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "level": 2,
+      "text": "Production Completion Boundary",
+      "anchor": "production-completion-boundary"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "jsExport Module",
+      "anchor": "jsexport-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "**Maturity: Placeholder or scaffold.** The module owns the future format boundary but does not yet provide a production writer."
+    },
+    {
+      "kind": "paragraph",
+      "text": "`jsExport` is the JavaScript-oriented export format module under `nData/nExport`. It contributes the format-specific runtime surface used when export definitions need executable JavaScript transformation or rendering behavior."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for JavaScript export adapters, script execution contracts, and format-specific export defaults. Keep export orchestration, access policy, run history, and shared lifecycle behavior in `nData/nExport/export`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Projects should extend this capability through layered configuration, format processors, and tests. Do not hardcode tenant data, credentials, or one-project export assumptions in the framework module."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Capability Status",
+      "anchor": "capability-status"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The module currently contributes standard Nodics structure for a JavaScript-oriented export adapter:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "layered configuration extension files;",
+        "schema, router, and pipeline extension slots;",
+        "enum, status, and utility files;",
+        "common and environment-local smoke tests;",
+        "generated LLM context."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "It does not currently provide a complete executable export processor. A production JavaScript exporter should be implemented through this module or a later active project/provider module with strict governance."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A JavaScript export adapter should define:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "trusted processor discovery;",
+        "allowed processor names;",
+        "input envelope shape;",
+        "output contract shape;",
+        "timeout and resource limits;",
+        "error normalization;",
+        "diagnostics and audit behavior;",
+        "tests for successful transformation, rejected processors, failure reporting, and tenant isolation."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep executable transformation behavior here only when the code comes from trusted active modules. Keep user-uploaded scripts, arbitrary request-provided functions, and external code execution out of this module unless a separate governed execution feature is explicitly implemented."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Configuration",
+      "anchor": "configuration"
+    },
+    {
+      "kind": "paragraph",
+      "text": "JavaScript export configuration should come from layered properties or export definitions. Typical options include processor name, target contract version, output format, timeout, maximum records, and diagnostics policy."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not allow API requests to provide executable code, filesystem paths, module names, external URLs, or credentials."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run the current module baseline with:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run structure:audit -- --fail\nnpm run quality:docs"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A real JavaScript export implementation should add deterministic tests for processor selection, trusted-code enforcement, input/output envelopes, timeout behavior, failure sanitization, and access-policy filtering."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "executing arbitrary code from request payloads or uploaded data;",
+        "serializing data before export access policy is applied;",
+        "hiding delivery behavior inside JavaScript processors;",
+        "hardcoding customer contracts in framework processors;",
+        "treating smoke tests as release coverage for executable export behavior."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Production Completion Boundary",
+      "anchor": "production-completion-boundary"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Executable transformation must come only from trusted active modules with bounded execution and sanitized failures; never execute request-supplied code."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Export family: [nExport](../README.md)",
+        "Shared fail-closed engine: [export](../export/README.md)",
+        "Maturity matrix: [Provider And Capability Maturity Matrix](../../../../gDocs/reference/provider-capability-maturity-matrix.md)",
+        "Public data guide: [How To Work With Data](../../../../gDocs/data/how-to-work-with-data.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "nExport",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata/nexport",
+      "anchor": ""
+    },
+    {
+      "label": "export",
+      "target": "../export/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata/nexport/export",
+      "anchor": ""
+    },
+    {
+      "label": "Provider And Capability Maturity Matrix",
+      "target": "../../../../gDocs/reference/provider-capability-maturity-matrix.md",
+      "kind": "internal",
+      "route": "/docs/reference/provider-capability-maturity-matrix",
+      "anchor": ""
+    },
+    {
+      "label": "How To Work With Data",
+      "target": "../../../../gDocs/data/how-to-work-with-data.md",
+      "kind": "internal",
+      "route": "/docs/data/how-to-work-with-data",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

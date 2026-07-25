@@ -1,0 +1,504 @@
+{
+  "code": "docsArticleb5faecd4b903dafad7a7",
+  "title": "How To Create And Identify Products",
+  "route": "/docs/commerce/how-to-create-and-identify-products",
+  "category": "commerce",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gDocs/commerce/how-to-create-and-identify-products.md",
+    "type": "gdocs",
+    "contentHash": "8e775bfe10e45767dba079d9d924a5b5cdcd1db02ed5df552f1565826e6b2da5"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "How To Create And Identify Products",
+      "anchor": "how-to-create-and-identify-products"
+    },
+    {
+      "level": 2,
+      "text": "What you need first",
+      "anchor": "what-you-need-first"
+    },
+    {
+      "level": 2,
+      "text": "Create a Product Item",
+      "anchor": "create-a-product-item"
+    },
+    {
+      "level": 2,
+      "text": "Add another recognized identifier",
+      "anchor": "add-another-recognized-identifier"
+    },
+    {
+      "level": 2,
+      "text": "Organize Items into Categories",
+      "anchor": "organize-items-into-categories"
+    },
+    {
+      "level": 2,
+      "text": "Describe different Product types without changing the core model",
+      "anchor": "describe-different-product-types-without-changing-the-core-model"
+    },
+    {
+      "level": 2,
+      "text": "Create sellable variants",
+      "anchor": "create-sellable-variants"
+    },
+    {
+      "level": 2,
+      "text": "Add related products, bundles, packaging, and media",
+      "anchor": "add-related-products-bundles-packaging-and-media"
+    },
+    {
+      "level": 2,
+      "text": "Publish approved Product changes",
+      "anchor": "publish-approved-product-changes"
+    },
+    {
+      "level": 2,
+      "text": "Read Products Online",
+      "anchor": "read-products-online"
+    },
+    {
+      "level": 2,
+      "text": "Diagnose Online publication",
+      "anchor": "diagnose-online-publication"
+    },
+    {
+      "level": 2,
+      "text": "Correct or retire information",
+      "anchor": "correct-or-retire-information"
+    },
+    {
+      "level": 2,
+      "text": "Common problems",
+      "anchor": "common-problems"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "How To Create And Identify Products",
+      "anchor": "how-to-create-and-identify-products"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Product gives an enterprise a dependable identity for anything it offers or manages. The same foundation can represent a product family, a sellable SKU, a service, a unique asset such as a land parcel, or a future bundle."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What you need first",
+      "anchor": "what-you-need-first"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Ask an administrator to confirm:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Your user has Product read or maintenance permission.",
+        "You are working in the correct enterprise.",
+        "The required Product Catalog exists and is active.",
+        "Any base Unit you plan to use exists in Units."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Create a Product Item",
+      "anchor": "create-a-product-item"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Choose the owning Catalog.",
+        "Choose the appropriate Item type.",
+        "Enter a permanent Item code and a clear business name.",
+        "Optionally add a description and base Unit.",
+        "Select sellable or stock-managed only when allowed for that Item type.",
+        "Submit the Item through the Product management operation.",
+        "Review the returned Item. Nodics creates its internal identity automatically."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not enter prices or stock quantities in Product. Pricing and Inventory own those values and use the Product Item code as a reference."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Add another recognized identifier",
+      "anchor": "add-another-recognized-identifier"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use an Identifier when partners, scanners, legal records, or external systems know the Item by another value such as GTIN, EAN, UPC, manufacturer code, parcel number, or title reference."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Confirm the Item exists and is not retired.",
+        "Choose the Identifier type.",
+        "Enter a stable Identifier record code and external value.",
+        "Submit it through the Identifier management operation."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Organize Items into Categories",
+      "anchor": "organize-items-into-categories"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Product Categories organize Items within a Product Catalog. They do not create or replace Catalogs."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Create a root Category with a stable code and name.",
+        "Create child Categories by selecting a parent in the same Catalog.",
+        "Use order and effective dates to control deterministic presentation data.",
+        "Assign an Item to one or more Categories and choose its position.",
+        "Retire assignments and child Categories before retiring their parent."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics rejects missing or retired parents, hierarchy cycles, excessive depth, invalid Item references, and assignments across Catalog boundaries."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Describe different Product types without changing the core model",
+      "anchor": "describe-different-product-types-without-changing-the-core-model"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Classification Classes let a business describe phones, property, farmland, equipment, services, and other domains using governed Attribute Definitions."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Define each Attribute and select its value type.",
+        "Mark it localized when each language needs a separate value.",
+        "Mark it multi-valued and set cardinality when several values are permitted.",
+        "Provide allowed choices for enumeration Attributes.",
+        "Use a measured Attribute with a Units-owned Unit for area, weight, length,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "volume, or another exact measurement."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Group Attributes into a Classification Class.",
+        "Add values to an Item and activate its Class assignment after required"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "values are complete."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics stores integer and decimal values as exact strings. It rejects scientific notation, excess precision, wrong storage fields, unknown enumeration values, invalid locales, missing Units, excessive cardinality, and incomplete required classifications."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Create sellable variants",
+      "anchor": "create-sellable-variants"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use variants when customers choose a specific combination such as colour and size:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Create the base Product Item, such as `shirt`.",
+        "Create a sellable Item for each offered combination, such as"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "`shirt-red-medium`."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Define non-localized, single-valued Attributes for colour and size.",
+        "Add the matching Attribute Values to each sellable Item.",
+        "Add ordered Variant Axes to the base Product and mark mandatory axes as"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "required."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Assign each sellable Item to the base and select its values."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics rejects missing required values, values belonging to another Item, duplicate variants, duplicate business combinations, excessive graph depth, and cycles. Inventory remains responsible for the sellable variant's stock; Pricing remains responsible for its price."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Add related products, bundles, packaging, and media",
+      "anchor": "add-related-products-bundles-packaging-and-media"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Use Relations for accessories, compatibility, replacements, substitutes,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "cross-sells, up-sells, and related Items."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Use Bundle Entries to add ordered components with exact quantities and"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Units-owned Units. Product does not reserve component stock or calculate a bundle price."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Use Packaging for contained quantity, dimensions, and weight. Enter exact"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "decimal strings and select existing Units."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Use Media References for ordered HTTPS links, type, role, locale, and alt"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "text. Upload and binary storage remain outside Product."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics rejects self-links, duplicates, configured graph cycles, unsafe media URIs, incomplete measurements, and unknown Units or Items."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Publish approved Product changes",
+      "anchor": "publish-approved-product-changes"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Product authoring happens in a versioned Staged runtime. Online is a different, non-versioned runtime and database."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Select the changed Product records and their exact versions.",
+        "Submit them with a root Product Item and choose the configured manual or"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "automatic approval flow."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Complete any manual Workflow actions. Automatic actions continue without a"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "person when configured."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "After approval, the terminal action delegates to `nPublish`.",
+        "Nodics validates and hashes the Product Catalog snapshot, delivers it using"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "module authentication, and atomically activates it Online."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Rejection or pre-activation failure leaves the previous Online release active. Operators retry or roll back through the governed publication lifecycle; they must never copy Staged records directly into the Online database."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Read Products Online",
+      "anchor": "read-products-online"
+    },
+    {
+      "kind": "paragraph",
+      "text": "An authenticated customer application supplies Catalog, Item type, Item code, optional locale, and only the expansions it needs. Product reads the active Online release and can include identifiers, categories, attributes, classifications, variants, relations, bundles, packaging, and media."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The response includes the active release version. If that pointer changes, the next cache key changes automatically. Product uses the configured nCache channel, so an operator may select NodeCache, Redis, or Hazelcast without changing Product code. Only one provider should serve the logical channel at a time."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Product search documents are sent through nSearch after activation. Search and cache are projections: if either fails, the verified Product release remains authoritative and Online. A durable projection job records the failure so an operator can retry incomplete work."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Diagnose Online publication",
+      "anchor": "diagnose-online-publication"
+    },
+    {
+      "kind": "paragraph",
+      "text": "An authorized operator can view the active and previous release, pointer revision, manifest hash and record count, deployment receipts, correlation ID, and cache/search projection status. When a projection is incomplete, the operator can run bounded reconciliation. Do not republish, edit Online records, or change the active pointer merely to repair search or cache."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Correct or retire information",
+      "anchor": "correct-or-retire-information"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Names, descriptions, flags, and other permitted fields can be corrected through the update intent. Enterprise, Catalog ownership, Item type, Item code, and Identifier identity cannot be changed through an ordinary update."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Retire obsolete records instead of deleting them. This preserves historical references from Pricing, Inventory, orders, and integrations."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Common problems",
+      "anchor": "common-problems"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "**Catalog rejected:** select an existing active Catalog.",
+        "**Unit rejected:** select a Unit defined by the Units capability.",
+        "**Type/flag rejected:** the selected type does not permit the requested"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "sellable or stock-managed behavior."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "**Enterprise rejected:** sign in under the enterprise that owns the record.",
+        "**Internal reference rejected:** human sessions cannot call module-to-module"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Product lookup; that operation requires a service identity."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Dedicated large-Catalog migration utilities and deployment-specific capacity certification are outside the implemented Product scope. Product data, the active release pointer, and accepted manifest remain authoritative over cache and search. Operators should validate representative production volume using their selected database, network, cache, and search providers."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Developers and operators can find the complete implemented contract in the [Product module guide](../../gComm/product/README.md)."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "[How To Configure And Operate Pricing](how-to-configure-and-operate-pricing.md)",
+        "[How To Operate And Integrate Inventory](how-to-operate-and-integrate-inventory.md)",
+        "[How Store Management Works](how-to-manage-stores.md)",
+        "[How To Customize And Extend Nodics](../development/how-to-customize-and-extend-nodics.md)",
+        "[Nodics Documentation](../README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "Product module guide",
+      "target": "../../gComm/product/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcomm/product",
+      "anchor": ""
+    },
+    {
+      "label": "How To Configure And Operate Pricing",
+      "target": "how-to-configure-and-operate-pricing.md",
+      "kind": "internal",
+      "route": "/docs/commerce/how-to-configure-and-operate-pricing",
+      "anchor": ""
+    },
+    {
+      "label": "How To Operate And Integrate Inventory",
+      "target": "how-to-operate-and-integrate-inventory.md",
+      "kind": "internal",
+      "route": "/docs/commerce/how-to-operate-and-integrate-inventory",
+      "anchor": ""
+    },
+    {
+      "label": "How Store Management Works",
+      "target": "how-to-manage-stores.md",
+      "kind": "internal",
+      "route": "/docs/commerce/how-to-manage-stores",
+      "anchor": ""
+    },
+    {
+      "label": "How To Customize And Extend Nodics",
+      "target": "../development/how-to-customize-and-extend-nodics.md",
+      "kind": "internal",
+      "route": "/docs/development/how-to-customize-and-extend-nodics",
+      "anchor": ""
+    },
+    {
+      "label": "Nodics Documentation",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

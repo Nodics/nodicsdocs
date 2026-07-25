@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle4edfd639ccdb672435da",
+  "title": "kickoffPreProdServer",
+  "route": "/docs/modules/docs/kickoff/kickoffenvs/kickoffpreprod/kickoffpreprodserver",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "docs/kickoff/kickoffEnvs/kickoffPreProd/kickoffPreProdServer/README.md",
+    "type": "module-readme",
+    "contentHash": "8037ab4e823177ee8b4627b6a6d482095628c2c0dfde3350248d3de3d8ea49f8"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "kickoffPreProdServer",
+      "anchor": "kickoffpreprodserver"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "kickoffPreProdServer",
+      "anchor": "kickoffpreprodserver"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`kickoffPreProdServer` is the pre-production server module for the `kickoff` application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for pre-production server activation, route/service availability, and runtime topology. Business behavior belongs in active application or framework modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Pre-production server settings should support release validation while preserving production-like governance."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

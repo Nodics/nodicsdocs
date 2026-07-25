@@ -1,0 +1,47 @@
+{
+  "code": "docsArticlef8f0245748c319088d7c",
+  "title": "profileServer",
+  "route": "/docs/modules/startio/envs/startiolocal/profileserver",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/envs/startioLocal/profileServer/README.md",
+    "type": "module-readme",
+    "contentHash": "e3283decc35319fc63a3417d8f5661da942e7512c56946b93089bc227957266c"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "profileServer",
+      "anchor": "profileserver"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "profileServer",
+      "anchor": "profileserver"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`profileServer` is the local profile server module for the `startio` application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for local profile server activation and runtime topology. Profile capability behavior belongs in the active profile modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Local profile settings should preserve privacy, access control, tenant context, and layered overrides."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

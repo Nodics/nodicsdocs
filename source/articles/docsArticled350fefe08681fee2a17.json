@@ -1,0 +1,43 @@
+{
+  "code": "docsArticled350fefe08681fee2a17",
+  "title": "Gemini Provider",
+  "route": "/docs/modules/gai/aiproviders/geminiprovider",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gAi/aiProviders/geminiProvider/README.md",
+    "type": "module-readme",
+    "contentHash": "5f0c039398ea7c888f8d34a99ee74435ca7e5055fd006327c3162951e8f2694a"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Gemini Provider",
+      "anchor": "gemini-provider"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Gemini Provider",
+      "anchor": "gemini-provider"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This disabled provider module implements Gemini API and Vertex AI translation for `aiProviders`: normalized generation and embeddings, conservative estimation, function calls, cancellation, and Gemini SSE deltas."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Projects must activate this module explicitly. Callers continue to use an `aiProviders` usage profile and never call this module directly."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

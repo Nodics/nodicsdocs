@@ -1,0 +1,47 @@
+{
+  "code": "docsArticlec4613327c7d57153b41a",
+  "title": "kickoffLocalNemsServer",
+  "route": "/docs/modules/docs/kickoff/kickoffenvs/kickofflocal/kickofflocalnemsserver",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "docs/kickoff/kickoffEnvs/kickoffLocal/kickoffLocalNemsServer/README.md",
+    "type": "module-readme",
+    "contentHash": "73ba681637aa602702b2e72a6fb0c740bd043fe5ae255813545ef1c3cd7d5335"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "kickoffLocalNemsServer",
+      "anchor": "kickofflocalnemsserver"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "kickoffLocalNemsServer",
+      "anchor": "kickofflocalnemsserver"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`kickoffLocalNemsServer` is the local messaging server module for the `kickoff` application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for local EMS/NEMS server activation and runtime topology. Messaging behavior and provider adapters belong in the messaging modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Local messaging settings should preserve provider governance, diagnostics, and layered overrides."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

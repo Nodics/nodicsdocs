@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle06d45afe7d0fef7f0b8f",
+  "title": "cronNode3",
+  "route": "/docs/modules/startio/envs/startiolocal/cronserver/cronnode3",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/envs/startioLocal/cronServer/cronNode3/README.md",
+    "type": "module-readme",
+    "contentHash": "63ef0dca597b53164bf7f2fa3bf27ae7692f9d2d7dd6aff5c73f9558630d79ad"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "cronNode3",
+      "anchor": "cronnode3"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "cronNode3",
+      "anchor": "cronnode3"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`cronNode3` is a local cron node module under `cronServer`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this node for node-scoped local cron configuration and activation. Server-wide behavior belongs in `cronServer`, and cron capability logic belongs in reusable modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Node settings should remain explicit, observable, and safe to rebalance across sibling nodes."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

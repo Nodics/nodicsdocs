@@ -1,0 +1,664 @@
+{
+  "code": "docsArticleb335630551682c19a781",
+  "title": "Nodics",
+  "route": "/docs/modules/readme",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "README.md",
+    "type": "module-readme",
+    "contentHash": "0b8dd834a09b8f6317b3b992132b6d6b69a09003fda6bfae597eb52fe6b63159"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Nodics",
+      "anchor": "nodics"
+    },
+    {
+      "level": 2,
+      "text": "Why Nodics",
+      "anchor": "why-nodics"
+    },
+    {
+      "level": 2,
+      "text": "The MVP-To-Scale Bridge",
+      "anchor": "the-mvp-to-scale-bridge"
+    },
+    {
+      "level": 2,
+      "text": "What Makes Nodics Strong",
+      "anchor": "what-makes-nodics-strong"
+    },
+    {
+      "level": 2,
+      "text": "What You Can Build",
+      "anchor": "what-you-can-build"
+    },
+    {
+      "level": 2,
+      "text": "Start Here",
+      "anchor": "start-here"
+    },
+    {
+      "level": 3,
+      "text": "I Am Evaluating Nodics For A Business",
+      "anchor": "i-am-evaluating-nodics-for-a-business"
+    },
+    {
+      "level": 3,
+      "text": "I Am New To Nodics",
+      "anchor": "i-am-new-to-nodics"
+    },
+    {
+      "level": 3,
+      "text": "I Am Designing, Building, Or Operating An Application",
+      "anchor": "i-am-designing-building-or-operating-an-application"
+    },
+    {
+      "level": 3,
+      "text": "I Need Exact Capability Details",
+      "anchor": "i-need-exact-capability-details"
+    },
+    {
+      "level": 2,
+      "text": "Common Commands",
+      "anchor": "common-commands"
+    },
+    {
+      "level": 2,
+      "text": "Documentation Map",
+      "anchor": "documentation-map"
+    },
+    {
+      "level": 2,
+      "text": "For Developers",
+      "anchor": "for-developers"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Nodics",
+      "anchor": "nodics"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics is an enterprise application factory for building serious, modular, API-driven business platforms."
+    },
+    {
+      "kind": "paragraph",
+      "text": "It is designed for the biggest gap many startups and product teams face today: building an MVP is faster than ever, but scaling that MVP into a secure, governed, multi-team, multi-tenant product is still painfully hard."
+    },
+    {
+      "kind": "paragraph",
+      "text": "AI-assisted coding and rapid prototyping can create impressive demos quickly. That speed is valuable. The problem starts when the MVP becomes the real product and the team discovers that the codebase has no strong module boundaries, no layered architecture, no governance model, no safe customization path, weak security rules, limited test coverage, and no reliable way to evolve customer-specific behavior."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics bridges that gap. It lets teams move with the speed of AI-assisted product development while keeping the architecture, governance, security, testing, and extension model expected from an enterprise platform."
+    },
+    {
+      "kind": "paragraph",
+      "text": "It helps teams build fast like an MVP, but with the architecture discipline of an enterprise platform from day one. The framework provides a ready project model with APIs, data models, services, permissions, tenants, scheduled jobs, events, imports, exports, search indexing, catalog and content capabilities, runtime configuration, testing, deployment topology, documentation, and extension contracts already built into the way the application is organized."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Each capability has a clear owner, a clear extension path, and a clear verification contract."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics is designed for the new way software is built: human developers and AI tools working together. A developer can use a CLI-based AI assistant, an IDE assistant, or a conversational coding tool to ask for new functionality in natural language, while Nodics guides that implementation into the right module, configuration layer, service, route, schema, test, and documentation area."
+    },
+    {
+      "kind": "paragraph",
+      "text": "In short:"
+    },
+    {
+      "kind": "code",
+      "language": "text",
+      "text": "Describe the business capability. Nodics gives it a governed place to live."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Why Nodics",
+      "anchor": "why-nodics"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Many products fail after the MVP stage because the early application was built only to prove the idea, not to become the long-term platform."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Common scaling problems include:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Features are added wherever the first developer or AI tool finds space.",
+        "Business logic has no clear owner.",
+        "APIs, services, data access, and permissions are tightly coupled.",
+        "Configuration is copied across environments.",
+        "Customer-specific behavior is added directly into core code.",
+        "Security and tenant isolation are added late.",
+        "Generated code becomes manually edited code.",
+        "Tests do not cover real extension and deployment behavior.",
+        "The team cannot safely split the application into multiple services or nodes."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics turns that complexity into a controlled application structure. It helps teams build quickly without losing architectural discipline."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The main rule is:"
+    },
+    {
+      "kind": "code",
+      "language": "text",
+      "text": "Capabilities are stable. Implementations can change."
+    },
+    {
+      "kind": "paragraph",
+      "text": "That means a project can customize behavior through project modules, environment configuration, server configuration, node configuration, tenant context, runtime configuration, data, or provider modules without changing released framework code for every customer need."
+    },
+    {
+      "kind": "paragraph",
+      "text": "This is especially powerful with AI-assisted development. Instead of asking an AI tool to invent a structure, the developer can ask for a capability and Nodics provides the rules that keep the implementation aligned with the platform."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "The MVP-To-Scale Bridge",
+      "anchor": "the-mvp-to-scale-bridge"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics lets teams start fast without accepting a throwaway architecture."
+    },
+    {
+      "kind": "paragraph",
+      "text": "You can use AI tools and rapid development workflows to create features quickly, but those features still land inside a scalable application model:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Modular capabilities instead of scattered code.",
+        "Layered customization instead of framework edits.",
+        "Tenant-aware behavior instead of hard-coded customer assumptions.",
+        "Runtime configuration with audit and rollback instead of risky production edits.",
+        "Built-in security, permission, validation, and diagnostics patterns.",
+        "Generated APIs and tests from source definitions.",
+        "Environment, server, and node topology for growth beyond one process.",
+        "Documentation and AI guidance that keep humans and tools aligned."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "The result is a faster MVP path with a cleaner route to production scale."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What Makes Nodics Strong",
+      "anchor": "what-makes-nodics-strong"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics is not only a runtime. It is a complete application model that knows how enterprise software should be organized, extended, tested, operated, and explained."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The current framework and sample project structure includes more than one hundred package-defined modules and submodules across framework capabilities, core business capabilities, content, commerce, data processing, optional features, environments, servers, and nodes. Those modules are not just folders. They define where behavior belongs and how it can be replaced safely by a project without modifying released framework code."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics provides:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "**Automated layered architecture:** projects, modules, environments, servers, nodes, tenants, and runtime configuration each have a defined role.",
+        "**Generated application artifacts:** schemas, routes, tests, OpenAPI contracts, governance reports, and AI context are generated from source definitions.",
+        "**Inbuilt search indexing and retrieval:** search modules define indexes, indexers, indexer logs, search routes, and provider extension points.",
+        "**Catalog and content capabilities:** catalog, CMS, and web CMS modules provide product/content modeling, page/component structures, renderer mappings, and content templating foundations.",
+        "**Import and export engines:** JavaScript, JSON, CSV, and Excel provider modules demonstrate the pattern for moving data in and out through governed import/export flows.",
+        "**Enterprise identity foundations:** enterprises, tenants, users, customers, employees, groups, permissions, API keys, and authentication behavior are modeled as platform capabilities.",
+        "**Runtime governance:** schema, router, class, pipeline, tenant property, access-policy, activation, preview, audit, cleanup, and rollback capabilities are part of the runtime control plane.",
+        "**Messaging, events, jobs, and workflows:** event handling, message clients, cron jobs, workflow carriers, actions, lifecycle operations, retries, pause/resume, and archive behavior are represented as first-class capabilities.",
+        "**Cache and provider extensibility:** cache, database, search, messaging, and data providers are modeled as replaceable modules.",
+        "**Testing as architecture evidence:** generated schema, CRUD, API contract, and API scenario tests make framework behavior verifiable instead of implied.",
+        "**AI-ready learning context:** generated LLM context and implementation contracts teach AI tools the same module, service, configuration, and extension rules expected from human developers."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "The repository produces governance reports, generated API contracts, generated tests, and API examples from the active application definition. Use those generated outputs when you need current counts; this README intentionally avoids copying numbers that become stale as capabilities evolve."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What You Can Build",
+      "anchor": "what-you-can-build"
+    },
+    {
+      "kind": "paragraph",
+      "text": "With Nodics you can build:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "REST APIs and generated API contracts.",
+        "Business services and application modules.",
+        "Tenant-aware applications.",
+        "Runtime configuration with audit and rollback.",
+        "Scheduled jobs.",
+        "Data import and export flows.",
+        "Search indexing and retrieval flows.",
+        "Catalog, CMS, and content-template driven experiences.",
+        "Event and messaging integrations.",
+        "Cache-backed services.",
+        "Database provider integrations.",
+        "Workflow-driven business processes.",
+        "Generated tests, OpenAPI output, LLM context, and governance reports."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "You can also use AI tools more safely because Nodics gives them explicit contracts: where to code, how to extend, what to test, what to document, and what must never become a hidden source of truth."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Start Here",
+      "anchor": "start-here"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Choose the route that best matches why you are here."
+    },
+    {
+      "kind": "heading",
+      "level": 3,
+      "text": "I Am Evaluating Nodics For A Business",
+      "anchor": "i-am-evaluating-nodics-for-a-business"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "[Why Businesses Choose Nodics](gDocs/business/why-businesses-choose-nodics.md)",
+        "[Why Businesses Can Trust Nodics](gDocs/business/security-and-trust.md)",
+        "[Business Capabilities And Outcomes](gDocs/business/business-capabilities-and-outcomes.md)",
+        "[How Nodics Compares With Other Approaches](gDocs/business/how-nodics-compares.md)",
+        "[Business And Technical Evaluation Checklist](gDocs/business/evaluation-checklist.md)"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "These pages explain business value, delivery speed, long-term operating risk, fit, trade-offs, and the questions to validate before adopting Nodics. They do not require detailed software-framework knowledge."
+    },
+    {
+      "kind": "paragraph",
+      "text": "For security evaluation, continue with the [Security Shared-Responsibility Model](gDocs/security/shared-responsibility-model.md) and the expert [Security Evidence Guide](gDocs/security/security-evidence-guide.md)."
+    },
+    {
+      "kind": "heading",
+      "level": 3,
+      "text": "I Am New To Nodics",
+      "anchor": "i-am-new-to-nodics"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "[Nodics Documentation](gDocs/README.md)",
+        "[What Nodics Is](gDocs/overview/what-is-nodics.md)",
+        "[How To Set Up Nodics](gDocs/getting-started/how-to-setup-nodics.md)",
+        "[Build Your First Nodics Capability](gDocs/getting-started/build-your-first-capability.md)"
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 3,
+      "text": "I Am Designing, Building, Or Operating An Application",
+      "anchor": "i-am-designing-building-or-operating-an-application"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "[How Nodics Is Organized](gDocs/architecture/how-nodics-is-organized.md)",
+        "[How Configuration Works](gDocs/configuration/how-configuration-works.md)",
+        "[How To Create Application Functionality](gDocs/development/how-to-create-application-functionality.md)",
+        "[How To Test Nodics Changes](gDocs/testing/how-to-test-nodics-changes.md)",
+        "[How To Run And Debug Nodics](gDocs/operations/how-to-run-and-debug-nodics.md)"
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 3,
+      "text": "I Need Exact Capability Details",
+      "anchor": "i-need-exact-capability-details"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "[Module Documentation Index](gDocs/reference/module-documentation-index.md)",
+        "[Complete Module Catalog](gDocs/reference/module-catalog.md)",
+        "[Nodics Glossary](gDocs/reference/glossary.md)",
+        "[Provider And Capability Maturity Matrix](gDocs/reference/provider-capability-maturity-matrix.md)"
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Common Commands",
+      "anchor": "common-commands"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use the repository runtime contract before installing dependencies. The preferred release line is Node.js 24 with npm 11. Node.js 22 remains in the supported validation matrix, and Node.js 26 is for forward validation as it moves toward LTS. Do not use Node.js 25 as a release target."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Install dependencies:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm ci"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use `npm install` only when intentionally changing dependencies, and commit `package.json` and `package-lock.json` together."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Build generated artifacts and documentation outputs:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run build"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Start Nodics:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run start"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Start with debugger support:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run start:debug"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run the main test gate:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run test:basic"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run the full test gate:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run test:full"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Print the clean-checkout release gate:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run release:check"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Execute it when preparing a release candidate:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run release:check -- --execute --full"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Documentation Map",
+      "anchor": "documentation-map"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Public business, user, and developer guides: [gDocs](gDocs/README.md)",
+        "Module-specific guides: [Module Documentation Index](gDocs/reference/module-documentation-index.md) and each module `README.md`",
+        "AI and implementation rules: [AGENTS.md](AGENTS.md) and [gSetup/llm](gSetup/llm/README.md)",
+        "Generated API documentation: generated during build",
+        "Generated AI context: generated with `npm run llm:generate`"
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "For Developers",
+      "anchor": "for-developers"
+    },
+    {
+      "kind": "paragraph",
+      "text": "When adding or changing functionality:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Find the capability that owns the behavior.",
+        "Make the change in the owning module or project layer.",
+        "Keep generated files generated from source definitions.",
+        "Add or update tests.",
+        "Update public and module documentation when behavior changes."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use [How To Create Application Functionality](gDocs/development/how-to-create-application-functionality.md) for the recommended development flow."
+    }
+  ],
+  "links": [
+    {
+      "label": "Why Businesses Choose Nodics",
+      "target": "gDocs/business/why-businesses-choose-nodics.md",
+      "kind": "internal",
+      "route": "/docs/business/why-businesses-choose-nodics",
+      "anchor": ""
+    },
+    {
+      "label": "Why Businesses Can Trust Nodics",
+      "target": "gDocs/business/security-and-trust.md",
+      "kind": "internal",
+      "route": "/docs/business/security-and-trust",
+      "anchor": ""
+    },
+    {
+      "label": "Business Capabilities And Outcomes",
+      "target": "gDocs/business/business-capabilities-and-outcomes.md",
+      "kind": "internal",
+      "route": "/docs/business/business-capabilities-and-outcomes",
+      "anchor": ""
+    },
+    {
+      "label": "How Nodics Compares With Other Approaches",
+      "target": "gDocs/business/how-nodics-compares.md",
+      "kind": "internal",
+      "route": "/docs/business/how-nodics-compares",
+      "anchor": ""
+    },
+    {
+      "label": "Business And Technical Evaluation Checklist",
+      "target": "gDocs/business/evaluation-checklist.md",
+      "kind": "internal",
+      "route": "/docs/business/evaluation-checklist",
+      "anchor": ""
+    },
+    {
+      "label": "Security Shared-Responsibility Model",
+      "target": "gDocs/security/shared-responsibility-model.md",
+      "kind": "internal",
+      "route": "/docs/security/shared-responsibility-model",
+      "anchor": ""
+    },
+    {
+      "label": "Security Evidence Guide",
+      "target": "gDocs/security/security-evidence-guide.md",
+      "kind": "internal",
+      "route": "/docs/security/security-evidence-guide",
+      "anchor": ""
+    },
+    {
+      "label": "Nodics Documentation",
+      "target": "gDocs/README.md",
+      "kind": "internal",
+      "route": "/docs",
+      "anchor": ""
+    },
+    {
+      "label": "What Nodics Is",
+      "target": "gDocs/overview/what-is-nodics.md",
+      "kind": "internal",
+      "route": "/docs/overview/what-is-nodics",
+      "anchor": ""
+    },
+    {
+      "label": "How To Set Up Nodics",
+      "target": "gDocs/getting-started/how-to-setup-nodics.md",
+      "kind": "internal",
+      "route": "/docs/getting-started/how-to-setup-nodics",
+      "anchor": ""
+    },
+    {
+      "label": "Build Your First Nodics Capability",
+      "target": "gDocs/getting-started/build-your-first-capability.md",
+      "kind": "internal",
+      "route": "/docs/getting-started/build-your-first-capability",
+      "anchor": ""
+    },
+    {
+      "label": "How Nodics Is Organized",
+      "target": "gDocs/architecture/how-nodics-is-organized.md",
+      "kind": "internal",
+      "route": "/docs/architecture/how-nodics-is-organized",
+      "anchor": ""
+    },
+    {
+      "label": "How Configuration Works",
+      "target": "gDocs/configuration/how-configuration-works.md",
+      "kind": "internal",
+      "route": "/docs/configuration/how-configuration-works",
+      "anchor": ""
+    },
+    {
+      "label": "How To Create Application Functionality",
+      "target": "gDocs/development/how-to-create-application-functionality.md",
+      "kind": "internal",
+      "route": "/docs/development/how-to-create-application-functionality",
+      "anchor": ""
+    },
+    {
+      "label": "How To Test Nodics Changes",
+      "target": "gDocs/testing/how-to-test-nodics-changes.md",
+      "kind": "internal",
+      "route": "/docs/testing/how-to-test-nodics-changes",
+      "anchor": ""
+    },
+    {
+      "label": "How To Run And Debug Nodics",
+      "target": "gDocs/operations/how-to-run-and-debug-nodics.md",
+      "kind": "internal",
+      "route": "/docs/operations/how-to-run-and-debug-nodics",
+      "anchor": ""
+    },
+    {
+      "label": "Module Documentation Index",
+      "target": "gDocs/reference/module-documentation-index.md",
+      "kind": "internal",
+      "route": "/docs/reference/module-documentation-index",
+      "anchor": ""
+    },
+    {
+      "label": "Complete Module Catalog",
+      "target": "gDocs/reference/module-catalog.md",
+      "kind": "internal",
+      "route": "/docs/reference/module-catalog",
+      "anchor": ""
+    },
+    {
+      "label": "Nodics Glossary",
+      "target": "gDocs/reference/glossary.md",
+      "kind": "internal",
+      "route": "/docs/reference/glossary",
+      "anchor": ""
+    },
+    {
+      "label": "Provider And Capability Maturity Matrix",
+      "target": "gDocs/reference/provider-capability-maturity-matrix.md",
+      "kind": "internal",
+      "route": "/docs/reference/provider-capability-maturity-matrix",
+      "anchor": ""
+    },
+    {
+      "label": "gDocs",
+      "target": "gDocs/README.md",
+      "kind": "internal",
+      "route": "/docs",
+      "anchor": ""
+    },
+    {
+      "label": "Module Documentation Index",
+      "target": "gDocs/reference/module-documentation-index.md",
+      "kind": "internal",
+      "route": "/docs/reference/module-documentation-index",
+      "anchor": ""
+    },
+    {
+      "label": "AGENTS.md",
+      "target": "AGENTS.md",
+      "kind": "repository-reference",
+      "sourcePath": "AGENTS.md",
+      "anchor": ""
+    },
+    {
+      "label": "gSetup/llm",
+      "target": "gSetup/llm/README.md",
+      "kind": "repository-reference",
+      "sourcePath": "gSetup/llm/README.md",
+      "anchor": ""
+    },
+    {
+      "label": "How To Create Application Functionality",
+      "target": "gDocs/development/how-to-create-application-functionality.md",
+      "kind": "internal",
+      "route": "/docs/development/how-to-create-application-functionality",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

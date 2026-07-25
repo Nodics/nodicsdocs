@@ -1,0 +1,43 @@
+{
+  "code": "docsArticle2b2064410748b28b5c0b",
+  "title": "Anthropic Provider",
+  "route": "/docs/modules/gai/aiproviders/anthropicprovider",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gAi/aiProviders/anthropicProvider/README.md",
+    "type": "module-readme",
+    "contentHash": "a2898ff5cab69903ea23147662661e1773be86657f4f92ab76edd9a596146052"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Anthropic Provider",
+      "anchor": "anthropic-provider"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Anthropic Provider",
+      "anchor": "anthropic-provider"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This disabled provider module implements Anthropic Messages API translation for `aiProviders`: normalized generation, conservative estimation, tool use, cancellation, completed-message normalization, and typed stream deltas."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Projects must activate this module explicitly. Callers continue to use an `aiProviders` usage profile and never call this module directly."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

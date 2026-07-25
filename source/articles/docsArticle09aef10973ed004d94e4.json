@@ -1,0 +1,1379 @@
+{
+  "code": "docsArticle09aef10973ed004d94e4",
+  "title": "Complete Module Catalog",
+  "route": "/docs/reference/module-catalog",
+  "category": "reference",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gDocs/reference/module-catalog.md",
+    "type": "gdocs",
+    "contentHash": "bbf1a3d892e342932acbb516c18d5ddbb6fc3c609314b51d838203ed2d60cfb6"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Complete Module Catalog",
+      "anchor": "complete-module-catalog"
+    },
+    {
+      "level": 2,
+      "text": "gAi",
+      "anchor": "gai"
+    },
+    {
+      "level": 2,
+      "text": "gComm",
+      "anchor": "gcomm"
+    },
+    {
+      "level": 2,
+      "text": "gContent",
+      "anchor": "gcontent"
+    },
+    {
+      "level": 2,
+      "text": "gCore",
+      "anchor": "gcore"
+    },
+    {
+      "level": 2,
+      "text": "gDeap",
+      "anchor": "gdeap"
+    },
+    {
+      "level": 2,
+      "text": "gExp",
+      "anchor": "gexp"
+    },
+    {
+      "level": 2,
+      "text": "gFramework",
+      "anchor": "gframework"
+    },
+    {
+      "level": 2,
+      "text": "gMrkty",
+      "anchor": "gmrkty"
+    },
+    {
+      "level": 2,
+      "text": "gOptional",
+      "anchor": "goptional"
+    },
+    {
+      "level": 2,
+      "text": "gSetup",
+      "anchor": "gsetup"
+    },
+    {
+      "level": 2,
+      "text": "startio",
+      "anchor": "startio"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Complete Module Catalog",
+      "anchor": "complete-module-catalog"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This catalog makes every package-defined Nodics module reachable from the public documentation. It is an inventory and navigation aid, not a second source of module identity or behavior. The module package metadata and its README remain authoritative."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use the [Module Documentation Index](module-documentation-index.md) when you know the business or platform task. Use this catalog when you know a module, group, environment, server, or node name."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "gAi",
+      "anchor": "gai"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "[gAi](../../gAi/README.md) — `group`; `gAi`",
+        "[aiAssistant](../../gAi/aiAssistant/README.md) — `capability`; `gAi/aiAssistant`",
+        "[aiKnowledge](../../gAi/aiKnowledge/README.md) — `capability`; `gAi/aiKnowledge`",
+        "[aiProviders](../../gAi/aiProviders/README.md) — `group`; `gAi/aiProviders`",
+        "[openAiProvider](../../gAi/aiProviders/openAiProvider/README.md) — `capability`; `gAi/aiProviders/openAiProvider`",
+        "[anthropicProvider](../../gAi/aiProviders/anthropicProvider/README.md) — `capability`; `gAi/aiProviders/anthropicProvider`",
+        "[geminiProvider](../../gAi/aiProviders/geminiProvider/README.md) — `capability`; `gAi/aiProviders/geminiProvider`"
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "gComm",
+      "anchor": "gcomm"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "[gComm](../../gComm/README.md) — `group`; `gComm`",
+        "[cart](../../gComm/cart/README.md) — `capability`; `gComm/cart`",
+        "[inventory](../../gComm/inventory/README.md) — `capability`; `gComm/inventory`",
+        "[order](../../gComm/order/README.md) — `capability`; `gComm/order`",
+        "[pricing](../../gComm/pricing/README.md) — `capability`; `gComm/pricing`",
+        "[product](../../gComm/product/README.md) — `capability`; `gComm/product`",
+        "[store](../../gComm/store/README.md) — `capability`; `gComm/store`"
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "gContent",
+      "anchor": "gcontent"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "[gContent](../../gContent/README.md) — `group`; `gContent`",
+        "[cms](../../gContent/cms/README.md) — `capability`; `gContent/cms`",
+        "[wcms](../../gContent/wcms/README.md) — `capability`; `gContent/wcms`"
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "gCore",
+      "anchor": "gcore"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "[gCore](../../gCore/README.md) — `group`; `gCore`",
+        "[cronjob](../../gCore/cronjob/README.md) — `capability`; `gCore/cronjob`",
+        "[units](../../gCore/units/README.md) — `capability`; `gCore/units`",
+        "[nems](../../gCore/nems/README.md) — `capability`; `gCore/nems`",
+        "[profile](../../gCore/profile/README.md) — `capability`; `gCore/profile`",
+        "[quizer](../../gCore/quizer/README.md) — `group`; `gCore/quizer`",
+        "[quiz](../../gCore/quizer/quiz/README.md) — `capability`; `gCore/quizer/quiz`",
+        "[vquiz](../../gCore/quizer/vquiz/README.md) — `publish`; `gCore/quizer/vquiz`",
+        "[wquiz](../../gCore/quizer/wquiz/README.md) — `capability`; `gCore/quizer/wquiz`",
+        "[workflow](../../gCore/workflow/README.md) — `capability`; `gCore/workflow`",
+        "[flowApi](../../gCore/workflow/flowApi/README.md) — `capability`; `gCore/workflow/flowApi`",
+        "[flowCore](../../gCore/workflow/flowCore/README.md) — `capability`; `gCore/workflow/flowCore`",
+        "[flowSchema](../../gCore/workflow/flowSchema/README.md) — `capability`; `gCore/workflow/flowSchema`"
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "gDeap",
+      "anchor": "gdeap"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "[gDeap](../../gDeap/README.md) — `group`; `gDeap`",
+        "[dataConsumer](../../gDeap/dataConsumer/README.md) — `capability`; `gDeap/dataConsumer`",
+        "[dataProcessor](../../gDeap/dataProcessor/README.md) — `capability`; `gDeap/dataProcessor`",
+        "[dataPublisher](../../gDeap/dataPublisher/README.md) — `capability`; `gDeap/dataPublisher`"
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "gExp",
+      "anchor": "gexp"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "[gExp](../../gExp/README.md) — `group`; `gExp`",
+        "[storefront](../../gExp/storefront/README.md) — `capability`; `gExp/storefront`",
+        "[backoffice](../../gExp/backoffice/README.md) — `capability`; `gExp/backoffice`"
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "gFramework",
+      "anchor": "gframework"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "[gFramework](../../gFramework/README.md) — `group`; `gFramework`",
+        "[auth](../../gFramework/nAuth/README.md) — `capability`; `gFramework/nAuth`",
+        "[nCache](../../gFramework/nCache/README.md) — `group`; `gFramework/nCache`",
+        "[cache](../../gFramework/nCache/cache/README.md) — `capability`; `gFramework/nCache/cache`",
+        "[hazelcastCache](../../gFramework/nCache/hazelcastCache/README.md) — `capability`; `gFramework/nCache/hazelcastCache`",
+        "[nodeCache](../../gFramework/nCache/nodeCache/README.md) — `capability`; `gFramework/nCache/nodeCache`",
+        "[redisCache](../../gFramework/nCache/redisCache/README.md) — `capability`; `gFramework/nCache/redisCache`",
+        "[catalog](../../gFramework/nCatalog/README.md) — `capability`; `gFramework/nCatalog`",
+        "[nCommon](../../gFramework/nCommon/README.md) — `capability`; `gFramework/nCommon`",
+        "[config](../../gFramework/nConfig/README.md) — `capability`; `gFramework/nConfig`",
+        "[nController](../../gFramework/nController/README.md) — `capability`; `gFramework/nController`",
+        "[nData](../../gFramework/nData/README.md) — `group`; `gFramework/nData`",
+        "[dataCore](../../gFramework/nData/dataCore/README.md) — `capability`; `gFramework/nData/dataCore`",
+        "[nExport](../../gFramework/nData/nExport/README.md) — `group`; `gFramework/nData/nExport`",
+        "[csvExport](../../gFramework/nData/nExport/csvExport/README.md) — `capability`; `gFramework/nData/nExport/csvExport`",
+        "[excelExport](../../gFramework/nData/nExport/excelExport/README.md) — `capability`; `gFramework/nData/nExport/excelExport`",
+        "[export](../../gFramework/nData/nExport/export/README.md) — `capability`; `gFramework/nData/nExport/export`",
+        "[jsExport](../../gFramework/nData/nExport/jsExport/README.md) — `capability`; `gFramework/nData/nExport/jsExport`",
+        "[jsonExport](../../gFramework/nData/nExport/jsonExport/README.md) — `capability`; `gFramework/nData/nExport/jsonExport`",
+        "[nImport](../../gFramework/nData/nImport/README.md) — `group`; `gFramework/nData/nImport`",
+        "[csvImport](../../gFramework/nData/nImport/csvImport/README.md) — `capability`; `gFramework/nData/nImport/csvImport`",
+        "[excelImport](../../gFramework/nData/nImport/excelImport/README.md) — `capability`; `gFramework/nData/nImport/excelImport`",
+        "[import](../../gFramework/nData/nImport/import/README.md) — `capability`; `gFramework/nData/nImport/import`",
+        "[jsImport](../../gFramework/nData/nImport/jsImport/README.md) — `capability`; `gFramework/nData/nImport/jsImport`",
+        "[jsonImport](../../gFramework/nData/nImport/jsonImport/README.md) — `capability`; `gFramework/nData/nImport/jsonImport`",
+        "[nDatabase](../../gFramework/nDatabase/README.md) — `group`; `gFramework/nDatabase`",
+        "[cassandradb](../../gFramework/nDatabase/cassandradb/README.md) — `capability`; `gFramework/nDatabase/cassandradb`",
+        "[database](../../gFramework/nDatabase/database/README.md) — `group`; `gFramework/nDatabase/database`",
+        "[vDatabase](../../gFramework/nDatabase/database/vDatabase/README.md) — `publish`; `gFramework/nDatabase/database/vDatabase`",
+        "[elasticdb](../../gFramework/nDatabase/elasticdb/README.md) — `capability`; `gFramework/nDatabase/elasticdb`",
+        "[mongodb](../../gFramework/nDatabase/mongodb/README.md) — `group`; `gFramework/nDatabase/mongodb`",
+        "[vMongodb](../../gFramework/nDatabase/mongodb/vMongodb/README.md) — `publish`; `gFramework/nDatabase/mongodb/vMongodb`",
+        "[default](../../gFramework/nDefault/README.md) — `capability`; `gFramework/nDefault`",
+        "[dynamo](../../gFramework/nDynamo/README.md) — `capability`; `gFramework/nDynamo`",
+        "[nEms](../../gFramework/nEms/README.md) — `group`; `gFramework/nEms`",
+        "[activemq](../../gFramework/nEms/activemq/README.md) — `capability`; `gFramework/nEms/activemq`",
+        "[emsClient](../../gFramework/nEms/emsClient/README.md) — `capability`; `gFramework/nEms/emsClient`",
+        "[kafka](../../gFramework/nEms/kafka/README.md) — `capability`; `gFramework/nEms/kafka`",
+        "[event](../../gFramework/nEvent/README.md) — `capability`; `gFramework/nEvent`",
+        "[nFacade](../../gFramework/nFacade/README.md) — `capability`; `gFramework/nFacade`",
+        "[nms](../../gFramework/nNms/README.md) — `capability`; `gFramework/nNms`",
+        "[otp](../../gFramework/nOtp/README.md) — `capability`; `gFramework/nOtp`",
+        "[pipeline](../../gFramework/nPipeline/README.md) — `capability`; `gFramework/nPipeline`",
+        "[publish](../../gFramework/nPublish/README.md) — `publish`; `gFramework/nPublish`",
+        "[router](../../gFramework/nRouter/README.md) — `capability`; `gFramework/nRouter`",
+        "[nSearch](../../gFramework/nSearch/README.md) — `group`; `gFramework/nSearch`",
+        "[elastic](../../gFramework/nSearch/elastic/README.md) — `capability`; `gFramework/nSearch/elastic`",
+        "[search](../../gFramework/nSearch/search/README.md) — `capability`; `gFramework/nSearch/search`",
+        "[nService](../../gFramework/nService/README.md) — `group`; `gFramework/nService`",
+        "[vService](../../gFramework/nService/vService/README.md) — `publish`; `gFramework/nService/vService`",
+        "[system](../../gFramework/nSystem/README.md) — `capability`; `gFramework/nSystem`",
+        "[nTest](../../gFramework/nTest/README.md) — `capability`; `gFramework/nTest`",
+        "[token](../../gFramework/nToken/README.md) — `capability`; `gFramework/nToken`",
+        "[nTooling](../../gFramework/nTooling/README.md) — `tooling`; `gFramework/nTooling`",
+        "[validator](../../gFramework/nValidator/README.md) — `capability`; `gFramework/nValidator`",
+        "[bpm](../../gFramework/nbpm/README.md) — `capability`; `gFramework/nbpm`"
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "gMrkty",
+      "anchor": "gmrkty"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "[gMrkty](../../gMrkty/README.md) — `group`; `gMrkty`",
+        "[cres](../../gMrkty/cres/README.md) — `capability`; `gMrkty/cres`"
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "gOptional",
+      "anchor": "goptional"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "[gOptional](../../gOptional/README.md) — `group`; `gOptional`",
+        "[kyc](../../gOptional/kyc/README.md) — `group`; `gOptional/kyc`",
+        "[kycApi](../../gOptional/kyc/kycApi/README.md) — `capability`; `gOptional/kyc/kycApi`",
+        "[kycCore](../../gOptional/kyc/kycCore/README.md) — `capability`; `gOptional/kyc/kycCore`",
+        "[kycSchema](../../gOptional/kyc/kycSchema/README.md) — `capability`; `gOptional/kyc/kycSchema`"
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "gSetup",
+      "anchor": "gsetup"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "[gSetup](../../gSetup/README.md) — `setup`; `gSetup`"
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "startio",
+      "anchor": "startio"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "[startio](../../startio/README.md) — `project`; `startio`",
+        "[envs](../../startio/envs/README.md) — `group`; `startio/envs`",
+        "[startioDev](../../startio/envs/startioDev/README.md) — `group`; `startio/envs/startioDev`",
+        "[cronServer](../../startio/envs/startioDev/cronServer/README.md) — `server`; `startio/envs/startioDev/cronServer`",
+        "[deapServer](../../startio/envs/startioDev/deapServer/README.md) — `server`; `startio/envs/startioDev/deapServer`",
+        "[nemsServer](../../startio/envs/startioDev/nemsServer/README.md) — `server`; `startio/envs/startioDev/nemsServer`",
+        "[profileServer](../../startio/envs/startioDev/profileServer/README.md) — `server`; `startio/envs/startioDev/profileServer`",
+        "[monoServer](../../startio/envs/startioDev/monoServer/README.md) — `server`; `startio/envs/startioDev/monoServer`",
+        "[startioLocal](../../startio/envs/startioLocal/README.md) — `group`; `startio/envs/startioLocal`",
+        "[backofficeServer](../../startio/envs/startioLocal/backofficeServer/README.md) — `server`; `startio/envs/startioLocal/backofficeServer`",
+        "[cmsOnlineServer](../../startio/envs/startioLocal/cmsOnlineServer/README.md) — `server`; `startio/envs/startioLocal/cmsOnlineServer`",
+        "[cmsStagedServer](../../startio/envs/startioLocal/cmsStagedServer/README.md) — `server`; `startio/envs/startioLocal/cmsStagedServer`",
+        "[cronServer](../../startio/envs/startioLocal/cronServer/README.md) — `server`; `startio/envs/startioLocal/cronServer`",
+        "[cronNode0](../../startio/envs/startioLocal/cronServer/cronNode0/README.md) — `node`; `startio/envs/startioLocal/cronServer/cronNode0`",
+        "[cronNode1](../../startio/envs/startioLocal/cronServer/cronNode1/README.md) — `node`; `startio/envs/startioLocal/cronServer/cronNode1`",
+        "[cronNode2](../../startio/envs/startioLocal/cronServer/cronNode2/README.md) — `node`; `startio/envs/startioLocal/cronServer/cronNode2`",
+        "[cronNode3](../../startio/envs/startioLocal/cronServer/cronNode3/README.md) — `node`; `startio/envs/startioLocal/cronServer/cronNode3`",
+        "[deapServer](../../startio/envs/startioLocal/deapServer/README.md) — `server`; `startio/envs/startioLocal/deapServer`",
+        "[deapNode0](../../startio/envs/startioLocal/deapServer/deapNode0/README.md) — `node`; `startio/envs/startioLocal/deapServer/deapNode0`",
+        "[deapNode1](../../startio/envs/startioLocal/deapServer/deapNode1/README.md) — `node`; `startio/envs/startioLocal/deapServer/deapNode1`",
+        "[deapNode2](../../startio/envs/startioLocal/deapServer/deapNode2/README.md) — `node`; `startio/envs/startioLocal/deapServer/deapNode2`",
+        "[nemsServer](../../startio/envs/startioLocal/nemsServer/README.md) — `server`; `startio/envs/startioLocal/nemsServer`",
+        "[profileServer](../../startio/envs/startioLocal/profileServer/README.md) — `server`; `startio/envs/startioLocal/profileServer`",
+        "[monoServer](../../startio/envs/startioLocal/monoServer/README.md) — `server`; `startio/envs/startioLocal/monoServer`",
+        "[monoNode0](../../startio/envs/startioLocal/monoServer/monoNode0/README.md) — `node`; `startio/envs/startioLocal/monoServer/monoNode0`",
+        "[monoNode1](../../startio/envs/startioLocal/monoServer/monoNode1/README.md) — `node`; `startio/envs/startioLocal/monoServer/monoNode1`",
+        "[monoNode2](../../startio/envs/startioLocal/monoServer/monoNode2/README.md) — `node`; `startio/envs/startioLocal/monoServer/monoNode2`",
+        "[workflowServer](../../startio/envs/startioLocal/workflowServer/README.md) — `server`; `startio/envs/startioLocal/workflowServer`",
+        "[startioPreProd](../../startio/envs/startioPreProd/README.md) — `group`; `startio/envs/startioPreProd`",
+        "[monoServer](../../startio/envs/startioPreProd/monoServer/README.md) — `server`; `startio/envs/startioPreProd/monoServer`",
+        "[startioProd](../../startio/envs/startioProd/README.md) — `group`; `startio/envs/startioProd`",
+        "[monoServer](../../startio/envs/startioProd/monoServer/README.md) — `server`; `startio/envs/startioProd/monoServer`",
+        "[startioQA](../../startio/envs/startioQA/README.md) — `group`; `startio/envs/startioQA`",
+        "[monoServer](../../startio/envs/startioQA/monoServer/README.md) — `server`; `startio/envs/startioQA/monoServer`",
+        "[modules](../../startio/modules/README.md) — `group`; `startio/modules`",
+        "[startioApi](../../startio/modules/startioApi/README.md) — `capability`; `startio/modules/startioApi`",
+        "[startioCore](../../startio/modules/startioCore/README.md) — `capability`; `startio/modules/startioCore`",
+        "[startioInt](../../startio/modules/startioInt/README.md) — `capability`; `startio/modules/startioInt`"
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Task-oriented ownership: [Module Documentation Index](module-documentation-index.md)",
+        "Terminology: [Nodics Glossary](glossary.md)",
+        "Documentation home: [Nodics Documentation](../README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "Module Documentation Index",
+      "target": "module-documentation-index.md",
+      "kind": "internal",
+      "route": "/docs/reference/module-documentation-index",
+      "anchor": ""
+    },
+    {
+      "label": "gAi",
+      "target": "../../gAi/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gai",
+      "anchor": ""
+    },
+    {
+      "label": "aiAssistant",
+      "target": "../../gAi/aiAssistant/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gai/aiassistant",
+      "anchor": ""
+    },
+    {
+      "label": "aiKnowledge",
+      "target": "../../gAi/aiKnowledge/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gai/aiknowledge",
+      "anchor": ""
+    },
+    {
+      "label": "aiProviders",
+      "target": "../../gAi/aiProviders/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gai/aiproviders",
+      "anchor": ""
+    },
+    {
+      "label": "openAiProvider",
+      "target": "../../gAi/aiProviders/openAiProvider/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gai/aiproviders/openaiprovider",
+      "anchor": ""
+    },
+    {
+      "label": "anthropicProvider",
+      "target": "../../gAi/aiProviders/anthropicProvider/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gai/aiproviders/anthropicprovider",
+      "anchor": ""
+    },
+    {
+      "label": "geminiProvider",
+      "target": "../../gAi/aiProviders/geminiProvider/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gai/aiproviders/geminiprovider",
+      "anchor": ""
+    },
+    {
+      "label": "gComm",
+      "target": "../../gComm/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcomm",
+      "anchor": ""
+    },
+    {
+      "label": "cart",
+      "target": "../../gComm/cart/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcomm/cart",
+      "anchor": ""
+    },
+    {
+      "label": "inventory",
+      "target": "../../gComm/inventory/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcomm/inventory",
+      "anchor": ""
+    },
+    {
+      "label": "order",
+      "target": "../../gComm/order/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcomm/order",
+      "anchor": ""
+    },
+    {
+      "label": "pricing",
+      "target": "../../gComm/pricing/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcomm/pricing",
+      "anchor": ""
+    },
+    {
+      "label": "product",
+      "target": "../../gComm/product/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcomm/product",
+      "anchor": ""
+    },
+    {
+      "label": "store",
+      "target": "../../gComm/store/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcomm/store",
+      "anchor": ""
+    },
+    {
+      "label": "gContent",
+      "target": "../../gContent/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcontent",
+      "anchor": ""
+    },
+    {
+      "label": "cms",
+      "target": "../../gContent/cms/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcontent/cms",
+      "anchor": ""
+    },
+    {
+      "label": "wcms",
+      "target": "../../gContent/wcms/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcontent/wcms",
+      "anchor": ""
+    },
+    {
+      "label": "gCore",
+      "target": "../../gCore/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcore",
+      "anchor": ""
+    },
+    {
+      "label": "cronjob",
+      "target": "../../gCore/cronjob/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcore/cronjob",
+      "anchor": ""
+    },
+    {
+      "label": "units",
+      "target": "../../gCore/units/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcore/units",
+      "anchor": ""
+    },
+    {
+      "label": "nems",
+      "target": "../../gCore/nems/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcore/nems",
+      "anchor": ""
+    },
+    {
+      "label": "profile",
+      "target": "../../gCore/profile/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcore/profile",
+      "anchor": ""
+    },
+    {
+      "label": "quizer",
+      "target": "../../gCore/quizer/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcore/quizer",
+      "anchor": ""
+    },
+    {
+      "label": "quiz",
+      "target": "../../gCore/quizer/quiz/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcore/quizer/quiz",
+      "anchor": ""
+    },
+    {
+      "label": "vquiz",
+      "target": "../../gCore/quizer/vquiz/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcore/quizer/vquiz",
+      "anchor": ""
+    },
+    {
+      "label": "wquiz",
+      "target": "../../gCore/quizer/wquiz/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcore/quizer/wquiz",
+      "anchor": ""
+    },
+    {
+      "label": "workflow",
+      "target": "../../gCore/workflow/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcore/workflow",
+      "anchor": ""
+    },
+    {
+      "label": "flowApi",
+      "target": "../../gCore/workflow/flowApi/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcore/workflow/flowapi",
+      "anchor": ""
+    },
+    {
+      "label": "flowCore",
+      "target": "../../gCore/workflow/flowCore/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcore/workflow/flowcore",
+      "anchor": ""
+    },
+    {
+      "label": "flowSchema",
+      "target": "../../gCore/workflow/flowSchema/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcore/workflow/flowschema",
+      "anchor": ""
+    },
+    {
+      "label": "gDeap",
+      "target": "../../gDeap/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gdeap",
+      "anchor": ""
+    },
+    {
+      "label": "dataConsumer",
+      "target": "../../gDeap/dataConsumer/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gdeap/dataconsumer",
+      "anchor": ""
+    },
+    {
+      "label": "dataProcessor",
+      "target": "../../gDeap/dataProcessor/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gdeap/dataprocessor",
+      "anchor": ""
+    },
+    {
+      "label": "dataPublisher",
+      "target": "../../gDeap/dataPublisher/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gdeap/datapublisher",
+      "anchor": ""
+    },
+    {
+      "label": "gExp",
+      "target": "../../gExp/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gexp",
+      "anchor": ""
+    },
+    {
+      "label": "storefront",
+      "target": "../../gExp/storefront/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gexp/storefront",
+      "anchor": ""
+    },
+    {
+      "label": "backoffice",
+      "target": "../../gExp/backoffice/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gexp/backoffice",
+      "anchor": ""
+    },
+    {
+      "label": "gFramework",
+      "target": "../../gFramework/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework",
+      "anchor": ""
+    },
+    {
+      "label": "auth",
+      "target": "../../gFramework/nAuth/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nauth",
+      "anchor": ""
+    },
+    {
+      "label": "nCache",
+      "target": "../../gFramework/nCache/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ncache",
+      "anchor": ""
+    },
+    {
+      "label": "cache",
+      "target": "../../gFramework/nCache/cache/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ncache/cache",
+      "anchor": ""
+    },
+    {
+      "label": "hazelcastCache",
+      "target": "../../gFramework/nCache/hazelcastCache/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ncache/hazelcastcache",
+      "anchor": ""
+    },
+    {
+      "label": "nodeCache",
+      "target": "../../gFramework/nCache/nodeCache/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ncache/nodecache",
+      "anchor": ""
+    },
+    {
+      "label": "redisCache",
+      "target": "../../gFramework/nCache/redisCache/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ncache/rediscache",
+      "anchor": ""
+    },
+    {
+      "label": "catalog",
+      "target": "../../gFramework/nCatalog/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ncatalog",
+      "anchor": ""
+    },
+    {
+      "label": "nCommon",
+      "target": "../../gFramework/nCommon/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ncommon",
+      "anchor": ""
+    },
+    {
+      "label": "config",
+      "target": "../../gFramework/nConfig/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nconfig",
+      "anchor": ""
+    },
+    {
+      "label": "nController",
+      "target": "../../gFramework/nController/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ncontroller",
+      "anchor": ""
+    },
+    {
+      "label": "nData",
+      "target": "../../gFramework/nData/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata",
+      "anchor": ""
+    },
+    {
+      "label": "dataCore",
+      "target": "../../gFramework/nData/dataCore/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata/datacore",
+      "anchor": ""
+    },
+    {
+      "label": "nExport",
+      "target": "../../gFramework/nData/nExport/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata/nexport",
+      "anchor": ""
+    },
+    {
+      "label": "csvExport",
+      "target": "../../gFramework/nData/nExport/csvExport/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata/nexport/csvexport",
+      "anchor": ""
+    },
+    {
+      "label": "excelExport",
+      "target": "../../gFramework/nData/nExport/excelExport/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata/nexport/excelexport",
+      "anchor": ""
+    },
+    {
+      "label": "export",
+      "target": "../../gFramework/nData/nExport/export/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata/nexport/export",
+      "anchor": ""
+    },
+    {
+      "label": "jsExport",
+      "target": "../../gFramework/nData/nExport/jsExport/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata/nexport/jsexport",
+      "anchor": ""
+    },
+    {
+      "label": "jsonExport",
+      "target": "../../gFramework/nData/nExport/jsonExport/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata/nexport/jsonexport",
+      "anchor": ""
+    },
+    {
+      "label": "nImport",
+      "target": "../../gFramework/nData/nImport/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata/nimport",
+      "anchor": ""
+    },
+    {
+      "label": "csvImport",
+      "target": "../../gFramework/nData/nImport/csvImport/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata/nimport/csvimport",
+      "anchor": ""
+    },
+    {
+      "label": "excelImport",
+      "target": "../../gFramework/nData/nImport/excelImport/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata/nimport/excelimport",
+      "anchor": ""
+    },
+    {
+      "label": "import",
+      "target": "../../gFramework/nData/nImport/import/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata/nimport/import",
+      "anchor": ""
+    },
+    {
+      "label": "jsImport",
+      "target": "../../gFramework/nData/nImport/jsImport/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata/nimport/jsimport",
+      "anchor": ""
+    },
+    {
+      "label": "jsonImport",
+      "target": "../../gFramework/nData/nImport/jsonImport/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata/nimport/jsonimport",
+      "anchor": ""
+    },
+    {
+      "label": "nDatabase",
+      "target": "../../gFramework/nDatabase/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndatabase",
+      "anchor": ""
+    },
+    {
+      "label": "cassandradb",
+      "target": "../../gFramework/nDatabase/cassandradb/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndatabase/cassandradb",
+      "anchor": ""
+    },
+    {
+      "label": "database",
+      "target": "../../gFramework/nDatabase/database/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndatabase/database",
+      "anchor": ""
+    },
+    {
+      "label": "vDatabase",
+      "target": "../../gFramework/nDatabase/database/vDatabase/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndatabase/database/vdatabase",
+      "anchor": ""
+    },
+    {
+      "label": "elasticdb",
+      "target": "../../gFramework/nDatabase/elasticdb/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndatabase/elasticdb",
+      "anchor": ""
+    },
+    {
+      "label": "mongodb",
+      "target": "../../gFramework/nDatabase/mongodb/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndatabase/mongodb",
+      "anchor": ""
+    },
+    {
+      "label": "vMongodb",
+      "target": "../../gFramework/nDatabase/mongodb/vMongodb/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndatabase/mongodb/vmongodb",
+      "anchor": ""
+    },
+    {
+      "label": "default",
+      "target": "../../gFramework/nDefault/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndefault",
+      "anchor": ""
+    },
+    {
+      "label": "dynamo",
+      "target": "../../gFramework/nDynamo/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndynamo",
+      "anchor": ""
+    },
+    {
+      "label": "nEms",
+      "target": "../../gFramework/nEms/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nems",
+      "anchor": ""
+    },
+    {
+      "label": "activemq",
+      "target": "../../gFramework/nEms/activemq/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nems/activemq",
+      "anchor": ""
+    },
+    {
+      "label": "emsClient",
+      "target": "../../gFramework/nEms/emsClient/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nems/emsclient",
+      "anchor": ""
+    },
+    {
+      "label": "kafka",
+      "target": "../../gFramework/nEms/kafka/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nems/kafka",
+      "anchor": ""
+    },
+    {
+      "label": "event",
+      "target": "../../gFramework/nEvent/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nevent",
+      "anchor": ""
+    },
+    {
+      "label": "nFacade",
+      "target": "../../gFramework/nFacade/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nfacade",
+      "anchor": ""
+    },
+    {
+      "label": "nms",
+      "target": "../../gFramework/nNms/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nnms",
+      "anchor": ""
+    },
+    {
+      "label": "otp",
+      "target": "../../gFramework/nOtp/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/notp",
+      "anchor": ""
+    },
+    {
+      "label": "pipeline",
+      "target": "../../gFramework/nPipeline/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/npipeline",
+      "anchor": ""
+    },
+    {
+      "label": "publish",
+      "target": "../../gFramework/nPublish/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/npublish",
+      "anchor": ""
+    },
+    {
+      "label": "router",
+      "target": "../../gFramework/nRouter/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nrouter",
+      "anchor": ""
+    },
+    {
+      "label": "nSearch",
+      "target": "../../gFramework/nSearch/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nsearch",
+      "anchor": ""
+    },
+    {
+      "label": "elastic",
+      "target": "../../gFramework/nSearch/elastic/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nsearch/elastic",
+      "anchor": ""
+    },
+    {
+      "label": "search",
+      "target": "../../gFramework/nSearch/search/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nsearch/search",
+      "anchor": ""
+    },
+    {
+      "label": "nService",
+      "target": "../../gFramework/nService/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nservice",
+      "anchor": ""
+    },
+    {
+      "label": "vService",
+      "target": "../../gFramework/nService/vService/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nservice/vservice",
+      "anchor": ""
+    },
+    {
+      "label": "system",
+      "target": "../../gFramework/nSystem/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nsystem",
+      "anchor": ""
+    },
+    {
+      "label": "nTest",
+      "target": "../../gFramework/nTest/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ntest",
+      "anchor": ""
+    },
+    {
+      "label": "token",
+      "target": "../../gFramework/nToken/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ntoken",
+      "anchor": ""
+    },
+    {
+      "label": "nTooling",
+      "target": "../../gFramework/nTooling/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ntooling",
+      "anchor": ""
+    },
+    {
+      "label": "validator",
+      "target": "../../gFramework/nValidator/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nvalidator",
+      "anchor": ""
+    },
+    {
+      "label": "bpm",
+      "target": "../../gFramework/nbpm/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nbpm",
+      "anchor": ""
+    },
+    {
+      "label": "gMrkty",
+      "target": "../../gMrkty/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gmrkty",
+      "anchor": ""
+    },
+    {
+      "label": "cres",
+      "target": "../../gMrkty/cres/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gmrkty/cres",
+      "anchor": ""
+    },
+    {
+      "label": "gOptional",
+      "target": "../../gOptional/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/goptional",
+      "anchor": ""
+    },
+    {
+      "label": "kyc",
+      "target": "../../gOptional/kyc/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/goptional/kyc",
+      "anchor": ""
+    },
+    {
+      "label": "kycApi",
+      "target": "../../gOptional/kyc/kycApi/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/goptional/kyc/kycapi",
+      "anchor": ""
+    },
+    {
+      "label": "kycCore",
+      "target": "../../gOptional/kyc/kycCore/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/goptional/kyc/kyccore",
+      "anchor": ""
+    },
+    {
+      "label": "kycSchema",
+      "target": "../../gOptional/kyc/kycSchema/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/goptional/kyc/kycschema",
+      "anchor": ""
+    },
+    {
+      "label": "gSetup",
+      "target": "../../gSetup/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gsetup",
+      "anchor": ""
+    },
+    {
+      "label": "startio",
+      "target": "../../startio/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio",
+      "anchor": ""
+    },
+    {
+      "label": "envs",
+      "target": "../../startio/envs/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio/envs",
+      "anchor": ""
+    },
+    {
+      "label": "startioDev",
+      "target": "../../startio/envs/startioDev/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio/envs/startiodev",
+      "anchor": ""
+    },
+    {
+      "label": "cronServer",
+      "target": "../../startio/envs/startioDev/cronServer/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio/envs/startiodev/cronserver",
+      "anchor": ""
+    },
+    {
+      "label": "deapServer",
+      "target": "../../startio/envs/startioDev/deapServer/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio/envs/startiodev/deapserver",
+      "anchor": ""
+    },
+    {
+      "label": "nemsServer",
+      "target": "../../startio/envs/startioDev/nemsServer/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio/envs/startiodev/nemsserver",
+      "anchor": ""
+    },
+    {
+      "label": "profileServer",
+      "target": "../../startio/envs/startioDev/profileServer/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio/envs/startiodev/profileserver",
+      "anchor": ""
+    },
+    {
+      "label": "monoServer",
+      "target": "../../startio/envs/startioDev/monoServer/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio/envs/startiodev/monoserver",
+      "anchor": ""
+    },
+    {
+      "label": "startioLocal",
+      "target": "../../startio/envs/startioLocal/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio/envs/startiolocal",
+      "anchor": ""
+    },
+    {
+      "label": "backofficeServer",
+      "target": "../../startio/envs/startioLocal/backofficeServer/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio/envs/startiolocal/backofficeserver",
+      "anchor": ""
+    },
+    {
+      "label": "cmsOnlineServer",
+      "target": "../../startio/envs/startioLocal/cmsOnlineServer/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio/envs/startiolocal/cmsonlineserver",
+      "anchor": ""
+    },
+    {
+      "label": "cmsStagedServer",
+      "target": "../../startio/envs/startioLocal/cmsStagedServer/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio/envs/startiolocal/cmsstagedserver",
+      "anchor": ""
+    },
+    {
+      "label": "cronServer",
+      "target": "../../startio/envs/startioLocal/cronServer/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio/envs/startiolocal/cronserver",
+      "anchor": ""
+    },
+    {
+      "label": "cronNode0",
+      "target": "../../startio/envs/startioLocal/cronServer/cronNode0/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio/envs/startiolocal/cronserver/cronnode0",
+      "anchor": ""
+    },
+    {
+      "label": "cronNode1",
+      "target": "../../startio/envs/startioLocal/cronServer/cronNode1/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio/envs/startiolocal/cronserver/cronnode1",
+      "anchor": ""
+    },
+    {
+      "label": "cronNode2",
+      "target": "../../startio/envs/startioLocal/cronServer/cronNode2/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio/envs/startiolocal/cronserver/cronnode2",
+      "anchor": ""
+    },
+    {
+      "label": "cronNode3",
+      "target": "../../startio/envs/startioLocal/cronServer/cronNode3/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio/envs/startiolocal/cronserver/cronnode3",
+      "anchor": ""
+    },
+    {
+      "label": "deapServer",
+      "target": "../../startio/envs/startioLocal/deapServer/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio/envs/startiolocal/deapserver",
+      "anchor": ""
+    },
+    {
+      "label": "deapNode0",
+      "target": "../../startio/envs/startioLocal/deapServer/deapNode0/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio/envs/startiolocal/deapserver/deapnode0",
+      "anchor": ""
+    },
+    {
+      "label": "deapNode1",
+      "target": "../../startio/envs/startioLocal/deapServer/deapNode1/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio/envs/startiolocal/deapserver/deapnode1",
+      "anchor": ""
+    },
+    {
+      "label": "deapNode2",
+      "target": "../../startio/envs/startioLocal/deapServer/deapNode2/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio/envs/startiolocal/deapserver/deapnode2",
+      "anchor": ""
+    },
+    {
+      "label": "nemsServer",
+      "target": "../../startio/envs/startioLocal/nemsServer/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio/envs/startiolocal/nemsserver",
+      "anchor": ""
+    },
+    {
+      "label": "profileServer",
+      "target": "../../startio/envs/startioLocal/profileServer/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio/envs/startiolocal/profileserver",
+      "anchor": ""
+    },
+    {
+      "label": "monoServer",
+      "target": "../../startio/envs/startioLocal/monoServer/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio/envs/startiolocal/monoserver",
+      "anchor": ""
+    },
+    {
+      "label": "monoNode0",
+      "target": "../../startio/envs/startioLocal/monoServer/monoNode0/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio/envs/startiolocal/monoserver/mononode0",
+      "anchor": ""
+    },
+    {
+      "label": "monoNode1",
+      "target": "../../startio/envs/startioLocal/monoServer/monoNode1/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio/envs/startiolocal/monoserver/mononode1",
+      "anchor": ""
+    },
+    {
+      "label": "monoNode2",
+      "target": "../../startio/envs/startioLocal/monoServer/monoNode2/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio/envs/startiolocal/monoserver/mononode2",
+      "anchor": ""
+    },
+    {
+      "label": "workflowServer",
+      "target": "../../startio/envs/startioLocal/workflowServer/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio/envs/startiolocal/workflowserver",
+      "anchor": ""
+    },
+    {
+      "label": "startioPreProd",
+      "target": "../../startio/envs/startioPreProd/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio/envs/startiopreprod",
+      "anchor": ""
+    },
+    {
+      "label": "monoServer",
+      "target": "../../startio/envs/startioPreProd/monoServer/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio/envs/startiopreprod/monoserver",
+      "anchor": ""
+    },
+    {
+      "label": "startioProd",
+      "target": "../../startio/envs/startioProd/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio/envs/startioprod",
+      "anchor": ""
+    },
+    {
+      "label": "monoServer",
+      "target": "../../startio/envs/startioProd/monoServer/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio/envs/startioprod/monoserver",
+      "anchor": ""
+    },
+    {
+      "label": "startioQA",
+      "target": "../../startio/envs/startioQA/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio/envs/startioqa",
+      "anchor": ""
+    },
+    {
+      "label": "monoServer",
+      "target": "../../startio/envs/startioQA/monoServer/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio/envs/startioqa/monoserver",
+      "anchor": ""
+    },
+    {
+      "label": "modules",
+      "target": "../../startio/modules/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio/modules",
+      "anchor": ""
+    },
+    {
+      "label": "startioApi",
+      "target": "../../startio/modules/startioApi/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio/modules/startioapi",
+      "anchor": ""
+    },
+    {
+      "label": "startioCore",
+      "target": "../../startio/modules/startioCore/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio/modules/startiocore",
+      "anchor": ""
+    },
+    {
+      "label": "startioInt",
+      "target": "../../startio/modules/startioInt/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/startio/modules/startioint",
+      "anchor": ""
+    },
+    {
+      "label": "Module Documentation Index",
+      "target": "module-documentation-index.md",
+      "kind": "internal",
+      "route": "/docs/reference/module-documentation-index",
+      "anchor": ""
+    },
+    {
+      "label": "Nodics Glossary",
+      "target": "glossary.md",
+      "kind": "internal",
+      "route": "/docs/reference/glossary",
+      "anchor": ""
+    },
+    {
+      "label": "Nodics Documentation",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

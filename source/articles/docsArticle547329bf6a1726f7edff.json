@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle547329bf6a1726f7edff",
+  "title": "kickoffProd",
+  "route": "/docs/modules/docs/kickoff/kickoffenvs/kickoffprod",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "docs/kickoff/kickoffEnvs/kickoffProd/README.md",
+    "type": "module-readme",
+    "contentHash": "b69a7dcc3cb2cedc3e9abc852409350aad3cc2e81e6c50f75bf384a866260537"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "kickoffProd",
+      "anchor": "kickoffprod"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "kickoffProd",
+      "anchor": "kickoffprod"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`kickoffProd` is the production environment module for the `kickoff` application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for production composition and production-scoped configuration. Server-specific runtime settings belong in child server modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Production configuration must preserve governance, security, audit, diagnostics, and explicit override boundaries."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

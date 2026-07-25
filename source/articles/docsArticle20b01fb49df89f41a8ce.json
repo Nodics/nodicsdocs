@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle20b01fb49df89f41a8ce",
+  "title": "kickoffProdServer",
+  "route": "/docs/modules/docs/kickoff/kickoffenvs/kickoffprod/kickoffprodserver",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "docs/kickoff/kickoffEnvs/kickoffProd/kickoffProdServer/README.md",
+    "type": "module-readme",
+    "contentHash": "7c3eed3cf20b6f241cb94d0a75294ffa8c172666cdb499d1e120bc2d6d014ec6"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "kickoffProdServer",
+      "anchor": "kickoffprodserver"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "kickoffProdServer",
+      "anchor": "kickoffprodserver"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`kickoffProdServer` is the production server module for the `kickoff` application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for production server activation, route/service availability, and runtime topology. Business behavior belongs in active application or framework modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Production server settings must preserve security, diagnostics, auditability, and controlled override boundaries."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

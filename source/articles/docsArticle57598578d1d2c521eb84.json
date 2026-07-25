@@ -1,0 +1,118 @@
+{
+  "code": "docsArticle57598578d1d2c521eb84",
+  "title": "How Inventory Reconciliation Works",
+  "route": "/docs/commerce/how-inventory-reconciliation-works",
+  "category": "commerce",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gDocs/commerce/how-inventory-reconciliation-works.md",
+    "type": "gdocs",
+    "contentHash": "8e990b2ba880d9192f4b6c5275079f278b4ef8e72ecd7291ee39a6b8ff47f2fa"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "How Inventory Reconciliation Works",
+      "anchor": "how-inventory-reconciliation-works"
+    },
+    {
+      "level": 2,
+      "text": "Operator workflow",
+      "anchor": "operator-workflow"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "How Inventory Reconciliation Works",
+      "anchor": "how-inventory-reconciliation-works"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Reconciliation checks operational Inventory for inconsistencies and produces findings before changing anything. Scheduled module processes can scan; a human operator must review and approve a repair; an internal process applies the approved correction through normal Stock Movement rules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The checks compare held quantities with Reservation evidence, validate Allocation and Transfer arithmetic, identify pending Movement and stale Reservation transitions, and detect forbidden negative balances. Scans are bounded and can continue from a persisted cursor by replaying the same idempotency key. Dry-run is the default. Every run, finding, approval, and corrective movement remains auditable."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Operator workflow",
+      "anchor": "operator-workflow"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Schedule the internal scan through the existing CronJob capability, using a service identity and a stable idempotency key.",
+        "Repeat the same request while the run state is `PARTIAL`; stop when it is `COMPLETED`.",
+        "Repairable findings start a configured Nodics workflow. Every action in that workflow can independently be manual or automatic.",
+        "In the OOTB manual flow, a signed-in operator reviews the finding and the following automatic action performs the repair. In the OOTB automatic flow, policy permits both approval and repair to run automatically.",
+        "Investigate non-repairable Allocation, Transfer, pending Movement, stale Reservation, and reserved-quantity findings through their owning lifecycle.",
+        "The internal repair action creates an idempotent `CORRECTION` Stock Movement. It never edits a balance directly."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Configure `batchSize`, `maximumFindings`, `pendingAgeSeconds`, and `dryRunDefault` in the Inventory module's `properties.js`. Override these by environment layering; do not place operational configuration in `package.json`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Under `stockReconciliation.workflow`, configure `defaultMode` and optional `findingModes` entries as `MANUAL` or `AUTOMATIC`. Automatic approval should be enabled only for deterministic, low-risk policies accepted by the business. Critical findings default to manual review. Workflow definitions, retries, rejection, errors, and terminal transitions remain owned by Nodics Workflow."
+    },
+    {
+      "kind": "paragraph",
+      "text": "On-hand reconstruction from historical Movements is intentionally unavailable until an opening-balance checkpoint and retention contract exists. Operators must not infer a full balance from an incomplete history window."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "[How Stock Movements Work](how-stock-movements-work.md)",
+        "[How Stock Transfers Work](how-stock-transfers-work.md)",
+        "[Nodics Documentation](../README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "How Stock Movements Work",
+      "target": "how-stock-movements-work.md",
+      "kind": "internal",
+      "route": "/docs/commerce/how-stock-movements-work",
+      "anchor": ""
+    },
+    {
+      "label": "How Stock Transfers Work",
+      "target": "how-stock-transfers-work.md",
+      "kind": "internal",
+      "route": "/docs/commerce/how-stock-transfers-work",
+      "anchor": ""
+    },
+    {
+      "label": "Nodics Documentation",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

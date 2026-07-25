@@ -1,0 +1,362 @@
+{
+  "code": "docsArticle3f8e2da30602434439c9",
+  "title": "Export Process Framework",
+  "route": "/docs/modules/gframework/ndata/nexport/export/docs/export-process-framework",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nData/nExport/export/docs/export-process-framework.md",
+    "type": "module-doc",
+    "contentHash": "109c41680d77707327001e6de75cfe65573c233b1a3012a5776ad01f08463907"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Export Process Framework",
+      "anchor": "export-process-framework"
+    },
+    {
+      "level": 2,
+      "text": "Current Runtime Contract",
+      "anchor": "current-runtime-contract"
+    },
+    {
+      "level": 2,
+      "text": "Target Architecture",
+      "anchor": "target-architecture"
+    },
+    {
+      "level": 2,
+      "text": "Module Boundaries",
+      "anchor": "module-boundaries"
+    },
+    {
+      "level": 2,
+      "text": "Security Contract",
+      "anchor": "security-contract"
+    },
+    {
+      "level": 2,
+      "text": "Testing Strategy",
+      "anchor": "testing-strategy"
+    },
+    {
+      "level": 2,
+      "text": "Backlog",
+      "anchor": "backlog"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Export Process Framework",
+      "anchor": "export-process-framework"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`export` owns the shared outbound data contract for Nodics. It is the place where export requests are normalized, governed, and delegated to an active implementation. Format modules and provider/project modules plug into this contract; they do not replace it with private shortcuts."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Current Runtime Contract",
+      "anchor": "current-runtime-contract"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The current framework implementation is intentionally fail-closed."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Implemented today:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`DataExportController.export` normalizes HTTP body and query parameters into"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "`request.export`."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`DataExportFacade.export` delegates to `SERVICE.DataExportService.export`.",
+        "`DataExportService.export` rejects with a clear not-configured Nodics error"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "until a later active module provides real export behavior."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`DataExportService.applyExportAccessPolicies` delegates to"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "`DefaultSchemaReadAccessPolicyService.applyExportPolicies` when that service is active."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Export access-policy filtering runs on export-safe model copies so a policy"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "or formatter cannot mutate the selected source models in memory."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`/system/export` is exposed through `nSystem` as a secured control-plane route"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "for GET and POST, but the default service still rejects until implemented."
+    },
+    {
+      "kind": "paragraph",
+      "text": "This is the correct default for an enterprise platform. Export is a data egress capability, so the framework must not leak data because a generic module is active."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Target Architecture",
+      "anchor": "target-architecture"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A production exporter should follow this lifecycle:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Resolve a governed export definition by name.",
+        "Resolve tenant, authenticated principal, access groups, and route"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "permission."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Validate allowed filters, format, destination alias, and delivery policy.",
+        "Load source data through generated schema services or owning domain"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "services."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Apply schema/property export access policies before rendering.",
+        "Apply export processors, validators, and interceptors.",
+        "Render data through a format module such as JSON, CSV, Excel, JavaScript, or"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "a project-owned format module."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Deliver output only to a governed destination alias.",
+        "Record diagnostics, counts, destination metadata, checksum/fingerprint,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "duration, failure reason, and retry information."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Return a sanitized export result to the caller."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not allow a request to provide arbitrary service names, filesystem paths, URLs, credentials, bucket names, queue names, or target-system contracts."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Module Boundaries",
+      "anchor": "module-boundaries"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The shared `export` module owns:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "request normalization;",
+        "fail-closed default behavior;",
+        "access-policy delegation;",
+        "export-safe copy behavior;",
+        "shared lifecycle contracts;",
+        "tests for default framework invariants."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Format modules own rendering only:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`jsonExport`: JSON payload shape and serialization;",
+        "`csvExport`: CSV column ordering, delimiter, escaping, and record rendering;",
+        "`excelExport`: workbook, worksheet, header, and cell rendering;",
+        "`jsExport`: trusted active-module JavaScript rendering or transformation."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Project or provider modules own:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "export definitions;",
+        "target-system contracts;",
+        "field mapping and transformation;",
+        "delivery providers such as filesystem, SFTP, object storage, API push,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "message publication, or enterprise gateways;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "credentials, endpoints, destination aliases, and retry policy;",
+        "live-provider release tests."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Security Contract",
+      "anchor": "security-contract"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Export must be treated as controlled data egress."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Every implementation must define:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "action-specific route permission;",
+        "tenant scope;",
+        "authenticated principal and access groups;",
+        "allowed source schema/service;",
+        "allowed filters and maximum result/window size;",
+        "export access-policy behavior;",
+        "safe destination aliases;",
+        "sanitized diagnostics;",
+        "audit/run history;",
+        "retry and failure handling."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Broad access such as `userGroup` is not sufficient for a production export operation. It is acceptable only while the default service fails closed."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Testing Strategy",
+      "anchor": "testing-strategy"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Framework export tests must prove:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "request normalization for GET and POST;",
+        "default fail-closed behavior;",
+        "access-policy delegation;",
+        "selected models are not mutated by export policy filtering;",
+        "route metadata remains secured."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Production export implementations must add:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "positive export behavior;",
+        "missing/invalid export definition behavior;",
+        "unauthorized user and tenant-isolation behavior;",
+        "forbidden filter, format, and destination behavior;",
+        "access-policy redaction behavior;",
+        "rendering tests for the selected format;",
+        "delivery-provider contract tests;",
+        "sanitized error/diagnostic tests;",
+        "retry or resumability tests when supported;",
+        "override/customization tests proving a later module can change export"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "behavior without editing Nodics framework code."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Backlog",
+      "anchor": "backlog"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The framework still needs a complete governed export engine before export is a production data-egress feature. Required future work includes:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "source-backed export definitions;",
+        "action-specific route permissions;",
+        "trusted operation and destination allowlists;",
+        "export diagnostics and run history;",
+        "format renderer service contracts;",
+        "delivery provider contracts;",
+        "checksum/fingerprint support;",
+        "duplicate-run or idempotency support where required;",
+        "retry and failure lifecycle;",
+        "DaaS examples for product catalog delivery to multiple target systems."
+      ]
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

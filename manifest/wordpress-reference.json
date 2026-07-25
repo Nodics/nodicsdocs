@@ -1,0 +1,432 @@
+{
+  "source": {
+    "archiveName": "nodicswebsite-nodicsweb-c067d7160b9f.zip",
+    "sqlEntry": "nodicswebsite-nodicsweb-c067d7160b9f/ThemeBackup/Data/nodicsweb_18_03_2019.sql",
+    "sqlHash": "a896c70992d15bf48c4d9b1368d7affb3766d6cb81885d66aa06e4a2a98892ef"
+  },
+  "safety": {
+    "excluded": [
+      "users",
+      "credentials",
+      "options",
+      "comments",
+      "plugins",
+      "raw post content"
+    ],
+    "purpose": "Historical information architecture and page reconciliation only"
+  },
+  "publishedCount": 25,
+  "publishedPages": 11,
+  "publishedPosts": 14,
+  "attachmentCount": 2,
+  "pages": [
+    {
+      "legacyId": 20,
+      "type": "page",
+      "title": "About Us",
+      "slug": "about-us",
+      "parentId": 0,
+      "menuOrder": 0,
+      "modifiedAt": "2017-10-11 08:34:21",
+      "headings": [],
+      "contentHash": "057fca5a0fbcb20b85af807a9ddd451dac79edbe8bf45183103ebd7b0e890d00"
+    },
+    {
+      "legacyId": 37,
+      "type": "page",
+      "title": "Coffee cups",
+      "slug": "coffee-cups",
+      "parentId": 0,
+      "menuOrder": 0,
+      "modifiedAt": "2016-08-05 11:39:33",
+      "headings": [],
+      "contentHash": "1349e6268dc473951e5debc34f764dedd8c3a50a1a9ed0a684e4b451aaadb020"
+    },
+    {
+      "legacyId": 2,
+      "type": "page",
+      "title": "Contact Us",
+      "slug": "contact-us",
+      "parentId": 0,
+      "menuOrder": 0,
+      "modifiedAt": "2017-08-30 06:22:28",
+      "headings": [],
+      "contentHash": "ae15c91560d3b9fac33dfa49fce0e2232b349c870e1dd88d7957a316afc767d4"
+    },
+    {
+      "legacyId": 43,
+      "type": "page",
+      "title": "Database Update",
+      "slug": "database-update",
+      "parentId": 0,
+      "menuOrder": 0,
+      "modifiedAt": "2016-08-05 11:41:48",
+      "headings": [],
+      "contentHash": "797894aafe7280f7535f8cbda8d5b9f931922166c5100a18b6fbd49b7de83a1b"
+    },
+    {
+      "legacyId": 34,
+      "type": "page",
+      "title": "Design Overloaded",
+      "slug": "design-overloaded",
+      "parentId": 0,
+      "menuOrder": 0,
+      "modifiedAt": "2016-08-05 11:38:36",
+      "headings": [],
+      "contentHash": "797894aafe7280f7535f8cbda8d5b9f931922166c5100a18b6fbd49b7de83a1b"
+    },
+    {
+      "legacyId": 36,
+      "type": "page",
+      "title": "Direction",
+      "slug": "direction",
+      "parentId": 0,
+      "menuOrder": 0,
+      "modifiedAt": "2016-08-05 11:39:22",
+      "headings": [],
+      "contentHash": "797894aafe7280f7535f8cbda8d5b9f931922166c5100a18b6fbd49b7de83a1b"
+    },
+    {
+      "legacyId": 32,
+      "type": "page",
+      "title": "Home",
+      "slug": "nodics",
+      "parentId": 0,
+      "menuOrder": 0,
+      "modifiedAt": "2017-10-17 16:08:34",
+      "headings": [],
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "legacyId": 35,
+      "type": "page",
+      "title": "Programming",
+      "slug": "programming",
+      "parentId": 0,
+      "menuOrder": 0,
+      "modifiedAt": "2016-08-05 11:39:12",
+      "headings": [],
+      "contentHash": "797894aafe7280f7535f8cbda8d5b9f931922166c5100a18b6fbd49b7de83a1b"
+    },
+    {
+      "legacyId": 1536,
+      "type": "page",
+      "title": "Solutions",
+      "slug": "nodics-solutions",
+      "parentId": 299,
+      "menuOrder": 2,
+      "modifiedAt": "2018-07-15 05:08:33",
+      "headings": [
+        {
+          "level": 1,
+          "text": "About Nodics Framework"
+        },
+        {
+          "level": 4,
+          "text": "Nodics As Micro-Services"
+        },
+        {
+          "level": 4,
+          "text": "Nodics As Multi-Tenant System"
+        },
+        {
+          "level": 4,
+          "text": "Nodics As Multi-Enterprise System"
+        },
+        {
+          "level": 4,
+          "text": "Nodics As Event Management System"
+        },
+        {
+          "level": 4,
+          "text": "Enterprise Messaging Integration"
+        },
+        {
+          "level": 5,
+          "text": "EMS Producer Process Flow"
+        },
+        {
+          "level": 5,
+          "text": "EMS Producer Process Flow"
+        },
+        {
+          "level": 4,
+          "text": "Two Level Cache"
+        },
+        {
+          "level": 4,
+          "text": "Nodics As Cron-Job System"
+        },
+        {
+          "level": 4,
+          "text": "Nodics As Centralized Data Management"
+        },
+        {
+          "level": 5,
+          "text": "Data Import From Multiple Sources"
+        },
+        {
+          "level": 5,
+          "text": "Data Export To Multiple Targets"
+        },
+        {
+          "level": 4,
+          "text": "Nodics A Cloud Ready Solution"
+        },
+        {
+          "level": 4,
+          "text": "Nodics Customization"
+        },
+        {
+          "level": 5,
+          "text": "Database Customization"
+        },
+        {
+          "level": 5,
+          "text": "Schema Customization"
+        },
+        {
+          "level": 5,
+          "text": "Properties Customization"
+        },
+        {
+          "level": 5,
+          "text": "Service Customization"
+        }
+      ],
+      "contentHash": "28c04d542d3c39de0d631339836796718fb2a98e3da1f9f792c25cb2c71ba5d0"
+    },
+    {
+      "legacyId": 303,
+      "type": "page",
+      "title": "Nodics Structure",
+      "slug": "nodics-structure",
+      "parentId": 299,
+      "menuOrder": 20,
+      "modifiedAt": "2018-12-23 10:34:15",
+      "headings": [
+        {
+          "level": 1,
+          "text": "Framework Walkthrough"
+        },
+        {
+          "level": 4,
+          "text": "Framework Module Group"
+        },
+        {
+          "level": 4,
+          "text": "Module Group"
+        },
+        {
+          "level": 4,
+          "text": "Module"
+        },
+        {
+          "level": 4,
+          "text": "Application"
+        }
+      ],
+      "contentHash": "d7776a9fc85a69d15280841175c85b6f084266722d0175e6b9e5a5ace0e919af"
+    },
+    {
+      "legacyId": 1824,
+      "type": "page",
+      "title": "Event Distributor",
+      "slug": "event-distributor",
+      "parentId": 1807,
+      "menuOrder": 20,
+      "modifiedAt": "2018-02-24 20:51:47",
+      "headings": [
+        {
+          "level": 1,
+          "text": "Event Distributor"
+        },
+        {
+          "level": 4,
+          "text": "Defined Schemas"
+        },
+        {
+          "level": 5,
+          "text": "Schema Event"
+        },
+        {
+          "level": 5,
+          "text": "Schema EventLog"
+        },
+        {
+          "level": 4,
+          "text": "Defined Services"
+        }
+      ],
+      "contentHash": "8652c8dc7c3cf549d3b2e86886ca1eb614f176abef8e50b4dea29f3aceef9e4c"
+    },
+    {
+      "legacyId": 58,
+      "type": "post",
+      "title": "Creative Design",
+      "slug": "creative-design",
+      "parentId": 0,
+      "menuOrder": 0,
+      "modifiedAt": "2016-08-08 05:50:04",
+      "headings": [],
+      "contentHash": "03ea47966b46ed02bdf53fa408eeff98ecf931f1f5393edc604caba2570b2e91"
+    },
+    {
+      "legacyId": 68,
+      "type": "post",
+      "title": "Design Logo",
+      "slug": "design-logo",
+      "parentId": 0,
+      "menuOrder": 0,
+      "modifiedAt": "2016-08-08 06:04:08",
+      "headings": [],
+      "contentHash": "03ea47966b46ed02bdf53fa408eeff98ecf931f1f5393edc604caba2570b2e91"
+    },
+    {
+      "legacyId": 48,
+      "type": "post",
+      "title": "Express Js",
+      "slug": "robert-paul",
+      "parentId": 0,
+      "menuOrder": 0,
+      "modifiedAt": "2017-08-18 17:34:26",
+      "headings": [],
+      "contentHash": "a1c2448f85da22ab18d05f8645841e36a34018d103ec58b0445a36a6dcf2f152"
+    },
+    {
+      "legacyId": 1,
+      "type": "post",
+      "title": "Hello world!",
+      "slug": "hello-world",
+      "parentId": 0,
+      "menuOrder": 0,
+      "modifiedAt": "2017-07-16 03:15:44",
+      "headings": [],
+      "contentHash": "7878a5827cf33686ca147a522a31b5dc865f8387ee7939c2c1a57e07a02d8b58"
+    },
+    {
+      "legacyId": 65,
+      "type": "post",
+      "title": "Ios Apps",
+      "slug": "ios-apps",
+      "parentId": 0,
+      "menuOrder": 0,
+      "modifiedAt": "2016-08-08 06:00:08",
+      "headings": [],
+      "contentHash": "03ea47966b46ed02bdf53fa408eeff98ecf931f1f5393edc604caba2570b2e91"
+    },
+    {
+      "legacyId": 28,
+      "type": "post",
+      "title": "Jack Doe",
+      "slug": "jack-doe",
+      "parentId": 0,
+      "menuOrder": 0,
+      "modifiedAt": "2016-08-05 11:30:25",
+      "headings": [],
+      "contentHash": "ecdca3c96958b60b2ce696ca7dfaa21816dd247395d0cb76ee779751fdfcccf4"
+    },
+    {
+      "legacyId": 29,
+      "type": "post",
+      "title": "Jennifer Doe",
+      "slug": "jennifer-doe",
+      "parentId": 0,
+      "menuOrder": 0,
+      "modifiedAt": "2016-08-05 11:30:48",
+      "headings": [],
+      "contentHash": "6f771f9098395bcd9a12c94bb7fa2b691c2eda07078e772ca016cde55e887daa"
+    },
+    {
+      "legacyId": 13,
+      "type": "post",
+      "title": "Micro-Services Management Framework",
+      "slug": "professional-code-is-core-power",
+      "parentId": 0,
+      "menuOrder": 0,
+      "modifiedAt": "2018-02-19 15:01:44",
+      "headings": [],
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "legacyId": 47,
+      "type": "post",
+      "title": "Mongoose Js",
+      "slug": "melissa-doe",
+      "parentId": 0,
+      "menuOrder": 0,
+      "modifiedAt": "2017-08-18 17:34:01",
+      "headings": [],
+      "contentHash": "ce1320ef0290386788b232a4d08727589e62eeb12386ff8c82652b235a21010e"
+    },
+    {
+      "legacyId": 49,
+      "type": "post",
+      "title": "Node Js",
+      "slug": "victoria-joe",
+      "parentId": 0,
+      "menuOrder": 0,
+      "modifiedAt": "2017-08-18 17:03:21",
+      "headings": [],
+      "contentHash": "8d00a09b90da36ca52f3841da5c6e1388bd70b5d32f254418c5889051b2f1d08"
+    },
+    {
+      "legacyId": 62,
+      "type": "post",
+      "title": "Office Area",
+      "slug": "room-light",
+      "parentId": 0,
+      "menuOrder": 0,
+      "modifiedAt": "2016-08-08 05:51:11",
+      "headings": [],
+      "contentHash": "03ea47966b46ed02bdf53fa408eeff98ecf931f1f5393edc604caba2570b2e91"
+    },
+    {
+      "legacyId": 23,
+      "type": "post",
+      "title": "Sara Jones",
+      "slug": "sara-jones",
+      "parentId": 0,
+      "menuOrder": 0,
+      "modifiedAt": "2016-08-05 11:29:21",
+      "headings": [],
+      "contentHash": "8ecd79c1ba356c54a6efd4fadb46538287c8ba56ce26488fa6be2ab32b5e6fcf"
+    },
+    {
+      "legacyId": 81,
+      "type": "post",
+      "title": "Tips for Staying Creative",
+      "slug": "tips-for-staying-creative",
+      "parentId": 0,
+      "menuOrder": 0,
+      "modifiedAt": "2016-11-28 04:31:02",
+      "headings": [],
+      "contentHash": "f2393d28ad27005d0470065f445e7c41ac07baeb0cae36144251a8d3af958c58"
+    },
+    {
+      "legacyId": 71,
+      "type": "post",
+      "title": "Work & Coffee",
+      "slug": "wallpaper",
+      "parentId": 0,
+      "menuOrder": 0,
+      "modifiedAt": "2016-08-08 06:08:06",
+      "headings": [],
+      "contentHash": "03ea47966b46ed02bdf53fa408eeff98ecf931f1f5393edc604caba2570b2e91"
+    }
+  ],
+  "attachments": [
+    {
+      "legacyId": 69,
+      "title": "wordpress-589121_1280",
+      "mimeType": "image/jpeg",
+      "parentId": 68
+    },
+    {
+      "legacyId": 2170,
+      "title": "Technology Stack",
+      "mimeType": "image/jpeg",
+      "parentId": 0
+    }
+  ]
+}

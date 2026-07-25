@@ -1,0 +1,375 @@
+{
+  "code": "docsArticle939f40e4a1b8ea3d4ae3",
+  "title": "gFramework",
+  "route": "/docs/modules/gframework",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/README.md",
+    "type": "module-readme",
+    "contentHash": "f9f9496efabda7a0f08cce0b6288cfb9aece30589a6999f9790c0f607e5a5b56"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "gFramework",
+      "anchor": "gframework"
+    },
+    {
+      "level": 2,
+      "text": "Start Here",
+      "anchor": "start-here"
+    },
+    {
+      "level": 2,
+      "text": "Documentation Contract",
+      "anchor": "documentation-contract"
+    },
+    {
+      "level": 2,
+      "text": "Capability Boundary",
+      "anchor": "capability-boundary"
+    },
+    {
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "level": 2,
+      "text": "Developer Rule",
+      "anchor": "developer-rule"
+    },
+    {
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "level": 2,
+      "text": "Security, Operations, And Performance",
+      "anchor": "security-operations-and-performance"
+    },
+    {
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "gFramework",
+      "anchor": "gframework"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`gFramework` is the reusable platform foundation underneath a Nodics application. In plain language, it provides the common machinery for loading an application, exposing APIs, applying business behavior, working with data, running ordered processes, enforcing access, and operating the system."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Application teams normally consume these capabilities through project modules. They should not add customer-specific behavior directly to `gFramework`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "`gFramework` composes the core Nodics capability modules and coordinates their runtime, clean, build, and generator lifecycles. Runtime behavior comes from the active metadata-driven module hierarchy and layered configuration; this group must not contain project-specific selection logic."
+    },
+    {
+      "kind": "paragraph",
+      "text": "After ordinary init data is available, the coordinator executes the enabled, ordered entries in the merge-friendly `mandatoryBootstrapServices` map. Each entry names a service implementing an idempotent `reconcile(request)` contract. Capability and project modules may add, disable, reorder, or replace reconcilers without editing the coordinator. Reconcilers are expected to preserve existing customizations, avoid secret generation, provide audit traceability for mutations, and fail startup when a mandatory contract cannot be restored safely."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Start Here",
+      "anchor": "start-here"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this README when you need to understand how the framework capabilities fit together. Then move to the owning module:"
+    },
+    {
+      "kind": "table",
+      "headers": [
+        "Need",
+        "Owning documentation"
+      ],
+      "rows": [
+        [
+          "Startup, module discovery, hierarchy, configuration, clean, and build",
+          "[nConfig](nConfig/README.md)"
+        ],
+        [
+          "Shared errors, utilities, enums, processors, and traceability",
+          "[nCommon](nCommon/README.md)"
+        ],
+        [
+          "HTTP routes, request security, OpenAPI, and response handling",
+          "[nRouter](nRouter/README.md)"
+        ],
+        [
+          "Service behavior and module-to-module communication",
+          "[nService](nService/README.md)"
+        ],
+        [
+          "Database capability and provider composition",
+          "[nDatabase](nDatabase/README.md)"
+        ],
+        [
+          "Ordered runtime execution",
+          "[nPipeline](nPipeline/README.md)"
+        ],
+        [
+          "All framework capabilities",
+          "[Complete Module Catalog](../gDocs/reference/module-catalog.md#gframework)"
+        ]
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Documentation Contract",
+      "anchor": "documentation-contract"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Framework guidance is organized around the owning capability modules, including `nConfig`, `nCommon`, `nDatabase`, generated DAO/service/facade/controller/router layers, request handling, cache, messaging, logging, testing, events, and cron jobs."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Module-specific details belong in each owning module README. Use this group README only for cross-framework coordination and capability boundaries."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Capability Boundary",
+      "anchor": "capability-boundary"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`gFramework` is a group module. It should coordinate framework capability modules, not own project behavior directly."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Framework modules provide default capabilities such as:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "configuration and startup lifecycle;",
+        "module hierarchy and active-module loading;",
+        "schemas, routers, services, facades, controllers, and generated CRUD/API artifacts;",
+        "database, cache, search, messaging, events, pipelines, workflow, data import/export, catalog, publish, validation, token, OTP, and runtime governance support;",
+        "documentation, LLM guidance, quality gates, and non-runtime tooling."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Capabilities are sacred, implementations are negotiable. A project should override behavior through active modules, layered configuration, tenant context, schemas, services, pipelines, data, tests, and governance instead of editing released framework source."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "`nConfig` discovers active modules and loads layered configuration.",
+        "Module lifecycle hooks and script extensions run in module order.",
+        "Definitions such as schemas, routers, pipelines, listeners, validators, and interceptors are composed from active modules.",
+        "Generated artifacts are created from source definitions during build.",
+        "Runtime services use tenant, environment, server, node, and project context to resolve effective behavior.",
+        "Mandatory bootstrap reconcilers restore required platform contracts without destroying customizations.",
+        "Governance, diagnostics, audit, rollback, and tests protect the capability surface."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Developer Rule",
+      "anchor": "developer-rule"
+    },
+    {
+      "kind": "paragraph",
+      "text": "When changing Nodics, first identify the owning module and artifact type:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "configurable value: `config/properties.js`;",
+        "HTTP/API contract: `src/router`;",
+        "request mapping: `src/controller`;",
+        "orchestration: `src/facade`;",
+        "business behavior: `src/service`;",
+        "ordered process: `src/pipelines`;",
+        "data contract: `src/schemas` and `data`;",
+        "event behavior: `src/event/listeners.js`;",
+        "generated artifact: change source definition, then regenerate;",
+        "AI/developer guidance: `README.md`, `AGENTS.md`, `llm/contracts`, `llm/examples`, and generated context."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "This rule applies to human developers and AI tools equally."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "adding project behavior to group modules;",
+        "bypassing active module hierarchy;",
+        "hand-maintaining generated artifacts;",
+        "hardcoding provider choices, credentials, tenant mappings, or deployment topology;",
+        "changing runtime behavior without docs, tests, and generated LLM context;",
+        "using private root `docs/` material as product documentation."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Security, Operations, And Performance",
+      "anchor": "security-operations-and-performance"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Security and operational behavior is owned by the relevant capability module, not by this group container. Route exposure and HTTP hardening belong to `nRouter`; identity and tokens belong to their security modules; database isolation belongs to `nDatabase/database`; lifecycle and readiness coordination begin in `nConfig`; transport resilience belongs to `nService`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not solve a cross-cutting concern by adding a second client, loader, registry, lifecycle handler, or governance source at the group level. First find the existing capability owner and extend its contract."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The group has no independent business API. Verify changes through the focused tests of the owning child module, then run:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run quality:docs\nnpm run llm:generate\nnpm run llm:validate\nnpm run test:basic"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Beginner architecture: [How Nodics Is Organized](../gDocs/architecture/how-nodics-is-organized.md)",
+        "Build a capability: [Build Your First Nodics Capability](../gDocs/getting-started/build-your-first-capability.md)",
+        "Module catalog: [Complete Module Catalog](../gDocs/reference/module-catalog.md)",
+        "Public documentation: [Nodics Documentation](../gDocs/README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "nConfig",
+      "target": "nConfig/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nconfig",
+      "anchor": ""
+    },
+    {
+      "label": "nCommon",
+      "target": "nCommon/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ncommon",
+      "anchor": ""
+    },
+    {
+      "label": "nRouter",
+      "target": "nRouter/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nrouter",
+      "anchor": ""
+    },
+    {
+      "label": "nService",
+      "target": "nService/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nservice",
+      "anchor": ""
+    },
+    {
+      "label": "nDatabase",
+      "target": "nDatabase/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndatabase",
+      "anchor": ""
+    },
+    {
+      "label": "nPipeline",
+      "target": "nPipeline/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/npipeline",
+      "anchor": ""
+    },
+    {
+      "label": "Complete Module Catalog",
+      "target": "../gDocs/reference/module-catalog.md#gframework",
+      "kind": "internal",
+      "route": "/docs/reference/module-catalog",
+      "anchor": "gframework"
+    },
+    {
+      "label": "How Nodics Is Organized",
+      "target": "../gDocs/architecture/how-nodics-is-organized.md",
+      "kind": "internal",
+      "route": "/docs/architecture/how-nodics-is-organized",
+      "anchor": ""
+    },
+    {
+      "label": "Build Your First Nodics Capability",
+      "target": "../gDocs/getting-started/build-your-first-capability.md",
+      "kind": "internal",
+      "route": "/docs/getting-started/build-your-first-capability",
+      "anchor": ""
+    },
+    {
+      "label": "Complete Module Catalog",
+      "target": "../gDocs/reference/module-catalog.md",
+      "kind": "internal",
+      "route": "/docs/reference/module-catalog",
+      "anchor": ""
+    },
+    {
+      "label": "Nodics Documentation",
+      "target": "../gDocs/README.md",
+      "kind": "internal",
+      "route": "/docs",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

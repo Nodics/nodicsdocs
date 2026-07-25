@@ -1,0 +1,300 @@
+{
+  "code": "docsArticlef72f0fcc149cd10b5deb",
+  "title": "nEvent",
+  "route": "/docs/modules/gframework/nevent",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nEvent/README.md",
+    "type": "module-readme",
+    "contentHash": "954d03d44a55369a373220fbd9f94821c99e55dc92b83d2389d7c1d89cf226f7"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "nEvent",
+      "anchor": "nevent"
+    },
+    {
+      "level": 2,
+      "text": "Ownership",
+      "anchor": "ownership"
+    },
+    {
+      "level": 2,
+      "text": "Extension Contract",
+      "anchor": "extension-contract"
+    },
+    {
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "level": 2,
+      "text": "Listener Guidance",
+      "anchor": "listener-guidance"
+    },
+    {
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "level": 2,
+      "text": "Delivery, Failure, And Performance",
+      "anchor": "delivery-failure-and-performance"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "nEvent",
+      "anchor": "nevent"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nEvent` runs in-platform event listeners. It lets one capability announce that something happened without hardcoding every interested module into the publisher. Broker transport remains owned by `nEms`; persisted distribution and event logs remain owned by `gCore/nems`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nEvent` owns the framework event publishing and listener execution contract."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics separates framework event publishing from persisted event distribution: `nEvent` provides the framework event capability, while `gCore/nems` owns persisted distribution and event-log behavior."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Ownership",
+      "anchor": "ownership"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nEvent` is responsible for:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "event publish APIs used by framework and capability modules;",
+        "listener registration and lookup;",
+        "event context propagation;",
+        "extension points for later modules to add or override listeners;",
+        "integration with distributor modules where configured."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Extension Contract",
+      "anchor": "extension-contract"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Modules should register listeners through source definitions and services. Do not hardcode target module behavior in framework event code. Event payloads must preserve tenant/request context, traceability, and sanitized diagnostics."
+    },
+    {
+      "kind": "paragraph",
+      "text": "When changing event behavior, test default listener execution and later-module listener overrides."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nEvent` provides:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "event controller and facade boundaries;",
+        "`DefaultEventService` for listener loading, registration, update, removal, publish, and handle behavior;",
+        "module-local event listener definitions through `src/event/listeners.js`;",
+        "optional persisted listener merge when generated listener model support is available;",
+        "common listener registration across active modules;",
+        "module-specific listener registration;",
+        "`EventService` and `EventError` library primitives;",
+        "event listener change handling."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Event listeners are source-owned contracts. Later modules can add, disable, or override listeners through active module hierarchy and persisted runtime governance where available."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Startup loads listener definitions from active modules.",
+        "Persisted listener definitions are merged when listener model support is available.",
+        "Common listeners are registered against active modules.",
+        "Module-specific listeners are registered against their owning module.",
+        "`publish` or `handleEvent` receives an event with tenant and context.",
+        "Registered listeners execute through module event services.",
+        "Listener update/removal events refresh runtime listener state."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Events triggered by EMS messages must preserve tenant context, source, target, node id, header, event type, and sanitized diagnostics."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Listener Guidance",
+      "anchor": "listener-guidance"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A listener definition should document:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "event name;",
+        "owning module;",
+        "handler service and method;",
+        "active flag;",
+        "node restriction when applicable;",
+        "tenant expectation;",
+        "source/target expectation;",
+        "retry or failure behavior;",
+        "side effects and tests."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not put broker-specific messaging behavior here. EMS modules own broker integration; `nEvent` owns in-platform event listener execution."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run quality:docs\nnpm run docs:coverage:source -- --limit=20"
+    },
+    {
+      "kind": "paragraph",
+      "text": "When changing event behavior, add focused tests for listener registration, listener override, tenant/context propagation, local handling, remote publishing, and failure diagnostics."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "hardcoding target module behavior in event service code;",
+        "dropping tenant or trace context from event payloads;",
+        "mixing broker client logic into event listeners;",
+        "registering listeners outside `src/event/listeners.js` or governed persisted listener models;",
+        "returning raw internal errors in event diagnostics."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Delivery, Failure, And Performance",
+      "anchor": "delivery-failure-and-performance"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Document whether an event is local, remotely distributed, persisted, replayable, or best effort. A local listener call is not durable messaging. Listener side effects must define idempotency and failure handling when an upstream broker or persisted distributor can redeliver."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep listener execution bounded and observable by event, source, target, module, tenant, correlation, node, duration, and safe outcome. Do not use full payloads or sensitive fields as telemetry labels. Long-running or durable work belongs in messaging, jobs, or workflows rather than blocking a local event chain."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Broker messaging: [nEms](../nEms/README.md)",
+        "Persisted event distribution: [nems](../../gCore/nems/README.md)",
+        "Public platform guide: [How Platform Capabilities Work](../../gDocs/platform/how-platform-capabilities-work.md)",
+        "Framework map: [gFramework](../README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "nEms",
+      "target": "../nEms/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nems",
+      "anchor": ""
+    },
+    {
+      "label": "nems",
+      "target": "../../gCore/nems/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcore/nems",
+      "anchor": ""
+    },
+    {
+      "label": "How Platform Capabilities Work",
+      "target": "../../gDocs/platform/how-platform-capabilities-work.md",
+      "kind": "internal",
+      "route": "/docs/platform/how-platform-capabilities-work",
+      "anchor": ""
+    },
+    {
+      "label": "gFramework",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

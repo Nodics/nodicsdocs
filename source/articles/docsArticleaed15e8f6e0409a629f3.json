@@ -1,0 +1,167 @@
+{
+  "code": "docsArticleaed15e8f6e0409a629f3",
+  "title": "Documentation Images",
+  "route": "/docs/assets/images",
+  "category": "assets",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gDocs/assets/images/README.md",
+    "type": "gdocs",
+    "contentHash": "ac099bce62c49744aab7eabd04ecdd55e44c31effa6b157158ad72ed30de7a87"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Documentation Images",
+      "anchor": "documentation-images"
+    },
+    {
+      "level": 2,
+      "text": "Image Catalog",
+      "anchor": "image-catalog"
+    },
+    {
+      "level": 2,
+      "text": "Rules",
+      "anchor": "rules"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Documentation Images",
+      "anchor": "documentation-images"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains product documentation images used by the Nodics framework guides and renamed for stable Markdown references."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use these images only when they help a reader understand a platform concept, process flow, runtime topology, security boundary, data movement path, or deployment model."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Image Catalog",
+      "anchor": "image-catalog"
+    },
+    {
+      "kind": "table",
+      "headers": [
+        "Image",
+        "Use"
+      ],
+      "rows": [
+        [
+          "`nodics-architecture.jpg`",
+          "Overall Nodics architecture and capability composition."
+        ],
+        [
+          "`technology-stack.jpg`",
+          "Technology stack overview."
+        ],
+        [
+          "`microservices-architecture.jpg`",
+          "Modular/microservice deployment view."
+        ],
+        [
+          "`enterprise-tenant-design.jpg`",
+          "Enterprise, sub-enterprise, and tenant relationship."
+        ],
+        [
+          "`cloud-deployment-process.jpg`",
+          "Cloud/distributed deployment view."
+        ],
+        [
+          "`nodics-structure.png`",
+          "Project, module, environment, server, and node structure."
+        ],
+        [
+          "`request-process-design.jpg`",
+          "Request handling design."
+        ],
+        [
+          "`request-process-flow.jpg`",
+          "Request handler process flow."
+        ],
+        [
+          "`authentication-flow.jpg`",
+          "Authentication flow."
+        ],
+        [
+          "`authorization-flow.jpg`",
+          "Authorization flow."
+        ],
+        [
+          "`cron-job-process.jpg`",
+          "CronJob process flow."
+        ],
+        [
+          "`cron-job-lifecycle.png`",
+          "CronJob lifecycle."
+        ],
+        [
+          "`event-handler-process.jpg`",
+          "Event handling flow."
+        ],
+        [
+          "`ems-producer-flow.jpg`",
+          "EMS producer flow."
+        ],
+        [
+          "`ems-consumer-flow.jpg`",
+          "EMS consumer flow."
+        ],
+        [
+          "`api-cache-flow.jpg`",
+          "API cache flow."
+        ],
+        [
+          "`item-cache-flow.jpg`",
+          "Item/object cache flow."
+        ],
+        [
+          "`search-cache-flow.jpg`",
+          "Search cache flow."
+        ],
+        [
+          "`data-import-process.jpg`",
+          "Data import process flow."
+        ],
+        [
+          "`data-export-process.jpg`",
+          "Data export process flow."
+        ],
+        [
+          "`logger-process-flow.jpg`",
+          "Logging process flow."
+        ]
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Rules",
+      "anchor": "rules"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Keep images under `gDocs/assets/images`; do not link to private root `docs/` references or old WordPress URLs.",
+        "Prefer diagrams that explain stable concepts. Do not add screenshots for temporary development state.",
+        "When a process changes, update the text and image together. If the image becomes stale, replace it with a maintained Mermaid diagram or a regenerated asset.",
+        "Use meaningful alt text in Markdown."
+      ]
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

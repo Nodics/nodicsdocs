@@ -1,0 +1,224 @@
+{
+  "code": "docsArticle1c10b9e7616c3b1f0993",
+  "title": "BackOffice Registry Operations Runbook",
+  "route": "/docs/modules/gexp/backoffice/docs/registry-operations-runbook",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gExp/backoffice/docs/registry-operations-runbook.md",
+    "type": "module-doc",
+    "contentHash": "967852c29a04c7865edd4804ade7d67b2d1701ec1e56097fd058ad3531859d71"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "BackOffice Registry Operations Runbook",
+      "anchor": "backoffice-registry-operations-runbook"
+    },
+    {
+      "level": 2,
+      "text": "Production Store Configuration",
+      "anchor": "production-store-configuration"
+    },
+    {
+      "level": 2,
+      "text": "Readiness and Diagnostics",
+      "anchor": "readiness-and-diagnostics"
+    },
+    {
+      "level": 2,
+      "text": "Failure and Recovery",
+      "anchor": "failure-and-recovery"
+    },
+    {
+      "level": 2,
+      "text": "Rollout Verification",
+      "anchor": "rollout-verification"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "BackOffice Registry Operations Runbook",
+      "anchor": "backoffice-registry-operations-runbook"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Production Store Configuration",
+      "anchor": "production-store-configuration"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The BackOffice registry does not create a provider client. Enable a distributed nCache engine for the `backoffice` module, then select it through layered BackOffice configuration:"
+    },
+    {
+      "kind": "code",
+      "language": "js",
+      "text": "module.exports = {\n    backofficeRegistry: {\n        store: {\n            mode: 'distributed',\n            moduleName: 'backoffice',\n            engineName: 'redis',\n            keyPrefix: 'registry:lease:'\n        }\n    },\n    cache: {\n        backoffice: {\n            engines: {\n                redis: {\n                    enabled: true,\n                    options: { url: process.env.NODICS_CACHE_REDIS_URL }\n                }\n            }\n        }\n    }\n};"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Supply the URL through governed secret or external configuration. Do not commit credentials, disable TLS verification, or create a BackOffice-owned Redis SDK connection. Use a deployment-specific key prefix when multiple environments share infrastructure."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Readiness and Diagnostics",
+      "anchor": "readiness-and-diagnostics"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The configured store contributes a required `backofficeRegistryStore` readiness check. Distributed mode is unavailable when nCache has no configured engine client or the provider client reports `isReady === false`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The secured registry diagnostics response exposes only active module-lease counts; registration lifecycle counters; store mode and availability; store operation counters; contract reconciliation and retention counters; bounded pending-approval and active-selection counts; and last success/error timestamps. It never returns provider URLs, credentials, keys, stored lease bodies, tokens, or headers."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Operational assessment reports `READY`, `DEGRADED`, or `NOT_READY` with stable alert codes. Invalid required configuration or an unavailable registry store is `NOT_READY`. Failure ratios, queue saturation, store errors, renewal conflicts, discovery failures, and administrative throttling are `DEGRADED`; they do not replace the owning subsystem's metrics or target-module health."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Route stable alert codes to the environment monitoring system:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "page for `REGISTRY_STORE_UNAVAILABLE` and configuration failures;",
+        "investigate `REGISTRY_STORE_ERRORS` and `LEASE_RENEWAL_CONFLICTS`;",
+        "scale or tune for `AVAILABILITY_QUEUE_SATURATED`;",
+        "inspect target/runtime health for `AVAILABILITY_FAILURE_RATE`;",
+        "inspect target contracts for `DISCOVERY_FAILURE_RATE`;",
+        "inspect clients and permissions for `ADMIN_REFRESH_THROTTLED`."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Failure and Recovery",
+      "anchor": "failure-and-recovery"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "If BackOffice is unavailable, module traffic remains ready and registration"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "retries on `retryIntervalMs`."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "After successful registration, renewal uses `heartbeatIntervalMs`.",
+        "If the distributed store is unavailable, registry operations fail closed and"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "BackOffice readiness becomes DOWN; business modules continue their own work."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Graceful module drain removes all leases for that runtime identity.",
+        "Crash leases disappear through provider TTL even when no sweeper runs.",
+        "BackOffice restart recovers shared leases immediately in distributed mode;"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "memory mode reconciles through module retries and heartbeats."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Contract history always recovers from its durable active pointer. Active reads"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "repair stale denormalized `ACTIVE`/`SUPERSEDED` states left by an interrupted decision without changing the target module's authoritative contract."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Rollout Verification",
+      "anchor": "rollout-verification"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Confirm the nCache distributed engine is enabled and ready.",
+        "Confirm BackOffice readiness reports the registry-store contributor UP.",
+        "Confirm diagnostics report `mode: distributed` and `available: true`.",
+        "Restart one module runtime and confirm its old identity is replaced. For"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Profile, confirm unrelated leases remain and a new human login reaches BackOffice with the same tenant context."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Kill a disposable runtime without drain and confirm expiry after lease TTL.",
+        "Restart one BackOffice replica and confirm other replicas retain leases.",
+        "Confirm the restarted replica reports the same active contract hash and"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "activation revision and that reconciliation failures remain zero."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Interrupt and restore the distributed provider; confirm BackOffice readiness"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "changes without stopping target-module traffic."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Confirm operational assessment returns `READY` after recovery and alert/audit"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "payloads contain no credentials, endpoints, or provider messages."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use `npm run test:topology:consolidated` for governed `monoServer` registration, safe-projection, whole-process restart, and durable-pointer recovery. Use `npm run test:topology:modular` for CMS Staged/Online identity separation, Profile and CMS restart reconciliation, distributed human authentication, explicit direct-endpoint selection, and BackOffice durable-pointer recovery. If the local administrator predates the bootstrap sample, provide its current value only through `NODICS_TOPOLOGY_ADMIN_PASSWORD`; never commit or log it. Use the guarded Redis live test in an isolated environment before production release:"
+    },
+    {
+      "kind": "code",
+      "language": "sh",
+      "text": "NODICS_CACHE_REDIS_URL=redis://isolated-host:6379 npm run test:backoffice:redis:release"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The live gate uses a unique key namespace, two independent provider clients, separate OS-process operations, and scoped cleanup. It validates replica visibility, provider TTL, atomic stale-delete protection, fail-closed interruption, restored-client recovery, configurable concurrent lease load, and incremental scan completeness. It does not replace complete application-replica testing, TLS, network-policy, secret, or production-database validation."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Production mode is enabled only from the deployment environment layer. It requires distributed storage, HTTPS-only target endpoints, discovery and availability host allowlists, strict human administration, and acknowledged fail-closed audit and alert publishers. Invalid production policy makes BackOffice operational readiness `NOT_READY`."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

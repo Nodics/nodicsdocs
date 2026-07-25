@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle7ccbd82bc713716b1b5e",
+  "title": "gfcore Module",
+  "route": "/docs/modules/docs/gframes/gframesmodules/gfcore",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "docs/gframes/gframesModules/gfcore/README.md",
+    "type": "module-readme",
+    "contentHash": "8d28cf8e37b612b3b7d62ac7b6eeb45bb5e0837a959478a18a14449c3f6f8e9e"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "gfcore Module",
+      "anchor": "gfcore-module"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "gfcore Module",
+      "anchor": "gfcore-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`gfcore` owns core project behavior for the `gframes` application. It provides project-specific data, schemas, routes, pipelines, interceptors, utilities, configuration, and tests."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for application domain behavior that is not purely API, profile, or content specific. Framework capabilities should be extended, not modified."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Core project changes should preserve validation, tenant context, access control, diagnostics, and generated artifacts."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

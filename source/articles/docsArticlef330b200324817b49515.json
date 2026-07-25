@@ -1,0 +1,47 @@
+{
+  "code": "docsArticlef330b200324817b49515",
+  "title": "kickoffLocalWorkflowServer",
+  "route": "/docs/modules/docs/kickoff/kickoffenvs/kickofflocal/kickofflocalworkflowserver",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "docs/kickoff/kickoffEnvs/kickoffLocal/kickoffLocalWorkflowServer/README.md",
+    "type": "module-readme",
+    "contentHash": "0df53357b1ff6718f59c674c77885590fb3c49bef03752297aefe85ae29d46de"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "kickoffLocalWorkflowServer",
+      "anchor": "kickofflocalworkflowserver"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "kickoffLocalWorkflowServer",
+      "anchor": "kickofflocalworkflowserver"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`kickoffLocalWorkflowServer` is the local workflow server module for the `kickoff` application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for local workflow server activation and runtime topology. Workflow behavior belongs in workflow modules and framework BPM contracts."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Local workflow settings should preserve auditability, rollback expectations, and layered overrides."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

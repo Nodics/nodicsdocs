@@ -1,0 +1,245 @@
+{
+  "code": "docsArticlef6adb1c8d6670fd88fce",
+  "title": "excelExport Module",
+  "route": "/docs/modules/gframework/ndata/nexport/excelexport",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nData/nExport/excelExport/README.md",
+    "type": "module-readme",
+    "contentHash": "75215b642faf3533a81e0244f1bfc3bf064fa78ec1f82c335ed992d4026097d8"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "excelExport Module",
+      "anchor": "excelexport-module"
+    },
+    {
+      "level": 2,
+      "text": "Capability Status",
+      "anchor": "capability-status"
+    },
+    {
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "level": 2,
+      "text": "Configuration",
+      "anchor": "configuration"
+    },
+    {
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "level": 2,
+      "text": "Production Completion Boundary",
+      "anchor": "production-completion-boundary"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "excelExport Module",
+      "anchor": "excelexport-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "**Maturity: Placeholder or scaffold.** The module owns the future format boundary but does not yet provide a production writer."
+    },
+    {
+      "kind": "paragraph",
+      "text": "`excelExport` provides spreadsheet-oriented export support for the `nData/nExport` family. It owns Excel-specific output conventions, workbook/sheet mapping behavior, and adapter wiring used by the shared export engine."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for spreadsheet format behavior only. Shared export lifecycle, access policy, and orchestration remain owned by `nData/nExport/export`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Project-specific workbook layouts should be supplied through definitions and layered configuration rather than hardcoded in framework code."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Capability Status",
+      "anchor": "capability-status"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The module currently contributes standard Nodics structure for an Excel export adapter:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "layered configuration extension files;",
+        "schema, router, and pipeline extension slots;",
+        "enum, status, and utility files;",
+        "common and environment-local smoke tests;",
+        "generated LLM context."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "It does not currently provide a complete workbook writer service. A production Excel exporter should be implemented through this module or a later active project/provider module."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "kind": "paragraph",
+      "text": "An Excel exporter should define:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "workbook structure;",
+        "sheet names and sheet ordering;",
+        "column definitions;",
+        "cell value conversion;",
+        "date, number, boolean, enum, and rich text formatting;",
+        "optional formulas, styles, freeze panes, and filters;",
+        "memory/streaming policy for large exports;",
+        "delivery behavior through governed export destination services;",
+        "tests that verify workbook contents, sheet names, cell values, and edge cases."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep spreadsheet rendering here. Keep source-data selection, access policy, run orchestration, and delivery governance in the shared export engine or delivery/provider modules."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Configuration",
+      "anchor": "configuration"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Excel configuration should come from layered properties or export definitions. Typical options include workbook template name, sheet mapping, column mapping, style profile, file naming policy, maximum row handling, and output type."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not hardcode customer workbook layouts, local filesystem paths, target credentials, or tenant mappings in framework source."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run the current module baseline with:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run structure:audit -- --fail\nnpm run quality:docs"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A real Excel implementation should add deterministic workbook tests that open the generated file and verify sheets, rows, columns, values, formulas, and access-policy filtering."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "generating workbooks before export access policy is applied;",
+        "embedding destination behavior inside workbook creation;",
+        "assuming every customer uses the same sheet layout;",
+        "loading unbounded data into memory without a streaming or batch policy;",
+        "treating smoke tests as release coverage for a production Excel exporter."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Production Completion Boundary",
+      "anchor": "production-completion-boundary"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A complete writer must prove bounded memory or streaming behavior for large workbooks, deterministic sheet/cell contracts, and safe formula handling."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Export family: [nExport](../README.md)",
+        "Shared fail-closed engine: [export](../export/README.md)",
+        "Maturity matrix: [Provider And Capability Maturity Matrix](../../../../gDocs/reference/provider-capability-maturity-matrix.md)",
+        "Public data guide: [How To Work With Data](../../../../gDocs/data/how-to-work-with-data.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "nExport",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata/nexport",
+      "anchor": ""
+    },
+    {
+      "label": "export",
+      "target": "../export/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata/nexport/export",
+      "anchor": ""
+    },
+    {
+      "label": "Provider And Capability Maturity Matrix",
+      "target": "../../../../gDocs/reference/provider-capability-maturity-matrix.md",
+      "kind": "internal",
+      "route": "/docs/reference/provider-capability-maturity-matrix",
+      "anchor": ""
+    },
+    {
+      "label": "How To Work With Data",
+      "target": "../../../../gDocs/data/how-to-work-with-data.md",
+      "kind": "internal",
+      "route": "/docs/data/how-to-work-with-data",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

@@ -1,0 +1,127 @@
+{
+  "code": "docsArticle5c8c3a3703223c6587b5",
+  "title": "CMS Publication Manifest Contract",
+  "route": "/docs/modules/gcontent/cms/docs/publication-manifest-contract",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gContent/cms/docs/publication-manifest-contract.md",
+    "type": "module-doc",
+    "contentHash": "a54b7ce252682e3adb383a2fbd938492126e97d38c804f33119b0aca53ae6134"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "CMS Publication Manifest Contract",
+      "anchor": "cms-publication-manifest-contract"
+    },
+    {
+      "level": 2,
+      "text": "Immutable release unit",
+      "anchor": "immutable-release-unit"
+    },
+    {
+      "level": 2,
+      "text": "Delivery authority",
+      "anchor": "delivery-authority"
+    },
+    {
+      "level": 2,
+      "text": "Customization",
+      "anchor": "customization"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "CMS Publication Manifest Contract",
+      "anchor": "cms-publication-manifest-contract"
+    },
+    {
+      "kind": "paragraph",
+      "text": "CMS integrates with the generic `nPublish` lifecycle through `DefaultCmsPublicationAdapterService` and `DefaultCmsPublicationVersionProviderService`. CMS owns content dependency and delivery interpretation; `nPublish` remains the lifecycle and audit authority; versioned database variants remain the physical version authority."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Immutable release unit",
+      "anchor": "immutable-release-unit"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The supported default root is `pageRoute`. Validation resolves the exact route, page, component association, component, template, and slot versions. The Staged system stores those identities and a client-safe delivery snapshot in an immutable `cmsPublicationManifest` release package."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Staged and Online are always separate systems or database/schema authorities. The configured target transport sends the immutable package with a module service token to the Online CMS target. The target validates integrity, imports the complete manifest idempotently, records a deployment receipt, and only then switches its target-local `cmsOnlinePublicationPointer`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The three target routes declare `authTokenTypes: ['service']` in addition to the configurable internal-token permission. Missing credentials, API-key identities, and human access tokens therefore fail before controller execution. Staged also fails locally when no tenant-scoped internal token is available."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The pointer selects one manifest for a tenant-scoped site, path, locale, channel, and access-mode scope and uses an optimistic revision update. Activation replays are idempotent. Rollback is sent to the target and can select only a release previously deployed there. Staged never writes the Online database or pointer directly."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Concurrent identical first deployments converge on one deterministic pointer and one deployment receipt. A conflicting pointer revision fails with a governed conflict instead of overwriting another release."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Delivery authority",
+      "anchor": "delivery-authority"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`cms.publication.enabled` selects the delivery authority:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`false` keeps the existing route/page/component delivery contract active;",
+        "`true` requires an Online manifest pointer and serves only its frozen snapshot."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "There is no runtime fallback between these modes. Operators must build and activate manifests before enabling manifest delivery for a tenant deployment. Missing pointers or manifests fail closed."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The Staged runtime configures `cms.publication.targetTransportProvider` and target module connection settings. The default is `null`, so publishing fails closed until an explicit target is configured. The supplied module transport uses `DefaultModuleService`, existing server/module resolution, internal bearer tokens, bounded timeouts, retries, and deterministic idempotency keys. The Staged correlation ID is propagated through the internal request and is stored on the target manifest, active pointer, and deployment receipt."
+    },
+    {
+      "kind": "paragraph",
+      "text": "If Online is unavailable, Staged records an auditable `FAILED` terminal state and Online retains its previous pointer. After the target recovers, operators submit a new publication identity for the same source version; failed audit history is not silently rewritten."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Every deployment must declare `cms.publication.runtimeRole` explicitly as `STAGED` or `ONLINE`. Source version lookup, manifest construction, deployment, and rollback initiation fail outside `STAGED`. Target import, pointer switching, status, and target rollback fail outside `ONLINE`; they also fail if the Online process activates `publishEnabled`. The target module connection cannot use the default/self alias."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Default CMS keeps publication and per-schema versioning disabled so deployments without a versioned database variant continue to start normally. A project or environment layer enabling manifest publication must also activate the existing versioned database contract and override the selected CMS schemas with `isVersionedEnabled: true`. Do not force versioning into unrelated CMS deployments."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Customization",
+      "anchor": "customization"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Projects may extend `cms.publication.rootTypes` and override adapter, manifest, or version-provider services through the normal module hierarchy. Extensions must retain exact-version reads, bounded dependency traversal, tenant isolation, deterministic manifest integrity, pointer compare-and-set, idempotent activation, and rollback behavior."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

@@ -1,0 +1,339 @@
+{
+  "code": "docsArticle332f45ff4055da8f8052",
+  "title": "Build Your First Nodics Capability",
+  "route": "/docs/getting-started/build-your-first-capability",
+  "category": "getting-started",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gDocs/getting-started/build-your-first-capability.md",
+    "type": "gdocs",
+    "contentHash": "0aef7c19b0676bf5e5fc77e7e58fe5acacc50fbf5ac0b7a0c4bd1ffbca313c09"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Build Your First Nodics Capability",
+      "anchor": "build-your-first-nodics-capability"
+    },
+    {
+      "level": 2,
+      "text": "What You Will Build",
+      "anchor": "what-you-will-build"
+    },
+    {
+      "level": 2,
+      "text": "The Five Pieces In Plain Language",
+      "anchor": "the-five-pieces-in-plain-language"
+    },
+    {
+      "level": 2,
+      "text": "Step 1: Confirm The Capability Owner",
+      "anchor": "step-1-confirm-the-capability-owner"
+    },
+    {
+      "level": 2,
+      "text": "Step 2: Describe The Contract Before Coding",
+      "anchor": "step-2-describe-the-contract-before-coding"
+    },
+    {
+      "level": 2,
+      "text": "Step 3: Put Each Concern In Its Owned Layer",
+      "anchor": "step-3-put-each-concern-in-its-owned-layer"
+    },
+    {
+      "level": 2,
+      "text": "Step 4: Verify More Than The Happy Path",
+      "anchor": "step-4-verify-more-than-the-happy-path"
+    },
+    {
+      "level": 2,
+      "text": "Step 5: Make The Capability Discoverable",
+      "anchor": "step-5-make-the-capability-discoverable"
+    },
+    {
+      "level": 2,
+      "text": "What Success Looks Like",
+      "anchor": "what-success-looks-like"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Build Your First Nodics Capability",
+      "anchor": "build-your-first-nodics-capability"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This journey is for someone who understands basic programming but is new to Nodics. It explains the whole path before asking you to learn each internal detail."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What You Will Build",
+      "anchor": "what-you-will-build"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Imagine that a business needs to keep a list of service requests. A user should be able to create a request, view it, update it, and close it. Different customers must not accidentally access each other's information."
+    },
+    {
+      "kind": "paragraph",
+      "text": "In Nodics, this business idea becomes one owned **capability**. A capability is a coherent piece of business behavior with one clear home."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "The Five Pieces In Plain Language",
+      "anchor": "the-five-pieces-in-plain-language"
+    },
+    {
+      "kind": "table",
+      "headers": [
+        "Nodics term",
+        "Plain-language meaning"
+      ],
+      "rows": [
+        [
+          "Module",
+          "The home that owns the capability."
+        ],
+        [
+          "Schema",
+          "The agreed shape and rules for the information."
+        ],
+        [
+          "Service",
+          "The business behavior performed on that information."
+        ],
+        [
+          "Route/API",
+          "The controlled doorway used by another application."
+        ],
+        [
+          "Test",
+          "Executable evidence that the behavior and its boundaries work."
+        ]
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "You may later use controllers, facades, pipelines, events, or providers. Do not add them merely because they exist. Add a layer when it owns a clear responsibility."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Step 1: Confirm The Capability Owner",
+      "anchor": "step-1-confirm-the-capability-owner"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Search the [Module Documentation Index](../reference/module-documentation-index.md) and [Complete Module Catalog](../reference/module-catalog.md). Extend an existing capability when it already owns the behavior. Create a new project module only when the business capability is genuinely new."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not place customer behavior in a reusable framework module. Nodics framework modules supply defaults; project modules own project behavior and overrides."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Step 2: Describe The Contract Before Coding",
+      "anchor": "step-2-describe-the-contract-before-coding"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Write down:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "the information the service request contains;",
+        "who may create, read, update, or close it;",
+        "which tenant owns it;",
+        "valid and invalid states;",
+        "whether another module or external system is involved;",
+        "how success and failure will be observed;",
+        "which behavior a customer may customize."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "This short description prevents the API, data model, and permissions from becoming separate guesses."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Step 3: Put Each Concern In Its Owned Layer",
+      "anchor": "step-3-put-each-concern-in-its-owned-layer"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use [How To Create Application Functionality](../development/how-to-create-application-functionality.md) for the detailed workflow. In summary:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Define data rules in the owning module's schema definitions.",
+        "Define business behavior in its service layer.",
+        "Expose only the required API operations through route definitions.",
+        "Configure permissions and tenant behavior explicitly.",
+        "Use layered `properties.js` configuration for policy that projects or"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "environments may change."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Keep generated files generated from their source definitions."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Step 4: Verify More Than The Happy Path",
+      "anchor": "step-4-verify-more-than-the-happy-path"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Test:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "a valid service request;",
+        "missing or invalid information;",
+        "a user without permission;",
+        "access from the wrong tenant;",
+        "state boundaries, such as closing an already closed request;",
+        "project-level customization;",
+        "the API and generated contract;",
+        "integration with any module or provider involved."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Follow [How To Test Nodics Changes](../testing/how-to-test-nodics-changes.md) for the available test and generation commands."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Step 5: Make The Capability Discoverable",
+      "anchor": "step-5-make-the-capability-discoverable"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update the owning module README with purpose, ownership, configuration, extension points, security, and verification. Update `gDocs` when users need a new task guide. Update AI/developer contracts when the implementation rule or extension boundary changes."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What Success Looks Like",
+      "anchor": "what-success-looks-like"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A new developer should be able to answer all of these without reading every source file:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "What business problem does the capability solve?",
+        "Which module owns it?",
+        "Which API and data contract does it expose?",
+        "Who may use it?",
+        "How is tenant separation preserved?",
+        "How may a project customize it?",
+        "Which tests prove it?",
+        "What must be regenerated after a change?"
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Previous: [How To Set Up Nodics](how-to-setup-nodics.md)",
+        "Next: [How To Create Application Functionality](../development/how-to-create-application-functionality.md)",
+        "Terminology: [Nodics Glossary](../reference/glossary.md)",
+        "Documentation home: [Nodics Documentation](../README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "Module Documentation Index",
+      "target": "../reference/module-documentation-index.md",
+      "kind": "internal",
+      "route": "/docs/reference/module-documentation-index",
+      "anchor": ""
+    },
+    {
+      "label": "Complete Module Catalog",
+      "target": "../reference/module-catalog.md",
+      "kind": "internal",
+      "route": "/docs/reference/module-catalog",
+      "anchor": ""
+    },
+    {
+      "label": "How To Create Application Functionality",
+      "target": "../development/how-to-create-application-functionality.md",
+      "kind": "internal",
+      "route": "/docs/development/how-to-create-application-functionality",
+      "anchor": ""
+    },
+    {
+      "label": "How To Test Nodics Changes",
+      "target": "../testing/how-to-test-nodics-changes.md",
+      "kind": "internal",
+      "route": "/docs/testing/how-to-test-nodics-changes",
+      "anchor": ""
+    },
+    {
+      "label": "How To Set Up Nodics",
+      "target": "how-to-setup-nodics.md",
+      "kind": "internal",
+      "route": "/docs/getting-started/how-to-setup-nodics",
+      "anchor": ""
+    },
+    {
+      "label": "How To Create Application Functionality",
+      "target": "../development/how-to-create-application-functionality.md",
+      "kind": "internal",
+      "route": "/docs/development/how-to-create-application-functionality",
+      "anchor": ""
+    },
+    {
+      "label": "Nodics Glossary",
+      "target": "../reference/glossary.md",
+      "kind": "internal",
+      "route": "/docs/reference/glossary",
+      "anchor": ""
+    },
+    {
+      "label": "Nodics Documentation",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

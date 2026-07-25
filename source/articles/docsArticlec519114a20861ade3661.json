@@ -1,0 +1,382 @@
+{
+  "code": "docsArticlec519114a20861ade3661",
+  "title": "nCache",
+  "route": "/docs/modules/gframework/ncache",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nCache/README.md",
+    "type": "module-readme",
+    "contentHash": "1389693237d4ae75b7dfd2909e4385f001d291463ba747610a9e82a97e27aa59"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "nCache",
+      "anchor": "ncache"
+    },
+    {
+      "level": 2,
+      "text": "Choose A Cache Module",
+      "anchor": "choose-a-cache-module"
+    },
+    {
+      "level": 2,
+      "text": "Cache Layers",
+      "anchor": "cache-layers"
+    },
+    {
+      "level": 2,
+      "text": "Cache Ownership",
+      "anchor": "cache-ownership"
+    },
+    {
+      "level": 2,
+      "text": "Cache Use Cases",
+      "anchor": "cache-use-cases"
+    },
+    {
+      "level": 2,
+      "text": "Extension Contract",
+      "anchor": "extension-contract"
+    },
+    {
+      "level": 2,
+      "text": "Adding A Cache Engine",
+      "anchor": "adding-a-cache-engine"
+    },
+    {
+      "level": 2,
+      "text": "Operations And Verification",
+      "anchor": "operations-and-verification"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "nCache",
+      "anchor": "ncache"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nCache` is the cache capability group. A cache keeps a temporary copy of data to avoid repeating expensive work; it never becomes the authoritative owner of that data."
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nCache` groups the cache orchestration module and its Local, Redis, and Hazelcast adapter modules."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`cache` defines the layered adapter, tenancy, security, and invalidation contracts.",
+        "`nodeCache` is the supported process-local implementation.",
+        "`redisCache` is the supported distributed implementation.",
+        "Initialized cache providers contribute optional readiness and close their"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "unique connections through the central runtime lifecycle contract."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`hazelcastCache` remains unsupported until a real project-provided adapter overrides it."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Applications customize cache behavior through module configuration and service overrides; they do not modify Nodics core code."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Choose A Cache Module",
+      "anchor": "choose-a-cache-module"
+    },
+    {
+      "kind": "table",
+      "headers": [
+        "Module",
+        "Role",
+        "Current maturity",
+        "Appropriate use"
+      ],
+      "rows": [
+        [
+          "[cache](cache/README.md)",
+          "Provider-neutral policy and adapter contract",
+          "Production-ready capability",
+          "Define channels, keying, cacheability, invalidation, diagnostics, and engine selection."
+        ],
+        [
+          "[nodeCache](nodeCache/README.md)",
+          "Process-local provider",
+          "Sample or reference",
+          "Local development, single-process optimization, or data that does not require cross-node consistency."
+        ],
+        [
+          "[redisCache](redisCache/README.md)",
+          "Distributed Redis provider",
+          "Guarded provider",
+          "Shared cache and strict distributed auth state after live release qualification."
+        ],
+        [
+          "[hazelcastCache](hazelcastCache/README.md)",
+          "Fail-closed provider slot",
+          "Placeholder or scaffold",
+          "Extension target only until a real adapter and live qualification exist."
+        ]
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Cache Layers",
+      "anchor": "cache-layers"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Cache behavior must remain tenant-aware, configuration-driven, and safe for both consolidated and modular runtime. Strict security-sensitive caches, such as auth/session caches, must use engines that provide the required atomicity and failure semantics."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics cache guidance covers API-response cache, DAO/schema-item cache, search-result cache, invalidation, diagnostics, and custom cache-engine extension. Current behavior must be verified from `nCache/cache`, active cache configuration, and cache tests."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Cache Ownership",
+      "anchor": "cache-ownership"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Cache management is a platform capability, not a simple in-memory helper. Cache must have an owner, configuration path, invalidation behavior, and failure rule."
+    },
+    {
+      "kind": "paragraph",
+      "text": "When adding cache behavior, document:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "cached object or response;",
+        "owning module and service;",
+        "cache key shape;",
+        "tenant/customer/principal partitioning;",
+        "TTL and non-expiring behavior;",
+        "invalidation trigger;",
+        "provider capability requirements;",
+        "fallback behavior when cache is unavailable;",
+        "diagnostics and tests."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Never use cache as the only source of truth. A cache miss must be recoverable from the owning source, database, provider, or runtime state."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Cache Use Cases",
+      "anchor": "cache-use-cases"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Common cache use cases include:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "API response cache for stable read endpoints;",
+        "schema or DAO item cache for repeated persistence lookups;",
+        "search-result cache for expensive search operations;",
+        "auth/session cache where strict distributed invalidation is available;",
+        "runtime/configuration cache where stale values are unacceptable and guarded."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Security-sensitive caches must fail closed when the selected provider cannot meet the required distributed behavior."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Extension Contract",
+      "anchor": "extension-contract"
+    },
+    {
+      "kind": "paragraph",
+      "text": "New cache engines must provide clear contracts for put, get, flush, invalidation, diagnostics, tenant scoping, and distributed behavior. Projects add engines through adapter modules and layered configuration, not by changing framework call sites."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Adding A Cache Engine",
+      "anchor": "adding-a-cache-engine"
+    },
+    {
+      "kind": "paragraph",
+      "text": "New cache engines must be implemented as adapter modules or project modules behind the `nCache/cache` adapter contract. For example, Memcached, Aerospike, or a cloud cache service is added by declaring truthful capabilities and handlers, not by changing router, DAO, or search cache call sites."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The implementation path is:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Create an owned cache adapter module.",
+        "Contribute layered `cache.engines` and `cache.channels` configuration for"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "activation, handler names, TTL defaults, serialization, and channel mapping."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Declare truthful capabilities for distribution, TTL, non-expiring TTL,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "atomic consume, prefix flush, key flush, serialization, and diagnostics."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Implement get, put, consume, flush, invalidate, and diagnostics behavior"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "through the cache adapter contract."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Preserve tenant partitioning, principal-sensitive cache keys, invalidation"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "transport, security fail-closed behavior, and response envelopes."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Add tests for adapter validation, engine startup, cache hits/misses,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "invalidation, tenant isolation, failure behavior, and later-module overrides."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Connection URLs, credentials, cluster topology, namespaces, and channel choices must come from layered configuration or governed runtime layers."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Operations And Verification",
+      "anchor": "operations-and-verification"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Every cache channel must define hit/miss behavior, source fallback, TTL, invalidation, isolation, provider outage behavior, and acceptable staleness. Measure hit rate, miss latency, payload size, eviction, invalidation failures, provider errors, and recovery without using sensitive cache keys as labels."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run the generic cache contracts first, then the selected provider's guarded live gate when it depends on external infrastructure."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Public cache guide: [How Cache Works](../../gDocs/platform/how-cache-works.md)",
+        "Generic contract: [cache](cache/README.md)",
+        "Provider maturity: [Provider And Capability Maturity Matrix](../../gDocs/reference/provider-capability-maturity-matrix.md)",
+        "Framework map: [gFramework](../README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "cache",
+      "target": "cache/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ncache/cache",
+      "anchor": ""
+    },
+    {
+      "label": "nodeCache",
+      "target": "nodeCache/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ncache/nodecache",
+      "anchor": ""
+    },
+    {
+      "label": "redisCache",
+      "target": "redisCache/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ncache/rediscache",
+      "anchor": ""
+    },
+    {
+      "label": "hazelcastCache",
+      "target": "hazelcastCache/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ncache/hazelcastcache",
+      "anchor": ""
+    },
+    {
+      "label": "How Cache Works",
+      "target": "../../gDocs/platform/how-cache-works.md",
+      "kind": "internal",
+      "route": "/docs/platform/how-cache-works",
+      "anchor": ""
+    },
+    {
+      "label": "cache",
+      "target": "cache/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ncache/cache",
+      "anchor": ""
+    },
+    {
+      "label": "Provider And Capability Maturity Matrix",
+      "target": "../../gDocs/reference/provider-capability-maturity-matrix.md",
+      "kind": "internal",
+      "route": "/docs/reference/provider-capability-maturity-matrix",
+      "anchor": ""
+    },
+    {
+      "label": "gFramework",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

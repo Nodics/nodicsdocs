@@ -1,0 +1,63 @@
+{
+  "code": "docsArticlee8bbd7d5c65c0bfe249a",
+  "title": "BackOffice Environment Deployment Contract",
+  "route": "/docs/modules/gexp/backoffice/docs/environment-deployment-contract",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gExp/backoffice/docs/environment-deployment-contract.md",
+    "type": "module-doc",
+    "contentHash": "94faf50475b3bc3eeda45c7776fa89e4cebc12d5eeb235c2df7c9db55977b155"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "BackOffice Environment Deployment Contract",
+      "anchor": "backoffice-environment-deployment-contract"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "BackOffice Environment Deployment Contract",
+      "anchor": "backoffice-environment-deployment-contract"
+    },
+    {
+      "kind": "paragraph",
+      "text": "BackOffice does not define named deployment environments. Environment identity, server composition, node coordinates, provider settings, secret sources, and operational policy are resolved through the existing group modules below the `envs` module group and the normal Nodics layering order."
+    },
+    {
+      "kind": "paragraph",
+      "text": "An environment module may configure:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "memory or distributed registry-store mode;",
+        "the nCache module and engine selected for distributed leases;",
+        "an environment-safe registry key namespace;",
+        "lease TTL, retry interval, heartbeat interval, and request timeout;",
+        "audit publisher and audit failure policy;",
+        "readiness thresholds and operational alert integration;",
+        "workload credential or infrastructure identity configuration."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Reusable BackOffice source, tests, and documentation must not hardcode an environment name, environment endpoint, deployment credential, or provider URL. Server definitions compose active modules and coordinates; modules remain the capability and registration unit."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Each environment should verify startup registration, heartbeat renewal, graceful deregistration, crash expiry, BackOffice restart, module restart, provider interruption, replica visibility, secured diagnostics, and audit delivery using environment-owned test or release configuration."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

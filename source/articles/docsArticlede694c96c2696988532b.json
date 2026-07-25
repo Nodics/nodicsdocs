@@ -1,0 +1,384 @@
+{
+  "code": "docsArticlede694c96c2696988532b",
+  "title": "nValidator",
+  "route": "/docs/modules/gframework/nvalidator",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nValidator/README.md",
+    "type": "module-readme",
+    "contentHash": "dec84c36a880bd8beec86dd8f04032c66f5f7a24ae87fe29141a7125bad6baad"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "nValidator",
+      "anchor": "nvalidator"
+    },
+    {
+      "level": 2,
+      "text": "When To Use A Handler Or Script",
+      "anchor": "when-to-use-a-handler-or-script"
+    },
+    {
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "level": 2,
+      "text": "Source Contracts",
+      "anchor": "source-contracts"
+    },
+    {
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "level": 2,
+      "text": "Configuration",
+      "anchor": "configuration"
+    },
+    {
+      "level": 2,
+      "text": "Security, Isolation, And Failure Behavior",
+      "anchor": "security-isolation-and-failure-behavior"
+    },
+    {
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "level": 2,
+      "text": "Operations And Common Mistakes",
+      "anchor": "operations-and-common-mistakes"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "nValidator",
+      "anchor": "nvalidator"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nValidator` applies reusable checks before or after important operations. A validator can be selected by capability type, target item, lifecycle trigger, tenant, and order, allowing projects to add policy without copying the framework service that performs the operation."
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nValidator` owns the framework validation capability. It provides the persisted `validator.validator` schema, generated validator model/service/API contracts, tenant-aware validator loading, validator configuration storage, script execution support, update pipelines, and change listeners."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module when validation behavior must be reusable across schemas, imports, exports, search, workflow, or scheduled jobs. Domain-specific validation rules should be contributed through validator records, handler services, scripts, or later project modules instead of being hardcoded into framework services."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "When To Use A Handler Or Script",
+      "anchor": "when-to-use-a-handler-or-script"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Prefer a loader-visible handler service for business rules, external calls, complex branching, reusable logic, or behavior that needs mocks and focused tests. Use a script only for a small, trusted expression whose allowed context, execution limits, ownership, and failure behavior are explicit."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Persisted scripts are executable behavior, not ordinary data. Production deployments must treat authoring and mutation as a privileged control-plane operation and qualify the configured script execution boundary. Do not assume that validation alone makes arbitrary script text safe."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Validators describe what should run, where it should run, and in what order."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The validator schema defines:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`type`: one of `schema`, `import`, `export`, `search`, `workflow`, or `job`;",
+        "`item`: the target item, or `default` when the validator applies broadly;",
+        "`trigger`: the lifecycle trigger such as `preSave`, `postSave`, or a process-specific hook;",
+        "`index`: ordering inside the trigger;",
+        "`handler`: optional service method such as `DefaultSampleValidatorService.handlePreSave`;",
+        "`script`: optional script expression evaluated through the platform utility path."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "The module loads validator records per active tenant, groups them by type, item, and trigger, and sorts them by `index` before execution."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "`DefaultValidatorService.loadValidators` reads validator records for active tenants when the generated model service is available.",
+        "`loadRawValidators` validates validator type and trigger, defaults blank `item` to `default`, and merges validator definitions into `DefaultValidatorConfigurationService`.",
+        "`prepareItemValidators` resolves tenant-specific validators for a type and item, merges default and item-specific validators, groups them by trigger, and sorts by index.",
+        "`executeValidators` runs each validator through a configured handler service or through script evaluation.",
+        "Validator change events start `validatorUpdatedPipeline` so runtime validator configuration can be refreshed."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Source Contracts",
+      "anchor": "source-contracts"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`src/schemas/schemas.js` owns the persisted validator schema.",
+        "`src/utils/enums.js` owns the supported validator type enum.",
+        "`src/service/config/defaultValidatorConfigurationService.js` owns raw validator storage and trigger ordering.",
+        "`src/service/validator/defaultValidatorService.js` owns tenant loading, validation, execution, and change-event handling.",
+        "`src/service/validator/defaultValidatorScriptExecutionService.js` owns script execution support.",
+        "`src/service/pipeline/defaultValidatorUpdatedPipelineService.js` owns update pipeline behavior.",
+        "`src/event/listeners.js`, `src/pipelines/pipelines.js`, and `src/interceptors/interceptors.js` keep loader-visible extension points."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Projects may extend validation by:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "adding validator data records for their schemas, imports, exports, search indexes, workflows, or jobs;",
+        "adding handler services in later active modules;",
+        "overriding validator configuration or execution services through the standard service loader;",
+        "contributing additional pipeline or listener behavior in later modules;",
+        "extending the validator schema only when the capability contract requires new persisted metadata."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use handler services for business behavior that must be testable and overrideable. Use scripts only for small expressions that do not hide complex business rules."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Configuration",
+      "anchor": "configuration"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`config/properties.js` is currently an empty baseline. Add configurable validator policy there only when a reusable default is needed, such as script execution policy, diagnostic behavior, or validation limits."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not create parallel validator configuration files. Validator defaults belong in `config/properties.js`; validator runtime records belong in the validator model/data path."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Security, Isolation, And Failure Behavior",
+      "anchor": "security-isolation-and-failure-behavior"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Resolve validators within the active tenant and supported type/trigger"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "catalog."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Restrict validator creation and updates with action-specific permissions and"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "the runtime exposure policy appropriate to the deployment."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Do not expose secrets, credentials, or unrestricted request objects to a"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "script context."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Define whether a validator failure rejects the operation, records a warning,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "or triggers compensation; security and data-integrity checks should fail closed."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Bound execution count and duration so a validator cannot silently create an"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "unbounded high-volume path."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Preserve validator identity, type, item, trigger, order, tenant, correlation,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "handler, duration, and safe failure classification in diagnostics."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The module owns generated schema/API/CRUD tests and focused service coverage:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "generated validator schema, API, API scenario, and CRUD scenario tests;",
+        "`test/validatorServiceContract.test.js`, which verifies tenant loading, type validation, trigger ordering, handler execution, script execution, invalid tenant rejection, and validator change pipeline dispatch."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run focused validation with:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "node gFramework/nValidator/test/validatorServiceContract.test.js\nnpm run test:generated\nnpm run quality:docs"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "hardcoding customer validation rules into framework services;",
+        "bypassing tenant-specific validator resolution;",
+        "adding validator types without updating enum, schema, tests, and docs;",
+        "hiding complex validation behavior in scripts when a service handler is needed;",
+        "changing validator ordering without contract tests;",
+        "treating generated validator artifacts as the source of truth."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Operations And Common Mistakes",
+      "anchor": "operations-and-common-mistakes"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Monitor load failures, invalid records, execution duration, rejection counts, script/handler failures, and change-event refresh results. Avoid embedding customer rules in framework source, using scripts as hidden services, allowing ambiguous duplicate order, or mutating the runtime validator registry outside its model/event contract."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Application functionality: [How To Create Application Functionality](../../gDocs/development/how-to-create-application-functionality.md)",
+        "Data contracts: [How To Work With Data](../../gDocs/data/how-to-work-with-data.md)",
+        "Runtime governance: [nDynamo](../nDynamo/README.md)",
+        "Framework map: [gFramework](../README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "How To Create Application Functionality",
+      "target": "../../gDocs/development/how-to-create-application-functionality.md",
+      "kind": "internal",
+      "route": "/docs/development/how-to-create-application-functionality",
+      "anchor": ""
+    },
+    {
+      "label": "How To Work With Data",
+      "target": "../../gDocs/data/how-to-work-with-data.md",
+      "kind": "internal",
+      "route": "/docs/data/how-to-work-with-data",
+      "anchor": ""
+    },
+    {
+      "label": "nDynamo",
+      "target": "../nDynamo/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndynamo",
+      "anchor": ""
+    },
+    {
+      "label": "gFramework",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

@@ -1,0 +1,47 @@
+{
+  "code": "docsArticleedc1dba129ee6d4f846e",
+  "title": "kickoffModules",
+  "route": "/docs/modules/docs/kickoff/kickoffmodules",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "docs/kickoff/kickoffModules/README.md",
+    "type": "module-readme",
+    "contentHash": "8cce5dcc6b58365e8e4e3b1dd97a148a29137eaa7e8938bfba918258ab94ef22"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "kickoffModules",
+      "anchor": "kickoffmodules"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "kickoffModules",
+      "anchor": "kickoffmodules"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`kickoffModules` groups the custom capability modules for the `kickoff` application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this group for project module composition and shared project-module configuration. Concrete behavior belongs in child modules such as `kickoffCore`, `kickoffInt`, and `kickoffApi`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Project modules should extend framework capabilities through schemas, routers, services, pipelines, data, tests, and layered configuration."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

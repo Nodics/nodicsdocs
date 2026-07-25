@@ -1,0 +1,47 @@
+{
+  "code": "docsArticlec046b26bfc6bee2afee7",
+  "title": "monoServer",
+  "route": "/docs/modules/startio/envs/startioprod/monoserver",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/envs/startioProd/monoServer/README.md",
+    "type": "module-readme",
+    "contentHash": "d8516553ea64e9876380d8b6b73d9777b626369ba328b96da3ab7031de9a78b3"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "monoServer",
+      "anchor": "monoserver"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "monoServer",
+      "anchor": "monoserver"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`monoServer` is the production server module for the `startio` application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for production server activation, route/service availability, and runtime topology. Business behavior belongs in active application or framework modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Production server settings must preserve security, diagnostics, auditability, and controlled override boundaries."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

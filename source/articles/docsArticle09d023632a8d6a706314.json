@@ -1,0 +1,199 @@
+{
+  "code": "docsArticle09d023632a8d6a706314",
+  "title": "Stock Pool Foundation",
+  "route": "/docs/modules/gcomm/inventory/docs/stock-pool-foundation",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gComm/inventory/docs/stock-pool-foundation.md",
+    "type": "module-doc",
+    "contentHash": "73c6368537bf97a81e82fa6a661aad786b882a34b756559508c08aba1a8b2192"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Stock Pool Foundation",
+      "anchor": "stock-pool-foundation"
+    },
+    {
+      "level": 2,
+      "text": "Purpose",
+      "anchor": "purpose"
+    },
+    {
+      "level": 2,
+      "text": "Data Contracts",
+      "anchor": "data-contracts"
+    },
+    {
+      "level": 2,
+      "text": "Business Workflow",
+      "anchor": "business-workflow"
+    },
+    {
+      "level": 2,
+      "text": "Configuration And Customization",
+      "anchor": "configuration-and-customization"
+    },
+    {
+      "level": 2,
+      "text": "Security And Operations",
+      "anchor": "security-and-operations"
+    },
+    {
+      "level": 2,
+      "text": "Current Boundary",
+      "anchor": "current-boundary"
+    },
+    {
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Stock Pool Foundation",
+      "anchor": "stock-pool-foundation"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Purpose",
+      "anchor": "purpose"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A Stock Pool is a reusable, enterprise-owned grouping of Warehouses. It lets a later sourcing policy refer to one logical group such as UAE Fulfillment, Northern Pickup, or Returns Warehouses instead of repeating Warehouse lists."
+    },
+    {
+      "kind": "paragraph",
+      "text": "A Pool never owns or copies Stock quantities. `stockBalance` remains the quantity authority at its Warehouse and optional Location. A Pool also does not contain product, country, zone, channel, customer-segment, or delivery rules; those conditions belong to the later Sourcing capability."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Data Contracts",
+      "anchor": "data-contracts"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`stockPool` contains:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "authenticated `enterpriseCode`;",
+        "stable business `poolCode` and derived internal `code`;",
+        "business name and optional description;",
+        "configured type and lifecycle status;",
+        "optional effective-from and effective-to dates."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "`stockPoolMember` contains:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "authenticated enterprise and Pool code;",
+        "one authoritative Inventory Warehouse code;",
+        "integer priority, where a lower number is considered earlier by Stock Sourcing;",
+        "lifecycle status and optional effective dates."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "A Warehouse may belong to several Pools. It may appear only once in the same Pool. Membership priority does not reserve, move, aggregate, or promise Stock."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Business Workflow",
+      "anchor": "business-workflow"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Create a Pool in `DRAFT` with a stable Pool code, name, and type.",
+        "Add one or more Warehouse memberships in `DRAFT` and set their priorities.",
+        "Confirm every Warehouse belongs to the authenticated enterprise and has not been retired.",
+        "Activate the Pool and Warehouse before activating the membership.",
+        "Suspend a Pool or membership for a reversible operational pause.",
+        "To retire a Pool, retire all memberships first and then retire the Pool."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not delete Pool records. Retirement keeps historical sourcing and operational evidence interpretable."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Configuration And Customization",
+      "anchor": "configuration-and-customization"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Layer `inventory.stockPool` and `inventory.stockPoolMember` in `properties.js`. Pool types, statuses, transitions, and priority bounds are configurable. A project can add a type such as `COLD_CHAIN` in a later module without changing Inventory source."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Prefer the smallest later-layer property or service override. Preserve enterprise isolation, derived identities, authoritative Warehouse validation, ordered membership, lifecycle history, and no-hard-delete behavior. Do not add a second Pool registry or copy Warehouse/Stock data into Pool documents."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Security And Operations",
+      "anchor": "security-and-operations"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Generated Pool services and CRUD routers are private in this slice. Human or BackOffice administration requires a later intent API with explicit human permissions and negative security tests. Module service tokens must remain separate from human login."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Operators should monitor rejected enterprise scope, missing/retired dependencies, invalid transitions, duplicate membership, and retirement dependency errors. Back up Pools and memberships with Warehouse and Stock collections. Restore Warehouses before memberships."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Current Boundary",
+      "anchor": "current-boundary"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Implemented: Pool and Warehouse membership schemas, enterprise scope, classification, priority, effective dates, lifecycle, dependency validation, retirement ordering, private persistence, and customization configuration."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Implemented separately: declarative sourcing Policies and Rules. Not implemented: sourcing intent APIs/caching, availability aggregation, product/channel/zone/segment eligibility, reservations, allocations, public or BackOffice APIs, events, cache/search projections, or external integrations."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "node gComm/inventory/test/stockPoolFoundation.test.js"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The test covers positive creation, derived identity, membership dependency, activation safety, immutable identity, priority boundary, retirement ordering, enterprise mismatch, no-hard-delete behavior, private schemas, interceptors, and later-layer Pool type customization."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

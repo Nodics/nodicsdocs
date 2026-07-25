@@ -1,0 +1,137 @@
+{
+  "code": "docsArticle9b4b62cd4144f50cf1b4",
+  "title": "How To Operate And Integrate Inventory",
+  "route": "/docs/commerce/how-to-operate-and-integrate-inventory",
+  "category": "commerce",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gDocs/commerce/how-to-operate-and-integrate-inventory.md",
+    "type": "gdocs",
+    "contentHash": "372e5f075375253d1c1d4fc05fd2a5c614278dc7a3e948f78921916e3bd2df91"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "How To Operate And Integrate Inventory",
+      "anchor": "how-to-operate-and-integrate-inventory"
+    },
+    {
+      "level": 2,
+      "text": "Check and reconstruct on-hand Stock",
+      "anchor": "check-and-reconstruct-on-hand-stock"
+    },
+    {
+      "level": 2,
+      "text": "Connect a WMS or POS",
+      "anchor": "connect-a-wms-or-pos"
+    },
+    {
+      "level": 2,
+      "text": "Multi-hop Units",
+      "anchor": "multi-hop-units"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "How To Operate And Integrate Inventory",
+      "anchor": "how-to-operate-and-integrate-inventory"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Operations teams and BackOffice users can inspect Stock Balances, Movements, Reservations, Allocations, Transfers, and reconciliation findings through dedicated read-only Inventory endpoints. A user needs the `inventory.operations.read` permission. The endpoints are paged and return only safe operational fields."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Developers must use the relevant command API to change Stock. The operational pages are not editable database screens."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Check and reconstruct on-hand Stock",
+      "anchor": "check-and-reconstruct-on-hand-stock"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A scheduled service can create an immutable Movement checkpoint when a Balance has no pending Movement. Later, Inventory can replay the contiguous applied Movement revisions after that checkpoint and compare the expected on-hand quantity and revision with the current Balance."
+    },
+    {
+      "kind": "paragraph",
+      "text": "This process does not reconstruct Reservation state. Use reconciliation findings and Reservation evidence for held quantities. If a revision is missing or out of order, investigate the history instead of forcing a correction."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Connect a WMS or POS",
+      "anchor": "connect-a-wms-or-pos"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Inventory providers are disabled by default. An administrator configures a named WMS or POS provider that points to a Nodics connector module and lists its allowed operations. The connector module owns remote URLs and credentials."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Internal callers send an idempotency key, configured provider code, allowed operation, and bounded payload. Inventory records the attempt and outcome. A provider response never changes Stock directly; receipts, issues, transfers, and corrections still pass through Stock Movement."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Multi-hop Units",
+      "anchor": "multi-hop-units"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Units can optionally convert through multiple exact conversion rules when no direct rule exists. Keep this disabled unless the business maintains a governed conversion graph. Nodics selects one shortest path; competing shortest paths fail instead of choosing silently."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "[How Stock Availability Works](how-stock-availability-works.md)",
+        "[How Inventory Reconciliation Works](how-inventory-reconciliation-works.md)",
+        "[How Stock Movements Work](how-stock-movements-work.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "How Stock Availability Works",
+      "target": "how-stock-availability-works.md",
+      "kind": "internal",
+      "route": "/docs/commerce/how-stock-availability-works",
+      "anchor": ""
+    },
+    {
+      "label": "How Inventory Reconciliation Works",
+      "target": "how-inventory-reconciliation-works.md",
+      "kind": "internal",
+      "route": "/docs/commerce/how-inventory-reconciliation-works",
+      "anchor": ""
+    },
+    {
+      "label": "How Stock Movements Work",
+      "target": "how-stock-movements-work.md",
+      "kind": "internal",
+      "route": "/docs/commerce/how-stock-movements-work",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

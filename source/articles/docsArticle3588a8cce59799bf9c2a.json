@@ -1,0 +1,426 @@
+{
+  "code": "docsArticle3588a8cce59799bf9c2a",
+  "title": "nService",
+  "route": "/docs/modules/gframework/nservice",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nService/README.md",
+    "type": "module-readme",
+    "contentHash": "22c6fa7f6fa37637e40225f0b6dcd37f4aff2d41fd54af8b4aa121ae840c34a6"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "nService",
+      "anchor": "nservice"
+    },
+    {
+      "level": 2,
+      "text": "When To Use This Module",
+      "anchor": "when-to-use-this-module"
+    },
+    {
+      "level": 2,
+      "text": "Service Model",
+      "anchor": "service-model"
+    },
+    {
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "level": 2,
+      "text": "Configuration And Security",
+      "anchor": "configuration-and-security"
+    },
+    {
+      "level": 2,
+      "text": "Override Path",
+      "anchor": "override-path"
+    },
+    {
+      "level": 2,
+      "text": "Extension Contract",
+      "anchor": "extension-contract"
+    },
+    {
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "level": 2,
+      "text": "Integration And Contract Boundaries",
+      "anchor": "integration-and-contract-boundaries"
+    },
+    {
+      "level": 2,
+      "text": "Observability, Performance, And Resilience",
+      "anchor": "observability-performance-and-resilience"
+    },
+    {
+      "level": 2,
+      "text": "Common Mistakes",
+      "anchor": "common-mistakes"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "nService",
+      "anchor": "nservice"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nService` is where reusable application behavior is performed. In a simple request, a route accepts the call, a controller translates it, and a service does the meaningful work. Services can also be called by jobs, events, pipelines, workflows, or other modules without going through HTTP controllers."
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nService` owns shared service-layer contracts used by framework and project modules, including module communication, tenant/enterprise handling, authentication-provider cache access, authorization helpers, and status/log services."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Authentication token cache helpers must preserve tenant scope and avoid leaking credential material. Invalidation callbacks may emit structured observability and audit context such as reason code, tenant, enterprise, principal, source, and token type, but must never log or persist bearer tokens, refresh tokens, API keys, or auth cache keys."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "When To Use This Module",
+      "anchor": "when-to-use-this-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this group for shared service mechanics, generated service contracts, tenant and enterprise context, authorization helpers, and the one governed module communication client. Put domain behavior in the module that owns the domain. Use [vService](vService/README.md) only for a deliberate service variant, not as a second home for base behavior."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Service Model",
+      "anchor": "service-model"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Services are generated and handwritten business-behavior contracts that can be generalized or overridden by later modules. Services own behavior, facades orchestrate services, controllers map requests, and routers declare HTTP/access contracts."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nService` provides:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "generated schema service templates for get, get by id, get by code, save, save all, update, remove, remove by id, and remove by code;",
+        "generated service artifacts under `src/service/gen`;",
+        "module-to-module and external HTTP request helpers;",
+        "bounded request deadlines, pooled keep-alive connections, safe retries,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "circuit breaking, lifecycle cleanup, and sanitized transport diagnostics;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "standard header normalization for authorization, API key, and enterprise context;",
+        "authentication provider services for user login and internal module access;",
+        "authorization provider services;",
+        "API key service behavior;",
+        "tenant and enterprise handler services;",
+        "status definition lookup;",
+        "logging service wrappers;",
+        "module, node, and module-configuration library objects."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Generated services delegate schema CRUD behavior into pipeline contracts. Handwritten services own business behavior that should not live in controllers, facades, routers, or generated artifacts."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "A router maps an HTTP operation to a controller.",
+        "The controller normalizes request parameters, query, headers, and body into Nodics request context.",
+        "The facade coordinates the operation and calls the owning service.",
+        "A generated service resolves the schema model from module and tenant context.",
+        "The service starts the relevant pipeline, such as get, save, update, or remove.",
+        "Database, validation, interceptor, audit, cache, and diagnostics behavior runs through the pipeline."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "For module-to-module calls, `DefaultModuleService` builds governed request options, normalizes headers, delegates URL resolution to the router service, executes the request, and enriches failures with sanitized context."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Transport policy is layered under `serviceCommunication`. Automatic retries apply only to GET, HEAD, and OPTIONS requests, or writes carrying an explicit idempotency key. Projects may override the service or properties, but must keep timeouts bounded and must not expose credentials or response bodies through diagnostics."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Configuration And Security",
+      "anchor": "configuration-and-security"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Service behavior must be driven by active modules, layered configuration, tenant context, schemas, pipelines, and runtime governance."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not hardcode:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "credentials;",
+        "bearer tokens;",
+        "API keys;",
+        "tenant mappings;",
+        "enterprise mappings;",
+        "remote module URLs;",
+        "permission decisions;",
+        "customer-specific business rules."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Authentication token cache helpers must preserve tenant scope and avoid leaking credential material. Invalidation callbacks may emit structured observability and audit context such as reason code, tenant, enterprise, principal, source, and token type, but must never log or persist bearer tokens, refresh tokens, API keys, or auth cache keys."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Override Path",
+      "anchor": "override-path"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Project modules may override service behavior by contributing same-name service files through later active modules. The overriding service must preserve the published capability contract unless the project also updates the router/facade/schema/tests/docs that expose the new contract."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this layer when the change owns business behavior, data mutation, runtime policy, integration behavior, or reusable domain logic. Keep controllers thin and keep facades focused on orchestration."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Extension Contract",
+      "anchor": "extension-contract"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Project modules may add or replace services through the module hierarchy. New service behavior must document configuration, tenant/request context, generated artifacts affected, downstream dependencies, errors, diagnostics, and tests for both default behavior and later-module overrides."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run focused service coverage with:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "node gFramework/nService/test/authTokenInvalidationService.test.js\nnode gFramework/nService/test/moduleRequestHeaderNormalization.test.js\nnode gFramework/nService/test/moduleTransportResilience.test.js\nnode gFramework/nService/test/statusDefinitionCatalog.test.js\nnpm run quality:docs"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "placing business behavior in controllers when it belongs in services;",
+        "editing generated service artifacts manually instead of changing source definitions and regenerating;",
+        "bypassing tenant context when resolving schema models;",
+        "using direct HTTP clients outside `DefaultModuleService` for module communication;",
+        "logging tokens, API keys, auth cache keys, or credentials;",
+        "adding service files outside `src/service`, where the Nodics loader will not discover them consistently."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Integration And Contract Boundaries",
+      "anchor": "integration-and-contract-boundaries"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Services consume schemas, models, pipelines, configuration, tenant context, and provider contracts. They may emit events or call another module, but the data contract and failure behavior must remain owned and documented."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Human username/password authentication is separate from internal module-to-module and scheduled access. Internal communication uses service identity and `DefaultModuleService`; it must not reuse a person's credentials. BackOffice self-registration remains asynchronous control-plane work so module startup and high-volume request paths do not synchronously depend on registry availability."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Observability, Performance, And Resilience",
+      "anchor": "observability-performance-and-resilience"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Keep timeouts bounded and connections reusable.",
+        "Retry safe reads or explicitly idempotent writes only.",
+        "Open the circuit according to configured transport policy rather than"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "allowing repeated dependency failures to consume request capacity."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Preserve correlation, tenant, target module, operation, attempt, duration,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "and sanitized failure classification."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Never log authorization headers, tokens, API keys, credentials, or arbitrary"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "response bodies."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Close pooled transport resources through the runtime lifecycle coordinator."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Common Mistakes",
+      "anchor": "common-mistakes"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Creating a direct HTTP client for one module or cron job.",
+        "Retrying an unsafe write without an idempotency contract.",
+        "Mixing human login credentials with internal service identity.",
+        "Resolving a remote URL from hardcoded source instead of `servers.*` and the"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "router/module service contract."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Copying a generated service to customize one method instead of using the"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "layered service override mechanism."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Build application behavior: [How To Create Application Functionality](../../gDocs/development/how-to-create-application-functionality.md)",
+        "Module communication and APIs: [How To Create APIs](../../gDocs/development/how-to-create-apis.md)",
+        "Service variant: [vService](vService/README.md)",
+        "Framework map: [gFramework](../README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "vService",
+      "target": "vService/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nservice/vservice",
+      "anchor": ""
+    },
+    {
+      "label": "How To Create Application Functionality",
+      "target": "../../gDocs/development/how-to-create-application-functionality.md",
+      "kind": "internal",
+      "route": "/docs/development/how-to-create-application-functionality",
+      "anchor": ""
+    },
+    {
+      "label": "How To Create APIs",
+      "target": "../../gDocs/development/how-to-create-apis.md",
+      "kind": "internal",
+      "route": "/docs/development/how-to-create-apis",
+      "anchor": ""
+    },
+    {
+      "label": "vService",
+      "target": "vService/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nservice/vservice",
+      "anchor": ""
+    },
+    {
+      "label": "gFramework",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

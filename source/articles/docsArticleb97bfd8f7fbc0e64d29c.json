@@ -1,0 +1,256 @@
+{
+  "code": "docsArticleb97bfd8f7fbc0e64d29c",
+  "title": "kafka Module",
+  "route": "/docs/modules/gframework/nems/kafka",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nEms/kafka/README.md",
+    "type": "module-readme",
+    "contentHash": "230e09a1a6ab2101e08ed4f96e5405311149e43f0d604e42ec13316c8b0d82a6"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "kafka Module",
+      "anchor": "kafka-module"
+    },
+    {
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "level": 2,
+      "text": "Configuration",
+      "anchor": "configuration"
+    },
+    {
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "level": 2,
+      "text": "Operations And Qualification",
+      "anchor": "operations-and-qualification"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "kafka Module",
+      "anchor": "kafka-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "**Maturity: Guarded provider.** Deterministic publish behavior is covered, but production use requires live broker, consumer, failure, and recovery evidence."
+    },
+    {
+      "kind": "paragraph",
+      "text": "`kafka` is the Kafka provider adapter for the `nEms` messaging family. It owns Kafka-specific connection defaults, producer/consumer wiring, and provider pipeline hooks."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for Kafka behavior only. Shared EMS client APIs, active publisher selection, tenant resolution, and message route contracts belong in `nEms/emsClient`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Cluster endpoints, credentials, topics, and deployment details must be supplied through layered configuration. Keep framework code generic enough for project-level provider replacement."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The module contributes:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Kafka client creation through `kafkajs`;",
+        "broker list normalization from `brokers` or `kafkaHost`;",
+        "retry option mapping;",
+        "admin connection and topic discovery;",
+        "producer creation;",
+        "publisher configuration through the provider contract;",
+        "message normalization for object, keyed object, and plain string payloads;",
+        "publish behavior that sends to the configured topic;",
+        "consumer registration with topic creation when required;",
+        "consumed-message dispatch into `processConsumedMessagePipeline`;",
+        "failed consumed-message logging through `emsFailedMessages` when enabled."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "`emsClient` selects a Kafka client configuration with `DefaultKafkaClientService` as handler.",
+        "Kafka connection options are resolved from layered configuration.",
+        "The adapter creates a Kafka admin client, lists topics, and creates a producer.",
+        "Publishers map configured queue names to Kafka topics.",
+        "Publish requests are converted into Kafka message arrays and sent to the topic.",
+        "Consumers subscribe by topic and group id, then pass message values into the EMS processing pipeline.",
+        "Failed consumed messages can be stored through the EMS failed-message model when tenant context is available."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Configuration",
+      "anchor": "configuration"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Kafka configuration should include:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "broker list or `kafkaHost`;",
+        "client id;",
+        "connection and request timeouts;",
+        "retry policy;",
+        "producer options;",
+        "consumer group id;",
+        "topic creation policy;",
+        "tenant/header/fallback policy from `emsClient`;",
+        "credentials and TLS/SASL settings through governed configuration when needed."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not hardcode cluster endpoints, credentials, topic names, group ids, or tenant routing in source files."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run focused Kafka behavior coverage with:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "node gFramework/nEms/kafka/test/kafkaPublishCapabilityBehavior.test.js\nnpm run quality:docs"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Production Kafka enablement should also include guarded live-provider tests against an ephemeral or managed Kafka cluster."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "calling Kafka directly from business modules;",
+        "accepting arbitrary topic names from untrusted payloads;",
+        "bypassing `emsClient` publisher lookup;",
+        "serializing messages without preserving the configured EMS payload contract;",
+        "logging failed consumed messages without tenant context;",
+        "enabling production Kafka without live-provider validation and sanitized diagnostics."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Operations And Qualification",
+      "anchor": "operations-and-qualification"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Define topic ownership, partitions, keys and ordering, replication, retention, consumer groups, offset/acknowledgement policy, retry/backoff, dead-letter or failed-message policy, schema compatibility, TLS/SASL, capacity, and recovery. Monitor broker connectivity, publish latency, consumer lag, rebalance, retries, duplicates, deserialization failure, and poison messages."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Guarded live tests should cover topic creation policy, publish/consume, partition ordering assumptions, consumer restart/rebalance, duplicate delivery, handler failure, offset behavior, unavailable broker, reconnect, and cleanup in an isolated cluster."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Provider-neutral contract: [emsClient](../emsClient/README.md)",
+        "Messaging family: [nEms](../README.md)",
+        "Maturity matrix: [Provider And Capability Maturity Matrix](../../../gDocs/reference/provider-capability-maturity-matrix.md)",
+        "Event execution: [nEvent](../../nEvent/README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "emsClient",
+      "target": "../emsClient/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nems/emsclient",
+      "anchor": ""
+    },
+    {
+      "label": "nEms",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nems",
+      "anchor": ""
+    },
+    {
+      "label": "Provider And Capability Maturity Matrix",
+      "target": "../../../gDocs/reference/provider-capability-maturity-matrix.md",
+      "kind": "internal",
+      "route": "/docs/reference/provider-capability-maturity-matrix",
+      "anchor": ""
+    },
+    {
+      "label": "nEvent",
+      "target": "../../nEvent/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nevent",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

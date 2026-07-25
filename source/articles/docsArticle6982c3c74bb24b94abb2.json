@@ -1,0 +1,484 @@
+{
+  "code": "docsArticle6982c3c74bb24b94abb2",
+  "title": "How To Test Nodics Changes",
+  "route": "/docs/testing/how-to-test-nodics-changes",
+  "category": "testing",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gDocs/testing/how-to-test-nodics-changes.md",
+    "type": "gdocs",
+    "contentHash": "fbb9871d98317a15cd3e00b391435275cda6cf32df8da71dafd55500374cb179"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "How To Test Nodics Changes",
+      "anchor": "how-to-test-nodics-changes"
+    },
+    {
+      "level": 2,
+      "text": "Beginner Summary",
+      "anchor": "beginner-summary"
+    },
+    {
+      "level": 2,
+      "text": "Choose The Right Test",
+      "anchor": "choose-the-right-test"
+    },
+    {
+      "level": 2,
+      "text": "Common Commands",
+      "anchor": "common-commands"
+    },
+    {
+      "level": 2,
+      "text": "What To Test For A New Feature",
+      "anchor": "what-to-test-for-a-new-feature"
+    },
+    {
+      "level": 2,
+      "text": "Test Selection Guide",
+      "anchor": "test-selection-guide"
+    },
+    {
+      "level": 2,
+      "text": "Live Tests",
+      "anchor": "live-tests"
+    },
+    {
+      "level": 2,
+      "text": "Documentation Checks",
+      "anchor": "documentation-checks"
+    },
+    {
+      "level": 2,
+      "text": "Generated Context",
+      "anchor": "generated-context"
+    },
+    {
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "level": 2,
+      "text": "Beginner Failure Handling",
+      "anchor": "beginner-failure-handling"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "How To Test Nodics Changes",
+      "anchor": "how-to-test-nodics-changes"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Testing in Nodics proves that capabilities still work after framework, project, configuration, or generated-artifact changes."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Tests are not only for finding bugs. They are part of the platform contract."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Beginner Summary",
+      "anchor": "beginner-summary"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Testing in Nodics answers four questions:"
+    },
+    {
+      "kind": "table",
+      "headers": [
+        "Question",
+        "Example proof"
+      ],
+      "rows": [
+        [
+          "Does the default framework behavior still work?",
+          "Framework/module test passes"
+        ],
+        [
+          "Does the project override work?",
+          "Later-module override test passes"
+        ],
+        [
+          "Is the behavior secure and tenant-safe?",
+          "Permission, auth, tenant, cache, and data isolation tests pass"
+        ],
+        [
+          "Are generated artifacts still aligned with source?",
+          "Generated schema/API/OpenAPI/LLM tests pass"
+        ]
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not only test the happy path. A good Nodics change proves success, failure, permission denial, tenant behavior, configuration override, and generated artifact alignment where relevant."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Choose The Right Test",
+      "anchor": "choose-the-right-test"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use focused tests while developing."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use broader suites before committing or releasing."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics testing is layered in the same way as the framework. A module can own common tests, environment-specific tests, generated schema/API tests, provider tests, topology tests, and override/customization tests."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The goal is not only to prove one function works. The goal is to prove the capability still works through the hierarchy."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Common Commands",
+      "anchor": "common-commands"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Syntax check:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run check:syntax"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Main deterministic gate:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run test:basic"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Full gate with modular topology:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run test:full"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Configuration and tooling:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run test:config\nnpm run test:tooling"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Generated API and schema contracts:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run test:generated"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Import behavior:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run test:import"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Runtime configuration:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run test:runtime-overrides"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run a named suite:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run test:suite -- --suite=<suite-name>"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Test For A New Feature",
+      "anchor": "what-to-test-for-a-new-feature"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Test:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Valid input.",
+        "Invalid input.",
+        "Permission failure.",
+        "Tenant behavior.",
+        "Configuration override behavior.",
+        "Runtime behavior if runtime configuration is involved.",
+        "Generated API behavior if schemas or routes changed.",
+        "Documentation and generated context if source files changed."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "For extension points, also test:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "default framework behavior;",
+        "later module override behavior;",
+        "configuration override behavior;",
+        "tenant-specific behavior when tenant context is involved;",
+        "consolidated runtime behavior;",
+        "modular process behavior when modules communicate across servers."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Test Selection Guide",
+      "anchor": "test-selection-guide"
+    },
+    {
+      "kind": "table",
+      "headers": [
+        "Change type",
+        "Start with",
+        "Also consider"
+      ],
+      "rows": [
+        [
+          "JavaScript syntax or file-level edit",
+          "`npm run check:syntax`",
+          "`npm run quality:docs`"
+        ],
+        [
+          "Configuration or module metadata",
+          "`npm run test:config`",
+          "`npm run test:basic`"
+        ],
+        [
+          "API route/controller/facade/service",
+          "Route contract and focused capability test",
+          "`npm run docs:openapi`, `npm run test:basic`"
+        ],
+        [
+          "Schema or generated CRUD",
+          "`npm run test:generated`",
+          "`npm run build`, `npm run docs:openapi`"
+        ],
+        [
+          "Import/export",
+          "`npm run test:import`",
+          "Capability tests and tenant tests"
+        ],
+        [
+          "Cache",
+          "`npm run test:cache`",
+          "Redis release gate only when Redis behavior changed"
+        ],
+        [
+          "Auth, permission, tenant",
+          "Header/auth/security suites",
+          "`npm run test:basic`"
+        ],
+        [
+          "Runtime configuration",
+          "`npm run test:runtime-overrides`",
+          "Dynamo/runtime governance tests"
+        ],
+        [
+          "Topology/server/node behavior",
+          "`npm run test:topology`",
+          "Consolidated and modular topology tests"
+        ],
+        [
+          "Documentation or AI guidance",
+          "`npm run quality:docs`, `npm run llm:validate`",
+          "`npm run llm:generate` first"
+        ]
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Live Tests",
+      "anchor": "live-tests"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Some tests require live infrastructure such as Redis."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Live tests are explicit and guarded. They do not silently use shared developer, staging, or production data."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Example:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "NODICS_CACHE_REDIS_URL=redis://127.0.0.1:6379 npm run test:cache:release"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Documentation Checks",
+      "anchor": "documentation-checks"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run docs:coverage:source -- --limit=20\nnpm run docs:coverage:contracts -- --limit=20"
+    },
+    {
+      "kind": "paragraph",
+      "text": "If a source file changes, make sure file-level documentation and exported method documentation remain complete."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Generated Context",
+      "anchor": "generated-context"
+    },
+    {
+      "kind": "paragraph",
+      "text": "When source behavior or documentation changes, regenerate and validate LLM context:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run llm:generate\nnpm run llm:validate"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Generated LLM context is part of the verification story. It helps future AI tools and developers understand which files, tests, extension points, generated artifacts, and documentation belong to a module."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Only running the test that proves your happy path.",
+        "Skipping generated tests after schema or route changes.",
+        "Running live tests against unsafe data.",
+        "Editing generated tests manually as the source of truth.",
+        "Updating code without updating documentation."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Beginner Failure Handling",
+      "anchor": "beginner-failure-handling"
+    },
+    {
+      "kind": "paragraph",
+      "text": "When a test fails:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Read the first failed assertion.",
+        "Identify the owner: module, route, schema, service, config, provider, or generated artifact.",
+        "Check whether the failure is from source behavior or stale generated output.",
+        "Fix the source definition or implementation.",
+        "Regenerate generated artifacts when needed.",
+        "Rerun the smallest failed test.",
+        "Rerun the broader suite only after the focused test is green."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not hide a failing test by weakening the assertion unless the product contract intentionally changed and the documentation also explains that change."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Previous: [How To Create Application Functionality](../development/how-to-create-application-functionality.md)",
+        "Operations: [How To Run And Debug Nodics](../operations/how-to-run-and-debug-nodics.md)",
+        "Documentation home: [Nodics Documentation](../README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "How To Create Application Functionality",
+      "target": "../development/how-to-create-application-functionality.md",
+      "kind": "internal",
+      "route": "/docs/development/how-to-create-application-functionality",
+      "anchor": ""
+    },
+    {
+      "label": "How To Run And Debug Nodics",
+      "target": "../operations/how-to-run-and-debug-nodics.md",
+      "kind": "internal",
+      "route": "/docs/operations/how-to-run-and-debug-nodics",
+      "anchor": ""
+    },
+    {
+      "label": "Nodics Documentation",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

@@ -1,0 +1,136 @@
+{
+  "code": "docsArticle0b8b14fb0fa88b78f078",
+  "title": "BackOffice Performance and Scale Contract",
+  "route": "/docs/modules/gexp/backoffice/docs/performance-and-scale-contract",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gExp/backoffice/docs/performance-and-scale-contract.md",
+    "type": "module-doc",
+    "contentHash": "f6a5aa4e85a179e74a58758fd7a422d97c3857c532e94b2a2358d4d03d8a6d6d"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "BackOffice Performance and Scale Contract",
+      "anchor": "backoffice-performance-and-scale-contract"
+    },
+    {
+      "level": 2,
+      "text": "Approach",
+      "anchor": "approach"
+    },
+    {
+      "level": 2,
+      "text": "Protected fast paths",
+      "anchor": "protected-fast-paths"
+    },
+    {
+      "level": 2,
+      "text": "Evidence and deployment tests",
+      "anchor": "evidence-and-deployment-tests"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "BackOffice Performance and Scale Contract",
+      "anchor": "backoffice-performance-and-scale-contract"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Approach",
+      "anchor": "approach"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Core Nodics performance gates use deterministic path and operation-count budgets, plus timing evidence. They do not enforce machine-specific latency thresholds. Projects and deployment environments may increase workloads and add real distributed-provider load tests through later configuration layers."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Defaults live under `backofficeRegistry.benchmark` and cover registration batch size, lease inventory size, hosted modules per runtime, concurrent idempotent refreshes, administrative result/page scans, readiness probes per runtime, and refresh executions per idempotency key."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Protected fast paths",
+      "anchor": "protected-fast-paths"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Registration persists the bounded module batch but never awaits discovery or"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "readiness observation."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Modules hosted by one runtime share one readiness probe.",
+        "Process-wide readiness work uses configurable active and queued ceilings.",
+        "Unavailable targets use a configurable refresh backoff.",
+        "Queue overflow fails open for registration and application traffic and is"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "visible through sanitized diagnostics."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Administrative inventory returns at most 100 entries and stays within the"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "configured store-scan budget."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Concurrent refresh requests with one idempotency key execute the underlying"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "refresh once."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Evidence and deployment tests",
+      "anchor": "evidence-and-deployment-tests"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`backofficePerformanceContract.test.js` prints sanitized workload and elapsed timing evidence while enforcing structural budgets. Release environments should add sustained registration/renewal, real distributed-store, slow readiness, replica restart, and store degradation tests sized for their topology. Raw endpoints, credentials, tenant data, or provider diagnostics must not appear in reports."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The guarded Redis release gate accepts environment-owned live workload budgets:"
+    },
+    {
+      "kind": "code",
+      "language": "sh",
+      "text": "NODICS_CACHE_REDIS_URL=redis://isolated-host:6379 \\\nNODICS_BACKOFFICE_LOAD_LEASES=5000 \\\nNODICS_BACKOFFICE_LOAD_CONCURRENCY=64 \\\nNODICS_BACKOFFICE_LOAD_MAX_MS=30000 \\\nnpm run test:backoffice:redis:release"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The gate fails when values are not positive integers, the latency budget is exceeded, or the second provider client cannot scan the complete workload. Environment owners must size these values from expected module instances, replicas, renewal frequency, and recovery bursts."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

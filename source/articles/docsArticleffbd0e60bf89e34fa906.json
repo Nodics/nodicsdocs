@@ -1,0 +1,286 @@
+{
+  "code": "docsArticleffbd0e60bf89e34fa906",
+  "title": "nNms",
+  "route": "/docs/modules/gframework/nnms",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nNms/README.md",
+    "type": "module-readme",
+    "contentHash": "08535d616a9ed31fce3dcdd6f685fcfecf9dbcbb28e3561318c4fa8dd83b2a65"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "nNms",
+      "anchor": "nnms"
+    },
+    {
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "level": 2,
+      "text": "Source Contracts",
+      "anchor": "source-contracts"
+    },
+    {
+      "level": 2,
+      "text": "Configuration",
+      "anchor": "configuration"
+    },
+    {
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "level": 2,
+      "text": "Security",
+      "anchor": "security"
+    },
+    {
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "nNms",
+      "anchor": "nnms"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nNms` is the node management service capability. It owns node state tracking, node health checks, node responsibility negotiation, node up/down event dispatch, node configuration helpers, and secured management route metadata."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for framework-level node lifecycle behavior. Environment-specific topology, server coordinates, node count, ping enablement, and operational policy must come from layered configuration and active modules."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The module manages runtime awareness for modules that can run across multiple nodes."
+    },
+    {
+      "kind": "paragraph",
+      "text": "It supports:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "node activation notification;",
+        "node health checking;",
+        "node active/inactive state updates;",
+        "node responsibility requests;",
+        "node up/down event publication;",
+        "secured management routes for activation, responsibility, and health-check control."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "This module does not decide which modules are active. Active module selection stays with configuration and startup hierarchy. `nNms` observes and coordinates node state for modules that are already active and router-enabled."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Startup notification:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "`notifyNodeStarted` reads configured pingable modules.",
+        "It checks whether each module is active and router-enabled.",
+        "It resolves configured nodes through router server configuration.",
+        "It notifies other active nodes using internal bearer token access.",
+        "It records active or inactive state through `DefaultNodeConfigurationService`."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Health check:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "`checkActiveNodes` starts interval checks for configured pingable modules.",
+        "`checkActiveNode` pings remote nodes.",
+        "Success keeps the node active.",
+        "Failure marks the node inactive and calls `DefaultNodeStateChangeHandlerService.handleNodeInactive`.",
+        "Node state handlers publish `nodeUpEvent` and `nodeDownEvent` through the event service."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Responsibility:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "`requestResponsibility` validates the requested node id.",
+        "It grants responsibility when the target node is not already handling the request or when the requester has lower node precedence.",
+        "It records responsibility state in the module runtime object."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Source Contracts",
+      "anchor": "source-contracts"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`config/properties.js` owns node management defaults such as `activateNodePing` and `nodePingTimeout`.",
+        "`src/router/routers.js` owns secured management route metadata.",
+        "`src/controller/defaultNodeManagerController.js` maps route calls to facade behavior.",
+        "`src/facade/defaultNodeManagerFacade.js` delegates to node manager services.",
+        "`src/service/node/defaultNodeManagerService.js` owns notification, health check, and responsibility behavior.",
+        "`src/service/config/defaultNodeConfigurationService.js` owns module runtime node state mutation.",
+        "`src/service/node/defaultNodeStateChangeHandlerService.js` owns node up/down event dispatch.",
+        "`src/service/node/defaultNodeUpHandlerService.js` and `src/service/node/defaultNodeDownHandlerService.js` provide overrideable event handling hooks."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Configuration",
+      "anchor": "configuration"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Default configuration:"
+    },
+    {
+      "kind": "code",
+      "language": "js",
+      "text": "module.exports = {\n    activateNodePing: false,\n    nodePingTimeout: 10000\n};"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Projects, environments, servers, and nodes may override ping behavior through layered configuration. Do not hardcode server names, node ids, ports, tenants, or remote coordinates in node-management services."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Projects may customize node management by:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "overriding ping enablement and timeout through configuration;",
+        "contributing node/server topology through environment, server, and node modules;",
+        "overriding node up/down handlers in later active modules;",
+        "adding project-specific event reactions for node state changes;",
+        "adding focused tests for responsibility or failover behavior."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for node lifecycle coordination, not for business ownership of scheduled jobs or distributed work. Business modules should define their own responsibility rules and use `nNms` state as supporting runtime context."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Security",
+      "anchor": "security"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Node management routes are secured. Internal node-to-node calls use an internal bearer token resolved through Nodics token access for the configured default tenant."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not expose node management actions as public routes. Any project-specific operations UI should call secured APIs and preserve route permissions, tenant context, and sanitized diagnostics."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The module currently has common and environment-local smoke tests. When changing node behavior, add focused tests for:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "route metadata and permission behavior;",
+        "active/inactive state updates;",
+        "missing or invalid node id rejection;",
+        "responsibility grant/deny behavior;",
+        "node up/down event dispatch;",
+        "internal token request construction;",
+        "multi-node topology behavior."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run test:topology\nnpm run test:basic\nnpm run quality:docs"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "hardcoding project topology in framework node services;",
+        "enabling node ping globally without environment/server/node intent;",
+        "adding public unsecured node-management routes;",
+        "treating inactive-node handling as business job ownership;",
+        "hiding node failover behavior outside tests and diagnostics;",
+        "bypassing internal token access for node-to-node calls."
+      ]
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

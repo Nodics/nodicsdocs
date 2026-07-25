@@ -1,0 +1,47 @@
+{
+  "code": "docsArticled3463257dac5d9324dc6",
+  "title": "kickoffCore Module",
+  "route": "/docs/modules/docs/kickoff/kickoffmodules/kickoffcore",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "docs/kickoff/kickoffModules/kickoffCore/README.md",
+    "type": "module-readme",
+    "contentHash": "c9497be0c2ce1c7ef937d5b806c811f7b07bc86563e0b0a9ab255565d36a5e3f"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "kickoffCore Module",
+      "anchor": "kickoffcore-module"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "kickoffCore Module",
+      "anchor": "kickoffcore-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`kickoffCore` owns core domain behavior for the `kickoff` application. It provides project-specific schema, route, service, pipeline, utility, configuration, and test space."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for application behavior that is not purely API or integration specific. Framework capabilities should be extended, not modified."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Core changes should preserve validation, tenant context, access control, diagnostics, and generated artifacts."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

@@ -1,0 +1,47 @@
+{
+  "code": "docsArticlefe741973195e673082aa",
+  "title": "startioPreProd",
+  "route": "/docs/modules/startio/envs/startiopreprod",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/envs/startioPreProd/README.md",
+    "type": "module-readme",
+    "contentHash": "fbe28f5fad8f3e8c8e826393ec8e663a9e159acaf56ac52766965b07e422677b"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "startioPreProd",
+      "anchor": "startiopreprod"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "startioPreProd",
+      "anchor": "startiopreprod"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`startioPreProd` is the pre-production environment module for the `startio` application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for pre-production configuration and server composition before production rollout. Server-specific runtime settings belong in child server modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Pre-production configuration should mirror production intent while preserving clear override boundaries and safe testing controls."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

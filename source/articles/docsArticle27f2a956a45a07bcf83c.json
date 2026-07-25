@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle27f2a956a45a07bcf83c",
+  "title": "kickoffLocalServer",
+  "route": "/docs/modules/docs/kickoff/kickoffenvs/kickofflocal/kickofflocalserver",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "docs/kickoff/kickoffEnvs/kickoffLocal/kickoffLocalServer/README.md",
+    "type": "module-readme",
+    "contentHash": "449715053e35a246cf5cdea88558e94396e7b86f91dc5a78efec5b424b29d893"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "kickoffLocalServer",
+      "anchor": "kickofflocalserver"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "kickoffLocalServer",
+      "anchor": "kickofflocalserver"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`kickoffLocalServer` is the primary local server module for the `kickoff` application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for local server activation, node composition, route/service availability, and runtime topology. Business behavior belongs in active application or framework modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Local server settings should stay explicit and replaceable by higher environment server modules."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

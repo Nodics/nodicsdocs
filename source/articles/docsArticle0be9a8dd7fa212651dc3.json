@@ -1,0 +1,55 @@
+{
+  "code": "docsArticle0be9a8dd7fa212651dc3",
+  "title": "Module Transport Resilience Contract",
+  "route": "/docs/modules/gframework/nservice/docs/module-transport-resilience-contract",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nService/docs/module-transport-resilience-contract.md",
+    "type": "module-doc",
+    "contentHash": "6f6c3654067bcce8efed27191bc546b8e8f56fbe49b1fdc2ecc8b1079d769283"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Module Transport Resilience Contract",
+      "anchor": "module-transport-resilience-contract"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Module Transport Resilience Contract",
+      "anchor": "module-transport-resilience-contract"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`DefaultModuleService` is the authoritative HTTP boundary for Nodics module-to-module and governed external calls. Callers continue to use `buildRequest`, `buildExternalRequest`, and `fetch`; projects customize policy through layered `serviceCommunication` properties or a later-loaded same-name service override."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Every request has a bounded deadline and uses shared keep-alive agents. Safe reads may retry transient network failures and configured HTTP statuses with bounded exponential backoff and jitter. Writes retry only when the caller provides an idempotency key. A per-module or per-origin circuit opens after the configured failure threshold and permits a half-open recovery probe after its cooldown."
+    },
+    {
+      "kind": "paragraph",
+      "text": "TLS certificate verification is mandatory. Projects requiring private trust roots must configure the process trust store or override the transport with a verified enterprise CA policy; disabling certificate verification is not a supported resilience option."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Diagnostics expose counts, latency, timeout/retry totals, and circuit state. They never include authorization headers, API keys, request bodies, response bodies, query secrets, or credential material. Runtime shutdown destroys the connection pools through the central lifecycle service."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Provider-specific clients must delegate module HTTP calls to this service rather than adding independent retry, pooling, circuit, or timeout authority paths."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

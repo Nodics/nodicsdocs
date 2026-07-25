@@ -1,0 +1,47 @@
+{
+  "code": "docsArticlef9ec35147c39d51a1403",
+  "title": "startioInt Module",
+  "route": "/docs/modules/startio/modules/startioint",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/modules/startioInt/README.md",
+    "type": "module-readme",
+    "contentHash": "62ae0f4e7fbb59c69f062fc6965cd7484f7707e3e9dc7ff648132c84c7aa0cef"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "startioInt Module",
+      "anchor": "startioint-module"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "startioInt Module",
+      "anchor": "startioint-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`startioInt` owns integration behavior for the `startio` application. It provides project-specific schema, route, service, pipeline, utility, configuration, and test space for external or cross-module integration."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for integration contracts and adapters. Core project rules belong in `startioCore`, and API request handling belongs in `startioApi`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Integration changes must preserve provider governance, diagnostics, retry/rollback expectations, access control, and layered configuration."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

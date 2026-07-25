@@ -1,0 +1,368 @@
+{
+  "code": "docsArticle2be0d93fdaf8a9a4c5f3",
+  "title": "nOtp",
+  "route": "/docs/modules/gframework/notp",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nOtp/README.md",
+    "type": "module-readme",
+    "contentHash": "f614ca66170fe8c3ea7486eda0753718ad8c8c9799df8f6a0af7e46e753f2d23"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "nOtp",
+      "anchor": "notp"
+    },
+    {
+      "level": 2,
+      "text": "When To Use This Module",
+      "anchor": "when-to-use-this-module"
+    },
+    {
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "level": 2,
+      "text": "Source Contracts",
+      "anchor": "source-contracts"
+    },
+    {
+      "level": 2,
+      "text": "Configuration",
+      "anchor": "configuration"
+    },
+    {
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "level": 2,
+      "text": "Security And Production Qualification",
+      "anchor": "security-and-production-qualification"
+    },
+    {
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "level": 2,
+      "text": "Observability And Failure Behavior",
+      "anchor": "observability-and-failure-behavior"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "nOtp",
+      "anchor": "notp"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nOtp` creates and checks a short-lived one-time password for a specific operation. It builds on `nToken` and deliberately does not decide how the code is delivered or what business journey the challenge unlocks."
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nOtp` owns one-time-password capability support on top of the generic `nToken` lifecycle. It provides secured OTP routes, controller and facade mapping, OTP generation and validation services, OTP token configuration, and the default OTP handler."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for framework-level OTP mechanics. Customer-specific challenge flows, delivery channels, identity flows, notification templates, and policy tuning should be contributed through project modules and layered configuration."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "When To Use This Module",
+      "anchor": "when-to-use-this-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use `nOtp` when an application needs a numeric, short-lived challenge behind a secured API. Use `nToken` directly for a different reusable token type. Keep email, SMS, push, messaging, templates, consent, and identity recovery in their own capability or project modules."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The module exposes two secured route operations:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`POST /nodics/otp/generate` through `DefaultOtpController.generateOtp`;",
+        "`POST /nodics/otp/validate` through `DefaultOtpController.validateOtp`."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Both routes are secured and currently use `userGroup` access. The route help metadata prefers `Authorization: Bearer <token>` and keeps `authToken` wording only as compatibility guidance."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "kind": "paragraph",
+      "text": "OTP generation:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "The controller copies `request.httpRequest.body` into `request.model`.",
+        "The facade delegates to `DefaultOtpService.generateOtp`.",
+        "The service stamps `request.model.type = 'OTP'`.",
+        "`DefaultTokenService.generateToken` runs the token generation pipeline.",
+        "`DefaultOtpHandlerService.generateToken` creates the numeric OTP from configured range.",
+        "`DefaultOtpHandlerService.generateExpiry` computes expiration from configured validity seconds."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "OTP validation:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "The controller copies the request body into `request.model`.",
+        "The facade delegates to `DefaultOtpService.validateOtp`.",
+        "`DefaultTokenService.validateToken` runs the token validation pipeline.",
+        "Token expiry, value matching, attempt limit, and deactivation behavior are handled by `nToken`."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Source Contracts",
+      "anchor": "source-contracts"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`config/properties.js` owns `token.OTP` defaults: range, validity, attempt limit, and token handler.",
+        "`src/router/routers.js` owns the secured OTP route metadata.",
+        "`src/controller/DefaultOtpController.js` owns request-body mapping.",
+        "`src/facade/DefaultOtpFacade.js` owns API boundary delegation.",
+        "`src/service/DefaultOtpService.js` owns OTP type stamping and token-service delegation.",
+        "`src/service/handler/defaultOtpHandlerService.js` owns default OTP value and expiry generation.",
+        "`test/otpCapabilityContract.test.js` verifies route metadata, controller mapping, service delegation, OTP type stamping, and handler configuration behavior."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Configuration",
+      "anchor": "configuration"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Default OTP configuration:"
+    },
+    {
+      "kind": "code",
+      "language": "js",
+      "text": "module.exports = {\n    token: {\n        OTP: {\n            rangeStart: 1000,\n            rangeEnd: 9000,\n            validUpTo: 300,\n            attemptLimit: 5,\n            tokenHandler: 'DefaultOtpHandlerService'\n        }\n    }\n};"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Projects may override these values in later active modules. A project that needs a different OTP algorithm should contribute a different handler service and point `token.OTP.tokenHandler` to that service."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Projects may customize OTP behavior by:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "overriding `token.OTP` configuration;",
+        "contributing a different OTP handler service;",
+        "overriding facade or service methods through later active modules;",
+        "adding delivery behavior in a project-owned notification, email, SMS, or messaging module;",
+        "adding route permission changes through governed route configuration when access policy changes."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not put one customer delivery workflow into the framework default. OTP generation and validation are framework capabilities; delivery and business challenge flow are application concerns."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Security And Production Qualification",
+      "anchor": "security-and-production-qualification"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The default secured routes and attempt/expiry behavior are only part of a production OTP solution. The owning application must define:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "who is allowed to request and validate a challenge;",
+        "operation, tenant, subject, and session binding;",
+        "request throttling and abuse detection across relevant identity, address,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "device, and destination signals;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "resend/cooldown rules and concurrent-request behavior;",
+        "delivery-provider security, privacy, retry, and failure handling;",
+        "whether a successful validation is consumed atomically;",
+        "audit and user notification for sensitive account actions."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not expose the generated OTP in logs, metrics, audit, error responses, or a production API response. If local development needs display behavior, keep it behind an explicit non-production override and test that production-like topologies reject it."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run focused OTP coverage with:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "node gFramework/nOtp/test/otpCapabilityContract.test.js\nnpm run test:basic\nnpm run quality:docs"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Add tests when changing:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "route security or permission metadata;",
+        "controller body mapping;",
+        "token type stamping;",
+        "OTP range or expiry behavior;",
+        "token service delegation;",
+        "project override behavior."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "treating OTP as `nOpt`; the module is `nOtp` and the optional group is `gOptional`;",
+        "exposing OTP routes without secured metadata;",
+        "hardcoding delivery channels in framework OTP services;",
+        "bypassing `nToken` token lifecycle behavior;",
+        "logging generated OTP values in production diagnostics;",
+        "changing OTP policy without configuration and tests."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Observability And Failure Behavior",
+      "anchor": "observability-and-failure-behavior"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Observe safe counts and latency for generation, validation, expiry, exhausted attempts, throttling, delivery outcome, and provider failure. Avoid sensitive destinations and token values in metric labels. Provider failure must not leave an apparently delivered challenge without a traceable outcome; repeated requests must follow the application's resend and idempotency policy."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Generic lifecycle: [nToken](../nToken/README.md)",
+        "Authentication boundary: [nAuth](../nAuth/README.md)",
+        "Public security guide: [How Users, Tenants, And Permissions Work](../../gDocs/security/how-users-tenants-and-permissions-work.md)",
+        "Framework map: [gFramework](../README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "nToken",
+      "target": "../nToken/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ntoken",
+      "anchor": ""
+    },
+    {
+      "label": "nAuth",
+      "target": "../nAuth/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nauth",
+      "anchor": ""
+    },
+    {
+      "label": "How Users, Tenants, And Permissions Work",
+      "target": "../../gDocs/security/how-users-tenants-and-permissions-work.md",
+      "kind": "internal",
+      "route": "/docs/security/how-users-tenants-and-permissions-work",
+      "anchor": ""
+    },
+    {
+      "label": "gFramework",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

@@ -1,0 +1,247 @@
+{
+  "code": "docsArticle8d7919ca4a2a3cf16175",
+  "title": "Export Module",
+  "route": "/docs/modules/gframework/ndata/nexport/export",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nData/nExport/export/README.md",
+    "type": "module-readme",
+    "contentHash": "5d99d1678e4a9ac82a09786080ddcdd954732d80701cb0f455acf7f6d3659b87"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Export Module",
+      "anchor": "export-module"
+    },
+    {
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Export Module",
+      "anchor": "export-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "**Maturity: Guarded, fail closed.** It provides the common boundary and access policy hook, but intentionally rejects export until a later active module supplies a fully governed implementation."
+    },
+    {
+      "kind": "paragraph",
+      "text": "`export` is the executable export engine inside `nData/nExport`. It owns shared export orchestration, export access policy checks, dispatch behavior, and the framework contracts that format modules plug into."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module when changing export lifecycle behavior that applies across CSV, Excel, JSON, JavaScript, or future export formats. Format-specific parsing and rendering belongs in the sibling format modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Export definitions should remain source-of-truth driven and tenant-aware. Generated export artifacts must be regenerated from definitions rather than edited by hand."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The module currently contributes:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`DataExportController.export`, which normalizes HTTP body and query data into `request.export`;",
+        "`DataExportFacade.export`, which delegates to the active `DataExportService`;",
+        "`DataExportService.export`, which defines the default fail-closed export contract;",
+        "`DataExportService.applyExportAccessPolicies`, which delegates to `DefaultSchemaReadAccessPolicyService.applyExportPolicies` when that service is active;",
+        "standard router, schema, pipeline, utility, status, enum, lifecycle, and test extension files."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "The default `export` implementation rejects with a Nodics error until an active module overrides export behavior. This is intentional: an export surface must not leak data just because the module exists."
+    },
+    {
+      "kind": "paragraph",
+      "text": "For the full engineering contract, read [Export Process Framework](docs/export-process-framework.md)."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "A caller invokes the export controller through a route, internal service, scheduled process, or test.",
+        "When an HTTP request is present, the controller copies the request body into `request.export`.",
+        "HTTP query parameters are preserved under `request.export.query`.",
+        "The facade delegates to `SERVICE.DataExportService.export`.",
+        "The base service rejects until a framework/provider/project module supplies governed export behavior.",
+        "Implemented exporters should apply schema/property access policy before rendering or delivery.",
+        "Export access-policy filtering must operate on export-safe model copies so source models are not mutated in memory."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Projects or provider modules may override the export service through later active modules. A real implementation should:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "validate the selected export definition;",
+        "verify tenant context, access group, and permission requirements;",
+        "resolve source data through governed services or schemas;",
+        "call `applyExportAccessPolicies` before data is serialized;",
+        "delegate format rendering to CSV, Excel, JSON, JavaScript, or custom format services;",
+        "write only to governed destination aliases;",
+        "return a traceable result with status, counts, destination metadata, and diagnostics."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep delivery-provider details in their own services. Keep format rendering in format modules. Keep request normalization and cross-format policy in this module."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Focused behavior is covered by `test/dataExportCapabilityBehavior.test.js`, which verifies HTTP request normalization, the default fail-closed service behavior, access-policy delegation, and export-safe model copy handling."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "node gFramework/nData/nExport/export/test/dataExportCapabilityBehavior.test.js\nnpm run test:export\nnpm run quality:docs"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Project implementations should add tests for successful export, access-policy filtering, tenant isolation, destination validation, retry behavior, and sanitized failure reporting."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "enabling a public export route before access control and schema/property export policy are proven;",
+        "accepting arbitrary request-supplied URLs, credentials, or filesystem paths;",
+        "putting CSV, Excel, JSON, or JavaScript rendering logic in the shared engine;",
+        "bypassing the facade/service override path;",
+        "returning raw internal errors or credentials in export diagnostics."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Export family and completion gate: [nExport](../README.md)",
+        "Public data guide: [How To Work With Data](../../../../gDocs/data/how-to-work-with-data.md)",
+        "Data access policy: [database](../../../nDatabase/database/README.md)",
+        "Maturity matrix: [Provider And Capability Maturity Matrix](../../../../gDocs/reference/provider-capability-maturity-matrix.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "Export Process Framework",
+      "target": "docs/export-process-framework.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata/nexport/export/docs/export-process-framework",
+      "anchor": ""
+    },
+    {
+      "label": "nExport",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata/nexport",
+      "anchor": ""
+    },
+    {
+      "label": "How To Work With Data",
+      "target": "../../../../gDocs/data/how-to-work-with-data.md",
+      "kind": "internal",
+      "route": "/docs/data/how-to-work-with-data",
+      "anchor": ""
+    },
+    {
+      "label": "database",
+      "target": "../../../nDatabase/database/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndatabase/database",
+      "anchor": ""
+    },
+    {
+      "label": "Provider And Capability Maturity Matrix",
+      "target": "../../../../gDocs/reference/provider-capability-maturity-matrix.md",
+      "kind": "internal",
+      "route": "/docs/reference/provider-capability-maturity-matrix",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

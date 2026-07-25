@@ -1,0 +1,163 @@
+{
+  "code": "docsArticlea82e21a214ffac251276",
+  "title": "vMongodb Module",
+  "route": "/docs/modules/gframework/ndatabase/mongodb/vmongodb",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nDatabase/mongodb/vMongodb/README.md",
+    "type": "module-readme",
+    "contentHash": "63a5b50ed49121e95bd5870a61e0c0f4849c30b2a0834d05e18f3f87051df8dc"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "vMongodb Module",
+      "anchor": "vmongodb-module"
+    },
+    {
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "level": 2,
+      "text": "Source Contracts",
+      "anchor": "source-contracts"
+    },
+    {
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "vMongodb Module",
+      "anchor": "vmongodb-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`vMongodb` is the versioned/publish variant for the MongoDB adapter. It allows MongoDB model behavior to support versioned data and publish-style runtime flows without changing the base `mongodb` adapter."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module when MongoDB needs variant-specific versioned behavior. Keep common MongoDB connection and CRUD behavior in `nDatabase/mongodb`, and keep provider-neutral versioned schema contracts in `nDatabase/database/vDatabase`."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The module extends MongoDB model behavior for versioned records. Its versioned model contract verifies that:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "saving a versioned item reads existing items through the standard `getItems` envelope;",
+        "saving inserts the next versioned record;",
+        "updating a versioned item copies existing data, applies the update, increments `versionId`, and inserts a new version instead of mutating the existing one."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "This supports publish/revert-style data behavior where previous versions remain available."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Source Contracts",
+      "anchor": "source-contracts"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`src/schemas/model.js` owns versioned MongoDB model functions.",
+        "`test/versionedModelContract.test.js` verifies versioned save/update behavior.",
+        "`config/properties.js` is currently an empty variant contribution point.",
+        "The module depends on base MongoDB model behavior and provider-neutral versioned schema definitions."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Projects may customize versioned MongoDB behavior by:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "overriding versioned model functions in a later active module;",
+        "adding versioned data validation or publish-state services in the owning business module;",
+        "configuring runtime publish behavior through project or tenant layers;",
+        "adding tests that prove version creation, lookup, publish, rollback, and tenant isolation."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not duplicate base MongoDB connection logic here. This module owns versioned MongoDB behavior only."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run focused versioned MongoDB coverage with:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "node gFramework/nDatabase/mongodb/vMongodb/test/versionedModelContract.test.js\nnpm run test:basic\nnpm run quality:docs"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "mutating previous versions when publish/revert behavior requires history;",
+        "bypassing the base MongoDB model envelope;",
+        "putting generic publish workflow rules in this provider variant;",
+        "adding connection credentials to variant configuration;",
+        "changing version increment behavior without focused tests."
+      ]
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

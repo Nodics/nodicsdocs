@@ -1,0 +1,47 @@
+{
+  "code": "docsArticlebf16258e594d2f08ca07",
+  "title": "kickoffLocalNode0",
+  "route": "/docs/modules/docs/kickoff/kickoffenvs/kickofflocal/kickofflocalserver/kickofflocalnode0",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "docs/kickoff/kickoffEnvs/kickoffLocal/kickoffLocalServer/kickoffLocalNode0/README.md",
+    "type": "module-readme",
+    "contentHash": "6d8ba9ab12abdab815c4c8943977243b2fcfd16c9ce5d2ea4f57b222e90f19b3"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "kickoffLocalNode0",
+      "anchor": "kickofflocalnode0"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "kickoffLocalNode0",
+      "anchor": "kickofflocalnode0"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`kickoffLocalNode0` is a local runtime node under `kickoffLocalServer`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this node for node-scoped local configuration and activation. Server-wide topology belongs in `kickoffLocalServer`, and capability behavior belongs in active modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Node settings should remain explicit, observable, and safe to rebalance across sibling nodes."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

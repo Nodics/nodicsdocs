@@ -1,0 +1,458 @@
+{
+  "code": "docsArticleffb6b5c82cea32144be6",
+  "title": "How To Run And Debug Nodics",
+  "route": "/docs/operations/how-to-run-and-debug-nodics",
+  "category": "operations",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gDocs/operations/how-to-run-and-debug-nodics.md",
+    "type": "gdocs",
+    "contentHash": "254a2d9f978a88ac0e1c050905defea973cd2cb6aaa5d18f8f41975559c05d92"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "How To Run And Debug Nodics",
+      "anchor": "how-to-run-and-debug-nodics"
+    },
+    {
+      "level": 2,
+      "text": "Beginner Summary",
+      "anchor": "beginner-summary"
+    },
+    {
+      "level": 2,
+      "text": "Start Normally",
+      "anchor": "start-normally"
+    },
+    {
+      "level": 2,
+      "text": "Start And Pause For Debugging",
+      "anchor": "start-and-pause-for-debugging"
+    },
+    {
+      "level": 2,
+      "text": "Start And Attach Later",
+      "anchor": "start-and-attach-later"
+    },
+    {
+      "level": 2,
+      "text": "Using A Different Debug Port",
+      "anchor": "using-a-different-debug-port"
+    },
+    {
+      "level": 2,
+      "text": "Visual Studio Code Attach",
+      "anchor": "visual-studio-code-attach"
+    },
+    {
+      "level": 2,
+      "text": "Debugging Tips",
+      "anchor": "debugging-tips"
+    },
+    {
+      "level": 2,
+      "text": "Where To Put Breakpoints",
+      "anchor": "where-to-put-breakpoints"
+    },
+    {
+      "level": 2,
+      "text": "Stop The Application",
+      "anchor": "stop-the-application"
+    },
+    {
+      "level": 2,
+      "text": "Beginner Troubleshooting",
+      "anchor": "beginner-troubleshooting"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "How To Run And Debug Nodics",
+      "anchor": "how-to-run-and-debug-nodics"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This guide explains the common ways to start Nodics and debug startup or runtime behavior."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Beginner Summary",
+      "anchor": "beginner-summary"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Running Nodics means starting a selected project, environment, server, and optional node. Debugging means slowing that startup or request execution enough to see which configuration, module, route, service, provider, tenant, or generated artifact is being used."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Before debugging, write down:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "command used to start;",
+        "selected project;",
+        "selected environment;",
+        "selected server;",
+        "selected node, if any;",
+        "port;",
+        "API path or job/import/event being tested."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Most runtime confusion comes from starting a different server or module set than the one you expected."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Start Normally",
+      "anchor": "start-normally"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run start"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use normal startup when you want to run the application without attaching a debugger."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Start And Pause For Debugging",
+      "anchor": "start-and-pause-for-debugging"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run start:debug"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This starts Node with the inspector and pauses before startup code executes."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this when:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "You need to debug startup configuration.",
+        "You need a breakpoint before modules load.",
+        "You want to inspect how configuration, schemas, routes, or services are registered."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Visual Studio Code can attach to port `9229` by default."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Start And Attach Later",
+      "anchor": "start-and-attach-later"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run start:inspect"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This starts the application immediately and exposes the inspector."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this when:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "The issue happens after startup.",
+        "You want the server running before attaching.",
+        "You are debugging an API call, scheduled job, event, or import process."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Using A Different Debug Port",
+      "anchor": "using-a-different-debug-port"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use a different port when running multiple processes:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run start:debug -- --port=9230"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Each Node process must use its own inspector port."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Visual Studio Code Attach",
+      "anchor": "visual-studio-code-attach"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use the attach configuration in `.vscode/launch.json`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Default values:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Address: `localhost`",
+        "Port: `9229`",
+        "Request type: `attach`"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Steps:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Add breakpoints.",
+        "Run `npm run start:debug`.",
+        "Start the VS Code attach configuration.",
+        "Continue execution after the debugger attaches."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Debugging Tips",
+      "anchor": "debugging-tips"
+    },
+    {
+      "kind": "paragraph",
+      "text": "For startup problems, place breakpoints near:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Configuration loading.",
+        "Module initialization.",
+        "Schema loading.",
+        "Route loading.",
+        "Service loading.",
+        "Initial data loading."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "For request problems, place breakpoints near:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Route controller.",
+        "Authorization checks.",
+        "Service method.",
+        "Data access method.",
+        "Response resolution."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "For scheduled jobs, place breakpoints near:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Job handler.",
+        "Owning service method.",
+        "Event or log writer."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Where To Put Breakpoints",
+      "anchor": "where-to-put-breakpoints"
+    },
+    {
+      "kind": "table",
+      "headers": [
+        "Problem",
+        "Good breakpoint area"
+      ],
+      "rows": [
+        [
+          "Wrong configuration value",
+          "Configuration loading and `CONFIG.get` caller"
+        ],
+        [
+          "Module not active",
+          "Module initializer and selected server `activeModules`"
+        ],
+        [
+          "Route not found",
+          "Router loading, router registration, generated route output"
+        ],
+        [
+          "Unauthorized API",
+          "Header normalization, token validation, route authorization"
+        ],
+        [
+          "Wrong tenant data",
+          "Tenant resolution, DAO/provider resolution, cache/search key creation"
+        ],
+        [
+          "Controller receives wrong body",
+          "Controller request mapping"
+        ],
+        [
+          "Business rule wrong",
+          "Owning service function"
+        ],
+        [
+          "Generated API wrong",
+          "Source schema/router plus generator output"
+        ],
+        [
+          "Import fails",
+          "Import initializer, file/header processing, target dispatch"
+        ],
+        [
+          "Job does not run",
+          "CronJob container, node responsibility, job handler"
+        ],
+        [
+          "Cache result wrong",
+          "Cache key creation, cache policy, invalidation service"
+        ]
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Stop The Application",
+      "anchor": "stop-the-application"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use `Ctrl+C` in the terminal."
+    },
+    {
+      "kind": "paragraph",
+      "text": "If a process does not stop, check for remaining Node processes and occupied ports before starting again."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Beginner Troubleshooting",
+      "anchor": "beginner-troubleshooting"
+    },
+    {
+      "kind": "table",
+      "headers": [
+        "Symptom",
+        "What to check first"
+      ],
+      "rows": [
+        [
+          "Breakpoint never hits",
+          "Confirm the file is loader-visible and the selected module is active."
+        ],
+        [
+          "API returns 404",
+          "Confirm context root, module name, API version, and route registration."
+        ],
+        [
+          "API returns 401 or 403",
+          "Confirm token, tenant, route permission, and user group."
+        ],
+        [
+          "Data looks stale",
+          "Confirm cache and generated artifacts were refreshed."
+        ],
+        [
+          "Local server behaves differently than test",
+          "Confirm selected environment/server/node and runtime configuration."
+        ],
+        [
+          "Debugger cannot attach",
+          "Confirm inspector port is unique and the process is running with debug/inspect."
+        ]
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Next: [How To Prepare For Deployment](how-to-prepare-for-deployment.md)",
+        "Testing: [How To Test Nodics Changes](../testing/how-to-test-nodics-changes.md)",
+        "Documentation home: [Nodics Documentation](../README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "How To Prepare For Deployment",
+      "target": "how-to-prepare-for-deployment.md",
+      "kind": "internal",
+      "route": "/docs/operations/how-to-prepare-for-deployment",
+      "anchor": ""
+    },
+    {
+      "label": "How To Test Nodics Changes",
+      "target": "../testing/how-to-test-nodics-changes.md",
+      "kind": "internal",
+      "route": "/docs/testing/how-to-test-nodics-changes",
+      "anchor": ""
+    },
+    {
+      "label": "Nodics Documentation",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

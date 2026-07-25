@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle569ba65dd48465a758c2",
+  "title": "cronNode0",
+  "route": "/docs/modules/startio/envs/startiolocal/cronserver/cronnode0",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/envs/startioLocal/cronServer/cronNode0/README.md",
+    "type": "module-readme",
+    "contentHash": "25f3d1b760e203a1e7b0ce237c0e953669fccb2993621a4d31dc0a98140a3f61"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "cronNode0",
+      "anchor": "cronnode0"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "cronNode0",
+      "anchor": "cronnode0"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`cronNode0` is a local cron node module under `cronServer`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this node for node-scoped local cron configuration and activation. Server-wide behavior belongs in `cronServer`, and cron capability logic belongs in reusable modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Node settings should remain explicit, observable, and safe to rebalance across sibling nodes."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

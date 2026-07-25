@@ -1,0 +1,43 @@
+{
+  "code": "docsArticle272910a8063b832bbe01",
+  "title": "gOptional",
+  "route": "/docs/modules/goptional",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gOptional/README.md",
+    "type": "module-readme",
+    "contentHash": "a401ab1246dca8c5508323994b2f662930062a209292105666dff896b1dd51b2"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "gOptional",
+      "anchor": "goptional"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "gOptional",
+      "anchor": "goptional"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`gOptional` is the optional-capability group. It composes optional business modules without making them mandatory dependencies of the framework core."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Projects activate or replace optional capabilities through module configuration and dependency metadata."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

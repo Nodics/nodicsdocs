@@ -1,0 +1,290 @@
+{
+  "code": "docsArticled97b7eb8fde54e2f1abb",
+  "title": "nodeCache",
+  "route": "/docs/modules/gframework/ncache/nodecache",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nCache/nodeCache/README.md",
+    "type": "module-readme",
+    "contentHash": "49739096a0430df5c0156fa92cd2df7d379cfc2ea595f266d85747594838ce66"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "nodeCache",
+      "anchor": "nodecache"
+    },
+    {
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "level": 2,
+      "text": "Source Contracts",
+      "anchor": "source-contracts"
+    },
+    {
+      "level": 2,
+      "text": "Configuration",
+      "anchor": "configuration"
+    },
+    {
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "level": 2,
+      "text": "Operations And Performance",
+      "anchor": "operations-and-performance"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "nodeCache",
+      "anchor": "nodecache"
+    },
+    {
+      "kind": "paragraph",
+      "text": "**Maturity: Sample or reference.** The adapter is implemented and tested for process-local behavior, but it does not provide distributed consistency."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The `nodeCache` module implements the supported process-local cache adapter using `node-cache`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module when a cache channel should be local to one Node.js process. It is useful for fast local reads and isolated development/test behavior, but it is not a distributed cache. When multiple Nodics nodes run the same capability, invalidation must be propagated through Nodics cache events and topology behavior."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The local adapter supports:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "clone-on-write and clone-on-read behavior so cached values do not mutate caller-owned objects;",
+        "positive TTL values;",
+        "explicit non-expiring entries when TTL is `0`;",
+        "standard cache miss errors;",
+        "atomic consume inside the local event loop;",
+        "tenant-aware storage keys;",
+        "prefix and explicit key invalidation;",
+        "event registration through `node-cache` events."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "The cache engine resolves a channel to the local engine.",
+        "`DefaultLocalCacheEngineService.initCache` creates a `NodeCache` client from layered engine options.",
+        "Schema channels initialize only when the target module has raw schema definitions.",
+        "Router channels initialize only when the target module has router support enabled.",
+        "`DefaultLocalCacheService` performs put, get, consume, prefix flush, and key flush operations through the canonical cache key builder."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Source Contracts",
+      "anchor": "source-contracts"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`src/service/engine/defaultLocalCacheEngineService.js` owns local client creation and channel activation rules.",
+        "`src/service/cache/defaultLocalCacheService.js` owns local put/get/consume/flush behavior.",
+        "`config/properties.js` is the provider-local configuration contribution point.",
+        "The provider participates in the generic cache contract owned by `gFramework/nCache/cache`."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Configuration",
+      "anchor": "configuration"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Provider-specific defaults are contributed through layered cache configuration owned by the cache module. This provider README describes the behavior; the effective channel and engine selection come from `cache.default`, module-specific cache configuration, and later project/environment/server/node overrides."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Typical engine options include:"
+    },
+    {
+      "kind": "code",
+      "language": "js",
+      "text": "{\n    engine: 'local',\n    options: {\n        ttl: 30,\n        prefix: 'profile'\n    }\n}"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep provider selection configurable. Do not hardcode `nodeCache` in business services."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Projects may customize local cache behavior by:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "changing channel or engine configuration in `config/properties.js`;",
+        "overriding `DefaultLocalCacheEngineService` in a later active module;",
+        "overriding `DefaultLocalCacheService` while preserving operation envelopes;",
+        "contributing focused tests for TTL, tenant keying, invalidation, and clone behavior."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use local cache when distribution is not required. Use Redis or another qualified distributed adapter when cross-node shared cache state is required."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The generic cache adapter contract verifies local behavior, including TTL semantics, clone behavior, atomic consume, tenant-scoped invalidation, and prefix/key flush."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "node gFramework/nCache/cache/test/cacheAdapterContract.test.js\nnpm run test:basic\nnpm run quality:docs"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "using local cache as proof of distributed cache behavior;",
+        "relying on local cache for strict cross-node auth/session state;",
+        "mutating objects after writing them and expecting cache state to change;",
+        "bypassing tenant-aware storage key generation;",
+        "hardcoding local cache selection in framework or project services;",
+        "disabling invalidation events when multiple nodes can serve the same capability."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Operations And Performance",
+      "anchor": "operations-and-performance"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Local cache consumes the memory of each Node.js process. Bound entry count, payload size, and TTL for the target workload; monitor heap use, eviction, hit/miss rate, clone cost, and invalidation failures. A process restart clears the cache and must not lose authoritative state."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not use a local benchmark as evidence for multi-node correctness. Validate the selected topology, especially when several nodes can serve the same tenant or capability."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Generic cache contract: [cache](../cache/README.md)",
+        "Distributed cache: [redisCache](../redisCache/README.md)",
+        "Provider selection: [nCache](../README.md)",
+        "Public guide: [How Cache Works](../../../gDocs/platform/how-cache-works.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "cache",
+      "target": "../cache/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ncache/cache",
+      "anchor": ""
+    },
+    {
+      "label": "redisCache",
+      "target": "../redisCache/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ncache/rediscache",
+      "anchor": ""
+    },
+    {
+      "label": "nCache",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ncache",
+      "anchor": ""
+    },
+    {
+      "label": "How Cache Works",
+      "target": "../../../gDocs/platform/how-cache-works.md",
+      "kind": "internal",
+      "route": "/docs/platform/how-cache-works",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

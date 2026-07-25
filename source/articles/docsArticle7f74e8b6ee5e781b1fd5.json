@@ -1,0 +1,145 @@
+{
+  "code": "docsArticle7f74e8b6ee5e781b1fd5",
+  "title": "dataConsumer Module",
+  "route": "/docs/modules/gdeap/dataconsumer",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gDeap/dataConsumer/README.md",
+    "type": "module-readme",
+    "contentHash": "0f0e9a5a7b419591940d7aa56f35ce53c08caf16b7e76ae5de1dd063a339eaca"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "dataConsumer Module",
+      "anchor": "dataconsumer-module"
+    },
+    {
+      "level": 2,
+      "text": "Current Capability Evidence",
+      "anchor": "current-capability-evidence"
+    },
+    {
+      "level": 2,
+      "text": "Consumption Contract",
+      "anchor": "consumption-contract"
+    },
+    {
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "dataConsumer Module",
+      "anchor": "dataconsumer-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`dataConsumer` owns inbound data consumption behavior in the DEAP layer. It provides configuration, data, schemas, routes, services, pipelines, interceptors, events, utilities, and tests for consuming data into Nodics."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for source consumption and ingestion-facing behavior. Data transformation belongs in `dataProcessor`, and outbound publishing belongs in `dataPublisher`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Consumption changes must preserve validation, tenant isolation, diagnostics, replay/rollback expectations, and auditability."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Current Capability Evidence",
+      "anchor": "current-capability-evidence"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The module owns external/internal data schemas, generated schema/API/scenario contracts, event handlers for external and internal data, and an internal data consume process service. This proves a reusable consumption boundary; it does not qualify every external source, transport, payload, or production topology."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Consumption Contract",
+      "anchor": "consumption-contract"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A concrete source must define a governed source alias, schema/version, authentication, tenant/module allowlist, maximum bytes/records, checksum or message identity, ordering, duplicate/idempotency policy, timeout/retry, quarantine, acknowledgement, cleanup, and recovery. Provider connection and credentials stay in the owning transport/provider module and secret-backed configuration."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Preserve source, tenant, correlation, batch/message identity, lineage, received time, validation outcome, and safe failure reason into processing. Do not use raw sensitive payloads as log or metric labels."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run generated contracts and add focused flow tests for valid input, malformed input, unauthorized source, cross-tenant denial, duplicate/replay, size and batch boundaries, unavailable provider, retry exhaustion, quarantine, and recovery."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "DEAP lifecycle: [gDeap](../README.md)",
+        "Processing stage: [dataProcessor](../dataProcessor/README.md)",
+        "Import lifecycle: [nImport](../../gFramework/nData/nImport/README.md)",
+        "Messaging: [nEms](../../gFramework/nEms/README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "gDeap",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gdeap",
+      "anchor": ""
+    },
+    {
+      "label": "dataProcessor",
+      "target": "../dataProcessor/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gdeap/dataprocessor",
+      "anchor": ""
+    },
+    {
+      "label": "nImport",
+      "target": "../../gFramework/nData/nImport/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata/nimport",
+      "anchor": ""
+    },
+    {
+      "label": "nEms",
+      "target": "../../gFramework/nEms/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nems",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

@@ -1,0 +1,356 @@
+{
+  "code": "docsArticle5aa90095a32d800f980d",
+  "title": "BackOffice Backend Acceptance Report",
+  "route": "/docs/modules/gexp/backoffice/docs/backend-acceptance-report",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gExp/backoffice/docs/backend-acceptance-report.md",
+    "type": "module-doc",
+    "contentHash": "0846ed02594ca8e68ff0a750ceca9726057716ea18a2cf846e1b64abde46f289"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "BackOffice Backend Acceptance Report",
+      "anchor": "backoffice-backend-acceptance-report"
+    },
+    {
+      "level": 2,
+      "text": "Decision",
+      "anchor": "decision"
+    },
+    {
+      "level": 2,
+      "text": "Evidence collected",
+      "anchor": "evidence-collected"
+    },
+    {
+      "level": 2,
+      "text": "Behavior covered",
+      "anchor": "behavior-covered"
+    },
+    {
+      "level": 2,
+      "text": "Required production evidence",
+      "anchor": "required-production-evidence"
+    },
+    {
+      "level": 2,
+      "text": "Release posture",
+      "anchor": "release-posture"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "BackOffice Backend Acceptance Report",
+      "anchor": "backoffice-backend-acceptance-report"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Decision",
+      "anchor": "decision"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The BackOffice backend capability is accepted for continued integration and environment validation. It is not yet approved for production deployment. Nodics Axis remains outside this acceptance boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "This decision is based on the repository state validated through 2026-07-22. The formal clean-checkout gate passed under supported Node 24.18.0 after correcting local build composition so the authoritative `monoServer` environment includes `gExp` and therefore regenerates BackOffice schema services used by modular runtimes."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Evidence collected",
+      "anchor": "evidence-collected"
+    },
+    {
+      "kind": "table",
+      "headers": [
+        "Area",
+        "Evidence",
+        "Result"
+      ],
+      "rows": [
+        [
+          "Clean dependency and generation flow",
+          "`npm run release:check -- --execute --full` ran `npm ci`, clean, build, LLM validation, documentation quality, basic tests, and the full suite",
+          "Passed"
+        ],
+        [
+          "Dependency audit",
+          "`npm ci` audited 521 packages",
+          "Passed with zero reported vulnerabilities"
+        ],
+        [
+          "BackOffice contracts",
+          "Focused module, route, API, registry, discovery, history, availability, security, performance, audit, and operational-readiness tests",
+          "Passed"
+        ],
+        [
+          "`monoServer` runtime",
+          "Module communication, public/protected readiness, 94 registered active modules, client-safe projection, complete process restart, re-registration, and durable CMS contract recovery",
+          "Passed on 2026-07-22"
+        ],
+        [
+          "Human HTTP security journey",
+          "Profile employee password login issued a human Bearer token; BackOffice Registry and Bootstrap returned 200; bad password and missing token returned 401; insufficient permission and a service token on the human administration route returned 403",
+          "Passed on 2026-07-22"
+        ],
+        [
+          "Modular runtime",
+          "Eight configured module runtimes, direct module communication, public readiness, and protected readiness detail",
+          "Passed on 2026-07-22"
+        ],
+        [
+          "Distributed human security",
+          "Profile-to-BackOffice HTTP login and Bearer use passed before restart, after Profile restart, and after BackOffice restart; tenant and negative 401/403 boundaries remained enforced",
+          "Passed on 2026-07-22"
+        ],
+        [
+          "Registry-derived direct connections",
+          "Eight advertised endpoints returned 200; CMS required explicit Staged/Online selection; capability filtering retained schema owners; internal Data Processor and Publisher exposed no endpoint",
+          "Passed on 2026-07-22"
+        ],
+        [
+          "Registration and recovery",
+          "497 active leases, 90 registered modules, contract discovery, CMS Staged restart reconciliation, BackOffice restart recovery, and availability recovery",
+          "Passed on 2026-07-22"
+        ],
+        [
+          "CMS runtime identity",
+          "CMS Staged and CMS Online retained distinct process identities and endpoints, remained visible as two sanitized administrative instances, and aggregated into one CMS catalogue capability",
+          "Passed on 2026-07-22"
+        ],
+        [
+          "Clean-build regression",
+          "BackOffice boundary test requires `gExp` in the consolidated build authority; modular topology proves generated persistence services are usable after clean/build",
+          "Passed"
+        ],
+        [
+          "Generated contracts",
+          "Schema/API generated tests, OpenAPI generation, documentation governance, and module LLM validation included in the release gate",
+          "Passed"
+        ],
+        [
+          "Live Redis adapter",
+          "Existing guarded nCache Redis contract executed against the local provider",
+          "Passed on 2026-07-20"
+        ],
+        [
+          "Live distributed lease store",
+          "Two independent Redis clients proved shared visibility, TTL expiry, atomic stale-delete rejection, interruption failure, restored-client recovery, isolated scanning, and scoped cleanup",
+          "Passed on 2026-07-20"
+        ],
+        [
+          "Multi-process lease coordination",
+          "Separate Node.js processes proved shared visibility and stale-process protection through the nCache-owned Redis bridge",
+          "Passed on 2026-07-20"
+        ],
+        [
+          "Live provider load",
+          "5,000 leases at concurrency 64, complete cross-client scan, and environment-owned latency enforcement",
+          "Passed locally in 30.541 ms on 2026-07-20"
+        ],
+        [
+          "Audit and alert delivery contract",
+          "Strict acknowledgement, unavailable/unacknowledged failure, sanitized payload, and unchanged-state deduplication",
+          "Passed with test publishers"
+        ],
+        [
+          "Production security posture",
+          "Fail-closed validation for distributed storage, HTTPS, host allowlists, human administration, and strict audit/alert publishers",
+          "Passed with layered contract fixtures"
+        ]
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Counts are observations from this validation run, not production sizing guarantees. They may change as the active module composition evolves."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Behavior covered",
+      "anchor": "behavior-covered"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The automated evidence covers positive, negative, boundary, contract, integration, and regression behavior for the implemented backend scope:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "asynchronous authenticated module registration, renewal, expiry, and restart"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "reconciliation;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`monoServer` registration and whole-process restart recovery without adding an"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "in-process registration shortcut;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "client-safe inventory and direct-module connection metadata without a"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "BackOffice business-operation proxy;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "environment/server/node coordinates that distinguish observed runtime"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "instances without exposing lease expiry, credentials, or configuration authority;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "explicit multi-instance endpoint selection and direct calls to module-owned"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "APIs without a BackOffice proxy or invented default route;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "human administrative identity separation from module/service identity;",
+        "real local HTTP login, Bearer propagation, missing credential, invalid"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "credential, insufficient permission, and service-token rejection boundaries;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "tenant and permission enforcement, refresh throttling, and idempotency;",
+        "bounded discovery, immutable contract history, approval, rejection,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "activation, and rollback behavior;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "availability aggregation, readiness policy, metrics, sanitized audit events,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "and alert-state calculation;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "concurrency, queue, backoff, pagination, scan, lease, and refresh structural"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "performance limits."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Required production evidence",
+      "anchor": "required-production-evidence"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The following gates were not proven by this local acceptance run and remain mandatory before production approval:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Repeat the live Redis contracts against the selected deployment provider"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "using governed TLS, credentials, network policy, and the final nCache configuration. Local Redis evidence does not qualify that infrastructure."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Run complete multi-replica BackOffice application runtimes against that"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "provider and the production database topology. Local evidence covers independent clients, separate lease-store processes, and application restart recovery, but not the final orchestrated deployment."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Execute deployment-sized registration, renewal, discovery, availability,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "administrative scan, and refresh load with accepted latency and saturation budgets."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Execute the acknowledged audit and alert contracts using the selected"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "external adapters, then prove routing, dashboards, and operator acknowledgement. Local evidence uses contract test publishers."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Complete security review of environment secrets, TLS, network policy,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "origin exposure, database access, retention, and operational permissions."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Release posture",
+      "anchor": "release-posture"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Until every required production item has an owner and evidence, deploy only to development or controlled integration environments. Preserve the distributed lease namespace and durable contract database during rollback, and use the existing environment layering for all provider and deployment configuration."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

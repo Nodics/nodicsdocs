@@ -1,0 +1,326 @@
+{
+  "code": "docsArticleb49053eae5eb6cbea5bb",
+  "title": "How Warehouse Management Works",
+  "route": "/docs/commerce/how-to-manage-warehouses",
+  "category": "commerce",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gDocs/commerce/how-to-manage-warehouses.md",
+    "type": "gdocs",
+    "contentHash": "c7c74dea6bbd5593223f5299467c2c4b50aef4c3396ef9b9f0e1414341e638c2"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "How Warehouse Management Works",
+      "anchor": "how-warehouse-management-works"
+    },
+    {
+      "level": 2,
+      "text": "Current Capability",
+      "anchor": "current-capability"
+    },
+    {
+      "level": 2,
+      "text": "Business Terms",
+      "anchor": "business-terms"
+    },
+    {
+      "level": 2,
+      "text": "Plan A Warehouse",
+      "anchor": "plan-a-warehouse"
+    },
+    {
+      "level": 2,
+      "text": "Plan Locations",
+      "anchor": "plan-locations"
+    },
+    {
+      "level": 2,
+      "text": "Activate, Suspend, And Retire",
+      "anchor": "activate-suspend-and-retire"
+    },
+    {
+      "level": 2,
+      "text": "Expected Validation Messages",
+      "anchor": "expected-validation-messages"
+    },
+    {
+      "level": 2,
+      "text": "Administrator And Developer Configuration",
+      "anchor": "administrator-and-developer-configuration"
+    },
+    {
+      "level": 2,
+      "text": "Verify The Foundation",
+      "anchor": "verify-the-foundation"
+    },
+    {
+      "level": 2,
+      "text": "What Comes Later",
+      "anchor": "what-comes-later"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "How Warehouse Management Works",
+      "anchor": "how-warehouse-management-works"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This guide explains the implemented Nodics warehouse foundation for business owners, warehouse administrators, operators, and developers who customize the out-of-the-box capability."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Current Capability",
+      "anchor": "current-capability"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics can now persist enterprise-owned warehouses and optional recursive warehouse locations with protected identity, hierarchy, lifecycle, and enterprise isolation. This foundation does not yet include stock quantities, units of measure, stores, sourcing, reservations, transfers, public APIs, or a BackOffice page. Those capabilities must not be assumed from this guide."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Business Terms",
+      "anchor": "business-terms"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "A **warehouse** is the logical facility that will later own stock.",
+        "A **warehouse location** is an optional place inside a warehouse, such as"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "receiving, storage, aisle, rack, bin, pickup, returns, or quarantine."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "A **business code** is the code employees recognize. Nodics creates a separate"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "internal identity so two enterprises can use the same business code safely."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "**Retire** means preserve the record and history but stop using it. Warehouse"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "records are not deleted."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Plan A Warehouse",
+      "anchor": "plan-a-warehouse"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Before creating a warehouse, decide:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Which enterprise owns it.",
+        "Its stable `warehouseCode` and business name.",
+        "Whether it is physical, virtual, a store stockroom, dark store, distribution"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "center, supplier, dropship, returns, or transit facility."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Its purposes and supported capabilities.",
+        "Country, timezone, and approved address reference where applicable.",
+        "Whether stock will be tracked only at warehouse level or at internal"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "locations."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Codes cannot be renamed later. Choose stable codes that do not include spaces or transient organizational labels."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Plan Locations",
+      "anchor": "plan-locations"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Start with the smallest hierarchy the business needs. A small organization may use no locations. A larger facility might use:"
+    },
+    {
+      "kind": "code",
+      "language": "text",
+      "text": "Receiving\nStorage\n└── Zone A\n    └── Aisle 01\n        └── Rack 01\n            └── Bin 01\nPickup\nReturns\nQuarantine"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Create parents before children. A location cannot reference itself, another warehouse, another enterprise, a missing parent, or a retired parent."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Activate, Suspend, And Retire",
+      "anchor": "activate-suspend-and-retire"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Create the warehouse and locations as `DRAFT`.",
+        "Verify business identity, hierarchy, country, timezone, and capabilities.",
+        "Activate parents before children.",
+        "Use `SUSPENDED` for temporary operational unavailability.",
+        "To retire, retire child locations from the deepest level upward.",
+        "Retire root locations and then the warehouse."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Retirement is permanent under the OOTB policy. A retired identity is historical evidence and is not reused for a different facility."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Expected Validation Messages",
+      "anchor": "expected-validation-messages"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics rejects missing authentication, cross-enterprise access, invalid codes, unknown classifications, invalid transitions, missing/cyclic/deep parents, identity changes, hard deletion, and unsafe retirement order. Correct the request or approved layered configuration; do not bypass validation."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Administrator And Developer Configuration",
+      "anchor": "administrator-and-developer-configuration"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Warehouse/location classifications, transitions, identity format, and maximum depth come from `inventory` properties. Customize them in a later project, environment, server, node, tenant, or customer layer. Do not edit OOTB inventory."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Generated schema services are private in this release. Developers integrate through generated services and persistence interceptors; they must not call the database provider directly. Public or BackOffice administration requires a later intent-API slice with human permissions and negative security tests."
+    },
+    {
+      "kind": "paragraph",
+      "text": "See the module-level [Warehouse Foundation contract](../../gComm/inventory/docs/warehouse-foundation.md) for exact fields, properties, services, interceptors, errors, customization, recovery, and test commands."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Verify The Foundation",
+      "anchor": "verify-the-foundation"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "node gComm/inventory/test/inventoryWarehouseSchemaContract.test.js\nnode gComm/inventory/test/inventoryWarehouseFoundationService.test.js"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The tests prove successful configuration and hierarchy behavior as well as missing enterprise, enterprise mismatch, invalid identity, invalid transition, immutable identity, missing/self parent, depth, retirement, deletion, and OOTB classification-extension boundaries."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What Comes Later",
+      "anchor": "what-comes-later"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The separately governed Units authority and Store foundation are now implemented. Stock balance, immutable movement evidence, and Stock Pools are also implemented, together with declarative Stock Sourcing. Remaining approved slices add sourcing APIs/caching, availability, reservations, allocations, transfers, reconciliation, and external WMS/POS providers. Permanent documentation will expand only when each behavior is implemented and verified."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Architecture: [How Nodics Is Organized](../architecture/how-nodics-is-organized.md)",
+        "Security: [How Users, Tenants, And Permissions Work](../security/how-users-tenants-and-permissions-work.md)",
+        "Development: [How To Customize And Extend Nodics](../development/how-to-customize-and-extend-nodics.md)",
+        "Testing: [How To Test Nodics Changes](../testing/how-to-test-nodics-changes.md)",
+        "Documentation home: [Nodics Documentation](../README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "Warehouse Foundation contract",
+      "target": "../../gComm/inventory/docs/warehouse-foundation.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcomm/inventory/docs/warehouse-foundation",
+      "anchor": ""
+    },
+    {
+      "label": "How Nodics Is Organized",
+      "target": "../architecture/how-nodics-is-organized.md",
+      "kind": "internal",
+      "route": "/docs/architecture/how-nodics-is-organized",
+      "anchor": ""
+    },
+    {
+      "label": "How Users, Tenants, And Permissions Work",
+      "target": "../security/how-users-tenants-and-permissions-work.md",
+      "kind": "internal",
+      "route": "/docs/security/how-users-tenants-and-permissions-work",
+      "anchor": ""
+    },
+    {
+      "label": "How To Customize And Extend Nodics",
+      "target": "../development/how-to-customize-and-extend-nodics.md",
+      "kind": "internal",
+      "route": "/docs/development/how-to-customize-and-extend-nodics",
+      "anchor": ""
+    },
+    {
+      "label": "How To Test Nodics Changes",
+      "target": "../testing/how-to-test-nodics-changes.md",
+      "kind": "internal",
+      "route": "/docs/testing/how-to-test-nodics-changes",
+      "anchor": ""
+    },
+    {
+      "label": "Nodics Documentation",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

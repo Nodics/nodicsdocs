@@ -1,0 +1,688 @@
+{
+  "code": "docsArticle6f8c39bb2d97b5dc1b4e",
+  "title": "How To Create APIs",
+  "route": "/docs/development/how-to-create-apis",
+  "category": "development",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gDocs/development/how-to-create-apis.md",
+    "type": "gdocs",
+    "contentHash": "e548c0348c344f8e3f378a1480ffb9118e4b341b61935a7ecdce081e245de512"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "How To Create APIs",
+      "anchor": "how-to-create-apis"
+    },
+    {
+      "level": 2,
+      "text": "Start With The Use Case",
+      "anchor": "start-with-the-use-case"
+    },
+    {
+      "level": 2,
+      "text": "Route Ownership",
+      "anchor": "route-ownership"
+    },
+    {
+      "level": 2,
+      "text": "Route Definitions",
+      "anchor": "route-definitions"
+    },
+    {
+      "level": 2,
+      "text": "Security First",
+      "anchor": "security-first"
+    },
+    {
+      "level": 2,
+      "text": "Standard API Flow",
+      "anchor": "standard-api-flow"
+    },
+    {
+      "level": 2,
+      "text": "Controller, Facade, Service, Data Flow",
+      "anchor": "controller-facade-service-data-flow"
+    },
+    {
+      "level": 2,
+      "text": "Related Module Documentation",
+      "anchor": "related-module-documentation"
+    },
+    {
+      "level": 2,
+      "text": "Generated CRUD APIs",
+      "anchor": "generated-crud-apis"
+    },
+    {
+      "level": 2,
+      "text": "API Documentation",
+      "anchor": "api-documentation"
+    },
+    {
+      "level": 3,
+      "text": "First Swagger UI Walkthrough",
+      "anchor": "first-swagger-ui-walkthrough"
+    },
+    {
+      "level": 3,
+      "text": "Where To Write API Code",
+      "anchor": "where-to-write-api-code"
+    },
+    {
+      "level": 2,
+      "text": "Testing APIs",
+      "anchor": "testing-apis"
+    },
+    {
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "How To Create APIs",
+      "anchor": "how-to-create-apis"
+    },
+    {
+      "kind": "paragraph",
+      "text": "APIs are the main way external systems and clients interact with a Nodics application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "An API has a clear owner, route definition, permission rule, request contract, response contract, and test coverage."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Start With The Use Case",
+      "anchor": "start-with-the-use-case"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Before creating a route, define:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Who calls this API?",
+        "What action are they performing?",
+        "What data is required?",
+        "What data is returned?",
+        "Which permission is required?",
+        "Is the caller a human user, service account, internal module, or external system?",
+        "Does the route work before login, after login, or only for service-to-service communication?",
+        "Is this route a sensitive runtime, diagnostic, file, import/export, test,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "dynamic class, or maintenance API that needs an `apiExposure` category?"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Does the owning server/node require HTTP hardening changes such as CORS"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "origins, body limits, proxy trust, or rate limits?"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Route Ownership",
+      "anchor": "route-ownership"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Routes belong to the module that owns the capability."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not put unrelated APIs into a central controller just because it is easy to find. Keep each route close to the schema, service, controller, tests, and documentation for the capability it exposes."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Route Definitions",
+      "anchor": "route-definitions"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Define API routes in the owning module's route registry. Current generated modules use `src/router/routers.js` for route definitions and `src/router/appConfig.js` for application router configuration."
+    },
+    {
+      "kind": "paragraph",
+      "text": "A route definition makes these decisions visible:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "HTTP method.",
+        "URL and context root.",
+        "Controller and action.",
+        "Request type.",
+        "Permission configuration.",
+        "API exposure category for topology-sensitive control-plane routes.",
+        "Authentication or pre-authentication behavior.",
+        "Tenant requirements.",
+        "Cache behavior if applicable.",
+        "Help and OpenAPI metadata.",
+        "Expected tests."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use HTTP methods according to behavior. `GET` is for read-only retrieval and must not create, update, run, start, stop, pause, resume, remove, publish, import, export, approve, or otherwise mutate state. Use command methods for command behavior: `POST` for actions or creation, `PATCH` for partial updates, `PUT` for complete replacement when applicable, and `DELETE` for removal."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not hide route behavior in controller code when route metadata owns it."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not add CORS, security headers, body-size limits, proxy trust, or rate-limit behavior inside controller or service code. Those are HTTP topology decisions owned by `nRouter` `httpHardening` configuration and may be overridden by project, environment, server, or node layers."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Security First",
+      "anchor": "security-first"
+    },
+    {
+      "kind": "paragraph",
+      "text": "For every route, document and test:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Whether authentication is required.",
+        "Which permission is required.",
+        "Whether an `apiExposure` category is required and which runtime layers enable"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "it."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Whether tenant context is required.",
+        "Whether internal token access is allowed.",
+        "Whether the route is intentionally pre-authentication."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Login routes are special because they happen before user authentication. Internal token and module-to-module routes must remain secured."
+    },
+    {
+      "kind": "paragraph",
+      "text": "For control-plane APIs, permissions are not the only decision. Use `apiExposure` when the route category should be enabled in local, development, support, or operations topology but disabled in production-like servers by default. Examples include test execution, file access, data import/export, log mutation, dynamic class operations, and other diagnostics. A disabled category must fail before route help, controller mapping, or service execution."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Standard API Flow",
+      "anchor": "standard-api-flow"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A typical Nodics API flow is:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Request reaches the route.",
+        "Headers and tenant context are normalized.",
+        "Authentication and authorization are checked.",
+        "Controller receives the request.",
+        "Controller calls facade or service.",
+        "Service applies business behavior.",
+        "Data layer persists or reads data.",
+        "Response status and body are resolved.",
+        "Audit, diagnostics, or events are recorded when required."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Controller, Facade, Service, Data Flow",
+      "anchor": "controller-facade-service-data-flow"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics APIs are layered APIs. Keep that separation:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Router decides how the HTTP request enters the capability.",
+        "Controller maps request and response concerns.",
+        "Facade coordinates capability or cross-module behavior.",
+        "Service owns business logic.",
+        "DAO/provider layer owns persistence behavior."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Small APIs may call a service directly from a controller when no orchestration is needed, but the service still owns business rules. Do not put business logic directly into route definitions."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Related Module Documentation",
+      "anchor": "related-module-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "For exact implementation details, read:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "[nRouter](../../gFramework/nRouter/README.md) and [Router Framework](../../gFramework/nRouter/docs/router-framework.md) for route definitions, Express registration, request pipelines, security, response handlers, cache, and OpenAPI.",
+        "[nController](../../gFramework/nController/README.md) for controller request mapping.",
+        "[nFacade](../../gFramework/nFacade/README.md) for orchestration boundaries.",
+        "[nService](../../gFramework/nService/README.md) for service behavior and generated CRUD service flow.",
+        "[Module Documentation Index](../reference/module-documentation-index.md) when you need to find another owning module."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Generated CRUD APIs",
+      "anchor": "generated-crud-apis"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Many APIs can be generated from schema and route definitions."
+    },
+    {
+      "kind": "paragraph",
+      "text": "If generated behavior is wrong:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Update the source schema, route, or generator contract.",
+        "Rebuild.",
+        "Regenerate tests.",
+        "Do not hand-edit generated API files as the source of truth."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Treat generated CRUD APIs as real APIs. They need route metadata, permissions, tenant behavior, generated tests, and OpenAPI output. If a generated API is not available, change the source definition or route configuration instead of deleting generated files."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "API Documentation",
+      "anchor": "api-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics can generate OpenAPI documentation and expose Swagger UI for the active runtime server or node."
+    },
+    {
+      "kind": "paragraph",
+      "text": "OpenAPI is the structured API contract. Swagger UI is the browser page that uses that contract to show APIs, request fields, headers, examples, and live \"try it out\" calls. A new developer does not need to memorize every route manually. Generate the contract, open Swagger UI, and inspect what the active runtime exposes."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run docs:openapi"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The OpenAPI output reflects route definitions, schema-generated APIs, permissions, request metadata, response handlers, and API exposure categories. If the generated documentation is wrong, fix the source route, schema, permission, or help metadata."
+    },
+    {
+      "kind": "paragraph",
+      "text": "At runtime, use these documentation routes when the `openApiContract` exposure category is enabled:"
+    },
+    {
+      "kind": "table",
+      "headers": [
+        "Purpose",
+        "Route",
+        "Access"
+      ],
+      "rows": [
+        [
+          "Machine-readable OpenAPI contract",
+          "`GET /nodics/system/v0/contract/openapi`",
+          "Public documentation route, exposure-gated"
+        ],
+        [
+          "Interactive Swagger UI",
+          "`GET /nodics/system/v0/contract/swagger`",
+          "Public documentation route, exposure-gated"
+        ]
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Swagger UI reads the sibling OpenAPI endpoint from the same runtime. If all modules run in one server, that server shows one consolidated API contract. If modules are split across several servers, each server shows the routes active on that server. If a server runs multiple identical nodes behind a load balancer, the nodes should expose the same contract unless node-specific modules change the route set."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The OpenAPI endpoint returns raw OpenAPI JSON so Swagger can render it. It does not use the normal Nodics success envelope. APIs that you call from Swagger still return their normal Nodics response objects unless that route has explicitly chosen another response handler."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use Swagger UI to inspect and try APIs, but remember that Nodics security is still active. Swagger is a browser client, not a security bypass. You must provide the same bearer token, API key, and enterprise header required by the route. The request handler pipeline, interceptors, controller, facade, service, cache behavior, and response handler still execute exactly as they do for a normal API client."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Project modules can customize documentation by extending source schemas, routers, route help metadata, permissions, or `apiExposure` configuration and then regenerating OpenAPI. Do not edit generated OpenAPI output directly."
+    },
+    {
+      "kind": "heading",
+      "level": 3,
+      "text": "First Swagger UI Walkthrough",
+      "anchor": "first-swagger-ui-walkthrough"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this flow when learning or verifying APIs:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Run `npm run docs:openapi`.",
+        "Start the server or node.",
+        "Login through an authentication route or get a governed service API key for"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "the active local/project environment."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Open `/nodics/system/v0/contract/swagger`.",
+        "Expand an API operation.",
+        "Read the method, URL, required headers, parameters, and request body.",
+        "For secured APIs, click `Authorize` and provide either `Bearer <token>` or"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "the configured API key."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Click `Try it out`.",
+        "Provide required values, including `x-enterprise-code` when enterprise or"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "tenant resolution is needed."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Click `Execute`.",
+        "Read the generated request, response code, and response body."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "For a beginner-friendly first secured check, authenticate first and then call `GET /nodics/system/v0/health/ready`. It is a small read-only endpoint, but it still proves that Swagger is sending the same authorization context used by a real client."
+    },
+    {
+      "kind": "paragraph",
+      "text": "If the API fails, do not guess. Check the response code and message:"
+    },
+    {
+      "kind": "table",
+      "headers": [
+        "Response",
+        "Meaning",
+        "Where to check"
+      ],
+      "rows": [
+        [
+          "Unauthorized",
+          "Token is missing, invalid, or expired",
+          "Authentication route and `Authorization` header"
+        ],
+        [
+          "Forbidden",
+          "User is authenticated but lacks permission",
+          "Route `permission`, `permissionConfig`, and user group permissions"
+        ],
+        [
+          "Not found",
+          "API is not active at that path",
+          "Active modules, route key, context root, API version"
+        ],
+        [
+          "Bad request",
+          "Required field, parameter, header, or body is wrong",
+          "Route help metadata, schema validators, request body"
+        ],
+        [
+          "Server error",
+          "Runtime behavior failed",
+          "Controller, facade, service, pipeline, logs, and tests"
+        ]
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 3,
+      "text": "Where To Write API Code",
+      "anchor": "where-to-write-api-code"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this placement rule:"
+    },
+    {
+      "kind": "table",
+      "headers": [
+        "What you need to do",
+        "Where to write it"
+      ],
+      "rows": [
+        [
+          "Add HTTP URL, method, security, and help text",
+          "`src/router/routers.js` in the owning module"
+        ],
+        [
+          "Read path/query/body/header values and shape the request context",
+          "`src/controller/**/*Controller.js`"
+        ],
+        [
+          "Coordinate one API use case across services",
+          "`src/facade/**/*Facade.js`"
+        ],
+        [
+          "Implement business behavior",
+          "`src/service/**/*Service.js`"
+        ],
+        [
+          "Add generated CRUD behavior for a data type",
+          "`src/schemas/schemas.js`"
+        ],
+        [
+          "Add validation or lifecycle checks",
+          "`src/interceptors/interceptors.js`, validators, or a pipeline node"
+        ],
+        [
+          "Customize framework behavior for a project",
+          "Same artifact name in a later active project/environment/server/node module"
+        ]
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "After code changes, regenerate generated artifacts and documentation instead of editing generated files by hand."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Testing APIs",
+      "anchor": "testing-apis"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use route contract tests, generated API tests, and focused controller mapping tests."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Useful commands:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run test:generated\nnpm run test:basic"
+    },
+    {
+      "kind": "paragraph",
+      "text": "For a single named suite:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run test:suite -- --suite=route-contracts"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Adding unsecured routes without explicit reason.",
+        "Relying only on controller checks for permissions.",
+        "Creating undocumented route behavior.",
+        "Returning inconsistent response shapes.",
+        "Editing generated route files manually.",
+        "Mixing human login and internal service access rules."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Previous: [Common Implementation Examples](common-implementation-examples.md)",
+        "Data: [How To Work With Data](../data/how-to-work-with-data.md)",
+        "Owning modules: [Module Documentation Index](../reference/module-documentation-index.md)",
+        "Documentation home: [Nodics Documentation](../README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "nRouter",
+      "target": "../../gFramework/nRouter/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nrouter",
+      "anchor": ""
+    },
+    {
+      "label": "Router Framework",
+      "target": "../../gFramework/nRouter/docs/router-framework.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nrouter/docs/router-framework",
+      "anchor": ""
+    },
+    {
+      "label": "nController",
+      "target": "../../gFramework/nController/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ncontroller",
+      "anchor": ""
+    },
+    {
+      "label": "nFacade",
+      "target": "../../gFramework/nFacade/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nfacade",
+      "anchor": ""
+    },
+    {
+      "label": "nService",
+      "target": "../../gFramework/nService/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nservice",
+      "anchor": ""
+    },
+    {
+      "label": "Module Documentation Index",
+      "target": "../reference/module-documentation-index.md",
+      "kind": "internal",
+      "route": "/docs/reference/module-documentation-index",
+      "anchor": ""
+    },
+    {
+      "label": "Common Implementation Examples",
+      "target": "common-implementation-examples.md",
+      "kind": "internal",
+      "route": "/docs/development/common-implementation-examples",
+      "anchor": ""
+    },
+    {
+      "label": "How To Work With Data",
+      "target": "../data/how-to-work-with-data.md",
+      "kind": "internal",
+      "route": "/docs/data/how-to-work-with-data",
+      "anchor": ""
+    },
+    {
+      "label": "Module Documentation Index",
+      "target": "../reference/module-documentation-index.md",
+      "kind": "internal",
+      "route": "/docs/reference/module-documentation-index",
+      "anchor": ""
+    },
+    {
+      "label": "Nodics Documentation",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

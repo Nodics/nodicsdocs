@@ -1,0 +1,178 @@
+{
+  "code": "docsArticleddfe193395e493be212b",
+  "title": "vDatabase Module",
+  "route": "/docs/modules/gframework/ndatabase/database/vdatabase",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nDatabase/database/vDatabase/README.md",
+    "type": "module-readme",
+    "contentHash": "9fce313334c1a764a58ffad7eef37926f985d828fa1430514e4049c781f12c45"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "vDatabase Module",
+      "anchor": "vdatabase-module"
+    },
+    {
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "level": 2,
+      "text": "Source Contracts",
+      "anchor": "source-contracts"
+    },
+    {
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "vDatabase Module",
+      "anchor": "vdatabase-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`vDatabase` is the opt-in versioned variant for the provider-neutral database capability. It contributes schema metadata used by selected runtime models that need staged, published, or revertible data."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for provider-neutral versioned database contracts. Provider-specific versioned behavior belongs in provider variants such as `mongodb/vMongodb`."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The module contributes schema metadata under `default.versioned`:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`versioned: true`;",
+        "required `versionId`;",
+        "a unique `versionId` index contribution;",
+        "inheritance from the ordinary `default.base` contract."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "This establishes a source definition for versioned data without making every persistent schema versioned. An owning module enables the capability independently on each schema with `isVersionedEnabled: true`. The runtime then composes the versioned contract and exposes the existing internal `schemaModel.versioned` flag consumed by version-aware services and providers."
+    },
+    {
+      "kind": "code",
+      "language": "js",
+      "text": "module.exports = {\n    catalog: {\n        catalog: {\n            super: 'base',\n            isVersionedEnabled: true,\n            model: true\n        },\n        catalogUserPreference: {\n            super: 'base',\n            model: true\n        }\n    }\n};"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Here `catalog.catalog` is versioned, while `catalog.catalogUserPreference` remains an ordinary model. Configuration belongs to the module that owns the schema and remains overrideable through later schema contributions."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Source Contracts",
+      "anchor": "source-contracts"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`src/schemas/schemas.js` owns the versioned schema metadata.",
+        "`src/pipelines/pipelines.js` is the versioned database pipeline extension slot.",
+        "`config/properties.js` is currently an empty variant contribution point.",
+        "Provider variants implement provider-specific versioned model behavior."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Projects may extend versioned database behavior by:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "setting `isVersionedEnabled: true` only on business schemas that require version history;",
+        "contributing publish, approval, rollback, or activation services in the owning business module;",
+        "using provider variants for database-specific version storage behavior;",
+        "adding tests for version creation, publish state, rollback, tenant isolation, and export behavior."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep business publish lifecycle rules out of this baseline module unless they are truly provider-neutral framework contracts."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run test:generated\nnpm run test:basic\nnpm run quality:docs"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Provider-specific behavior should also run provider variant tests, such as the MongoDB versioned model contract."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "putting business catalog publish rules into this provider-neutral variant;",
+        "enabling versioning globally for every schema merely because `vDatabase` is active;",
+        "making `versionId` behavior provider-specific here;",
+        "mutating previous versions when history is required;",
+        "adding generated artifacts manually;",
+        "using this module as a general data lifecycle bucket."
+      ]
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

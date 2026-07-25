@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle0a738bb55955d2c9a6ad",
+  "title": "gframes",
+  "route": "/docs/modules/docs/gframes",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "docs/gframes/README.md",
+    "type": "module-readme",
+    "contentHash": "9ee20c5380ef86199feefddfb2af3bf4c6ed3841a7e08cf4068f8a0b8344f2ac"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "gframes",
+      "anchor": "gframes"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "gframes",
+      "anchor": "gframes"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`gframes` is a project application layer. It composes `gframesModules` and `gframesEnvs` to demonstrate or host project-specific behavior above the reusable Nodics framework."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this application root for composition and application-level configuration. Framework behavior should remain in `gFramework`, and reusable business modules should live under the relevant module group."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Application changes should use layered configuration and active modules instead of modifying framework source."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

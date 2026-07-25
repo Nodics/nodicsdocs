@@ -1,0 +1,47 @@
+{
+  "code": "docsArticledc1055f6832ac9fa99bc",
+  "title": "startioQA",
+  "route": "/docs/modules/startio/envs/startioqa",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/envs/startioQA/README.md",
+    "type": "module-readme",
+    "contentHash": "d41d43a5a99ae8ee9203647fd7c6279f7d4b82030fe4d8cba748c9e8ca844dc7"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "startioQA",
+      "anchor": "startioqa"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "startioQA",
+      "anchor": "startioqa"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`startioQA` is the quality-assurance environment module for the `startio` application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for QA configuration and server composition. Server-specific runtime settings belong in child server modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "QA changes should support validation and test coverage without drifting into framework or production defaults."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

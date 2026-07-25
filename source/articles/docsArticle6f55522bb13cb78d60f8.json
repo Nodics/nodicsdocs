@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle6f55522bb13cb78d60f8",
+  "title": "kickoffLocalCronNode3",
+  "route": "/docs/modules/docs/kickoff/kickoffenvs/kickofflocal/kickofflocalcronserver/kickofflocalcronnode3",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "docs/kickoff/kickoffEnvs/kickoffLocal/kickoffLocalCronServer/kickoffLocalCronNode3/README.md",
+    "type": "module-readme",
+    "contentHash": "d11b388ac09d957db6a4730daf977e879cebd3652753a25f83826f4486ac2e66"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "kickoffLocalCronNode3",
+      "anchor": "kickofflocalcronnode3"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "kickoffLocalCronNode3",
+      "anchor": "kickofflocalcronnode3"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`kickoffLocalCronNode3` is a local cron node module under `kickoffLocalCronServer`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this node for node-scoped local cron configuration and activation. Server-wide behavior belongs in `kickoffLocalCronServer`, and cron capability logic belongs in reusable modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Node settings should remain explicit, observable, and safe to rebalance across sibling nodes."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

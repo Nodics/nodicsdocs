@@ -1,0 +1,197 @@
+{
+  "code": "docsArticlef4816ae512e72bc17caa",
+  "title": "flowCore",
+  "route": "/docs/modules/gcore/workflow/flowcore",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gCore/workflow/flowCore/README.md",
+    "type": "module-readme",
+    "contentHash": "9c64e960cd89c6a72991e9940ee8a33412314e41618ac7d85ac1f1b1c6d627dc"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "flowCore",
+      "anchor": "flowcore"
+    },
+    {
+      "level": 2,
+      "text": "Ownership",
+      "anchor": "ownership"
+    },
+    {
+      "level": 2,
+      "text": "Execution Contract",
+      "anchor": "execution-contract"
+    },
+    {
+      "level": 2,
+      "text": "Failure And Recovery",
+      "anchor": "failure-and-recovery"
+    },
+    {
+      "level": 2,
+      "text": "Operations And Tests",
+      "anchor": "operations-and-tests"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "flowCore",
+      "anchor": "flowcore"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`flowCore` is the application workflow execution owner. It loads workflow definitions, initializes carriers and items, performs automatic or manual actions, evaluates channels, handles splits, and continues work through events."
+    },
+    {
+      "kind": "paragraph",
+      "text": "**Maturity: Production-ready capability.** The reusable engine is covered by deterministic contracts; every project workflow still needs its own graph, authorization, idempotency, compensation, performance, and integration tests."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Ownership",
+      "anchor": "ownership"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`flowSchema` owns persisted data contracts and `flowApi` owns secured HTTP commands. `flowCore` owns runtime services, pipelines, listeners, handlers, and state-transition behavior. `nbpm` supplies generic framework workflow-to-schema lifecycle integration; it is not a parallel application workflow engine."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Execution Contract",
+      "anchor": "execution-contract"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A flow must define its head action, allowed action types and decisions, channels and terminal paths, tenant context, handler ownership, event contract, timeout, retry and replay safety, split/aggregation rules, and failure outcome. Automatic handlers must be deterministic or explicitly idempotent. Manual actions must verify the acting principal and current carrier/item state."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Events can resume durable work after asynchronous processing, but delivery is not proof of exactly-once execution. Preserve carrier, item, tenant, correlation, causation, event, attempt, and definition-version identity. Duplicate, late, out-of-order, and replayed events must be rejected or handled idempotently."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Failure And Recovery",
+      "anchor": "failure-and-recovery"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Persist state before relying on process-local continuation.",
+        "Distinguish retryable dependency failure from invalid state or business"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "rejection; never retry every error blindly."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Make split branches independently traceable and define aggregation behavior"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "for success, partial success, timeout, and terminal failure."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Define cancellation and compensation as explicit business actions. Database"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "rollback cannot undo remote calls, messages, payments, or external effects."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Rebuild or continue from durable carrier state after restart; do not treat"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "in-memory pipeline state as recovery authority."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Operations And Tests",
+      "anchor": "operations-and-tests"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Monitor carrier/action/channel transition counts, age in state, execution and dependency latency, retry, replay/duplicate denial, split fan-out, aggregation, error carrier creation, archival, and stuck work. Avoid sensitive item or callback payloads in logs and metric labels."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run `npm run test:suite -- --suite=workflow`. Add flow-specific positive, invalid transition, unauthorized, cross-tenant, manual/automatic, decision, split, partial failure, timeout, duplicate event, retry, replay, restart, compensation, concurrency, performance, integration, and regression tests."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Workflow family: [workflow](../README.md)",
+        "Data contracts: [flowSchema](../flowSchema/README.md)",
+        "HTTP commands: [flowApi](../flowApi/README.md)",
+        "Framework lifecycle integration: [nbpm](../../../gFramework/nbpm/README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "workflow",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcore/workflow",
+      "anchor": ""
+    },
+    {
+      "label": "flowSchema",
+      "target": "../flowSchema/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcore/workflow/flowschema",
+      "anchor": ""
+    },
+    {
+      "label": "flowApi",
+      "target": "../flowApi/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcore/workflow/flowapi",
+      "anchor": ""
+    },
+    {
+      "label": "nbpm",
+      "target": "../../../gFramework/nbpm/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nbpm",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

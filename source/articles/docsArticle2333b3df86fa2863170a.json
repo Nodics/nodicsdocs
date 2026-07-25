@@ -1,0 +1,104 @@
+{
+  "code": "docsArticle2333b3df86fa2863170a",
+  "title": "NEMS",
+  "route": "/docs/modules/gcore/nems",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gCore/nems/README.md",
+    "type": "module-readme",
+    "contentHash": "d8dec3b9e27f99502579d9104f8f52b6206efbeb63617b1415f967155495dcc6"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "NEMS",
+      "anchor": "nems"
+    },
+    {
+      "level": 2,
+      "text": "Ownership",
+      "anchor": "ownership"
+    },
+    {
+      "level": 2,
+      "text": "Event Lifecycle",
+      "anchor": "event-lifecycle"
+    },
+    {
+      "level": 2,
+      "text": "Extension Contract",
+      "anchor": "extension-contract"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "NEMS",
+      "anchor": "nems"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nems` owns Nodics Event Management System distribution, persisted event definitions, event logs, retry state, and cross-module event delivery."
+    },
+    {
+      "kind": "paragraph",
+      "text": "NEMS stores published event definitions, distributes them to target modules, records success in event logs, and keeps failed definitions for retry or manual handling. Current implementation details must be verified from source."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Ownership",
+      "anchor": "ownership"
+    },
+    {
+      "kind": "paragraph",
+      "text": "NEMS is responsible for:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "event definition schemas;",
+        "event log schemas;",
+        "persisted event lifecycle;",
+        "distributor services;",
+        "retry/failure state;",
+        "operational diagnostics;",
+        "integration with framework `nEvent`."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Event Lifecycle",
+      "anchor": "event-lifecycle"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A source module publishes an event through framework event services. NEMS may persist the event definition, distribute it to the target module, and update the definition or log based on the response."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Implementations must preserve tenant context, event traceability, sanitized observability, retry limits, and manual recovery paths where configured."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Extension Contract",
+      "anchor": "extension-contract"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Projects extend NEMS through later schemas, services, listeners, configuration, and tests. Do not hardcode module names or target URLs in core event distribution logic. Modular deployment behavior must be tested when event delivery crosses runtime processes."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

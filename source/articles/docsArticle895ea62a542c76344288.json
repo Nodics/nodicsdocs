@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle895ea62a542c76344288",
+  "title": "gMrkty",
+  "route": "/docs/modules/gmrkty",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gMrkty/README.md",
+    "type": "module-readme",
+    "contentHash": "7a8b7ca0ef6ebd8052f5c8c811a6aee40042f703749999d4c9c6b724e0953d5c"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "gMrkty",
+      "anchor": "gmrkty"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "gMrkty",
+      "anchor": "gmrkty"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`gMrkty` is the marketing group module. It composes marketing capabilities such as the customer review system and provides shared marketing configuration."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this group for composition and shared marketing defaults. Capability behavior belongs in child modules such as `cres`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Marketing extensions should remain modular, tenant-aware, and governed by schemas, services, routers, validation, and tests."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle6115c40525bdfee64cb7",
+  "title": "kickoffLocalProfileServer",
+  "route": "/docs/modules/docs/kickoff/kickoffenvs/kickofflocal/kickofflocalprofileserver",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "docs/kickoff/kickoffEnvs/kickoffLocal/kickoffLocalProfileServer/README.md",
+    "type": "module-readme",
+    "contentHash": "3dff607a75a117b59b3b20c3d746cb3db6b7d49eae1fbd2e833347c1fee29331"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "kickoffLocalProfileServer",
+      "anchor": "kickofflocalprofileserver"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "kickoffLocalProfileServer",
+      "anchor": "kickofflocalprofileserver"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`kickoffLocalProfileServer` is the local profile server module for the `kickoff` application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for local profile server activation and runtime topology. Profile capability behavior belongs in the active profile modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Local profile settings should preserve privacy, access control, tenant context, and layered overrides."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

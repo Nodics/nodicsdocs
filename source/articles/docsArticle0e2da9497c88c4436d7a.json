@@ -1,0 +1,72 @@
+{
+  "code": "docsArticle0e2da9497c88c4436d7a",
+  "title": "gContent",
+  "route": "/docs/modules/gcontent",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gContent/README.md",
+    "type": "module-readme",
+    "contentHash": "7058189333ef76cc82f3c2b70ab7d53cef2a30b1e7c01a089f002f6975ca89d2"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "gContent",
+      "anchor": "gcontent"
+    },
+    {
+      "level": 2,
+      "text": "Dependencies",
+      "anchor": "dependencies"
+    },
+    {
+      "level": 2,
+      "text": "Customization",
+      "anchor": "customization"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "gContent",
+      "anchor": "gcontent"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`gContent` is the content-capability group that composes the `cms` and `wcms` modules. It contributes shared configuration but leaves schemas, services, routers, data, and tests to its child modules."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Dependencies",
+      "anchor": "dependencies"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`cms`",
+        "`wcms`"
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Customization",
+      "anchor": "customization"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Projects should override content behavior in later-index modules through schemas, services, routers, pipelines, data, and configuration rather than changing this group module."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

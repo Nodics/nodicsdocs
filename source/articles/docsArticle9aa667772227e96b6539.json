@@ -1,0 +1,221 @@
+{
+  "code": "docsArticle9aa667772227e96b6539",
+  "title": "gDeap",
+  "route": "/docs/modules/gdeap",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gDeap/README.md",
+    "type": "module-readme",
+    "contentHash": "28d8d19f8f35c545da247f632fbc5784d9ab0ac9973af55a14a86e319cec8010"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "gDeap",
+      "anchor": "gdeap"
+    },
+    {
+      "level": 2,
+      "text": "Module Family",
+      "anchor": "module-family"
+    },
+    {
+      "level": 2,
+      "text": "End-To-End Contract",
+      "anchor": "end-to-end-contract"
+    },
+    {
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "gDeap",
+      "anchor": "gdeap"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`gDeap` is the Data Engineering and Analytics Platform capability group. It organizes a simple responsibility chain: consume data from an approved source, process it through governed transformations, and publish it to an approved destination."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The group is an ownership boundary, not a second import/export engine. File and record import/export contracts remain in `gFramework/nData`; search, messaging, events, databases, and external providers remain owned by their respective modules."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Module Family",
+      "anchor": "module-family"
+    },
+    {
+      "kind": "table",
+      "headers": [
+        "Stage",
+        "Owner",
+        "Current evidence"
+      ],
+      "rows": [
+        [
+          "Consume",
+          "[dataConsumer](dataConsumer/README.md)",
+          "External/internal schemas, event handlers, process service, generated schema/API/scenario contracts. Requires flow-specific source and operational qualification."
+        ],
+        [
+          "Process",
+          "[dataProcessor](dataProcessor/README.md)",
+          "Capability scaffold and extension slots; project transformations and behavioral tests are still required."
+        ],
+        [
+          "Publish",
+          "[dataPublisher](dataPublisher/README.md)",
+          "Capability scaffold and extension slots; destination providers and behavioral tests are still required."
+        ]
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "End-To-End Contract",
+      "anchor": "end-to-end-contract"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Every DEAP flow should define:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "business owner and authoritative source;",
+        "input schema/version and source identity;",
+        "tenant, classification, retention, and consent/access policy;",
+        "message, record, batch, checksum, and idempotency identity;",
+        "validation, quarantine, duplicate, ordering, retry, and replay behavior;",
+        "deterministic transformations and lineage;",
+        "authoritative target and publishing/delivery acknowledgement;",
+        "audit, metrics, reconciliation, rollback or compensation, and recovery;",
+        "performance limits and positive, negative, boundary, integration, and"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "regression tests."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Duplicating `nData`, messaging, search, or provider clients inside DEAP.",
+        "Accepting arbitrary URLs, credentials, processors, schemas, or destinations"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "from request payloads."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Treating a generated CRUD API as a complete ingestion or publishing product.",
+        "Losing tenant, source, correlation, lineage, or idempotency context between"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "stages."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Claiming production readiness from scaffold structure alone."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Public DaaS guide: [How To Use Nodics As Data As A Service](../gDocs/data/how-to-use-nodics-as-data-as-a-service.md)",
+        "Data movement family: [nData](../gFramework/nData/README.md)",
+        "Messaging: [nEms](../gFramework/nEms/README.md)",
+        "Search: [nSearch](../gFramework/nSearch/README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "dataConsumer",
+      "target": "dataConsumer/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gdeap/dataconsumer",
+      "anchor": ""
+    },
+    {
+      "label": "dataProcessor",
+      "target": "dataProcessor/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gdeap/dataprocessor",
+      "anchor": ""
+    },
+    {
+      "label": "dataPublisher",
+      "target": "dataPublisher/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gdeap/datapublisher",
+      "anchor": ""
+    },
+    {
+      "label": "How To Use Nodics As Data As A Service",
+      "target": "../gDocs/data/how-to-use-nodics-as-data-as-a-service.md",
+      "kind": "internal",
+      "route": "/docs/data/how-to-use-nodics-as-data-as-a-service",
+      "anchor": ""
+    },
+    {
+      "label": "nData",
+      "target": "../gFramework/nData/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata",
+      "anchor": ""
+    },
+    {
+      "label": "nEms",
+      "target": "../gFramework/nEms/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nems",
+      "anchor": ""
+    },
+    {
+      "label": "nSearch",
+      "target": "../gFramework/nSearch/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nsearch",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

@@ -1,0 +1,59 @@
+{
+  "code": "docsArticle15e987981c52544bd0ee",
+  "title": "Stock allocation foundation",
+  "route": "/docs/modules/gcomm/inventory/docs/stock-allocation-foundation",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gComm/inventory/docs/stock-allocation-foundation.md",
+    "type": "module-doc",
+    "contentHash": "06669af87feef7e3f008ad2525b386cc4c3f663204f859dd004b64532f4cc966"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Stock allocation foundation",
+      "anchor": "stock-allocation-foundation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Stock allocation foundation",
+      "anchor": "stock-allocation-foundation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Stock Allocation assigns Order demand to one or more active Stock Reservations. Order remains authoritative for the order and line; Inventory stores only stable demand references and supply-assignment evidence."
+    },
+    {
+      "kind": "paragraph",
+      "text": "An allocation records requested, allocated, backordered, and fulfilled exact quantities. Assignments reference reservations, their Warehouses, Stock Balances, and eventual applied ISSUE movements. A line may therefore split across Warehouses without copying Stock or Order data."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Lifecycle states are `PENDING`, `ALLOCATED`, `PARTIALLY_ALLOCATED`, `BACKORDERED`, `PARTIALLY_FULFILLED`, `FULFILLED`, `RELEASED`, `CANCELLED`, and `FAILED`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Allocation creation is idempotent. Every assignment must match one ACTIVE reservation exactly by item, Unit, and quantity. Partial allocation is controlled by `inventory.stockAllocation.allowPartial`; assignment count is bounded by `maximumAssignments`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Cancellation and release delegate to the existing Reservation orchestration. Fulfillment is derived from applied reservation-linked Stock ISSUE evidence rather than caller claims. Generated Allocation persistence is private and hard deletion is rejected."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The module-internal service-token APIs are `/references/stock-allocations/allocate`, `/cancel`, `/release`, and `/fulfill`. Cache providers are not allocation or quantity authorities."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

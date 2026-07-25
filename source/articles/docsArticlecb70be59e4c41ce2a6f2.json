@@ -1,0 +1,129 @@
+{
+  "code": "docsArticlecb70be59e4c41ce2a6f2",
+  "title": "Stock reservation foundation",
+  "route": "/docs/modules/gcomm/inventory/docs/stock-reservation-foundation",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gComm/inventory/docs/stock-reservation-foundation.md",
+    "type": "module-doc",
+    "contentHash": "d79a8a67339b5966de2bef34b3c105472dbf9237599d02a2dfe6db79be362493"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Stock reservation foundation",
+      "anchor": "stock-reservation-foundation"
+    },
+    {
+      "level": 2,
+      "text": "Lifecycle",
+      "anchor": "lifecycle"
+    },
+    {
+      "level": 2,
+      "text": "Availability",
+      "anchor": "availability"
+    },
+    {
+      "level": 2,
+      "text": "Operations",
+      "anchor": "operations"
+    },
+    {
+      "level": 2,
+      "text": "Current boundary",
+      "anchor": "current-boundary"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Stock reservation foundation",
+      "anchor": "stock-reservation-foundation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Inventory owns operational Stock truth. A reservation temporarily holds part of a `stockBalance`; cache providers accelerate reads but never own quantity."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Lifecycle",
+      "anchor": "lifecycle"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`PENDING` is recovery evidence while the hold compare-and-set is attempted. A successful hold becomes `ACTIVE`. `RELEASE_PENDING` makes a partially persisted release safely replayable. Business cancellation and release produce `CANCELLED` or `RELEASED`; the CronJob-facing expiry command produces `EXPIRED`. Insufficient stock produces `REJECTED`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "`CONSUMED` means fulfillment accepted the reservation, but the quantity remains held until an `ISSUE` Stock Movement references the reservation. That movement decreases `quantity` and `reservedQuantity` together under the same balance revision. This prevents availability from reopening between checkout and fulfillment."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Availability",
+      "anchor": "availability"
+    },
+    {
+      "kind": "paragraph",
+      "text": "For each eligible balance:"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`AVAILABLE_TO_SELL = ON_HAND - reservedQuantity`"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The Availability service converts both quantities through Units before aggregation. It returns exact canonical decimal strings and evidence for each contributing balance."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Operations",
+      "anchor": "operations"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The module-internal, service-token-only commands are:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`POST /references/stock-reservations/reserve`",
+        "`POST /references/stock-reservations/release`",
+        "`POST /references/stock-reservations/cancel`",
+        "`POST /references/stock-reservations/consume`",
+        "`POST /internal/stock-reservations/expire`"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Reserve requires an enterprise-scoped `stockCode`, positive exact quantity in the balance Unit, idempotency key, reason, and bounded TTL. Replaying the same intent returns the original reservation; reusing its key for another intent fails."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Configure TTL, retry, and expiry batch boundaries under `inventory.stockReservation` in `properties.js`. Projects can schedule the expiry endpoint using the existing CronJob module; Inventory does not create another scheduler."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Current boundary",
+      "anchor": "current-boundary"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This foundation does not cache Availability. That is deliberate: cache invalidation should be added only with a governed mutation-event contract. Direct balance or reservation writes and hard deletion of evidence are rejected."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

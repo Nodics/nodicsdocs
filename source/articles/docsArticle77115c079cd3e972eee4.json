@@ -1,0 +1,337 @@
+{
+  "code": "docsArticle77115c079cd3e972eee4",
+  "title": "emsClient Module",
+  "route": "/docs/modules/gframework/nems/emsclient",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nEms/emsClient/README.md",
+    "type": "module-readme",
+    "contentHash": "e68600f3c6a0d2f2e32977be7f28f86381ea0266d5e05b1921861d4d7f04b2d1"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "emsClient Module",
+      "anchor": "emsclient-module"
+    },
+    {
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "level": 2,
+      "text": "Failed Messages",
+      "anchor": "failed-messages"
+    },
+    {
+      "level": 2,
+      "text": "Configuration",
+      "anchor": "configuration"
+    },
+    {
+      "level": 2,
+      "text": "Provider Adapter Checklist",
+      "anchor": "provider-adapter-checklist"
+    },
+    {
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "level": 2,
+      "text": "Reliability And Security Boundaries",
+      "anchor": "reliability-and-security-boundaries"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "emsClient Module",
+      "anchor": "emsclient-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The `emsClient` module is the provider-neutral messaging authority. Business modules publish to configured logical destinations; provider modules translate that contract into Kafka, ActiveMQ, or another qualified broker."
+    },
+    {
+      "kind": "paragraph",
+      "text": "`emsClient` is the shared messaging client capability for `nEms`. It owns the framework-facing APIs and route contracts for publishing messages through the active EMS provider."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Messaging participates in central readiness and shutdown. Drain closes consumers before publishers and provider connections so no new messages are acquired during termination."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for provider-neutral message publishing, tenant resolution, active provider selection, and EMS client facade/controller behavior. Provider-specific broker wiring belongs in modules such as `activemq` and `kafka`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Project extensions should register providers and message policies through layered configuration. Do not bypass tenant context, access control, diagnostics, or provider selection when adding messaging behavior."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The module contributes:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "provider-neutral EMS controller and facade behavior;",
+        "`DefaultEmsClientService` for publish, register consumers, close consumers, register publishers, and close publishers;",
+        "`DefaultEmsClientConfigurationService` for configured client, publisher, and consumer lifecycle management;",
+        "JSON and XML message handler services;",
+        "node up/down handler extension points;",
+        "consumed-message processing through `DefaultMessageProcessService`;",
+        "generated `emsFailedMessages` schema, service, router, search, and tests;",
+        "route and service contract tests for provider-neutral EMS behavior."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "`emsClient` does not own broker client calls. Provider modules provide handlers that implement the configured client/publisher/consumer contract."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Startup reads layered `emsClient` configuration.",
+        "Enabled clients are configured through their provider handler services.",
+        "Enabled publishers are configured for the node that owns them.",
+        "Enabled consumers are registered for the node that owns them.",
+        "Publish requests resolve a publisher by `payload.queue`.",
+        "A provider handler sends the message to the selected broker queue or topic.",
+        "Consumed messages are translated through the configured handler pipeline.",
+        "Tenant context is resolved from message data, queue header, or governed default fallback where allowed.",
+        "The consumed message becomes a Nodics event handled locally or published for a remote target."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "The service fails closed for missing payloads, invalid publisher names, empty consumer lists, empty publisher lists, and missing tenant context."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Failed Messages",
+      "anchor": "failed-messages"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`emsFailedMessages` stores failed consumed messages when failed-message logging is enabled and a tenant can be resolved. This gives operators a traceable recovery surface without hiding broker failures inside logs only."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Failed-message records should not contain credentials, broker connection details, or unsanitized internal errors."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Configuration",
+      "anchor": "configuration"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`emsClient` configuration should define:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "clients and their provider handler services;",
+        "publisher and consumer definitions;",
+        "node ownership through `runOnNode` or equivalent runtime policy;",
+        "queue/topic names;",
+        "message handler pipeline names;",
+        "tenant restrictions and header policy;",
+        "retry, reconnect, and failure handling;",
+        "failed-message logging policy."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Connection details, credentials, queue names, topic names, and tenant mappings belong in layered configuration or governed secrets."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Provider Adapter Checklist",
+      "anchor": "provider-adapter-checklist"
+    },
+    {
+      "kind": "paragraph",
+      "text": "When adding a messaging provider:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "keep controller, facade, route, and shared client behavior provider-neutral;",
+        "add provider-specific broker behavior in an adapter module or later project"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "module;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "configure active provider, connection handler, producers, consumers, topics,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "queues, retries, and tenant mappings through layered `emsClient` properties;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "preserve tenant context, provider selection, diagnostics, validation, error"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "envelopes, and retry/failure handling;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "test provider activation, disabled behavior, publish/consume behavior,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "failure behavior, and later-module overrides."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "node gFramework/nEms/emsClient/test/emsClientServiceContract.test.js\nnode gFramework/nEms/emsClient/test/emsMessageProcessContract.test.js\nnode gFramework/nEms/emsClient/test/emsClientRouteContract.test.js\nnode gFramework/nEms/emsClient/test/messageTenantResolution.test.js\nnode gFramework/nEms/emsClient/test/activeEmsPublisher.test.js\nnpm run quality:docs"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "bypassing `DefaultEmsClientConfigurationService` for active publisher or consumer lookup;",
+        "accepting arbitrary broker destinations or handler names from API payloads;",
+        "processing consumed messages without tenant validation;",
+        "writing provider-specific broker code in provider-neutral services;",
+        "logging failed messages without tenant context;",
+        "returning raw broker credentials or connection details in errors."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Reliability And Security Boundaries",
+      "anchor": "reliability-and-security-boundaries"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Publishers must use configured destination names and handlers rather than untrusted provider/topic input. Consumers must validate message structure, resolve tenant context, preserve message/correlation identity, and define when acknowledgement occurs relative to business handling."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Retries require an idempotent consumer or a deduplication contract. Failed message persistence is operational evidence, not an automatic replay policy; replay needs authorization, audit, ordering, tenant, and side-effect controls."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Messaging family: [nEms](../README.md)",
+        "Kafka provider: [kafka](../kafka/README.md)",
+        "ActiveMQ boundary: [activemq](../activemq/README.md)",
+        "Event execution: [nEvent](../../nEvent/README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "nEms",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nems",
+      "anchor": ""
+    },
+    {
+      "label": "kafka",
+      "target": "../kafka/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nems/kafka",
+      "anchor": ""
+    },
+    {
+      "label": "activemq",
+      "target": "../activemq/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nems/activemq",
+      "anchor": ""
+    },
+    {
+      "label": "nEvent",
+      "target": "../../nEvent/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nevent",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

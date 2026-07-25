@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle2f4c9ecdfb906af8179f",
+  "title": "cronServer",
+  "route": "/docs/modules/startio/envs/startiolocal/cronserver",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/envs/startioLocal/cronServer/README.md",
+    "type": "module-readme",
+    "contentHash": "c0c99f8969e1eb1b2f0aa483e6289fe54c1932c64352bd697be43eb804f3104f"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "cronServer",
+      "anchor": "cronserver"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "cronServer",
+      "anchor": "cronserver"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`cronServer` is the local cron server module for the `startio` application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for local scheduled-job server activation, node composition, and runtime topology. Cron capability behavior belongs in reusable cron modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Local cron settings should remain layered, observable, and safe to override."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

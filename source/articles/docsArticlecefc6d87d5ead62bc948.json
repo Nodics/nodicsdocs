@@ -1,0 +1,47 @@
+{
+  "code": "docsArticlecefc6d87d5ead62bc948",
+  "title": "nemsServer",
+  "route": "/docs/modules/startio/envs/startiodev/nemsserver",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/envs/startioDev/nemsServer/README.md",
+    "type": "module-readme",
+    "contentHash": "ca0dac830109c7c0df1cb840a2c4d415c7cee010e68c4eee26930dc536eedcdc"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "nemsServer",
+      "anchor": "nemsserver"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "nemsServer",
+      "anchor": "nemsserver"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nemsServer` is the development messaging server module for the `startio` application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for dev-scoped EMS/NEMS server activation and runtime topology. Messaging behavior and provider adapters belong in the messaging modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Server configuration should preserve provider governance, diagnostics, and layered overrides."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

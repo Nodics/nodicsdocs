@@ -1,0 +1,47 @@
+{
+  "code": "docsArticlefcf498cdabc3435f7f37",
+  "title": "quiz Module",
+  "route": "/docs/modules/gcore/quizer/quiz",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gCore/quizer/quiz/README.md",
+    "type": "module-readme",
+    "contentHash": "7c23ab773cb1d5cb39a40e308321f967ff3c49372f8d41556d5822c8452c00f1"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "quiz Module",
+      "anchor": "quiz-module"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "quiz Module",
+      "anchor": "quiz-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`quiz` owns the base quiz capability. It provides the module space for quiz schemas, services, pipelines, interceptors, utilities, configuration, and tests."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for generic quiz definitions and runtime behavior. Workflow-specific quiz behavior belongs in `wquiz`, and variant/runtime activation behavior belongs in `vquiz`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Quiz changes should preserve generated contracts, validation, tenant context, and test coverage."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

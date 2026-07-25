@@ -1,0 +1,159 @@
+{
+  "code": "docsArticle2b1a67f3b2395a5a0ff5",
+  "title": "BackOffice Administrative Security Contract",
+  "route": "/docs/modules/gexp/backoffice/docs/administrative-security-contract",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gExp/backoffice/docs/administrative-security-contract.md",
+    "type": "module-doc",
+    "contentHash": "807ce6d89744bb47d219e10c21fe72dea3f5cc841ee7077b9bf96476063d74b6"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "BackOffice Administrative Security Contract",
+      "anchor": "backoffice-administrative-security-contract"
+    },
+    {
+      "level": 2,
+      "text": "Identity boundary",
+      "anchor": "identity-boundary"
+    },
+    {
+      "level": 2,
+      "text": "Permission matrix",
+      "anchor": "permission-matrix"
+    },
+    {
+      "level": 2,
+      "text": "Refresh abuse protection",
+      "anchor": "refresh-abuse-protection"
+    },
+    {
+      "level": 2,
+      "text": "Audit disclosure",
+      "anchor": "audit-disclosure"
+    },
+    {
+      "level": 2,
+      "text": "Required validation",
+      "anchor": "required-validation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "BackOffice Administrative Security Contract",
+      "anchor": "backoffice-administrative-security-contract"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Identity boundary",
+      "anchor": "identity-boundary"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Human administrative operations use authenticated human access sessions and action-specific permissions. Service identities remain restricted to module registration and deregistration and are rejected from registry administration, diagnostics, manual refresh, and contract decision operations even if a service credential is accidentally granted an administrative permission."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The authenticated principal is required. When request and identity tenant are both present they must match. Target modules retain final tenant and business authorization for their own APIs."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Permission matrix",
+      "anchor": "permission-matrix"
+    },
+    {
+      "kind": "table",
+      "headers": [
+        "Operation",
+        "Permission"
+      ],
+      "rows": [
+        [
+          "Client-safe module discovery",
+          "`backoffice.registry.view`"
+        ],
+        [
+          "Client bootstrap",
+          "`backoffice.bootstrap.view`"
+        ],
+        [
+          "Registry diagnostics",
+          "`backoffice.registry.diagnostics.view`"
+        ],
+        [
+          "Administrative inventory/detail",
+          "`backoffice.registry.admin.view`"
+        ],
+        [
+          "Manual availability/discovery refresh",
+          "`backoffice.registry.refresh`"
+        ],
+        [
+          "Contract current/history/compare",
+          "`backoffice.contract.view`"
+        ],
+        [
+          "Contract approval",
+          "`backoffice.contract.approve`"
+        ],
+        [
+          "Contract rejection",
+          "`backoffice.contract.reject`"
+        ],
+        [
+          "Contract rollback",
+          "`backoffice.contract.rollback`"
+        ]
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Refresh abuse protection",
+      "anchor": "refresh-abuse-protection"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Refresh is limited per tenant, principal, and module using layered `backofficeRegistry.administration` policy. A bounded client-supplied `Idempotency-Key` deduplicates in-flight work and briefly reuses completed results. Counter and result maps are time-bounded and size-bounded. These rules augment the existing Nodics route authorization and global HTTP hardening; they do not create another authentication or permission authority."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Audit disclosure",
+      "anchor": "audit-disclosure"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Administrative success and contract-decision audits may contain principal, token type, tenant, trace, correlation, and request identifiers. Tokens, authorization headers, endpoints, raw health content, and provider errors are never retained."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Required validation",
+      "anchor": "required-validation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Changes require human success, service-token rejection, missing-principal, cross-tenant, permission-route, rate-boundary, independent-principal, idempotency replay/in-flight, bounded-state, correlation-redaction, integration, topology, and regression tests."
+    },
+    {
+      "kind": "paragraph",
+      "text": "When `backofficeRegistry.operations.production.enabled` is true, operational configuration also requires HTTPS-only module coordinates, non-empty discovery and availability host allowlists, distributed registry storage, strict audit and alert delivery acknowledgements, service-token rejection, and stable human principals. These checks validate configuration posture without replacing the target module, Profile, network, secret, or deployment authorities."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

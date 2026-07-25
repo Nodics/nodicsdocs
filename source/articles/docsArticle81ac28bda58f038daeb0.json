@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle81ac28bda58f038daeb0",
+  "title": "monoNode2",
+  "route": "/docs/modules/startio/envs/startiolocal/monoserver/mononode2",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/envs/startioLocal/monoServer/monoNode2/README.md",
+    "type": "module-readme",
+    "contentHash": "bc0cabf3f00c14a710d4aab15e18447751c0b17054302da1afad20df2f0e54d1"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "monoNode2",
+      "anchor": "mononode2"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "monoNode2",
+      "anchor": "mononode2"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`monoNode2` is a local runtime node under `monoServer`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this node for node-scoped local configuration and activation. Server-wide topology belongs in `monoServer`, and capability behavior belongs in active modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Node settings should remain explicit, observable, and safe to rebalance across sibling nodes."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

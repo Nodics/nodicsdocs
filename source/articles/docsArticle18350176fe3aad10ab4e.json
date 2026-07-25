@@ -1,0 +1,51 @@
+{
+  "code": "docsArticle18350176fe3aad10ab4e",
+  "title": "cmsStagedServer",
+  "route": "/docs/modules/startio/envs/startiolocal/cmsstagedserver",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/envs/startioLocal/cmsStagedServer/README.md",
+    "type": "module-readme",
+    "contentHash": "88d57b2c28287c20f6195cff1f4fdf253cd096df4e3eda5cb874dc2e408c96ea"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "cmsStagedServer",
+      "anchor": "cmsstagedserver"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "cmsStagedServer",
+      "anchor": "cmsstagedserver"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`cmsStagedServer` is the local Staged publishing runtime for CMS, Pricing, and Product authoring and approval in the `startio` reference application. Its CMS-oriented runtime name does not make CMS the owner of Pricing or Product."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for local CMS server activation and runtime topology. CMS behavior belongs in content modules such as `cms` and `wcms`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Local server settings should remain explicit, replaceable, and isolated from shared capability logic."
+    },
+    {
+      "kind": "paragraph",
+      "text": "This process activates Nodics publish variants and overrides CMS business schemas with `isVersionedEnabled: true`. Approved CMS, Pricing, and Product workflows deploy frozen manifests through separate named `cmsOnline`, `pricingOnline`, and `productOnline` connections to the same local Online publishing process. Each target call still addresses its owning module API directly. The Staged database is separate from Online and must not serve Online delivery as a fallback."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

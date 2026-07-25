@@ -1,0 +1,219 @@
+{
+  "code": "docsArticlec3727b8a49d6dab65700",
+  "title": "nFacade",
+  "route": "/docs/modules/gframework/nfacade",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nFacade/README.md",
+    "type": "module-readme",
+    "contentHash": "638d53322dcd0d58106f33eac670f1545980f8961cf7ac2018e1bf9c62a58098"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "nFacade",
+      "anchor": "nfacade"
+    },
+    {
+      "level": 2,
+      "text": "Ownership",
+      "anchor": "ownership"
+    },
+    {
+      "level": 2,
+      "text": "Extension Contract",
+      "anchor": "extension-contract"
+    },
+    {
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "nFacade",
+      "anchor": "nfacade"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nFacade` owns the orchestration boundary between controllers and services."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Facades are generated or handwritten platform functions that prepare business operations before delegating to services. Controllers map requests, facades own workflow/policy orchestration, and services own business behavior."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Ownership",
+      "anchor": "ownership"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Facades should:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "coordinate service calls;",
+        "enforce capability-level orchestration policy;",
+        "preserve request and tenant context;",
+        "keep controllers thin;",
+        "remain overrideable by later modules."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not put database details or raw transport behavior in facades unless the owning service contract requires it."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Extension Contract",
+      "anchor": "extension-contract"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Project modules may add or replace facades through the module hierarchy. New facade behavior must document the service contracts it calls, request context requirements, generated artifacts affected, and tests proving default and override behavior."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nFacade` provides:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "generated facade templates for schema CRUD behavior;",
+        "generated facade artifacts under `src/facade/gen`;",
+        "specialized facades for API key, cache, log, validator, and interceptor behavior;",
+        "orchestration boundaries between request controllers and business services;",
+        "utility, enum, and status extension slots."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Generated facades delegate standard CRUD calls to generated services. Handwritten facades should coordinate service calls, enforce capability-level ordering, and keep controllers transport-focused."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "A controller maps transport input into a Nodics request object.",
+        "The controller calls a facade operation.",
+        "The facade coordinates one or more service calls.",
+        "Services own business behavior and data mutation.",
+        "The facade returns the service result to the controller."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use facades when the behavior is orchestration across services or capability policy. Use services when the behavior is the actual business operation."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Project modules may contribute facade overrides under `src/facade`. A facade override should preserve the route/controller contract unless the owning route and docs are changed together."
+    },
+    {
+      "kind": "paragraph",
+      "text": "When adding a facade:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "document the services it calls;",
+        "preserve tenant/request context;",
+        "keep persistence/provider details in services;",
+        "keep generated artifacts source-driven;",
+        "add tests for orchestration, failure behavior, and later-module overrides."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run quality:docs\nnpm run docs:coverage:source -- --limit=20"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Generated facade behavior is primarily validated through generated API and CRUD tests in the owning schema modules."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "adding raw database or broker client logic to facades;",
+        "duplicating service business rules in facades;",
+        "mutating request context in surprising ways;",
+        "bypassing services for generated schema behavior;",
+        "editing generated facades manually instead of regenerating from source definitions."
+      ]
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

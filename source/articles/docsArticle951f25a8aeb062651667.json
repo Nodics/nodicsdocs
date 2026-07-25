@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle951f25a8aeb062651667",
+  "title": "workflowServer",
+  "route": "/docs/modules/startio/envs/startiolocal/workflowserver",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/envs/startioLocal/workflowServer/README.md",
+    "type": "module-readme",
+    "contentHash": "911b761e5eed8a6c1278c7400cf4bc0d4ffbb0740b84fc728e40d5c33d8db563"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "workflowServer",
+      "anchor": "workflowserver"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "workflowServer",
+      "anchor": "workflowserver"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`workflowServer` is the local workflow server module for the `startio` application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for local workflow server activation and runtime topology. Workflow behavior belongs in workflow modules and framework BPM contracts."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Local workflow settings should preserve auditability, rollback expectations, and layered overrides."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

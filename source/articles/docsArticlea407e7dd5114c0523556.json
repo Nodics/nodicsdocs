@@ -1,0 +1,47 @@
+{
+  "code": "docsArticlea407e7dd5114c0523556",
+  "title": "kickoffQA",
+  "route": "/docs/modules/docs/kickoff/kickoffenvs/kickoffqa",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "docs/kickoff/kickoffEnvs/kickoffQA/README.md",
+    "type": "module-readme",
+    "contentHash": "03a406d419750a1b259b1af4eff09778e349aa2b072bf133dea68c8071b7cf0a"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "kickoffQA",
+      "anchor": "kickoffqa"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "kickoffQA",
+      "anchor": "kickoffqa"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`kickoffQA` is the quality-assurance environment module for the `kickoff` application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for QA configuration and server composition. Server-specific runtime settings belong in child server modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "QA changes should support validation and test coverage without drifting into framework or production defaults."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

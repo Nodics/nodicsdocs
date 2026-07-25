@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle1eb57f8a618cfe49aeee",
+  "title": "kickoffDevCronServer",
+  "route": "/docs/modules/docs/kickoff/kickoffenvs/kickoffdev/kickoffdevcronserver",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "docs/kickoff/kickoffEnvs/kickoffDev/kickoffDevCronServer/README.md",
+    "type": "module-readme",
+    "contentHash": "31db39ec9fe5b2be8e47e900f4163e02bc513273230b7dd6fda5697c2f59609e"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "kickoffDevCronServer",
+      "anchor": "kickoffdevcronserver"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "kickoffDevCronServer",
+      "anchor": "kickoffdevcronserver"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`kickoffDevCronServer` is the development cron server module for the `kickoff` application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for dev-scoped scheduled-job server activation, server configuration, and runtime topology. Cron capability behavior belongs in the relevant reusable modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Server configuration should remain environment-scoped, explicit, and safe to replace in QA, pre-production, and production."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

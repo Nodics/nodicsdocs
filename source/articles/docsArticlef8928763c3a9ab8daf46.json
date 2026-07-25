@@ -1,0 +1,368 @@
+{
+  "code": "docsArticlef8928763c3a9ab8daf46",
+  "title": "Business And Technical Evaluation Checklist",
+  "route": "/docs/business/evaluation-checklist",
+  "category": "business",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gDocs/business/evaluation-checklist.md",
+    "type": "gdocs",
+    "contentHash": "58947a17d46cc2c9bfa4ac5359082b9e7f1701cdfbeebaecec8d75874f6e6498"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Business And Technical Evaluation Checklist",
+      "anchor": "business-and-technical-evaluation-checklist"
+    },
+    {
+      "level": 2,
+      "text": "Business Fit",
+      "anchor": "business-fit"
+    },
+    {
+      "level": 2,
+      "text": "Product And Delivery Fit",
+      "anchor": "product-and-delivery-fit"
+    },
+    {
+      "level": 2,
+      "text": "Security And Compliance Fit",
+      "anchor": "security-and-compliance-fit"
+    },
+    {
+      "level": 2,
+      "text": "Architecture And Integration Fit",
+      "anchor": "architecture-and-integration-fit"
+    },
+    {
+      "level": 2,
+      "text": "Operations And Commercial Fit",
+      "anchor": "operations-and-commercial-fit"
+    },
+    {
+      "level": 2,
+      "text": "Decision Record",
+      "anchor": "decision-record"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Business And Technical Evaluation Checklist",
+      "anchor": "business-and-technical-evaluation-checklist"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this checklist before selecting Nodics for a product or customer program. Record evidence, owners, risks, and follow-up actions rather than answering only yes or no."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Business Fit",
+      "anchor": "business-fit"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "What business capability will the first release prove?",
+        "How many customer or tenant variations are expected?",
+        "Which foundations would otherwise need to be designed and maintained by the"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "delivery team?"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "What is the expected product lifetime and team growth?",
+        "Does the organization accept a governed framework in exchange for less"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "architectural freedom?"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "What delivery-time and maintenance-cost measures will be compared?"
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Product And Delivery Fit",
+      "anchor": "product-and-delivery-fit"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Build one representative capability, not only a hello-world route.",
+        "Demonstrate API, data, permissions, configuration, tests, and documentation.",
+        "Demonstrate a project-level customization without editing framework source.",
+        "Identify which available modules are production-ready and which require"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "further implementation or provider qualification."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Estimate team learning, migration, and operational enablement effort."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Security And Compliance Fit",
+      "anchor": "security-and-compliance-fit"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Read [Why Businesses Can Trust Nodics](security-and-trust.md), assign the"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "[Security Shared-Responsibility Model](../security/shared-responsibility-model.md), and validate claims with the [Security Evidence Guide](../security/security-evidence-guide.md)."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Verify human authentication separately from module-to-module and scheduled"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "access."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Verify authorization, tenant isolation, validation, secrets handling, audit,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "and sensitive-data treatment."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Confirm regulatory, retention, residency, encryption, and evidence needs for"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "the intended deployment."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Test failure and misuse cases, not only successful access.",
+        "Record which controls are framework-provided, project-configured,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "infrastructure-operated, and organization-owned."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Do not accept certification or compliance claims without solution-specific"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "evidence and the required independent assessment."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Architecture And Integration Fit",
+      "anchor": "architecture-and-integration-fit"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Confirm which module owns every proposed capability.",
+        "Identify external systems, data contracts, failure behavior, retries, and"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "provider ownership."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Check for existing Nodics capabilities before introducing a second loader,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "registry, policy engine, or source of truth."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Confirm how frontend applications consume APIs while Nodics remains the"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "backend/API platform."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Define the path from the initial topology to expected scale."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Operations And Commercial Fit",
+      "anchor": "operations-and-commercial-fit"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Define service-level objectives, observability, incident response, backup,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "recovery, and capacity expectations."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Verify deployment automation and environment separation.",
+        "Determine internal ownership, support expectations, licensing obligations,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "and upgrade responsibility."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Estimate the total cost of the complete solution, including infrastructure,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "providers, delivery, operation, and training."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Decision Record",
+      "anchor": "decision-record"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The final decision should state:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "the business outcomes Nodics is expected to improve;",
+        "proof-of-concept evidence;",
+        "known gaps and required investments;",
+        "selected providers and their maturity;",
+        "security and operational acceptance;",
+        "accountable business and technical owners;",
+        "exit or reassessment criteria."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Previous: [How Nodics Compares](how-nodics-compares.md)",
+        "Start a technical evaluation: [How To Set Up Nodics](../getting-started/how-to-setup-nodics.md)",
+        "Build a representative capability: [Build Your First Nodics Capability](../getting-started/build-your-first-capability.md)",
+        "Documentation home: [Nodics Documentation](../README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "Why Businesses Can Trust Nodics",
+      "target": "security-and-trust.md",
+      "kind": "internal",
+      "route": "/docs/business/security-and-trust",
+      "anchor": ""
+    },
+    {
+      "label": "Security Shared-Responsibility Model",
+      "target": "../security/shared-responsibility-model.md",
+      "kind": "internal",
+      "route": "/docs/security/shared-responsibility-model",
+      "anchor": ""
+    },
+    {
+      "label": "Security Evidence Guide",
+      "target": "../security/security-evidence-guide.md",
+      "kind": "internal",
+      "route": "/docs/security/security-evidence-guide",
+      "anchor": ""
+    },
+    {
+      "label": "How Nodics Compares",
+      "target": "how-nodics-compares.md",
+      "kind": "internal",
+      "route": "/docs/business/how-nodics-compares",
+      "anchor": ""
+    },
+    {
+      "label": "How To Set Up Nodics",
+      "target": "../getting-started/how-to-setup-nodics.md",
+      "kind": "internal",
+      "route": "/docs/getting-started/how-to-setup-nodics",
+      "anchor": ""
+    },
+    {
+      "label": "Build Your First Nodics Capability",
+      "target": "../getting-started/build-your-first-capability.md",
+      "kind": "internal",
+      "route": "/docs/getting-started/build-your-first-capability",
+      "anchor": ""
+    },
+    {
+      "label": "Nodics Documentation",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle83cd8ce7128fe93d13c3",
+  "title": "kickoffQAServer",
+  "route": "/docs/modules/docs/kickoff/kickoffenvs/kickoffqa/kickoffqaserver",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "docs/kickoff/kickoffEnvs/kickoffQA/kickoffQAServer/README.md",
+    "type": "module-readme",
+    "contentHash": "e06720f005c9afbdef396c35e4c0c8b8787a106538654aed80e45e702f2570ae"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "kickoffQAServer",
+      "anchor": "kickoffqaserver"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "kickoffQAServer",
+      "anchor": "kickoffqaserver"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`kickoffQAServer` is the QA server module for the `kickoff` application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for QA server activation, route/service availability, and runtime topology. Business behavior belongs in active application or framework modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "QA server settings should support test coverage, validation, diagnostics, and layered overrides."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

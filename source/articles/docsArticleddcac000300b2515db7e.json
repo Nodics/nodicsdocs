@@ -1,0 +1,275 @@
+{
+  "code": "docsArticleddcac000300b2515db7e",
+  "title": "jsImport Module",
+  "route": "/docs/modules/gframework/ndata/nimport/jsimport",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nData/nImport/jsImport/README.md",
+    "type": "module-readme",
+    "contentHash": "74a818514de567ebf4224beb02c2e304a512c69c0e9bb9e70035ad33f4748719"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "jsImport Module",
+      "anchor": "jsimport-module"
+    },
+    {
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "level": 2,
+      "text": "Configuration",
+      "anchor": "configuration"
+    },
+    {
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "level": 2,
+      "text": "Operations And Boundaries",
+      "anchor": "operations-and-boundaries"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "jsImport Module",
+      "anchor": "jsimport-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "**Maturity: Production-ready format capability** when used through the shared governed import lifecycle. External source/transport maturity is evaluated separately."
+    },
+    {
+      "kind": "paragraph",
+      "text": "`jsImport` provides JavaScript data-definition import support for the `nData/nImport` capability. It registers `.js` files with the shared import engine, loads trusted module-owned JavaScript data objects, merges them, and sends the resulting model list into the import data handler selected by the import header."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for trusted JavaScript import definitions that live inside active Nodics modules. Do not use it as an upload or remote-pull mechanism for arbitrary external JavaScript."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The module contributes:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`data.fileTypeProcess.js = 'jsFileDataInitializerPipeline'`;",
+        "`jsFileDataInitializerPipeline`;",
+        "`DefaultJsFileDataProcessService`."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "JavaScript import files are loaded through Node's module loading path. This is powerful and must stay limited to trusted source-controlled module data definitions."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "The shared import module resolves a `.js` file to `jsFileDataInitializerPipeline`.",
+        "`validateRequest` confirms `request.files` is an array and `request.outputPath` is present.",
+        "`processDataChunk` loads and merges all requested JavaScript files through `handleFiles`.",
+        "The merged object values are converted into `request.models`.",
+        "Import diagnostics increment `recordsRead` when diagnostics are active.",
+        "`request.outputPath.version` is set to `0_0`.",
+        "The import header's `options.dataHandler` pipeline processes the model list."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Configuration",
+      "anchor": "configuration"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Default configuration:"
+    },
+    {
+      "kind": "code",
+      "language": "js",
+      "text": "module.exports = {\n    data: {\n        fileTypeProcess: {\n            js: 'jsFileDataInitializerPipeline'\n        }\n    }\n};"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The JavaScript import path is intentionally small. Additional execution policy, allowed locations, or trust rules should be configured and tested before expanding behavior."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Projects may customize JavaScript import by:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "contributing trusted module-owned data files;",
+        "contributing import headers and data handlers for those files;",
+        "overriding `DefaultJsFileDataProcessService` in a later active module;",
+        "adding validation through schema services, validators, interceptors, or import pipelines;",
+        "adding project-specific tests for data definition shape and tenant behavior."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "When importing external data, prefer JSON, CSV, Excel, API push, or scheduled file pickup. JavaScript import is for trusted data definitions, not external executable payloads."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Current module coverage includes common and environment-local smoke tests. Changes to JS import behavior should add focused tests for:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "missing files and missing output path;",
+        "trusted file loading and merge behavior;",
+        "diagnostics `recordsRead` increments;",
+        "data-handler pipeline invocation;",
+        "rejection or prevention of untrusted locations when such policy is added;",
+        "project override behavior."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run test:import\nnpm run test:basic\nnpm run quality:docs"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "accepting arbitrary external JavaScript as import input;",
+        "using JS import for supplier, partner, or customer-uploaded data;",
+        "hiding transformation rules in executable files when schema/import definitions can express them;",
+        "bypassing tenant, schema, validation, diagnostics, or access-policy behavior;",
+        "changing JS import trust boundaries without security review and tests;",
+        "editing generated import artifacts manually."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Operations And Boundaries",
+      "anchor": "operations-and-boundaries"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Only trusted definitions from active modules may execute. Request payloads, uploaded files, remote sources, and user-provided module paths must never become executable JavaScript."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Import family: [nImport](../README.md)",
+        "Shared engine: [import](../import/README.md)",
+        "Data processing: [dataCore](../../dataCore/README.md)",
+        "Public data guide: [How To Work With Data](../../../../gDocs/data/how-to-work-with-data.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "nImport",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata/nimport",
+      "anchor": ""
+    },
+    {
+      "label": "import",
+      "target": "../import/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata/nimport/import",
+      "anchor": ""
+    },
+    {
+      "label": "dataCore",
+      "target": "../../dataCore/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata/datacore",
+      "anchor": ""
+    },
+    {
+      "label": "How To Work With Data",
+      "target": "../../../../gDocs/data/how-to-work-with-data.md",
+      "kind": "internal",
+      "route": "/docs/data/how-to-work-with-data",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

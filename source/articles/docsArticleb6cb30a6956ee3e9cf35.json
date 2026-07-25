@@ -1,0 +1,440 @@
+{
+  "code": "docsArticleb6cb30a6956ee3e9cf35",
+  "title": "nEms",
+  "route": "/docs/modules/gframework/nems",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nEms/README.md",
+    "type": "module-readme",
+    "contentHash": "9c7a63c2c658d313c3b1c9c1e0ac35522f0a19ae3df34acdb06452e6bc9582c0"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "nEms",
+      "anchor": "nems"
+    },
+    {
+      "level": 2,
+      "text": "Choose A Messaging Module",
+      "anchor": "choose-a-messaging-module"
+    },
+    {
+      "level": 2,
+      "text": "Module Family",
+      "anchor": "module-family"
+    },
+    {
+      "level": 2,
+      "text": "Ownership",
+      "anchor": "ownership"
+    },
+    {
+      "level": 2,
+      "text": "Producer And Consumer Flow",
+      "anchor": "producer-and-consumer-flow"
+    },
+    {
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "level": 2,
+      "text": "Extension Contract",
+      "anchor": "extension-contract"
+    },
+    {
+      "level": 2,
+      "text": "Adding A Messaging Provider",
+      "anchor": "adding-a-messaging-provider"
+    },
+    {
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "level": 2,
+      "text": "Delivery Semantics And Operations",
+      "anchor": "delivery-semantics-and-operations"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "nEms",
+      "anchor": "nems"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nEms` is the enterprise-messaging capability group. Messaging moves work or facts between processes through a broker; it is different from an in-process event listener and must assume delay, duplication, reordering, and failure."
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nEms` owns enterprise messaging integration contracts and adapter modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Messaging guidance covers producer and consumer flows plus configuration examples for providers such as Tibco, ActiveMQ, and Kafka. Implementations must keep provider-specific behavior behind adapter modules and layered configuration."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Choose A Messaging Module",
+      "anchor": "choose-a-messaging-module"
+    },
+    {
+      "kind": "table",
+      "headers": [
+        "Module",
+        "Role",
+        "Current maturity"
+      ],
+      "rows": [
+        [
+          "[emsClient](emsClient/README.md)",
+          "Provider-neutral publish, consume, tenant resolution, processing, and failed-message contract",
+          "Production-ready capability"
+        ],
+        [
+          "[kafka](kafka/README.md)",
+          "Kafka adapter",
+          "Guarded provider"
+        ],
+        [
+          "[activemq](activemq/README.md)",
+          "ActiveMQ/STOMP adapter boundary",
+          "Placeholder or scaffold"
+        ],
+        [
+          "[nEvent](../nEvent/README.md)",
+          "In-platform listener execution after a local or translated message event",
+          "Production-ready capability"
+        ]
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Module Family",
+      "anchor": "module-family"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The EMS family is split by responsibility:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`emsClient` owns provider-neutral publish, consumer registration, publisher registration, close operations, message processing, failed-message persistence, tenant resolution, route contracts, and message-to-event dispatch.",
+        "`kafka` owns Kafka-specific client, producer, topic, consumer, publish, and failed-consume handling behavior.",
+        "`activemq` owns ActiveMQ/STOMP-specific connection, producer, queue, consumer, publish, and failed-consume handling behavior."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Business modules should publish and consume through the EMS capability contract. Provider clients must stay inside provider modules or later active project modules."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Ownership",
+      "anchor": "ownership"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nEms` coordinates:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "messaging client contracts;",
+        "provider adapter modules;",
+        "producer and consumer configuration;",
+        "message routing and runtime diagnostics;",
+        "extension guidance for adding providers.",
+        "failed-message capture through `emsFailedMessages`;",
+        "consumed-message translation and event dispatch into `nEvent`."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Producer And Consumer Flow",
+      "anchor": "producer-and-consumer-flow"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Messaging is a producer/consumer system. That flow must stay provider-neutral until the selected adapter sends or receives the message."
+    },
+    {
+      "kind": "paragraph",
+      "text": "A producer defines:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "owning module and operation;",
+        "event or message name;",
+        "payload shape;",
+        "tenant/request context;",
+        "target provider/channel/topic/queue from configuration;",
+        "retry and failure behavior;",
+        "diagnostics."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "A consumer defines:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "provider subscription configuration;",
+        "handler service;",
+        "idempotency and duplicate behavior;",
+        "tenant context resolution;",
+        "error handling and retry/dead-letter policy;",
+        "tests for normal, invalid, and failure messages."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not let provider-specific message clients leak into business services. Business services publish or consume through the EMS capability contract."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Layered `emsClient` configuration defines clients, publishers, consumers, handlers, queue/topic options, node ownership, and tenant policy.",
+        "`DefaultEmsClientConfigurationService` configures enabled clients, creates provider producers, and registers enabled publishers/consumers only for the active node.",
+        "`DefaultEmsClientService.publish` accepts a single payload or a payload array, resolves the configured publisher by queue name, and delegates to the provider handler.",
+        "Provider adapters publish to the broker and return normalized success/error envelopes.",
+        "Consumers pass received messages into `processConsumedMessagePipeline`.",
+        "`DefaultMessageProcessService` validates queue/message shape, applies the configured message handler pipeline, resolves tenant, and publishes or handles an internal Nodics event.",
+        "Failed consumed messages can be logged into `emsFailedMessages` when enabled and tenant context is available."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Extension Contract",
+      "anchor": "extension-contract"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Projects add or replace messaging providers through later modules, adapter services, and layered configuration. Do not hardcode provider URLs, credentials, queue names, topics, tenant mappings, or retry policy in framework code."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Provider integrations must preserve validation, sanitized observability, retry or failure handling, and tests for configured provider behavior where practical."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Adding A Messaging Provider",
+      "anchor": "adding-a-messaging-provider"
+    },
+    {
+      "kind": "paragraph",
+      "text": "New messaging providers must be added as provider modules or project modules behind the `nEms/emsClient` provider-neutral contract. For example, RabbitMQ, AWS SNS/SQS, Google Pub/Sub, or a customer broker follows the adapter shape used by `activemq` and `kafka`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The implementation path is:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Create an owned messaging provider module.",
+        "Contribute layered `emsClient` configuration for provider activation,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "connection handler, producers, consumers, topics, queues, retries, credentials, and tenant mappings."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Implement provider-specific publish/consume behavior behind the shared EMS"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "client contract."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Preserve tenant resolution, active provider selection, validation, sanitized"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "diagnostics, retry/failure handling, and route contracts."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Add tests for provider activation, disabled provider behavior, publish and"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "consume contracts, failure handling, tenant mapping, and later-module overrides."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Broker URLs, credentials, topic names, queue names, subscriptions, and routing topology must come from layered configuration or governed runtime layers."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run focused EMS coverage with:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "node gFramework/nEms/emsClient/test/emsClientServiceContract.test.js\nnode gFramework/nEms/emsClient/test/emsMessageProcessContract.test.js\nnode gFramework/nEms/emsClient/test/messageTenantResolution.test.js\nnode gFramework/nEms/emsClient/test/activeEmsPublisher.test.js\nnode gFramework/nEms/kafka/test/kafkaPublishCapabilityBehavior.test.js\nnpm run quality:docs"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "calling Kafka, ActiveMQ, or another broker directly from business services;",
+        "hardcoding broker URLs, credentials, topics, queues, or tenant mappings in source code;",
+        "registering consumers without tenant resolution and failure handling;",
+        "publishing consumed messages into events without validation and handler translation;",
+        "exposing raw broker errors or credentials in diagnostics;",
+        "treating provider smoke tests as release coverage for a production broker."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Delivery Semantics And Operations",
+      "anchor": "delivery-semantics-and-operations"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Every publisher and consumer must define message identity, schema/version, ordering, idempotency, retry, backoff, dead-letter or failed-message handling, tenant resolution, acknowledgement, retention, replay, and poison-message behavior. “Exactly once” must not be claimed unless the complete business side effect and broker contract prove it."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Monitor publish/consume latency, backlog/lag, retries, duplicates, failures, dead-letter volume, reconnects, handler duration, and tenant-resolution errors without exposing sensitive payloads."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Provider-neutral client: [emsClient](emsClient/README.md)",
+        "In-platform events: [nEvent](../nEvent/README.md)",
+        "Provider maturity: [Provider And Capability Maturity Matrix](../../gDocs/reference/provider-capability-maturity-matrix.md)",
+        "Public platform guide: [How Platform Capabilities Work](../../gDocs/platform/how-platform-capabilities-work.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "emsClient",
+      "target": "emsClient/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nems/emsclient",
+      "anchor": ""
+    },
+    {
+      "label": "kafka",
+      "target": "kafka/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nems/kafka",
+      "anchor": ""
+    },
+    {
+      "label": "activemq",
+      "target": "activemq/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nems/activemq",
+      "anchor": ""
+    },
+    {
+      "label": "nEvent",
+      "target": "../nEvent/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nevent",
+      "anchor": ""
+    },
+    {
+      "label": "emsClient",
+      "target": "emsClient/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nems/emsclient",
+      "anchor": ""
+    },
+    {
+      "label": "nEvent",
+      "target": "../nEvent/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nevent",
+      "anchor": ""
+    },
+    {
+      "label": "Provider And Capability Maturity Matrix",
+      "target": "../../gDocs/reference/provider-capability-maturity-matrix.md",
+      "kind": "internal",
+      "route": "/docs/reference/provider-capability-maturity-matrix",
+      "anchor": ""
+    },
+    {
+      "label": "How Platform Capabilities Work",
+      "target": "../../gDocs/platform/how-platform-capabilities-work.md",
+      "kind": "internal",
+      "route": "/docs/platform/how-platform-capabilities-work",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

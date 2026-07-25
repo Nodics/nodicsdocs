@@ -1,0 +1,47 @@
+{
+  "code": "docsArticlea04e378be265b6227ee2",
+  "title": "cmsOnlineServer",
+  "route": "/docs/modules/startio/envs/startiolocal/cmsonlineserver",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/envs/startioLocal/cmsOnlineServer/README.md",
+    "type": "module-readme",
+    "contentHash": "01b6d9441f8ce40b92c1f45ccc62a48156461b17431e16162ad75b76ece3e6be"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "cmsOnlineServer",
+      "anchor": "cmsonlineserver"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "cmsOnlineServer",
+      "anchor": "cmsonlineserver"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`cmsOnlineServer` is the local Online publishing target for CMS, Pricing, and Product. It runs those capabilities without publish/version provider variants, imports only integrity-checked manifests from the authenticated Staged runtime, and switches each module's target-local Online pointers atomically. The historical server name is a reference-topology label, not a module ownership boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Its `startioCmsOnline` database is deliberately separate from the Staged CMS database. This process does not run authoring approval workflows and must never be used as an authoring fallback."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Product delivery reads the active manifest pointer, not partially imported records. Its delivery cache uses the configured nCache channel (local by default in this reference topology). Product search projection remains disabled until an nSearch engine, Product index, and indexer are explicitly configured; durable projection jobs record skipped, successful, or retryable work."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

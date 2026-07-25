@@ -1,0 +1,247 @@
+{
+  "code": "docsArticlee2afe997218a957d367f",
+  "title": "activemq Module",
+  "route": "/docs/modules/gframework/nems/activemq",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nEms/activemq/README.md",
+    "type": "module-readme",
+    "contentHash": "4e30c5a41d04424aed00ac698e65bf6fa3067df430c2b8fa309befd6796ca854"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "activemq Module",
+      "anchor": "activemq-module"
+    },
+    {
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "level": 2,
+      "text": "Configuration",
+      "anchor": "configuration"
+    },
+    {
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "level": 2,
+      "text": "Work Required Before Production Use",
+      "anchor": "work-required-before-production-use"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "activemq Module",
+      "anchor": "activemq-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "**Maturity: Placeholder or scaffold.** The provider boundary exists, but it is not production-qualified and has no focused live adapter contract in the current repository."
+    },
+    {
+      "kind": "paragraph",
+      "text": "`activemq` is the ActiveMQ provider adapter for the `nEms` messaging family. It owns ActiveMQ-specific connection defaults, producer/consumer wiring, and provider pipeline hooks."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for ActiveMQ behavior only. Shared EMS client APIs, active publisher selection, tenant resolution, and message route contracts belong in `nEms/emsClient`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Broker URLs, credentials, topics, queues, and environment topology must come from layered configuration. Framework defaults should remain provider-safe and replaceable."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The module contributes:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "ActiveMQ/STOMP connection handling through `stompit`;",
+        "failover connection manager setup;",
+        "producer creation through the active STOMP connection;",
+        "publisher configuration through the provider contract;",
+        "JSON and plain-message publishing to `/queue/{queueName}`;",
+        "consumer subscription through STOMP channels;",
+        "consumed-message dispatch into `processConsumedMessagePipeline`;",
+        "failed consumed-message logging through `emsFailedMessages` when enabled."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "`emsClient` selects an ActiveMQ client configuration with `DefaultActivemqClientService` as handler.",
+        "ActiveMQ connection and reconnect options are resolved from layered configuration.",
+        "The adapter creates a failover connection manager and active connection.",
+        "Publishers send messages to configured queues.",
+        "Consumers subscribe to configured queues and read messages as UTF-8.",
+        "Consumed messages are passed into the shared EMS processing pipeline.",
+        "Failed consumed messages can be stored through the EMS failed-message model when tenant context is available."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Configuration",
+      "anchor": "configuration"
+    },
+    {
+      "kind": "paragraph",
+      "text": "ActiveMQ configuration should include:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "connection options;",
+        "reconnect/failover options;",
+        "producer options;",
+        "consumer options;",
+        "queue names;",
+        "tenant/header/fallback policy from `emsClient`;",
+        "credentials and TLS settings through governed configuration when needed."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not hardcode broker hosts, credentials, queue names, retry policy, or tenant routing in source files."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run the current module baseline with:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run structure:audit -- --fail\nnpm run quality:docs"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Production ActiveMQ enablement should also include guarded live-provider tests against an ephemeral or managed broker."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "calling ActiveMQ directly from business modules;",
+        "accepting arbitrary queue names from untrusted payloads;",
+        "bypassing `emsClient` publisher/consumer configuration;",
+        "logging failed consumed messages without tenant context;",
+        "exposing broker connection details in errors;",
+        "enabling production ActiveMQ without live-provider validation and sanitized diagnostics."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Work Required Before Production Use",
+      "anchor": "work-required-before-production-use"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Add deterministic and guarded live tests for connection/failover, publish, consume, acknowledgement, redelivery, queue creation policy, duplicate and poison messages, tenant resolution, failed-message behavior, broker outage, reconnect, TLS/authentication, and cleanup. Document queue ownership, prefetch/concurrency, retry/dead-letter policy, retention, monitoring, backup, and recovery before changing the maturity level."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Provider-neutral contract: [emsClient](../emsClient/README.md)",
+        "Messaging family: [nEms](../README.md)",
+        "Maturity matrix: [Provider And Capability Maturity Matrix](../../../gDocs/reference/provider-capability-maturity-matrix.md)",
+        "Kafka guarded provider: [kafka](../kafka/README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "emsClient",
+      "target": "../emsClient/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nems/emsclient",
+      "anchor": ""
+    },
+    {
+      "label": "nEms",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nems",
+      "anchor": ""
+    },
+    {
+      "label": "Provider And Capability Maturity Matrix",
+      "target": "../../../gDocs/reference/provider-capability-maturity-matrix.md",
+      "kind": "internal",
+      "route": "/docs/reference/provider-capability-maturity-matrix",
+      "anchor": ""
+    },
+    {
+      "label": "kafka",
+      "target": "../kafka/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nems/kafka",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

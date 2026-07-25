@@ -1,0 +1,47 @@
+{
+  "code": "docsArticleb5370dfde6cff3743a3d",
+  "title": "startio",
+  "route": "/docs/modules/startio",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/README.md",
+    "type": "module-readme",
+    "contentHash": "38162915c06bd77b107b23c2e0c4eb28d0eeb4019d5ce04783e63639e7f358c3"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "startio",
+      "anchor": "startio"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "startio",
+      "anchor": "startio"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`startio` is a project application layer. It composes application modules and environment topology above the reusable Nodics framework."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this root for application composition, sample defaults, and project-level configuration. Framework capabilities should be extended through active modules rather than edited in `gFramework`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep startio behavior layered, test-backed, and clearly separated from out-of-the-box framework contracts."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

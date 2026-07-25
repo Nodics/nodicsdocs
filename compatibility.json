@@ -1,0 +1,18 @@
+{
+  "pack": "nodicsdocs",
+  "version": "0.1.0",
+  "nodicsCompatibility": ">=0.0.1 <1.0.0",
+  "contentContractVersion": 1,
+  "catalog": "nodicsDocumentationContentCatalog",
+  "requiredSchemas": [
+    "catalog",
+    "cmsTypeCode",
+    "cmsTypeCode2Renderer",
+    "cmsSlotDefinition",
+    "cmsPageTemplate",
+    "cmsComponent",
+    "cmsPage",
+    "cmsPageRoute"
+  ]
+}
+

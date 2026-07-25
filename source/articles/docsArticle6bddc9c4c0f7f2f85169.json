@@ -1,0 +1,1063 @@
+{
+  "code": "docsArticle6bddc9c4c0f7f2f85169",
+  "title": "How Schema Workbench Works",
+  "route": "/docs/backoffice/how-schema-workbench-works",
+  "category": "backoffice",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gDocs/backoffice/how-schema-workbench-works.md",
+    "type": "gdocs",
+    "contentHash": "20177b1ecdcbae784ac5953bb47dfe9f00fc41882d51554e9b8fd5d401e4e4d1"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "How Schema Workbench Works",
+      "anchor": "how-schema-workbench-works"
+    },
+    {
+      "level": 2,
+      "text": "The idea in plain language",
+      "anchor": "the-idea-in-plain-language"
+    },
+    {
+      "level": 2,
+      "text": "What business problem it solves",
+      "anchor": "what-business-problem-it-solves"
+    },
+    {
+      "level": 2,
+      "text": "Current implementation status",
+      "anchor": "current-implementation-status"
+    },
+    {
+      "level": 2,
+      "text": "Business-user journey",
+      "anchor": "business-user-journey"
+    },
+    {
+      "level": 3,
+      "text": "1. Confirm the working context",
+      "anchor": "1-confirm-the-working-context"
+    },
+    {
+      "level": 3,
+      "text": "2. Open Schema Workbench",
+      "anchor": "2-open-schema-workbench"
+    },
+    {
+      "level": 3,
+      "text": "3. Choose a data type",
+      "anchor": "3-choose-a-data-type"
+    },
+    {
+      "level": 3,
+      "text": "4. Search before creating",
+      "anchor": "4-search-before-creating"
+    },
+    {
+      "level": 3,
+      "text": "5. Choose the permitted action",
+      "anchor": "5-choose-the-permitted-action"
+    },
+    {
+      "level": 3,
+      "text": "6. Complete required fields",
+      "anchor": "6-complete-required-fields"
+    },
+    {
+      "level": 3,
+      "text": "7. Handle related records",
+      "anchor": "7-handle-related-records"
+    },
+    {
+      "level": 3,
+      "text": "8. Review and submit",
+      "anchor": "8-review-and-submit"
+    },
+    {
+      "level": 3,
+      "text": "9. Review or update an existing record",
+      "anchor": "9-review-or-update-an-existing-record"
+    },
+    {
+      "level": 3,
+      "text": "10. Delete an existing record",
+      "anchor": "10-delete-an-existing-record"
+    },
+    {
+      "level": 2,
+      "text": "Worked example: create an Address with Contacts",
+      "anchor": "worked-example-create-an-address-with-contacts"
+    },
+    {
+      "level": 2,
+      "text": "When Workbench is not the right interface",
+      "anchor": "when-workbench-is-not-the-right-interface"
+    },
+    {
+      "level": 2,
+      "text": "Employee is a protected example",
+      "anchor": "employee-is-a-protected-example"
+    },
+    {
+      "level": 2,
+      "text": "Developer configuration",
+      "anchor": "developer-configuration"
+    },
+    {
+      "level": 3,
+      "text": "Developer implementation checklist",
+      "anchor": "developer-implementation-checklist"
+    },
+    {
+      "level": 2,
+      "text": "Ownership and request flow",
+      "anchor": "ownership-and-request-flow"
+    },
+    {
+      "level": 2,
+      "text": "Search, sorting, and paging",
+      "anchor": "search-sorting-and-paging"
+    },
+    {
+      "level": 2,
+      "text": "Cross-module relationships",
+      "anchor": "cross-module-relationships"
+    },
+    {
+      "level": 2,
+      "text": "Security and governance",
+      "anchor": "security-and-governance"
+    },
+    {
+      "level": 2,
+      "text": "Troubleshooting",
+      "anchor": "troubleshooting"
+    },
+    {
+      "level": 2,
+      "text": "Business acceptance checklist",
+      "anchor": "business-acceptance-checklist"
+    },
+    {
+      "level": 2,
+      "text": "Local acceptance evidence",
+      "anchor": "local-acceptance-evidence"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "How Schema Workbench Works",
+      "anchor": "how-schema-workbench-works"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Schema Workbench is a governed administrative workspace for working with business records in Nodics Axis. It allows an authorized employee to find a business data type, understand its fields and relationships, and use only the operations permitted by the module that owns that data."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Examples of business data types include Address, Contact, Employee, Product, Price, Warehouse, CMS Page, and Workflow. Nodics calls the technical definition of such a data type a **schema**."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "The idea in plain language",
+      "anchor": "the-idea-in-plain-language"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Without Schema Workbench, a frontend developer would have to build and maintain a different hardcoded list and form for every data type. That creates duplicate rules and makes customization expensive."
+    },
+    {
+      "kind": "paragraph",
+      "text": "With Schema Workbench:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "The backend module defines the authoritative data structure and rules.",
+        "Every eligible model receives generated CRUD operations by default unless"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "its owning module excludes it or narrows its permitted operations."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Axis requests a safe description of the schema.",
+        "Axis uses that description to render lists, fields, relationships, and"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "permitted actions."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Axis sends the actual operation directly to the module that owns the data."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Changing an enabled backend label or field contract can therefore update the Axis experience without copying the same business definition into the frontend."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What business problem it solves",
+      "anchor": "what-business-problem-it-solves"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Schema Workbench provides one familiar place for common administration tasks:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "find records without learning backend API paths;",
+        "search and review business data;",
+        "create or update permitted records;",
+        "understand required fields before saving;",
+        "select an existing related record;",
+        "create a related record when one does not exist;",
+        "work with relationships owned by another Nodics module;",
+        "receive the validation and security rules of the owning module."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "It is not a raw database editor. Business rules, permissions, validation, tenant isolation, audit behavior, and persistence remain controlled by Nodics."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Current implementation status",
+      "anchor": "current-implementation-status"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The backend discovery contract and the first Axis Workbench experience are implemented. The backend returns a safe description of every authorized model schema. Axis uses that descriptor to browse schemas, search and list records, and render a typed form for creating an independent record. The first enabled examples are Profile **Address** and **Contact**."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Address describes a many-value Contact relationship. The implemented relationship editor supports:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "**Select existing** — find and associate an existing Contact;",
+        "**Create related** — create a Contact and then associate it;",
+        "more than one Contact on the same Address."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Independent Address and Contact creation, **Select existing**, **Create related**, recoverable multi-record draft coordination, record detail, and generated Update and governed Delete are available."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Employees can also mark data types as favourites, return to recently used data types, choose visible columns, save up to ten local views per data type, and select visible records. These preferences are stored only in the browser, scoped by employee, tenant, and enterprise. They never contain business records, tokens, or backend authority."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Business-user journey",
+      "anchor": "business-user-journey"
+    },
+    {
+      "kind": "paragraph",
+      "text": "An authorized employee follows this general process."
+    },
+    {
+      "kind": "heading",
+      "level": 3,
+      "text": "1. Confirm the working context",
+      "anchor": "1-confirm-the-working-context"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Before changing data, confirm the displayed:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "environment;",
+        "tenant;",
+        "enterprise;",
+        "site or catalog when the selected capability uses them."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "This prevents a valid change from being made in the wrong business context."
+    },
+    {
+      "kind": "heading",
+      "level": 3,
+      "text": "2. Open Schema Workbench",
+      "anchor": "2-open-schema-workbench"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Open **Schema Workbench** from the Axis navigation. The screen shows only the data types that:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "are eligible model schemas and are not explicitly excluded;",
+        "are available from active modules;",
+        "the signed-in employee is allowed to see."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Missing data types should be reported to an administrator. Employees must not attempt to bypass the missing permission through direct API calls."
+    },
+    {
+      "kind": "heading",
+      "level": 3,
+      "text": "3. Choose a data type",
+      "anchor": "3-choose-a-data-type"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Search for a readable business name such as **Address**. Technical schema keys may be retained for diagnostics, but the normal interface should use business-friendly names and descriptions."
+    },
+    {
+      "kind": "heading",
+      "level": 3,
+      "text": "4. Search before creating",
+      "anchor": "4-search-before-creating"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Search for an existing record before creating a new one. This reduces duplicates and makes relationships reusable."
+    },
+    {
+      "kind": "paragraph",
+      "text": "For Address, useful searches may include code, city, postal code, or other fields the owning schema marks as searchable."
+    },
+    {
+      "kind": "heading",
+      "level": 3,
+      "text": "5. Choose the permitted action",
+      "anchor": "5-choose-the-permitted-action"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Depending on permission and schema configuration, the available actions may include:"
+    },
+    {
+      "kind": "table",
+      "headers": [
+        "Action",
+        "Business meaning"
+      ],
+      "rows": [
+        [
+          "Search",
+          "Find matching records without changing them."
+        ],
+        [
+          "Read",
+          "Open a complete permitted view of one record."
+        ],
+        [
+          "Create",
+          "Add a new record."
+        ],
+        [
+          "Update",
+          "Change an existing record."
+        ],
+        [
+          "Delete",
+          "Remove a record only when the module permits removal."
+        ]
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "The absence of an action is intentional. For example, a user may be allowed to read Address records but not delete them."
+    },
+    {
+      "kind": "heading",
+      "level": 3,
+      "text": "6. Complete required fields",
+      "anchor": "6-complete-required-fields"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Axis renders required fields, labels, allowed values, descriptions, and read-only fields from the backend descriptor. A field marked as required must be completed before submission."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Backend validation remains final. A form that appears complete can still be rejected when a business invariant is not satisfied."
+    },
+    {
+      "kind": "heading",
+      "level": 3,
+      "text": "7. Handle related records",
+      "anchor": "7-handle-related-records"
+    },
+    {
+      "kind": "paragraph",
+      "text": "For an Address with Contacts:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Choose **Select existing Contact** when the Contact already exists.",
+        "Search and select the correct Contact.",
+        "If the wanted Contact is missing, choose **Create related Contact** directly"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "inside the open selector."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Complete the Contact draft. It remains in the browser until final"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "submission."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Return to Address and confirm the new draft association.",
+        "Review all related records before the final Address save."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Axis must not silently create duplicate Contacts or hide a failed related record operation."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The standard Workbench relationship contract offers both **Select existing** and **Create related**. **Create related** appears only when the related model's owning module authorizes Create for the current employee. A module may narrow the choices for an individual relationship through its `backoffice` relationship configuration. For example, a governed reference may intentionally offer only **Select existing**."
+    },
+    {
+      "kind": "paragraph",
+      "text": "This behavior is generic. For example, an employee creating an Enterprise may select an existing Tenant or create a new Tenant without leaving the Enterprise form. The same interaction applies to every relationship whose descriptor and target-model authorization permit nested creation."
+    },
+    {
+      "kind": "paragraph",
+      "text": "During final submission, Axis asks the owning module to create each new related record before creating the parent. Every successful result is immediately replaced in the open draft by its returned reference. If a later operation fails, the form stays open and retry resumes without recreating successful related records."
+    },
+    {
+      "kind": "paragraph",
+      "text": "This is a recovery contract, not a cross-module database transaction. Generic Workbench does not delete a successfully created business record as automatic compensation. A journey that requires all records to commit or roll back together needs an owning backend domain operation or an explicitly transaction-capable workflow."
+    },
+    {
+      "kind": "heading",
+      "level": 3,
+      "text": "8. Review and submit",
+      "anchor": "8-review-and-submit"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Review the context, changed fields, and relationships. Submit the operation only after the user confirms the intended change."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Success means the owning module accepted the operation. A frontend success message must never be shown before the backend confirms it."
+    },
+    {
+      "kind": "heading",
+      "level": 3,
+      "text": "9. Review or update an existing record",
+      "anchor": "9-review-or-update-an-existing-record"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Find the record in the bounded result list.",
+        "Choose **View** to inspect every permitted descriptor field.",
+        "Choose **Edit** only when it is available.",
+        "Change ordinary fields or relationship selections.",
+        "Review the current tenant and enterprise context.",
+        "Submit and wait for confirmation from the owning module."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Axis sends Update directly to the owning module using the record's original primary identity as a bounded query. It does not broaden the update when an editable identity value changes. Managed and read-only properties are not copied into the editable model."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The current descriptor does not advertise an optimistic-concurrency precondition. Axis therefore does not claim to detect a stale ordinary update from timestamps alone. Revision conflict protection must first be owned and enforced by the backend contract before a future Axis renderer can expose it."
+    },
+    {
+      "kind": "heading",
+      "level": 3,
+      "text": "10. Delete an existing record",
+      "anchor": "10-delete-an-existing-record"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Open the record through **View**.",
+        "Choose **Delete** only when that action is available.",
+        "Verify the displayed record identity, authenticated tenant, and enterprise.",
+        "Read the warning and explicitly confirm deletion.",
+        "Wait while Nodics checks declared inbound `RESTRICT` relationships.",
+        "If the preview is clear, confirm and wait for the owning module to accept"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "or reject the request."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Axis sends exactly one bounded query using the record's original primary identity. It never sends an empty query, never broadens the operation, and never cascades deletion to related records. Authorization, ownership, reference-integrity rules, and business validation remain owned by the target module."
+    },
+    {
+      "kind": "paragraph",
+      "text": "When deletion is rejected, the record remains selected and the confirmation stays available with a client-safe error. While a deletion is pending, both confirmation and cancellation are disabled to prevent duplicate submission or ambiguous state."
+    },
+    {
+      "kind": "paragraph",
+      "text": "If another record still uses the item, Nodics rejects deletion. For example, an Address may still contain a Contact reference. The user should open the Address, remove or replace that Contact, save the Address, and then retry the Contact deletion. Axis does not silently remove the relationship or cascade the deletion."
+    },
+    {
+      "kind": "paragraph",
+      "text": "When an owning schema explicitly permits bulk deletion, select records on the current page and choose **Delete selected**. Bulk actions are not enabled by default. Nodics applies a strict maximum selection size, requires a unique idempotency key, and executes through the same generated remove authority. Never interpret a selected-row count as permission to bypass confirmation, reference checks, or backend validation."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Worked example: create an Address with Contacts",
+      "anchor": "worked-example-create-an-address-with-contacts"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Suppose an administrator needs to create the office address `DXB-OFFICE` with an existing telephone Contact and a new email Contact."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Open **Schema Workbench**, then choose **Address**.",
+        "Search for `DXB-OFFICE` to ensure it does not already exist.",
+        "Choose **Create Address**.",
+        "Enter the address code, type, city, state, and postal code.",
+        "Under Contacts, choose **Select existing** and select the telephone"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Contact."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Choose **Create related**, create the email Contact, and save it.",
+        "Confirm that both Contacts are listed on the Address draft.",
+        "Review the current tenant and enterprise.",
+        "Submit the Address."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Profile validates and persists the records. Axis coordinates the user experience but does not become the owner of Address or Contact rules."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "When Workbench is not the right interface",
+      "anchor": "when-workbench-is-not-the-right-interface"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Workbench is suitable for common record search and administration. A purpose-built screen is better when the work requires a specialized business journey, visualization, or orchestration."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Examples include:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "CMS visual page composition;",
+        "inventory sourcing and reconciliation;",
+        "workflow drag-and-drop design;",
+        "staged approval and publishing;",
+        "AI Assistant conversations;",
+        "employee onboarding with credential and identity governance."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "These screens may still reuse the same schemas and APIs, but should not force their complete business process into a generic CRUD form."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Employee is a protected example",
+      "anchor": "employee-is-a-protected-example"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Employee is intentionally not enabled by the first Workbench slice. Creating an Employee involves identity validation, credential handling, group assignment, and security invariants."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Axis may eventually use schema metadata to help render the experience, but final Employee creation must call a Profile-owned domain operation. Passwords, API keys, and hashes must never be exposed through a generic schema descriptor."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Developer configuration",
+      "anchor": "developer-configuration"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Every eligible model receives generated Search, Read, Create, Update, and Delete operations automatically, subject to the employee's effective access. The module that owns a schema configures it explicitly when it needs mutations, custom presentation metadata, relationships, or exclusion:"
+    },
+    {
+      "kind": "code",
+      "language": "js",
+      "text": "backoffice: {\n    enabled: true,\n    label: 'Address',\n    displayProperty: 'code',\n    displayProperties: ['city', 'code'],\n    operations: ['search', 'read', 'create', 'update', 'delete'],\n    relationships: {\n        contacts: {\n            label: 'Contact methods',\n            targetModule: 'profile',\n            actions: ['SELECT_EXISTING', 'CREATE_RELATED']\n        }\n    }\n}"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The important configuration decisions are:"
+    },
+    {
+      "kind": "table",
+      "headers": [
+        "Setting",
+        "Purpose"
+      ],
+      "rows": [
+        [
+          "`enabled`",
+          "Set to `false` to exclude a model; model schemas are discoverable by default."
+        ],
+        [
+          "`label`",
+          "Provides a business-friendly data-type name."
+        ],
+        [
+          "`displayProperty`",
+          "Identifies the primary value used to recognize a record."
+        ],
+        [
+          "`displayProperties`",
+          "Supplies ordered identifying values for readable selectors, such as tenant description followed by tenant code."
+        ],
+        [
+          "`operations`",
+          "Declares which actions Workbench may offer."
+        ],
+        [
+          "`relationships`",
+          "Describes safe actions for related records."
+        ],
+        [
+          "`bulkOperations`",
+          "Explicitly enables bounded bulk actions; omitted means none."
+        ],
+        [
+          "`concurrency`",
+          "Selects an effective revision field for compare-and-set identity."
+        ],
+        [
+          "`aggregateOperations`",
+          "Delegates a named multi-record command to an owning service."
+        ]
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Relationship headings describe the role on the source model rather than only the target type. For example, both `superEnterprise` and `subEnterprises` target Enterprise records, but should be presented as **Parent enterprise** and **Sub-enterprises**. Define these labels on the source fields or in the relationship presentation override."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The layered `schemaWorkbench.defaultRelationshipActions` setting supplies the default relationship choices across schemas. Its standard value is `SELECT_EXISTING` plus `CREATE_RELATED`. Keep relationship-specific overrides only where the business contract needs to be more restrictive; frontend code must not invent a relationship action that the descriptor does not advertise."
+    },
+    {
+      "kind": "paragraph",
+      "text": "When Create or Edit is opened, Axis replaces the record-search workspace with the form. Cancel or successful save returns the employee to search and records. This keeps one clear task in focus and applies consistently to every model."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nested **Create related** is bounded by the advertised relationship depth. When a target would repeat a schema already in the current path, Axis stops nested creation and retains **Select existing**. This prevents an accidental cycle such as Enterprise → Parent enterprise → Parent enterprise from rendering an unbounded form."
+    },
+    {
+      "kind": "paragraph",
+      "text": "An owning relationship may also advertise `EDIT_RELATED`. Axis shows **Edit related** only when the target schema independently permits Update. The update still goes directly to the target module's generated CRUD authority; the source relationship does not grant target-record permission."
+    },
+    {
+      "kind": "paragraph",
+      "text": "If an owning model does not declare `displayProperties`, Workbench uses its stable identity followed by description. Axis displays `code - description` and limits long descriptions to five words followed by `...`. A legacy model without code uses its configured stable identity (usually `_id`) rather than inventing a value that could not be sent back to the owning API. Axis exposes the complete description on pointer hover or keyboard focus even when the visible description contains five or fewer words. | `targetModule` | Identifies the module that owns a related schema. | | `onTargetDelete` | On `refSchema`, `RESTRICT` prevents deletion while a source record still refers to the target. |"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Configuration does not grant access by itself. Route permissions and schema access groups still apply."
+    },
+    {
+      "kind": "paragraph",
+      "text": "An explicit `operations` list can narrow a sensitive model to Search/Read or another approved subset. Every operation remains filtered by the caller's effective access and enforced again by the owning generated CRUD route."
+    },
+    {
+      "kind": "heading",
+      "level": 3,
+      "text": "Developer implementation checklist",
+      "anchor": "developer-implementation-checklist"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Before enabling a schema:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Confirm which module owns the data and business rules.",
+        "Check for an existing schema, CRUD router, domain operation, or descriptor.",
+        "Do not create a second schema loader, registry, or persistence path.",
+        "Decide whether generic CRUD is safe or a domain operation is required.",
+        "Define readable labels and descriptions.",
+        "Declare only the operations the business journey needs.",
+        "Identify same-module and cross-module relationships.",
+        "Decide whether each target requires explicit `RESTRICT` deletion behavior.",
+        "Exclude credentials, secrets, internal hashes, and operational internals.",
+        "Verify tenant, enterprise, and authorization behavior.",
+        "Test positive, negative, boundary, contract, integration, and regression"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "scenarios."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Update business and developer documentation to match implemented behavior."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Ownership and request flow",
+      "anchor": "ownership-and-request-flow"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Axis obtains active module endpoints from BackOffice and asks each owning module for its Schema Workbench descriptor. It then calls the owning module's generated CRUD or domain API directly."
+    },
+    {
+      "kind": "code",
+      "language": "text",
+      "text": "Employee\n  → Axis\n  → BackOffice registry: locate the active Profile module\n  → Profile: return the authorized Address descriptor\n  → Axis: render the Address experience\n  → Profile: execute Address or Contact operations"
+    },
+    {
+      "kind": "paragraph",
+      "text": "BackOffice does not proxy Address, Contact, Employee, CMS, Product, or other business operations. nDatabase does not create a second schema authority. The effective Nodics schema remains authoritative."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Search, sorting, and paging",
+      "anchor": "search-sorting-and-paging"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Record browsing is performed by the owning module, not by filtering the small page already loaded in the browser. The descriptor tells Axis which text fields may be searched, which scalar fields may be sorted, and which page sizes are allowed. Axis waits briefly while the employee types, then sends a bounded request. Changing the search, sort, page size, page, or selected data type cancels an obsolete request."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Search text is treated as literal text across the advertised safe string fields. Axis cannot send database operators. The owning module translates the request and calls the existing generated schema service, so permissions, ownership rules, validators, interceptors, tenant isolation, and data access remain unchanged. The result count and page controls therefore describe the full authorized result set, not only the records currently visible."
+    },
+    {
+      "kind": "paragraph",
+      "text": "**Advanced filters** lets an employee choose only fields and operators advertised by the selected data type. Conditions may be grouped with **All conditions** or **Any condition**, including nested groups. Axis shows the plain request preview and waits for **Apply filters** before loading data, so an unfinished draft does not generate invalid requests. The backend limits the condition count and nesting depth, validates values using the effective schema type, and rejects protected fields or unsupported operators."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Cross-module relationships",
+      "anchor": "cross-module-relationships"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A relationship can identify a target module as well as a target schema. This is required when related data belongs to different modules or may run on different servers."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Same module and same database: an eligible domain operation may use the"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "framework transaction service."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Different modules or databases: use a module-owned domain operation,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "ordered steps with compensation, or a reference-only association."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Never describe several remote writes as one atomic transaction."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "The caller must have permission on both the source and target modules. Tenant and enterprise context must be preserved on every request."
+    },
+    {
+      "kind": "paragraph",
+      "text": "If a related operation succeeds but a later distributed step fails, the business process must provide an explicit retry, repair, or compensation path. Axis must not claim that several independent module calls were one transaction."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Security and governance",
+      "anchor": "security-and-governance"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Discovery endpoints require an authenticated employee token and `system.schema.workbench.view`. Schema access groups further restrict which descriptors and operations the caller sees."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The Workbench contract:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "exposes authorized model schemas unless they are explicitly excluded;",
+        "filters operations by effective access;",
+        "excludes password and API-key material;",
+        "preserves tenant and enterprise context;",
+        "delegates validation and persistence to the owning module;",
+        "keeps customer authentication separate from employee access;",
+        "does not replace internal module-to-module or cron authentication."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Troubleshooting",
+      "anchor": "troubleshooting"
+    },
+    {
+      "kind": "table",
+      "headers": [
+        "Symptom",
+        "Likely reason",
+        "Action"
+      ],
+      "rows": [
+        [
+          "A data type is missing",
+          "It is not a model, it was explicitly excluded, its module is unavailable, or access is denied.",
+          "Check module registration, schema configuration, API exposure, and employee permission."
+        ],
+        [
+          "Create or Delete is missing",
+          "The caller has read-only access or the operation was not declared.",
+          "Review the schema access point and configured operations."
+        ],
+        [
+          "A related type cannot be loaded",
+          "The target module is unavailable or the relationship identifies the wrong owner.",
+          "Verify BackOffice discovery and `targetModule`."
+        ],
+        [
+          "Save is rejected",
+          "Backend validation, authorization, or a business invariant failed.",
+          "Show the safe backend message and correct the submitted data."
+        ],
+        [
+          "Delete says the record is referenced",
+          "Another record still uses this item.",
+          "Open the named source type, remove or replace the relationship, save, and retry."
+        ],
+        [
+          "Reference validation is unavailable",
+          "A declared source module/model cannot be checked safely.",
+          "Restore the source module or its governed distributed integrity provider; do not bypass the guard."
+        ],
+        [
+          "A partial distributed operation occurred",
+          "Independent module operations did not complete together.",
+          "Use the documented retry, repair, or compensation process."
+        ]
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Business acceptance checklist",
+      "anchor": "business-acceptance-checklist"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Before a Workbench capability is released, confirm:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "business users see readable names rather than unexplained technical keys;",
+        "the environment, tenant, and enterprise are visible;",
+        "users can search before creating;",
+        "unavailable actions are not displayed;",
+        "required and read-only fields are clear;",
+        "related records can be selected safely;",
+        "partial failure is explained without claiming false success;",
+        "sensitive fields are never displayed;",
+        "audit and backend validation remain effective;",
+        "the guide reflects the functionality actually delivered."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Local acceptance evidence",
+      "anchor": "local-acceptance-evidence"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The implemented contract was exercised in the `startioLocal` `monoServer` topology with the real Axis client:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "employee authentication and authorized schema discovery succeeded;",
+        "discovery returned schemas owned by the active modules rather than a"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "frontend-maintained list;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "an unauthenticated discovery request was rejected;",
+        "bounded record search succeeded and an unsupported raw-query operator was"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "rejected;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "create, update, and delete actions were shown only from advertised"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "operations;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Enterprise relationships appeared as **Tenant**, **Parent enterprise**, and"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "**Sub-enterprises**;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "related Tenant choices appeared as `code - description`, limited to five"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "description words, with the full description available as a tooltip;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "the acceptance journey did not create, update, or delete business data."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Automated contracts additionally cover protected-field handling, permission filtering, bounded filters, relationship cycles and depth, delete-impact inspection, tenant forwarding, bulk limits, aggregate delegation, revision forwarding, and fail-closed behavior when required revision metadata is missing."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "[How To Read The Nodics Axis Workspace Context](how-to-use-axis-workspace-context.md)",
+        "[BackOffice Browser Security](../security/backoffice-browser-security.md)",
+        "[How Users, Tenants, And Permissions Work](../security/how-users-tenants-and-permissions-work.md)",
+        "[Database module documentation](../../gFramework/nDatabase/database/README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "How To Read The Nodics Axis Workspace Context",
+      "target": "how-to-use-axis-workspace-context.md",
+      "kind": "internal",
+      "route": "/docs/backoffice/how-to-use-axis-workspace-context",
+      "anchor": ""
+    },
+    {
+      "label": "BackOffice Browser Security",
+      "target": "../security/backoffice-browser-security.md",
+      "kind": "internal",
+      "route": "/docs/security/backoffice-browser-security",
+      "anchor": ""
+    },
+    {
+      "label": "How Users, Tenants, And Permissions Work",
+      "target": "../security/how-users-tenants-and-permissions-work.md",
+      "kind": "internal",
+      "route": "/docs/security/how-users-tenants-and-permissions-work",
+      "anchor": ""
+    },
+    {
+      "label": "Database module documentation",
+      "target": "../../gFramework/nDatabase/database/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndatabase/database",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

@@ -1,0 +1,47 @@
+{
+  "code": "docsArticlefa37f24af9eef82fbba1",
+  "title": "cart Module",
+  "route": "/docs/modules/gcomm/cart",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gComm/cart/README.md",
+    "type": "module-readme",
+    "contentHash": "c74a07256c7ee3d7d717be78760a3c39bcaa947df984fe0fa2ba13d8c3397f15"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "cart Module",
+      "anchor": "cart-module"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "cart Module",
+      "anchor": "cart-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`cart` owns shopping-cart capability behavior in the commerce layer. It provides the module space for cart schemas, routes, controllers, facades, services, pipelines, interceptors, utilities, and tests."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for cart-specific behavior such as basket state, item operations, cart validation, and cart workflow integration. Order lifecycle behavior belongs in `gComm/order`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Cart rules should be configurable and tenant-aware. Do not hardcode customer-specific pricing, promotion, or checkout assumptions into this module."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

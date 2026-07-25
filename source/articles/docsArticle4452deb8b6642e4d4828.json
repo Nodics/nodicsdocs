@@ -1,0 +1,640 @@
+{
+  "code": "docsArticle4452deb8b6642e4d4828",
+  "title": "How Nodics Is Organized",
+  "route": "/docs/architecture/how-nodics-is-organized",
+  "category": "architecture",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gDocs/architecture/how-nodics-is-organized.md",
+    "type": "gdocs",
+    "contentHash": "a6f8678306442e7d45ca116d9e87a6ed59880a051c0557f39f1363675a74a0bc"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "How Nodics Is Organized",
+      "anchor": "how-nodics-is-organized"
+    },
+    {
+      "level": 2,
+      "text": "Beginner Summary",
+      "anchor": "beginner-summary"
+    },
+    {
+      "level": 2,
+      "text": "The Big Picture",
+      "anchor": "the-big-picture"
+    },
+    {
+      "level": 2,
+      "text": "Framework Walkthrough",
+      "anchor": "framework-walkthrough"
+    },
+    {
+      "level": 2,
+      "text": "The Ownership Rule",
+      "anchor": "the-ownership-rule"
+    },
+    {
+      "level": 2,
+      "text": "Application Project",
+      "anchor": "application-project"
+    },
+    {
+      "level": 2,
+      "text": "Module Groups",
+      "anchor": "module-groups"
+    },
+    {
+      "level": 2,
+      "text": "Capability Modules",
+      "anchor": "capability-modules"
+    },
+    {
+      "level": 2,
+      "text": "Standard Module Layers",
+      "anchor": "standard-module-layers"
+    },
+    {
+      "level": 2,
+      "text": "Environments",
+      "anchor": "environments"
+    },
+    {
+      "level": 2,
+      "text": "Servers",
+      "anchor": "servers"
+    },
+    {
+      "level": 2,
+      "text": "Nodes",
+      "anchor": "nodes"
+    },
+    {
+      "level": 2,
+      "text": "Enterprise And Tenant Structure",
+      "anchor": "enterprise-and-tenant-structure"
+    },
+    {
+      "level": 2,
+      "text": "Layered Customization",
+      "anchor": "layered-customization"
+    },
+    {
+      "level": 2,
+      "text": "Generated Artifacts",
+      "anchor": "generated-artifacts"
+    },
+    {
+      "level": 2,
+      "text": "How AI Tools Should Use This Structure",
+      "anchor": "how-ai-tools-should-use-this-structure"
+    },
+    {
+      "level": 2,
+      "text": "Where Documentation Belongs",
+      "anchor": "where-documentation-belongs"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "How Nodics Is Organized",
+      "anchor": "how-nodics-is-organized"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics is organized around capabilities."
+    },
+    {
+      "kind": "paragraph",
+      "text": "A capability is something the application can do, such as manage users, expose APIs, connect to a database, run scheduled jobs, process imports, publish events, or apply runtime configuration."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Each capability has a clear owner."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Beginner Summary",
+      "anchor": "beginner-summary"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics is not organized like a small script where all code goes in one folder. It is organized like an enterprise platform:"
+    },
+    {
+      "kind": "code",
+      "language": "text",
+      "text": "Project -> Environment -> Server -> Node -> Module Group -> Module -> Layer -> File"
+    },
+    {
+      "kind": "paragraph",
+      "text": "When you add behavior, move through that chain from left to right:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Which project or customer owns the behavior?",
+        "Does it vary by environment, server, node, or tenant?",
+        "Which module owns the capability?",
+        "Which layer owns the code?",
+        "Which file should be changed?",
+        "Which tests and generated artifacts prove it?"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "This is why Nodics can support both fast MVP development and long-term enterprise scaling. The same feature can start in a local consolidated server and later move into modular servers or tenant-specific deployment without rewriting the whole application."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "The Big Picture",
+      "anchor": "the-big-picture"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A Nodics application usually contains:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Framework capabilities supplied by Nodics.",
+        "Core business capabilities supplied by Nodics or a project.",
+        "Customer project capabilities.",
+        "Environment definitions.",
+        "Server definitions.",
+        "Node definitions.",
+        "Runtime and tenant configuration."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "This structure lets a project customize behavior without modifying framework files."
+    },
+    {
+      "kind": "paragraph",
+      "text": "![Nodics Structure](../assets/images/nodics-structure.png)"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Framework Walkthrough",
+      "anchor": "framework-walkthrough"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Read Nodics from the outside in:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "The project defines the application boundary.",
+        "Environments define deployment contexts such as local, development, QA, pre-production, and production.",
+        "Servers define runnable process compositions and active modules.",
+        "Nodes define instance-level responsibilities below a server.",
+        "Module groups organize related modules.",
+        "Capability modules own configuration, schemas, routes, controllers, facades, services, pipelines, interceptors, events, search indexes, data, tests, and documentation.",
+        "Generated artifacts are produced from source definitions.",
+        "Runtime governance can preview, approve, activate, audit, and roll back selected mutable behavior."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "This walkthrough matters because a Nodics change is usually not made in one global application folder. It belongs to the layer and module that owns the capability."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "The Ownership Rule",
+      "anchor": "the-ownership-rule"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Before adding code, configuration, data, or tests, ask:"
+    },
+    {
+      "kind": "code",
+      "language": "text",
+      "text": "Who owns this capability?"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The owner is the smallest boundary that can explain, configure, test, document, and override the behavior safely."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this order when deciding ownership:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Customer or project module for customer-specific behavior.",
+        "Environment, server, or node module for deployment or runtime topology behavior.",
+        "Tenant or runtime configuration for governed runtime differences.",
+        "Domain or core capability module for reusable business behavior.",
+        "Framework module only when the framework capability itself must change."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "This rule helps both human developers and AI tools avoid the most common mistake: putting new behavior in the first file that looks convenient instead of the module that owns the capability."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Application Project",
+      "anchor": "application-project"
+    },
+    {
+      "kind": "paragraph",
+      "text": "An application project represents the product or customer application built on top of Nodics."
+    },
+    {
+      "kind": "paragraph",
+      "text": "It usually contains:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Project metadata.",
+        "Project modules.",
+        "Environment definitions.",
+        "Server definitions.",
+        "Node definitions.",
+        "Project documentation."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use the project area for customer-specific behavior, application-specific modules, and environment setup."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Module Groups",
+      "anchor": "module-groups"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A module group is a folder that groups related modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "For example, one group may contain content modules, another may contain commerce modules, and another may contain data-processing modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use a group when capabilities belong together but still need separate ownership."
+    },
+    {
+      "kind": "paragraph",
+      "text": "A group may own shared documentation, shared defaults, and child module ordering. A pure group does not own concrete business behavior unless it intentionally has source, tests, and documentation for that behavior."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Capability Modules",
+      "anchor": "capability-modules"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A capability module owns one feature area."
+    },
+    {
+      "kind": "paragraph",
+      "text": "A module can include:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Configuration.",
+        "Schemas.",
+        "Routes.",
+        "Services.",
+        "Controllers.",
+        "Facades.",
+        "Pipelines.",
+        "Interceptors.",
+        "Events.",
+        "Utility definitions.",
+        "Initial data.",
+        "Sample data.",
+        "Tests.",
+        "Documentation."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "When adding behavior, first ask:"
+    },
+    {
+      "kind": "code",
+      "language": "text",
+      "text": "Which capability owns this?"
+    },
+    {
+      "kind": "paragraph",
+      "text": "If the answer is unclear, do not create a random folder. Decide the owner first."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Standard Module Layers",
+      "anchor": "standard-module-layers"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Many capability modules use the same layered shape:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`config/` for configurable values and startup hooks.",
+        "`src/schemas/` for data and generation definitions.",
+        "`src/router/` for API route definitions.",
+        "`src/controller/` for request-level behavior.",
+        "`src/facade/` for orchestration across services or module boundaries.",
+        "`src/service/` for business behavior and replaceable service logic.",
+        "`src/pipelines/` for process pipelines.",
+        "`src/interceptors/` for lifecycle and validation hooks.",
+        "`src/event/` for event listeners.",
+        "`src/search/` for index definitions.",
+        "`src/utils/` for utilities, enums, and status definitions.",
+        "`data/` for module-owned init, core, or sample records.",
+        "`test/` for default behavior and override behavior."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics modules use Router, Controller, Facade, Service, DAO, and Schema layers. Current Nodics also makes configuration, search, pipelines, interceptors, generated artifacts, LLM context, and runtime governance part of the module contract."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Environments",
+      "anchor": "environments"
+    },
+    {
+      "kind": "paragraph",
+      "text": "An environment represents where the application runs, such as local, development, UAT, pre-production, or production."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Environment configuration describes environment-level behavior. It does not become a place for unrelated business logic."
+    },
+    {
+      "kind": "paragraph",
+      "text": "An environment is treated as a group module because it contains server modules. It may own deployment-wide defaults, environment-owned data, documentation, and the server catalog for that environment."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Servers",
+      "anchor": "servers"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A server defines a runnable application process or group of active modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "For example, one server may run all capabilities together for local development. Another setup may split profile, workflow, events, and scheduled jobs into separate servers."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use servers to define runtime boundaries."
+    },
+    {
+      "kind": "paragraph",
+      "text": "A server owns process-level active module selection, ports, runtime configuration, server-specific data, server tests, and generated runtime reports. Server configuration decides which modules run in that process."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Nodes",
+      "anchor": "nodes"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A node is a more specific runtime unit below a server."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Node configuration is useful when multiple processes of the same server type need different responsibilities, ports, ownership rules, or scheduled-job behavior."
+    },
+    {
+      "kind": "paragraph",
+      "text": "A node owns instance-specific overrides below a selected server. It does not replace server-wide process composition or environment-wide configuration."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Enterprise And Tenant Structure",
+      "anchor": "enterprise-and-tenant-structure"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics can model more than one business inside the same platform. An enterprise can represent a company, group, or business owner. Sub-enterprises can represent business units, brands, regions, or operating divisions. Tenants isolate users, data, configuration, permissions, imports, jobs, runtime behavior, and integration contracts for a selected business context."
+    },
+    {
+      "kind": "paragraph",
+      "text": "A tenant is also the data-placement decision. One business can run inside the shared `default` tenant when shared infrastructure is acceptable. Another business can use a dedicated tenant when its data must remain inside its own database, search cluster, cache namespace, storage location, audit boundary, or operational environment. The application capability stays the same; tenant configuration decides where the data and runtime state are handled."
+    },
+    {
+      "kind": "paragraph",
+      "text": "![Enterprise Tenant Design](../assets/images/enterprise-tenant-design.jpg)"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use tenant structure when one platform must support multiple customers, companies, brands, catalogs, business units, or deployment contexts without mixing their data or permissions. Keep tenant behavior explicit in schemas, services, routes, imports, events, jobs, cache keys, and tests."
+    },
+    {
+      "kind": "paragraph",
+      "text": "When designing a module, ask whether the behavior is tenant-neutral or tenant-specific. Tenant-specific behavior must not use hardcoded storage, search, cache, file, event, or configuration paths. Resolve the active tenant through the Nodics tenant context and let layered configuration or governed runtime configuration decide the concrete provider details."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Layered Customization",
+      "anchor": "layered-customization"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics loads behavior in a defined order. Later layers can override earlier behavior when the contract allows it."
+    },
+    {
+      "kind": "paragraph",
+      "text": "This is the most important customization rule:"
+    },
+    {
+      "kind": "code",
+      "language": "text",
+      "text": "Do not change framework code for a customer-specific need when a later project layer can provide the behavior."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Examples:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Add a project service with the same service function to override behavior.",
+        "Add project configuration to override default configuration.",
+        "Add project schemas or route configuration through the supported hierarchy.",
+        "Add project data rather than changing framework seed data.",
+        "Add provider modules for new adapters such as a database, cache engine, or search engine."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep local activation and remote communication separate. `activeModules` decides what runs inside the current process. Server endpoint coordinates describe how one process talks to another. Tenant or customer context may refine behavior after startup, but it must not secretly activate modules."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Generated Artifacts",
+      "anchor": "generated-artifacts"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Many Nodics artifacts are generated from source definitions. Generated output can include models, services, facades, controllers, routers, OpenAPI contracts, generated tests, governance reports, and generated LLM context."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The rule is simple:"
+    },
+    {
+      "kind": "code",
+      "language": "text",
+      "text": "Change the source definition, then regenerate."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not hand-edit generated output as the long-term fix. If generated behavior is wrong, fix the schema, route, configuration, generator, or source contract that owns it."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "How AI Tools Should Use This Structure",
+      "anchor": "how-ai-tools-should-use-this-structure"
+    },
+    {
+      "kind": "paragraph",
+      "text": "AI tools do not invent a new folder, export style, configuration file, or runtime path."
+    },
+    {
+      "kind": "paragraph",
+      "text": "When an AI tool helps implement a feature, it names:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "the owning capability;",
+        "the project, environment, server, node, tenant, or framework layer that should own the change;",
+        "the source definition or loader-visible file to modify;",
+        "the configuration keys involved;",
+        "the generated artifacts affected;",
+        "the tests that prove default and override behavior;",
+        "the documentation that must be updated."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Where Documentation Belongs",
+      "anchor": "where-documentation-belongs"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this public documentation for user guides and task-based explanations."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use module README files for module-specific behavior."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use AI/developer contracts only for implementation rules. Do not make public users read AI governance material just to understand how to build a feature."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Previous: [What Nodics Is](../overview/what-is-nodics.md)",
+        "Next: [How Configuration Works](../configuration/how-configuration-works.md)",
+        "Terminology: [Nodics Glossary](../reference/glossary.md)",
+        "Documentation home: [Nodics Documentation](../README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "What Nodics Is",
+      "target": "../overview/what-is-nodics.md",
+      "kind": "internal",
+      "route": "/docs/overview/what-is-nodics",
+      "anchor": ""
+    },
+    {
+      "label": "How Configuration Works",
+      "target": "../configuration/how-configuration-works.md",
+      "kind": "internal",
+      "route": "/docs/configuration/how-configuration-works",
+      "anchor": ""
+    },
+    {
+      "label": "Nodics Glossary",
+      "target": "../reference/glossary.md",
+      "kind": "internal",
+      "route": "/docs/reference/glossary",
+      "anchor": ""
+    },
+    {
+      "label": "Nodics Documentation",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs",
+      "anchor": ""
+    }
+  ],
+  "media": [
+    {
+      "alt": "Nodics Structure",
+      "target": "../assets/images/nodics-structure.png",
+      "title": "",
+      "kind": "local",
+      "assetCode": "docsMediae93e05145b685596de40",
+      "assetPath": "assets/images/144d1e5253940c15.png",
+      "contentHash": "144d1e5253940c150e9f5b51b91bcf93bc06b07108916d9a3752714fd6243c20"
+    },
+    {
+      "alt": "Enterprise Tenant Design",
+      "target": "../assets/images/enterprise-tenant-design.jpg",
+      "title": "",
+      "kind": "local",
+      "assetCode": "docsMediadd39e3afb061373f4407",
+      "assetPath": "assets/images/17dc2f8e88fb6fe9.jpg",
+      "contentHash": "17dc2f8e88fb6fe9562f2306734d6fc9b379014c6d14c7cddc6949d59612491b"
+    }
+  ],
+  "unsupported": []
+}

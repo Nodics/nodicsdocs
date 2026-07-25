@@ -1,0 +1,534 @@
+{
+  "code": "docsArticle01c998e60a03e9cdde31",
+  "title": "How To Prepare For Deployment",
+  "route": "/docs/operations/how-to-prepare-for-deployment",
+  "category": "operations",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gDocs/operations/how-to-prepare-for-deployment.md",
+    "type": "gdocs",
+    "contentHash": "fbf5b4d2895023e0f150841498039ffd87021c5a883422effc8274fc45d5fdf7"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "How To Prepare For Deployment",
+      "anchor": "how-to-prepare-for-deployment"
+    },
+    {
+      "level": 2,
+      "text": "Beginner Summary",
+      "anchor": "beginner-summary"
+    },
+    {
+      "level": 2,
+      "text": "Before Deployment",
+      "anchor": "before-deployment"
+    },
+    {
+      "level": 2,
+      "text": "Build Before Release",
+      "anchor": "build-before-release"
+    },
+    {
+      "level": 2,
+      "text": "Clean-Checkout Release Gate",
+      "anchor": "clean-checkout-release-gate"
+    },
+    {
+      "level": 2,
+      "text": "Run Tests",
+      "anchor": "run-tests"
+    },
+    {
+      "level": 2,
+      "text": "Verify Topology",
+      "anchor": "verify-topology"
+    },
+    {
+      "level": 2,
+      "text": "Verify Health And Readiness",
+      "anchor": "verify-health-and-readiness"
+    },
+    {
+      "level": 2,
+      "text": "Verify Data",
+      "anchor": "verify-data"
+    },
+    {
+      "level": 2,
+      "text": "Verify Security",
+      "anchor": "verify-security"
+    },
+    {
+      "level": 2,
+      "text": "Verify Documentation",
+      "anchor": "verify-documentation"
+    },
+    {
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "How To Prepare For Deployment",
+      "anchor": "how-to-prepare-for-deployment"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Deployment means preparing Nodics to run safely in a target environment."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Deployment is not only copying files to a server. It includes configuration, generated artifacts, tests, data, security, and operational checks."
+    },
+    {
+      "kind": "paragraph",
+      "text": "![Cloud Deployment Process](../assets/images/cloud-deployment-process.jpg)"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Beginner Summary",
+      "anchor": "beginner-summary"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Deployment is the point where a Nodics runtime must be predictable."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Before deploying, a team should know:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "which project is being deployed;",
+        "which environment is targeted;",
+        "which servers and nodes will run;",
+        "which modules are active in each process;",
+        "which tenants are allowed;",
+        "which database, cache, search, messaging, import/export, and storage providers are configured;",
+        "which APIs are exposed;",
+        "which tests prove the release."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "The simple rule is:"
+    },
+    {
+      "kind": "code",
+      "language": "text",
+      "text": "Do not deploy behavior that cannot be rebuilt, tested, explained, and rolled back."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Before Deployment",
+      "anchor": "before-deployment"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Confirm:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Target environment.",
+        "Node.js and npm versions match the repository runtime contract.",
+        "Dependencies are installed from `package-lock.json` with `npm ci`.",
+        "Active modules.",
+        "Server and node topology.",
+        "Database connection values.",
+        "Cache provider.",
+        "Messaging provider.",
+        "Security secrets.",
+        "Tenant configuration.",
+        "Runtime configuration policy.",
+        "Import and initial data requirements.",
+        "Release tests."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Build Before Release",
+      "anchor": "build-before-release"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Install dependencies from the lockfile:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm ci"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run build"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The build command validates governance, documentation, generated artifacts, OpenAPI output, LLM context, and generated documentation coverage."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Dependency release validation must include:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Node.js 24 as the preferred release line;",
+        "Node.js 22 while it remains in the supported validation matrix;",
+        "Node.js 26 as a forward validation line before adopting it;",
+        "`npm run test:full` before a release candidate;",
+        "dependency updates committed with both `package.json` and"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "`package-lock.json`."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Clean-Checkout Release Gate",
+      "anchor": "clean-checkout-release-gate"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use the governed release gate to prove the repository can be installed, cleaned, built, regenerated, documented, and tested from a clean checkout."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Print the gate without running it:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run release:check"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Execute the standard gate:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run release:check -- --execute"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Execute the release-candidate gate with full validation:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run release:check -- --execute --full"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The standard gate runs `npm ci`, `npm run clean`, `npm run build`, `npm run llm:validate`, `npm run quality:docs`, and `npm run test:basic`. The full gate also runs `npm run test:full`."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Run Tests",
+      "anchor": "run-tests"
+    },
+    {
+      "kind": "paragraph",
+      "text": "At minimum:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run test:basic"
+    },
+    {
+      "kind": "paragraph",
+      "text": "For release:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run test:full"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run live release tests only against isolated approved infrastructure."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Verify Topology",
+      "anchor": "verify-topology"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Consolidated mode means one server runs many capabilities together."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Modular mode means capabilities run in separate server processes."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics supports both styles because different deployments need different runtime boundaries. Local development may prefer one process. Enterprise deployments may split identity, CMS, workflow, events, scheduled jobs, import/export, and data processing into separate processes."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Before deployment, confirm:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "which server owns each active module;",
+        "which modules run locally in each process;",
+        "which modules are reached through remote server coordinates;",
+        "which nodes are allowed to run scheduled jobs;",
+        "which providers are active for database, cache, search, and messaging;",
+        "where generated reports and diagnostics are written."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Verify modular topology:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run test:topology:modular"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Verify Health And Readiness",
+      "anchor": "verify-health-and-readiness"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use liveness to confirm the process can answer HTTP:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "GET /nodics/system/v0/health/live"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use readiness to decide whether the process should receive traffic:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "GET /nodics/system/v0/health/ready"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Liveness is intentionally low-disclosure and does not require authentication. Readiness is secured with `system.health.readiness.view` and gated by `apiExposure.categories.operationalHealth`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "For production, each server/node process should have its own readiness contract. Provider-specific projects may extend readiness through later modules to check database, cache, search, messaging, storage, import/export locations, required secrets, and scheduled-job ownership."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Read the [Production Operating Model](production-operating-model.md) before using these endpoints as deployment gates."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Verify Data",
+      "anchor": "verify-data"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Check:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Initial data is idempotent.",
+        "Sample data is not required in production.",
+        "Tenant data is correctly isolated.",
+        "Imports target the correct tenant.",
+        "Runtime configuration can be audited and rolled back."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Also confirm that versioned or publishable business data has a rollback path when the business process requires it. Published content, catalog data, workflow definitions, runtime configuration, and import runs do not depend on manual database repair as the normal recovery strategy."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Verify Security",
+      "anchor": "verify-security"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Check:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Login routes are intentionally pre-authentication.",
+        "Internal module routes remain secured.",
+        "Permissions are assigned to the right groups.",
+        "Service accounts have least privilege.",
+        "Secrets are not stored in source-controlled files.",
+        "Audit logs do not expose credentials."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Verify Documentation",
+      "anchor": "verify-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Documentation should match the deployed behavior."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run docs:coverage:source -- --limit=20\nnpm run docs:coverage:contracts -- --limit=20"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Also regenerate and inspect API documentation when routes or schemas changed:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run docs:openapi"
+    },
+    {
+      "kind": "paragraph",
+      "text": "For developer/support environments with contract exposure enabled, verify:"
+    },
+    {
+      "kind": "code",
+      "language": "text",
+      "text": "GET /nodics/system/v0/contract/openapi\nGET /nodics/system/v0/contract/swagger"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep Swagger/OpenAPI secured in shared and production-like topologies."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Deploying unbuilt generated artifacts.",
+        "Changing generated files directly on the server.",
+        "Using local sample data in production.",
+        "Sharing test infrastructure with production.",
+        "Disabling security to make deployment easier.",
+        "Making environment-specific changes in framework source.",
+        "Deploying with unclear active module ownership.",
+        "Mixing sample data with production initialization data."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Previous: [How To Run And Debug Nodics](how-to-run-and-debug-nodics.md)",
+        "Next: [Production Operating Model](production-operating-model.md)",
+        "Security: [How Users, Tenants, And Permissions Work](../security/how-users-tenants-and-permissions-work.md)",
+        "Documentation home: [Nodics Documentation](../README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "Production Operating Model",
+      "target": "production-operating-model.md",
+      "kind": "internal",
+      "route": "/docs/operations/production-operating-model",
+      "anchor": ""
+    },
+    {
+      "label": "How To Run And Debug Nodics",
+      "target": "how-to-run-and-debug-nodics.md",
+      "kind": "internal",
+      "route": "/docs/operations/how-to-run-and-debug-nodics",
+      "anchor": ""
+    },
+    {
+      "label": "Production Operating Model",
+      "target": "production-operating-model.md",
+      "kind": "internal",
+      "route": "/docs/operations/production-operating-model",
+      "anchor": ""
+    },
+    {
+      "label": "How Users, Tenants, And Permissions Work",
+      "target": "../security/how-users-tenants-and-permissions-work.md",
+      "kind": "internal",
+      "route": "/docs/security/how-users-tenants-and-permissions-work",
+      "anchor": ""
+    },
+    {
+      "label": "Nodics Documentation",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs",
+      "anchor": ""
+    }
+  ],
+  "media": [
+    {
+      "alt": "Cloud Deployment Process",
+      "target": "../assets/images/cloud-deployment-process.jpg",
+      "title": "",
+      "kind": "local",
+      "assetCode": "docsMedia2022c0a667c66bad8f88",
+      "assetPath": "assets/images/564535cce2e19cd5.jpg",
+      "contentHash": "564535cce2e19cd57c5bf57fbfef5d8e0a6b08a5c6b85aeb128dcbe8ffb98b1d"
+    }
+  ],
+  "unsupported": []
+}

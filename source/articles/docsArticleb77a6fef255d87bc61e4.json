@@ -1,0 +1,47 @@
+{
+  "code": "docsArticleb77a6fef255d87bc61e4",
+  "title": "gframesLocalServer",
+  "route": "/docs/modules/docs/gframes/gframesenvs/gframeslocal/gframeslocalserver",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "docs/gframes/gframesEnvs/gframesLocal/gframesLocalServer/README.md",
+    "type": "module-readme",
+    "contentHash": "bcd96d7b2531e438c1ca6636563c8b40168a9760a2d06091097103d14431f4d4"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "gframesLocalServer",
+      "anchor": "gframeslocalserver"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "gframesLocalServer",
+      "anchor": "gframeslocalserver"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`gframesLocalServer` is the local server module for the `gframes` application. It owns server-level startup topology and configuration for local execution."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for server-scoped module activation, router/service availability, and local runtime settings. Capability implementation belongs in the application modules or framework modules they extend."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Server settings should be explicit, environment-scoped, and safe to replace in higher environments."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

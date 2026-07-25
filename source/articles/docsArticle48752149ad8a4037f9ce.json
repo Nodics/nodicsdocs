@@ -1,0 +1,701 @@
+{
+  "code": "docsArticle48752149ad8a4037f9ce",
+  "title": "nConfig",
+  "route": "/docs/modules/gframework/nconfig",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nConfig/README.md",
+    "type": "module-readme",
+    "contentHash": "40bc560398ecbc6690df4c7c09e9f69ad1a0d6ba511773d10d02e5020b6b281b"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "nConfig",
+      "anchor": "nconfig"
+    },
+    {
+      "level": 2,
+      "text": "When To Use This Module",
+      "anchor": "when-to-use-this-module"
+    },
+    {
+      "level": 2,
+      "text": "Ownership",
+      "anchor": "ownership"
+    },
+    {
+      "level": 2,
+      "text": "Layered Configuration",
+      "anchor": "layered-configuration"
+    },
+    {
+      "level": 2,
+      "text": "Metadata Contract",
+      "anchor": "metadata-contract"
+    },
+    {
+      "level": 2,
+      "text": "Configuration Loading Process",
+      "anchor": "configuration-loading-process"
+    },
+    {
+      "level": 2,
+      "text": "Properties Ownership",
+      "anchor": "properties-ownership"
+    },
+    {
+      "level": 2,
+      "text": "Logging And Redaction",
+      "anchor": "logging-and-redaction"
+    },
+    {
+      "level": 2,
+      "text": "Pre And Post Startup Scripts",
+      "anchor": "pre-and-post-startup-scripts"
+    },
+    {
+      "level": 2,
+      "text": "Runtime Lifecycle And Resilience",
+      "anchor": "runtime-lifecycle-and-resilience"
+    },
+    {
+      "level": 2,
+      "text": "Runtime Hierarchy",
+      "anchor": "runtime-hierarchy"
+    },
+    {
+      "level": 2,
+      "text": "Environment, Server, And Node Responsibilities",
+      "anchor": "environment-server-and-node-responsibilities"
+    },
+    {
+      "level": 2,
+      "text": "Extension Contract",
+      "anchor": "extension-contract"
+    },
+    {
+      "level": 2,
+      "text": "Integration Map",
+      "anchor": "integration-map"
+    },
+    {
+      "level": 2,
+      "text": "Security, Performance, And Operations",
+      "anchor": "security-performance-and-operations"
+    },
+    {
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    },
+    {
+      "level": 2,
+      "text": "Common Mistakes",
+      "anchor": "common-mistakes"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "nConfig",
+      "anchor": "nconfig"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nConfig` starts Nodics in a predictable way. It answers four beginner questions before other modules run: which modules are active, in what order, which configuration wins, and which runtime composition is being started."
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nConfig` owns Nodics startup configuration, active module discovery, metadata validation, layered property loading, and startup script orchestration."
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nConfig` prepares application, environment, server, node, and property state before the rest of the platform starts. Runtime selection must come from active module metadata and layered configuration, not hardcoded project names."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "When To Use This Module",
+      "anchor": "when-to-use-this-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Read or change `nConfig` when you are working on module discovery, package metadata, configuration precedence, environment/server/node selection, startup scripts, generated build lifecycle, logging bootstrap, readiness, draining, or shutdown coordination."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not put business rules here. Business behavior belongs to its capability module; `nConfig` only ensures that the correct modules and configuration are available to that behavior."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Ownership",
+      "anchor": "ownership"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nConfig` is responsible for:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "resolving startup inputs such as application, environment, server, and node;",
+        "validating `package.json.nodics` metadata;",
+        "loading active modules in declared index order;",
+        "loading and merging `config/properties.js` from active layers;",
+        "preserving framework, project, environment, server, node, and tenant"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "override behavior;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "coordinating pre-start and post-start script definitions where applicable;",
+        "exposing effective configuration through governed framework services."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nCommon` is not the hierarchy owner. It contributes shared runtime primitives, status definitions, processors, interceptors, and utilities after `nConfig` has prepared the runtime hierarchy and effective configuration."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Layered Configuration",
+      "anchor": "layered-configuration"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Each active module may contribute configuration. Later modules may override earlier defaults without editing out-of-the-box framework code."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Framework defaults belong in framework modules. Project, environment, server, and node-specific values belong in later modules. Tenant-specific behavior must be resolved through tenant-aware runtime context or governed runtime configuration."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not add a new configuration loader when an existing `nConfig` loader, resolver, or runtime governance service owns the behavior."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Plain layered configuration and governed artifacts use different composition contracts. `config/properties.js`, script maps, utility maps, and many named service/facade/controller/pipeline contributions use ordinary layered merge by active module order. Schemas, routers, and their runtime persisted contributions use governed merge helpers with override metadata, removals, warnings, and traceability. Do not replace these with one generic merge rule."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Metadata Contract",
+      "anchor": "metadata-contract"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`package.json.nodics` is the module manifest. Nodics metadata belongs under that object, including kind, runtime flags, ownership, and loader behavior."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not introduce parallel metadata files or alternate names for the same concept. Module classification belongs to `nodics.kind`; runtime activation belongs to `nodics.runtime`; ownership belongs to `nodics.owns`."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Configuration Loading Process",
+      "anchor": "configuration-loading-process"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Configuration loading is one of the first framework jobs. That is still the right mental model: `nConfig` prepares the runtime before schema, router, service, data, and process behavior can be trusted."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The current configuration process must:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "resolve startup arguments and selected topology;",
+        "discover candidate packages without treating `docs/` as runtime source;",
+        "validate `package.json` and `package.json.nodics` metadata;",
+        "resolve active module groups and modules for the selected server/node;",
+        "sort modules by deterministic `index` order;",
+        "load layered `config/properties.js`;",
+        "expose effective properties to downstream services;",
+        "execute pre-start and post-start script declarations where applicable;",
+        "preserve diagnostics that explain which module supplied an effective value."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "If startup behavior is wrong, fix the metadata, active-module configuration, properties, or loader contract that owns the problem. Do not add a second startup path for one project or server."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Properties Ownership",
+      "anchor": "properties-ownership"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`config/properties.js` is the standard home for configurable values. It may own runtime defaults, provider defaults, server coordinates, active module selection, command declarations, discovery rules, and governance data."
+    },
+    {
+      "kind": "paragraph",
+      "text": "When adding a property, document:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "property path;",
+        "owning module;",
+        "default value;",
+        "valid override layers;",
+        "tenant/runtime governance behavior;",
+        "validation and failure behavior;",
+        "tests proving default and override resolution."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not move configurable values to files such as `tooling.js`, standalone governance JSON, or custom registries when a property subtree can own them."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Logging And Redaction",
+      "anchor": "logging-and-redaction"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nConfig` creates the central Nodics logger before most framework services are available. Logger behavior is configured under `log` in layered `config/properties.js`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Sensitive log redaction is controlled by `log.redaction`:"
+    },
+    {
+      "kind": "code",
+      "language": "js",
+      "text": "module.exports = {\n    log: {\n        redaction: {\n            enabled: true,\n            mask: '[REDACTED]',\n            sensitiveKeys: ['authorization', 'token', 'password', 'apiKey', 'secret']\n        }\n    }\n};"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The logger redacts sensitive object fields, authorization strings, API-key or password key/value text, and connection-string credentials before console, file, and Elasticsearch transports serialize the log entry. Project, environment, server, or node modules may add their own sensitive keys through later `properties.js` contributions."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Redaction is a safety net, not permission to log secrets. Source code must log safe context such as token type, tenant, operation, correlation id, reason code, or status. Do not log generated token values, raw passwords, API keys, cookies, authorization headers, private keys, or usable connection credentials."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Pre And Post Startup Scripts",
+      "anchor": "pre-and-post-startup-scripts"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`config/prescripts.js` and `config/postscripts.js` are startup extension points. They declare startup work that belongs before or after normal module startup behavior."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use startup scripts for controlled lifecycle hooks, not for hiding business logic. A script calls a loader-visible service when it needs real behavior, and that service has tests and documentation."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Startup script changes must describe:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "when the script runs;",
+        "which module owns it;",
+        "whether it is safe to run more than once;",
+        "tenant/default-tenant behavior;",
+        "failure behavior;",
+        "diagnostics;",
+        "tests or startup evidence."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Runtime Lifecycle And Resilience",
+      "anchor": "runtime-lifecycle-and-resilience"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Process startup, readiness, draining, shutdown, and provider cleanup follow the [runtime lifecycle and resilience contract](docs/runtime-lifecycle-resilience-contract.md). `nConfig` owns the single signal coordinator; later modules contribute bounded hooks instead of installing parallel process handlers."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Runtime Hierarchy",
+      "anchor": "runtime-hierarchy"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics runtime hierarchy is metadata-driven. Directory names and naming suffixes may help humans, but they must not decide module behavior."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The selected runtime is resolved from package metadata and parent relationships:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`application` packages represent a project or product boundary.",
+        "`group` packages organize modules or environments and may expand active"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "module lists."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`environment` packages represent deployable environment roots such as local,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "development, QA, pre-production, or production."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`server` packages represent a concrete runtime process selected by startup"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "options or `S=` / `SERVER=`."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`node` packages represent optional instance-specific overrides below a"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "selected server."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Configuration precedence for the selected runtime is:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "environment group configuration;",
+        "selected environment/server-root configuration;",
+        "selected server configuration;",
+        "selected node configuration, when a node is selected."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "The selected runtime sequence is always:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "environment group;",
+        "selected environment/server-root;",
+        "selected server;",
+        "selected node, when a node is selected."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nConfig` validates that each child points to the previous layer through raw module parent metadata. Concrete runtime layers from environment/server-root to server to node must also sort in parent-to-child index order. Environment group containers may use grouping indexes and are validated by parent relationship and kind rather than concrete runtime load order. This sequence is independent of package names."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Active modules are resolved from the framework group, configured active groups and modules, the selected node, parent modules, and required modules. They are then loaded by deterministic dotted `index` order."
+    },
+    {
+      "kind": "paragraph",
+      "text": "`activeModules` is the local process activation contract. It decides which modules are loaded in the current runtime and may contribute configuration, schemas, routers, services, pipelines, data, tests, and lifecycle behavior."
+    },
+    {
+      "kind": "paragraph",
+      "text": "`servers.*` entries are endpoint coordinates. They describe where a local or remote module can be reached by HTTP/node communication, but they must not activate the module locally. For example, a modular workflow server may define `servers.profile` so it can call the profile process without loading the profile module into the workflow process."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Server and node names are local to their validated parent topology. Their parentage and canonical identity come from the complete physical ancestry discovered by the module loader. For example, `cronServer` may exist under both `startioLocal` and `startioDev`; the derived canonical identities remain distinct without storing handwritten parent or canonical identifiers."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use explicit environment selection for deterministic execution:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "ENV=startioLocal SERVER=cronServer NODE=cronNode0 node -e 'require(\"./nodics\").start()'"
+    },
+    {
+      "kind": "paragraph",
+      "text": "When an interactive terminal supplies only an ambiguous server name, startup offers the discovered environments for selection. CI, containers, services, and other non-interactive execution fail with the candidate environment names and an explicit command example instead of waiting for input."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Environment, Server, And Node Responsibilities",
+      "anchor": "environment-server-and-node-responsibilities"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Environment modules own deployment-scope defaults for one runtime environment. They are the right place for environment-wide module groups, endpoint defaults, data/search/cache toggles, diagnostics posture, and topology test declarations that apply to every server in that environment."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Server modules own one runnable process composition. They select the local modules for that process through `activeModules`, define `servers.default` coordinates for the process itself, and may define `server.<module>` endpoint coordinates for remote modules the process must call."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Node modules own instance-specific overrides under a selected server. They are for per-node coordinates, worker identity, node-local scheduling, publisher or consumer ownership, diagnostics, and capacity choices. A node module must remain a child of the selected server and does not redefine the whole server composition when a smaller node override is enough."
+    },
+    {
+      "kind": "paragraph",
+      "text": "These responsibilities are based on `package.json.nodics.kind` and parent relationships. A module does not become an environment, server, or node because its name contains those words."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Raw package discovery may report a full parent chain for diagnostics. Active runtime expansion intentionally stops at the selected environment boundary so project/application containers are not activated as capability modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not write framework logic that depends on names ending in `Env`, `Server`, `Node`, or any project-specific prefix. Use `package.json.nodics.kind`, parent relationships, runtime flags, configured active modules, and module indexes."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Extension Contract",
+      "anchor": "extension-contract"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Projects customize configuration by contributing later modules with their own `config/properties.js`, metadata, scripts, tests, and documentation. Framework code must not hardcode sample projects, customer projects, environment names, server names, node names, tenant names, or deployment assumptions."
+    },
+    {
+      "kind": "paragraph",
+      "text": "When adding configuration behavior, document:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "the property path;",
+        "default value and owning module;",
+        "allowed override layers;",
+        "tenant/request behavior;",
+        "validation and failure mode;",
+        "tests proving default and later-layer override behavior."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Integration Map",
+      "anchor": "integration-map"
+    },
+    {
+      "kind": "table",
+      "headers": [
+        "Consumer or collaborator",
+        "Relationship"
+      ],
+      "rows": [
+        [
+          "Every active module",
+          "Supplies metadata, properties, lifecycle scripts, and source contributions loaded in deterministic order."
+        ],
+        [
+          "`nCommon`",
+          "Uses the prepared runtime to provide shared helpers and error/trace contracts."
+        ],
+        [
+          "`nRouter`, `nDatabase`, `nPipeline`",
+          "Consume effective definitions and properties after configuration has established the active hierarchy."
+        ],
+        [
+          "Environment/server/node modules",
+          "Select topology and contribute progressively narrower configuration."
+        ],
+        [
+          "`nDynamo`",
+          "Governs supported persisted runtime configuration; it does not replace normal startup configuration authority."
+        ],
+        [
+          "`nTooling`",
+          "Uses configuration-owned command and governance properties for non-runtime build and validation workflows."
+        ]
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Security, Performance, And Operations",
+      "anchor": "security-performance-and-operations"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Treat configuration and diagnostics as potentially sensitive; redact secrets"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "and do not print usable credentials."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Keep discovery and merge order deterministic so startup behavior can be"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "reproduced and audited."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Keep startup hooks idempotent and bounded. A mandatory failure should stop"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "readiness rather than leave a partially trusted runtime."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Register lifecycle work through the single coordinator instead of installing"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "parallel process signal handlers."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Keep local module activation (`activeModules`) separate from remote endpoint"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "coordinates (`servers.*`)."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "node gFramework/nConfig/test/configurationValidation.test.js\nnode gFramework/nConfig/test/layeredCustomizationContract.test.js\nnode gFramework/nConfig/test/nonRuntimePackageDiscovery.test.js\nnode gFramework/nConfig/test/runtimeLifecycleService.test.js\nnode gFramework/nConfig/test/loggerRedactionContract.test.js\nnpm run quality:docs"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Also validate schema/router override governance when changing composition and run `npm run test:basic` before release or shared-branch publication."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Common Mistakes",
+      "anchor": "common-mistakes"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Inferring module kind from a folder name instead of `package.json.nodics`.",
+        "Creating another configuration or governance file when `properties.js` owns"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "the value."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Treating endpoint coordinates as local module activation.",
+        "Hiding business work in startup scripts.",
+        "Running generated-context generation and validation concurrently."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Public guide: [How Configuration Works](../../gDocs/configuration/how-configuration-works.md)",
+        "Runtime structure: [How Nodics Is Organized](../../gDocs/architecture/how-nodics-is-organized.md)",
+        "Lifecycle detail: [Runtime Lifecycle And Resilience Contract](docs/runtime-lifecycle-resilience-contract.md)",
+        "Framework map: [gFramework](../README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "runtime lifecycle and resilience contract",
+      "target": "docs/runtime-lifecycle-resilience-contract.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nconfig/docs/runtime-lifecycle-resilience-contract",
+      "anchor": ""
+    },
+    {
+      "label": "How Configuration Works",
+      "target": "../../gDocs/configuration/how-configuration-works.md",
+      "kind": "internal",
+      "route": "/docs/configuration/how-configuration-works",
+      "anchor": ""
+    },
+    {
+      "label": "How Nodics Is Organized",
+      "target": "../../gDocs/architecture/how-nodics-is-organized.md",
+      "kind": "internal",
+      "route": "/docs/architecture/how-nodics-is-organized",
+      "anchor": ""
+    },
+    {
+      "label": "Runtime Lifecycle And Resilience Contract",
+      "target": "docs/runtime-lifecycle-resilience-contract.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nconfig/docs/runtime-lifecycle-resilience-contract",
+      "anchor": ""
+    },
+    {
+      "label": "gFramework",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

@@ -1,0 +1,145 @@
+{
+  "code": "docsArticlee3e72a792e46198dbb04",
+  "title": "dataProcessor Module",
+  "route": "/docs/modules/gdeap/dataprocessor",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gDeap/dataProcessor/README.md",
+    "type": "module-readme",
+    "contentHash": "fcacca51e6c464eafa8ef67b37e8a5ec750087fc2d733f948db9fe06940b4b40"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "dataProcessor Module",
+      "anchor": "dataprocessor-module"
+    },
+    {
+      "level": 2,
+      "text": "Current Capability Status",
+      "anchor": "current-capability-status"
+    },
+    {
+      "level": 2,
+      "text": "Processing Contract",
+      "anchor": "processing-contract"
+    },
+    {
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "dataProcessor Module",
+      "anchor": "dataprocessor-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`dataProcessor` owns data transformation and processing behavior in the DEAP layer. It provides the module space for processing schemas, services, pipelines, interceptors, utilities, events, and tests."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for processing rules between consumption and publishing. Inbound source handling belongs in `dataConsumer`, and outbound dispatch belongs in `dataPublisher`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Processing behavior should be deterministic, traceable, tenant-aware, and configurable through layered definitions."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Current Capability Status",
+      "anchor": "current-capability-status"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This module currently provides the standard capability structure and extension slots, not a production transformation engine or a catalog of qualified business processors. Project flows must supply transformations, configuration, lineage, error behavior, and focused tests before claiming operational use."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Processing Contract",
+      "anchor": "processing-contract"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Each processor must define input/output schema versions, deterministic mapping, tenant and classification handling, enrichment dependencies, ordering, idempotency, side effects, batch/memory/time limits, invalid-record behavior, retry safety, lineage, and replay compatibility. Use `dataCore` processors, validators, interceptors, and pipelines where those existing contracts fit; do not create a parallel processing runtime."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Monitor records accepted/rejected/transformed, batch duration, dependency latency, retry, quarantine, lineage gaps, and reconciliation. Never log full sensitive records or silently discard failed transformations."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Add focused positive, invalid-input, boundary, deterministic-repeat, cross-tenant, dependency-failure, partial-batch, retry, replay, performance, and downstream-contract tests for every real processor."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "DEAP lifecycle: [gDeap](../README.md)",
+        "Consumption stage: [dataConsumer](../dataConsumer/README.md)",
+        "Publishing stage: [dataPublisher](../dataPublisher/README.md)",
+        "Shared processing: [dataCore](../../gFramework/nData/dataCore/README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "gDeap",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gdeap",
+      "anchor": ""
+    },
+    {
+      "label": "dataConsumer",
+      "target": "../dataConsumer/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gdeap/dataconsumer",
+      "anchor": ""
+    },
+    {
+      "label": "dataPublisher",
+      "target": "../dataPublisher/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gdeap/datapublisher",
+      "anchor": ""
+    },
+    {
+      "label": "dataCore",
+      "target": "../../gFramework/nData/dataCore/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata/datacore",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

@@ -1,0 +1,70 @@
+{
+  "code": "docsArticle38d380d7ed5ba0b55c38",
+  "title": "gComm",
+  "route": "/docs/modules/gcomm",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gComm/README.md",
+    "type": "module-readme",
+    "contentHash": "c393cb410f3d8005f2aea011903f253c969096f374a3280228f9e5e55c37173a"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "gComm",
+      "anchor": "gcomm"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "gComm",
+      "anchor": "gcomm"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`gComm` is the commerce group module. It composes commerce capabilities such as cart and order and provides the shared configuration layer for commerce-oriented project modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this group for composition and shared commerce defaults. Capability behavior belongs in child modules such as `cart`, `order`, `store`, `inventory`, `pricing`, and `product`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Pricing provides reusable scoped Price Lists, Price Groups, exact Price records, deterministic Online resolution, and Workflow/nPublish-controlled Staged-to-Online release. See [Pricing](pricing/README.md)."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Product provides enterprise-scoped Product Item and alternate-Identifier identity, governed lifecycle, Catalog and Unit reference validation, human management intents, and service-token lookup. See [Product](product/README.md)."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Commerce extensions should keep framework contracts intact: schemas, routers, services, pipelines, access control, validation, audit, and tests remain the source of behavior."
+    }
+  ],
+  "links": [
+    {
+      "label": "Pricing",
+      "target": "pricing/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcomm/pricing",
+      "anchor": ""
+    },
+    {
+      "label": "Product",
+      "target": "product/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcomm/product",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

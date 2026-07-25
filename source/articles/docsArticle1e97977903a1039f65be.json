@@ -1,0 +1,548 @@
+{
+  "code": "docsArticle1e97977903a1039f65be",
+  "title": "nDatabase",
+  "route": "/docs/modules/gframework/ndatabase",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nDatabase/README.md",
+    "type": "module-readme",
+    "contentHash": "fc4e30f128e330289d573cd94fa4a08875224bf01e847721d0d9e62d9ab2d876"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "nDatabase",
+      "anchor": "ndatabase"
+    },
+    {
+      "level": 2,
+      "text": "Ownership",
+      "anchor": "ownership"
+    },
+    {
+      "level": 2,
+      "text": "When To Use Each Module",
+      "anchor": "when-to-use-each-module"
+    },
+    {
+      "level": 2,
+      "text": "Schema Contract",
+      "anchor": "schema-contract"
+    },
+    {
+      "level": 2,
+      "text": "Schema Loader Process",
+      "anchor": "schema-loader-process"
+    },
+    {
+      "level": 2,
+      "text": "Model Middleware",
+      "anchor": "model-middleware"
+    },
+    {
+      "level": 2,
+      "text": "DAO And Generated CRUD",
+      "anchor": "dao-and-generated-crud"
+    },
+    {
+      "level": 2,
+      "text": "Nested Schema Guidance",
+      "anchor": "nested-schema-guidance"
+    },
+    {
+      "level": 2,
+      "text": "Extension Contract",
+      "anchor": "extension-contract"
+    },
+    {
+      "level": 2,
+      "text": "Adding A Database Provider",
+      "anchor": "adding-a-database-provider"
+    },
+    {
+      "level": 2,
+      "text": "Security, Performance, And Operations",
+      "anchor": "security-performance-and-operations"
+    },
+    {
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    },
+    {
+      "level": 2,
+      "text": "Common Mistakes",
+      "anchor": "common-mistakes"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "nDatabase",
+      "anchor": "ndatabase"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nDatabase` is the database capability group. It organizes the generic persistence contract and its provider modules. The child [database](database/README.md) module owns schema-driven persistence, tenant/module database configuration, connection lifecycle, generated models, CRUD pipelines, access-policy enforcement, and provider extension points."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Provider modules such as [mongodb](mongodb/README.md) and [cassandradb](cassandradb/README.md) implement provider-specific behavior. The group itself must not become a second persistence implementation."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Developer guidance for this module covers schema definition, nested schema design, model middleware, validators, generated model/service behavior, DAO contracts, and provider adapters. Current behavior must always be verified from the owning source files, active configuration, and tests."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Ownership",
+      "anchor": "ownership"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The `nDatabase` group is responsible for capability composition and shared navigation. The `database` child capability is responsible for:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "loading schema definitions from active modules;",
+        "merging schema extensions through module hierarchy;",
+        "creating generated models and persistence contracts;",
+        "owning generic DAO/model CRUD behavior;",
+        "wiring validators, interceptors, and model middleware;",
+        "supporting embedded and referential schema patterns where current source"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "permits them;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "preserving tenant-aware database resolution;",
+        "keeping database behavior overrideable by later modules."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "When To Use Each Module",
+      "anchor": "when-to-use-each-module"
+    },
+    {
+      "kind": "table",
+      "headers": [
+        "Need",
+        "Module"
+      ],
+      "rows": [
+        [
+          "Understand generic schema, model, connection, CRUD, tenant, and access-policy behavior",
+          "[database](database/README.md)"
+        ],
+        [
+          "Configure or implement MongoDB behavior",
+          "[mongodb](mongodb/README.md)"
+        ],
+        [
+          "Configure or implement Cassandra behavior",
+          "[cassandradb](cassandradb/README.md)"
+        ],
+        [
+          "Evaluate another database adapter",
+          "Start with the generic [database provider checklist](database/README.md#provider-adapter-checklist), then create an owned provider module."
+        ]
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Schema Contract",
+      "anchor": "schema-contract"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Schemas are source definitions. Generated models and generated service behavior must be derived from schema definitions and regenerated during build. Do not hand-edit generated persistence artifacts as the source of truth."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Schema changes must document:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "owning module and model;",
+        "generated artifacts affected;",
+        "validation rules;",
+        "interceptors and middleware involved;",
+        "tenant/database behavior;",
+        "API/router impact;",
+        "tests for default behavior and later-module overrides."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Schema Loader Process",
+      "anchor": "schema-loader-process"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Schema loading is a multi-step process: collect definitions, merge them through the layered architecture, create runtime schema/model objects, and expose generated behavior. Nodics applies this through module-owned `src/schemas/schemas.js`, generated artifacts, and runtime validation."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Schema loading must preserve:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "active module order;",
+        "default/common schema contributions;",
+        "module-owned schema contributions;",
+        "governed override metadata where schema runtime governance is involved;",
+        "validators and interceptors;",
+        "tenant-aware model/database resolution;",
+        "generated tests and OpenAPI/API impact."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "If a later module changes a schema, that change must be explicit, documented, and tested. Do not rely on accidental merge order or hidden object mutation."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Model Middleware",
+      "anchor": "model-middleware"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Model middleware extends generated persistence behavior without forcing every schema to hand-write persistence code."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use model middleware for reusable persistence hooks such as default query behavior, reference population, lifecycle handling, validation hooks, or provider-neutral transformations."
+    },
+    {
+      "kind": "paragraph",
+      "text": "When adding or changing middleware, document:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "which generated model behavior it affects;",
+        "whether it runs before or after persistence;",
+        "input and output shape;",
+        "tenant/request context behavior;",
+        "failure behavior;",
+        "provider assumptions;",
+        "tests for default and override behavior."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Middleware must not bypass schema access policy, tenant database resolution, or interceptor behavior."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "DAO And Generated CRUD",
+      "anchor": "dao-and-generated-crud"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nDatabase` owns the platform data-access layer: generated model functions, generic CRUD behavior, and customization/generalization points for persistence."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Generated DAO/model operations must remain schema-driven, tenant-aware, and overrideable through services, validators, interceptors, middleware, and later module schema definitions. Do not bypass runtime access policy, cache policy, or tenant database resolution from direct persistence helpers."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Treat generated CRUD as a capability contract. If a schema exposes retrieve, save, update, remove, or query behavior, that behavior needs validation, access control, diagnostics, generated tests, and documentation. Do not delete generated functions to change behavior; change source definitions or the generation contract."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Nested Schema Guidance",
+      "anchor": "nested-schema-guidance"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use embedded schemas for data that belongs inside the parent aggregate. Use referential schemas only when the relationship must be independently persisted and queried. Referential designs need clear service ownership, validation, and tests because they create cross-model consistency concerns."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nested and referenced schema choices affect import/export format, generated API response shape, search indexing, update semantics, and rollback behavior. Capture those impacts in the owning module README when the schema is business-visible."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Extension Contract",
+      "anchor": "extension-contract"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Later modules may extend schemas, override validators, add interceptors, or replace services without editing framework modules. If a schema behavior cannot be customized through the module hierarchy, treat that as a framework extension gap rather than hardcoding a project rule."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Adding A Database Provider",
+      "anchor": "adding-a-database-provider"
+    },
+    {
+      "kind": "paragraph",
+      "text": "New database engines must be added as provider modules or project modules that implement the `nDatabase/database` contracts. For example, a customer project that needs Oracle should add an Oracle database adapter in the customer/project layer, or contribute a reusable `oracledb` provider module only when the framework intentionally supports it out of the box."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The implementation path is:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Create an owned provider module, following the shape of existing provider"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "modules such as `mongodb` or `cassandradb`."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Add provider configuration under the layered `database` property, including"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "the provider `databaseType`, connection handler, master URI, database name, credentials, pooling, and provider options required by the adapter."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Implement the provider connection, model, and query behavior behind the"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "existing database adapter contracts. Do not change generic DAO or generated CRUD call sites for one provider."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Preserve tenant-aware database resolution, module isolation, schema access"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "policy, validation, interceptors, model middleware, diagnostics, and error envelopes."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Add tests for the provider contract, configuration validation,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "tenant/module isolation, and later-module override behavior."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Update the provider module README, examples, and generated LLM context."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Provider endpoints, credentials, schema spaces, database names, service names, wallet paths, or cluster topology must come from configuration or governed secret/runtime layers. They must not be hardcoded in framework modules."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Security, Performance, And Operations",
+      "anchor": "security-performance-and-operations"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Resolve every database handle by both module and tenant where the contract"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "requires isolation."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Validate provider configuration before opening clients or building models.",
+        "Keep secrets outside source and safe diagnostics.",
+        "Apply schema read/write access policy before persistence behavior.",
+        "Treat pool size, deadlines, indexes, query shape, retry behavior, and"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "connection cleanup as provider-qualified operational concerns."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Do not claim a provider is production-ready without live contract,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "performance, failure, recovery, and isolation evidence for the target use."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The group has no independent persistence runtime. Verify the generic child and the selected provider:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "node gFramework/nDatabase/database/test/tenantDatabaseConfigurationValidation.test.js\nnode gFramework/nDatabase/database/test/schemaReadAccessPolicyService.test.js\nnode gFramework/nDatabase/database/test/schemaWriteAccessPolicyService.test.js\nnode gFramework/nDatabase/database/test/modelSaveInitializerPipelineContract.test.js\nnpm run quality:docs\nnpm run test:basic"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Provider changes also require provider-specific invalid configuration, connection, query, tenant isolation, failure, cleanup, and live integration tests where external infrastructure is involved."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Common Mistakes",
+      "anchor": "common-mistakes"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Adding provider-specific branches to generic DAO or generated CRUD code.",
+        "Treating the `nDatabase` group as the runtime persistence implementation.",
+        "Sharing a connection or model across tenants without an explicit contract.",
+        "Bypassing schema access policy through a convenience query path.",
+        "Editing generated models instead of source schema definitions."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Public data guide: [How To Work With Data](../../gDocs/data/how-to-work-with-data.md)",
+        "Generic persistence capability: [database](database/README.md)",
+        "Provider maturity: [Provider And Capability Maturity Matrix](../../gDocs/reference/provider-capability-maturity-matrix.md)",
+        "Framework map: [gFramework](../README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "database",
+      "target": "database/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndatabase/database",
+      "anchor": ""
+    },
+    {
+      "label": "mongodb",
+      "target": "mongodb/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndatabase/mongodb",
+      "anchor": ""
+    },
+    {
+      "label": "cassandradb",
+      "target": "cassandradb/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndatabase/cassandradb",
+      "anchor": ""
+    },
+    {
+      "label": "database",
+      "target": "database/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndatabase/database",
+      "anchor": ""
+    },
+    {
+      "label": "mongodb",
+      "target": "mongodb/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndatabase/mongodb",
+      "anchor": ""
+    },
+    {
+      "label": "cassandradb",
+      "target": "cassandradb/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndatabase/cassandradb",
+      "anchor": ""
+    },
+    {
+      "label": "database provider checklist",
+      "target": "database/README.md#provider-adapter-checklist",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndatabase/database",
+      "anchor": "provider-adapter-checklist"
+    },
+    {
+      "label": "How To Work With Data",
+      "target": "../../gDocs/data/how-to-work-with-data.md",
+      "kind": "internal",
+      "route": "/docs/data/how-to-work-with-data",
+      "anchor": ""
+    },
+    {
+      "label": "database",
+      "target": "database/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndatabase/database",
+      "anchor": ""
+    },
+    {
+      "label": "Provider And Capability Maturity Matrix",
+      "target": "../../gDocs/reference/provider-capability-maturity-matrix.md",
+      "kind": "internal",
+      "route": "/docs/reference/provider-capability-maturity-matrix",
+      "anchor": ""
+    },
+    {
+      "label": "gFramework",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

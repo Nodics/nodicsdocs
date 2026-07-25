@@ -1,0 +1,215 @@
+{
+  "code": "docsArticlef321fd88b521675b5938",
+  "title": "nController",
+  "route": "/docs/modules/gframework/ncontroller",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nController/README.md",
+    "type": "module-readme",
+    "contentHash": "9aefe66b0055d9467f73403439deac496ff4071062cbe9262a1e26a930028f0c"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "nController",
+      "anchor": "ncontroller"
+    },
+    {
+      "level": 2,
+      "text": "Ownership",
+      "anchor": "ownership"
+    },
+    {
+      "level": 2,
+      "text": "Extension Contract",
+      "anchor": "extension-contract"
+    },
+    {
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "nController",
+      "anchor": "ncontroller"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nController` owns the HTTP/controller boundary between routers and facades."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Controllers translate inbound request data into Nodics request context and call facade contracts. They should not own persistence, tenant lookup shortcuts, or business behavior that belongs in services or facades."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Ownership",
+      "anchor": "ownership"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Controllers should:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "normalize request params, headers, query, and body;",
+        "preserve tenant, enterprise, principal, and trace context;",
+        "call facade contracts;",
+        "return platform-standard responses;",
+        "keep route behavior overrideable by later modules."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Extension Contract",
+      "anchor": "extension-contract"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Project modules may add or replace controllers through layered modules. New or changed controllers must document the route contract, facade dependency, security expectation, tenant/request context behavior, and tests for positive, negative, access-control, and override scenarios."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nController` provides:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "generated controller templates for schema CRUD routes;",
+        "generated controller artifacts under `src/controller/gen`;",
+        "specialized controllers for cache, log, ping, validator, and interceptor behavior;",
+        "request mapping from HTTP params, headers, query, and body into Nodics request objects;",
+        "callback and promise-style controller execution support;",
+        "utility, enum, and status extension slots;",
+        "focused request-mapping tests."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Generated controllers translate route input into facade calls. They should not own business logic or persistence details."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "A router definition selects a controller and operation.",
+        "The controller reads `request.httpRequest` params, headers, body, and query.",
+        "The controller normalizes request fields such as `query`, `model`, `models`, `ids`, `codes`, `options`, or `searchOptions`.",
+        "The controller delegates to the owning facade.",
+        "The facade/service/pipeline layers own business behavior and data mutation.",
+        "The controller returns the promise result or invokes the callback used by the router runtime."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Project modules may contribute controller overrides under `src/controller`. Use this layer when the change is about request mapping or transport adaptation. Put orchestration in facades and business behavior in services."
+    },
+    {
+      "kind": "paragraph",
+      "text": "When adding a controller:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "document the route contract;",
+        "preserve tenant, enterprise, auth, and correlation context;",
+        "validate required params before delegation;",
+        "return standard Nodics response/error envelopes;",
+        "add route/controller request-mapping tests;",
+        "update generated context after changes."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "node gFramework/nController/test/logControllerRequestMapping.test.js\nnpm run quality:docs"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Generated controller behavior is also exercised by generated API and CRUD tests in the owning schema modules."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "placing business rules in controllers;",
+        "bypassing facades to call database/provider APIs directly;",
+        "losing tenant, enterprise, auth, or trace context during request mapping;",
+        "accepting arbitrary operation names from request payloads;",
+        "editing generated controllers manually when schema definitions should be regenerated."
+      ]
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

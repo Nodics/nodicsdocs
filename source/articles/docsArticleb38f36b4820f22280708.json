@@ -1,0 +1,897 @@
+{
+  "code": "docsArticleb38f36b4820f22280708",
+  "title": "How To Set Up Nodics",
+  "route": "/docs/getting-started/how-to-setup-nodics",
+  "category": "getting-started",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gDocs/getting-started/how-to-setup-nodics.md",
+    "type": "gdocs",
+    "contentHash": "fcb3dafcc10fc59d56e1143fb358098213d55d8b4eaaba2046029d38fafa729a"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "How To Set Up Nodics",
+      "anchor": "how-to-set-up-nodics"
+    },
+    {
+      "level": 2,
+      "text": "Beginner Summary",
+      "anchor": "beginner-summary"
+    },
+    {
+      "level": 2,
+      "text": "Before You Start",
+      "anchor": "before-you-start"
+    },
+    {
+      "level": 2,
+      "text": "Minimum System Requirement",
+      "anchor": "minimum-system-requirement"
+    },
+    {
+      "level": 2,
+      "text": "Install Node And NPM",
+      "anchor": "install-node-and-npm"
+    },
+    {
+      "level": 2,
+      "text": "Install MongoDB",
+      "anchor": "install-mongodb"
+    },
+    {
+      "level": 2,
+      "text": "Download Nodics",
+      "anchor": "download-nodics"
+    },
+    {
+      "level": 2,
+      "text": "Understand What You Are Starting",
+      "anchor": "understand-what-you-are-starting"
+    },
+    {
+      "level": 2,
+      "text": "Install Dependencies",
+      "anchor": "install-dependencies"
+    },
+    {
+      "level": 2,
+      "text": "Install Required Modules",
+      "anchor": "install-required-modules"
+    },
+    {
+      "level": 2,
+      "text": "Build Nodics",
+      "anchor": "build-nodics"
+    },
+    {
+      "level": 2,
+      "text": "What The Main Commands Mean",
+      "anchor": "what-the-main-commands-mean"
+    },
+    {
+      "level": 2,
+      "text": "Start Nodics",
+      "anchor": "start-nodics"
+    },
+    {
+      "level": 2,
+      "text": "Start NODICS Server",
+      "anchor": "start-nodics-server"
+    },
+    {
+      "level": 2,
+      "text": "Test Nodics Framework",
+      "anchor": "test-nodics-framework"
+    },
+    {
+      "level": 2,
+      "text": "Initial Data Import",
+      "anchor": "initial-data-import"
+    },
+    {
+      "level": 2,
+      "text": "Start A Specific Project Server",
+      "anchor": "start-a-specific-project-server"
+    },
+    {
+      "level": 2,
+      "text": "Start Nodics In Debug Mode",
+      "anchor": "start-nodics-in-debug-mode"
+    },
+    {
+      "level": 2,
+      "text": "Beginner Troubleshooting",
+      "anchor": "beginner-troubleshooting"
+    },
+    {
+      "level": 2,
+      "text": "Common First Checks",
+      "anchor": "common-first-checks"
+    },
+    {
+      "level": 2,
+      "text": "If Startup Fails",
+      "anchor": "if-startup-fails"
+    },
+    {
+      "level": 2,
+      "text": "Good First Learning Path",
+      "anchor": "good-first-learning-path"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "How To Set Up Nodics",
+      "anchor": "how-to-set-up-nodics"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This guide explains how to prepare a local Nodics workspace, install dependencies, build generated artifacts, and start the application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The goal is not only to run Nodics once. The goal is to understand what each command does so you can diagnose problems later."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Beginner Summary",
+      "anchor": "beginner-summary"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Setting up Nodics means preparing three things:"
+    },
+    {
+      "kind": "table",
+      "headers": [
+        "Area",
+        "Meaning"
+      ],
+      "rows": [
+        [
+          "Code workspace",
+          "The repository, branch, project modules, and generated artifacts."
+        ],
+        [
+          "Runtime dependencies",
+          "Node.js, npm, database, cache, and any provider you intentionally test."
+        ],
+        [
+          "Selected topology",
+          "The project, environment, server, and optional node you want to start."
+        ]
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "If startup fails, do not guess from the final error only. First confirm which project, environment, server, node, active modules, database, cache, and port were selected."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The beginner flow is:"
+    },
+    {
+      "kind": "code",
+      "language": "text",
+      "text": "Install dependencies -> build -> run focused tests -> start selected server -> open APIs/docs -> debug if needed"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Before You Start",
+      "anchor": "before-you-start"
+    },
+    {
+      "kind": "paragraph",
+      "text": "You need:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Node.js and npm.",
+        "MongoDB for the default local database flow.",
+        "Redis if you want to run live Redis cache or distributed auth checks.",
+        "A terminal.",
+        "A code editor such as Visual Studio Code."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "If you are working inside a company project, confirm which branch and environment you should use before running startup commands."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Minimum System Requirement",
+      "anchor": "minimum-system-requirement"
+    },
+    {
+      "kind": "paragraph",
+      "text": "For local development, use a machine that can comfortably run Node.js, npm, MongoDB, and at least one Nodics server process. A developer laptop should have enough memory to run the database, the application, tests, and an editor at the same time."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Recommended local baseline:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "current supported Node.js and npm versions for the project branch;",
+        "MongoDB for the default local persistence path;",
+        "Redis when testing distributed cache, strict auth cache, or Redis-specific behavior;",
+        "Git for source control;",
+        "Visual Studio Code or another debugger-capable editor;",
+        "terminal access for build, test, and startup commands."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Provider-specific work may require additional local or remote infrastructure such as Cassandra, Kafka, ActiveMQ, external search, SFTP, object storage, or release-grade integration environments. Do not make normal local setup depend on every possible provider."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Install Node And NPM",
+      "anchor": "install-node-and-npm"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Install Node.js and npm before running Nodics commands. The repository declares its runtime contract in root `package.json`, `.nvmrc`, and `package-lock.json`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Current policy:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Preferred release line: Node.js 24.",
+        "Supported validation lines: Node.js 22 and Node.js 24.",
+        "Forward validation line: Node.js 26 when release testing future runtime"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "readiness."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "npm range: 10.x or 11.x.",
+        "Node.js 25 is not a release target."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "After installation, verify:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "node --version\nnpm --version"
+    },
+    {
+      "kind": "paragraph",
+      "text": "If you use a version manager, select the version from `.nvmrc` before installing dependencies. Changing Node versions after dependency installation can create confusing native-module or lock-file behavior."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Install MongoDB",
+      "anchor": "install-mongodb"
+    },
+    {
+      "kind": "paragraph",
+      "text": "MongoDB is the default local database provider used by the baseline local flow. Start MongoDB before starting Nodics when the selected server needs database-backed modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Confirm the configured local MongoDB URL in the active project/environment/server properties before diagnosing database errors. A startup failure may come from the selected server pointing to a different database, channel, tenant, or provider than expected."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Download Nodics",
+      "anchor": "download-nodics"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Clone the Nodics repository from the approved source location for your team, then switch to the branch you are expected to use."
+    },
+    {
+      "kind": "paragraph",
+      "text": "For customer or application work, start from the project branch and project module structure. Do not copy framework modules into a customer project just to customize behavior. Use later project modules, environment modules, server modules, node modules, tenant configuration, or runtime governance."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Understand What You Are Starting",
+      "anchor": "understand-what-you-are-starting"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics can run as a consolidated application or as modular server processes."
+    },
+    {
+      "kind": "paragraph",
+      "text": "In a consolidated setup, one server loads many active modules together. This is useful for local development and simpler deployments."
+    },
+    {
+      "kind": "paragraph",
+      "text": "In a modular setup, different servers can run different capability sets. For example, identity, workflow, events, scheduled jobs, content, and data-processing capabilities can run in separate processes while still using the same platform contracts."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Startup is controlled by project, environment, server, and optional node selection. The selected server decides which modules run locally through `activeModules`. Server endpoint coordinates describe how processes communicate with each other; they do not activate modules by themselves."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Install Dependencies",
+      "anchor": "install-dependencies"
+    },
+    {
+      "kind": "paragraph",
+      "text": "From the repository root:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm ci"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This installs exactly the dependency graph recorded in `package-lock.json`. Use `npm install` only when you are intentionally adding, removing, or upgrading dependencies. When dependencies change, commit `package.json` and `package-lock.json` together."
+    },
+    {
+      "kind": "paragraph",
+      "text": "If dependency installation fails, check:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Your Node.js version.",
+        "Your npm registry access.",
+        "Whether `package-lock.json` changed unexpectedly.",
+        "Whether native dependencies need local build tools."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Install Required Modules",
+      "anchor": "install-required-modules"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`npm install` installs package dependencies. Nodics modules themselves are activated by project, environment, server, node, and active-module configuration."
+    },
+    {
+      "kind": "paragraph",
+      "text": "When a required capability is missing at runtime, check:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "whether the module exists in the project/repository;",
+        "whether its `package.json` metadata is valid;",
+        "whether the selected server includes it in `activeModules`;",
+        "whether its dependencies are active before it;",
+        "whether provider modules are selected through configuration;",
+        "whether generated artifacts need to be rebuilt."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Build Nodics",
+      "anchor": "build-nodics"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run build"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The build command performs several important actions:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Validates AI/developer governance rules.",
+        "Checks copyright headers.",
+        "Checks documentation coverage.",
+        "Builds generated framework artifacts.",
+        "Generates OpenAPI documentation.",
+        "Regenerates LLM context.",
+        "Generates governance reports.",
+        "Verifies generated documentation coverage."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Generated artifacts should come from source definitions. If a generated file is wrong, fix the source definition and rebuild. Do not manually edit generated output as the long-term fix."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What The Main Commands Mean",
+      "anchor": "what-the-main-commands-mean"
+    },
+    {
+      "kind": "table",
+      "headers": [
+        "Command",
+        "What it does",
+        "When to use"
+      ],
+      "rows": [
+        [
+          "`npm ci`",
+          "Installs dependencies exactly from `package-lock.json`",
+          "Fresh checkout or clean dependency install"
+        ],
+        [
+          "`npm install`",
+          "Updates dependency graph",
+          "Only when intentionally changing dependencies"
+        ],
+        [
+          "`npm run clean`",
+          "Removes generated/temporary build output",
+          "Before rebuilding generated artifacts"
+        ],
+        [
+          "`npm run build`",
+          "Regenerates and validates framework artifacts, docs, OpenAPI, and LLM context",
+          "Before committing broad source changes"
+        ],
+        [
+          "`npm run docs:openapi`",
+          "Regenerates OpenAPI contract from active schemas and routers",
+          "After route/schema changes"
+        ],
+        [
+          "`npm run llm:generate`",
+          "Regenerates AI-facing module context",
+          "After source or documentation changes"
+        ],
+        [
+          "`npm run test:basic`",
+          "Runs deterministic framework verification",
+          "Before considering a change ready"
+        ],
+        [
+          "`npm run start`",
+          "Starts the selected Nodics runtime",
+          "After build/config are ready"
+        ],
+        [
+          "`npm run start:debug`",
+          "Starts with Node inspector for breakpoints",
+          "When debugging startup or request flow"
+        ]
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Start Nodics",
+      "anchor": "start-nodics"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run start"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This starts Nodics using the active local project/server configuration."
+    },
+    {
+      "kind": "paragraph",
+      "text": "During startup, Nodics loads:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Default framework configuration.",
+        "Active module configuration.",
+        "Environment configuration.",
+        "Server configuration.",
+        "Node configuration when applicable.",
+        "Tenant and runtime configuration where configured.",
+        "Schemas, routes, services, events, pipelines, and startup data."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "If the server starts successfully, the logs will show the loaded modules and server ports."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Start NODICS Server",
+      "anchor": "start-nodics-server"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The startup command builds an effective runtime from the selected project, environment, server, node, tenant, and active modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use the documented project command when a project provides one. In a project such as `startio`, startup should follow the normal npm style and pass the selected server/environment through startup arguments."
+    },
+    {
+      "kind": "paragraph",
+      "text": "During startup, watch for:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "selected project;",
+        "selected environment;",
+        "selected server;",
+        "selected node when provided;",
+        "active modules;",
+        "database provider and connection;",
+        "cache provider;",
+        "messaging provider;",
+        "route registration;",
+        "startup data import;",
+        "generated artifact loading;",
+        "server host and port."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "If you do not pass a server argument, Nodics can only start a meaningful runtime when the selected project/default configuration can resolve a server. If project examples are kept outside repository source, do not rely on them as active modules."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Test Nodics Framework",
+      "anchor": "test-nodics-framework"
+    },
+    {
+      "kind": "paragraph",
+      "text": "After the server can start, run deterministic tests before making changes:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run test:basic"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use focused tests while developing one capability, then run broader gates before committing or deploying. Good first checks are:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run test:config\nnpm run test:import\nnpm run test:topology\nnpm run llm:validate\nnpm run quality:docs"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Testing is part of setup because Nodics behavior is generated, layered, tenant-aware, and overrideable. A server that starts but fails generated or governance tests is not ready for project work."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Initial Data Import",
+      "anchor": "initial-data-import"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Initial data creates baseline records that the selected runtime needs to operate, such as tenants, groups, permissions, service accounts, routes, workflow definitions, or other module-owned bootstrap records."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Initial data must be idempotent. Starting the same server twice must not create duplicate baseline records. If startup logs show the same model being saved repeatedly, check the owning module's import headers, unique keys, lookup query, tenant scope, and initializer behavior."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use sample data for demos and local examples. Do not mix sample data with mandatory production initialization data."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Start A Specific Project Server",
+      "anchor": "start-a-specific-project-server"
+    },
+    {
+      "kind": "paragraph",
+      "text": "When you are working on a project, start the server that belongs to that project/environment instead of relying on a framework default."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use the project startup command documented by the project. For the sample `startio` project, the local server command follows the normal npm startup style and passes the selected server through startup arguments."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The important principle is:"
+    },
+    {
+      "kind": "code",
+      "language": "text",
+      "text": "Always know which environment and server you are starting."
+    },
+    {
+      "kind": "paragraph",
+      "text": "If the wrong server starts, the wrong active modules, ports, data, tenants, providers, or route set may be loaded."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Startup also builds the effective runtime from layered definitions:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`package.json` and `package.json.nodics` identify module ownership and kind.",
+        "`config/properties.js` contributes configuration.",
+        "`config/prescripts.js` and `config/postscripts.js` contribute startup lifecycle hooks.",
+        "`src/schemas`, `src/router`, `src/service`, `src/facade`, `src/controller`, `src/pipelines`, `src/interceptors`, `src/event`, `src/search`, and `src/utils` contribute loader-visible behavior.",
+        "`data/init` contributes startup/bootstrap records where the owning module requires them."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Start Nodics In Debug Mode",
+      "anchor": "start-nodics-in-debug-mode"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this when you want to set breakpoints before startup code runs:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run start:debug"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This starts Node with the inspector and pauses before application startup. Visual Studio Code can attach on port `9229`."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Beginner Troubleshooting",
+      "anchor": "beginner-troubleshooting"
+    },
+    {
+      "kind": "table",
+      "headers": [
+        "Problem",
+        "Likely cause",
+        "What to check"
+      ],
+      "rows": [
+        [
+          "`npm ci` fails",
+          "Wrong Node/npm version or registry issue",
+          "`.nvmrc`, root `package.json`, npm registry access"
+        ],
+        [
+          "Build generates unexpected files",
+          "Source definitions changed or generated output was stale",
+          "`git status`, schemas, routers, generator output"
+        ],
+        [
+          "Server starts with wrong modules",
+          "Wrong project/environment/server selected",
+          "Startup arguments and server `activeModules`"
+        ],
+        [
+          "Database connection fails",
+          "MongoDB/provider not running or wrong URL",
+          "Active database provider config and tenant data placement"
+        ],
+        [
+          "Port already in use",
+          "Another Nodics process is running",
+          "Server/node port configuration and local processes"
+        ],
+        [
+          "API route missing",
+          "Module not active or route disabled by topology",
+          "Active modules, router definitions, `apiExposure`"
+        ],
+        [
+          "Swagger/OpenAPI missing",
+          "Contract not generated or permission missing",
+          "`npm run docs:openapi`, `/nodics/system/v0/contract/swagger`, permissions"
+        ],
+        [
+          "Startup data repeats",
+          "Initial data is not idempotent",
+          "Import headers, unique keys, tenant scope, initializer tests"
+        ]
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "For any setup issue, write down the selected project, environment, server, node, and command before changing code. Many setup problems are topology or configuration problems, not framework code problems."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this when you want the application to start immediately and attach later:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run start:inspect"
+    },
+    {
+      "kind": "paragraph",
+      "text": "For multiple Node processes, give each process a separate debug port:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run start:debug -- --port=9230"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Common First Checks",
+      "anchor": "common-first-checks"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run syntax validation:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run check:syntax"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run the main deterministic test gate:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run test:basic"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run the full gate, including modular topology:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run test:full"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run documentation checks:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run docs:coverage:source -- --limit=20\nnpm run docs:coverage:contracts -- --limit=20"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "If Startup Fails",
+      "anchor": "if-startup-fails"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Check these areas in order:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Database connection values.",
+        "Active module configuration.",
+        "Environment, server, and node configuration.",
+        "Missing generated artifacts.",
+        "Invalid schema or route definitions.",
+        "Port conflicts.",
+        "Required initial data.",
+        "Permissions or tenant data."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use the logs carefully. Nodics startup logs are intentionally detailed because startup problems often come from configuration hierarchy, not from one line of code."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Good First Learning Path",
+      "anchor": "good-first-learning-path"
+    },
+    {
+      "kind": "paragraph",
+      "text": "If you are new to Nodics, use this order:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Start the application once.",
+        "Read the loaded module list in the logs.",
+        "Open the selected server `config/properties.js` and find `activeModules`.",
+        "Pick one active module and read its `README.md`.",
+        "Find that module's schemas, routes, services, and tests.",
+        "Run a focused test for that capability.",
+        "Change only a project or sample module first, not framework source."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Previous: [What Nodics Is](../overview/what-is-nodics.md)",
+        "Next: [Build Your First Nodics Capability](build-your-first-capability.md)",
+        "Troubleshooting and runtime: [How To Run And Debug Nodics](../operations/how-to-run-and-debug-nodics.md)",
+        "Documentation home: [Nodics Documentation](../README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "What Nodics Is",
+      "target": "../overview/what-is-nodics.md",
+      "kind": "internal",
+      "route": "/docs/overview/what-is-nodics",
+      "anchor": ""
+    },
+    {
+      "label": "Build Your First Nodics Capability",
+      "target": "build-your-first-capability.md",
+      "kind": "internal",
+      "route": "/docs/getting-started/build-your-first-capability",
+      "anchor": ""
+    },
+    {
+      "label": "How To Run And Debug Nodics",
+      "target": "../operations/how-to-run-and-debug-nodics.md",
+      "kind": "internal",
+      "route": "/docs/operations/how-to-run-and-debug-nodics",
+      "anchor": ""
+    },
+    {
+      "label": "Nodics Documentation",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

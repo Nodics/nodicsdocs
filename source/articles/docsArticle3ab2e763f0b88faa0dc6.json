@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle3ab2e763f0b88faa0dc6",
+  "title": "gfcms Module",
+  "route": "/docs/modules/docs/gframes/gframesmodules/gfcms",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "docs/gframes/gframesModules/gfcms/README.md",
+    "type": "module-readme",
+    "contentHash": "8b7dc49266127682351920f819624f2bfe26a53421c3bb3da952f53b5db57e4d"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "gfcms Module",
+      "anchor": "gfcms-module"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "gfcms Module",
+      "anchor": "gfcms-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`gfcms` owns content-related behavior for the `gframes` application. It provides project-specific content data, schemas, routes, pipelines, interceptors, utilities, configuration, and tests."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for `gframes` content contracts. Shared CMS platform behavior belongs in `gContent`, and generic framework behavior remains in `gFramework`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Content changes should stay schema-driven, tenant-aware, and safe for layered overrides."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

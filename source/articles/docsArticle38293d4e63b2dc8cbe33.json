@@ -1,0 +1,100 @@
+{
+  "code": "docsArticle38293d4e63b2dc8cbe33",
+  "title": "How Stock Allocation Works",
+  "route": "/docs/commerce/how-stock-allocation-works",
+  "category": "commerce",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gDocs/commerce/how-stock-allocation-works.md",
+    "type": "gdocs",
+    "contentHash": "0b3d9b2fd35240afc2a645a9fadfd6cf02a3932a948599899b54c314e67ba3fb"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "How Stock Allocation Works",
+      "anchor": "how-stock-allocation-works"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "How Stock Allocation Works",
+      "anchor": "how-stock-allocation-works"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Allocation connects customer demand to reserved supply. An Order line can use one Warehouse, split across several Warehouses, or allocate what is available and backorder the remainder."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Order owns the customer order. Inventory receives only stable Order and line references, item identity, exact requested quantity, and active Reservation references. It records which Warehouses will supply the line and later connects each assignment to its applied Stock ISSUE movement."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Cancellation releases unfulfilled Reservation holds. Fulfillment cannot be claimed by a caller; Inventory verifies movement evidence. This keeps checkout, Inventory, and fulfillment consistent while allowing each module to remain independently deployable."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Configure partial allocation and assignment limits in Inventory `properties.js`. Internal allocation routes require service tokens and are intended for Order or fulfillment modules, not direct human access."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "[How to Reserve Stock](how-to-reserve-stock.md)",
+        "[How Stock Movements Work](how-stock-movements-work.md)",
+        "[How Stock Availability Works](how-stock-availability-works.md)",
+        "[Nodics Documentation](../README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "How to Reserve Stock",
+      "target": "how-to-reserve-stock.md",
+      "kind": "internal",
+      "route": "/docs/commerce/how-to-reserve-stock",
+      "anchor": ""
+    },
+    {
+      "label": "How Stock Movements Work",
+      "target": "how-stock-movements-work.md",
+      "kind": "internal",
+      "route": "/docs/commerce/how-stock-movements-work",
+      "anchor": ""
+    },
+    {
+      "label": "How Stock Availability Works",
+      "target": "how-stock-availability-works.md",
+      "kind": "internal",
+      "route": "/docs/commerce/how-stock-availability-works",
+      "anchor": ""
+    },
+    {
+      "label": "Nodics Documentation",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

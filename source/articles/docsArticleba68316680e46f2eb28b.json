@@ -1,0 +1,47 @@
+{
+  "code": "docsArticleba68316680e46f2eb28b",
+  "title": "deapNode0",
+  "route": "/docs/modules/startio/envs/startiolocal/deapserver/deapnode0",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/envs/startioLocal/deapServer/deapNode0/README.md",
+    "type": "module-readme",
+    "contentHash": "fe4ef4430cc965746a4d720bd41e0abdaf6780118a36174aa0d713496e6baa77"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "deapNode0",
+      "anchor": "deapnode0"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "deapNode0",
+      "anchor": "deapnode0"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`deapNode0` is a local DEAP node module under `deapServer`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this node for node-scoped data pipeline configuration and activation. Server-wide topology belongs in `deapServer`, and data behavior belongs in DEAP modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Node settings should remain explicit, observable, and safe to rebalance across sibling nodes."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

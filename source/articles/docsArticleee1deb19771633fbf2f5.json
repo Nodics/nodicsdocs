@@ -1,0 +1,47 @@
+{
+  "code": "docsArticleee1deb19771633fbf2f5",
+  "title": "kickoffPreProd",
+  "route": "/docs/modules/docs/kickoff/kickoffenvs/kickoffpreprod",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "docs/kickoff/kickoffEnvs/kickoffPreProd/README.md",
+    "type": "module-readme",
+    "contentHash": "554aae09fefa354fa2fa598ffdd3753670672ab9cc6691257430fe5248e4b21e"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "kickoffPreProd",
+      "anchor": "kickoffpreprod"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "kickoffPreProd",
+      "anchor": "kickoffpreprod"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`kickoffPreProd` is the pre-production environment module for the `kickoff` application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for pre-production configuration and server composition before production rollout. Server-specific runtime settings belong in child server modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Pre-production configuration should mirror production intent while preserving clear override boundaries and safe testing controls."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

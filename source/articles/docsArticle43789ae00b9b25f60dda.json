@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle43789ae00b9b25f60dda",
+  "title": "envs",
+  "route": "/docs/modules/startio/envs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/envs/README.md",
+    "type": "module-readme",
+    "contentHash": "2545de14f19f2edd9d179dc80bd56611202b962074e685da58f43c466444bdf2"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "envs",
+      "anchor": "envs"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "envs",
+      "anchor": "envs"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`envs` groups the environment definitions for the `startio` application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this group for environment composition and shared environment defaults. Concrete environment values belong in child modules such as `startioLocal`, `startioDev`, `startioQA`, `startioPreProd`, and `startioProd`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Environment configuration must remain layered so servers and nodes can override behavior without changing application or framework modules."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

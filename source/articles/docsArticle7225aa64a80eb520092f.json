@@ -1,0 +1,360 @@
+{
+  "code": "docsArticle7225aa64a80eb520092f",
+  "title": "nPipeline",
+  "route": "/docs/modules/gframework/npipeline",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nPipeline/README.md",
+    "type": "module-readme",
+    "contentHash": "6e975cc09fd4fd3d08417b45a86bbc5fb02dd0637279a8f4f51d44271a5441be"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "nPipeline",
+      "anchor": "npipeline"
+    },
+    {
+      "level": 2,
+      "text": "When To Use A Pipeline",
+      "anchor": "when-to-use-a-pipeline"
+    },
+    {
+      "level": 2,
+      "text": "Ownership",
+      "anchor": "ownership"
+    },
+    {
+      "level": 2,
+      "text": "Extension Contract",
+      "anchor": "extension-contract"
+    },
+    {
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "level": 2,
+      "text": "Definition Guidance",
+      "anchor": "definition-guidance"
+    },
+    {
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "level": 2,
+      "text": "Integration, Observability, And Performance",
+      "anchor": "integration-observability-and-performance"
+    },
+    {
+      "level": 2,
+      "text": "Common Mistakes",
+      "anchor": "common-mistakes"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "nPipeline",
+      "anchor": "npipeline"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nPipeline` runs a named sequence of technical processing steps. It is useful when an operation must pass through an ordered, configurable lifecycle—for example validation, initialization, persistence, or post-processing—while allowing a later module to replace or reorder specific steps."
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nPipeline` owns configurable execution pipelines used to compose ordered runtime behavior."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Detailed pipeline framework documentation is maintained in [docs/pipeline-framework.md](docs/pipeline-framework.md)."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Pipeline guidance covers configurable process-style execution: a definition is a series of nodes where each step can decide the next operation. Nodics uses pipeline and workflow terminology in different places, so verify the owning source before moving behavior. Pipeline behavior belongs here when it is framework-level ordered execution; business workflow belongs in workflow modules."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "When To Use A Pipeline",
+      "anchor": "when-to-use-a-pipeline"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use a pipeline when the sequence itself is part of the platform or capability contract and needs named steps, shared context, error traceability, and layered overrides. Use an ordinary service for a small cohesive behavior. Use workflow modules when the business process has durable state, carriers, actions, waiting, human decisions, retries across time, or business-visible lifecycle."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Ownership",
+      "anchor": "ownership"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nPipeline` may own:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "pipeline definition loading;",
+        "ordered node execution;",
+        "context propagation between nodes;",
+        "error and trace handling;",
+        "extension points for later modules to add, replace, disable, or reorder"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "nodes."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Extension Contract",
+      "anchor": "extension-contract"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Pipeline changes must preserve execution order, context propagation, error traceability, and override behavior. Later modules should customize pipelines through source definitions and configuration, not by editing framework runtime code."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Tests must cover default execution and a later-loaded module override whenever pipeline behavior changes."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nPipeline` provides:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "effective pipeline definition loading from active modules;",
+        "optional merge with persisted pipeline models when the pipeline schema/service is available;",
+        "runtime update and removal handling through events;",
+        "`PipelineHead` and `PipelineNode` execution primitives;",
+        "default success and error terminals;",
+        "named pipeline execution through `DefaultPipelineService.start`;",
+        "global effective `PIPELINE` registry management;",
+        "source extension slots for pipeline definitions and interceptors."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Pipelines are process chains. Each node receives request, response, and process context and decides whether to continue, fail, or finish."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Startup loads `src/pipelines/pipelines.js` from active modules.",
+        "Persisted pipeline models are merged when the generated pipeline model service is available.",
+        "A caller starts a named pipeline through `DefaultPipelineService.start(name, request, response)`.",
+        "The service merges `defaultPipeline` with the named pipeline definition.",
+        "`PipelineHead` builds ordered nodes and starts execution.",
+        "Nodes call success, error, or terminal handlers.",
+        "Failures are enriched with pipeline name, pipeline id, node name, tenant, and module context."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Runtime pipeline model changes can update or remove entries from the effective `PIPELINE` registry through change events."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Definition Guidance",
+      "anchor": "definition-guidance"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A pipeline definition should document:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "pipeline purpose;",
+        "owning module;",
+        "expected request shape;",
+        "response shape;",
+        "node order;",
+        "success and error transitions;",
+        "tenant and auth assumptions;",
+        "side effects;",
+        "diagnostics;",
+        "tests."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use pipelines when behavior needs ordered, configurable, replaceable processing. Use workflow modules for business workflow lifecycle, state, and carrier/action orchestration."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Pipeline nodes orchestrate lifecycle steps. Processors are configured handlers that may run inside a node to transform data or satisfy an import/export/search contract. Do not use processors as hidden pipeline controllers."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run quality:docs\nnpm run docs:coverage:source -- --limit=20"
+    },
+    {
+      "kind": "paragraph",
+      "text": "When changing runtime pipeline behavior, add focused tests that prove default execution, error enrichment, dynamic update/removal, and later-module overrides."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The current repository also exercises pipeline contracts through consumer modules such as generated database save/get/update/remove pipelines, search, workflow, cronjob, and runtime schema governance. A change to the generic engine must run those consumer regressions because they are part of the effective contract."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "hardcoding pipeline node order in service code when source definitions can own it;",
+        "swallowing node errors without trace context;",
+        "putting business workflow state machines into generic pipelines;",
+        "mutating global `PIPELINE` from random services;",
+        "changing pipeline contracts without tests for default and override behavior."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Integration, Observability, And Performance",
+      "anchor": "integration-observability-and-performance"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Pipeline request and response objects are contracts shared with their caller. Each node must document required input, output mutation, side effects, tenant and authorization assumptions, and whether retry or repeated execution is safe."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Trace failures with pipeline name/id, node, module, tenant, correlation, and the original safe cause. Do not swallow errors or log secret-bearing request data. Keep synchronous nodes bounded; move long-running or durable business work to the appropriate job, event, messaging, or workflow capability."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Common Mistakes",
+      "anchor": "common-mistakes"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Using a pipeline as an unstructured list of hidden service calls.",
+        "Using a processor as a second pipeline controller.",
+        "Storing business workflow state only in in-memory pipeline context.",
+        "Mutating the global registry outside its loader/event contract.",
+        "Adding a node without defining error and repeated-execution behavior."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Detailed framework: [Pipeline Framework](docs/pipeline-framework.md)",
+        "Public platform guide: [How Platform Capabilities Work](../../gDocs/platform/how-platform-capabilities-work.md)",
+        "Business workflow modules: [workflow](../../gCore/workflow/README.md)",
+        "Framework map: [gFramework](../README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "docs/pipeline-framework.md",
+      "target": "docs/pipeline-framework.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/npipeline/docs/pipeline-framework",
+      "anchor": ""
+    },
+    {
+      "label": "Pipeline Framework",
+      "target": "docs/pipeline-framework.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/npipeline/docs/pipeline-framework",
+      "anchor": ""
+    },
+    {
+      "label": "How Platform Capabilities Work",
+      "target": "../../gDocs/platform/how-platform-capabilities-work.md",
+      "kind": "internal",
+      "route": "/docs/platform/how-platform-capabilities-work",
+      "anchor": ""
+    },
+    {
+      "label": "workflow",
+      "target": "../../gCore/workflow/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcore/workflow",
+      "anchor": ""
+    },
+    {
+      "label": "gFramework",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

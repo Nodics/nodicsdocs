@@ -1,0 +1,306 @@
+{
+  "code": "docsArticle6b27c6776099d2fdcfa1",
+  "title": "elastic Module",
+  "route": "/docs/modules/gframework/nsearch/elastic",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nSearch/elastic/README.md",
+    "type": "module-readme",
+    "contentHash": "b4a54325b2ad568383f011d4f6c2e16e55319421007b74d3529c6bcc6a08beed"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "elastic Module",
+      "anchor": "elastic-module"
+    },
+    {
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "level": 2,
+      "text": "Configuration",
+      "anchor": "configuration"
+    },
+    {
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "level": 2,
+      "text": "Operations, Recovery, And Performance",
+      "anchor": "operations-recovery-and-performance"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "elastic Module",
+      "anchor": "elastic-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "**Maturity: Guarded provider.** The adapter has deterministic connection and operation contracts, but production use requires a configured external cluster and guarded live qualification."
+    },
+    {
+      "kind": "paragraph",
+      "text": "`elastic` is the Elasticsearch engine adapter for `nSearch`. It owns Elasticsearch-specific configuration, schemas, route wiring, and pipeline hooks used by the provider-neutral search capability."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for Elastic connection and engine behavior only. Shared search APIs, cache policy, fallback semantics, and index lifecycle contracts belong in `nSearch/search`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Endpoints, credentials, index names, and deployment topology must come from layered configuration. Keep this adapter replaceable by preserving the engine contract."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Capability",
+      "anchor": "capability"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The module contributes:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "default Elasticsearch configuration under `search.default.elastic`;",
+        "search data type mapping defaults;",
+        "connection handler wiring through `DefaultElasticSearchEngineConnectionHandlerService`;",
+        "schema handler wiring through `DefaultElasticSearchSchemaHandlerService`;",
+        "Elastic operation defaults for exists, health, save, bulk, search, remove, schema, refresh, and index lifecycle behavior;",
+        "raw search model definition loading from `src/schemas/elasticSearchModel.js`;",
+        "current promise-based Elasticsearch client invocation while retaining"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "callback compatibility for project adapters and focused tests;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "normalization of the historic Nodics `hosts` property to the current client"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nodes` option without creating a second configuration authority;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Elastic model operation implementations for create index, refresh, health, exists, get, search, save, bulk, update, remove, remove by query, get schema, update schema, and remove index."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "The adapter maps Nodics search model operations to the active Elasticsearch client. Provider-neutral services should not know which client is active."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Runtime Flow",
+      "anchor": "runtime-flow"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Layered configuration activates the Elastic engine and supplies connection/options.",
+        "The Elastic connection handler loads raw model definitions and registers them through the search configuration service.",
+        "Search model operations receive provider-neutral requests from `nSearch/search`.",
+        "Elastic model functions merge default engine options with request options.",
+        "The adapter lowercases index/type names and calls the Elasticsearch client.",
+        "Responses or errors return through the provider-neutral pipeline and error contracts."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Configuration",
+      "anchor": "configuration"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Elastic configuration belongs in layered properties or governed runtime/secret layers. Typical settings include:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "connection handler service;",
+        "schema handler service;",
+        "hosts or cloud endpoint aliases;",
+        "log and timeout behavior;",
+        "health, refresh, search, save, bulk, remove, schema, and index lifecycle options;",
+        "data type mapping;",
+        "tenant/index naming policy."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "The framework default points to a local Elastic endpoint for development shape only. Customer, environment, server, node, tenant, and production values must override this through governed configuration."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Current client query options use Elasticsearch wire names such as `op_type`, `ignore_unavailable`, and `expand_wildcards`. Request timeout is a client transport option and must not be sent as an API query parameter."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Projects may customize Elastic behavior by:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "overriding `search.*.elastic` configuration in later active modules;",
+        "replacing the connection or schema handler service;",
+        "overriding Elastic model operation behavior through a later module;",
+        "adding provider-specific pipelines where needed;",
+        "adding live-provider release tests for production Elastic/OpenSearch environments."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "If the project needs OpenSearch, Solr, or another engine with different client semantics, create a provider adapter module that preserves the `nSearch/search` contract instead of changing shared search services."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run focused Elastic coverage with:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "node gFramework/nSearch/elastic/test/elasticConnectionHandlerContract.test.js\nnode gFramework/nSearch/elastic/test/elasticSearchModelOperationContract.test.js\nnpm run quality:docs"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Live provider validation should be added before enabling a production cluster."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "putting Elastic client calls into provider-neutral search services;",
+        "hardcoding production hosts, credentials, aliases, or index names;",
+        "enabling a production engine without live-provider release tests;",
+        "bypassing search model and pipeline contracts;",
+        "returning raw provider errors that expose connection details;",
+        "assuming Elastic type semantics are valid for every future search engine."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Operations, Recovery, And Performance",
+      "anchor": "operations-recovery-and-performance"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Define cluster health thresholds, TLS/authentication, timeouts, retry/backoff, index templates/mappings, aliases, refresh, shard/replica policy, capacity, snapshot/restore, reindex, and version compatibility. Monitor cluster health, query/bulk latency, rejected operations, indexing lag, mapping conflicts, connection retries, and index growth by safe tenant-aware dimensions."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Test startup with unavailable and degraded clusters, index creation races, mapping changes, bulk partial failure, query errors, reconnect, alias migration, tenant isolation, and cleanup in an isolated provider environment."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Generic contract: [search](../search/README.md)",
+        "Provider selection: [nSearch](../README.md)",
+        "Maturity matrix: [Provider And Capability Maturity Matrix](../../../gDocs/reference/provider-capability-maturity-matrix.md)",
+        "Public platform guide: [How Platform Capabilities Work](../../../gDocs/platform/how-platform-capabilities-work.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "search",
+      "target": "../search/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nsearch/search",
+      "anchor": ""
+    },
+    {
+      "label": "nSearch",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nsearch",
+      "anchor": ""
+    },
+    {
+      "label": "Provider And Capability Maturity Matrix",
+      "target": "../../../gDocs/reference/provider-capability-maturity-matrix.md",
+      "kind": "internal",
+      "route": "/docs/reference/provider-capability-maturity-matrix",
+      "anchor": ""
+    },
+    {
+      "label": "How Platform Capabilities Work",
+      "target": "../../../gDocs/platform/how-platform-capabilities-work.md",
+      "kind": "internal",
+      "route": "/docs/platform/how-platform-capabilities-work",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

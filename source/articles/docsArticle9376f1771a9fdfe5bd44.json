@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle9376f1771a9fdfe5bd44",
+  "title": "startioDev",
+  "route": "/docs/modules/startio/envs/startiodev",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/envs/startioDev/README.md",
+    "type": "module-readme",
+    "contentHash": "d22b00c9a595d9d7d202f89518552d23ede2943161ac94ac15b87c3161405b46"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "startioDev",
+      "anchor": "startiodev"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "startioDev",
+      "anchor": "startiodev"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`startioDev` is the development environment module for the `startio` application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for development-only configuration and server composition. Shared application behavior belongs in `modules`, and server-specific runtime settings belong in child server modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Development defaults should stay overrideable and must not become framework defaults."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

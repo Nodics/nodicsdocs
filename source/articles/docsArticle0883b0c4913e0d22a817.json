@@ -1,0 +1,230 @@
+{
+  "code": "docsArticle0883b0c4913e0d22a817",
+  "title": "Product Release-Readiness Evidence",
+  "route": "/docs/modules/gcomm/product/docs/product-release-readiness",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gComm/product/docs/product-release-readiness.md",
+    "type": "module-doc",
+    "contentHash": "79ebea1bbad3fd21c298bfa21dc7f54c46ba1ad4dd92b969fd3af8e4c66f24d2"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Product Release-Readiness Evidence",
+      "anchor": "product-release-readiness-evidence"
+    },
+    {
+      "level": 2,
+      "text": "Acceptance evidence",
+      "anchor": "acceptance-evidence"
+    },
+    {
+      "level": 2,
+      "text": "Operator acceptance procedure",
+      "anchor": "operator-acceptance-procedure"
+    },
+    {
+      "level": 2,
+      "text": "Verification commands",
+      "anchor": "verification-commands"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Product Release-Readiness Evidence",
+      "anchor": "product-release-readiness-evidence"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This page records the verified P4 acceptance boundary for the implemented Product capability. It is an evidence map, not a second test runner or runtime authority. Product tests exercise Product behavior; Nodics release suites own cross-module and regression execution."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Acceptance evidence",
+      "anchor": "acceptance-evidence"
+    },
+    {
+      "kind": "table",
+      "headers": [
+        "Required behavior",
+        "Expected result",
+        "Primary automated evidence"
+      ],
+      "rows": [
+        [
+          "Valid Product creation and references",
+          "Enterprise identity is derived and Catalog/Units references resolve",
+          "`productFoundationContract.test.js`"
+        ],
+        [
+          "Invalid type, reference, identity, or lifecycle input",
+          "Operation fails closed without creating a parallel authority",
+          "Foundation, Category, Classification, Variant, and Composition contract tests"
+        ],
+        [
+          "Tenant and enterprise isolation",
+          "Reads and writes cannot cross authenticated scope",
+          "`productFoundationContract.test.js`, `productManagementAndReferenceContract.test.js`, `productOnlineDeliveryAndProjectionContract.test.js`"
+        ],
+        [
+          "Human and internal authentication separation",
+          "Human management/operations use access tokens; publication and reference transport use service tokens",
+          "Management, Publication, and Online Delivery contract tests"
+        ],
+        [
+          "Missing exact source or frozen dependency",
+          "Publication is rejected before Online activation",
+          "`productPublicationContract.test.js`"
+        ],
+        [
+          "Oversized dependency graph or manifest",
+          "Configured bounds reject the release",
+          "`productPublicationContract.test.js`"
+        ],
+        [
+          "Duplicate submission or delivery",
+          "Existing immutable manifest and receipt are reused idempotently",
+          "`productPublicationContract.test.js`"
+        ],
+        [
+          "Unsupported contract or tampered manifest",
+          "Online rejects the payload before import or pointer activation",
+          "`productPublicationContract.test.js`"
+        ],
+        [
+          "Stale Online pointer revision",
+          "Atomic activation fails and the previous release remains active",
+          "`productPublicationContract.test.js`"
+        ],
+        [
+          "Target outage",
+          "Staged publication fails closed and the previous Online release remains authoritative",
+          "Product publication contract and modular topology publication probe"
+        ],
+        [
+          "Cache or search projection failure",
+          "Online activation remains valid; durable job records incomplete work",
+          "`productOnlineDeliveryAndProjectionContract.test.js`"
+        ],
+        [
+          "Projection retry",
+          "Reconciliation retries only unfinished work",
+          "`productOnlineDeliveryAndProjectionContract.test.js`"
+        ],
+        [
+          "Rollback",
+          "A previously accepted manifest is reactivated and a rollback receipt is retained",
+          "`productPublicationContract.test.js`"
+        ],
+        [
+          "Restart recovery",
+          "Module registration and publication state recover in modular topology",
+          "`startioLocalRuntimeTopology.test.js`"
+        ],
+        [
+          "Layered customization",
+          "Configured item types and providers remain replaceable without copying authorities",
+          "`productProviderAndOverrideContract.test.js` and the Product LLM examples"
+        ]
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Operator acceptance procedure",
+      "anchor": "operator-acceptance-procedure"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Confirm Staged and Online use separate databases or schemas and that only"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Staged enables Product versioning."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Confirm the target connection uses internal module authentication. Never put"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "a human username/password token on the publication route."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Publish an approved test release and verify its manifest hash, receipt,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "active pointer revision, and projection job."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Repeat the same delivery and verify that it creates no duplicate receipt.",
+        "Simulate an unavailable target and verify that the earlier Online pointer is"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "unchanged. Restore the target and retry through `nPublish`."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Simulate a search projection failure, verify the `PARTIAL` job, restore the"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "provider, and run bounded reconciliation."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Roll back to the earlier accepted manifest and verify the pointer, receipt,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "cache invalidation, and search projection state."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Production sizing must use representative enterprise Catalog volume and the deployment's actual database, network, cache, and search providers. The contract tests prove correctness and bounds; they do not claim universal capacity figures."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Verification commands",
+      "anchor": "verification-commands"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run every `gComm/product/test/*.test.js` test, then regenerate LLM context and run `npm run build`, `npm run quality:docs`, and `npm run test:full`. The release is acceptable only when focused, generated, security, topology, integration, and regression checks all pass."
+    },
+    {
+      "kind": "paragraph",
+      "text": "When a Product source, configuration, contract, or test changes, regenerate the module context rather than editing `llm/generated/` by hand."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

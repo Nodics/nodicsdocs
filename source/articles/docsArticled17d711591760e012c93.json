@@ -1,0 +1,47 @@
+{
+  "code": "docsArticled17d711591760e012c93",
+  "title": "startioApi Module",
+  "route": "/docs/modules/startio/modules/startioapi",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/modules/startioApi/README.md",
+    "type": "module-readme",
+    "contentHash": "2987af45f4e1b155b0dc9aa655fbf99f51ff170cff89e8b0d0d195464e9df051"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "startioApi Module",
+      "anchor": "startioapi-module"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "startioApi Module",
+      "anchor": "startioapi-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`startioApi` owns API-facing behavior for the `startio` application. It provides project-specific schema, route, service, pipeline, utility, configuration, and test space for request contracts."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for application APIs. Core project behavior belongs in `startioCore`, and integration behavior belongs in `startioInt`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "API changes must preserve route governance, access control, tenant context, diagnostics, and generated contract alignment."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

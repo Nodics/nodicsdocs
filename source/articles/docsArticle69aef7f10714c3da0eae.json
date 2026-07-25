@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle69aef7f10714c3da0eae",
+  "title": "kickoff",
+  "route": "/docs/modules/docs/kickoff",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "docs/kickoff/README.md",
+    "type": "module-readme",
+    "contentHash": "d6f8803c56fa46f5efa6796f5e4b096c9a11a31b40e4d20dcd3304dd29b84005"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "kickoff",
+      "anchor": "kickoff"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "kickoff",
+      "anchor": "kickoff"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`kickoff` is a project application layer. It composes application modules and environment topology above the reusable Nodics framework."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this root for application composition, sample defaults, and project-level configuration. Framework capabilities should be extended through active modules rather than edited in `gFramework`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep kickoff behavior layered, test-backed, and clearly separated from out-of-the-box framework contracts."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

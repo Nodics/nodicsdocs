@@ -1,0 +1,132 @@
+{
+  "code": "docsArticle50c10233aa4548f8fcf5",
+  "title": "gSetup",
+  "route": "/docs/modules/gsetup",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gSetup/README.md",
+    "type": "module-readme",
+    "contentHash": "d3144908d1f00de5c29fc6f6bf9536113d34ea3f3228cc52ae025973b01eedab"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "gSetup",
+      "anchor": "gsetup"
+    },
+    {
+      "level": 2,
+      "text": "LLM Bootstrap",
+      "anchor": "llm-bootstrap"
+    },
+    {
+      "level": 2,
+      "text": "Runtime Boundary",
+      "anchor": "runtime-boundary"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "gSetup",
+      "anchor": "gsetup"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`gSetup` contains Nodics setup, onboarding, and instruction-level assets."
+    },
+    {
+      "kind": "paragraph",
+      "text": "It intentionally looks like a first-class Nodics top-level area, but it is **not** part of Nodics runtime module loading."
+    },
+    {
+      "kind": "paragraph",
+      "text": "`gSetup` includes the standard module-shaped files `package.json`, `nodics.js`, and `README.md` so developers recognize it as a first-class Nodics repository area."
+    },
+    {
+      "kind": "paragraph",
+      "text": "It is excluded from runtime startup by `package.json` metadata:"
+    },
+    {
+      "kind": "code",
+      "language": "json",
+      "text": "{\n    \"runtimeModule\": false,\n    \"nodics\": {\n        \"runtimeModule\": false,\n        \"loadableByNodicsModuleLoader\": false\n    }\n}"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Today it is a setup/instruction package, not a runtime module."
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder is intended for project-wide enablement material that should survive beyond temporary refactoring notes. It is not a generated artifact folder and should not be removed by clean/build."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Current contents:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`llm/`: tool-neutral context, prompts, decision memory, examples, and working rules for AI-assisted Nodics development.",
+        "`package.json`: machine-readable setup package metadata with runtime loading disabled.",
+        "`nodics.js`: no-op lifecycle file retained only for module-shape consistency.",
+        "`config/properties.js`, `config/prescripts.js`, `config/postscripts.js`: no-op config files retained only for module-shape consistency."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "LLM Bootstrap",
+      "anchor": "llm-bootstrap"
+    },
+    {
+      "kind": "paragraph",
+      "text": "When starting any AI-assisted Nodics project, ask the LLM to read:"
+    },
+    {
+      "kind": "code",
+      "language": "text",
+      "text": "gSetup/llm/README.md"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Then ask it to follow the linked principles, modular architecture, schema/generation rules, testing playbook, and feature process before making code changes."
+    },
+    {
+      "kind": "paragraph",
+      "text": "If an AI tool automatically scans the repository, this folder should be treated as the canonical instruction source for Nodics development behavior."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Runtime Boundary",
+      "anchor": "runtime-boundary"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not add runtime module behavior here unless `gSetup` is intentionally promoted into the active module hierarchy with a clear startup contract."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not include `gSetup` in server/module startup lists."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not place generated build artifacts in `gSetup`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The config module has a test that protects this rule: `gFramework/nConfig/test/nonRuntimePackageDiscovery.test.js`."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

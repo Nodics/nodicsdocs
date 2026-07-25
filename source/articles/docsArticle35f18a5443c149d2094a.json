@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle35f18a5443c149d2094a",
+  "title": "kickoffInt Module",
+  "route": "/docs/modules/docs/kickoff/kickoffmodules/kickoffint",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "docs/kickoff/kickoffModules/kickoffInt/README.md",
+    "type": "module-readme",
+    "contentHash": "bbcb7cbb351ced762076660fb4e10ef7be7e4c5bd4d2f71674ac23669438e521"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "kickoffInt Module",
+      "anchor": "kickoffint-module"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "kickoffInt Module",
+      "anchor": "kickoffint-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`kickoffInt` owns integration behavior for the `kickoff` application. It provides project-specific schema, route, service, pipeline, utility, configuration, and test space for external or cross-module integration."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for integration contracts and adapters. Core project rules belong in `kickoffCore`, and API request handling belongs in `kickoffApi`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Integration changes must preserve provider governance, diagnostics, retry/rollback expectations, access control, and layered configuration."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

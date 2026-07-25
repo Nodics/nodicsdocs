@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle07c512a48b2d6db979c9",
+  "title": "wquiz Module",
+  "route": "/docs/modules/gcore/quizer/wquiz",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gCore/quizer/wquiz/README.md",
+    "type": "module-readme",
+    "contentHash": "6451d0a99da256e0f6308cdca6521fb4f3b7faff8c7269acd864e5327b3a2e8e"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "wquiz Module",
+      "anchor": "wquiz-module"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "wquiz Module",
+      "anchor": "wquiz-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`wquiz` owns workflow-enabled quiz behavior. It extends the quiz capability with workflow-specific configuration, schemas, services, pipelines, and tests."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module when quiz behavior must participate in workflow governance. Keep base quiz definitions in `quiz` and runtime variant wiring in `vquiz`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Workflow quiz changes must remain source-of-truth driven, auditable, and safe for tenant-specific extension."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

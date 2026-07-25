@@ -1,0 +1,528 @@
+{
+  "code": "docsArticle152deaefcb38904b462f",
+  "title": "How To Create Application Functionality",
+  "route": "/docs/development/how-to-create-application-functionality",
+  "category": "development",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gDocs/development/how-to-create-application-functionality.md",
+    "type": "gdocs",
+    "contentHash": "e61ae2221eade34c9b99ccd0f15060e1d4f7c6b5d04d2ac9b44554794a3fe732"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "How To Create Application Functionality",
+      "anchor": "how-to-create-application-functionality"
+    },
+    {
+      "level": 2,
+      "text": "Beginner Summary",
+      "anchor": "beginner-summary"
+    },
+    {
+      "level": 2,
+      "text": "Step 1: Describe The Feature",
+      "anchor": "step-1-describe-the-feature"
+    },
+    {
+      "level": 2,
+      "text": "Step 2: Choose The Owner",
+      "anchor": "step-2-choose-the-owner"
+    },
+    {
+      "level": 2,
+      "text": "Step 3: Choose The Right Layer",
+      "anchor": "step-3-choose-the-right-layer"
+    },
+    {
+      "level": 2,
+      "text": "Layer Decision Table",
+      "anchor": "layer-decision-table"
+    },
+    {
+      "level": 2,
+      "text": "Step 4: Follow Standard Service Style",
+      "anchor": "step-4-follow-standard-service-style"
+    },
+    {
+      "level": 2,
+      "text": "Step 5: Add Tests",
+      "anchor": "step-5-add-tests"
+    },
+    {
+      "level": 2,
+      "text": "Step 6: Update Documentation",
+      "anchor": "step-6-update-documentation"
+    },
+    {
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "level": 2,
+      "text": "Before You Finish",
+      "anchor": "before-you-finish"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "How To Create Application Functionality",
+      "anchor": "how-to-create-application-functionality"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This guide explains how to decide where new code belongs."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Before writing code, identify the capability you are building."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Examples:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "User registration belongs near identity/profile behavior.",
+        "A new scheduled cleanup belongs near scheduled-job behavior.",
+        "A new import type belongs near import behavior.",
+        "A new data provider belongs near database behavior.",
+        "A customer-specific order rule belongs in the customer project module, not in framework order code."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "For practical task-by-task examples, read [Common Implementation Examples](common-implementation-examples.md). It shows how to create APIs, schemas, providers, scheduled jobs, and runtime configuration changes using the same ownership and verification rules."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Beginner Summary",
+      "anchor": "beginner-summary"
+    },
+    {
+      "kind": "paragraph",
+      "text": "In Nodics, you do not start by asking \"which file can I edit?\" You start by asking \"which capability owns this behavior?\""
+    },
+    {
+      "kind": "paragraph",
+      "text": "A capability is a business or platform area such as profile, order, cache, import, search, workflow, scheduled jobs, or runtime configuration. Once the capability is clear, the layer becomes easier:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "route exposes an API;",
+        "controller reads the HTTP request and prepares the Nodics request context;",
+        "facade coordinates one use case;",
+        "service implements business behavior;",
+        "schema defines data shape and generated CRUD behavior;",
+        "DAO/provider talks to a database or external provider;",
+        "pipeline defines ordered processing steps;",
+        "interceptor validates or hooks into lifecycle behavior;",
+        "config stores policy, provider choice, limits, and topology;",
+        "data folders store initial, core, sample, or importable records;",
+        "tests prove the behavior and the override path."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "The safest beginner workflow is:"
+    },
+    {
+      "kind": "code",
+      "language": "text",
+      "text": "Describe feature -> choose owner -> choose layer -> write small code -> add tests -> regenerate artifacts -> update docs"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Step 1: Describe The Feature",
+      "anchor": "step-1-describe-the-feature"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Write one sentence:"
+    },
+    {
+      "kind": "code",
+      "language": "text",
+      "text": "This feature allows <user or system> to <do something> so that <business outcome>."
+    },
+    {
+      "kind": "paragraph",
+      "text": "If the sentence names a user-facing action, you probably need API, service, data, and test changes."
+    },
+    {
+      "kind": "paragraph",
+      "text": "If the sentence names system automation, you may need configuration, scheduled jobs, events, or pipelines."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Examples:"
+    },
+    {
+      "kind": "table",
+      "headers": [
+        "Requirement",
+        "Likely owner",
+        "Likely layers"
+      ],
+      "rows": [
+        [
+          "Customer can save a delivery preference",
+          "Customer project or profile module",
+          "schema, route, controller, facade, service, tests"
+        ],
+        [
+          "Product catalog must be exported nightly",
+          "Catalog/data project module",
+          "cronjob, export service, pipeline, config, tests"
+        ],
+        [
+          "One tenant uses a private database",
+          "Tenant/runtime configuration plus database provider",
+          "config, tenant record, DAO/provider tests"
+        ],
+        [
+          "Admin can flush a cache channel",
+          "Cache/system capability",
+          "router, permission, service, audit, tests"
+        ],
+        [
+          "Import must reject invalid CSV rows but continue valid rows",
+          "Import capability or project import module",
+          "import pipeline, interceptor, config, tests"
+        ]
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Step 2: Choose The Owner",
+      "anchor": "step-2-choose-the-owner"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Ask:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Is this framework behavior?",
+        "Is this project-specific behavior?",
+        "Is this environment-specific behavior?",
+        "Is this tenant-specific behavior?",
+        "Is this a provider implementation?"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not add code to a shared framework module just because it is convenient. Use a project module when the behavior is customer-specific."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Step 3: Choose The Right Layer",
+      "anchor": "step-3-choose-the-right-layer"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use services for business behavior."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use controllers for request handling."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use facades for orchestration across services or capability boundaries."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use schemas for data shape."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use routes for API exposure."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use pipelines and interceptors for extension points around a process."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use configuration for policy and environment-dependent values."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use data folders for initial or sample data."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use tests to prove default behavior and override behavior."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Layer Decision Table",
+      "anchor": "layer-decision-table"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this table when you are unsure where code belongs:"
+    },
+    {
+      "kind": "table",
+      "headers": [
+        "Question",
+        "If yes, write here"
+      ],
+      "rows": [
+        [
+          "Does this expose an HTTP endpoint?",
+          "`src/router/routers.js` plus controller/facade/service"
+        ],
+        [
+          "Does this read path, query, header, or body values?",
+          "`src/controller/**/*Controller.js`"
+        ],
+        [
+          "Does this coordinate multiple services or modules?",
+          "`src/facade/**/*Facade.js`"
+        ],
+        [
+          "Does this implement business logic?",
+          "`src/service/**/*Service.js`"
+        ],
+        [
+          "Does this define a data model or generated CRUD API?",
+          "`src/schemas/schemas.js`"
+        ],
+        [
+          "Does this change database provider behavior?",
+          "Provider module DAO/service layer"
+        ],
+        [
+          "Does this add a step to an ordered process?",
+          "`src/pipelines/pipelines.js` and service method"
+        ],
+        [
+          "Does this validate or hook before/after lifecycle behavior?",
+          "`src/interceptors/interceptors.js` or pipeline node"
+        ],
+        [
+          "Does this define a setting or policy?",
+          "`config/properties.js`"
+        ],
+        [
+          "Does this load default records at startup?",
+          "Module `data/initial` or appropriate data folder"
+        ],
+        [
+          "Does this provide examples users can import manually?",
+          "Module `data/sample` or documented import path"
+        ],
+        [
+          "Does this prove behavior?",
+          "Module `test/`"
+        ]
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not place business behavior in `config/`, routers, generated files, or one-off helper folders."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Step 4: Follow Standard Service Style",
+      "anchor": "step-4-follow-standard-service-style"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics services should export functions from `module.exports`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Example:"
+    },
+    {
+      "kind": "code",
+      "language": "js",
+      "text": "module.exports = {\n    createPlan: function (options) {\n        return {\n            executableByDefault: false,\n            requiresExplicitApproval: true\n        };\n    }\n};"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This style allows later modules to override or merge behavior through the standard Nodics service loading pattern."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid creating custom folders or export styles that the Nodics loader cannot see."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Step 5: Add Tests",
+      "anchor": "step-5-add-tests"
+    },
+    {
+      "kind": "paragraph",
+      "text": "At minimum, test:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "The default behavior.",
+        "The project override behavior if the feature is meant to be customized.",
+        "Permission behavior if the feature is exposed through APIs.",
+        "Validation behavior for invalid input.",
+        "Tenant behavior if data or configuration can vary by tenant."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "For a beginner, think of tests as the proof that your code is in the right place. If you cannot write a focused test for the owner and layer, the behavior may be in the wrong place."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Step 6: Update Documentation",
+      "anchor": "step-6-update-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "The module README if the module behavior changed.",
+        "Public documentation if users need to learn the feature.",
+        "AI/developer contracts if the extension rule changed.",
+        "Generated context if source behavior changed."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run llm:generate\nnpm run llm:validate"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Editing framework files for customer-specific behavior.",
+        "Creating helper code outside the loader-visible folders.",
+        "Hiding policy in controller code.",
+        "Duplicating configuration rules.",
+        "Manually editing generated files.",
+        "Adding behavior without tests."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Before You Finish",
+      "anchor": "before-you-finish"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this checklist:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "The owning module is clear.",
+        "The code is in a loader-visible Nodics folder.",
+        "Service/controller/facade files use `module.exports`.",
+        "Configuration values live in `config/properties.js`.",
+        "Security and permissions are visible in route metadata.",
+        "Tenant behavior is explicit when data, cache, search, files, jobs, or events are involved.",
+        "Generated artifacts were regenerated when schemas, routes, OpenAPI, tests, or LLM context changed.",
+        "Documentation explains where future developers or AI tools should customize the behavior."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Beginner journey: [Build Your First Nodics Capability](../getting-started/build-your-first-capability.md)",
+        "Next: [How To Customize And Extend Nodics](how-to-customize-and-extend-nodics.md)",
+        "Testing: [How To Test Nodics Changes](../testing/how-to-test-nodics-changes.md)",
+        "Documentation home: [Nodics Documentation](../README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "Common Implementation Examples",
+      "target": "common-implementation-examples.md",
+      "kind": "internal",
+      "route": "/docs/development/common-implementation-examples",
+      "anchor": ""
+    },
+    {
+      "label": "Build Your First Nodics Capability",
+      "target": "../getting-started/build-your-first-capability.md",
+      "kind": "internal",
+      "route": "/docs/getting-started/build-your-first-capability",
+      "anchor": ""
+    },
+    {
+      "label": "How To Customize And Extend Nodics",
+      "target": "how-to-customize-and-extend-nodics.md",
+      "kind": "internal",
+      "route": "/docs/development/how-to-customize-and-extend-nodics",
+      "anchor": ""
+    },
+    {
+      "label": "How To Test Nodics Changes",
+      "target": "../testing/how-to-test-nodics-changes.md",
+      "kind": "internal",
+      "route": "/docs/testing/how-to-test-nodics-changes",
+      "anchor": ""
+    },
+    {
+      "label": "Nodics Documentation",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

@@ -1,0 +1,245 @@
+{
+  "code": "docsArticleaab9348008b4e542e899",
+  "title": "jsonExport Module",
+  "route": "/docs/modules/gframework/ndata/nexport/jsonexport",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nData/nExport/jsonExport/README.md",
+    "type": "module-readme",
+    "contentHash": "714a7b08a5edc092614c5814635345cc87ce2c08625fbb330c2ab16b8d39f768"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "jsonExport Module",
+      "anchor": "jsonexport-module"
+    },
+    {
+      "level": 2,
+      "text": "Capability Status",
+      "anchor": "capability-status"
+    },
+    {
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "level": 2,
+      "text": "Configuration",
+      "anchor": "configuration"
+    },
+    {
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "level": 2,
+      "text": "Production Completion Boundary",
+      "anchor": "production-completion-boundary"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "jsonExport Module",
+      "anchor": "jsonexport-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "**Maturity: Placeholder or scaffold.** The module owns the future format boundary but does not yet provide a production writer."
+    },
+    {
+      "kind": "paragraph",
+      "text": "`jsonExport` provides JSON-specific export support for the `nData/nExport` family. It owns JSON serialization defaults, JSON export adapter wiring, and format-specific contracts used by the shared export engine."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep cross-format export orchestration in `nData/nExport/export`. This module should only contain behavior that is specific to JSON payload shape, encoding, schema mapping, or JSON export configuration."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Projects can override JSON export behavior through active modules and layered configuration. Framework defaults should stay generic, auditable, and safe for tenant-specific extension."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Capability Status",
+      "anchor": "capability-status"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The module currently contributes standard Nodics structure for a JSON export adapter:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "layered configuration extension files;",
+        "schema, router, and pipeline extension slots;",
+        "enum, status, and utility files;",
+        "common and environment-local smoke tests;",
+        "generated LLM context."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "It does not currently provide a complete JSON writer service. A production JSON exporter should be implemented through this module or a later active project/provider module."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Extension Path",
+      "anchor": "extension-path"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A JSON exporter should define:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "root payload shape;",
+        "field selection and nesting rules;",
+        "array and object ordering where deterministic output matters;",
+        "null, blank, and missing-value handling;",
+        "date, number, boolean, enum, and identifier formatting;",
+        "schema-to-contract mapping for target systems;",
+        "pretty/minified output options;",
+        "delivery behavior through governed export destination services;",
+        "tests that verify exact payload shape and access-policy filtering."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep JSON serialization here. Keep source-data selection, access policy, run orchestration, and delivery governance in the shared export engine or delivery/provider modules."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Configuration",
+      "anchor": "configuration"
+    },
+    {
+      "kind": "paragraph",
+      "text": "JSON configuration should come from layered properties or export definitions. Typical options include payload root name, field mapping, target contract version, pretty-print mode, output encoding, file naming policy, and maximum record handling."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not hardcode customer target contracts, endpoint URLs, credentials, or tenant mappings in framework code."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Tests",
+      "anchor": "tests"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run the current module baseline with:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run structure:audit -- --fail\nnpm run quality:docs"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A real JSON implementation should add deterministic tests for payload shape, field filtering, nested objects, null handling, ordering, and target-contract compatibility."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "serializing data before export access policy is applied;",
+        "mixing API response contracts with export file contracts unless the definition explicitly says so;",
+        "accepting arbitrary delivery URLs or credentials from requests;",
+        "placing JSON-specific mapping in the shared export engine;",
+        "treating smoke tests as release coverage for a production JSON exporter."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Production Completion Boundary",
+      "anchor": "production-completion-boundary"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A complete writer must prove deterministic rendering, bounded memory or streaming, schema/access-policy filtering, edge cases, and delivery handoff."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Export family: [nExport](../README.md)",
+        "Shared fail-closed engine: [export](../export/README.md)",
+        "Maturity matrix: [Provider And Capability Maturity Matrix](../../../../gDocs/reference/provider-capability-maturity-matrix.md)",
+        "Public data guide: [How To Work With Data](../../../../gDocs/data/how-to-work-with-data.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "nExport",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata/nexport",
+      "anchor": ""
+    },
+    {
+      "label": "export",
+      "target": "../export/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata/nexport/export",
+      "anchor": ""
+    },
+    {
+      "label": "Provider And Capability Maturity Matrix",
+      "target": "../../../../gDocs/reference/provider-capability-maturity-matrix.md",
+      "kind": "internal",
+      "route": "/docs/reference/provider-capability-maturity-matrix",
+      "anchor": ""
+    },
+    {
+      "label": "How To Work With Data",
+      "target": "../../../../gDocs/data/how-to-work-with-data.md",
+      "kind": "internal",
+      "route": "/docs/data/how-to-work-with-data",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

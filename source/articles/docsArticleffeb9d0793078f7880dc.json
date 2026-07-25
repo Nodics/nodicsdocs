@@ -1,0 +1,47 @@
+{
+  "code": "docsArticleffeb9d0793078f7880dc",
+  "title": "cronServer",
+  "route": "/docs/modules/startio/envs/startiodev/cronserver",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/envs/startioDev/cronServer/README.md",
+    "type": "module-readme",
+    "contentHash": "0128f89c967dbf31a296863148a417f6e16615d2ec91fded0964be90ec534113"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "cronServer",
+      "anchor": "cronserver"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "cronServer",
+      "anchor": "cronserver"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`cronServer` is the development cron server module for the `startio` application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for dev-scoped scheduled-job server activation, server configuration, and runtime topology. Cron capability behavior belongs in the relevant reusable modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Server configuration should remain environment-scoped, explicit, and safe to replace in QA, pre-production, and production."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

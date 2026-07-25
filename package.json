@@ -1,0 +1,19 @@
+{
+  "name": "nodicsdocs",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Versioned Nodics documentation content pack for CMS import and multi-client delivery.",
+  "engines": {
+    "node": ">=22 <27",
+    "npm": ">=10 <12"
+  },
+  "scripts": {
+    "inventory:wordpress": "node scripts/inventory-wordpress.js",
+    "migrate": "node scripts/migrate-nodics-sources.js",
+    "build": "node scripts/build-content-pack.js",
+    "stage:local": "node scripts/stage-local-import.js",
+    "validate": "node scripts/validate-content-pack.js",
+    "test": "node --test test/*.test.js",
+    "verify": "npm run validate && npm run test"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle63ca433b674371a51fde",
+  "title": "cres Module",
+  "route": "/docs/modules/gmrkty/cres",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gMrkty/cres/README.md",
+    "type": "module-readme",
+    "contentHash": "32d0b62648daa8c1e6eba525b0e7bd9e83bd682d7f019175837687d795650eb8"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "cres Module",
+      "anchor": "cres-module"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "cres Module",
+      "anchor": "cres-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`cres` owns the customer review system capability. It depends on quiz-oriented behavior and provides the module space for review schemas, routes, services, pipelines, interceptors, utilities, and tests."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for customer review definitions, review lifecycle behavior, and review-related integration with quiz capabilities."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Review behavior should remain configurable, tenant-aware, auditable, and generated from source definitions where artifacts are derived."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle9a9be24ea7336e6a272c",
+  "title": "kickoffLocalCmsServer",
+  "route": "/docs/modules/docs/kickoff/kickoffenvs/kickofflocal/kickofflocalcmsserver",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "docs/kickoff/kickoffEnvs/kickoffLocal/kickoffLocalCmsServer/README.md",
+    "type": "module-readme",
+    "contentHash": "75171367a1e9bedee96be7101427208d973b3ca8a8ac915a9ab8f82c9e133a2e"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "kickoffLocalCmsServer",
+      "anchor": "kickofflocalcmsserver"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "kickoffLocalCmsServer",
+      "anchor": "kickofflocalcmsserver"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`kickoffLocalCmsServer` is the local CMS server module for the `kickoff` application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for local CMS server activation and runtime topology. CMS behavior belongs in content modules such as `cms` and `wcms`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Local server settings should remain explicit, replaceable, and isolated from shared capability logic."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

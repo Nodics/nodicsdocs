@@ -1,0 +1,1232 @@
+{
+  "code": "docsArticledc64d71f94a896972503",
+  "title": "How To Work With Data",
+  "route": "/docs/data/how-to-work-with-data",
+  "category": "data",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gDocs/data/how-to-work-with-data.md",
+    "type": "gdocs",
+    "contentHash": "c7a605b32054a84b626f88b8b332f25255020e5b1f50428713eb542c797d98cd"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "How To Work With Data",
+      "anchor": "how-to-work-with-data"
+    },
+    {
+      "level": 2,
+      "text": "Beginner Summary",
+      "anchor": "beginner-summary"
+    },
+    {
+      "level": 2,
+      "text": "Schemas",
+      "anchor": "schemas"
+    },
+    {
+      "level": 2,
+      "text": "Schema Definitions",
+      "anchor": "schema-definitions"
+    },
+    {
+      "level": 2,
+      "text": "Schema Extension",
+      "anchor": "schema-extension"
+    },
+    {
+      "level": 3,
+      "text": "Generalizing Definitions",
+      "anchor": "generalizing-definitions"
+    },
+    {
+      "level": 3,
+      "text": "Schema Enumeration Type",
+      "anchor": "schema-enumeration-type"
+    },
+    {
+      "level": 2,
+      "text": "Nested And Referenced Data",
+      "anchor": "nested-and-referenced-data"
+    },
+    {
+      "level": 3,
+      "text": "Inline Schema",
+      "anchor": "inline-schema"
+    },
+    {
+      "level": 3,
+      "text": "Referencing Schema",
+      "anchor": "referencing-schema"
+    },
+    {
+      "level": 2,
+      "text": "Database Providers",
+      "anchor": "database-providers"
+    },
+    {
+      "level": 2,
+      "text": "Adding A Provider Such As Oracle",
+      "anchor": "adding-a-provider-such-as-oracle"
+    },
+    {
+      "level": 2,
+      "text": "Managing Database",
+      "anchor": "managing-database"
+    },
+    {
+      "level": 2,
+      "text": "Adding A New Database Provider",
+      "anchor": "adding-a-new-database-provider"
+    },
+    {
+      "level": 2,
+      "text": "Related Module Documentation",
+      "anchor": "related-module-documentation"
+    },
+    {
+      "level": 2,
+      "text": "Data Access Layer",
+      "anchor": "data-access-layer"
+    },
+    {
+      "level": 2,
+      "text": "Initial Data",
+      "anchor": "initial-data"
+    },
+    {
+      "level": 2,
+      "text": "Sample Data",
+      "anchor": "sample-data"
+    },
+    {
+      "level": 2,
+      "text": "Import And Export",
+      "anchor": "import-and-export"
+    },
+    {
+      "level": 2,
+      "text": "Data Feeding Patterns",
+      "anchor": "data-feeding-patterns"
+    },
+    {
+      "level": 3,
+      "text": "Push-Based Import",
+      "anchor": "push-based-import"
+    },
+    {
+      "level": 3,
+      "text": "Scheduled File Import",
+      "anchor": "scheduled-file-import"
+    },
+    {
+      "level": 2,
+      "text": "Remote Import Adapter Pattern",
+      "anchor": "remote-import-adapter-pattern"
+    },
+    {
+      "level": 2,
+      "text": "Import Failure And Batch Behavior",
+      "anchor": "import-failure-and-batch-behavior"
+    },
+    {
+      "level": 2,
+      "text": "Import Targets",
+      "anchor": "import-targets"
+    },
+    {
+      "level": 2,
+      "text": "Export Contracts",
+      "anchor": "export-contracts"
+    },
+    {
+      "level": 2,
+      "text": "Access Policy",
+      "anchor": "access-policy"
+    },
+    {
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "How To Work With Data",
+      "anchor": "how-to-work-with-data"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics data behavior is built around schemas, data access services, import/export, tenant context, and provider modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Data changes must be safe, testable, and reversible where the business process requires it."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Beginner Summary",
+      "anchor": "beginner-summary"
+    },
+    {
+      "kind": "paragraph",
+      "text": "In Nodics, data work usually starts from a schema."
+    },
+    {
+      "kind": "paragraph",
+      "text": "A schema says what a record looks like. From that source definition, Nodics can generate or coordinate models, CRUD APIs, services, search indexes, imports, exports, OpenAPI output, and tests. This is why generated files should not be edited by hand. If the data shape is wrong, fix the schema or the later schema override and regenerate."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this simple map:"
+    },
+    {
+      "kind": "table",
+      "headers": [
+        "Need",
+        "Start here"
+      ],
+      "rows": [
+        [
+          "Add a new data type",
+          "Owning module `src/schemas/schemas.js`"
+        ],
+        [
+          "Add a field or remove a field for a project",
+          "Later project module schema contribution"
+        ],
+        [
+          "Add searchable fields",
+          "`src/search/indexes.js` and search module docs"
+        ],
+        [
+          "Add validation before save/update/remove",
+          "`src/interceptors/interceptors.js`, validators, or model pipelines"
+        ],
+        [
+          "Change database behavior",
+          "Database provider module or project provider module"
+        ],
+        [
+          "Import records from files",
+          "Import configuration, data files, and import pipeline"
+        ],
+        [
+          "Export records to a target format",
+          "Export module/service/pipeline once the export requirement is defined"
+        ],
+        [
+          "Add startup records",
+          "Module `data/initial` or owned initializer data"
+        ],
+        [
+          "Add demo/local records",
+          "Module `data/sample`"
+        ]
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "The safest rule is:"
+    },
+    {
+      "kind": "code",
+      "language": "text",
+      "text": "Schema defines data. Services use data. Providers store data."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Schemas",
+      "anchor": "schemas"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A schema defines the shape of stored data."
+    },
+    {
+      "kind": "paragraph",
+      "text": "When creating or changing a schema, document:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Purpose of the data.",
+        "Required fields.",
+        "Optional fields.",
+        "Relationships to other schemas.",
+        "Tenant behavior.",
+        "Index requirements.",
+        "Access policy.",
+        "Import/export behavior.",
+        "Generated API impact."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "After changing schemas, rebuild and run generated tests."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Schema Definitions",
+      "anchor": "schema-definitions"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Schemas are the starting point for models, DAO behavior, services, facades, controllers, routers, and generated APIs."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Treat schema definitions as source definitions. They affect:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "persistence models;",
+        "generated CRUD behavior;",
+        "services and facades;",
+        "route/API contracts;",
+        "search indexes;",
+        "validators and interceptors;",
+        "import/export behavior;",
+        "OpenAPI output;",
+        "generated schema, CRUD, API, and scenario tests;",
+        "runtime governance and access policies."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not edit generated model or API output to change schema behavior. Change the schema definition, regenerate, and validate."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Schema Extension",
+      "anchor": "schema-extension"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics supports layered schema contribution and override behavior. A later project module may extend, replace, or refine schema definitions when the capability contract allows it."
+    },
+    {
+      "kind": "paragraph",
+      "text": "When changing a schema through a later module, document:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "the original owning module;",
+        "the later module that contributes the change;",
+        "the fields added, removed, or changed;",
+        "generated artifacts affected;",
+        "migration or data compatibility impact;",
+        "tenant and access-policy impact;",
+        "tests proving the default schema and override schema behavior."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 3,
+      "text": "Generalizing Definitions",
+      "anchor": "generalizing-definitions"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Generalizing a schema definition means a later module changes the effective schema contract through the supported module hierarchy."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use schema generalization when a project needs to:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "add a field;",
+        "remove a default field from the effective project schema;",
+        "change validation rules;",
+        "refine access policy;",
+        "add lifecycle state;",
+        "add import/export behavior;",
+        "add search index behavior;",
+        "specialize a nested or referenced data shape."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not edit generated models to generalize a schema. Change the owning schema definition or later project schema contribution, regenerate, and run generated tests against the effective schema."
+    },
+    {
+      "kind": "heading",
+      "level": 3,
+      "text": "Schema Enumeration Type",
+      "anchor": "schema-enumeration-type"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use schema enum values when a property accepts only a controlled list of values."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Document the business meaning of each value, the default value, whether projects can add values, and what generated API/import/export behavior depends on the enum. If a project removes or changes an enum value, project tests must prove that generated CRUD, imports, search indexing, and business services no longer depend on the removed value."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Nested And Referenced Data",
+      "anchor": "nested-and-referenced-data"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Data may be embedded, nested, or referenced depending on the business model."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use embedded or nested data when the child data belongs fully to the parent lifecycle. Use references when records have their own lifecycle, permissions, ownership, or reuse."
+    },
+    {
+      "kind": "paragraph",
+      "text": "For referenced data, document:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "referenced schema;",
+        "relationship cardinality;",
+        "lookup behavior;",
+        "delete/update impact;",
+        "tenant boundary;",
+        "import/export representation."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 3,
+      "text": "Inline Schema",
+      "anchor": "inline-schema"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use inline schema definitions for small child structures that have no independent lifecycle. For example, a simple address fragment, display option, audit snapshot, or embedded metadata block may belong inside its parent model."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Inline data should not be used when the child record needs its own permissions, imports, search index, events, workflow, versioning, or independent update lifecycle. In those cases, use a separate schema and a reference."
+    },
+    {
+      "kind": "heading",
+      "level": 3,
+      "text": "Referencing Schema",
+      "anchor": "referencing-schema"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use referenced schemas when records have separate ownership or lifecycle."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Reference data when:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "the child record is reused by multiple parents;",
+        "access policy differs between parent and child;",
+        "the child has its own CRUD API;",
+        "the child needs import/export independently;",
+        "the child is searchable on its own;",
+        "deleting or updating the child must be governed separately."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "For every reference, document cardinality, lookup behavior, tenant boundary, delete/update rules, import/export representation, and generated API impact."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Database Providers",
+      "anchor": "database-providers"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics supports database behavior through provider modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "For example, MongoDB and Cassandra support live under their own provider areas. If a project needs another database such as Oracle, add it as a provider module with its own connection handling, DAO behavior, configuration, tests, and documentation."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not put Oracle-specific behavior into the generic database layer."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Adding A Provider Such As Oracle",
+      "anchor": "adding-a-provider-such-as-oracle"
+    },
+    {
+      "kind": "paragraph",
+      "text": "When a customer project needs Oracle, do not add Oracle calls inside business services or generated controllers. Add a provider implementation behind the database capability contract."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Beginner implementation path:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Read [nDatabase](../../gFramework/nDatabase/README.md) and the current"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "provider README files."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Create or choose a provider module owned by the project or framework.",
+        "Put provider configuration defaults in `config/properties.js`.",
+        "Put connection lifecycle code in provider-owned services.",
+        "Put provider-specific DAO/query behavior behind the same database contract"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "used by business services."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Keep credentials, hosts, schemas, pools, and secret paths in configuration or"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "secret management."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Add deterministic tests without requiring a live Oracle server.",
+        "Add optional live-provider tests behind a release/integration gate.",
+        "Document how the project activates the provider for a server, node, or"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "tenant."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The business capability should still call Nodics services or DAOs. It should not need to know whether the final provider is MongoDB, Cassandra, Oracle, or another database."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Managing Database",
+      "anchor": "managing-database"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Database behavior is owned by the database capability and provider modules. Application code should call services, facades, generated schema services, or approved DAO contracts instead of directly using provider clients."
+    },
+    {
+      "kind": "paragraph",
+      "text": "When working with database behavior, check:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "which schema owns the data;",
+        "which provider is active for the selected server/tenant;",
+        "which DAO or generated service owns persistence;",
+        "whether the operation runs in the master or test channel;",
+        "whether tenant context is resolved correctly;",
+        "whether access policy and interceptors run before persistence;",
+        "whether generated artifacts are current."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not hardcode database names, collection names, credentials, hosts, or provider-specific query behavior in controllers or generic services. Put provider details in provider modules and layered configuration."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Adding A New Database Provider",
+      "anchor": "adding-a-new-database-provider"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A new provider defines:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Connection configuration.",
+        "Connection lifecycle.",
+        "Model or query abstraction.",
+        "DAO operations.",
+        "Tenant-aware database resolution.",
+        "Error handling.",
+        "Health diagnostics.",
+        "Tests for normal and failure behavior.",
+        "Documentation explaining how projects activate it."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "The generic database capability describes the contract. The provider module implements it."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Related Module Documentation",
+      "anchor": "related-module-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "For exact implementation details, read:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "[nDatabase](../../gFramework/nDatabase/README.md) for database capability ownership and provider contracts.",
+        "[database](../../gFramework/nDatabase/database/README.md) for generated CRUD, schema access policy, model pipelines, and DAO lifecycle behavior.",
+        "[mongodb](../../gFramework/nDatabase/mongodb/README.md) and [cassandradb](../../gFramework/nDatabase/cassandradb/README.md) for current database providers.",
+        "[nData](../../gFramework/nData/README.md), [nImport](../../gFramework/nData/nImport/README.md), and [nExport](../../gFramework/nData/nExport/README.md) for import/export behavior.",
+        "[nSearch](../../gFramework/nSearch/README.md) and [search](../../gFramework/nSearch/search/README.md) for search indexes and searchable data.",
+        "[Module Documentation Index](../reference/module-documentation-index.md) when you need to find another data-related module."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Data Access Layer",
+      "anchor": "data-access-layer"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The data access layer owns persistence operations and protects the rest of the application from provider-specific details."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Business behavior calls services or facades. Controllers do not directly query the database. Provider-specific DAO logic lives in the provider module or project module that owns that implementation."
+    },
+    {
+      "kind": "paragraph",
+      "text": "When adding a new DAO function, document:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "target schema;",
+        "input contract;",
+        "output contract;",
+        "tenant behavior;",
+        "error and retry behavior;",
+        "provider-specific assumptions;",
+        "tests for default and failure paths."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Initial Data",
+      "anchor": "initial-data"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Initial data is loaded during startup when the system needs baseline records."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use initial data for required records such as core groups, permissions, or mandatory catalog entries."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Initial data is idempotent. Starting the server twice does not create duplicate records."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Sample Data",
+      "anchor": "sample-data"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Sample data is optional data used for demonstrations, testing, or local development."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Sample data is not required production data."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Import And Export",
+      "anchor": "import-and-export"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics supports import and export flows for structured data."
+    },
+    {
+      "kind": "paragraph",
+      "text": "![Data Import Process](../assets/images/data-import-process.jpg)"
+    },
+    {
+      "kind": "paragraph",
+      "text": "For a business-oriented data hub pattern, read [How To Use Nodics As Data As A Service](how-to-use-nodics-as-data-as-a-service.md)."
+    },
+    {
+      "kind": "paragraph",
+      "text": "For a beginner, import means \"bring data into Nodics through a governed process.\" Export means \"send selected Nodics data out in a governed format and location.\" Both should use configuration, pipelines, processors, interceptors, tenant context, audit/history, and tests instead of one-off scripts."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Data Feeding Patterns",
+      "anchor": "data-feeding-patterns"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics supports two main ways to feed data into the platform."
+    },
+    {
+      "kind": "heading",
+      "level": 3,
+      "text": "Push-Based Import",
+      "anchor": "push-based-import"
+    },
+    {
+      "kind": "paragraph",
+      "text": "In push-based import, an external system calls Nodics import APIs and sends the data to Nodics."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this pattern when the source system controls when data should be delivered."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Examples:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "an ERP system pushes product or inventory updates;",
+        "a partner system pushes customer, order, or catalog records;",
+        "a supplier portal sends product attributes;",
+        "an admin tool uploads an approved import payload;",
+        "a business application pushes data after its own workflow completes."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "The flow is:"
+    },
+    {
+      "kind": "code",
+      "language": "text",
+      "text": "External system\n  -> Nodics import API\n  -> import pipeline\n  -> filters, validators, processors, interceptors\n  -> tenant-aware persistence\n  -> errors or success summary\n  -> events, search indexing, audit, import history"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The caller may provide the payload or file reference allowed by the route contract. Nodics still owns validation, tenant resolution, access control, diagnostics, and persistence behavior."
+    },
+    {
+      "kind": "heading",
+      "level": 3,
+      "text": "Scheduled File Import",
+      "anchor": "scheduled-file-import"
+    },
+    {
+      "kind": "paragraph",
+      "text": "In scheduled file import, data is placed in a configured location and Nodics picks it up through a scheduled process, usually a CronJob."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this pattern when the source system produces files on a schedule or cannot call Nodics APIs directly."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Examples:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "supplier CSV files are placed in an import folder;",
+        "ERP exports Excel files every night;",
+        "product catalog JSON files are placed in a governed server import location;",
+        "business users upload approved files to a governed server location;",
+        "a CronJob checks for pending files every few minutes or hours."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "The flow is:"
+    },
+    {
+      "kind": "code",
+      "language": "text",
+      "text": "External system\n  -> configured file location\n  -> Nodics CronJob or scheduled trigger\n  -> import service\n  -> import pipeline\n  -> filters, validators, processors, interceptors\n  -> tenant-aware persistence\n  -> events, search indexing, audit, import history"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Scheduled file import can use JSON, JavaScript data definitions, Excel, CSV, or any other supported file processor. The source system or operations process is responsible for placing files in the expected Nodics import location. Nodics is responsible for reading only the configured files, validating them, importing them through the same governed pipeline, and recording diagnostics."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Remote import adapters are a specialized scheduled file import pattern. They are used when Nodics must stage files from SFTP, object storage, partner APIs, HTTPS pulls, enterprise file gateways, or similar external locations before running the import pipeline. This requires a project or provider source to be selected, configured, governed, and tested."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Both patterns must enter the same governed import lifecycle. Do not create a separate persistence path just because the source is API-based, file-based, scheduled, or remote."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Remote Import Adapter Pattern",
+      "anchor": "remote-import-adapter-pattern"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics already supports remote import as a governed adapter-staging capability. This is the enterprise data hub pattern used when source systems produce files outside the active Nodics server, but the import must still run through Nodics tenant resolution, trusted headers, processors, interceptors, validators, diagnostics, target routing, and import history."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use remote import when:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "a supplier drops CSV or Excel files on SFTP;",
+        "an ERP exports product, inventory, price, or customer data to object storage;",
+        "a partner exposes approved data files through a secured API;",
+        "a business team publishes approved catalog files through an enterprise file gateway;",
+        "a CronJob must periodically bring remote data into Nodics without giving the remote system write access to Nodics APIs."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "The remote source provides data files only. Nodics active modules provide the import headers, processing rules, target schema or index, processors, interceptors, validators, and access policy. This is the key safety boundary: external systems may supply data, but they must not supply executable headers, schema definitions, service names, arbitrary URLs, credentials, processors, or routing rules at runtime."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The high-level flow is:"
+    },
+    {
+      "kind": "code",
+      "language": "text",
+      "text": "CronJob, service, facade, or governed project trigger\n  -> DefaultImportService.importRemoteData(request)\n  -> remoteDataImportInitializerPipeline\n  -> validate active tenant, active modules, source, transport, and adapter\n  -> stage files into an isolated server-owned staging folder\n  -> enforce policy: timeout, retry, file count, size, extension, symlink, checksum\n  -> load trusted import headers from active modules\n  -> finalize staged files through the normal data import initializer\n  -> process finalized records through processDataImportPipeline\n  -> dispatch to schema services or search services\n  -> record diagnostics, run history, success, failure, and cleanup"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Remote import is disabled by default. A project or provider module enables it through layered `config/properties.js`:"
+    },
+    {
+      "kind": "code",
+      "language": "js",
+      "text": "data: {\n    remoteImport: {\n        enabled: true,\n        defaultTransport: 'partnerSftp',\n        defaultHeaderDataType: 'core',\n        cleanupStaging: true,\n        policy: {\n            timeoutMs: 30000,\n            retries: 1,\n            maxFiles: 100,\n            maxFileBytes: 10485760,\n            maxTotalBytes: 104857600,\n            allowedExtensions: ['json', 'csv', 'xlsx'],\n            requireChecksums: true\n        },\n        transports: {\n            partnerSftp: {\n                enabled: true,\n                service: 'DefaultPartnerSftpImportAdapterService'\n            }\n        },\n        sources: {\n            supplierCatalog: {\n                enabled: true,\n                transport: 'partnerSftp',\n                tenants: ['default'],\n                modules: ['profile', 'catalog'],\n                headerDataType: 'core'\n            }\n        }\n    }\n}"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Requests select a configured source name:"
+    },
+    {
+      "kind": "code",
+      "language": "js",
+      "text": "SERVICE.DefaultImportService.importRemoteData({\n    tenant: 'default',\n    modules: ['profile', 'catalog'],\n    remoteImport: {\n        source: 'supplierCatalog'\n    }\n});"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The adapter service must be loader-visible under the project or provider module and expose `stage(context)`. Nodics passes an assigned `targetPath`, tenant, module list, source configuration, transport configuration, timeout, abort signal, and correlation id. The adapter must place files only under the assigned target path and return a staged-file inventory:"
+    },
+    {
+      "kind": "code",
+      "language": "js",
+      "text": "module.exports = {\n    stage: function (context) {\n        return Promise.resolve({\n            rootPath: context.targetPath,\n            files: [\n                {\n                    path: 'products.csv',\n                    sha256: '<lowercase sha256 checksum>'\n                }\n            ]\n        });\n    }\n};"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Remote import policy protects the platform before any file is finalized:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "the source must be enabled;",
+        "the request tenant must be active and allowed by the source;",
+        "requested modules must be active and allowed by the source;",
+        "the transport adapter service must exist and implement `stage(context)`;",
+        "staged files must remain inside the assigned server-owned folder;",
+        "symbolic links are rejected;",
+        "file count, file size, total size, allowed extensions, timeout, and retries are bounded;",
+        "SHA-256 checksums are required unless the effective policy explicitly disables them;",
+        "diagnostics record source, transport, attempts, file counts, and byte totals without exposing credentials."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Remote import can run in discovery/finalization mode or full import mode. When `importFinalizeData` is `false`, Nodics stages and finalizes input without dispatching finalized records to the target services. The normal mode finalizes and then processes records through `processDataImportPipeline`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not expose a generic public remote-import route for arbitrary callers. A production route can be added only when the project/provider module owns the source contract, adapter, route permission, tenant and module allowlists, credential handling, operational monitoring, and guarded integration or release tests."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Import Failure And Batch Behavior",
+      "anchor": "import-failure-and-batch-behavior"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics imports can run in a safe record-by-record mode or in configured batches. Both modes use the same import pipeline and target services."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use `data.stopImportOnFailure` to choose the failure mode:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`false` is the default data-feed behavior. Nodics continues later records or"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "batches, records every failure in diagnostics, leaves failed records unprocessed for retry, and returns an aggregate import error after the attempt."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`true` is fail-fast behavior. Nodics stops at the first failed record or batch"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "and returns that failure immediately."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use `data.batchImport` to choose finalized-record dispatch size:"
+    },
+    {
+      "kind": "code",
+      "language": "js",
+      "text": "data: {\n    batchImport: {\n        enabled: true,\n        size: 100\n    }\n}"
+    },
+    {
+      "kind": "paragraph",
+      "text": "When batching is enabled, Nodics groups unprocessed finalized records by `size` and sends each group through `processModelImportPipeline`. This reduces pipeline dispatch overhead for file-based and finalized imports while preserving validation, relation macros, tenant scope, schema/search target routing, access policy, interceptors, diagnostics, and import history."
+    },
+    {
+      "kind": "paragraph",
+      "text": "An individual import header can override the global behavior:"
+    },
+    {
+      "kind": "code",
+      "language": "js",
+      "text": "options: {\n    batchImport: {\n        enabled: true,\n        size: 50\n    },\n    stopImportOnFailure: false\n}"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A successful batch marks every record in that batch as processed. A failed batch records failure details for every record in that batch and leaves those records unprocessed so they can be retried after the source data or target configuration is corrected."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not create a separate direct database or search writer just to make import faster. Provider-native bulk insert or bulk indexing must be implemented behind the same schema service, search service, validation, security, and diagnostics contracts."
+    },
+    {
+      "kind": "paragraph",
+      "text": "An import process explains:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Which file formats are supported.",
+        "Which tenant receives the data.",
+        "Which schema is targeted.",
+        "Whether the target is database persistence or search indexing.",
+        "How validation works.",
+        "How duplicate headers are handled.",
+        "What diagnostics are produced.",
+        "Whether import history is recorded.",
+        "Whether rollback or retry behavior exists.",
+        "Whether batch import is enabled and what size is safe for the target service."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Import Targets",
+      "anchor": "import-targets"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics import can write finalized data to database-backed schemas or to search indexes."
+    },
+    {
+      "kind": "paragraph",
+      "text": "For database import, the header uses `schemaName`. Nodics sends the finalized models to the generated schema service, such as `DefaultProductService.saveAll`. That means import uses the same tenant, service, DAO, schema validation, interceptor, access-policy, diagnostics, and generated behavior as normal API writes."
+    },
+    {
+      "kind": "paragraph",
+      "text": "For search import, the header uses `indexName`. Nodics sends the finalized models to the search service operation, such as a save operation on `DefaultSearchService` or an index-specific service when one exists. The import keeps the full model array for bulk indexing and also passes the first model for single-record service compatibility."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The target route is defined by trusted module-owned headers. Do not let a caller choose an arbitrary database table, index, service, provider, URL, or operation from request data. If a project needs a new import target, define the schema, index, service operation, processor, validator, and permission model in the owning module layer."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Export Contracts",
+      "anchor": "export-contracts"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics export is the controlled data-egress side of the data platform."
+    },
+    {
+      "kind": "paragraph",
+      "text": "![Data Export Process](../assets/images/data-export-process.jpg)"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The shared export engine currently fails closed by default. It normalizes export requests and provides access-policy delegation, but it does not export data until a framework, provider, or project module supplies a governed export implementation. This prevents accidental leakage through a generic `/system/export` route."
+    },
+    {
+      "kind": "paragraph",
+      "text": "A production export must be definition-driven. A caller should select an approved export definition, not arbitrary schemas, services, filters, URLs, filesystem paths, credentials, or destination contracts. The export definition should declare:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "source schema or owning service;",
+        "tenant and catalog scope;",
+        "allowed filters and maximum result size;",
+        "output format;",
+        "formatter options;",
+        "destination alias;",
+        "access group or permission requirement;",
+        "retry, timeout, and diagnostics policy."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Before data leaves Nodics, the exporter must apply schema/property export access policies. Export filtering must operate on export-safe copies so selected source models are not mutated in memory. Rendering belongs to format modules such as JSON, CSV, Excel, JavaScript, or a project-owned format. Delivery belongs to a provider/project module such as filesystem, SFTP, object storage, API push, message publication, or an enterprise gateway."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not treat the current format modules as complete production writers. They are extension boundaries until their renderer contracts and release tests are implemented."
+    },
+    {
+      "kind": "paragraph",
+      "text": "A public production remote-import route stays gated until a project or provider module owns the adapter, source configuration, tenant/module allowlists, checksum policy, staging behavior, sanitized diagnostics, and live integration tests. Do not expose a public remote-import route for a source that has only deterministic framework tests."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run data movement tests through:"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run test:import\nnpm run test:export"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Access Policy",
+      "anchor": "access-policy"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Data access must respect authentication, authorization, tenant context, schema access policy, and route permissions."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not add direct database access that bypasses the owning service or policy layer."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What To Avoid",
+      "anchor": "what-to-avoid"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Avoid:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Writing direct database code in controllers.",
+        "Mixing provider-specific logic into generic services.",
+        "Creating duplicate data during repeated startup.",
+        "Editing generated model or API output manually.",
+        "Importing production data into test tenants.",
+        "Storing secrets in source-controlled configuration."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Next: [How To Use Nodics As Data As A Service](how-to-use-nodics-as-data-as-a-service.md)",
+        "Owning modules: [Module Documentation Index](../reference/module-documentation-index.md)",
+        "Documentation home: [Nodics Documentation](../README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "nDatabase",
+      "target": "../../gFramework/nDatabase/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndatabase",
+      "anchor": ""
+    },
+    {
+      "label": "nDatabase",
+      "target": "../../gFramework/nDatabase/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndatabase",
+      "anchor": ""
+    },
+    {
+      "label": "database",
+      "target": "../../gFramework/nDatabase/database/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndatabase/database",
+      "anchor": ""
+    },
+    {
+      "label": "mongodb",
+      "target": "../../gFramework/nDatabase/mongodb/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndatabase/mongodb",
+      "anchor": ""
+    },
+    {
+      "label": "cassandradb",
+      "target": "../../gFramework/nDatabase/cassandradb/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndatabase/cassandradb",
+      "anchor": ""
+    },
+    {
+      "label": "nData",
+      "target": "../../gFramework/nData/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata",
+      "anchor": ""
+    },
+    {
+      "label": "nImport",
+      "target": "../../gFramework/nData/nImport/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata/nimport",
+      "anchor": ""
+    },
+    {
+      "label": "nExport",
+      "target": "../../gFramework/nData/nExport/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata/nexport",
+      "anchor": ""
+    },
+    {
+      "label": "nSearch",
+      "target": "../../gFramework/nSearch/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nsearch",
+      "anchor": ""
+    },
+    {
+      "label": "search",
+      "target": "../../gFramework/nSearch/search/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nsearch/search",
+      "anchor": ""
+    },
+    {
+      "label": "Module Documentation Index",
+      "target": "../reference/module-documentation-index.md",
+      "kind": "internal",
+      "route": "/docs/reference/module-documentation-index",
+      "anchor": ""
+    },
+    {
+      "label": "How To Use Nodics As Data As A Service",
+      "target": "how-to-use-nodics-as-data-as-a-service.md",
+      "kind": "internal",
+      "route": "/docs/data/how-to-use-nodics-as-data-as-a-service",
+      "anchor": ""
+    },
+    {
+      "label": "How To Use Nodics As Data As A Service",
+      "target": "how-to-use-nodics-as-data-as-a-service.md",
+      "kind": "internal",
+      "route": "/docs/data/how-to-use-nodics-as-data-as-a-service",
+      "anchor": ""
+    },
+    {
+      "label": "Module Documentation Index",
+      "target": "../reference/module-documentation-index.md",
+      "kind": "internal",
+      "route": "/docs/reference/module-documentation-index",
+      "anchor": ""
+    },
+    {
+      "label": "Nodics Documentation",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs",
+      "anchor": ""
+    }
+  ],
+  "media": [
+    {
+      "alt": "Data Import Process",
+      "target": "../assets/images/data-import-process.jpg",
+      "title": "",
+      "kind": "local",
+      "assetCode": "docsMedia6c9c031345923165e377",
+      "assetPath": "assets/images/c2154b50090905f1.jpg",
+      "contentHash": "c2154b50090905f1830dc52281fb0745fad876a16a27293064dd67ca2e8a05ca"
+    },
+    {
+      "alt": "Data Export Process",
+      "target": "../assets/images/data-export-process.jpg",
+      "title": "",
+      "kind": "local",
+      "assetCode": "docsMediaa7b98afc9ca218b4276e",
+      "assetPath": "assets/images/0b2c7b6514e40957.jpg",
+      "contentHash": "0b2c7b6514e4095749704b1a9d6f5749567758859398c7e6f9e238937f2ec2f1"
+    }
+  ],
+  "unsupported": []
+}

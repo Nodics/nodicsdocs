@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle6cff18c1538c5d328525",
+  "title": "gframesLocal",
+  "route": "/docs/modules/docs/gframes/gframesenvs/gframeslocal",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "docs/gframes/gframesEnvs/gframesLocal/README.md",
+    "type": "module-readme",
+    "contentHash": "fd9de1178637e9e8ed33ac1508face5483d9c327c469c9b4b5e5d3f2ad5015eb"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "gframesLocal",
+      "anchor": "gframeslocal"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "gframesLocal",
+      "anchor": "gframeslocal"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`gframesLocal` is the local environment module for the `gframes` application. It contributes local-only configuration and composes the local server topology."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for local development defaults. Shared application behavior belongs in `gframesModules`, and server-specific runtime configuration belongs in child server modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Local values should stay overrideable and must not become framework defaults."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

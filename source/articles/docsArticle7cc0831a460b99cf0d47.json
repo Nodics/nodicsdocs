@@ -1,0 +1,362 @@
+{
+  "code": "docsArticle7cc0831a460b99cf0d47",
+  "title": "How AI Cost Governance Works",
+  "route": "/docs/ai/how-ai-cost-governance-works",
+  "category": "ai",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gDocs/ai/how-ai-cost-governance-works.md",
+    "type": "gdocs",
+    "contentHash": "22e3ffc03ff7239d29e3f8a349e583a5fc1166b66c9872a21426d4b6791ee9ef"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "How AI Cost Governance Works",
+      "anchor": "how-ai-cost-governance-works"
+    },
+    {
+      "level": 2,
+      "text": "Why A Business Needs This",
+      "anchor": "why-a-business-needs-this"
+    },
+    {
+      "level": 2,
+      "text": "A Simple Example",
+      "anchor": "a-simple-example"
+    },
+    {
+      "level": 2,
+      "text": "What Administrators Can Do",
+      "anchor": "what-administrators-can-do"
+    },
+    {
+      "level": 2,
+      "text": "What Is Configurable",
+      "anchor": "what-is-configurable"
+    },
+    {
+      "level": 2,
+      "text": "Security And Accuracy",
+      "anchor": "security-and-accuracy"
+    },
+    {
+      "level": 2,
+      "text": "Important Current Limitations",
+      "anchor": "important-current-limitations"
+    },
+    {
+      "level": 2,
+      "text": "For Developers",
+      "anchor": "for-developers"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "How AI Cost Governance Works",
+      "anchor": "how-ai-cost-governance-works"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics treats AI usage limits as execution controls, not merely reports shown after money has been spent."
+    },
+    {
+      "kind": "paragraph",
+      "text": "This page explains the implemented AI provider and persistent token-ledger foundation for business owners, administrators, and application developers. Disabled OpenAI, Anthropic, and Gemini/Vertex adapters, the backend read-only Assistant turn slice, and the documentation-focused Knowledge/RAG slice are now implemented. Browser APIs, Axis rendering, governed mutation tools, and production provider activation are later phases."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Why A Business Needs This",
+      "anchor": "why-a-business-needs-this"
+    },
+    {
+      "kind": "paragraph",
+      "text": "AI requests can vary greatly in size and price. During a busy business event, many users or automated processes may issue requests at the same time. A simple monthly report cannot prevent those concurrent requests from exceeding an approved budget."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The Nodics foundation:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "estimates tokens and exact cost before execution;",
+        "reserves available capacity;",
+        "rejects a request when its governed scope has insufficient capacity;",
+        "records actual normalized usage;",
+        "retains ambiguous usage when the provider may already have processed it;",
+        "keeps tenant-scoped audit evidence."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "This helps partners provide per-tenant, enterprise, application, employee, usage-profile, provider, or model controls without embedding vendor logic in their business modules."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "A Simple Example",
+      "anchor": "a-simple-example"
+    },
+    {
+      "kind": "paragraph",
+      "text": "An enterprise gives its Axis application a monthly AI ceiling. An employee starts an Assistant request estimated at 100 tokens."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "If capacity exists, Nodics creates one idempotent reservation before calling"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "a provider."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "If the provider uses 50 tokens, the reservation is reconciled to 50 consumed"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "tokens."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "If the browser retries the same request, the same reservation is reused.",
+        "If the limit is reached, the request is rejected before provider invocation.",
+        "If a timeout occurs after provider invocation may have started, the"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "reservation remains uncertain rather than being incorrectly treated as free."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What Administrators Can Do",
+      "anchor": "what-administrators-can-do"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Authorized operators can:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "inspect tenant-bound budget windows;",
+        "inspect reservation state;",
+        "inspect immutable normalized usage;",
+        "increase or safely reduce a ceiling, provided it remains above current"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "commitments;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "run bounded stale-reservation expiry through an internal service identity."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "The current permissions are `ai.ledger.read`, `ai.ledger.manage`, and the configured internal service-token permission for expiry."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What Is Configurable",
+      "anchor": "what-is-configurable"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Partners can configure:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "daily or monthly UTC windows;",
+        "which scope dimensions form a budget;",
+        "default token and exact-cost ceilings;",
+        "reservation expiry;",
+        "uncertain-usage retention;",
+        "expiry batch size;",
+        "concurrency retry limits."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Configuration belongs in layered `properties.js`. Provider credentials do not belong in ledger configuration."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Security And Accuracy",
+      "anchor": "security-and-accuracy"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Tenant and principal identity come from authenticated request context.",
+        "Provider and model come from the configured provider profile.",
+        "Pricing uses revisioned exact decimal strings.",
+        "Cost decisions never use JavaScript floating point.",
+        "Persistent data is authoritative; cache cannot approve capacity.",
+        "Generated CRUD APIs are disabled for ledger models.",
+        "Usage evidence must not contain provider credentials or sensitive prompt"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "content."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Important Current Limitations",
+      "anchor": "important-current-limitations"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The implemented foundation does not yet include:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "live OpenAI, Anthropic, or Gemini adapters;",
+        "automatic provider lookup for uncertain usage;",
+        "multiple independent hierarchical ceilings applied in one transaction;",
+        "metrics dashboards and alert rules;",
+        "nCache-based read-only reporting acceleration."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "These limitations remain visible so evaluators do not mistake planned behavior for delivered functionality."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics now provides bounded, dry-run-first repair scans for interrupted `RECONCILING` and `RELEASING` transitions. It persists repair runs/findings, reconstructs exact counters from evidence, and accepts positive provider usage evidence for uncertain reconciliation. It never treats missing evidence as proof that usage was free."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "For Developers",
+      "anchor": "for-developers"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The owning module is `gAi/aiProviders`. Business modules call only its provider-neutral gateway and never choose a vendor directly."
+    },
+    {
+      "kind": "paragraph",
+      "text": "To customize policy:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "create or use the customer project's later-loaded module;",
+        "override the `aiProviders.ledger` subtree in `config/properties.js`;",
+        "preserve tenant scope, exact arithmetic, idempotency, CAS, immutable usage,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "and uncertain-state safety;"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "add default, rejection, concurrency, recovery, tenant-isolation, and"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "customization tests;"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "regenerate module context."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not copy the framework ledger service, edit generated files, introduce an AI-specific cache engine, or write directly to ledger collections."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Detailed business, operator, and developer guide:"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "[Persistent AI Token Ledger Guide](../../gAi/aiProviders/docs/persistent-token-ledger-guide.md)"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Owning module: [AI Providers](../../gAi/aiProviders/README.md)",
+        "Security model: [How Users, Tenants, And Permissions Work](../security/how-users-tenants-and-permissions-work.md)",
+        "Documentation home: [Nodics Documentation](../README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "Persistent AI Token Ledger Guide",
+      "target": "../../gAi/aiProviders/docs/persistent-token-ledger-guide.md",
+      "kind": "internal",
+      "route": "/docs/modules/gai/aiproviders/docs/persistent-token-ledger-guide",
+      "anchor": ""
+    },
+    {
+      "label": "AI Providers",
+      "target": "../../gAi/aiProviders/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gai/aiproviders",
+      "anchor": ""
+    },
+    {
+      "label": "How Users, Tenants, And Permissions Work",
+      "target": "../security/how-users-tenants-and-permissions-work.md",
+      "kind": "internal",
+      "route": "/docs/security/how-users-tenants-and-permissions-work",
+      "anchor": ""
+    },
+    {
+      "label": "Nodics Documentation",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

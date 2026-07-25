@@ -1,0 +1,455 @@
+{
+  "code": "docsArticle36c279246b80e993f3f6",
+  "title": "Security Evidence Guide",
+  "route": "/docs/security/security-evidence-guide",
+  "category": "security",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gDocs/security/security-evidence-guide.md",
+    "type": "gdocs",
+    "contentHash": "356cacbbea42496bd24fc7415de6e2b1ba9b9ff5a42e5d59a6f70b6c28379cb9"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Security Evidence Guide",
+      "anchor": "security-evidence-guide"
+    },
+    {
+      "level": 2,
+      "text": "Evidence Rule",
+      "anchor": "evidence-rule"
+    },
+    {
+      "level": 2,
+      "text": "Implemented Control Map",
+      "anchor": "implemented-control-map"
+    },
+    {
+      "level": 2,
+      "text": "Identity And Trust Boundaries",
+      "anchor": "identity-and-trust-boundaries"
+    },
+    {
+      "level": 2,
+      "text": "Tenant Isolation Review",
+      "anchor": "tenant-isolation-review"
+    },
+    {
+      "level": 2,
+      "text": "Failure And Abuse Review",
+      "anchor": "failure-and-abuse-review"
+    },
+    {
+      "level": 2,
+      "text": "Verification Commands",
+      "anchor": "verification-commands"
+    },
+    {
+      "level": 2,
+      "text": "Security Review Deliverables",
+      "anchor": "security-review-deliverables"
+    },
+    {
+      "level": 2,
+      "text": "Standards And Compliance Position",
+      "anchor": "standards-and-compliance-position"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Security Evidence Guide",
+      "anchor": "security-evidence-guide"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This page is for security architects, principal engineers, auditors, operators, and expert evaluators. It maps security claims to implemented Nodics contracts and explains what must still be proven by the customer solution."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Evidence Rule",
+      "anchor": "evidence-rule"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A security statement is acceptable only when it identifies:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "the authoritative module or configuration;",
+        "the enforcement boundary;",
+        "positive and negative behavior;",
+        "tenant and topology implications;",
+        "failure behavior;",
+        "executable tests or operational evidence;",
+        "project/provider responsibilities and limitations."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Documentation is guidance, not proof by itself. Generated OpenAPI, source contracts, test results, configuration reports, runtime readiness, audit data, and deployment evidence must agree."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Implemented Control Map",
+      "anchor": "implemented-control-map"
+    },
+    {
+      "kind": "table",
+      "headers": [
+        "Control objective",
+        "Nodics authority and enforcement",
+        "Evidence examples",
+        "Customer proof still required"
+      ],
+      "rows": [
+        [
+          "Human authentication",
+          "`nAuth`, Profile, secured request pipeline",
+          "Auth security, login-route, token-isolation, revocation tests",
+          "Selected IAM/CIAM, MFA/session policy, lifecycle operations"
+        ],
+        [
+          "Service identity separation",
+          "Service tokens, route `authTokenTypes`, internal-token permission",
+          "Route authorization and modular token tests",
+          "Service inventory, token distribution, transport protection"
+        ],
+        [
+          "Action authorization",
+          "Router permission metadata and permission catalog",
+          "Route-action and control-plane permission contracts",
+          "Role design, assignments, access reviews, segregation of duties"
+        ],
+        [
+          "Tenant/enterprise isolation",
+          "Trusted auth context carried through business/data services",
+          "Profile, cache, import, generated access-policy, module tests",
+          "Project code review and dedicated customer isolation scenarios"
+        ],
+        [
+          "API surface reduction",
+          "`apiExposure` before help/controller dispatch",
+          "Request-pipeline and route contracts",
+          "Production server/category configuration and gateway exposure"
+        ],
+        [
+          "HTTP hardening",
+          "nRouter hardening service and layered properties",
+          "CORS, headers, body, rate, proxy tests",
+          "TLS/WAF/DDoS/gateway capacity and trusted-proxy validation"
+        ],
+        [
+          "Secret bootstrap",
+          "Governed bootstrap source and insecure-source compatibility gate",
+          "Profile/auth/import bootstrap contracts",
+          "Secret manager, rotation, emergency procedure, no CI leakage"
+        ],
+        [
+          "Secret-safe output",
+          "Central logger redaction and bounded diagnostics",
+          "Logger-redaction and diagnostics contracts",
+          "Project logger review, sink access, retention and alert rules"
+        ],
+        [
+          "Runtime governance",
+          "nDynamo preview/request/approval/activation/audit/rollback",
+          "Runtime governance suites",
+          "Approver assignment, environment separation, audit retention"
+        ],
+        [
+          "Cache isolation",
+          "nCache tenant/security keying and provider contract",
+          "Local/Redis isolation, mutation, invalidation tests",
+          "Selected engine hardening, shared-state topology, eviction/capacity"
+        ],
+        [
+          "Publishing integrity",
+          "Workflow plus nPublish; distinct Staged and Online runtimes",
+          "CMS/Product/Pricing publication and rollback tests",
+          "Production transport, Online isolation, backup and reconciliation"
+        ],
+        [
+          "Operational health",
+          "nSystem liveness/readiness and sanitized contributors",
+          "Health route and topology tests",
+          "Monitoring, paging, SLOs, provider-specific readiness"
+        ],
+        [
+          "Release quality",
+          "Build, documentation, generated context, basic/full and release gates",
+          "`npm run build`, `test:basic`, `test:full`, `release:check`",
+          "Independent CI execution, artifact integrity, approval records"
+        ]
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Identity And Trust Boundaries",
+      "anchor": "identity-and-trust-boundaries"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics keeps these identities separate:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "**Human access token:** represents a logged-in person and is constrained by"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "user groups, permissions, tenant, token state, and security stamp."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "**API key:** represents a governed API principal and scope; it is not a"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "substitute for a human password."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "**Module service token:** represents runtime-to-runtime communication and is"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "accepted only by routes designed for service identity."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "**Scheduled execution:** uses CronJob ownership and an appropriate service or"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "human identity for the action it invokes."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "**Public context handle:** where implemented, is an opaque, short-lived bearer reference,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "audience-bound, and introspected by an authenticated module. It grants no mutation authority."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Reviewers should reject designs that convert one identity type into another, make internal APIs public, or accept tenant/enterprise authority from an untrusted browser field."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Tenant Isolation Review",
+      "anchor": "tenant-isolation-review"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Trace at least one business identifier through:"
+    },
+    {
+      "kind": "code",
+      "language": "text",
+      "text": "HTTP request\n  -> authentication or trusted public-context establishment\n  -> route permission and token-type decision\n  -> service enterprise validation\n  -> DAO/database tenant selection\n  -> cache and search partition\n  -> events, jobs, import/export and audit\n  -> response projection and logs"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Test the correct tenant, wrong tenant, absent tenant, conflicting enterprise, cross-tenant identifier, cache hit, cache miss, provider outage, background execution, and modular transport. A tenant header alone must never create or broaden authority."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Failure And Abuse Review",
+      "anchor": "failure-and-abuse-review"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Every protected capability should answer:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "What happens when credentials are missing, expired, revoked, malformed, or"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "of the wrong type?"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "What happens when the permission catalog, auth cache, Profile, Storefront,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "database, distributed cache, search, event broker, or target module is down?"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Are retries limited to safe/idempotent operations?",
+        "Can a circuit breaker or fallback bypass authorization?",
+        "Does an error disclose tenant names, URLs, tokens, keys, cached values, stack"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "traces, or confidential payloads?"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Can request size, graph depth, result count, concurrency, or queue growth"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "exhaust the service?"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Is recovery automatic, auditable, and tested without editing authority data?"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Security-sensitive uncertainty must deny the protected action. Availability fallback is acceptable only when another path preserves the same authority and security contract."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Verification Commands",
+      "anchor": "verification-commands"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run test:basic\nnpm run test:full\nnpm run quality:docs\nnpm run llm:validate\nnpm run build\nnpm run release:check -- --execute --full"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Focused suites and contracts include authentication, authorization, HTTP hardening, tenant-aware cache, runtime governance, route contracts, generated schema access, Profile identity, Storefront context, and modular topology. Provider-specific live tests must be run when the deployment depends on that provider; deterministic mocks alone do not qualify external infrastructure."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Security Review Deliverables",
+      "anchor": "security-review-deliverables"
+    },
+    {
+      "kind": "paragraph",
+      "text": "An enterprise review should retain:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "architecture and data-flow diagrams;",
+        "data classification and tenant placement;",
+        "route/OpenAPI inventory and exposure categories;",
+        "identity, role, permission, and service-account matrix;",
+        "effective environment/server/node configuration with secrets removed;",
+        "threat model and misuse cases;",
+        "test and release-gate reports;",
+        "provider qualification and maturity decisions;",
+        "vulnerability and dependency report;",
+        "backup/restore and failover evidence;",
+        "log/audit retention and access model;",
+        "incident and rollback procedures;",
+        "accepted risks, accountable owner, and review expiry."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Standards And Compliance Position",
+      "anchor": "standards-and-compliance-position"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics principles align with common enterprise practices such as least privilege, explicit verification, defense in depth, secure failure, separation of duties, auditable change, and resource-local enforcement. Alignment is not certification. Map the implemented controls and deployment evidence to the specific standard or regulation selected by the organization, then obtain the required independent review."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Executive context: [Why Businesses Can Trust Nodics](../business/security-and-trust.md)",
+        "Responsibility assignment: [Security Shared-Responsibility Model](shared-responsibility-model.md)",
+        "Identity and tenant implementation: [How Users, Tenants, And Permissions Work](how-users-tenants-and-permissions-work.md)",
+        "Provider qualification: [Provider And Capability Maturity Matrix](../reference/provider-capability-maturity-matrix.md)",
+        "Testing: [How To Test Nodics Changes](../testing/how-to-test-nodics-changes.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "Why Businesses Can Trust Nodics",
+      "target": "../business/security-and-trust.md",
+      "kind": "internal",
+      "route": "/docs/business/security-and-trust",
+      "anchor": ""
+    },
+    {
+      "label": "Security Shared-Responsibility Model",
+      "target": "shared-responsibility-model.md",
+      "kind": "internal",
+      "route": "/docs/security/shared-responsibility-model",
+      "anchor": ""
+    },
+    {
+      "label": "How Users, Tenants, And Permissions Work",
+      "target": "how-users-tenants-and-permissions-work.md",
+      "kind": "internal",
+      "route": "/docs/security/how-users-tenants-and-permissions-work",
+      "anchor": ""
+    },
+    {
+      "label": "Provider And Capability Maturity Matrix",
+      "target": "../reference/provider-capability-maturity-matrix.md",
+      "kind": "internal",
+      "route": "/docs/reference/provider-capability-maturity-matrix",
+      "anchor": ""
+    },
+    {
+      "label": "How To Test Nodics Changes",
+      "target": "../testing/how-to-test-nodics-changes.md",
+      "kind": "internal",
+      "route": "/docs/testing/how-to-test-nodics-changes",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

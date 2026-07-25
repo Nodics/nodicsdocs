@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle657bf0cd6b7659381ffe",
+  "title": "gframesModules",
+  "route": "/docs/modules/docs/gframes/gframesmodules",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "docs/gframes/gframesModules/README.md",
+    "type": "module-readme",
+    "contentHash": "ea583e56ef13b6644ba69e12fadb49b0d1b27d03de648bec54da55cd5b6927e7"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "gframesModules",
+      "anchor": "gframesmodules"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "gframesModules",
+      "anchor": "gframesmodules"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`gframesModules` groups the custom capability modules for the `gframes` application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this group for project module composition and shared project-module configuration. Concrete behavior belongs in child modules such as `gfcore`, `gfprofile`, `gfcms`, and `gfapi`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Project modules should extend framework capabilities through schemas, routers, services, pipelines, data, tests, and layered configuration."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

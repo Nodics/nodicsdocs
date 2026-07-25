@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle3efc3f623255ec7f5f72",
+  "title": "modules",
+  "route": "/docs/modules/startio/modules",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/modules/README.md",
+    "type": "module-readme",
+    "contentHash": "cde4ab266d6595a6093810f22fdadf689ddcb980d669ceef6e91383b878cd5e4"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "modules",
+      "anchor": "modules"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "modules",
+      "anchor": "modules"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`modules` groups the custom capability modules for the `startio` application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this group for project module composition and shared project-module configuration. Concrete behavior belongs in child modules such as `startioCore`, `startioInt`, and `startioApi`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Project modules should extend framework capabilities through schemas, routers, services, pipelines, data, tests, and layered configuration."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

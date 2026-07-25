@@ -1,0 +1,145 @@
+{
+  "code": "docsArticle091ca141f6416c299c56",
+  "title": "flowApi",
+  "route": "/docs/modules/gcore/workflow/flowapi",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gCore/workflow/flowApi/README.md",
+    "type": "module-readme",
+    "contentHash": "173f61cf558d8f26ee814982dac207a85713747ee692a32f737612bc500b7e4f"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "flowApi",
+      "anchor": "flowapi"
+    },
+    {
+      "level": 2,
+      "text": "API Boundary",
+      "anchor": "api-boundary"
+    },
+    {
+      "level": 2,
+      "text": "Reliability And Operations",
+      "anchor": "reliability-and-operations"
+    },
+    {
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "flowApi",
+      "anchor": "flowapi"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`flowApi` owns the secured HTTP command boundary for application workflow. Its routes initialize, release, and update carriers and perform workflow actions by delegating through controllers, facades, and runtime pipelines."
+    },
+    {
+      "kind": "paragraph",
+      "text": "**Maturity: Production-ready capability.** Production exposure depends on the effective route permissions, tenant policy, request limits, audit controls, and project workflow tests."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "API Boundary",
+      "anchor": "api-boundary"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Workflow commands are not generic record updates. Each request must resolve the tenant and authenticated principal, validate the workflow/carrier/action and current state, apply the target workflow's authorization policy, and preserve a correlation and idempotency identity. Human commands use human bearer authorization; events, modules, and scheduled processes use separate governed internal credentials."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The API must not accept arbitrary handler/service names, scripts, destinations, credentials, or cross-tenant references. Resolve executable behavior from active-module definitions. BackOffice and other clients consume these APIs; they never own workflow state or permissions."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Reliability And Operations",
+      "anchor": "reliability-and-operations"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Return stable command outcomes without implying that asynchronous downstream work has completed. Define behavior for duplicate commands, concurrent action attempts, stale carrier versions, partial item results, timeout, and accepted asynchronous continuation. Apply bounded body/item limits and rate controls."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Audit safe command identity, tenant, principal, carrier, action, decision, result, correlation, latency, and rejection reason. Never log credentials or unredacted item/callback payloads."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run `npm run test:suite -- --suite=workflow`. Add API tests for authentication, permission denial, cross-tenant denial, invalid carrier/action/state/decision, duplicate idempotency key, concurrent conflict, request boundaries, sanitized errors, downstream failure, contract compatibility, and full runtime integration."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Workflow family: [workflow](../README.md)",
+        "Runtime engine: [flowCore](../flowCore/README.md)",
+        "Data contracts: [flowSchema](../flowSchema/README.md)",
+        "Router governance: [nRouter](../../../gFramework/nRouter/README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "workflow",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcore/workflow",
+      "anchor": ""
+    },
+    {
+      "label": "flowCore",
+      "target": "../flowCore/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcore/workflow/flowcore",
+      "anchor": ""
+    },
+    {
+      "label": "flowSchema",
+      "target": "../flowSchema/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcore/workflow/flowschema",
+      "anchor": ""
+    },
+    {
+      "label": "nRouter",
+      "target": "../../../gFramework/nRouter/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nrouter",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

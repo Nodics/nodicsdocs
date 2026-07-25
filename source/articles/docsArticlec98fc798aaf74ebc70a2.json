@@ -1,0 +1,115 @@
+{
+  "code": "docsArticlec98fc798aaf74ebc70a2",
+  "title": "BackOffice Capability Discovery Contract",
+  "route": "/docs/modules/gexp/backoffice/docs/capability-discovery-contract",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gExp/backoffice/docs/capability-discovery-contract.md",
+    "type": "module-doc",
+    "contentHash": "18eb0541d86298d4049642f27e3f2f5070acb7b283b612b4c0390e73a23d4153"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "BackOffice Capability Discovery Contract",
+      "anchor": "backoffice-capability-discovery-contract"
+    },
+    {
+      "level": 2,
+      "text": "Authority and ownership",
+      "anchor": "authority-and-ownership"
+    },
+    {
+      "level": 2,
+      "text": "Bounded asynchronous discovery",
+      "anchor": "bounded-asynchronous-discovery"
+    },
+    {
+      "level": 2,
+      "text": "Snapshots and change classification",
+      "anchor": "snapshots-and-change-classification"
+    },
+    {
+      "level": 2,
+      "text": "UI composition provider",
+      "anchor": "ui-composition-provider"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "BackOffice Capability Discovery Contract",
+      "anchor": "backoffice-capability-discovery-contract"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Authority and ownership",
+      "anchor": "authority-and-ownership"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Target modules remain authoritative for schemas, routers, permissions, generated OpenAPI, jobs, workflows, import/export, and business behavior. A module declares only BackOffice provider roles and safe relative discovery coordinates in `config/properties.js#backofficeCapabilities.<moduleName>`. BackOffice must not add another schema or router loader and must not allow administrators to edit discovered target-module contracts."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The initial discovery source is the effective runtime OpenAPI artifact already owned and exposed by System through its secured internal contract route at the module-declared relative path. BackOffice normalizes only operations whose `x-nodics.moduleName` matches the authenticated registration. Generated OpenAPI remains the source contract; the normalized snapshot is observed client metadata."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Bounded asynchronous discovery",
+      "anchor": "bounded-asynchronous-discovery"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Registration and traffic readiness never wait for discovery. After an accepted lease, `DefaultBackofficeDiscoveryService` schedules a deduplicated refresh using the shared Nodics HTTP transport. The request uses the registered endpoint's exact origin plus the declared relative path. Credentials, fragments, protocol- relative paths, disallowed schemes, disallowed configured hosts, redirects, oversized responses, excessive paths, and excessive operations are rejected."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Refresh cadence, timeout, size limits, operation limits, redirect behavior, and optional host allowlists come from layered `backofficeRegistry.discovery` configuration. Named-environment values belong under the existing `envs` module hierarchy."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Snapshots and change classification",
+      "anchor": "snapshots-and-change-classification"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Normalized snapshots contain only module name, contract type and version, operation identifiers, paths, methods, schema names, operation names, permissions, discovery time, and a deterministic SHA-256 hash. Raw untrusted OpenAPI documents are not copied into the client catalogue."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Changes are classified as `INITIAL`, `UNCHANGED`, `NON_BREAKING`, `POTENTIALLY_BREAKING`, or `BREAKING`. Removed operations and changed operation paths or methods are breaking. Permission changes are potentially breaking. Added operations are non-breaking. A breaking candidate never replaces the last safe active snapshot. Every normalized observation is persisted through the BackOffice-owned generated model services. The durable active-hash pointer is the current-selection and replica-concurrency authority; the process snapshot cache is rebuilt from it and registration reconciliation. Breaking candidates require explicit revision-protected approval, and retained safe snapshots may be selected through audited rollback as defined by the [contract history lifecycle](contract-history-lifecycle.md)."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "UI composition provider",
+      "anchor": "ui-composition-provider"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A module may declare `UI_COMPOSITION_PROVIDER` plus non-executable default site, catalogue, page, and fallback identifiers. BackOffice selects one authorized, active, client-compatible provider using an optional layered preference and returns it in bootstrap. It does not proxy CMS traffic or accept JavaScript, renderer bundles, credentials, or arbitrary URLs. When no provider is safe, bootstrap returns the static recovery-shell fallback."
+    }
+  ],
+  "links": [
+    {
+      "label": "contract history lifecycle",
+      "target": "contract-history-lifecycle.md",
+      "kind": "internal",
+      "route": "/docs/modules/gexp/backoffice/docs/contract-history-lifecycle",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

@@ -1,0 +1,380 @@
+{
+  "code": "docsArticle28c70382be8a41c52994",
+  "title": "nCommon",
+  "route": "/docs/modules/gframework/ncommon",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nCommon/README.md",
+    "type": "module-readme",
+    "contentHash": "b2b25e1ffa74349160e7e31695cedcd4c3a50b90d25286328aaeeda6ebbf7c47"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "nCommon",
+      "anchor": "ncommon"
+    },
+    {
+      "level": 2,
+      "text": "When To Use This Module",
+      "anchor": "when-to-use-this-module"
+    },
+    {
+      "level": 2,
+      "text": "Ownership",
+      "anchor": "ownership"
+    },
+    {
+      "level": 2,
+      "text": "Extension Contract",
+      "anchor": "extension-contract"
+    },
+    {
+      "level": 2,
+      "text": "Developer Guidance",
+      "anchor": "developer-guidance"
+    },
+    {
+      "level": 2,
+      "text": "Utility Middleware",
+      "anchor": "utility-middleware"
+    },
+    {
+      "level": 2,
+      "text": "Enumerations And Status Definitions",
+      "anchor": "enumerations-and-status-definitions"
+    },
+    {
+      "level": 2,
+      "text": "Common Process Boundaries",
+      "anchor": "common-process-boundaries"
+    },
+    {
+      "level": 2,
+      "text": "Integration And Data Contracts",
+      "anchor": "integration-and-data-contracts"
+    },
+    {
+      "level": 2,
+      "text": "Security, Performance, And Operations",
+      "anchor": "security-performance-and-operations"
+    },
+    {
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    },
+    {
+      "level": 2,
+      "text": "Common Mistakes",
+      "anchor": "common-mistakes"
+    },
+    {
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "nCommon",
+      "anchor": "ncommon"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nCommon` is the shared toolbox used by several Nodics capabilities. It contains small platform-wide building blocks that would otherwise be copied between modules. It is deliberately not a home for any code that merely feels reusable."
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nCommon` owns shared utilities, enumerations, reusable runtime helpers, and common process/data holders used across Nodics modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nCommon` is the place for utility middleware, enumerations, and common class/process holders. Keep it focused: shared helpers belong here only when they are framework-wide, stable, and not owned more clearly by a specific capability module."
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nCommon` does not own startup hierarchy resolution or configuration loading. Those responsibilities belong to `nConfig`. `nCommon` contributes shared runtime primitives after `nConfig` has prepared the active module hierarchy and effective layered configuration."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "When To Use This Module",
+      "anchor": "when-to-use-this-module"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use `nCommon` when a deterministic helper, error/status contract, processor, interceptor primitive, or traceability mechanism is genuinely shared across several framework capabilities. Keep the behavior in its existing capability module when it expresses business meaning, provider behavior, persistence, routing, identity, jobs, or workflow."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Ownership",
+      "anchor": "ownership"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nCommon` may own:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "reusable utility functions used across framework modules;",
+        "common enumeration definitions;",
+        "shared constants and helper contracts;",
+        "cross-cutting runtime helpers that do not belong to a more specific module;",
+        "documentation of safe utility extension patterns."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Capability-specific logic belongs in the owning capability module, not here."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Extension Contract",
+      "anchor": "extension-contract"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Later modules may extend or override common behavior only through established module hierarchy and source definitions. Do not monkey-patch globals or create parallel utility registries."
+    },
+    {
+      "kind": "paragraph",
+      "text": "When adding a shared helper, document:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "the owning use case;",
+        "inputs and outputs;",
+        "side effects;",
+        "tenant/request context expectations;",
+        "error behavior;",
+        "why the helper belongs in `nCommon` instead of a capability module."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Developer Guidance",
+      "anchor": "developer-guidance"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Prefer small, deterministic helpers. Avoid hidden dependency on active project, environment, server, node, tenant, or request state unless that context is explicitly passed in or resolved by an existing Nodics service."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Utility Middleware",
+      "anchor": "utility-middleware"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Utility middleware provides shared functions available across the application. Shared helpers remain explicit, documented, and owned."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use `nCommon` for helpers that are:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "reused by several framework modules;",
+        "stable enough to become a platform contract;",
+        "deterministic or explicit about side effects;",
+        "not better owned by a capability module."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not move a helper into `nCommon` only to make it easy to import. Shared code creates a shared contract, so it needs stronger documentation and tests."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Enumerations And Status Definitions",
+      "anchor": "enumerations-and-status-definitions"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Common enum or status definitions describe platform-wide values that are safe to reuse across modules. Capability-specific enums and statuses stay in the owning module's `src/utils/enums.js` or `src/utils/statusDefinitions.js`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "When adding shared enum/status values, document:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "consumer modules;",
+        "default meaning;",
+        "whether projects may extend or override the value;",
+        "backward-compatibility impact;",
+        "tests or generated context that prove the value is visible."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Common Process Boundaries",
+      "anchor": "common-process-boundaries"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nCommon` may provide low-level process helpers, but it must not own business process definitions, workflow definitions, job lifecycle behavior, or startup hierarchy. Those belong to `nPipeline`, workflow, cronjob, `nConfig`, or the specific capability module."
+    },
+    {
+      "kind": "paragraph",
+      "text": "If a helper needs tenant, request, module, or runtime-governance context, pass that context explicitly or call an existing service. Hidden global assumptions make later project overrides difficult to reason about."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Integration And Data Contracts",
+      "anchor": "integration-and-data-contracts"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`nCommon` is widely consumed, so even a small change can affect startup, requests, pipelines, imports, jobs, events, and tests. Public helpers must have stable input/output and error behavior. Request, tenant, module, correlation, and execution context should be passed explicitly rather than recovered from an unexplained global."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Shared status definitions provide traceable error identities. Capability-owned errors should remain in the capability module and use common formatting and trace propagation rather than moving all error meaning into `nCommon`."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Security, Performance, And Operations",
+      "anchor": "security-performance-and-operations"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Never place credentials or secret-bearing convenience helpers in common"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "logging or serialization paths."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Prefer deterministic, low-overhead utilities because shared helpers can sit"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "on high-volume paths."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Preserve original error cause, correlation, module, tenant, execution layer,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "and safe diagnostic context."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Avoid hidden I/O, network calls, mutable global state, or provider selection"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "in a function presented as a general utility."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "node gFramework/nCommon/test/errorTraceability.test.js\nnode gFramework/nCommon/test/executionLayerTraceability.test.js\nnpm run quality:docs\nnpm run test:basic"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Add focused positive, invalid-input, boundary, error-propagation, and consumer regression tests when a shared contract changes."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Common Mistakes",
+      "anchor": "common-mistakes"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Moving code here only to shorten an import path.",
+        "Creating a second utility or status registry.",
+        "Returning ambiguous error objects that lose the original cause.",
+        "Reading tenant or request state from an implicit global.",
+        "Adding a capability-specific enum as a framework-wide contract."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Continue",
+      "anchor": "continue"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Error and trace terminology: [Nodics Glossary](../../gDocs/reference/glossary.md)",
+        "Framework map: [gFramework](../README.md)",
+        "Ordered execution: [nPipeline](../nPipeline/README.md)",
+        "Public documentation: [Nodics Documentation](../../gDocs/README.md)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "Nodics Glossary",
+      "target": "../../gDocs/reference/glossary.md",
+      "kind": "internal",
+      "route": "/docs/reference/glossary",
+      "anchor": ""
+    },
+    {
+      "label": "gFramework",
+      "target": "../README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework",
+      "anchor": ""
+    },
+    {
+      "label": "nPipeline",
+      "target": "../nPipeline/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/npipeline",
+      "anchor": ""
+    },
+    {
+      "label": "Nodics Documentation",
+      "target": "../../gDocs/README.md",
+      "kind": "internal",
+      "route": "/docs",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

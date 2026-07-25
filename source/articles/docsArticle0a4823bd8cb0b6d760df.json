@@ -1,0 +1,43 @@
+{
+  "code": "docsArticle0a4823bd8cb0b6d760df",
+  "title": "kyc",
+  "route": "/docs/modules/goptional/kyc",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gOptional/kyc/README.md",
+    "type": "module-readme",
+    "contentHash": "f7e3ebbc79b348870fc314c4be2041d75db339f6849e1b2ecfe0965a0b253d49"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "kyc",
+      "anchor": "kyc"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "kyc",
+      "anchor": "kyc"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`kyc` groups optional know-your-customer capabilities and their API, core, and schema modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Projects can replace providers, workflows, validation, schemas, and routes in later-index modules without modifying the group or framework core."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

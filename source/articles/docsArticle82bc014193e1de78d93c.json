@@ -1,0 +1,62 @@
+{
+  "code": "docsArticle82bc014193e1de78d93c",
+  "title": "Store and Storefront Integration",
+  "route": "/docs/modules/gcomm/store/docs/store-site-and-integration",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gComm/store/docs/store-site-and-integration.md",
+    "type": "module-doc",
+    "contentHash": "c6a97e1dc7bcf20228eb6b5ff9f7537a0247b131deb6ef6a0e359c069690c63a"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Store and Storefront Integration",
+      "anchor": "store-and-storefront-integration"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Store and Storefront Integration",
+      "anchor": "store-and-storefront-integration"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Store owns Store identity, lifecycle, and Store-to-Warehouse assignments. It exposes a bounded service-token reference API so Pricing, Storefront, and other modules can validate active Stores without copying them."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Storefront owns hostname, CMS Site, and Store composition. CMS owns Sites and content catalogs. This replaces the earlier Store-owned Site-binding path, which was removed to prevent duplicate authority."
+    },
+    {
+      "kind": "paragraph",
+      "text": "For setup examples, human and service authentication, exact-host rules, operations, troubleshooting, and verification, read [Storefront Foundation](../../../gExp/storefront/docs/storefront-foundation.md) and [How To Model Stores And Website Experiences](../../../gDocs/commerce/how-to-model-stores-and-websites.md)."
+    }
+  ],
+  "links": [
+    {
+      "label": "Storefront Foundation",
+      "target": "../../../gExp/storefront/docs/storefront-foundation.md",
+      "kind": "internal",
+      "route": "/docs/modules/gexp/storefront/docs/storefront-foundation",
+      "anchor": ""
+    },
+    {
+      "label": "How To Model Stores And Website Experiences",
+      "target": "../../../gDocs/commerce/how-to-model-stores-and-websites.md",
+      "kind": "internal",
+      "route": "/docs/commerce/how-to-model-stores-and-websites",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

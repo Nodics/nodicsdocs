@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle1c8548ccac8999a9aba5",
+  "title": "monoServer",
+  "route": "/docs/modules/startio/envs/startiopreprod/monoserver",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/envs/startioPreProd/monoServer/README.md",
+    "type": "module-readme",
+    "contentHash": "2b7152de62559c29532b36d86e3da8d76244645d81376ebaba9bd40b1c33c677"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "monoServer",
+      "anchor": "monoserver"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "monoServer",
+      "anchor": "monoserver"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`monoServer` is the pre-production server module for the `startio` application."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Use this module for pre-production server activation, route/service availability, and runtime topology. Business behavior belongs in active application or framework modules."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Pre-production server settings should support release validation while preserving production-like governance."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}
