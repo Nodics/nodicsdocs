@@ -53,6 +53,13 @@ checksum. A release version must change whenever any generated file changes.
 Nodics rejects same-version content mutation and, by default, version
 downgrades.
 
+The committed `data/core` directory is the release artifact. Consumers clone or
+download a pinned release and import it directly through Nodics'
+`nodicsDocumentation` content-pack endpoint. They do not run generation,
+create a `.work` copy, or submit an arbitrary path to `/import/local`.
+Contributor generation exists only to prepare and validate a future immutable
+release before committing its `data/core` projection and manifest.
+
 Generated records retain stable codes. A later valid release therefore creates
 new records and updates matching records through Nodics `saveAll` operations
 without duplicating existing pages or components. `nodicsdocs` never performs

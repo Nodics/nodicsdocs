@@ -1,15 +1,54 @@
 # Nodics Documentation Content Pack
 
 `nodicsdocs` is the reusable, source-controlled documentation dataset for
-Nodics. It produces standard CMS core-import records that can be installed into
-a Nodics project and rendered by Nodics Axis, Nodicsweb, or another compatible
-client.
+Nodics. Every published revision already contains standard CMS core-import
+records under `data/core`; consumers import those committed records directly
+through Nodics without installing dependencies, generating files, building a
+pack, or creating a local staging directory.
 
 The repository contains no CMS runtime, authentication, business logic, or
 frontend renderer. Nodics remains authoritative for schemas and import/delivery
 contracts.
 
-## Local migration
+## Install the published content pack
+
+Place the repositories beside each other:
+
+```text
+nodicsRoot/
+├── nodics/
+├── nodicsaxis/
+└── nodicsdocs/
+```
+
+Enable the configured `nodicsDocumentation` content pack in a later Nodics
+project or environment `properties.js`, start Nodics, authenticate as an
+authorized employee, and invoke:
+
+```bash
+curl --request POST \
+  http://localhost:3000/nodics/system/v0/content-packs/nodicsDocumentation/imports \
+  --header 'Authorization: Bearer <employee-access-token>' \
+  --header 'x-enterprise-code: default'
+```
+
+No request body or filesystem path is accepted. Nodics locates the configured
+release, validates `manifest/generated-content-pack.json`, copies the committed
+`data/core` records into server-owned temporary staging, and dispatches them
+through the existing nImport lifecycle. Axis uses this same endpoint when an
+authorized administrator selects **Import documentation** or **Update
+documentation**.
+
+The consumer must not run repository scripts or point `/import/local` at this
+checkout. The normal local importer moves processed files; only the governed
+content-pack service may create its disposable server-owned copy.
+
+## Contributor and release maintenance
+
+Normal consumers can stop reading here. The commands below are only for
+documentation maintainers preparing a new immutable release.
+
+### Migrate legacy documentation
 
 The initial migration reads current `gDocs` pages and module-level README files
 from a Nodics checkout and converts them to structured article sources:
@@ -22,20 +61,20 @@ This operation is deliberately separate from normal generation. After the
 cutover, maintain `source/articles` rather than editing the legacy Markdown
 copies.
 
-## Build a target-specific import pack
+### Generate a release
 
-CMS pages are associated with Sites. Supply the Site codes belonging to the
-target Nodics deployment:
+CMS pages are associated with Sites. A maintainer generates the committed
+release data for the approved Site and access-mode profile:
 
 ```bash
-npm run build -- --sites axisCmsSite
-npm run build -- --sites axisCmsSite,nodicsWebCmsSite
+npm run generate -- --sites axisCmsSite --access AUTHENTICATED
 ```
 
-The generated standard import data is written beneath `data/core`. The build
-does not contact a server and does not import automatically.
+Generation writes standard import data beneath `data/core`. The maintainer must
+review and commit the generated data and updated immutable release manifest.
+Generation never contacts a server or imports automatically.
 
-## Validate
+### Validate a release
 
 ```bash
 npm run verify
@@ -45,45 +84,5 @@ Validation is offline and checks source structure, stable identities, unsafe
 content, media references, generated relationships, target Sites, and
 compatibility metadata.
 
-## Import
-
-1. Pin a tagged `nodicsdocs` version.
-2. Verify the release checksum and compatibility manifest.
-3. Build the pack for the target Site codes.
-4. Make the generated `data/core` directory available to the existing Nodics
-   import process.
-5. Create a disposable local-import staging directory with
-   `npm run stage:local`.
-6. Authenticate to Nodics and explicitly trigger the governed import against
-   the printed staging path.
-7. Review created, updated, skipped, retired, and failed records.
-
-The browser must never clone this repository or execute its scripts. A future
-Axis installation screen may request a backend-owned import operation and
-display its progress.
-
-For a trusted local checkout, an employee with `import.local.run` may invoke
-the existing Nodics local-import route:
-
-```bash
-npm run build -- --sites axisCmsSite --access AUTHENTICATED
-npm run stage:local
-
-curl --request POST http://localhost:3000/nodics/system/v0/import/local \
-  --header 'Authorization: Bearer <employee-access-token>' \
-  --header 'Content-Type: application/json' \
-  --header 'x-enterprise-code: default' \
-  --data '{
-    "inputPath": {
-      "rootPath": "/absolute/path/to/nodicsdocs/.work/local-import"
-    },
-    "importFinalizeData": true
-  }'
-```
-
-The Nodics importer moves processed files into success/failure directories, so
-never point it at source-controlled `data/core`. The staging command preserves
-the generated authority and creates a disposable, ignored copy. The path must
-exist on the Nodics server. Do not expose arbitrary filesystem paths in an Axis
-form. A future installer must select a configured, allowlisted content-pack
-source and reuse the same local/remote import lifecycle.
+Release verification is a maintainer gate. Consumers receive the already
+verified, directly importable `data/core` artifact.

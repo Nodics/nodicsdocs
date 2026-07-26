@@ -10,8 +10,7 @@
   "scripts": {
     "inventory:wordpress": "node scripts/inventory-wordpress.js",
     "migrate": "node scripts/migrate-nodics-sources.js",
-    "build": "node scripts/build-content-pack.js",
-    "stage:local": "node scripts/stage-local-import.js",
+    "generate": "node scripts/generate-content-pack.js",
     "validate": "node scripts/validate-content-pack.js",
     "test": "node --test test/*.test.js",
     "verify": "npm run validate && npm run test"
