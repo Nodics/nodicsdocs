@@ -1,0 +1,23 @@
+{
+  "code": "capability.persistence.prebuilt-providers",
+  "title": "Prebuilt Database Providers and Maturity",
+  "route": "/docs/capabilities/persistence/prebuilt-providers",
+  "section": "capabilities",
+  "family": "provider-maturity",
+  "parent": "page:capability.persistence.overview",
+  "order": 10,
+  "audiences": ["evaluator", "administrator", "developer", "architect", "operator"],
+  "readerIntent": "Select a database adapter using truthful implementation and release evidence.",
+  "priorKnowledge": "Read Database and Persistence.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Configured database provider",
+  "lastVerified": "2026-07-26",
+  "summary": "A module slot or deterministic contract is not production qualification; the selected provider must prove live connectivity, isolation, transactions, failure, recovery, and performance for the target topology.",
+  "supportingEvidence": ["nodics:gFramework/nDatabase/README.md", "nodics:gFramework/nDatabase/mongodb/README.md", "nodics:gFramework/nDatabase/cassandradb/README.md", "nodics:gFramework/nDatabase/elasticdb/README.md"],
+  "sections": [
+    {"heading": "MongoDB", "paragraphs": ["MongoDB is the implemented primary adapter for connection, schema, model, query, index, middleware, and transaction mapping. Transactions require a replica set or sharded cluster; a standalone local server is not transaction-qualified. Production use still requires live release qualification."]},
+    {"heading": "Cassandra and Elastic database adapters", "paragraphs": ["Their repository modules are extension evidence, not permission to claim feature parity or production readiness. Confirm actual connection, model, query, schema, transaction, tenant-isolation, and lifecycle implementations before selection."]},
+    {"heading": "Selection criteria", "items": ["Application query and transaction needs.", "Tenant isolation and database-routing model.", "Consistency, availability, recovery, and migration requirements.", "Supported versions, security controls, operational skills, and cost.", "Live contract, load, outage, reconnect, backup, restore, and upgrade evidence."]}
+  ]
+}

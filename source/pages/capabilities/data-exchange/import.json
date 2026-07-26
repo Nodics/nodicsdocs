@@ -1,0 +1,23 @@
+{
+  "code": "capability.data-exchange.import",
+  "title": "Import Data Safely",
+  "route": "/docs/capabilities/data-exchange/import",
+  "section": "capabilities",
+  "family": "tutorial-example",
+  "parent": "page:capability.data-exchange.guide",
+  "order": 10,
+  "audiences": ["business-user", "administrator", "developer", "operator", "ai-tool"],
+  "readerIntent": "Configure and run a tenant-safe import through existing Nodics contracts.",
+  "priorKnowledge": "Know the source, target schema or index, mapping, tenant, and permission.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "Import definitions, format adapters, dataCore processors, and target schema/search services",
+  "lastVerified": "2026-07-26",
+  "summary": "A governed import resolves trusted headers, narrows tenant scope, parses and validates input, dispatches finalized models through target services, and records run evidence.",
+  "supportingEvidence": ["nodics:gFramework/nData/nImport/README.md", "nodics:gFramework/nData/nImport/import/README.md"],
+  "sections": [
+    {"heading": "Supported inputs", "items": ["Core, init, sample, and governed local imports.", "CSV, Excel, JSON, and trusted JavaScript definitions owned by active modules.", "Push-based API inputs that meet the governed contract.", "Named remote sources supplied by a project/provider adapter; arbitrary request URLs and credentials are forbidden."]},
+    {"heading": "Run flow", "items": ["Select a trusted import definition, source, tenant, and active-module header.", "Validate count, size, extension, checksum, duplicate fingerprint, and source policy.", "Parse and map through format readers and data processors.", "Apply interceptors, validators, access groups, and tenant narrowing.", "Dispatch batches through generated schema or search services.", "Record counts, diagnostics, failure, retry, rollback evidence, and finalization events."]},
+    {"heading": "Verify", "items": ["Validation-only and successful runs.", "Malformed, oversized, duplicate, unauthorized, cross-tenant, and partial inputs.", "Batch boundaries, retries, idempotency, stop-on-failure, and cleanup.", "Schema/search target contracts, cache invalidation, events, workflows, and normal-save regression."]}
+  ]
+}

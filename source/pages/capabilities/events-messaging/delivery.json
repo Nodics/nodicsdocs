@@ -1,0 +1,23 @@
+{
+  "code": "capability.events-messaging.delivery",
+  "title": "Event Delivery Models and Guarantees",
+  "route": "/docs/capabilities/events-messaging/delivery",
+  "section": "capabilities",
+  "family": "concepts-architecture",
+  "parent": "page:capability.events-messaging.overview",
+  "order": 10,
+  "audiences": ["administrator", "developer", "architect", "operator"],
+  "readerIntent": "Choose local, transported, or persisted delivery and state its guarantees honestly.",
+  "priorKnowledge": "Read Events and Messaging.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Selected event and delivery contracts",
+  "lastVerified": "2026-07-26",
+  "summary": "A local listener call is not durable messaging; each event contract states locality, persistence, acknowledgement, ordering, redelivery, idempotency, retry, and recovery behavior.",
+  "supportingEvidence": ["nodics:gFramework/nEvent/README.md", "nodics:gFramework/nEms/README.md", "nodics:gCore/nems/README.md"],
+  "sections": [
+    {"heading": "Delivery choices", "items": ["Local listener: low overhead inside the runtime process; not durable by itself.", "Broker transport: crosses processes through a configured adapter; guarantees depend on the provider and configuration.", "Persisted NEMS distribution: records definitions, outcomes, failure state, retry, and event logs.", "Workflow or scheduled job: preferred when work is long-running, human-involved, timed, or requires explicit business state."]},
+    {"heading": "Contract questions", "items": ["Is delivery best effort, at-most-once, at-least-once, or otherwise qualified?", "Must ordering be preserved and at what partition scope?", "How does a consumer detect and safely handle redelivery?", "Who owns retry, dead-letter or failed state, replay, and manual recovery?", "What tenant, source, target, trace, schema version, and security context travels with the event?"]},
+    {"heading": "Provider maturity", "paragraphs": ["A broker adapter is production-qualified only with live evidence for its claimed acknowledgement, ordering, redelivery, security, outage, recovery, capacity, and upgrade behavior. A module scaffold or unit test does not establish those guarantees."]}
+  ]
+}

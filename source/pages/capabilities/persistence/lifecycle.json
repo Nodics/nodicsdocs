@@ -1,0 +1,23 @@
+{
+  "code": "capability.persistence.lifecycle",
+  "title": "Persistence Lifecycle and Data Exchange",
+  "route": "/docs/capabilities/persistence/lifecycle",
+  "section": "capabilities",
+  "family": "runtime-behavior",
+  "parent": "page:capability.persistence.overview",
+  "order": 30,
+  "audiences": ["administrator", "developer", "architect", "operator", "ai-tool"],
+  "readerIntent": "Understand startup, operation, import/export interaction, and shutdown.",
+  "priorKnowledge": "Know the selected provider and schema contract.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Provider-neutral database lifecycle plus selected adapter",
+  "lastVerified": "2026-07-26",
+  "summary": "Nodics validates database configuration, opens unique required connections, creates effective models and indexes, serves tenant-aware operations, and closes owned resources through the central runtime lifecycle.",
+  "supportingEvidence": ["nodics:gFramework/nDatabase/README.md", "nodics:gFramework/nData/nImport/README.md", "nodics:gFramework/nData/nExport/README.md"],
+  "sections": [
+    {"heading": "Lifecycle", "items": ["Validate provider, tenant, module, master, and database configuration.", "Open connections with bounded startup and readiness policy.", "Compose schemas and create provider-backed runtime models and indexes.", "Execute authorized operations through generated services and pipelines.", "Reconnect or fail according to required versus optional dependency policy.", "Drain work and close each unique owned connection during shutdown."]},
+    {"heading": "Import interaction", "paragraphs": ["Imports map approved input into schema models and save through generated services. They do not write directly to provider collections or tables. Provider batching may optimize the same governed operation but cannot bypass validation, access policy, diagnostics, or lifecycle hooks."]},
+    {"heading": "Export interaction", "paragraphs": ["Exports query through authorized schema/service contracts, apply property access policy, and then render a governed format. A provider adapter must not expose unrestricted database export as an alternative authority path."]}
+  ]
+}

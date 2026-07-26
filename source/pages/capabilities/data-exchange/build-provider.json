@@ -1,0 +1,23 @@
+{
+  "code": "capability.data-exchange.provider-development",
+  "title": "Build Data Source and Destination Providers",
+  "route": "/docs/capabilities/data-exchange/provider-development",
+  "section": "build-extend",
+  "family": "configuration-customization",
+  "parent": "page:capability.data-exchange.guide",
+  "order": 30,
+  "audiences": ["developer", "architect", "framework-maintainer", "ai-tool"],
+  "readerIntent": "Integrate SFTP, object storage, HTTPS, partner APIs, enterprise gateways, or delivery systems safely.",
+  "priorKnowledge": "Know the import remote-source or export destination contract.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "Reusable provider or customer-project adapter module",
+  "lastVerified": "2026-07-26",
+  "summary": "Providers resolve named configuration, stage or deliver bounded data, and return normalized evidence; they never accept arbitrary request credentials or bypass the shared lifecycle.",
+  "supportingEvidence": ["nodics:gFramework/nData/nImport/README.md", "nodics:gFramework/nData/nExport/README.md"],
+  "sections": [
+    {"heading": "Import source provider", "items": ["Register named sources and transports in layered configuration.", "Resolve credentials through secret governance.", "Enforce tenant/module allowlists, timeouts, retries, count, size, extension, and checksum policy.", "Stage files into an isolated server-owned location.", "Return trusted references to the normal import lifecycle and clean up according to policy."]},
+    {"heading": "Export destination provider", "items": ["Register governed destination aliases and capabilities.", "Accept normalized streams or batches from the shared export engine.", "Enforce path/key constraints, encryption, checksums, retries, idempotency, retention, and cleanup.", "Return normalized delivery evidence without exposing provider secrets."]},
+    {"heading": "Qualification", "items": ["Invalid configuration and secret handling.", "Tenant isolation and source/destination authorization.", "Timeout, retry, duplicate, partial transfer, resume, cleanup, and shutdown.", "Live provider compatibility, limits, performance, outage, recovery, security, and upgrade."]}
+  ]
+}

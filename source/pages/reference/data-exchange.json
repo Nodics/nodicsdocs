@@ -1,0 +1,22 @@
+{
+  "code": "capability.data-exchange.technical-reference",
+  "title": "Import and Export Technical Reference",
+  "route": "/docs/reference/data-exchange",
+  "section": "reference",
+  "family": "technical-reference",
+  "parent": "page:capability.data-exchange.guide",
+  "order": 60,
+  "audiences": ["developer", "architect", "operator", "framework-maintainer", "ai-tool"],
+  "readerIntent": "Audit definitions, formats, providers, security, lifecycle, and verification.",
+  "priorKnowledge": "Read the data exchange journey.",
+  "depth": "reference",
+  "status": "implemented",
+  "owner": "Nodics import/export contracts and configured provider modules",
+  "lastVerified": "2026-07-26",
+  "summary": "A production definition identifies its owner, tenant, source or destination, data contract, limits, processing, policy, run evidence, failure semantics, and provider maturity.",
+  "supportingEvidence": ["nodics:gFramework/nData/nImport/README.md", "nodics:gFramework/nData/nExport/README.md", "nodics:gFramework/nData/dataCore/README.md"],
+  "sections": [
+    {"heading": "Definition checklist", "items": ["Stable name, owner, active state, tenant/module scope, permissions, and trigger.", "Trusted source or governed destination alias.", "Format, version, schema/service/index target, mapping, processors, validators, interceptors, and operation.", "Count, size, extension, query, field, batch, timeout, retry, idempotency, and checksum limits.", "Diagnostics, run history, audit, reconciliation, rollback, retention, and cleanup."]},
+    {"heading": "Test checklist", "items": ["Positive valid and repeat runs.", "Negative malformed, unauthorized, cross-tenant, duplicate, oversized, unsupported, and provider-failure cases.", "Empty, maximum, batch, streaming, timeout, retry, restart, and partial-failure boundaries.", "Schema/search/cache/event/job/workflow/publishing integration.", "Live provider, security, performance, recovery, compatibility, and regression."]}
+  ]
+}

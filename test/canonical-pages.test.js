@@ -136,3 +136,59 @@ test('framework foundation content preserves authority and customization contrac
         );
     });
 });
+
+test('provider-integrated capability journey covers persistence, cache, events, import, and export', () => {
+    const byCode = new Map(pages.map(page => [page.code, page]));
+    [
+        'capability.persistence.overview',
+        'capability.persistence.prebuilt-providers',
+        'capability.persistence.provider-development',
+        'capability.persistence.lifecycle',
+        'capability.persistence.operations',
+        'capability.persistence.technical-reference',
+        'capability.caching.overview',
+        'capability.caching.prebuilt-providers',
+        'capability.caching.provider-development',
+        'capability.caching.lifecycle',
+        'capability.caching.operations',
+        'capability.caching.technical-reference',
+        'capability.events-messaging.overview',
+        'capability.events-messaging.delivery',
+        'capability.events-messaging.provider-development',
+        'capability.events-messaging.lifecycle',
+        'capability.events-messaging.operations',
+        'capability.events-messaging.technical-reference',
+        'capability.data-exchange.guide',
+        'capability.data-exchange.import',
+        'capability.data-exchange.export',
+        'capability.data-exchange.provider-development',
+        'capability.data-exchange.lifecycle',
+        'capability.data-exchange.operations',
+        'capability.data-exchange.technical-reference'
+    ].forEach(code => assert.equal(byCode.has(code), true, code));
+});
+
+test('provider-integrated pages preserve maturity and cross-capability truth', () => {
+    const byCode = new Map(pages.map(page => [page.code, page]));
+    const serialized = code => JSON.stringify(byCode.get(code));
+
+    assert.match(serialized('capability.persistence.prebuilt-providers'), /standalone local server is not transaction-qualified/i);
+    assert.match(serialized('capability.persistence.provider-development'), /generic DAO/i);
+    assert.match(serialized('capability.caching.prebuilt-providers'), /fail-closed extension slot/i);
+    assert.match(serialized('capability.caching.lifecycle'), /authoritative/i);
+    assert.match(serialized('capability.events-messaging.delivery'), /local listener call is not durable messaging/i);
+    assert.match(serialized('capability.events-messaging.provider-development'), /provider-neutral EMS contract/i);
+    assert.match(serialized('capability.data-exchange.import'), /arbitrary request URLs and credentials are forbidden/i);
+    assert.match(serialized('capability.data-exchange.export'), /fails closed/i);
+    assert.match(serialized('capability.data-exchange.lifecycle'), /No parallel authority/i);
+    [
+        'capability.persistence.technical-reference',
+        'capability.caching.technical-reference',
+        'capability.events-messaging.technical-reference',
+        'capability.data-exchange.technical-reference'
+    ].forEach(code => {
+        ['positive', 'negative', 'boundar', 'contract', 'integration', 'regression'].forEach(testKind => {
+            assert.match(serialized(code), new RegExp(testKind, 'i'), `${code}:${testKind}`);
+        });
+    });
+});

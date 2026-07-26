@@ -1,0 +1,23 @@
+{
+  "code": "capability.events-messaging.operations",
+  "title": "Operate and Secure Events",
+  "route": "/docs/capabilities/events-messaging/operations",
+  "section": "operations",
+  "family": "operations-security-troubleshooting",
+  "parent": "page:capability.events-messaging.overview",
+  "order": 40,
+  "audiences": ["administrator", "security-reviewer", "operator", "architect"],
+  "readerIntent": "Monitor delivery, control backlogs, recover failures, and qualify providers.",
+  "priorKnowledge": "Know event types, destinations, guarantees, retry, and recovery ownership.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Event owners, NEMS operators, and configured transport provider",
+  "lastVerified": "2026-07-26",
+  "summary": "Operations must expose safe delivery outcomes, lag, retries, duplicates, poison messages, provider health, and manual recovery without leaking event payloads.",
+  "supportingEvidence": ["nodics:gFramework/nEvent/README.md", "nodics:gFramework/nEms/README.md", "nodics:gCore/nems/README.md"],
+  "sections": [
+    {"heading": "Monitor", "items": ["Publish, consume, success, failure, retry, replay, and duplicate rates.", "End-to-end delivery latency, backlog, oldest age, and consumer lag.", "Provider connection, acknowledgement, rejection, throttle, and reconnect state.", "Failed definitions, event logs, manual recovery, and cleanup outcomes."]},
+    {"heading": "Secure", "items": ["Authorize publish and consume by governed event and destination contracts.", "Encrypt transport and use least-privilege identities.", "Validate tenant, source, target, version, size, and payload schema.", "Redact payloads, credentials, personal data, and internal provider errors."]},
+    {"heading": "Recover and qualify", "items": ["Pause or isolate poison messages without blocking unrelated partitions.", "Replay only with authorization, idempotency, audit, and bounded scope.", "Test broker loss, consumer crash, redelivery, duplicate, out-of-order delivery, network partition, backlog recovery, and shutdown.", "Prove claimed guarantees with the live provider and production-like topology."]}
+  ]
+}

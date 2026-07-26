@@ -1,0 +1,23 @@
+{
+  "code": "capability.persistence.provider-development",
+  "title": "Build a Database Provider",
+  "route": "/docs/capabilities/persistence/provider-development",
+  "section": "build-extend",
+  "family": "configuration-customization",
+  "parent": "page:capability.persistence.overview",
+  "order": 20,
+  "audiences": ["developer", "architect", "framework-maintainer", "ai-tool"],
+  "readerIntent": "Add a database engine behind existing Nodics contracts.",
+  "priorKnowledge": "Know the generic database contract and target provider.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "A reusable provider module or customer-project adapter module",
+  "lastVerified": "2026-07-26",
+  "summary": "A new adapter registers provider configuration and implements connection, schema, model, query, middleware, and transaction capabilities without changing generic DAO or generated CRUD callers.",
+  "supportingEvidence": ["nodics:gFramework/nDatabase/README.md", "nodics:gFramework/nDatabase/database/README.md", "nodics:gFramework/nDatabase/mongodb/README.md"],
+  "sections": [
+    {"heading": "Implementation path", "items": ["Audit existing providers and extension slots first.", "Create an owned provider module at the reusable or customer-project layer.", "Declare databaseType, handlers, connection aliases, pooling, deadlines, capabilities, and provider options in layered properties.", "Implement connection, schema, model, interceptor, query, and transaction mappings behind the provider-neutral interfaces.", "Preserve tenant/module resolution, schema access policy, validation, middleware, diagnostics, cleanup, and normalized errors.", "Document configuration, limitations, migrations, operations, and supported versions."]},
+    {"heading": "Never place here", "items": ["Business schema ownership or business validation.", "Customer endpoints, database names, credentials, wallets, or certificates in source.", "Provider branches inside generic DAO services.", "A direct database client in a business module."]},
+    {"heading": "Proof", "items": ["Contract and invalid-configuration tests.", "Tenant and module isolation.", "CRUD, query, index, relationship, middleware, and transaction behavior.", "Outage, retry, reconnect, partial failure, cleanup, and shutdown.", "Live performance, backup, restore, failover, upgrade, and security qualification."]}
+  ]
+}

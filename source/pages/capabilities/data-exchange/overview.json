@@ -1,0 +1,23 @@
+{
+  "code": "capability.data-exchange.guide",
+  "title": "Import and Export Data",
+  "route": "/docs/capabilities/data-exchange",
+  "section": "capabilities",
+  "family": "runtime-behavior",
+  "parent": "page:framework.architecture",
+  "order": 190,
+  "audiences": ["evaluator", "business-user", "administrator", "developer", "architect", "operator", "ai-tool"],
+  "readerIntent": "Understand how governed data enters and leaves Nodics.",
+  "priorKnowledge": "Understand schemas, validation, access policy, and tenant context.",
+  "depth": "overview",
+  "status": "implemented",
+  "owner": "Nodics import and export capability families",
+  "lastVerified": "2026-07-26",
+  "summary": "Import converts approved sources into schema or search operations through one auditable lifecycle; export applies access policy and renders governed outbound contracts, with current maturity stated separately.",
+  "supportingEvidence": ["nodics:gFramework/nData/nImport/README.md", "nodics:gFramework/nData/nExport/README.md"],
+  "sections": [
+    {"heading": "Business outcomes", "items": ["Load core, sample, partner, migration, catalog, and operational data consistently.", "Deliver governed feeds, extracts, reports, and Data-as-a-Service contracts.", "Reuse validation, authorization, tenant isolation, models, search, events, diagnostics, and run history.", "Add formats and external transports through adapters and configuration."]},
+    {"heading": "Maturity", "paragraphs": ["The shared import lifecycle and CSV, Excel, JSON, and trusted active-module JavaScript formats are implemented. Remote source transports require project/provider configuration and live qualification. Export has a guarded shared boundary and fail-closed base service; production writers and delivery providers must be completed and qualified before use."]},
+    {"heading": "Continue", "items": ["[Import Data Safely](/docs/capabilities/data-exchange/import)", "[Export Data Safely](/docs/capabilities/data-exchange/export)", "[Build Data Source and Destination Providers](/docs/capabilities/data-exchange/provider-development)", "[Data Exchange Lifecycle and Integrations](/docs/capabilities/data-exchange/lifecycle)", "[Operate and Secure Data Exchange](/docs/capabilities/data-exchange/operations)", "[Import and Export Technical Reference](/docs/reference/data-exchange)"]}
+  ]
+}

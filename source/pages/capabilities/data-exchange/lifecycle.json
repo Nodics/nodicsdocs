@@ -1,0 +1,23 @@
+{
+  "code": "capability.data-exchange.lifecycle",
+  "title": "Data Exchange Lifecycle and Integrations",
+  "route": "/docs/capabilities/data-exchange/lifecycle",
+  "section": "capabilities",
+  "family": "runtime-behavior",
+  "parent": "page:capability.data-exchange.guide",
+  "order": 40,
+  "audiences": ["administrator", "developer", "architect", "operator", "ai-tool"],
+  "readerIntent": "Understand interaction with persistence, search, cache, events, jobs, workflows, and publishing.",
+  "priorKnowledge": "Understand the import or export definition.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Data exchange orchestration and each integrated capability owner",
+  "lastVerified": "2026-07-26",
+  "summary": "Data exchange coordinates existing authorities; it does not create alternate database, search, cache, event, workflow, or publishing paths.",
+  "supportingEvidence": ["nodics:gFramework/nData/nImport/README.md", "nodics:gFramework/nData/nExport/README.md", "nodics:gFramework/nSearch/README.md"],
+  "sections": [
+    {"heading": "Cross-capability behavior", "items": ["Persistence: imports save and exports query through schema services.", "Search: import headers may target authorized index services; normal record imports may trigger configured indexing.", "Cache: successful changes invalidate or refresh through the owning capability.", "Events: finalization may publish bounded facts after authoritative success.", "Scheduled jobs: trigger named recurring imports or exports, not arbitrary code or destinations.", "Workflows and publishing: stage business changes for approval and publish through their existing contracts."]},
+    {"heading": "Consistency", "paragraphs": ["A run defines transaction or batch boundaries, partial-failure policy, retry and idempotency, derived-system lag, reconciliation, and rollback evidence. Search and cache remain derived views; export correctness is based on authorized authoritative contracts."]},
+    {"heading": "No parallel authority", "items": ["No direct database driver calls from a reader or writer.", "No raw search-engine bulk path outside the search contract.", "No request-selected remote code, URL, credential, processor, topic, or destination.", "No separate documentation-content import engine; documentation uses the Nodics content-pack import contract."]}
+  ]
+}

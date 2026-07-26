@@ -1,0 +1,22 @@
+{
+  "code": "capability.events-messaging.technical-reference",
+  "title": "Events and Messaging Technical Reference",
+  "route": "/docs/reference/events-messaging",
+  "section": "reference",
+  "family": "technical-reference",
+  "parent": "page:capability.events-messaging.overview",
+  "order": 50,
+  "audiences": ["developer", "architect", "operator", "framework-maintainer", "ai-tool"],
+  "readerIntent": "Audit event ownership, delivery contracts, providers, and verification.",
+  "priorKnowledge": "Read the events and messaging journey.",
+  "depth": "reference",
+  "status": "implemented",
+  "owner": "Framework event, EMS provider, and NEMS distribution contracts",
+  "lastVerified": "2026-07-26",
+  "summary": "Each event defines its owner, stable type/version, context, delivery model, consumer behavior, failure policy, observability, and compatibility contract.",
+  "supportingEvidence": ["nodics:gFramework/nEvent/README.md", "nodics:gFramework/nEms/README.md", "nodics:gCore/nems/README.md"],
+  "sections": [
+    {"heading": "Event checklist", "items": ["Owner, name, version, active state, source, target, tenant, trace, and schema.", "Publication point and authoritative state transition.", "Local, transported, persisted, replayable, or best-effort delivery.", "Ordering, acknowledgement, idempotency, retry, dead/failed state, and recovery.", "Payload minimization, authorization, retention, masking, and compatibility."]},
+    {"heading": "Provider checklist", "items": ["Connection, destinations, serialization, acknowledgement, redelivery, ordering, batching, backpressure, and limits.", "Readiness, reconnect, failover, diagnostics, drain, and close.", "Positive, negative, boundary, contract, integration, load, failure, security, recovery, upgrade, and regression tests."]}
+  ]
+}

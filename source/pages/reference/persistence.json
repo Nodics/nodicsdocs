@@ -1,0 +1,22 @@
+{
+  "code": "capability.persistence.technical-reference",
+  "title": "Database and Persistence Technical Reference",
+  "route": "/docs/reference/persistence",
+  "section": "reference",
+  "family": "technical-reference",
+  "parent": "page:capability.persistence.overview",
+  "order": 50,
+  "audiences": ["developer", "architect", "operator", "framework-maintainer", "ai-tool"],
+  "readerIntent": "Audit persistence ownership, provider capabilities, configuration, and verification.",
+  "priorKnowledge": "Read the persistence journey.",
+  "depth": "reference",
+  "status": "implemented",
+  "owner": "Nodics database contracts and selected provider",
+  "lastVerified": "2026-07-26",
+  "summary": "Technical changes must preserve schema authority, generated model behavior, tenant resolution, access policy, lifecycle, and provider abstraction.",
+  "supportingEvidence": ["nodics:gFramework/nDatabase/README.md", "nodics:gFramework/nDatabase/database/README.md", "nodics:gFramework/nDatabase/mongodb/README.md"],
+  "sections": [
+    {"heading": "Contract checklist", "items": ["Provider identity and truthful capability declaration.", "Layered connection aliases, handlers, pool, timeout, retry, TLS, and secret references.", "Tenant/module database resolution and model isolation.", "Schema, index, CRUD, query, middleware, relationship, and transaction mappings.", "Normalized errors, diagnostics, readiness, reconnect, and shutdown.", "Import, export, cache, search, event, audit, and runtime-governance interactions."]},
+    {"heading": "Verification matrix", "items": ["Positive CRUD/query and transactions where supported.", "Negative configuration, authentication, authorization, validation, conflict, and provider failures.", "Boundary sizes, pagination, batching, timeouts, pool limits, and tenant counts.", "Provider-neutral contract and live integration.", "Backup, restore, failover, migration, performance, security, and regression."]}
+  ]
+}

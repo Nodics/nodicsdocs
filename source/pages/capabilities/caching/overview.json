@@ -1,0 +1,23 @@
+{
+  "code": "capability.caching.overview",
+  "title": "Caching in Nodics",
+  "route": "/docs/capabilities/caching",
+  "section": "capabilities",
+  "family": "overview",
+  "parent": "page:framework.architecture",
+  "order": 140,
+  "audiences": ["evaluator", "business-user", "administrator", "developer", "architect", "operator", "ai-tool"],
+  "readerIntent": "Understand how Nodics improves response time without making cache authoritative.",
+  "priorKnowledge": "Understand the owning source of data.",
+  "depth": "overview",
+  "status": "implemented",
+  "owner": "Nodics provider-neutral cache capability and configured cache adapters",
+  "lastVerified": "2026-07-26",
+  "summary": "Cache channels define tenant-safe keys, eligibility, TTL, invalidation, fallback, and provider requirements while authoritative data remains recoverable from its owner.",
+  "supportingEvidence": ["nodics:gFramework/nCache/README.md", "nodics:gFramework/nCache/cache/README.md"],
+  "sections": [
+    {"heading": "Business outcomes", "items": ["Reduce repeated database, search, API, configuration, and computation work.", "Select local or distributed behavior per channel and topology.", "Change TTL and provider through layered configuration.", "Fail safely when a provider cannot meet security or consistency requirements."]},
+    {"heading": "Core rule", "paragraphs": ["A cache is a temporary projection. Every entry needs an owner, source fallback, bounded key, isolation scope, TTL, invalidation trigger, acceptable staleness, outage rule, diagnostics, and tests."]},
+    {"heading": "Continue", "items": ["[Prebuilt Cache Providers and Maturity](/docs/capabilities/caching/prebuilt-providers)", "[Build a Cache Provider](/docs/capabilities/caching/provider-development)", "[Cache Lifecycle and Invalidation](/docs/capabilities/caching/lifecycle)", "[Operate and Secure Cache](/docs/capabilities/caching/operations)", "[Caching Technical Reference](/docs/reference/caching)"]}
+  ]
+}

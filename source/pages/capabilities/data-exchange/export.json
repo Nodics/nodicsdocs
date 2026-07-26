@@ -1,0 +1,23 @@
+{
+  "code": "capability.data-exchange.export",
+  "title": "Export Data Safely",
+  "route": "/docs/capabilities/data-exchange/export",
+  "section": "capabilities",
+  "family": "concepts-runtime",
+  "parent": "page:capability.data-exchange.guide",
+  "order": 20,
+  "audiences": ["business-user", "administrator", "developer", "architect", "operator", "ai-tool"],
+  "readerIntent": "Understand the guarded export boundary and production completion requirements.",
+  "priorKnowledge": "Know the source schema/service, tenant, allowed fields, format, and destination.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Shared export engine, active format implementation, and governed delivery provider",
+  "lastVerified": "2026-07-26",
+  "summary": "The current base export service fails closed until an active module supplies source-backed selection, policy-safe rendering, governed delivery, diagnostics, and release evidence.",
+  "supportingEvidence": ["nodics:gFramework/nData/nExport/README.md", "nodics:gFramework/nData/nExport/export/README.md", "nodics:gFramework/nData/nExport/export/docs/export-process-framework.md"],
+  "sections": [
+    {"heading": "Intended flow", "items": ["Select an authorized export definition rather than arbitrary source or destination input.", "Resolve tenant, source schema/service, allowed query, format, and destination alias.", "Apply record and property access policy before data leaves Nodics.", "Render through a completed format adapter.", "Deliver through a governed provider with timeout, retry, checksum, retention, and cleanup.", "Record safe run history and outcome."]},
+    {"heading": "Current maturity", "paragraphs": ["CSV, Excel, JSON, and JavaScript-oriented modules provide structure and extension points but must not be described as completed production writers without source-backed behavior and tests. The fail-closed base prevents accidental leakage from partial configuration."]},
+    {"heading": "Production gate", "items": ["Source-backed definitions and deterministic rendering.", "Tenant, schema, field, and query policy.", "Streaming/batching limits and backpressure.", "Governed destination aliases and secrets.", "Idempotency, retries, partial failure, checksums, retention, and cleanup.", "Live delivery, security, performance, recovery, and regression tests."]}
+  ]
+}

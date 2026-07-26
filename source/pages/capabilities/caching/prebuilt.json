@@ -1,0 +1,24 @@
+{
+  "code": "capability.caching.prebuilt-providers",
+  "title": "Prebuilt Cache Providers and Maturity",
+  "route": "/docs/capabilities/caching/prebuilt-providers",
+  "section": "capabilities",
+  "family": "provider-maturity",
+  "parent": "page:capability.caching.overview",
+  "order": 10,
+  "audiences": ["evaluator", "administrator", "developer", "architect", "operator"],
+  "readerIntent": "Choose a cache provider that matches topology and consistency needs.",
+  "priorKnowledge": "Read Caching in Nodics.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Configured cache adapter",
+  "lastVerified": "2026-07-26",
+  "summary": "NodeCache is process-local reference behavior, Redis is a guarded distributed adapter, and Hazelcast is a fail-closed extension slot until a real adapter is supplied and qualified.",
+  "supportingEvidence": ["nodics:gFramework/nCache/README.md", "nodics:gFramework/nCache/nodeCache/README.md", "nodics:gFramework/nCache/redisCache/README.md", "nodics:gFramework/nCache/hazelcastCache/README.md"],
+  "sections": [
+    {"heading": "NodeCache", "paragraphs": ["Useful for local development, a single process, or data that tolerates per-process copies. Restart clears it, and it cannot prove cross-node invalidation or strict distributed session semantics."]},
+    {"heading": "Redis", "paragraphs": ["The distributed adapter is appropriate for shared channels only after live qualification of connection security, atomic operations, invalidation, failure behavior, capacity, recovery, and supported versions."]},
+    {"heading": "Hazelcast", "paragraphs": ["The current slot must fail closed until a project or reusable provider implements the generic adapter contract and passes live cluster tests. Installed local software alone does not activate or qualify it."]},
+    {"heading": "Selection", "items": ["Single process versus multiple nodes.", "Required TTL, atomic consume, prefix flush, serialization, and diagnostics.", "Security sensitivity and fail-closed behavior.", "Latency, payload size, availability, persistence expectations, and cost."]}
+  ]
+}

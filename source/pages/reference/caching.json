@@ -1,0 +1,22 @@
+{
+  "code": "capability.caching.technical-reference",
+  "title": "Caching Technical Reference",
+  "route": "/docs/reference/caching",
+  "section": "reference",
+  "family": "technical-reference",
+  "parent": "page:capability.caching.overview",
+  "order": 50,
+  "audiences": ["developer", "architect", "operator", "framework-maintainer", "ai-tool"],
+  "readerIntent": "Audit cache policy, provider capabilities, channels, and verification.",
+  "priorKnowledge": "Read the caching journey.",
+  "depth": "reference",
+  "status": "implemented",
+  "owner": "Nodics cache contracts and configured provider",
+  "lastVerified": "2026-07-26",
+  "summary": "Every channel must declare source authority, key scope, eligibility, TTL, invalidation, provider requirements, fallback, diagnostics, and tests.",
+  "supportingEvidence": ["nodics:gFramework/nCache/README.md", "nodics:gFramework/nCache/cache/README.md"],
+  "sections": [
+    {"heading": "Provider capability checklist", "items": ["Distribution and consistency scope.", "TTL and non-expiring support.", "Atomic consume and conditional operations.", "Single-key and prefix invalidation.", "Serialization and maximum key/value limits.", "Diagnostics, readiness, reconnect, and close."]},
+    {"heading": "Channel checklist", "items": ["Owner and authoritative fallback.", "Tenant, enterprise, catalog, principal, locale, and permission key partitions.", "Cacheability and negative-result policy.", "TTL, acceptable staleness, and invalidation event.", "Outage bypass versus fail-closed behavior.", "Positive, negative, boundary, contract, multi-node integration, performance, security, and regression tests."]}
+  ]
+}

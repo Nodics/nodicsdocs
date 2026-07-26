@@ -1,0 +1,23 @@
+{
+  "code": "capability.caching.provider-development",
+  "title": "Build a Cache Provider",
+  "route": "/docs/capabilities/caching/provider-development",
+  "section": "build-extend",
+  "family": "configuration-customization",
+  "parent": "page:capability.caching.overview",
+  "order": 20,
+  "audiences": ["developer", "architect", "framework-maintainer", "ai-tool"],
+  "readerIntent": "Add a cache engine without changing feature callers.",
+  "priorKnowledge": "Know the generic cache adapter and target engine.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "Reusable provider or customer-project adapter module",
+  "lastVerified": "2026-07-26",
+  "summary": "A provider declares truthful capabilities and implements cache operations behind channel configuration, tenant keying, invalidation, diagnostics, and lifecycle contracts.",
+  "supportingEvidence": ["nodics:gFramework/nCache/README.md", "nodics:gFramework/nCache/cache/README.md"],
+  "sections": [
+    {"heading": "Implementation path", "items": ["Audit existing adapters before creating a provider.", "Create an owned adapter module.", "Declare engine activation, handlers, channel mapping, TTL, serialization, namespace, and capability flags in layered properties.", "Implement get, put, consume, invalidate, key flush, prefix flush, diagnostics, readiness, and close as supported.", "Preserve tenant/principal partitioning and central invalidation transport.", "Normalize failures and define channel-specific fallback or fail-closed behavior."]},
+    {"heading": "Configuration", "paragraphs": ["URLs, credentials, cluster members, namespaces, TLS, pool limits, and timeouts belong in layered or secret-governed configuration. Business services select logical channels, not vendor clients."]},
+    {"heading": "Proof", "items": ["Capability-declaration and invalid-configuration tests.", "Hit, miss, expiration, non-expiring, consume, serialization, and limits.", "Tenant and principal isolation.", "Cross-node invalidation, outage, reconnect, cleanup, and shutdown.", "Live load, eviction, recovery, security, and upgrade qualification."]}
+  ]
+}

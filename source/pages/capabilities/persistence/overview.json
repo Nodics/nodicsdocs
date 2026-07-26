@@ -1,0 +1,23 @@
+{
+  "code": "capability.persistence.overview",
+  "title": "Database and Persistence",
+  "route": "/docs/capabilities/persistence",
+  "section": "capabilities",
+  "family": "overview-business-value",
+  "parent": "page:capability.schema-modeling.overview",
+  "order": 50,
+  "audiences": ["evaluator", "business-user", "administrator", "developer", "architect", "operator", "ai-tool"],
+  "readerIntent": "Understand how Nodics persists schema-owned records without coupling business modules to a database vendor.",
+  "priorKnowledge": "Read Schema and Item Modeling.",
+  "depth": "overview",
+  "status": "implemented",
+  "owner": "Nodics provider-neutral database capability and configured provider modules",
+  "lastVerified": "2026-07-26",
+  "summary": "Schema models call a provider-neutral persistence contract that resolves tenant and module context before delegating connection, schema, model, query, and transaction behavior to the selected adapter.",
+  "supportingEvidence": ["nodics:gFramework/nDatabase/README.md", "nodics:gFramework/nDatabase/database/README.md"],
+  "sections": [
+    {"heading": "Business outcomes", "items": ["Keep business models stable while infrastructure choices evolve.", "Isolate tenant and module data through governed database resolution.", "Reuse generated CRUD, validation, access policy, middleware, diagnostics, and transaction contracts.", "Extend a customer project with another provider without adding vendor branches to business services."]},
+    {"heading": "Authority", "paragraphs": ["Business modules own schemas and business rules. The database capability owns provider-neutral persistence. Each adapter owns vendor connection and operation mapping. No adapter becomes a second schema authority."]},
+    {"heading": "Continue", "items": ["[Prebuilt Database Providers and Maturity](/docs/capabilities/persistence/prebuilt-providers)", "[Build a Database Provider](/docs/capabilities/persistence/provider-development)", "[Persistence Lifecycle and Data Exchange](/docs/capabilities/persistence/lifecycle)", "[Operate and Secure Persistence](/docs/capabilities/persistence/operations)", "[Database and Persistence Technical Reference](/docs/reference/persistence)"]}
+  ]
+}

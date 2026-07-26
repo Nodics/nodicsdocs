@@ -1,0 +1,23 @@
+{
+  "code": "capability.events-messaging.lifecycle",
+  "title": "Event Lifecycle and Data Exchange",
+  "route": "/docs/capabilities/events-messaging/lifecycle",
+  "section": "capabilities",
+  "family": "runtime-behavior",
+  "parent": "page:capability.events-messaging.overview",
+  "order": 30,
+  "audiences": ["administrator", "developer", "architect", "operator", "ai-tool"],
+  "readerIntent": "Follow registration, publication, distribution, retry, and import/export interactions.",
+  "priorKnowledge": "Know the delivery model and event owner.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Publisher, event runtime, configured transport, NEMS, and consumer",
+  "lastVerified": "2026-07-26",
+  "summary": "Nodics loads listener contracts, publishes a context-rich fact, delivers locally or remotely, persists state where configured, and records safe outcomes and recovery state.",
+  "supportingEvidence": ["nodics:gFramework/nEvent/README.md", "nodics:gCore/nems/README.md", "nodics:gFramework/nData/nImport/README.md"],
+  "sections": [
+    {"heading": "Lifecycle", "items": ["Load and merge source-owned listener definitions.", "Resolve active module, tenant, and runtime context.", "Publish a stable event type and version after the authoritative state transition.", "Execute eligible local listeners and/or dispatch through the configured transport.", "Persist distribution and event-log state when NEMS delivery is selected.", "Acknowledge success or record bounded retry and manual-recovery evidence.", "Refresh listener state through governed update/removal behavior."]},
+    {"heading": "Import interaction", "paragraphs": ["A finalized import may publish completion or record-level facts after governed persistence succeeds. Consumers must be idempotent because retries or resumed imports can repeat delivery. Events must not create a direct persistence route that bypasses import validation and run history."]},
+    {"heading": "Export interaction", "paragraphs": ["An export may be triggered by an event or publish a completion fact, but the event carries a governed reference and outcome rather than unrestricted exported data. Delivery providers do not replace export access policy, retention, checksum, or destination governance."]}
+  ]
+}

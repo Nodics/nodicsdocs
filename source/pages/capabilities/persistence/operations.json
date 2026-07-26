@@ -1,0 +1,23 @@
+{
+  "code": "capability.persistence.operations",
+  "title": "Operate and Secure Persistence",
+  "route": "/docs/capabilities/persistence/operations",
+  "section": "operations",
+  "family": "operations-security-troubleshooting",
+  "parent": "page:capability.persistence.overview",
+  "order": 40,
+  "audiences": ["administrator", "security-reviewer", "operator", "architect"],
+  "readerIntent": "Secure, monitor, tune, recover, and qualify persistence.",
+  "priorKnowledge": "Know the data topology and selected provider.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Deployment operators and selected database provider",
+  "lastVerified": "2026-07-26",
+  "summary": "Production persistence needs provider-qualified encryption, credentials, capacity, indexing, backup, recovery, failover, and tenant isolation.",
+  "supportingEvidence": ["nodics:gFramework/nDatabase/README.md", "nodics:gFramework/nDatabase/mongodb/README.md"],
+  "sections": [
+    {"heading": "Secure", "items": ["Use authenticated encrypted connections and least-privilege credentials.", "Keep secrets in governed secret layers and rotate them safely.", "Enforce schema read/write and field policy before provider calls.", "Prevent cross-tenant connection, model, cache, log, and backup leakage."]},
+    {"heading": "Monitor", "items": ["Connection and pool health, saturation, wait time, and reconnects.", "Operation latency, throughput, conflicts, timeouts, and errors.", "Slow queries, scans, index use, storage growth, and transaction outcomes.", "Tenant-safe dimensions, backup freshness, replication lag, and restore evidence."]},
+    {"heading": "Recover and qualify", "items": ["Test startup without the provider and mid-operation outage.", "Prove reconnect, retry limits, idempotency, transaction rollback, and cleanup.", "Exercise backup, point-in-time or supported restore, failover, schema migration, rollback, and version upgrade.", "Load-test realistic query shapes and isolation; a local happy-path test is insufficient."]}
+  ]
+}
