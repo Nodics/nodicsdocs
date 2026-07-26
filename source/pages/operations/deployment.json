@@ -1,0 +1,56 @@
+{
+  "code": "operations.deployment",
+  "title": "Prepare Nodics for Deployment",
+  "route": "/docs/operations/deployment",
+  "section": "operations",
+  "family": "tutorial-example",
+  "parent": "section:operations",
+  "order": 30,
+  "audiences": ["administrator", "developer", "architect", "security-reviewer", "operator", "ai-tool"],
+  "readerIntent": "Turn a validated project composition into a repeatable deployment candidate without changing module contracts.",
+  "priorKnowledge": "Understand configuration, topology, providers, security, data exchange, and testing.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "Customer project deployment modules and operators using reusable Nodics runtime contracts",
+  "lastVerified": "2026-07-26",
+  "summary": "Deployment packages the chosen module-based topology, supplies governed configuration and secrets, validates providers and data changes, and proves rollout, health, drain, rollback, and recovery before traffic.",
+  "supportingEvidence": ["nodics:README.md", "nodics:gFramework/nConfig/README.md", "nodics:gFramework/nConfig/docs/runtime-lifecycle-resilience-contract.md", "nodics:gFramework/nAuth/README.md"],
+  "sections": [
+    {
+      "heading": "Define the candidate",
+      "items": [
+        "Pin the Nodics, project, generated artifacts, documentation pack, runtime, and provider versions.",
+        "Declare environment, server, and optional node packages through package.json.nodics metadata and parent relationships.",
+        "Select local activeModules for each runnable process and define remote endpoints under servers.*; do not equate a fixed server list with module ownership.",
+        "Document topology, ports, trust boundaries, dependencies, service objectives, capacity assumptions, persistent state, queues, scheduled ownership, and failure behavior."
+      ]
+    },
+    {
+      "heading": "Supply governed configuration",
+      "items": [
+        "Keep defaults and overrideable behavior in layered config/properties.js; package.json contains only module/runtime metadata.",
+        "Provide secrets through approved external or secret-manager layers, never committed files, images, generated context, import data, or logs.",
+        "Configure tenant/enterprise policy, route exposure, exact origins, TLS/proxy behavior, strict authentication state, database, cache, search, events, AI, storage, and other providers.",
+        "Preview, approve, activate, audit, and roll back only runtime-mutable contracts owned by the existing governance services; static startup configuration remains authoritative."
+      ]
+    },
+    {
+      "heading": "Prepare state and compatibility",
+      "items": [
+        "Back up authoritative data and verify restoration before schema, identity, index, publication, or provider migration.",
+        "Use Nodics import/export and migration contracts; never introduce a deployment-only database write path.",
+        "Run idempotent bootstrap/import/migration against an isolated environment, repeat it to prove safe convergence, and retain redacted audit evidence.",
+        "Check backward/forward compatibility across APIs, schemas, events, indexes, caches, jobs, workflows, clients, and rolling process versions."
+      ]
+    },
+    {
+      "heading": "Qualify and release",
+      "items": [
+        "Run focused, governance, positive, negative, boundary, contract, integration, resilience, security, performance, topology, upgrade, recovery, and regression suites.",
+        "Qualify real production-like providers and distributed behavior; local placeholders and MonoServer results are not production evidence.",
+        "Verify liveness, readiness, protected diagnostics, safe telemetry, graceful drain, bounded shutdown, resource cleanup, restart/reconciliation, and rollback.",
+        "Use a staged rollout with explicit go/no-go criteria, monitoring, owners, rollback trigger, credential-rotation plan, and post-release verification."
+      ]
+    }
+  ]
+}

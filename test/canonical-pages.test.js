@@ -360,3 +360,25 @@ test('security guides preserve credential, browser, tenant, ownership, and share
     assert.match(serialized('capability.identity-access.technical-reference'), /Target module: route permission, schema action\/group access, fields, ownership/i);
     assert.match(serialized('capability.identity-access.technical-reference'), /Do not add a parallel identity store, token issuer, permission registry, session cache path/i);
 });
+
+test('operations guides preserve module activation, topology identity, lifecycle, and production qualification boundaries', () => {
+    const byCode = new Map(pages.map(page => [page.code, page]));
+    [
+        'operations.local-runtime',
+        'operations.deployment',
+        'operations.production',
+        'operations.runtime-topology-reference'
+    ].forEach(code => assert.equal(byCode.has(code), true, code));
+
+    const serialized = code => JSON.stringify(byCode.get(code));
+    assert.match(serialized('operations.local-runtime'), /activeModules decides what loads locally; servers\.\* provides endpoint coordinates and never activates/i);
+    assert.match(serialized('operations.local-runtime'), /CMS staged and online use distinct systems or schemas/i);
+    assert.match(serialized('operations.local-runtime'), /registers with BackOffice asynchronously/i);
+    assert.match(serialized('operations.deployment'), /do not equate a fixed server list with module ownership/i);
+    assert.match(serialized('operations.deployment'), /MonoServer results are not production evidence/i);
+    assert.match(serialized('operations.production'), /OOM and SIGKILL cannot execute process hooks/i);
+    assert.match(serialized('operations.production'), /specific cloud production environment is not certified by framework documentation alone/i);
+    assert.match(serialized('operations.runtime-topology-reference'), /canonical runtime identity is derived from complete validated ancestry at runtime/i);
+    assert.match(serialized('operations.runtime-topology-reference'), /Node management.*does not choose active modules or own business work/i);
+    assert.match(serialized('operations.runtime-topology-reference'), /Internal node\/module communication uses governed service identity/i);
+});

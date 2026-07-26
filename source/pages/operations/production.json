@@ -1,0 +1,63 @@
+{
+  "code": "operations.production",
+  "title": "Production Operating Model",
+  "route": "/docs/operations/production",
+  "section": "operations",
+  "family": "operations-security-troubleshooting",
+  "parent": "page:capability.operational-governance.overview",
+  "order": 40,
+  "audiences": ["business-user", "administrator", "architect", "security-reviewer", "operator", "framework-maintainer", "ai-tool"],
+  "readerIntent": "Understand the operating disciplines required after a Nodics deployment is production-qualified.",
+  "priorKnowledge": "Read deployment preparation, security shared responsibility, and operational governance.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Deployment operators and capability owners under the shared-responsibility model",
+  "lastVerified": "2026-07-26",
+  "summary": "Production operation combines owned lifecycle signals, service objectives, capacity, safe telemetry, provider health, backup/recovery, change governance, security operations, and business-outcome reconciliation.",
+  "supportingEvidence": ["nodics:gFramework/nConfig/docs/runtime-lifecycle-resilience-contract.md", "nodics:gFramework/nConfig/README.md", "nodics:gFramework/nNms/README.md", "nodics:gFramework/nDynamo/README.md"],
+  "sections": [
+    {
+      "heading": "Service model",
+      "items": [
+        "Assign a business and technical owner to every module capability, deployment process, provider, dataset, queue, job, workflow, publication path, client, and incident runbook.",
+        "Define availability, latency, throughput, freshness, correctness, recovery-point, recovery-time, and support objectives from business impact.",
+        "Separate liveness from readiness; only started processes receive traffic, while degraded or draining state remains visible to authorized operators.",
+        "Plan replicas, durable work ownership, reconciliation, and external supervision because OOM and SIGKILL cannot execute process hooks."
+      ]
+    },
+    {
+      "heading": "Observe and protect",
+      "items": [
+        "Correlate requests, jobs, events, workflows, publications, imports, provider calls, runtime changes, and user-visible outcomes across module boundaries.",
+        "Monitor safe rates, latency, saturation, errors, readiness, dependency/provider health, retry/backlog, cache/index freshness, authentication denial, policy changes, and capacity headroom.",
+        "Use bounded labels and redaction; credentials, personal data, protected payloads, local paths, stacks, and vendor internals must not leak through logs, metrics, traces, probes, or BackOffice.",
+        "Keep detailed diagnostics authenticated and expose only low-disclosure public liveness/readiness where the topology requires it."
+      ]
+    },
+    {
+      "heading": "Operate change and capacity",
+      "items": [
+        "Use preview, approval, separation of duties, activation, audit, cleanup, and rollback for eligible runtime changes.",
+        "Capacity-test the actual modular topology and providers; measure startup, steady state, bursts, queues, connection pools, memory, CPU, database/search/cache limits, network, and recovery load.",
+        "Deploy gradually, watch service and business indicators, stop or roll back on declared thresholds, and reconcile derived state after recovery.",
+        "Keep temporary compatibility exceptions time-bounded, owned, monitored, and visible in release evidence."
+      ]
+    },
+    {
+      "heading": "Incident and recovery",
+      "items": [
+        "Detect and classify impact; preserve safe evidence; contain traffic or work; rotate credentials or isolate providers when needed.",
+        "Recover authoritative data and owned runtime state before rebuilding caches, indexes, projections, or other derived systems.",
+        "Reconcile scheduled work, events, workflows, publications, imports, reservations, and user-visible outcomes rather than assuming process restart completed the business operation.",
+        "Verify backup restoration, provider failover, credential recovery, topology restart, rollback, and incident communication through rehearsed runbooks.",
+        "Complete a review with root cause, authority-boundary correction, tests, monitoring, documentation, and tracked preventive actions."
+      ]
+    },
+    {
+      "heading": "Current scope",
+      "paragraphs": [
+        "Nodics supplies these operating contracts, but a specific cloud production environment is not certified by framework documentation alone. Each customer deployment must complete provider, infrastructure, security, scale, recovery, and compliance qualification."
+      ]
+    }
+  ]
+}

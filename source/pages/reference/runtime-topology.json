@@ -1,0 +1,68 @@
+{
+  "code": "operations.runtime-topology-reference",
+  "title": "Runtime Topology Reference",
+  "route": "/docs/reference/runtime-topology",
+  "section": "reference",
+  "family": "technical-reference",
+  "parent": "page:operations.local-runtime",
+  "order": 110,
+  "audiences": ["developer", "architect", "operator", "framework-maintainer", "ai-tool"],
+  "readerIntent": "Resolve and audit application, group, environment, server, node, module activation, endpoint, and runtime lifecycle behavior.",
+  "priorKnowledge": "Understand layered configuration and module metadata.",
+  "depth": "reference",
+  "status": "implemented",
+  "owner": "nConfig hierarchy and lifecycle; environment/server/node modules contribute deployment-specific topology",
+  "lastVerified": "2026-07-26",
+  "summary": "Runtime topology is derived from package metadata, validated parent ancestry, selected environment/server/node, deterministic indexes, active modules, and layered properties—not naming conventions or handwritten canonical identifiers.",
+  "supportingEvidence": ["nodics:gFramework/nConfig/README.md", "nodics:gFramework/nConfig/docs/runtime-lifecycle-resilience-contract.md", "nodics:gFramework/nNms/README.md"],
+  "sections": [
+    {
+      "heading": "Kinds and responsibilities",
+      "items": [
+        "application: project or product boundary; it is not automatically activated as a capability module.",
+        "group: organizes modules or environments and may expand configured active lists.",
+        "environment: deployable environment root and shared deployment defaults.",
+        "server: one runnable process composition and its local activeModules.",
+        "node: optional instance-specific child override for coordinates, capacity, worker identity, scheduling, publisher/consumer responsibility, or diagnostics.",
+        "module: owned framework, domain, provider, or project capability contributions; kind comes from package.json.nodics, never a folder suffix."
+      ]
+    },
+    {
+      "heading": "Resolution",
+      "items": [
+        "Resolve startup arguments and candidate packages, validate metadata, select topology, expand groups/parents/required modules, then sort active modules by deterministic dotted index.",
+        "The selected physical sequence is environment group, environment/server root, selected server, and selected node when present.",
+        "Every concrete child points to the preceding layer through raw parent metadata and sorts parent before child.",
+        "Server and node names are local to their parent topology; canonical runtime identity is derived from complete validated ancestry at runtime.",
+        "A repeated server name across environments is valid. Interactive ambiguity prompts for environment; non-interactive ambiguity fails with candidates and an explicit command."
+      ]
+    },
+    {
+      "heading": "Configuration and communication",
+      "items": [
+        "Precedence narrows from environment group to environment/server root, server, and node, after earlier framework/project/module layers.",
+        "activeModules activates local schemas, routes, services, pipelines, data, processes, and lifecycle contributions.",
+        "servers.* defines local or remote endpoint coordinates and does not activate modules.",
+        "Node management observes active router-enabled modules, health, state, and responsibility; it does not choose active modules or own business work.",
+        "Internal node/module communication uses governed service identity and secured routes, never human login credentials."
+      ]
+    },
+    {
+      "heading": "Lifecycle",
+      "items": [
+        "nConfig owns one signal coordinator; modules and providers register bounded lifecycle contributors instead of process signal handlers.",
+        "Startup reaches readiness only after required dependencies and mandatory hooks succeed; optional control-plane integrations may recover asynchronously.",
+        "SIGTERM or SIGINT marks draining, stops new work, waits boundedly, runs ordered cleanup, and stops.",
+        "Hard OOM or SIGKILL requires external restart, replicas, durable ownership, idempotency, and reconciliation because in-process cleanup cannot run."
+      ]
+    },
+    {
+      "heading": "Verification",
+      "items": [
+        "Test kind and parent validation, duplicate names across environments, deterministic order, interactive and non-interactive ambiguity, node-without-server rejection, activeModules versus servers.* separation, and layered overrides.",
+        "Test MonoServer and relevant modular compositions, readiness/degradation, registration recovery, node state, graceful drain, timeouts, provider cleanup, hard-failure reconciliation, and regression.",
+        "Do not hardcode environment, server, node, tenant, port, customer-project name, or canonical identity into reusable framework services."
+      ]
+    }
+  ]
+}

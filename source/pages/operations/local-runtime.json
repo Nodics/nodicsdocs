@@ -1,0 +1,59 @@
+{
+  "code": "operations.local-runtime",
+  "title": "Run and Debug Nodics",
+  "route": "/docs/operations/local-runtime",
+  "section": "operations",
+  "family": "operations-security-troubleshooting",
+  "parent": "section:operations",
+  "order": 20,
+  "audiences": ["developer", "administrator", "operator", "architect", "ai-tool"],
+  "readerIntent": "Start the intended local topology, understand what loaded, and diagnose startup or runtime failures safely.",
+  "priorKnowledge": "Complete local setup and understand modules and environments.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "nConfig startup and lifecycle contracts plus the selected project environment, server, and node modules",
+  "lastVerified": "2026-07-26",
+  "summary": "Use MonoServer for fast local integration and modular servers for boundary validation; select topology through metadata-driven environment, server, and node inputs rather than long encoded names.",
+  "supportingEvidence": ["nodics:gFramework/nConfig/README.md", "nodics:gFramework/nConfig/docs/runtime-lifecycle-resilience-contract.md", "nodics:gFramework/nNms/README.md"],
+  "sections": [
+    {
+      "heading": "Choose a topology",
+      "items": [
+        "MonoServer loads the configured local module composition into one process for fast development, debugging, core import, and early end-to-end tests.",
+        "Modular servers run selected module compositions as separate processes so HTTP, authentication, registration, provider, timeout, outage, restart, and lifecycle boundaries can be tested.",
+        "Server names may repeat across environments because identity is derived from validated ancestry; supply ENV explicitly for deterministic scripts and automation.",
+        "A node is an optional instance-specific child of a server. Starting a node requires its server; environment may be inferred only when that server is unique."
+      ]
+    },
+    {
+      "heading": "Start explicitly",
+      "paragraphs": [
+        "For deterministic local execution use the selected metadata names, for example `ENV=startioLocal SERVER=monoServer npm run start`. For a node use `ENV=startioLocal SERVER=cronServer NODE=cronNode0 npm run start`."
+      ],
+      "items": [
+        "If an interactive terminal supplies an ambiguous server without ENV, Nodics offers the discovered environments for selection.",
+        "Non-interactive CI, containers, and services fail with candidate environments and an explicit command example instead of waiting for a prompt.",
+        "activeModules decides what loads locally; servers.* provides endpoint coordinates and never activates a remote module in the current process."
+      ]
+    },
+    {
+      "heading": "Local BackOffice topology",
+      "items": [
+        "Begin Axis integration against MonoServer while capabilities are changing rapidly.",
+        "Before considering the backend boundaries complete, run at least Profile, CMS staged, CMS online, CronJob, NEMS, DEAP, and BackOffice in their relevant modular processes.",
+        "CMS staged and online use distinct systems or schemas; staged authoring/versioning and approved publication must not collapse into one data authority.",
+        "A module registers with BackOffice asynchronously; registration failure must not add synchronous latency to unrelated request traffic."
+      ]
+    },
+    {
+      "heading": "Troubleshoot",
+      "items": [
+        "Confirm the selected environment/server/node, active module list, deterministic index order, parent metadata, effective properties, and servers.* coordinates.",
+        "Check mandatory dependency readiness, provider activation, database/search/cache connectivity, bootstrap identity, ports, route exposure, and safe status codes.",
+        "Use correlation identifiers and redacted logs; never print passwords, API keys, bearer/refresh tokens, cookies, private keys, or connection credentials.",
+        "Stop processes through the lifecycle coordinator so draining and provider cleanup run; hard termination cannot guarantee hooks.",
+        "Record exact topology, command, effective non-secret configuration, failure, and focused test evidence when reporting a defect."
+      ]
+    }
+  ]
+}
