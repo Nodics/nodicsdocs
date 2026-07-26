@@ -213,3 +213,24 @@ test('application execution journey preserves layer ownership and end-to-end con
     assert.match(serialized('capability.libraries-utilities.overview'), /second utility, enum, error, or status registry/i);
     assert.match(serialized('capability.status-errors.runtime'), /public responses expose only allowlisted fields/i);
 });
+
+test('identity and security journey preserves separate principals and backend authority', () => {
+    const byCode = new Map(pages.map(page => [page.code, page]));
+    [
+        'capability.identity-security.overview',
+        'capability.identity-security.authentication',
+        'capability.identity-security.authorization',
+        'capability.identity-security.tenancy',
+        'capability.identity-security.governance'
+    ].forEach(code => assert.equal(byCode.has(code), true, code));
+
+    const serialized = code => JSON.stringify(byCode.get(code));
+    assert.match(serialized('capability.identity-security.overview'), /three distinct security boundaries/i);
+    assert.match(serialized('capability.identity-security.overview'), /Axis is never for customer accounts/i);
+    assert.match(serialized('capability.identity-security.authentication'), /HttpOnly/);
+    assert.match(serialized('capability.identity-security.authentication'), /authTokenTypes/);
+    assert.match(serialized('capability.identity-security.authorization'), /Cross-tenant internal-token access requires a separate permission/i);
+    assert.match(serialized('capability.identity-security.authorization'), /backend services remain authoritative/i);
+    assert.match(serialized('capability.identity-security.tenancy'), /caller may narrow but never broaden/i);
+    assert.match(serialized('capability.identity-security.governance'), /local fallback disabled/i);
+});
