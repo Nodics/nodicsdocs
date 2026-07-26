@@ -1,0 +1,48 @@
+{
+  "code": "capability.validation.tutorial",
+  "title": "Add a Business Validation Rule",
+  "route": "/docs/capabilities/validation/tutorial",
+  "section": "build-extend",
+  "family": "tutorial-example",
+  "parent": "page:capability.validation.overview",
+  "order": 30,
+  "audiences": ["developer", "architect", "ai-tool"],
+  "readerIntent": "Implement a reusable validation rule in the correct owner and extension layer.",
+  "priorKnowledge": "Know the schema, operation, lifecycle, and caller types.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "The capability that owns the protected business invariant",
+  "lastVerified": "2026-07-26",
+  "summary": "Express declarative constraints in schema metadata and behavioral invariants in an owned validator or interceptor reached by every mutation path.",
+  "supportingEvidence": ["nodics:gFramework/nData/README.md", "nodics:gFramework/nDynamo/README.md", "nodics:gFramework/nService/README.md"],
+  "sections": [
+    {
+      "heading": "Example: employee activation",
+      "paragraphs": [
+        "Suppose an Employee may become active only when required identity and enterprise relationships are valid. Required field and relationship shape belong in schema validation. The cross-record activation invariant belongs in a profile-owned service or save interceptor. Axis may explain the missing information, but it cannot be the only enforcement point."
+      ]
+    },
+    {
+      "heading": "Implementation steps",
+      "items": [
+        "State the invariant, owner, affected operations, caller types, and expected failure code.",
+        "Check for an existing declarative constraint, validator, interceptor, pipeline node, or policy contract.",
+        "Put configurable thresholds, group mappings, and enablement in layered properties rather than closure constants inside schemas.",
+        "Implement at the narrowest owned backend boundary reached by API, import, workflow, job, assistant, and internal calls.",
+        "Register stable status definitions and safe messages.",
+        "Document customization, security, observability, and operational implications."
+      ]
+    },
+    {
+      "heading": "Test matrix",
+      "items": [
+        "Positive valid transition.",
+        "Negative missing, malformed, unauthorized, and invalid-state requests.",
+        "Minimum, maximum, empty, duplicate, immutable, and relationship boundaries.",
+        "Human, service-to-service, and scheduled-process authentication boundaries where applicable.",
+        "API, import, workflow, event, job, and direct service contract integration.",
+        "Regression for existing records, normal schema updates, and unaffected capabilities."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "code": "capability.schema-modeling.overview",
+  "title": "Schema and Item Modeling",
+  "route": "/docs/capabilities/schema-modeling",
+  "section": "capabilities",
+  "family": "overview-business-value",
+  "parent": "page:framework.architecture",
+  "order": 30,
+  "audiences": ["evaluator", "business-user", "administrator", "developer", "architect", "ai-tool"],
+  "readerIntent": "Understand how Nodics turns business concepts into governed, provider-independent data contracts.",
+  "priorKnowledge": "Read Modular and Layered Architecture.",
+  "depth": "overview",
+  "status": "implemented",
+  "owner": "Owning business modules plus Nodics schema and data-model capabilities",
+  "lastVerified": "2026-07-26",
+  "summary": "A schema defines a business record once; Nodics builds the corresponding item-model behavior and delegates persistence through configured database contracts.",
+  "supportingEvidence": ["nodics:gFramework/nData/README.md", "nodics:gFramework/nDatabase/README.md", "nodics:gCore/profile/README.md"],
+  "sections": [
+    {
+      "heading": "Business value",
+      "items": [
+        "Use consistent business definitions across APIs, workflows, imports, search, and BackOffice.",
+        "Change supported database providers without moving business ownership into an adapter.",
+        "Express relationships, tenant boundaries, access policy, validation, indexing, and versioning intent as governed metadata.",
+        "Extend customer-specific fields through layered modules instead of copying the original model."
+      ]
+    },
+    {
+      "heading": "Schema, item model, and search model",
+      "items": [
+        "The schema is the authoritative structural and behavioral contract owned by a capability.",
+        "The item model represents authoritative record operations through the Nodics data framework.",
+        "The search model represents query and index behavior for schemas that enable search.",
+        "Neither a business service nor a frontend should bypass these contracts to access a database or search engine directly."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "items": [
+        "[Schema Composition and Runtime Models](/docs/capabilities/schema-modeling/runtime)",
+        "[Relationships, Ownership, and Lifecycle](/docs/capabilities/schema-modeling/relationships)",
+        "[Model a Business Entity](/docs/capabilities/schema-modeling/tutorial)",
+        "[Schema and Item Model Technical Reference](/docs/reference/schema-modeling)"
+      ]
+    }
+  ]
+}

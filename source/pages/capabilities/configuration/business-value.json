@@ -1,0 +1,46 @@
+{
+  "code": "capability.configuration.business-value",
+  "title": "Business Value and Configuration Decisions",
+  "route": "/docs/capabilities/configuration/business-value",
+  "section": "capabilities",
+  "family": "business-value",
+  "parent": "page:capability.configuration.overview",
+  "order": 10,
+  "audiences": ["evaluator", "business-user", "administrator", "architect"],
+  "readerIntent": "Decide which differences belong in configuration and which require implementation.",
+  "priorKnowledge": "Read Nodics Configuration Layer.",
+  "depth": "overview",
+  "status": "implemented",
+  "owner": "Nodics configuration and runtime-governance capabilities",
+  "lastVerified": "2026-07-26",
+  "summary": "Configuration shortens customer delivery when a difference changes policy or operating choices but preserves the capability contract.",
+  "supportingEvidence": ["nodics:gFramework/nConfig/README.md", "nodics:gFramework/nDynamo/README.md"],
+  "sections": [
+    {
+      "heading": "Business outcomes",
+      "items": [
+        "Reuse one framework across customers and environments without maintaining forks.",
+        "Separate developer-owned defaults from operator-managed deployment and secret values.",
+        "Review material runtime changes before activation and retain an audit history.",
+        "Roll back governed configuration without rebuilding unrelated application code.",
+        "Keep behavior differences visible to people and AI development tools."
+      ]
+    },
+    {
+      "heading": "Decision rule",
+      "paragraphs": [
+        "Use configuration when the capability and authority remain the same but a value, selection, threshold, mapping, provider, or enabled behavior varies. Extend an existing service or contract when the algorithm or business rule changes. Add a new capability only after confirming that no existing extension point owns the requirement."
+      ]
+    },
+    {
+      "heading": "Governance questions",
+      "items": [
+        "Who owns the default and who may override it?",
+        "Is the value public configuration, sensitive secret material, or executable behavior?",
+        "At which application, environment, server, node, tenant, or customer scope should it differ?",
+        "Can it change safely at runtime, or does it require a restart?",
+        "What validation, approval, audit, monitoring, and rollback evidence is required?"
+      ]
+    }
+  ]
+}

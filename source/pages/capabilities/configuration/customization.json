@@ -1,0 +1,47 @@
+{
+  "code": "capability.configuration.customization",
+  "title": "Configure and Customize a Nodics Application",
+  "route": "/docs/capabilities/configuration/customization",
+  "section": "capabilities",
+  "family": "configuration-tutorial",
+  "parent": "page:capability.configuration.overview",
+  "order": 30,
+  "audiences": ["administrator", "developer", "operator", "ai-tool"],
+  "readerIntent": "Place an application setting at the correct layer and verify it safely.",
+  "priorKnowledge": "Know the owning capability and the runtime scope that must vary.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "Owning capability plus Nodics configuration contracts",
+  "lastVerified": "2026-07-26",
+  "summary": "Start with the owning module default, override only at the required application or runtime scope, and validate both expected and fallback behavior.",
+  "supportingEvidence": ["nodics:gFramework/nConfig/README.md", "nodics:gFramework/nDynamo/README.md"],
+  "sections": [
+    {
+      "heading": "Example decision",
+      "paragraphs": [
+        "Suppose a customer project needs a shorter cache lifetime in local development than in production. The cache capability owns the property name and safe default. The project changes the value in the relevant layered properties.js configuration; it does not copy the cache service or place application behavior in package.json."
+      ]
+    },
+    {
+      "heading": "Implementation steps",
+      "items": [
+        "Find the capability that owns the behavior and confirm an existing property or extension contract.",
+        "Check all existing loaders and override paths before proposing another configuration mechanism.",
+        "Keep standard package metadata in package.json and application behavior in properties.js or an explicit runtime-governance contract.",
+        "Place secrets in the deployment secret mechanism, never committed source.",
+        "Override at the narrowest correct scope and document the default, allowed values, units, restart behavior, and security implications."
+      ]
+    },
+    {
+      "heading": "Verification",
+      "items": [
+        "Default value when no override exists.",
+        "Expected value at the selected environment and topology.",
+        "No leakage into another environment, server, node, tenant, or customer.",
+        "Invalid type, range, missing dependency, and secret-handling behavior.",
+        "Restart and governed runtime-update behavior where supported.",
+        "Regression of the original reusable default."
+      ]
+    }
+  ]
+}

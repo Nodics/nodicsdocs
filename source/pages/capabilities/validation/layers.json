@@ -1,0 +1,47 @@
+{
+  "code": "capability.validation.layers",
+  "title": "Validation Layers and Policy Boundaries",
+  "route": "/docs/capabilities/validation/layers",
+  "section": "secure-govern",
+  "family": "concepts-architecture",
+  "parent": "page:capability.validation.overview",
+  "order": 10,
+  "audiences": ["developer", "architect", "security-reviewer", "ai-tool"],
+  "readerIntent": "Place a rule at the boundary that owns it and avoid frontend-only or route-only enforcement.",
+  "priorKnowledge": "Read Validation and Policy Enforcement.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Owning capability plus shared request, schema, access-policy, and pipeline contracts",
+  "lastVerified": "2026-07-26",
+  "summary": "Nodics validates transport, schema, business transition, relationship, security, provider, and runtime-governance concerns at distinct but coordinated boundaries.",
+  "supportingEvidence": ["nodics:gFramework/nRouter/README.md", "nodics:gFramework/nData/README.md", "nodics:gFramework/nDynamo/README.md"],
+  "sections": [
+    {
+      "heading": "Validation layers",
+      "items": [
+        "Transport validation checks path, headers, query, body, and declared route requirements.",
+        "Schema validation checks types, required fields, constraints, defaults, relationships, and immutable values.",
+        "Business validation checks invariants and allowed state transitions owned by a capability.",
+        "Authentication validates the appropriate human, service, or scheduled-process credential contract.",
+        "Authorization and schema access policy check action, scope, ownership, group, and field visibility.",
+        "Provider validation checks normalized input before vendor mapping.",
+        "Runtime governance validates configuration shape, impact, approval, activation, and integrity."
+      ]
+    },
+    {
+      "heading": "Single-authority rule",
+      "paragraphs": [
+        "A frontend may improve usability by detecting an obvious problem early, but backend validation remains authoritative. Imports, workflows, cron jobs, APIs, and assistants must converge on the same owned rule instead of implementing parallel versions."
+      ]
+    },
+    {
+      "heading": "Ordering",
+      "items": [
+        "Reject malformed or unauthenticated input before expensive work.",
+        "Resolve tenant and principal context before ownership or field-policy checks.",
+        "Validate the intended business transition before persistence.",
+        "Emit events and update derived systems only after the authoritative transition succeeds."
+      ]
+    }
+  ]
+}

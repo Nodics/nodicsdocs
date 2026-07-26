@@ -1,0 +1,40 @@
+{
+  "code": "capability.layered-architecture.technical-reference",
+  "title": "Layered Architecture Technical Reference",
+  "route": "/docs/reference/layered-architecture",
+  "section": "reference",
+  "family": "technical-reference",
+  "parent": "page:capability.layered-architecture.overview",
+  "order": 40,
+  "audiences": ["developer", "architect", "framework-maintainer", "ai-tool"],
+  "readerIntent": "Map a technical artifact to its responsibility and validation expectations.",
+  "priorKnowledge": "Read the layered architecture pages.",
+  "depth": "reference",
+  "status": "implemented",
+  "owner": "Nodics modular runtime and all module owners",
+  "lastVerified": "2026-07-26",
+  "summary": "The technical hierarchy is consistent across modules even when a small module does not require every optional layer.",
+  "supportingEvidence": ["nodics:gFramework/nService/README.md", "nodics:gFramework/nRouter/README.md", "nodics:gFramework/nPipeline/README.md"],
+  "sections": [
+    {
+      "heading": "Artifact map",
+      "items": [
+        "config: properties, definitions, presets, and lifecycle scripts.",
+        "src/schema and src/search: governed data and query contracts.",
+        "src/service and src/facade: owned behavior and use-case coordination.",
+        "src/controller and src/router: transport adaptation and API declarations.",
+        "src/pipelines and src/interceptors: ordered processing and explicit lifecycle extensions.",
+        "src/event: event declarations, listeners, and handlers.",
+        "src/lib and src/utils: narrow reusable mechanics.",
+        "src/status: stable success and error definitions.",
+        "test: focused contracts plus integration and regression evidence."
+      ]
+    },
+    {
+      "heading": "Dependency direction",
+      "paragraphs": [
+        "Higher-level use-case and transport layers depend on owned services and contracts. Provider adapters implement provider-neutral framework contracts. Business modules do not reach around those contracts to bind directly to infrastructure clients."
+      ]
+    }
+  ]
+}

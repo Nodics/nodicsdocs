@@ -1,0 +1,51 @@
+{
+  "code": "capability.configuration.runtime",
+  "title": "Configuration Resolution and Runtime Behavior",
+  "route": "/docs/capabilities/configuration/runtime",
+  "section": "capabilities",
+  "family": "concepts-runtime",
+  "parent": "page:capability.configuration.overview",
+  "order": 20,
+  "audiences": ["administrator", "developer", "architect", "operator", "ai-tool"],
+  "readerIntent": "Understand how configuration becomes effective and how runtime changes remain governed.",
+  "priorKnowledge": "Read Nodics Configuration Layer.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Nodics configuration and runtime-governance capabilities",
+  "lastVerified": "2026-07-26",
+  "summary": "Nodics loads selected module configuration in deterministic order, merges eligible layered values, validates contracts, and starts services only after their required context is available.",
+  "supportingEvidence": [
+    "nodics:gFramework/nConfig/README.md",
+    "nodics:gFramework/nConfig/docs/runtime-lifecycle-resilience-contract.md",
+    "nodics:gFramework/nDynamo/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Startup sequence",
+      "items": [
+        "Resolve the selected environment and server or node topology.",
+        "Discover module groups and modules belonging to that topology.",
+        "Load framework defaults before more specific project and deployment layers.",
+        "Merge supported objects using the framework configuration contract.",
+        "Initialize classes, schemas, services, routes, pipelines, events, and module lifecycle hooks.",
+        "Declare readiness only when required startup work has completed; optional integrations recover asynchronously according to their resilience policy."
+      ]
+    },
+    {
+      "heading": "Scope and precedence",
+      "paragraphs": [
+        "A more specific layer may refine a supported value while the reusable module remains authoritative for its default and contract. Environment, server, node, tenant, and customer scope are distinct concerns; the effective value must be explainable from the selected runtime context."
+      ]
+    },
+    {
+      "heading": "Governed runtime changes",
+      "items": [
+        "Preview validates shape, policy, dependencies, and impact without activation.",
+        "Approval records the intended change and authorized decision.",
+        "Activation applies only a supported runtime configuration contract.",
+        "Audit retains previous and next snapshots and actor context.",
+        "Rollback restores a known prior state through the same governed boundary."
+      ]
+    }
+  ]
+}

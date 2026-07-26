@@ -1,0 +1,43 @@
+{
+  "code": "capability.validation.technical-reference",
+  "title": "Validation Technical Reference",
+  "route": "/docs/reference/validation",
+  "section": "reference",
+  "family": "technical-reference",
+  "parent": "page:capability.validation.overview",
+  "order": 40,
+  "audiences": ["developer", "architect", "security-reviewer", "framework-maintainer", "ai-tool"],
+  "readerIntent": "Audit validation placement, extension, status handling, and test completeness.",
+  "priorKnowledge": "Read the validation journey.",
+  "depth": "reference",
+  "status": "implemented",
+  "owner": "Owning capabilities plus shared validation, policy, pipeline, and status contracts",
+  "lastVerified": "2026-07-26",
+  "summary": "A complete rule identifies its authority, execution boundary, configuration, stable failure contract, observability, and cross-entry-path evidence.",
+  "supportingEvidence": ["nodics:gFramework/nData/README.md", "nodics:gFramework/nRouter/README.md", "nodics:gFramework/nDynamo/README.md", "nodics:gFramework/nService/README.md"],
+  "sections": [
+    {
+      "heading": "Implementation checklist",
+      "items": [
+        "Rule and capability owner are explicit.",
+        "Declarative versus behavioral placement is justified.",
+        "All mutation and query entry paths reach the authority.",
+        "Tenant, enterprise, ownership, group, field, and principal-type policy is preserved.",
+        "Configuration is layered and extensible rather than hidden in schema closures or controller constants.",
+        "Stable success and error codes are registered and validated.",
+        "Sensitive values are masked in responses, logs, metrics, and audit.",
+        "Positive, negative, boundary, contract, integration, security, and regression tests exist."
+      ]
+    },
+    {
+      "heading": "Extension rules",
+      "items": [
+        "A customer module may add stricter policy through an existing layered validator or interceptor.",
+        "It must not weaken framework security silently or bypass the owning capability.",
+        "Frontend validation is an experience enhancement, never backend authority.",
+        "Provider-specific validation remains behind the provider-neutral contract.",
+        "A new governance layer requires a duplication and parallel-path audit first."
+      ]
+    }
+  ]
+}

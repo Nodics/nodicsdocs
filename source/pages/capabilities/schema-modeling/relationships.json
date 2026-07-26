@@ -1,0 +1,45 @@
+{
+  "code": "capability.schema-modeling.relationships",
+  "title": "Relationships, Ownership, and Record Lifecycle",
+  "route": "/docs/capabilities/schema-modeling/relationships",
+  "section": "capabilities",
+  "family": "concepts-policy",
+  "parent": "page:capability.schema-modeling.overview",
+  "order": 20,
+  "audiences": ["business-user", "administrator", "developer", "architect", "ai-tool"],
+  "readerIntent": "Design relationships without losing module ownership or tenant safety.",
+  "priorKnowledge": "Understand schemas and runtime models.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Each module owns its schemas; references preserve the target module authority",
+  "lastVerified": "2026-07-26",
+  "summary": "Relationships may connect schemas in the same or different modules, but creation, validation, access, and lifecycle remain governed by each owning capability.",
+  "supportingEvidence": ["nodics:gFramework/nData/README.md", "nodics:gCore/profile/README.md", "nodics:gExp/backoffice/README.md"],
+  "sections": [
+    {
+      "heading": "Relationship choices",
+      "items": [
+        "Embed a value only when it has no independent identity or lifecycle.",
+        "Reference an existing record when another capability owns it or it is reused.",
+        "Create a related record through the related schema contract when the user has permission and no suitable record exists.",
+        "Use explicit parent, child, collection, and ownership metadata rather than inferring relationships from labels."
+      ]
+    },
+    {
+      "heading": "Cross-module relationships",
+      "paragraphs": [
+        "An Enterprise can reference a Tenant even though profile-owned contracts govern both models, and other capabilities can reference those records without taking ownership. When related schemas belong to different modules, the caller must use the target module contract or a governed coordinating service; it must not write the target collection directly."
+      ]
+    },
+    {
+      "heading": "Lifecycle questions",
+      "items": [
+        "Can a related record exist independently?",
+        "Which capability authorizes create, update, unlink, archive, or delete?",
+        "What happens when a parent is deactivated or removed?",
+        "Are tenant, enterprise, catalog, version, and ownership boundaries compatible?",
+        "Must changes publish, index, invalidate cache, emit an event, or begin a workflow?"
+      ]
+    }
+  ]
+}

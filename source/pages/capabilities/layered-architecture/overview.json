@@ -1,0 +1,45 @@
+{
+  "code": "capability.layered-architecture.overview",
+  "title": "Modular and Layered Architecture",
+  "route": "/docs/capabilities/layered-architecture",
+  "section": "capabilities",
+  "family": "overview-business-value",
+  "parent": "page:framework.architecture",
+  "order": 20,
+  "audiences": ["evaluator", "business-user", "developer", "architect", "ai-tool"],
+  "readerIntent": "Understand how Nodics separates reusable framework behavior, business capabilities, and customer-specific extensions.",
+  "priorKnowledge": "Read the framework architecture and configuration overview.",
+  "depth": "overview",
+  "status": "implemented",
+  "owner": "Nodics modular runtime and all capability owners",
+  "lastVerified": "2026-07-26",
+  "summary": "Nodics organizes capabilities into independently composable modules and uses consistent source layers so teams can find, extend, test, and operate behavior without losing ownership.",
+  "supportingEvidence": ["nodics:README.md", "nodics:gFramework/nConfig/README.md", "nodics:gFramework/nService/README.md"],
+  "sections": [
+    {
+      "heading": "Business value",
+      "items": [
+        "Compose only the capabilities an application needs.",
+        "Deploy modules together or separately without changing their ownership.",
+        "Customize a customer project through explicit extension points instead of a framework fork.",
+        "Let developers and AI tools identify where a rule belongs before writing code.",
+        "Test and operate boundaries independently while preserving end-to-end contracts."
+      ]
+    },
+    {
+      "heading": "Module versus server",
+      "paragraphs": [
+        "A module is the capability and ownership boundary. A server or node is a runtime topology choice that groups selected modules. Architecture, documentation, and readiness therefore describe modules first and servers second."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "items": [
+        "[Layers, Ownership, and Responsibilities](/docs/capabilities/layered-architecture/ownership)",
+        "[From API Request to Business Result](/docs/capabilities/layered-architecture/runtime)",
+        "[Extend a Capability Without Forking Nodics](/docs/capabilities/layered-architecture/customization)",
+        "[Layered Architecture Technical Reference](/docs/reference/layered-architecture)"
+      ]
+    }
+  ]
+}

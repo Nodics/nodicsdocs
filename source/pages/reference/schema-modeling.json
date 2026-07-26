@@ -1,0 +1,41 @@
+{
+  "code": "capability.schema-modeling.technical-reference",
+  "title": "Schema and Item Model Technical Reference",
+  "route": "/docs/reference/schema-modeling",
+  "section": "reference",
+  "family": "technical-reference",
+  "parent": "page:capability.schema-modeling.overview",
+  "order": 40,
+  "audiences": ["developer", "architect", "framework-maintainer", "ai-tool"],
+  "readerIntent": "Review schema metadata, extension boundaries, and integration obligations.",
+  "priorKnowledge": "Read the schema-modeling journey.",
+  "depth": "reference",
+  "status": "implemented",
+  "owner": "Nodics data-model framework and owning business modules",
+  "lastVerified": "2026-07-26",
+  "summary": "Schema definitions are business contracts; generated runtime models and configured providers implement them without transferring ownership.",
+  "supportingEvidence": ["nodics:gFramework/nData/README.md", "nodics:gFramework/nDatabase/README.md", "nodics:gFramework/nDynamo/README.md"],
+  "sections": [
+    {
+      "heading": "Review checklist",
+      "items": [
+        "Stable code, owner, description, identity, active state, and base composition.",
+        "Property type, required state, default, constraints, mutability, visibility, and masking.",
+        "Relationships, cardinality, target owner, nested-create policy, and removal behavior.",
+        "Tenant, enterprise, catalog, ownership, group access, and field-level policy.",
+        "Indexes, uniqueness, transactions, cache, search, versioning, publishing, audit, events, and workflows.",
+        "Runtime governance eligibility and layered customization contract."
+      ]
+    },
+    {
+      "heading": "Authority boundaries",
+      "items": [
+        "schemas.js owns declarative schema differences; reusable policy values belong in properties.js.",
+        "Item models and model-handler services own provider-neutral record interaction.",
+        "Database adapters own connection and vendor mapping only.",
+        "Search models own query/index behavior, not authoritative persistence.",
+        "Axis renders schema metadata and invokes governed APIs; it does not own validation or business rules."
+      ]
+    }
+  ]
+}

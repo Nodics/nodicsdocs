@@ -1,0 +1,45 @@
+{
+  "code": "capability.validation.overview",
+  "title": "Validation and Policy Enforcement",
+  "route": "/docs/capabilities/validation",
+  "section": "capabilities",
+  "family": "overview-business-value",
+  "parent": "page:framework.architecture",
+  "order": 40,
+  "audiences": ["evaluator", "business-user", "administrator", "developer", "architect", "security-reviewer", "ai-tool"],
+  "readerIntent": "Understand how Nodics prevents invalid or unauthorized changes across every entry path.",
+  "priorKnowledge": "Read Schema and Item Modeling.",
+  "depth": "overview",
+  "status": "implemented",
+  "owner": "Each capability owns its rules; Nodics validation, security, and pipeline layers enforce shared contracts",
+  "lastVerified": "2026-07-26",
+  "summary": "Validation protects data shape and business invariants, while policy enforcement decides whether an authenticated principal may perform an operation in the resolved context.",
+  "supportingEvidence": ["nodics:gFramework/nData/README.md", "nodics:gFramework/nRouter/README.md", "nodics:gFramework/nDynamo/README.md"],
+  "sections": [
+    {
+      "heading": "Business value",
+      "items": [
+        "Apply the same rule to APIs, imports, jobs, workflows, BackOffice, and internal services.",
+        "Reject invalid data before it corrupts authoritative records or derived indexes.",
+        "Separate human login from service-to-service and scheduled-process authentication.",
+        "Explain failures with stable codes while protecting sensitive details.",
+        "Allow customer projects to add stricter rules through governed extension points."
+      ]
+    },
+    {
+      "heading": "Validation is not authorization",
+      "paragraphs": [
+        "Validation asks whether the request and intended state are structurally and logically valid. Authentication establishes an identity. Authorization and access policy determine whether that identity may act on the target. A successful result in one layer never bypasses the others."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "items": [
+        "[Validation Layers and Policy Boundaries](/docs/capabilities/validation/layers)",
+        "[Validation Runtime and Error Behavior](/docs/capabilities/validation/runtime)",
+        "[Add a Business Validation Rule](/docs/capabilities/validation/tutorial)",
+        "[Validation Technical Reference](/docs/reference/validation)"
+      ]
+    }
+  ]
+}

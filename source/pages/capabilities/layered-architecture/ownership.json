@@ -1,0 +1,51 @@
+{
+  "code": "capability.layered-architecture.ownership",
+  "title": "Layers, Ownership, and Responsibilities",
+  "route": "/docs/capabilities/layered-architecture/ownership",
+  "section": "capabilities",
+  "family": "concepts-architecture",
+  "parent": "page:capability.layered-architecture.overview",
+  "order": 10,
+  "audiences": ["developer", "architect", "framework-maintainer", "ai-tool"],
+  "readerIntent": "Choose the correct layer for a change.",
+  "priorKnowledge": "Read Modular and Layered Architecture.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Each Nodics module for its own business or framework capability",
+  "lastVerified": "2026-07-26",
+  "summary": "Each layer has one primary responsibility; keeping those boundaries prevents duplicate authority, hidden coupling, and untestable customization.",
+  "supportingEvidence": ["nodics:gFramework/nService/README.md", "nodics:gFramework/nRouter/README.md", "nodics:gFramework/nPipeline/README.md"],
+  "sections": [
+    {
+      "heading": "Core layers",
+      "items": [
+        "Configuration declares variable behavior and runtime selections.",
+        "Schemas describe governed data shape, relationships, access metadata, and persistence intent.",
+        "Models expose framework-managed item and search interaction rather than direct database access.",
+        "Services own reusable business or technical behavior.",
+        "Facades coordinate a use case across services while keeping controllers thin.",
+        "Controllers adapt transport requests and responses; routers declare secured API exposure.",
+        "Pipelines coordinate ordered, observable processing steps.",
+        "Interceptors extend defined lifecycle points without copying the owning process.",
+        "Events communicate completed facts or asynchronous work across capability boundaries.",
+        "Libraries and utilities contain stateless reusable mechanics, not hidden business authority.",
+        "Status definitions provide stable success and error codes; handlers map them to transport responses."
+      ]
+    },
+    {
+      "heading": "Ownership test",
+      "paragraphs": [
+        "Ask which capability owns the rule, which layer owns that kind of responsibility, and which existing extension point already exists. A convenient call site is not necessarily the correct owner."
+      ]
+    },
+    {
+      "heading": "Common mistakes",
+      "items": [
+        "Business logic in a frontend, controller, utility, package.json, or database adapter.",
+        "Direct persistence from a feature service instead of its schema model and service contracts.",
+        "A second loader, registry, validation route, or governance mechanism for the same authority.",
+        "Cross-module source imports that bypass the owning module API or event contract."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "code": "capability.configuration.overview",
+  "title": "Nodics Configuration Layer",
+  "route": "/docs/capabilities/configuration",
+  "section": "capabilities",
+  "family": "overview",
+  "parent": "page:framework.architecture",
+  "order": 10,
+  "audiences": ["evaluator", "business-user", "administrator", "developer", "architect", "ai-tool"],
+  "readerIntent": "Understand how Nodics changes behavior safely without copying framework code.",
+  "priorKnowledge": "No technical knowledge is required.",
+  "depth": "overview",
+  "status": "implemented",
+  "owner": "Nodics configuration and runtime-governance capabilities",
+  "lastVerified": "2026-07-26",
+  "summary": "Nodics composes configuration from reusable defaults and increasingly specific deployment and business contexts, while governed runtime changes add approval, audit, activation, and rollback controls.",
+  "supportingEvidence": [
+    "nodics:gFramework/nConfig/README.md",
+    "nodics:gFramework/nDynamo/README.md",
+    "nodics:gFramework/nConfig/docs/runtime-lifecycle-resilience-contract.md"
+  ],
+  "sections": [
+    {
+      "heading": "Why configuration is a platform capability",
+      "paragraphs": [
+        "A partner can reuse the same framework in several customer applications while each application selects its own modules, endpoints, limits, security rules, and operational behavior. The application changes configuration at the correct layer instead of editing shared framework source.",
+        "This reduces upgrade conflicts, makes differences reviewable, and lets operations teams govern eligible runtime changes without creating a second source of truth."
+      ]
+    },
+    {
+      "heading": "Two related responsibilities",
+      "items": [
+        "Startup configuration composes files and topology before services become ready.",
+        "Runtime governance manages explicitly supported configuration contracts through preview, approval, activation, audit, cleanup, and rollback.",
+        "Runtime governance supplements the authoritative source and contract; it does not silently replace arbitrary files or executable logic."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "items": [
+        "[Business Value and Configuration Decisions](/docs/capabilities/configuration/business-value)",
+        "[Configuration Resolution and Runtime Behavior](/docs/capabilities/configuration/runtime)",
+        "[Configure and Customize an Application](/docs/capabilities/configuration/customization)",
+        "[Configuration Technical Reference](/docs/reference/configuration)"
+      ]
+    }
+  ]
+}

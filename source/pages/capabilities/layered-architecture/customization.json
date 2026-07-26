@@ -1,0 +1,45 @@
+{
+  "code": "capability.layered-architecture.customization",
+  "title": "Extend a Capability Without Forking Nodics",
+  "route": "/docs/capabilities/layered-architecture/customization",
+  "section": "build-extend",
+  "family": "configuration-customization",
+  "parent": "page:capability.layered-architecture.overview",
+  "order": 30,
+  "audiences": ["developer", "architect", "framework-maintainer", "ai-tool"],
+  "readerIntent": "Customize an existing capability in a customer project while preserving upgrades.",
+  "priorKnowledge": "Know the owning capability and layer.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "Customer project module layered over an owning Nodics capability",
+  "lastVerified": "2026-07-26",
+  "summary": "Prefer configuration, then a documented extension or override, and create new behavior only when the existing contracts cannot express the requirement.",
+  "supportingEvidence": ["nodics:gFramework/nService/README.md", "nodics:gFramework/nConfig/README.md"],
+  "sections": [
+    {
+      "heading": "Extension sequence",
+      "items": [
+        "Search for an existing implementation, property, service, interceptor, pipeline node, event, schema extension, or route contract.",
+        "Configure existing behavior when only a supported choice or value changes.",
+        "Override or extend the smallest owning layer when behavior changes.",
+        "Keep the customization in the customer project module and preserve the original contract unless a versioned change is intentional.",
+        "Add a new framework mechanism only after a duplication and parallel-authority assessment."
+      ]
+    },
+    {
+      "heading": "Example",
+      "paragraphs": [
+        "If a project needs additional employee validation, extend the profile-owned validation or save-interceptor contract in the project layer. Do not copy the employee schema, create a direct database write, or validate only in Axis."
+      ]
+    },
+    {
+      "heading": "Required proof",
+      "items": [
+        "Default behavior remains unchanged without the project module.",
+        "Customized behavior activates only in the intended project and scope.",
+        "Positive, negative, boundary, contract, integration, and regression tests pass.",
+        "Documentation explains the extension point, configuration, limitations, operations, and upgrade considerations."
+      ]
+    }
+  ]
+}

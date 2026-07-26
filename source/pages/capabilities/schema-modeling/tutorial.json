@@ -1,0 +1,47 @@
+{
+  "code": "capability.schema-modeling.tutorial",
+  "title": "Model a Business Entity",
+  "route": "/docs/capabilities/schema-modeling/tutorial",
+  "section": "build-extend",
+  "family": "tutorial-example",
+  "parent": "page:capability.schema-modeling.overview",
+  "order": 30,
+  "audiences": ["developer", "architect", "ai-tool"],
+  "readerIntent": "Add or extend a business entity using the supported schema framework.",
+  "priorKnowledge": "Know the owning capability, users, lifecycle, and relationships.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "The business module that owns the entity",
+  "lastVerified": "2026-07-26",
+  "summary": "Model business meaning first, declare only owned differences, and let Nodics create the runtime model and provider interaction.",
+  "supportingEvidence": ["nodics:gFramework/nData/README.md", "nodics:gFramework/nDatabase/README.md", "nodics:gCore/profile/README.md"],
+  "sections": [
+    {
+      "heading": "Example: employee contact information",
+      "paragraphs": [
+        "An Employee is profile-owned. Contact and Address records have their own fields and lifecycle and may be selected or created while editing an Employee. The employee schema declares governed references; the UI discovers metadata but the backend remains responsible for validation, authorization, and persistence."
+      ]
+    },
+    {
+      "heading": "Implementation path",
+      "items": [
+        "Confirm an existing schema cannot be extended before adding a new one.",
+        "Choose a stable code, owner, identity, tenant scope, required fields, defaults, and lifecycle.",
+        "Declare relationships and access metadata using configuration values that layered projects can override.",
+        "Enable search, cache, versioning, publishing, or workflow only where required.",
+        "Use schema item models and services; never install or call a database client from the business module."
+      ]
+    },
+    {
+      "heading": "Verification",
+      "items": [
+        "Create, read, update, search, deactivate, and delete behavior allowed by policy.",
+        "Required, optional, default, invalid type, length, range, enum, and immutable fields.",
+        "Existing-related-record selection and authorized nested creation.",
+        "Invalid, missing, cross-tenant, cross-enterprise, and cyclic relationships.",
+        "Provider-neutral contracts plus enabled cache, search, event, versioning, publishing, and workflow integration.",
+        "Regression of normal schema update and unrelated schemas."
+      ]
+    }
+  ]
+}

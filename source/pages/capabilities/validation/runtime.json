@@ -1,0 +1,51 @@
+{
+  "code": "capability.validation.runtime",
+  "title": "Validation Runtime and Error Behavior",
+  "route": "/docs/capabilities/validation/runtime",
+  "section": "capabilities",
+  "family": "runtime-operations",
+  "parent": "page:capability.validation.overview",
+  "order": 20,
+  "audiences": ["administrator", "developer", "architect", "security-reviewer", "operator", "ai-tool"],
+  "readerIntent": "Understand how validation executes, reports failures, and remains observable.",
+  "priorKnowledge": "Know the validation layers.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Owning validation services, pipelines, status definitions, and response handlers",
+  "lastVerified": "2026-07-26",
+  "summary": "Validation is executed through declarative schema rules, services, interceptors, and pipelines, then normalized into stable status codes and safe diagnostic context.",
+  "supportingEvidence": ["nodics:gFramework/nPipeline/README.md", "nodics:gFramework/nRouter/README.md", "nodics:gFramework/nService/README.md"],
+  "sections": [
+    {
+      "heading": "Runtime behavior",
+      "items": [
+        "Collect normalized input and resolved request context.",
+        "Run the applicable validators in deterministic order.",
+        "Accumulate field-level errors where safe and useful; stop immediately for security or invariant failures that must not continue.",
+        "Reject through the owning pipeline error path.",
+        "Resolve a registered stable status code and transport response.",
+        "Attach safe trace and layer context for diagnostics."
+      ]
+    },
+    {
+      "heading": "Error contract",
+      "items": [
+        "Stable machine code for clients and monitoring.",
+        "Appropriate response classification without exposing internals.",
+        "User-facing messages supplied through the presentation/content contract where applicable.",
+        "Structured field or context details only when authorized and non-sensitive.",
+        "No credentials, secrets, password hashes, unrestricted records, or raw provider errors."
+      ]
+    },
+    {
+      "heading": "Operational signals",
+      "items": [
+        "Failure rate by safe validation code, capability, route, and runtime context.",
+        "Repeated invalid attempts and authorization denials.",
+        "Import rejection counts and reconciliation outcomes.",
+        "Validator latency and downstream work avoided.",
+        "Configuration preview and activation validation failures."
+      ]
+    }
+  ]
+}

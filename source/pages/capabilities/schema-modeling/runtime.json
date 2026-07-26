@@ -1,0 +1,45 @@
+{
+  "code": "capability.schema-modeling.runtime",
+  "title": "Schema Composition and Runtime Models",
+  "route": "/docs/capabilities/schema-modeling/runtime",
+  "section": "capabilities",
+  "family": "concepts-runtime",
+  "parent": "page:capability.schema-modeling.overview",
+  "order": 10,
+  "audiences": ["developer", "architect", "framework-maintainer", "ai-tool"],
+  "readerIntent": "Understand inheritance, layered merging, model generation, and provider delegation.",
+  "priorKnowledge": "Read Schema and Item Modeling.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Nodics schema, data-model, and database capabilities",
+  "lastVerified": "2026-07-26",
+  "summary": "Nodics composes schema definitions at runtime, supplies the base contract where appropriate, and creates models that interact through provider-neutral data services.",
+  "supportingEvidence": ["nodics:gFramework/nData/README.md", "nodics:gFramework/nDatabase/README.md", "nodics:gFramework/nConfig/README.md"],
+  "sections": [
+    {
+      "heading": "Composition",
+      "items": [
+        "The owning module declares its schema-specific properties and policies.",
+        "Framework base properties are composed at runtime; a schema should not repeat inherited declarations merely to imitate generated output.",
+        "A layered project module may refine supported properties without replacing the original authority.",
+        "The effective schema is validated before the runtime model becomes available."
+      ]
+    },
+    {
+      "heading": "Runtime model behavior",
+      "items": [
+        "Resolve tenant and module context.",
+        "Load the effective schema and provider configuration.",
+        "Apply authorization, validation, interceptors, lifecycle rules, and transaction policy.",
+        "Delegate persistence to the configured database model handler.",
+        "Trigger configured cache, search, event, audit, or versioning behavior through their owned contracts."
+      ]
+    },
+    {
+      "heading": "Optional capabilities",
+      "paragraphs": [
+        "Search, caching, versioning, publishing, and workflow are enabled per owning module or schema according to configuration. Their metadata must not imply that every record automatically uses every capability."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "code": "capability.layered-architecture.runtime",
+  "title": "From API Request to Business Result",
+  "route": "/docs/capabilities/layered-architecture/runtime",
+  "section": "capabilities",
+  "family": "runtime-example",
+  "parent": "page:capability.layered-architecture.overview",
+  "order": 20,
+  "audiences": ["developer", "architect", "operator", "ai-tool"],
+  "readerIntent": "Follow a typical secured operation through Nodics layers.",
+  "priorKnowledge": "Know the core layer responsibilities.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "Owning business module plus shared request, pipeline, data, and security capabilities",
+  "lastVerified": "2026-07-26",
+  "summary": "A route enters the governed request pipeline, resolves identity and context, delegates through controller and service layers, uses authoritative models, and returns normalized status and trace context.",
+  "supportingEvidence": ["nodics:gFramework/nRouter/docs/router-framework.md", "nodics:gFramework/nPipeline/docs/pipeline-framework.md"],
+  "sections": [
+    {
+      "heading": "Example flow",
+      "items": [
+        "The router matches method and path and declares whether authentication is required.",
+        "The request pipeline resolves tenant, authentication, authorization, headers, and request context.",
+        "The controller validates transport-level input and delegates the use case.",
+        "A facade may coordinate several services; the owning service applies business rules.",
+        "Schema item or search models apply data contracts and use configured framework providers.",
+        "Interceptors run only at declared extension points; events publish facts after the owned state transition.",
+        "The response handler maps stable status codes and trace context to the transport response."
+      ]
+    },
+    {
+      "heading": "Failure behavior",
+      "items": [
+        "Authentication, authorization, validation, conflict, provider, and internal failures retain distinct stable codes.",
+        "Pipeline error paths perform bounded cleanup and normalized response handling.",
+        "Logs and metrics include safe context and correlation without exposing credentials or sensitive records."
+      ]
+    },
+    {
+      "heading": "Deployment independence",
+      "paragraphs": [
+        "The same logical flow can execute with modules in one local monoServer or across separately deployed module servers. Transport and resilience become topology concerns; capability ownership does not move."
+      ]
+    }
+  ]
+}

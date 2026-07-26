@@ -89,3 +89,50 @@ test('provider documentation standard governs every external adapter family', ()
         'Operations and verification'
     ].forEach(section => assert.match(standard, new RegExp(section, 'i')));
 });
+
+test('framework foundation journey covers configuration, layers, schemas, and validation', () => {
+    const byCode = new Map(pages.map(page => [page.code, page]));
+    [
+        'capability.configuration.overview',
+        'capability.configuration.business-value',
+        'capability.configuration.runtime',
+        'capability.configuration.customization',
+        'capability.configuration.technical-reference',
+        'capability.layered-architecture.overview',
+        'capability.layered-architecture.ownership',
+        'capability.layered-architecture.runtime',
+        'capability.layered-architecture.customization',
+        'capability.layered-architecture.technical-reference',
+        'capability.schema-modeling.overview',
+        'capability.schema-modeling.runtime',
+        'capability.schema-modeling.relationships',
+        'capability.schema-modeling.tutorial',
+        'capability.schema-modeling.technical-reference',
+        'capability.validation.overview',
+        'capability.validation.layers',
+        'capability.validation.runtime',
+        'capability.validation.tutorial',
+        'capability.validation.technical-reference'
+    ].forEach(code => assert.equal(byCode.has(code), true, code));
+});
+
+test('framework foundation content preserves authority and customization contracts', () => {
+    const byCode = new Map(pages.map(page => [page.code, page]));
+    const serialized = code => JSON.stringify(byCode.get(code));
+
+    assert.match(serialized('capability.configuration.customization'), /package\.json/);
+    assert.match(serialized('capability.configuration.runtime'), /rollback/i);
+    assert.match(serialized('capability.layered-architecture.ownership'), /duplicate authority/i);
+    assert.match(serialized('capability.layered-architecture.runtime'), /monoServer/);
+    assert.match(serialized('capability.schema-modeling.runtime'), /base properties are composed at runtime/i);
+    assert.match(serialized('capability.schema-modeling.relationships'), /different modules/i);
+    assert.match(serialized('capability.schema-modeling.tutorial'), /database client/i);
+    assert.match(serialized('capability.validation.overview'), /service-to-service/i);
+    assert.match(serialized('capability.validation.layers'), /frontend/i);
+    ['positive', 'negative', 'boundar', 'contract', 'integration', 'regression'].forEach(testKind => {
+        assert.match(
+            serialized('capability.validation.tutorial'),
+            new RegExp(testKind, 'i')
+        );
+    });
+});
