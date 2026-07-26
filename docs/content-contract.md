@@ -1,13 +1,13 @@
 # Documentation Content Contract
 
-`source/pages` contains canonical authored pages. `source/articles` is the
-legacy-derived migration snapshot retained during the controlled transition.
-The published content pack continues using its last verified release until the
-canonical page graph reaches approved coverage and passes cutover validation.
+`source/pages` contains canonical authored pages and is the only published
+documentation source. `source/articles` is a non-published, legacy-derived
+migration snapshot retained for traceability during the controlled transition.
 
-Each source article contains a stable code, canonical route, navigation
-classification, source provenance, content hash, headings, safe content blocks,
-links, and media references.
+Each canonical page contains a stable code, canonical route, explicit
+navigation classification, audiences, learning depth, source provenance, and
+safe structured content. The generator derives immutable content hashes,
+headings, blocks, links, navigation, and previous/next relationships.
 
 Supported block kinds are:
 
@@ -93,6 +93,16 @@ release before committing its `data/core` projection and manifest.
 
 Generated records retain stable codes. A later valid release therefore creates
 new records and updates matching records through Nodics `saveAll` operations
-without duplicating existing pages or components. `nodicsdocs` never performs
-database reconciliation, deletion, activation, publication or rollback; those
-remain Nodics-owned runtime responsibilities.
+without duplicating existing pages or components.
+
+When a canonical page is intentionally retired, its stable identity, title,
+and route must first be added to `source/retired-pages.json`. The generator
+emits inactive component, page, and route tombstones through the same `saveAll`
+contract. This prevents a retired route from remaining active without creating
+a second deletion mechanism. A code or route cannot be both canonical and
+retired.
+
+Version 0.3 does not claim physical deletion or atomic catalog activation.
+Database reconciliation, physical deletion, staged-to-online publication, and
+rollback remain Nodics-owned runtime responsibilities governed by CMS
+versioning, Workflow, and nPublish.

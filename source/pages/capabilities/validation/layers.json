@@ -2,7 +2,7 @@
   "code": "capability.validation.layers",
   "title": "Validation Layers and Policy Boundaries",
   "route": "/docs/capabilities/validation/layers",
-  "section": "secure-govern",
+  "section": "security",
   "family": "concepts-architecture",
   "parent": "page:capability.validation.overview",
   "order": 10,

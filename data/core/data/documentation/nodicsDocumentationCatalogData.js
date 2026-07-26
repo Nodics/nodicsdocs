@@ -2,7 +2,7 @@
 
 /**
  * @description Documentation catalog records.
- * @generated This file is generated from source/articles. Do not edit manually.
+ * @generated This file is generated from source/pages. Do not edit manually.
  */
 module.exports = {
     "record0": {

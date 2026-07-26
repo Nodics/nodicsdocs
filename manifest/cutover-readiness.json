@@ -1,9 +1,8 @@
 {
   "contractVersion": 1,
-  "generatedAt": "2026-07-26T11:47:02.252Z",
+  "generatedAt": "2026-07-26T12:01:32.541Z",
   "decision": "NO_GO",
   "blockers": [
-    "canonical-content-pack-projection",
     "gdocs-link-retirement"
   ],
   "pending": [
@@ -35,8 +34,8 @@
           "framework": 1,
           "capabilities": 74,
           "solutions": 3,
-          "build": 6,
-          "security": 9,
+          "build": 17,
+          "security": 12,
           "operations": 11,
           "reference": 33
         }
@@ -87,17 +86,17 @@
     },
     {
       "code": "canonical-content-pack-projection",
-      "status": "BLOCKED",
+      "status": "PASS",
       "evidence": {
         "canonicalPages": 159,
         "legacyArticles": 424,
-        "generatedArticles": 424,
-        "generatedPages": 424,
-        "generatedRoutes": 424,
+        "generatedArticles": 159,
+        "generatedPages": 159,
+        "generatedRoutes": 159,
         "sites": [
           "axisCmsSite"
         ],
-        "note": "The release generator still projects source/articles, the preserved legacy snapshot, rather than source/pages."
+        "note": "The release generator projects source/pages. source/articles remains an isolated, non-published legacy snapshot."
       }
     },
     {

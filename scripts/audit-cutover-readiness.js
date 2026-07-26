@@ -163,9 +163,13 @@ function main() {
         },
         {
             code: 'canonical-content-pack-projection',
-            status: generated.articles === pages.length &&
-                generated.pages === pages.length &&
-                generated.routes === pages.length * generated.sites.length
+            status: generated.sourceMode === 'canonical' &&
+                generated.sourceAuthority === 'source/pages' &&
+                generated.articles === pages.length &&
+                generated.pages === pages.length + generated.retiredPages &&
+                generated.routes ===
+                    (pages.length + generated.retiredPages) * generated.sites.length &&
+                generated.legacySnapshotArticles === legacyArticleCount
                 ? 'PASS'
                 : 'BLOCKED',
             evidence: {
@@ -175,7 +179,9 @@ function main() {
                 generatedPages: generated.pages,
                 generatedRoutes: generated.routes,
                 sites: generated.sites,
-                note: 'The release generator still projects source/articles, the preserved legacy snapshot, rather than source/pages.'
+                note: generated.sourceMode === 'canonical'
+                    ? 'The release generator projects source/pages. source/articles remains an isolated, non-published legacy snapshot.'
+                    : 'The release generator does not yet project source/pages.'
             }
         },
         {
@@ -232,6 +238,27 @@ function main() {
     };
     writeJson(path.join(root, 'manifest', 'cutover-readiness.json'), report);
 
+    const blockingWork = [];
+    if (blockers.includes('canonical-content-pack-projection')) {
+        blockingWork.push(
+            'Change the content-pack generator and validators to project `source/pages` into CMS records while preserving the legacy snapshot.'
+        );
+    }
+    if (pending.includes('runtime-import-update-removal')) {
+        blockingWork.push(
+            'Run Nodics integration acceptance for initial import, unchanged release, changed release, addition, retirement, failure/retry, audit, and rollback.'
+        );
+    }
+    if (pending.includes('axis-rendering-search-responsive')) {
+        blockingWork.push(
+            'Import the canonical pack and run Axis navigation, search, rendering, accessibility, contrast, responsive, and mobile-webview acceptance.'
+        );
+    }
+    if (blockers.includes('gdocs-link-retirement')) {
+        blockingWork.push(
+            'Replace remaining active `gDocs` references, then produce the module README reduction and `gDocs` archive/retirement manifest.'
+        );
+    }
     const lines = [
         '# Documentation Cutover Readiness',
         '',
@@ -241,7 +268,7 @@ function main() {
         '',
         `Migration evidence: **${migration.review.reviewed}/${migration.sources.total} reviewed**`,
         '',
-        `Current generated release: **${generated.articles} legacy articles**, not ${pages.length} canonical pages`,
+        `Current generated release: **${generated.articles} canonical pages** from \`${generated.sourceAuthority}\``,
         '',
         '## Automated checks',
         '',
@@ -251,11 +278,7 @@ function main() {
         '',
         '## Blocking work',
         '',
-        '1. Change the content-pack generator and validators to project `source/pages` into CMS records while preserving the legacy snapshot until approval.',
-        '2. Define governed removal/deactivation behavior so a removed canonical page does not remain active forever after `saveAll` updates.',
-        '3. Run Nodics integration acceptance for initial import, unchanged release, changed release, addition, removal, failure/retry, audit, and rollback.',
-        '4. Import the canonical pack and run Axis navigation, search, rendering, accessibility, contrast, responsive, and mobile-webview acceptance.',
-        '5. Replace remaining active `gDocs` references, then produce the module README reduction and `gDocs` archive/retirement manifest.',
+        ...blockingWork.map((item, index) => `${index + 1}. ${item}`),
         '',
         'No legacy article, `gDocs` file, or module README should be deleted during these steps.',
         '',

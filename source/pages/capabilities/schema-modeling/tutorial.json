@@ -2,7 +2,7 @@
   "code": "capability.schema-modeling.tutorial",
   "title": "Model a Business Entity",
   "route": "/docs/capabilities/schema-modeling/tutorial",
-  "section": "build-extend",
+  "section": "build",
   "family": "tutorial-example",
   "parent": "page:capability.schema-modeling.overview",
   "order": 30,

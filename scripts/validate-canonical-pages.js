@@ -32,6 +32,7 @@ const allowedAudiences = new Set([
     'security-reviewer', 'operator', 'framework-maintainer', 'ai-tool'
 ]);
 const allowedDepths = new Set(['overview', 'guided', 'implementation', 'reference']);
+const allowedSections = new Set(taxonomy.sections.map(section => section.code));
 
 duplicates(pages.map(page => page.code)).forEach(code => errors.push(`Duplicate canonical page code: ${code}`));
 duplicates(pages.map(page => page.route)).forEach(route => errors.push(`Duplicate canonical route: ${route}`));
@@ -46,6 +47,7 @@ pages.forEach(page => {
         return;
     }
     if (page.section !== registered.section) errors.push(`Section mismatch: ${page.code}`);
+    if (!allowedSections.has(page.section)) errors.push(`Unknown taxonomy section: ${page.code}`);
     if (page.family !== registered.family) errors.push(`Page-family mismatch: ${page.code}`);
     if (!page.route?.startsWith('/docs/')) errors.push(`Invalid canonical route: ${page.code}`);
     const sectionParent = page.parent === `section:${page.section}`;

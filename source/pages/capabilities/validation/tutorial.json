@@ -2,7 +2,7 @@
   "code": "capability.validation.tutorial",
   "title": "Add a Business Validation Rule",
   "route": "/docs/capabilities/validation/tutorial",
-  "section": "build-extend",
+  "section": "build",
   "family": "tutorial-example",
   "parent": "page:capability.validation.overview",
   "order": 30,

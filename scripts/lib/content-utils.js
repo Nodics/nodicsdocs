@@ -184,14 +184,14 @@ function writeJson(filePath, value) {
     fs.writeFileSync(filePath, `${JSON.stringify(value, null, 2)}\n`);
 }
 
-function writeCommonJsRecords(filePath, records, description) {
+function writeCommonJsRecords(filePath, records, description, sourceAuthority = 'source/pages') {
     const keyed = Object.fromEntries(records.map((record, index) => [`record${index}`, record]));
     const content = [
         "'use strict';",
         '',
         '/**',
         ` * @description ${description}`,
-        ' * @generated This file is generated from source/articles. Do not edit manually.',
+        ` * @generated This file is generated from ${sourceAuthority}. Do not edit manually.`,
         ' */',
         `module.exports = ${JSON.stringify(keyed, null, 4)};`,
         ''

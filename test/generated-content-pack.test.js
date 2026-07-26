@@ -22,8 +22,8 @@ test('generated content pack preserves CMS relationships', () => {
     const pageCodes = new Set(pages.map(record => record.code));
 
     assert.match(manifest.releaseChecksum, /^[a-f0-9]{64}$/);
-    assert.strictEqual(components.length, manifest.articles + 1);
-    assert.strictEqual(pages.length, manifest.articles);
+    assert.strictEqual(components.length, manifest.articles + manifest.retiredPages + 1);
+    assert.strictEqual(pages.length, manifest.articles + manifest.retiredPages);
     assert.strictEqual(routes.length, manifest.routes);
     pages.forEach(page => {
         assert.deepStrictEqual(page.cmsSite, manifest.sites);
@@ -56,25 +56,20 @@ test('generated header targets existing Nodics schema modules', () => {
     });
 });
 
-test('generated article links use canonical documentation routes', () => {
+test('generated articles come from canonical source and keep their internal links', () => {
     const components = records('data/core/data/documentation/nodicsDocumentationComponentData.js');
     const article = components.find(record =>
-        record.properties?.route === '/docs/commerce/how-to-reserve-stock'
+        record.properties?.route === '/docs/discover/what-is-nodics'
     );
-    assert(article, 'Expected the stock reservation documentation component');
+    assert(article, 'Expected the Nodics overview documentation component');
 
-    const continueBlock = article.properties.blocks.find(block =>
+    const pathBlock = article.properties.blocks.find(block =>
         block.kind === 'unordered-list' &&
-        block.items.some(item => item.includes('How Stock Availability Works'))
+        block.items.some(item => item.includes('Evaluate Nodics for an organization'))
     );
-    assert(continueBlock, 'Expected the Continue links');
-    assert.deepStrictEqual(continueBlock.items, [
-        '[How Stock Availability Works](/docs/commerce/how-stock-availability-works)',
-        '[How Stock Movements Work](/docs/commerce/how-stock-movements-work)',
-        '[How To Create Scheduled Jobs](/docs/jobs/how-to-create-scheduled-jobs)',
-        '[Nodics Documentation](/docs)'
-    ]);
-    assert(continueBlock.items.every(item => !item.includes('.md')));
+    assert(pathBlock, 'Expected canonical next-path links');
+    assert(pathBlock.items.every(item => item.includes('](/docs/')));
+    assert.strictEqual(article.properties.source.authority, 'nodicsdocs/source/pages');
 });
 
 test('generated navigation and adjacent article links form a complete route graph', () => {
@@ -83,7 +78,7 @@ test('generated navigation and adjacent article links form a complete route grap
     assert(navigation, 'Expected the shared documentation navigation component');
 
     const articleComponents = components.filter(record =>
-        record.renderer === 'documentation.component.article'
+        record.renderer === 'documentation.component.article' && record.active !== false
     );
     const routes = articleComponents.map(record => record.properties.route);
     const routeSet = new Set(routes);
@@ -101,4 +96,36 @@ test('generated navigation and adjacent article links form a complete route grap
         if (previous) assert(routeSet.has(previous.route));
         if (next) assert(routeSet.has(next.route));
     });
+});
+
+test('canonical generation is deterministic and isolates the legacy snapshot', () => {
+    const manifest = JSON.parse(
+        fs.readFileSync(path.join(root, 'manifest', 'generated-content-pack.json'), 'utf8')
+    );
+    const legacyFiles = fs.readdirSync(path.join(root, 'source', 'articles'));
+    assert.strictEqual(manifest.sourceMode, 'canonical');
+    assert.strictEqual(manifest.sourceAuthority, 'source/pages');
+    assert.strictEqual(manifest.articles, 159);
+    assert.strictEqual(manifest.legacySnapshotArticles, 424);
+    assert(legacyFiles.length > 0);
+
+    const routes = records('data/core/data/documentation/nodicsDocumentationRouteData.js');
+    assert(routes.some(route => route.path === '/docs/discover/what-is-nodics'));
+    assert(!routes.some(route => route.path === '/docs/commerce/how-to-reserve-stock'));
+});
+
+test('retirement contract deactivates records without introducing deletion', () => {
+    const { retiredRecords } = require(path.join(root, 'scripts/generate-content-pack.js'));
+    const output = retiredRecords(
+        [{ code: 'retired.example', title: 'Retired example', route: '/docs/retired/example' }],
+        ['axisCmsSite'],
+        'AUTHENTICATED',
+        'pageType',
+        'componentType',
+        'template'
+    );
+    assert.strictEqual(output.components[0].active, false);
+    assert.strictEqual(output.pages[0].active, false);
+    assert.strictEqual(output.routes[0].active, false);
+    assert.strictEqual(output.routes[0].path, '/docs/retired/example');
 });

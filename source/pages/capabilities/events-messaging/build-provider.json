@@ -2,7 +2,7 @@
   "code": "capability.events-messaging.provider-development",
   "title": "Build a Messaging Provider",
   "route": "/docs/capabilities/events-messaging/provider-development",
-  "section": "build-extend",
+  "section": "build",
   "family": "configuration-customization",
   "parent": "page:capability.events-messaging.overview",
   "order": 20,

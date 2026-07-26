@@ -19,15 +19,12 @@ test('cutover audit records canonical completeness and honest release blockers',
     assert.equal(byCode.get('canonical-navigation-links').status, 'PASS');
     assert.equal(byCode.get('migration-disposition-completeness').status, 'PASS');
 
-    if (byCode.get('canonical-content-pack-projection').status === 'BLOCKED') {
-        assert.equal(
-            byCode.get('canonical-content-pack-projection').evidence.generatedArticles,
-            424
-        );
-        assert.match(
-            byCode.get('canonical-content-pack-projection').evidence.note,
-            /preserved legacy snapshot/i
-        );
-    }
+    assert.equal(byCode.get('canonical-content-pack-projection').status, 'PASS');
+    assert.equal(byCode.get('canonical-content-pack-projection').evidence.generatedArticles, 159);
+    assert.equal(byCode.get('canonical-content-pack-projection').evidence.legacyArticles, 424);
+    assert.match(
+        byCode.get('canonical-content-pack-projection').evidence.note,
+        /source\/pages/i
+    );
     assert.notEqual(report.decision, 'GO');
 });

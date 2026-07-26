@@ -2,13 +2,13 @@
 
 /**
  * @description Documentation renderer mappings.
- * @generated This file is generated from source/articles. Do not edit manually.
+ * @generated This file is generated from source/pages. Do not edit manually.
  */
 module.exports = {
     "record0": {
         "code": "nodicsDocumentationArticlePageType",
         "renderer": "documentation.page.article",
-        "contractVersion": 1,
+        "contractVersion": 2,
         "channels": [
             "web",
             "mobile-webview"
@@ -19,7 +19,7 @@ module.exports = {
     "record1": {
         "code": "nodicsDocumentationArticleComponentType",
         "renderer": "documentation.component.article",
-        "contractVersion": 1,
+        "contractVersion": 2,
         "channels": [
             "web",
             "mobile-webview"
@@ -30,7 +30,7 @@ module.exports = {
     "record2": {
         "code": "nodicsDocumentationNavigationComponentType",
         "renderer": "documentation.component.navigation",
-        "contractVersion": 1,
+        "contractVersion": 2,
         "channels": [
             "web",
             "mobile-webview"
