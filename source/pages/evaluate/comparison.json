@@ -1,0 +1,47 @@
+{
+  "code": "evaluate.comparison",
+  "title": "Compare Nodics with Other Approaches",
+  "route": "/docs/evaluate/comparison",
+  "section": "evaluate",
+  "family": "business-value",
+  "parent": "section:evaluate",
+  "order": 30,
+  "audiences": ["evaluator", "architect"],
+  "readerIntent": "Compare architectural approaches without relying on unsupported competitive claims.",
+  "priorKnowledge": "Understand the difference between a library, framework, platform, and custom application.",
+  "depth": "overview",
+  "status": "implemented",
+  "owner": "Nodics platform",
+  "lastVerified": "2026-07-26",
+  "summary": "Nodics should be compared by governed capabilities, extension model, and operating responsibilities rather than by feature-count marketing.",
+  "evidence": ["nodics:gDocs/business/how-nodics-compares.md"],
+  "sections": [
+    {
+      "heading": "Compared with assembling libraries",
+      "paragraphs": [
+        "Individual libraries can solve focused technical problems. Nodics adds ownership, layering, runtime topology, security, generated contracts, testing, and documentation rules that connect those concerns into an application platform."
+      ]
+    },
+    {
+      "heading": "Compared with a custom application",
+      "paragraphs": [
+        "A custom application can optimize one immediate use case. Nodics is valuable when several products, tenants, partners, or deployment models need reusable foundations and governed customization."
+      ]
+    },
+    {
+      "heading": "Compared with an all-in-one suite",
+      "paragraphs": [
+        "Nodics favors modular capability ownership and replaceable implementations. An evaluator must confirm that the available modules, operational maturity, and implementation effort fit the project rather than assuming every suite feature is present."
+      ]
+    },
+    {
+      "heading": "How to make a fair decision",
+      "items": [
+        "Compare the same business scenario and operating scale.",
+        "Verify implementation evidence and limitations.",
+        "Include customization, testing, security, deployment, and upgrade effort.",
+        "Prototype one representative end-to-end capability before committing."
+      ]
+    }
+  ]
+}

@@ -12,7 +12,7 @@
     "migrate": "node scripts/migrate-nodics-sources.js",
     "migration:register": "node scripts/build-migration-register.js",
     "generate": "node scripts/generate-content-pack.js",
-    "validate": "node scripts/validate-content-pack.js",
+    "validate": "node scripts/validate-canonical-pages.js && node scripts/validate-content-pack.js",
     "test": "node --test test/*.test.js",
     "verify": "npm run validate && npm run test"
   }

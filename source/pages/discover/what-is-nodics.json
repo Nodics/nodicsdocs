@@ -1,0 +1,55 @@
+{
+  "code": "discover.overview",
+  "title": "What Is Nodics?",
+  "route": "/docs/discover/what-is-nodics",
+  "section": "discover",
+  "family": "overview",
+  "parent": "section:discover",
+  "order": 10,
+  "audiences": ["evaluator", "business-user", "developer", "architect"],
+  "readerIntent": "Understand what Nodics is, which problems it solves, and where to continue.",
+  "priorKnowledge": "No Nodics or enterprise-framework knowledge is required.",
+  "depth": "overview",
+  "status": "implemented",
+  "owner": "Nodics platform",
+  "lastVerified": "2026-07-26",
+  "summary": "Nodics is a modular enterprise application platform and application factory for building secure, governed, API-driven, and multi-tenant business products.",
+  "evidence": [
+    "nodics:gDocs/README.md",
+    "nodics:gDocs/overview/what-is-nodics.md"
+  ],
+  "sections": [
+    {
+      "heading": "Nodics in plain language",
+      "paragraphs": [
+        "Nodics gives a team a governed starting point for APIs, data models, users, permissions, configuration, jobs, events, workflows, imports, exports, caching, search, content, commerce, testing, and runtime operations.",
+        "A beginner does not need to memorize the repository. Start with the business capability, learn its contract, and use the documented extension path."
+      ]
+    },
+    {
+      "heading": "The problem it solves",
+      "items": [
+        "Keeps business behavior with a clear capability owner.",
+        "Prevents customer customization from being mixed into reusable framework code.",
+        "Makes security, tenant isolation, testing, observability, and documentation part of implementation.",
+        "Lets consolidated local execution evolve into modular runtime deployment.",
+        "Gives human developers and AI tools the same ownership and verification rules."
+      ]
+    },
+    {
+      "heading": "The core principle",
+      "paragraphs": [
+        "Capabilities are sacred; implementations are negotiable.",
+        "Nodics preserves what an application can do while allowing a project to replace or extend how the capability is implemented through governed layers and providers."
+      ]
+    },
+    {
+      "heading": "Choose your next path",
+      "links": [
+        {"label": "Evaluate Nodics for an organization", "target": "/docs/evaluate/business-capabilities"},
+        {"label": "Set up Nodics locally", "target": "/docs/get-started/local-setup"},
+        {"label": "Learn how the framework is organized", "target": "/docs/framework/architecture"}
+      ]
+    }
+  ]
+}

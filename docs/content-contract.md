@@ -1,5 +1,10 @@
 # Documentation Content Contract
 
+`source/pages` contains canonical authored pages. `source/articles` is the
+legacy-derived migration snapshot retained during the controlled transition.
+The published content pack continues using its last verified release until the
+canonical page graph reaches approved coverage and passes cutover validation.
+
 Each source article contains a stable code, canonical route, navigation
 classification, source provenance, content hash, headings, safe content blocks,
 links, and media references.

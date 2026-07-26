@@ -1,0 +1,48 @@
+{
+  "code": "evaluate.capabilities",
+  "title": "Business Capabilities and Outcomes",
+  "route": "/docs/evaluate/business-capabilities",
+  "section": "evaluate",
+  "family": "overview",
+  "parent": "section:evaluate",
+  "order": 10,
+  "audiences": ["evaluator", "business-user", "architect"],
+  "readerIntent": "Relate implemented Nodics capabilities to business outcomes.",
+  "priorKnowledge": "A general understanding of the intended business product is helpful.",
+  "depth": "overview",
+  "status": "implemented",
+  "owner": "Nodics platform",
+  "lastVerified": "2026-07-26",
+  "summary": "Nodics combines reusable platform capabilities so teams can deliver governed business applications without rebuilding common foundations.",
+  "evidence": [
+    "nodics:gDocs/business/business-capabilities-and-outcomes.md",
+    "wordpress:page:1536"
+  ],
+  "sections": [
+    {
+      "heading": "Business outcomes",
+      "items": [
+        "Shorter time to a governed minimum viable product.",
+        "Reusable security, tenancy, data, integration, workflow, and operational foundations.",
+        "Customer-specific customization without copying or modifying the framework.",
+        "A path from local consolidated execution to modular deployments.",
+        "Traceable behavior supported by contracts, tests, and documentation."
+      ]
+    },
+    {
+      "heading": "Capability groups",
+      "items": [
+        "Platform foundation: configuration, modules, schemas, services, APIs, validation, and runtime governance.",
+        "Data and integration: persistence, caching, search, events, import, export, and scheduling.",
+        "Business platforms: content, publishing, workflows, commerce, BackOffice, and optional solution modules.",
+        "Operations: topology, health, diagnostics, security evidence, testing, and controlled runtime changes."
+      ]
+    },
+    {
+      "heading": "Important evaluation rule",
+      "paragraphs": [
+        "A documentation claim is not proof by itself. Follow its evidence links to the current contracts, configuration, source, and tests before using the claim in an architecture or procurement decision."
+      ]
+    }
+  ]
+}

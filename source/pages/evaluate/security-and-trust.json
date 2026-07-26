@@ -1,0 +1,46 @@
+{
+  "code": "evaluate.security-trust",
+  "title": "Security and Trust for Decision-Makers",
+  "route": "/docs/evaluate/security-and-trust",
+  "section": "evaluate",
+  "family": "business-value",
+  "parent": "section:evaluate",
+  "order": 40,
+  "audiences": ["evaluator", "business-user", "security-reviewer"],
+  "readerIntent": "Understand how Nodics approaches security and what still belongs to the adopting organization.",
+  "priorKnowledge": "No source-code knowledge is required.",
+  "depth": "overview",
+  "status": "implemented",
+  "owner": "Nodics security capabilities",
+  "lastVerified": "2026-07-26",
+  "summary": "Nodics treats authentication, authorization, tenant isolation, validation, audit, diagnostics, and recovery as platform contracts, while deployment security remains shared.",
+  "evidence": ["nodics:gDocs/business/security-and-trust.md"],
+  "sections": [
+    {
+      "heading": "Built into the platform model",
+      "items": [
+        "Separated employee, customer, internal-service, and scheduled access paths.",
+        "Route-level authentication and permission metadata.",
+        "Tenant-aware data and runtime context.",
+        "Governed configuration changes with approval, audit, and rollback where supported.",
+        "Safe diagnostics and tests for rejected and boundary behavior."
+      ]
+    },
+    {
+      "heading": "Shared responsibility",
+      "paragraphs": [
+        "Nodics cannot secure an unsafe deployment automatically. Partners and operators remain responsible for infrastructure, network boundaries, credentials, provider hardening, patches, backup, monitoring, permissions, and project-specific code."
+      ]
+    },
+    {
+      "heading": "Evidence to request",
+      "items": [
+        "Threat model and authority boundaries.",
+        "Authentication and authorization contract tests.",
+        "Tenant-isolation and ownership tests.",
+        "Secret-handling, audit, recovery, and incident procedures.",
+        "Deployment-specific exposure and readiness configuration."
+      ]
+    }
+  ]
+}

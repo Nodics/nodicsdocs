@@ -58,8 +58,10 @@ npm run migrate -- --nodics-root ../nodics
 ```
 
 This operation is deliberately separate from normal generation. After the
-cutover, maintain `source/articles` rather than editing the legacy Markdown
-copies.
+inventory is captured, treat `source/articles` as legacy-derived migration
+evidence. Rewrite approved content into capability-first records under
+`source/pages`. After cutover, maintain `source/pages`; do not edit legacy
+Markdown or the transitional flat article snapshot as a second authority.
 
 ### Generate a release
 

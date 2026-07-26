@@ -1,0 +1,47 @@
+{
+  "code": "evaluate.checklist",
+  "title": "Business and Technical Evaluation Checklist",
+  "route": "/docs/evaluate/checklist",
+  "section": "evaluate",
+  "family": "technical-reference",
+  "parent": "section:evaluate",
+  "order": 50,
+  "audiences": ["evaluator", "architect", "security-reviewer", "operator"],
+  "readerIntent": "Evaluate whether Nodics fits a proposed product and operating model.",
+  "priorKnowledge": "Know the product goals, expected users, integrations, and deployment constraints.",
+  "depth": "reference",
+  "status": "implemented",
+  "owner": "Nodics platform",
+  "lastVerified": "2026-07-26",
+  "summary": "Use this checklist to turn a product evaluation into verifiable business, architecture, security, operations, and adoption decisions.",
+  "evidence": ["nodics:gDocs/business/evaluation-checklist.md"],
+  "sections": [
+    {
+      "heading": "Business fit",
+      "items": [
+        "Which reusable Nodics capabilities replace custom foundation work?",
+        "Which requirements are project-specific and belong in customer modules?",
+        "Which claimed business solutions are already implemented?",
+        "What skills and operating responsibilities remain with the adopting organization?"
+      ]
+    },
+    {
+      "heading": "Architecture and extension",
+      "items": [
+        "Can each requirement be assigned to one authoritative capability?",
+        "Can customization use layering or a provider without modifying framework source?",
+        "Are tenant, enterprise, server, and node boundaries explicit?",
+        "Are APIs and data contracts sufficient for separate frontend applications?"
+      ]
+    },
+    {
+      "heading": "Security and operations",
+      "items": [
+        "Are human, service, and scheduled access paths separated?",
+        "Are authorization, tenant isolation, audit, rollback, and secret ownership documented?",
+        "Are health, logging, metrics, recovery, backup, and scaling responsibilities understood?",
+        "Do positive, rejected, boundary, integration, and regression tests provide evidence?"
+      ]
+    }
+  ]
+}

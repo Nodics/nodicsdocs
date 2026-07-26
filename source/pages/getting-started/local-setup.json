@@ -1,0 +1,57 @@
+{
+  "code": "getting-started.setup",
+  "title": "Set Up Nodics Locally",
+  "route": "/docs/get-started/local-setup",
+  "section": "getting-started",
+  "family": "tutorial-example",
+  "parent": "section:getting-started",
+  "order": 10,
+  "audiences": ["developer", "operator", "ai-tool"],
+  "readerIntent": "Prepare and verify a local Nodics development runtime.",
+  "priorKnowledge": "Basic terminal, Git, Node.js, and database familiarity.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "Nodics development tooling",
+  "lastVerified": "2026-07-26",
+  "summary": "Use the repository runtime versions, install deterministically, build generated artifacts, run baseline tests, and start an explicitly selected local server.",
+  "evidence": ["nodics:gDocs/getting-started/how-to-setup-nodics.md"],
+  "sections": [
+    {
+      "heading": "Prerequisites",
+      "items": [
+        "Git and a supported terminal.",
+        "Node.js 24.18.0 is the repository-pinned version; the package accepts Node.js 22 through 26.",
+        "npm 10 or 11.",
+        "The database and optional providers required by the selected local topology."
+      ]
+    },
+    {
+      "heading": "Install and build",
+      "code": [
+        "git clone <approved-nodics-repository>",
+        "cd nodics",
+        "nvm use",
+        "npm ci",
+        "npm run build",
+        "npm run test:basic"
+      ]
+    },
+    {
+      "heading": "Start an explicit runtime",
+      "paragraphs": [
+        "Choose the environment and server intentionally. For current BackOffice-oriented local work, the consolidated runtime is the startioLocal monoServer.",
+        "If a server name exists in several environments and the terminal is interactive, Nodics prompts for the environment. Automation must supply an unambiguous environment instead of depending on a prompt."
+      ],
+      "code": ["npm run start -- SERVER=monoServer ENV=startioLocal"]
+    },
+    {
+      "heading": "Verify success",
+      "items": [
+        "The process reports the selected environment and server.",
+        "Required modules become ready without repeated core-data creation.",
+        "Focused baseline tests remain green.",
+        "No unexpected generated or configuration files appear in Git status."
+      ]
+    }
+  ]
+}

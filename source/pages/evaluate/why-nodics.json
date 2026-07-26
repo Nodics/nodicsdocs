@@ -1,0 +1,45 @@
+{
+  "code": "evaluate.value",
+  "title": "Why Organizations Choose Nodics",
+  "route": "/docs/evaluate/why-nodics",
+  "section": "evaluate",
+  "family": "business-value",
+  "parent": "section:evaluate",
+  "order": 20,
+  "audiences": ["evaluator", "business-user", "architect"],
+  "readerIntent": "Understand where Nodics can reduce delivery and customization effort.",
+  "priorKnowledge": "Know the organization’s intended products and delivery constraints.",
+  "depth": "overview",
+  "status": "implemented",
+  "owner": "Nodics platform",
+  "lastVerified": "2026-07-26",
+  "summary": "Organizations choose Nodics when they need reusable enterprise foundations and customer-specific flexibility in the same platform.",
+  "evidence": ["nodics:gDocs/business/why-businesses-choose-nodics.md"],
+  "sections": [
+    {
+      "heading": "Potential value",
+      "items": [
+        "Start with reusable capabilities instead of recreating common platform foundations.",
+        "Keep customer implementations separate from reusable framework ownership.",
+        "Use one architecture from local development through modular deployment.",
+        "Make extension, security, testing, and documentation obligations explicit.",
+        "Give partners and AI tools a discoverable implementation contract."
+      ]
+    },
+    {
+      "heading": "Where value depends on execution",
+      "paragraphs": [
+        "Time and cost improvements depend on requirement fit, capability maturity, team experience, integration complexity, deployment choices, and disciplined use of Nodics extension contracts. Treat these as evaluation inputs, not guaranteed outcomes."
+      ]
+    },
+    {
+      "heading": "Recommended adoption",
+      "items": [
+        "Choose one representative business capability.",
+        "Build it through the supported project hierarchy.",
+        "Validate security, tenancy, customization, operations, and tests.",
+        "Measure the result before expanding adoption."
+      ]
+    }
+  ]
+}

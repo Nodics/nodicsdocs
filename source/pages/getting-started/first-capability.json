@@ -1,0 +1,57 @@
+{
+  "code": "getting-started.first-capability",
+  "title": "Build Your First Nodics Capability",
+  "route": "/docs/get-started/first-capability",
+  "section": "getting-started",
+  "family": "tutorial-example",
+  "parent": "section:getting-started",
+  "order": 20,
+  "audiences": ["developer", "architect", "ai-tool"],
+  "readerIntent": "Understand the safe end-to-end path for adding one project-owned business capability.",
+  "priorKnowledge": "Complete the local setup and understand basic APIs and data models.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "Nodics development guidance",
+  "lastVerified": "2026-07-26",
+  "summary": "Start with ownership and contracts, reuse existing capabilities, add only necessary layers, and prove positive and rejected behavior.",
+  "evidence": ["nodics:gDocs/getting-started/build-your-first-capability.md"],
+  "sections": [
+    {
+      "heading": "Example outcome",
+      "paragraphs": [
+        "Imagine a project needs tenant-owned service requests that authorized employees can create, view, update, and close. Treat that outcome as one project capability rather than scattering it across framework modules."
+      ]
+    },
+    {
+      "heading": "Implementation sequence",
+      "items": [
+        "Search for an existing authority and extension point.",
+        "Choose the project module that owns the capability.",
+        "Describe data, permissions, tenant ownership, states, integrations, failures, and customization.",
+        "Add schema, service, API, configuration, event, or pipeline layers only when each has a responsibility.",
+        "Regenerate derived artifacts from source definitions.",
+        "Update canonical documentation and the concise module README."
+      ]
+    },
+    {
+      "heading": "Verification",
+      "items": [
+        "Successful create, read, update, and close behavior.",
+        "Missing and invalid information.",
+        "Unauthorized and wrong-tenant access.",
+        "State boundaries such as closing an already closed request.",
+        "Later project-layer customization.",
+        "Contract, integration, generated-artifact, and regression behavior."
+      ]
+    },
+    {
+      "heading": "What not to do",
+      "items": [
+        "Do not modify reusable framework code for a customer-only rule.",
+        "Do not create a second loader, registry, workflow, or persistence authority.",
+        "Do not edit generated artifacts as the long-term source.",
+        "Do not declare completion while tests or documentation are stale."
+      ]
+    }
+  ]
+}

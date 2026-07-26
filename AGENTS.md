@@ -11,7 +11,10 @@ environment URLs, Git operations, or another import engine here.
 
 ## Source and generated data
 
-- `source/articles` is the authored documentation authority after migration.
+- `source/pages` is the canonical authored documentation authority.
+- `source/articles` is the immutable legacy-derived migration snapshot until
+  canonical cutover. Do not hand-edit it or treat its flat repository-shaped
+  routes as the target information architecture.
 - `assets/images` owns reviewed documentation media originals.
 - `data/core` is deterministic, committed Nodics import data and the directly
   consumable release artifact.

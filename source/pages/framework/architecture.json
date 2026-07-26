@@ -1,0 +1,65 @@
+{
+  "code": "framework.architecture",
+  "title": "How the Nodics Framework Is Organized",
+  "route": "/docs/framework/architecture",
+  "section": "framework",
+  "family": "concepts-architecture",
+  "parent": "section:framework",
+  "order": 10,
+  "audiences": ["developer", "architect", "operator", "ai-tool"],
+  "readerIntent": "Build a mental model of ownership, layering, runtime topology, and implementation layers.",
+  "priorKnowledge": "Read What Is Nodics first.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Nodics platform architecture",
+  "lastVerified": "2026-07-26",
+  "summary": "Nodics organizes behavior by capability ownership and resolves implementation through project, environment, server, node, module, tenant, and runtime layers.",
+  "evidence": [
+    "nodics:gDocs/architecture/how-nodics-is-organized.md",
+    "nodics:gDocs/platform/how-platform-capabilities-work.md",
+    "wordpress:page:303",
+    "wordpress:post:13"
+  ],
+  "sections": [
+    {
+      "heading": "Read Nodics from the outside in",
+      "items": [
+        "A project defines one customer or product application boundary.",
+        "Environments define deployment contexts.",
+        "Servers define runnable process compositions and active modules.",
+        "Nodes define instance-level responsibilities under a server.",
+        "Capability modules own behavior and contracts.",
+        "Tenant and governed runtime configuration refine supported behavior."
+      ]
+    },
+    {
+      "heading": "Choose ownership before files",
+      "paragraphs": [
+        "First decide whether behavior belongs to the reusable framework, a business capability, a customer project, deployment topology, tenant configuration, or governed runtime state. Only then choose a schema, service, facade, controller, router, pipeline, interceptor, event, search, utility, data, or test file."
+      ]
+    },
+    {
+      "heading": "Customization",
+      "paragraphs": [
+        "Later project layers may extend or replace supported implementations while preserving the capability contract. Active modules decide what runs locally; configured server connections describe remote communication. Neither browser clients nor tools become alternate backend authorities."
+      ]
+    },
+    {
+      "heading": "Generated artifacts",
+      "paragraphs": [
+        "Models, services, APIs, tests, OpenAPI output, reports, and AI context may be generated. Change the owning source definition and regenerate; do not treat generated output as an independent authority."
+      ]
+    },
+    {
+      "heading": "A reliable change question",
+      "items": [
+        "Which capability owns the requirement?",
+        "Which layer should vary?",
+        "Which source contract changes?",
+        "Which security, tenant, deployment, and observability boundaries are affected?",
+        "Which generated artifacts and tests prove the result?",
+        "Which canonical documentation must change?"
+      ]
+    }
+  ]
+}
