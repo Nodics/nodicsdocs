@@ -7,8 +7,8 @@
     "total": 449
   },
   "review": {
-    "reviewed": 0,
-    "pending": 449,
+    "reviewed": 81,
+    "pending": 368,
     "unknownDecisionIds": []
   },
   "entries": [
@@ -1788,10 +1788,10 @@
       "currentRoute": "/docs/ai/assistant-provider-and-knowledge-guide",
       "contentHash": "c2ae4ff40f00ec39e3d3d215b90c38fd1c929bf68dda31dfb85d4b996fbc701e",
       "suggestedCapability": "ai",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "capability.ai.overview",
+      "notes": "Restructure as a capability hub overview and verify implemented provider and knowledge contracts."
     },
     {
       "evidenceId": "nodics:gDocs/ai/how-ai-cost-governance-works.md",
@@ -1801,10 +1801,10 @@
       "currentRoute": "/docs/ai/how-ai-cost-governance-works",
       "contentHash": "22e3ffc03ff7239d29e3f8a349e583a5fc1166b66c9872a21426d4b6791ee9ef",
       "suggestedCapability": "ai",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "capability.ai.cost-governance",
+      "notes": "Retain verified cost-governance behavior in an operator-focused article."
     },
     {
       "evidenceId": "nodics:gDocs/architecture/how-nodics-is-organized.md",
@@ -1814,10 +1814,10 @@
       "currentRoute": "/docs/architecture/how-nodics-is-organized",
       "contentHash": "a6f8678306442e7d45ca116d9e87a6ed59880a051c0557f39f1363675a74a0bc",
       "suggestedCapability": "layered-architecture",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "framework.architecture",
+      "notes": "Use capability language and keep module names as technical ownership evidence."
     },
     {
       "evidenceId": "nodics:gDocs/assets/images/README.md",
@@ -1827,10 +1827,10 @@
       "currentRoute": "/docs/assets/images",
       "contentHash": "ac099bce62c49744aab7eabd04ecdd55e44c31effa6b157158ad72ed30de7a87",
       "suggestedCapability": "content-publishing",
-      "reviewStatus": "pending",
-      "disposition": null,
+      "reviewStatus": "reviewed",
+      "disposition": "archive",
       "destinationCode": null,
-      "notes": null
+      "notes": "Asset-maintenance notes are repository guidance, not a public article."
     },
     {
       "evidenceId": "nodics:gDocs/backoffice/how-schema-workbench-works.md",
@@ -1840,10 +1840,10 @@
       "currentRoute": "/docs/backoffice/how-schema-workbench-works",
       "contentHash": "20177b1ecdcbae784ac5953bb47dfe9f00fc41882d51554e9b8fd5d401e4e4d1",
       "suggestedCapability": "ai",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "solution.backoffice.schema-workbench",
+      "notes": "Preserve the business-data workflow while separating Axis presentation from backend authority."
     },
     {
       "evidenceId": "nodics:gDocs/backoffice/how-to-use-axis-workspace-context.md",
@@ -1853,10 +1853,10 @@
       "currentRoute": "/docs/backoffice/how-to-use-axis-workspace-context",
       "contentHash": "9d79a61b2d5e540eef814e6cb0b96d7b605f1e801f62adcd2ff89a99666cd3aa",
       "suggestedCapability": "ai",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "solution.backoffice.workspace-context",
+      "notes": "Keep user-facing context guidance and verify backend-owned identifiers."
     },
     {
       "evidenceId": "nodics:gDocs/business/business-capabilities-and-outcomes.md",
@@ -1866,10 +1866,10 @@
       "currentRoute": "/docs/business/business-capabilities-and-outcomes",
       "contentHash": "140d7751c4b9fb178f7f27d01552a14578fa70ea3a2bf2f2a3c817c36f67c73d",
       "suggestedCapability": "ai",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "evaluate.capabilities",
+      "notes": "Organize implemented capabilities by business outcome."
     },
     {
       "evidenceId": "nodics:gDocs/business/evaluation-checklist.md",
@@ -1879,10 +1879,10 @@
       "currentRoute": "/docs/business/evaluation-checklist",
       "contentHash": "58947a17d46cc2c9bfa4ac5359082b9e7f1701cdfbeebaecec8d75874f6e6498",
       "suggestedCapability": "commerce",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "evaluate.checklist",
+      "notes": "Create a decision-ready evaluation path with evidence links."
     },
     {
       "evidenceId": "nodics:gDocs/business/how-nodics-compares.md",
@@ -1892,10 +1892,10 @@
       "currentRoute": "/docs/business/how-nodics-compares",
       "contentHash": "42e5d0cd9b2df221ab014896a2a98aca495e7cb3fd84171c55b45b02b87bdf7b",
       "suggestedCapability": "ai",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "evaluate.comparison",
+      "notes": "Retain capability-based comparisons and remove unsupported claims."
     },
     {
       "evidenceId": "nodics:gDocs/business/security-and-trust.md",
@@ -1905,10 +1905,10 @@
       "currentRoute": "/docs/business/security-and-trust",
       "contentHash": "0190bdcd5bf31073131b2e451b3050e340495cd78da4f516fae4ccc0acdc6b67",
       "suggestedCapability": "ai",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "merge",
+      "destinationCode": "evaluate.security-trust",
+      "notes": "Merge decision-maker security evidence into one trust page."
     },
     {
       "evidenceId": "nodics:gDocs/business/why-businesses-choose-nodics.md",
@@ -1918,10 +1918,10 @@
       "currentRoute": "/docs/business/why-businesses-choose-nodics",
       "contentHash": "bf513a04bcdc95102526af0b2abd44acad1b379601ae98198c2f1b3f0ad65365",
       "suggestedCapability": null,
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "evaluate.value",
+      "notes": "Rewrite around measurable adoption value and verified capabilities."
     },
     {
       "evidenceId": "nodics:gDocs/commerce/how-inventory-reconciliation-works.md",
@@ -1931,10 +1931,10 @@
       "currentRoute": "/docs/commerce/how-inventory-reconciliation-works",
       "contentHash": "8e990b2ba880d9192f4b6c5275079f278b4ef8e72ecd7291ee39a6b8ff47f2fa",
       "suggestedCapability": "commerce",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "commerce.stock.reconciliation",
+      "notes": "Retain the verified stock reconciliation process."
     },
     {
       "evidenceId": "nodics:gDocs/commerce/how-stock-allocation-works.md",
@@ -1944,10 +1944,10 @@
       "currentRoute": "/docs/commerce/how-stock-allocation-works",
       "contentHash": "0b3d9b2fd35240afc2a645a9fadfd6cf02a3932a948599899b54c314e67ba3fb",
       "suggestedCapability": "commerce",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "commerce.stock.allocation",
+      "notes": "Retain allocation rules and add rejected and boundary examples."
     },
     {
       "evidenceId": "nodics:gDocs/commerce/how-stock-availability-works.md",
@@ -1957,10 +1957,10 @@
       "currentRoute": "/docs/commerce/how-stock-availability-works",
       "contentHash": "d195e9f2699cfecb9e1a35328c65045fafc6fe686bf8386221ca2671ff6d75ba",
       "suggestedCapability": "ai",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "commerce.stock.availability",
+      "notes": "Use business terminology and preserve exact availability semantics."
     },
     {
       "evidenceId": "nodics:gDocs/commerce/how-stock-movements-work.md",
@@ -1970,10 +1970,10 @@
       "currentRoute": "/docs/commerce/how-stock-movements-work",
       "contentHash": "ad9620552c26774e78ebf03190b7aad660b15cf05b78f5e300250b8b95851630",
       "suggestedCapability": "commerce",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "commerce.stock.movements",
+      "notes": "Retain movement lifecycle and ownership evidence."
     },
     {
       "evidenceId": "nodics:gDocs/commerce/how-stock-sourcing-works.md",
@@ -1983,10 +1983,10 @@
       "currentRoute": "/docs/commerce/how-stock-sourcing-works",
       "contentHash": "997e371fab3adfce362a4f2ab111b32d316e419df2d7403ff0508be74613362b",
       "suggestedCapability": "commerce",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "commerce.stock.sourcing",
+      "notes": "Retain sourcing decisions, tenant context, and failure behavior."
     },
     {
       "evidenceId": "nodics:gDocs/commerce/how-stock-transfers-work.md",
@@ -1996,10 +1996,10 @@
       "currentRoute": "/docs/commerce/how-stock-transfers-work",
       "contentHash": "e62536abbe124a10cfaa443b92760e5b07e6b8e987b05a684ba2e8a20cd9d9d2",
       "suggestedCapability": "commerce",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "commerce.stock.transfers",
+      "notes": "Retain transfer workflow and operational recovery."
     },
     {
       "evidenceId": "nodics:gDocs/commerce/how-to-configure-and-operate-pricing.md",
@@ -2009,10 +2009,10 @@
       "currentRoute": "/docs/commerce/how-to-configure-and-operate-pricing",
       "contentHash": "6a4a7e0c73631d35d882640d9b1605d0af4381c679c2c944b195854986464bf1",
       "suggestedCapability": "commerce",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "commerce.pricing.operations",
+      "notes": "Separate business operation, configuration, and technical reference."
     },
     {
       "evidenceId": "nodics:gDocs/commerce/how-to-create-and-identify-products.md",
@@ -2022,10 +2022,10 @@
       "currentRoute": "/docs/commerce/how-to-create-and-identify-products",
       "contentHash": "8e775bfe10e45767dba079d9d924a5b5cdcd1db02ed5df552f1565826e6b2da5",
       "suggestedCapability": "commerce",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "commerce.product.identity",
+      "notes": "Retain product identity examples and verify schema contracts."
     },
     {
       "evidenceId": "nodics:gDocs/commerce/how-to-manage-stock-pools.md",
@@ -2035,10 +2035,10 @@
       "currentRoute": "/docs/commerce/how-to-manage-stock-pools",
       "contentHash": "8dd842f02272e65c59224b298432b576e0b4fad12dde20cfc0e3219becd977f6",
       "suggestedCapability": "commerce",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "commerce.stock.pools",
+      "notes": "Retain configurable pool examples and customization guidance."
     },
     {
       "evidenceId": "nodics:gDocs/commerce/how-to-manage-stores.md",
@@ -2048,10 +2048,10 @@
       "currentRoute": "/docs/commerce/how-to-manage-stores",
       "contentHash": "982c56f34a136e3c9478b7a61c8259664d3199ee512c81013f172b7b3570f1ab",
       "suggestedCapability": "commerce",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "commerce.store.management",
+      "notes": "Retain business and developer store workflows."
     },
     {
       "evidenceId": "nodics:gDocs/commerce/how-to-manage-warehouses.md",
@@ -2061,10 +2061,10 @@
       "currentRoute": "/docs/commerce/how-to-manage-warehouses",
       "contentHash": "c7c74dea6bbd5593223f5299467c2c4b50aef4c3396ef9b9f0e1414341e638c2",
       "suggestedCapability": "configuration",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "commerce.stock.warehouses",
+      "notes": "Retain warehouse configuration and service-area examples."
     },
     {
       "evidenceId": "nodics:gDocs/commerce/how-to-model-stores-and-websites.md",
@@ -2074,10 +2074,10 @@
       "currentRoute": "/docs/commerce/how-to-model-stores-and-websites",
       "contentHash": "ee430c0483e98d683e9f5f8c3e2ab538117b3ba50cfb0e4a0f6a7d5e289efede",
       "suggestedCapability": "commerce",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "commerce.storefront.modeling",
+      "notes": "Preserve the multi-site example and clarify Store and Storefront ownership."
     },
     {
       "evidenceId": "nodics:gDocs/commerce/how-to-operate-and-integrate-inventory.md",
@@ -2087,10 +2087,10 @@
       "currentRoute": "/docs/commerce/how-to-operate-and-integrate-inventory",
       "contentHash": "372e5f075375253d1c1d4fc05fd2a5c614278dc7a3e948f78921916e3bd2df91",
       "suggestedCapability": "commerce",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "commerce.stock.operations",
+      "notes": "Create the operational integration and troubleshooting guide."
     },
     {
       "evidenceId": "nodics:gDocs/commerce/how-to-reserve-stock.md",
@@ -2100,10 +2100,10 @@
       "currentRoute": "/docs/commerce/how-to-reserve-stock",
       "contentHash": "0e6f15f0f1e69b2ead130b8dd5fa28a8722b2734c6bc5111659fe7b7659b9d30",
       "suggestedCapability": "commerce",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "commerce.stock.reservations",
+      "notes": "Retain positive, rejected, expiry, and release journeys."
     },
     {
       "evidenceId": "nodics:gDocs/configuration/how-configuration-works.md",
@@ -2113,10 +2113,10 @@
       "currentRoute": "/docs/configuration/how-configuration-works",
       "contentHash": "26c290c22083cec7e1da6609e21576d1e47f5c2c16c1588b54078482044b1696",
       "suggestedCapability": "configuration",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "capability.configuration.overview",
+      "notes": "Promote to the capability-first Configuration Layer hub."
     },
     {
       "evidenceId": "nodics:gDocs/content/how-to-approve-and-publish-content.md",
@@ -2126,10 +2126,10 @@
       "currentRoute": "/docs/content/how-to-approve-and-publish-content",
       "contentHash": "e377d298964fb29efa66c68f21882ac696c789988fe63f965d0717141c45f93a",
       "suggestedCapability": "content-publishing",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "capability.content-publishing.tutorial",
+      "notes": "Preserve Workflow and nPublish as the only publishing authorities."
     },
     {
       "evidenceId": "nodics:gDocs/data/how-to-use-nodics-as-data-as-a-service.md",
@@ -2139,10 +2139,10 @@
       "currentRoute": "/docs/data/how-to-use-nodics-as-data-as-a-service",
       "contentHash": "031031dc182de1dbca76850b29a0744aab03f4709b8aef0d169f4e4a9ee240d8",
       "suggestedCapability": "data-exchange",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "solution.data-as-service.overview",
+      "notes": "Present DaaS as a verified composed business solution."
     },
     {
       "evidenceId": "nodics:gDocs/data/how-to-use-units-and-land-measurements.md",
@@ -2152,10 +2152,10 @@
       "currentRoute": "/docs/data/how-to-use-units-and-land-measurements",
       "contentHash": "1c4386c6a1f3ca9555834f83f2327221fc22b89140ca530ad4b8fe0520e2a641",
       "suggestedCapability": "commerce",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "capability.units.tutorial",
+      "notes": "Retain exact measurement and land examples."
     },
     {
       "evidenceId": "nodics:gDocs/data/how-to-work-with-data.md",
@@ -2165,10 +2165,10 @@
       "currentRoute": "/docs/data/how-to-work-with-data",
       "contentHash": "c7a605b32054a84b626f88b8b332f25255020e5b1f50428713eb542c797d98cd",
       "suggestedCapability": "data-exchange",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "capability.data-exchange.guide",
+      "notes": "Split user workflows from schema, import, export, and API references."
     },
     {
       "evidenceId": "nodics:gDocs/development/common-implementation-examples.md",
@@ -2178,10 +2178,10 @@
       "currentRoute": "/docs/development/common-implementation-examples",
       "contentHash": "75c0a9d65567c5adbdf21871f12a1d9d8e82af0bb8f2402297fc15d51620a0ba",
       "suggestedCapability": "configuration",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "build.examples",
+      "notes": "Keep examples small, source-backed, and layering-safe."
     },
     {
       "evidenceId": "nodics:gDocs/development/how-to-create-apis.md",
@@ -2191,10 +2191,10 @@
       "currentRoute": "/docs/development/how-to-create-apis",
       "contentHash": "e548c0348c344f8e3f378a1480ffb9118e4b341b61935a7ecdce081e245de512",
       "suggestedCapability": "apis-routing",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "build.apis",
+      "notes": "Preserve router and authorization contracts in a guided tutorial."
     },
     {
       "evidenceId": "nodics:gDocs/development/how-to-create-application-functionality.md",
@@ -2204,10 +2204,10 @@
       "currentRoute": "/docs/development/how-to-create-application-functionality",
       "contentHash": "e61ae2221eade34c9b99ccd0f15060e1d4f7c6b5d04d2ac9b44554794a3fe732",
       "suggestedCapability": "layered-architecture",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "build.application-capability",
+      "notes": "Create the primary end-to-end developer journey."
     },
     {
       "evidenceId": "nodics:gDocs/development/how-to-customize-and-extend-nodics.md",
@@ -2217,10 +2217,10 @@
       "currentRoute": "/docs/development/how-to-customize-and-extend-nodics",
       "contentHash": "047cb03b66fbf74a7560bd1debc4289486bd4b24143b8a28385cb9c76a9f058f",
       "suggestedCapability": "layered-architecture",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "build.customization",
+      "notes": "Make reuse-first layering and prohibited parallel paths explicit."
     },
     {
       "evidenceId": "nodics:gDocs/documentation/how-to-maintain-documentation.md",
@@ -2230,10 +2230,10 @@
       "currentRoute": "/docs/documentation/how-to-maintain-documentation",
       "contentHash": "ea918543d310168612cf2cceebeebced886d5ebf36644ff3c167def8273d164f",
       "suggestedCapability": "ai",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "build.documentation",
+      "notes": "Update ownership from gDocs to nodicsdocs and include migration governance."
     },
     {
       "evidenceId": "nodics:gDocs/documentation/how-to-publish-documentation-on-github.md",
@@ -2243,10 +2243,10 @@
       "currentRoute": "/docs/documentation/how-to-publish-documentation-on-github",
       "contentHash": "5e9008148036f4392c5bcd1e7674c0c90d031d77ee8a7b2b9d7af0722c370bb3",
       "suggestedCapability": "content-publishing",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "merge",
+      "destinationCode": "build.documentation",
+      "notes": "Merge contributor publication workflow into the canonical maintenance guide."
     },
     {
       "evidenceId": "nodics:gDocs/getting-started/build-your-first-capability.md",
@@ -2256,10 +2256,10 @@
       "currentRoute": "/docs/getting-started/build-your-first-capability",
       "contentHash": "0aef7c19b0676bf5e5fc77e7e58fe5acacc50fbf5ac0b7a0c4bd1ffbca313c09",
       "suggestedCapability": "ai",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "getting-started.first-capability",
+      "notes": "Keep the beginner sequence executable and verifiable."
     },
     {
       "evidenceId": "nodics:gDocs/getting-started/how-to-setup-nodics.md",
@@ -2269,10 +2269,10 @@
       "currentRoute": "/docs/getting-started/how-to-setup-nodics",
       "contentHash": "fcb3dafcc10fc59d56e1143fb358098213d55d8b4eaaba2046029d38fafa729a",
       "suggestedCapability": "ai",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "getting-started.setup",
+      "notes": "Create the canonical local setup journey."
     },
     {
       "evidenceId": "nodics:gDocs/jobs/how-to-create-scheduled-jobs.md",
@@ -2282,10 +2282,10 @@
       "currentRoute": "/docs/jobs/how-to-create-scheduled-jobs",
       "contentHash": "a9563be55d85853a47567485db922e8cc6b1b136b175aa835809271a756389a9",
       "suggestedCapability": "scheduled-jobs",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "capability.scheduled-jobs.tutorial",
+      "notes": "Retain manual and automatic action distinctions where relevant."
     },
     {
       "evidenceId": "nodics:gDocs/operations/how-to-prepare-for-deployment.md",
@@ -2295,10 +2295,10 @@
       "currentRoute": "/docs/operations/how-to-prepare-for-deployment",
       "contentHash": "fbf5b4d2895023e0f150841498039ffd87021c5a883422effc8274fc45d5fdf7",
       "suggestedCapability": "observability-governance",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "operations.deployment",
+      "notes": "Retain environment, security, and readiness checks."
     },
     {
       "evidenceId": "nodics:gDocs/operations/how-to-run-and-debug-nodics.md",
@@ -2308,10 +2308,10 @@
       "currentRoute": "/docs/operations/how-to-run-and-debug-nodics",
       "contentHash": "254a2d9f978a88ac0e1c050905defea973cd2cb6aaa5d18f8f41975559c05d92",
       "suggestedCapability": null,
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "operations.local-runtime",
+      "notes": "Retain local runtime and failure-diagnosis procedures."
     },
     {
       "evidenceId": "nodics:gDocs/operations/production-operating-model.md",
@@ -2321,10 +2321,10 @@
       "currentRoute": "/docs/operations/production-operating-model",
       "contentHash": "2279ed98983b83ae29efab26c12970070d6baa6195a250865094cb467cfcfaf7",
       "suggestedCapability": "commerce",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "operations.production",
+      "notes": "Keep only implemented operating contracts and mark future cloud work separately."
     },
     {
       "evidenceId": "nodics:gDocs/overview/what-is-nodics.md",
@@ -2334,10 +2334,10 @@
       "currentRoute": "/docs/overview/what-is-nodics",
       "contentHash": "78c022cc6fa307d717fa815f381a99b1e6f1f29989efe3baa65c5f0181c08993",
       "suggestedCapability": "content-publishing",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "discover.overview",
+      "notes": "Become the canonical beginner-friendly product introduction."
     },
     {
       "evidenceId": "nodics:gDocs/platform/how-cache-works.md",
@@ -2347,10 +2347,10 @@
       "currentRoute": "/docs/platform/how-cache-works",
       "contentHash": "8a732f2d9215746f0541fdea43c3f7798c371819f08d797d03408f2ee89a6952",
       "suggestedCapability": "ai",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "capability.caching.overview",
+      "notes": "Promote cache behavior to a capability hub with provider boundaries."
     },
     {
       "evidenceId": "nodics:gDocs/platform/how-platform-capabilities-work.md",
@@ -2360,10 +2360,10 @@
       "currentRoute": "/docs/platform/how-platform-capabilities-work",
       "contentHash": "41697801a683a4eb116bb703dea0340a8874d481bd435b91a81eedb830ebde0d",
       "suggestedCapability": "data-exchange",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "merge",
+      "destinationCode": "framework.architecture",
+      "notes": "Merge the capability and implementation ownership model into framework architecture."
     },
     {
       "evidenceId": "nodics:gDocs/README.md",
@@ -2373,10 +2373,10 @@
       "currentRoute": "/docs",
       "contentHash": "dc0795aec54d4cab1b0dc109bab9a1e978d692950b0b9959815a073ad6d1b006",
       "suggestedCapability": null,
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "merge",
+      "destinationCode": "discover.overview",
+      "notes": "Merge entry-point guidance into the canonical documentation home."
     },
     {
       "evidenceId": "nodics:gDocs/reference/glossary.md",
@@ -2386,10 +2386,10 @@
       "currentRoute": "/docs/reference/glossary",
       "contentHash": "24076553a07777c55cc98e9bc58e546cca817d47b8f2d704ce0ab62bfe2eeb5c",
       "suggestedCapability": "errors-status",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "reference.glossary",
+      "notes": "Normalize beginner terms and technical aliases."
     },
     {
       "evidenceId": "nodics:gDocs/reference/licensing-and-header-contract.md",
@@ -2399,10 +2399,10 @@
       "currentRoute": "/docs/reference/licensing-and-header-contract",
       "contentHash": "a853d721e562cb4a89cc74bd379ed94d2e49926c7622a9334622210ca0bea39a",
       "suggestedCapability": null,
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "retain",
+      "destinationCode": "reference.licensing",
+      "notes": "Retain after verifying current license and header rules."
     },
     {
       "evidenceId": "nodics:gDocs/reference/module-catalog.md",
@@ -2412,10 +2412,10 @@
       "currentRoute": "/docs/reference/module-catalog",
       "contentHash": "bbf1a3d892e342932acbb516c18d5ddbb6fc3c609314b51d838203ed2d60cfb6",
       "suggestedCapability": "content-publishing",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "merge",
+      "destinationCode": "reference.modules",
+      "notes": "Merge with module implementation index; do not expose modules as primary navigation."
     },
     {
       "evidenceId": "nodics:gDocs/reference/module-documentation-index.md",
@@ -2425,10 +2425,10 @@
       "currentRoute": "/docs/reference/module-documentation-index",
       "contentHash": "5eb6c217fedb3c8eaa5369261345162f007094b494b9d2c40fd8888ca31534bc",
       "suggestedCapability": "data-exchange",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "merge",
+      "destinationCode": "reference.modules",
+      "notes": "Merge into the secondary technical module reference."
     },
     {
       "evidenceId": "nodics:gDocs/reference/provider-capability-maturity-matrix.md",
@@ -2438,10 +2438,10 @@
       "currentRoute": "/docs/reference/provider-capability-maturity-matrix",
       "contentHash": "b5bb0a0a9154d7870538756ca8beed94e5f5240eb60b46e0059971c196d1d906",
       "suggestedCapability": "data-exchange",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "reference.maturity",
+      "notes": "Verify every provider and maturity claim against current implementation."
     },
     {
       "evidenceId": "nodics:gDocs/security/backoffice-browser-security.md",
@@ -2451,10 +2451,10 @@
       "currentRoute": "/docs/security/backoffice-browser-security",
       "contentHash": "68c72000f8518feb6b02e6e86e37be7f788daf6d701377e4394a92b93c47e3c0",
       "suggestedCapability": "errors-status",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "security.browser",
+      "notes": "Preserve Profile-owned browser-session and CSRF contracts."
     },
     {
       "evidenceId": "nodics:gDocs/security/how-users-tenants-and-permissions-work.md",
@@ -2464,10 +2464,10 @@
       "currentRoute": "/docs/security/how-users-tenants-and-permissions-work",
       "contentHash": "1a657d5a890bf87e8c573095680d8f831a5c4148d8137ab3f5f1c07c7353d43c",
       "suggestedCapability": "apis-routing",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "security.identity-access",
+      "notes": "Separate beginner concepts, business ownership, and technical authorization detail."
     },
     {
       "evidenceId": "nodics:gDocs/security/security-evidence-guide.md",
@@ -2477,10 +2477,10 @@
       "currentRoute": "/docs/security/security-evidence-guide",
       "contentHash": "356cacbbea42496bd24fc7415de6e2b1ba9b9ff5a42e5d59a6f70b6c28379cb9",
       "suggestedCapability": "ai",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "security.evidence",
+      "notes": "Link claims to source, tests, and operational evidence."
     },
     {
       "evidenceId": "nodics:gDocs/security/shared-responsibility-model.md",
@@ -2490,10 +2490,10 @@
       "currentRoute": "/docs/security/shared-responsibility-model",
       "contentHash": "5347ad0f076c05f61b18790cbdfe0f3fffa577e89caf93b091baaae6255de538",
       "suggestedCapability": "ai",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "security.shared-responsibility",
+      "notes": "Clarify framework, partner, operator, and customer responsibilities."
     },
     {
       "evidenceId": "nodics:gDocs/testing/how-to-test-nodics-changes.md",
@@ -2503,10 +2503,10 @@
       "currentRoute": "/docs/testing/how-to-test-nodics-changes",
       "contentHash": "fbb9871d98317a15cd3e00b391435275cda6cf32df8da71dafd55500374cb179",
       "suggestedCapability": "ai",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "rewrite",
+      "destinationCode": "build.testing",
+      "notes": "Retain focused-to-regression validation guidance."
     },
     {
       "evidenceId": "nodics:gExp/backoffice/docs/administrative-security-contract.md",
@@ -5532,10 +5532,10 @@
       "currentRoute": "/legacy/nodics-solutions",
       "contentHash": "28c04d542d3c39de0d631339836796718fb2a98e3da1f9f792c25cb2c71ba5d0",
       "suggestedCapability": "events-messaging",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "merge",
+      "destinationCode": "evaluate.capabilities",
+      "notes": "Recover historical business-solution vocabulary, then verify each claim."
     },
     {
       "evidenceId": "wordpress:page:1824",
@@ -5545,10 +5545,10 @@
       "currentRoute": "/legacy/event-distributor",
       "contentHash": "8652c8dc7c3cf549d3b2e86886ca1eb614f176abef8e50b4dea29f3aceef9e4c",
       "suggestedCapability": "events-messaging",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "merge",
+      "destinationCode": "capability.events-messaging.architecture",
+      "notes": "Recover useful event-distributor concepts only after source verification."
     },
     {
       "evidenceId": "wordpress:page:2",
@@ -5558,10 +5558,10 @@
       "currentRoute": "/legacy/contact-us",
       "contentHash": "ae15c91560d3b9fac33dfa49fce0e2232b349c870e1dd88d7957a316afc767d4",
       "suggestedCapability": null,
-      "reviewStatus": "pending",
-      "disposition": null,
+      "reviewStatus": "reviewed",
+      "disposition": "reject",
       "destinationCode": null,
-      "notes": null
+      "notes": "Corporate contact content is outside framework documentation."
     },
     {
       "evidenceId": "wordpress:page:20",
@@ -5571,10 +5571,10 @@
       "currentRoute": "/legacy/about-us",
       "contentHash": "057fca5a0fbcb20b85af807a9ddd451dac79edbe8bf45183103ebd7b0e890d00",
       "suggestedCapability": null,
-      "reviewStatus": "pending",
-      "disposition": null,
+      "reviewStatus": "reviewed",
+      "disposition": "archive",
       "destinationCode": null,
-      "notes": null
+      "notes": "Preserve as corporate history, not product documentation."
     },
     {
       "evidenceId": "wordpress:page:303",
@@ -5584,10 +5584,10 @@
       "currentRoute": "/legacy/nodics-structure",
       "contentHash": "d7776a9fc85a69d15280841175c85b6f084266722d0175e6b9e5a5ace0e919af",
       "suggestedCapability": "layered-architecture",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "merge",
+      "destinationCode": "framework.architecture",
+      "notes": "Recover useful framework-walkthrough concepts and modernize terminology."
     },
     {
       "evidenceId": "wordpress:page:32",
@@ -5597,10 +5597,10 @@
       "currentRoute": "/legacy/nodics",
       "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "suggestedCapability": null,
-      "reviewStatus": "pending",
-      "disposition": null,
+      "reviewStatus": "reviewed",
+      "disposition": "reject",
       "destinationCode": null,
-      "notes": null
+      "notes": "The historical page is empty and provides no documentation value."
     },
     {
       "evidenceId": "wordpress:page:34",
@@ -5610,10 +5610,10 @@
       "currentRoute": "/legacy/design-overloaded",
       "contentHash": "797894aafe7280f7535f8cbda8d5b9f931922166c5100a18b6fbd49b7de83a1b",
       "suggestedCapability": null,
-      "reviewStatus": "pending",
-      "disposition": null,
+      "reviewStatus": "reviewed",
+      "disposition": "reject",
       "destinationCode": null,
-      "notes": null
+      "notes": "Theme demonstration content is unrelated to Nodics documentation."
     },
     {
       "evidenceId": "wordpress:page:35",
@@ -5623,10 +5623,10 @@
       "currentRoute": "/legacy/programming",
       "contentHash": "797894aafe7280f7535f8cbda8d5b9f931922166c5100a18b6fbd49b7de83a1b",
       "suggestedCapability": null,
-      "reviewStatus": "pending",
-      "disposition": null,
+      "reviewStatus": "reviewed",
+      "disposition": "reject",
       "destinationCode": null,
-      "notes": null
+      "notes": "Theme demonstration content is unrelated to Nodics documentation."
     },
     {
       "evidenceId": "wordpress:page:36",
@@ -5636,10 +5636,10 @@
       "currentRoute": "/legacy/direction",
       "contentHash": "797894aafe7280f7535f8cbda8d5b9f931922166c5100a18b6fbd49b7de83a1b",
       "suggestedCapability": null,
-      "reviewStatus": "pending",
-      "disposition": null,
+      "reviewStatus": "reviewed",
+      "disposition": "reject",
       "destinationCode": null,
-      "notes": null
+      "notes": "Theme demonstration content is unrelated to Nodics documentation."
     },
     {
       "evidenceId": "wordpress:page:37",
@@ -5649,10 +5649,10 @@
       "currentRoute": "/legacy/coffee-cups",
       "contentHash": "1349e6268dc473951e5debc34f764dedd8c3a50a1a9ed0a684e4b451aaadb020",
       "suggestedCapability": null,
-      "reviewStatus": "pending",
-      "disposition": null,
+      "reviewStatus": "reviewed",
+      "disposition": "reject",
       "destinationCode": null,
-      "notes": null
+      "notes": "Theme demonstration content is unrelated to Nodics documentation."
     },
     {
       "evidenceId": "wordpress:page:43",
@@ -5662,10 +5662,10 @@
       "currentRoute": "/legacy/database-update",
       "contentHash": "797894aafe7280f7535f8cbda8d5b9f931922166c5100a18b6fbd49b7de83a1b",
       "suggestedCapability": "persistence",
-      "reviewStatus": "pending",
-      "disposition": null,
+      "reviewStatus": "reviewed",
+      "disposition": "archive",
       "destinationCode": null,
-      "notes": null
+      "notes": "Historical page has no verified current database-update guidance."
     },
     {
       "evidenceId": "wordpress:post:1",
@@ -5675,10 +5675,10 @@
       "currentRoute": "/legacy/hello-world",
       "contentHash": "7878a5827cf33686ca147a522a31b5dc865f8387ee7939c2c1a57e07a02d8b58",
       "suggestedCapability": null,
-      "reviewStatus": "pending",
-      "disposition": null,
+      "reviewStatus": "reviewed",
+      "disposition": "reject",
       "destinationCode": null,
-      "notes": null
+      "notes": "Default WordPress sample content."
     },
     {
       "evidenceId": "wordpress:post:13",
@@ -5688,10 +5688,10 @@
       "currentRoute": "/legacy/professional-code-is-core-power",
       "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "suggestedCapability": "services-facades",
-      "reviewStatus": "pending",
-      "disposition": null,
-      "destinationCode": null,
-      "notes": null
+      "reviewStatus": "reviewed",
+      "disposition": "merge",
+      "destinationCode": "framework.architecture",
+      "notes": "Recover historical modular-service positioning without preserving outdated product claims."
     },
     {
       "evidenceId": "wordpress:post:23",
@@ -5701,10 +5701,10 @@
       "currentRoute": "/legacy/sara-jones",
       "contentHash": "8ecd79c1ba356c54a6efd4fadb46538287c8ba56ce26488fa6be2ab32b5e6fcf",
       "suggestedCapability": null,
-      "reviewStatus": "pending",
-      "disposition": null,
+      "reviewStatus": "reviewed",
+      "disposition": "reject",
       "destinationCode": null,
-      "notes": null
+      "notes": "Theme demonstration content."
     },
     {
       "evidenceId": "wordpress:post:28",
@@ -5714,10 +5714,10 @@
       "currentRoute": "/legacy/jack-doe",
       "contentHash": "ecdca3c96958b60b2ce696ca7dfaa21816dd247395d0cb76ee779751fdfcccf4",
       "suggestedCapability": null,
-      "reviewStatus": "pending",
-      "disposition": null,
+      "reviewStatus": "reviewed",
+      "disposition": "reject",
       "destinationCode": null,
-      "notes": null
+      "notes": "Theme demonstration content."
     },
     {
       "evidenceId": "wordpress:post:29",
@@ -5727,10 +5727,10 @@
       "currentRoute": "/legacy/jennifer-doe",
       "contentHash": "6f771f9098395bcd9a12c94bb7fa2b691c2eda07078e772ca016cde55e887daa",
       "suggestedCapability": null,
-      "reviewStatus": "pending",
-      "disposition": null,
+      "reviewStatus": "reviewed",
+      "disposition": "reject",
       "destinationCode": null,
-      "notes": null
+      "notes": "Theme demonstration content."
     },
     {
       "evidenceId": "wordpress:post:47",
@@ -5740,10 +5740,10 @@
       "currentRoute": "/legacy/melissa-doe",
       "contentHash": "ce1320ef0290386788b232a4d08727589e62eeb12386ff8c82652b235a21010e",
       "suggestedCapability": null,
-      "reviewStatus": "pending",
-      "disposition": null,
+      "reviewStatus": "reviewed",
+      "disposition": "reject",
       "destinationCode": null,
-      "notes": null
+      "notes": "Generic technology post is not Nodics product documentation."
     },
     {
       "evidenceId": "wordpress:post:48",
@@ -5753,10 +5753,10 @@
       "currentRoute": "/legacy/robert-paul",
       "contentHash": "a1c2448f85da22ab18d05f8645841e36a34018d103ec58b0445a36a6dcf2f152",
       "suggestedCapability": null,
-      "reviewStatus": "pending",
-      "disposition": null,
+      "reviewStatus": "reviewed",
+      "disposition": "reject",
       "destinationCode": null,
-      "notes": null
+      "notes": "Generic technology post is not Nodics product documentation."
     },
     {
       "evidenceId": "wordpress:post:49",
@@ -5766,10 +5766,10 @@
       "currentRoute": "/legacy/victoria-joe",
       "contentHash": "8d00a09b90da36ca52f3841da5c6e1388bd70b5d32f254418c5889051b2f1d08",
       "suggestedCapability": null,
-      "reviewStatus": "pending",
-      "disposition": null,
+      "reviewStatus": "reviewed",
+      "disposition": "reject",
       "destinationCode": null,
-      "notes": null
+      "notes": "Generic technology post is not Nodics product documentation."
     },
     {
       "evidenceId": "wordpress:post:58",
@@ -5779,10 +5779,10 @@
       "currentRoute": "/legacy/creative-design",
       "contentHash": "03ea47966b46ed02bdf53fa408eeff98ecf931f1f5393edc604caba2570b2e91",
       "suggestedCapability": null,
-      "reviewStatus": "pending",
-      "disposition": null,
+      "reviewStatus": "reviewed",
+      "disposition": "reject",
       "destinationCode": null,
-      "notes": null
+      "notes": "Theme demonstration content."
     },
     {
       "evidenceId": "wordpress:post:62",
@@ -5792,10 +5792,10 @@
       "currentRoute": "/legacy/room-light",
       "contentHash": "03ea47966b46ed02bdf53fa408eeff98ecf931f1f5393edc604caba2570b2e91",
       "suggestedCapability": null,
-      "reviewStatus": "pending",
-      "disposition": null,
+      "reviewStatus": "reviewed",
+      "disposition": "reject",
       "destinationCode": null,
-      "notes": null
+      "notes": "Theme demonstration content."
     },
     {
       "evidenceId": "wordpress:post:65",
@@ -5805,10 +5805,10 @@
       "currentRoute": "/legacy/ios-apps",
       "contentHash": "03ea47966b46ed02bdf53fa408eeff98ecf931f1f5393edc604caba2570b2e91",
       "suggestedCapability": null,
-      "reviewStatus": "pending",
-      "disposition": null,
+      "reviewStatus": "reviewed",
+      "disposition": "reject",
       "destinationCode": null,
-      "notes": null
+      "notes": "Theme demonstration content."
     },
     {
       "evidenceId": "wordpress:post:68",
@@ -5818,10 +5818,10 @@
       "currentRoute": "/legacy/design-logo",
       "contentHash": "03ea47966b46ed02bdf53fa408eeff98ecf931f1f5393edc604caba2570b2e91",
       "suggestedCapability": null,
-      "reviewStatus": "pending",
-      "disposition": null,
+      "reviewStatus": "reviewed",
+      "disposition": "reject",
       "destinationCode": null,
-      "notes": null
+      "notes": "Theme demonstration content."
     },
     {
       "evidenceId": "wordpress:post:71",
@@ -5831,10 +5831,10 @@
       "currentRoute": "/legacy/wallpaper",
       "contentHash": "03ea47966b46ed02bdf53fa408eeff98ecf931f1f5393edc604caba2570b2e91",
       "suggestedCapability": null,
-      "reviewStatus": "pending",
-      "disposition": null,
+      "reviewStatus": "reviewed",
+      "disposition": "reject",
       "destinationCode": null,
-      "notes": null
+      "notes": "Theme demonstration content."
     },
     {
       "evidenceId": "wordpress:post:81",
@@ -5844,10 +5844,10 @@
       "currentRoute": "/legacy/tips-for-staying-creative",
       "contentHash": "f2393d28ad27005d0470065f445e7c41ac07baeb0cae36144251a8d3af958c58",
       "suggestedCapability": null,
-      "reviewStatus": "pending",
-      "disposition": null,
+      "reviewStatus": "reviewed",
+      "disposition": "reject",
       "destinationCode": null,
-      "notes": null
+      "notes": "Theme demonstration content."
     }
   ]
 }

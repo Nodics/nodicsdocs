@@ -39,6 +39,7 @@ function suggestedCapability(entry, taxonomy) {
 
 function main() {
     const taxonomy = readJson('source/navigation-taxonomy.json');
+    const canonicalPages = readJson('source/canonical-pages.json');
     const decisions = readJson('source/migration-decisions.json');
     const wordpress = readJson('manifest/wordpress-reference.json');
     const articles = walkFiles(
@@ -48,6 +49,40 @@ function main() {
     const decisionByEvidence = new Map(
         decisions.decisions.map(decision => [decision.evidenceId, decision])
     );
+    const sectionSet = new Set(taxonomy.sections.map(section => section.code));
+    const capabilitySet = new Set(taxonomy.capabilities.map(capability => capability.code));
+    const pageFamilySet = new Set(taxonomy.pageFamilies);
+    const canonicalPageCodes = canonicalPages.pages.map(page => page.code);
+    if (new Set(canonicalPageCodes).size !== canonicalPageCodes.length) {
+        throw new Error('Duplicate canonical page code');
+    }
+    canonicalPages.pages.forEach(page => {
+        if (!sectionSet.has(page.section)) throw new Error(`Unknown section for ${page.code}`);
+        if (page.capability && !capabilitySet.has(page.capability)) {
+            throw new Error(`Unknown capability for ${page.code}`);
+        }
+        if (!pageFamilySet.has(page.family)) throw new Error(`Unknown page family for ${page.code}`);
+    });
+    if (decisionByEvidence.size !== decisions.decisions.length) {
+        throw new Error('Duplicate migration decision evidenceId');
+    }
+    const dispositionSet = new Set(taxonomy.dispositions);
+    const destinationSet = new Set(canonicalPageCodes);
+    decisions.decisions.forEach(decision => {
+        if (!dispositionSet.has(decision.disposition)) {
+            throw new Error(`Unsupported disposition for ${decision.evidenceId}`);
+        }
+        if (decision.destinationCode && !destinationSet.has(decision.destinationCode)) {
+            throw new Error(`Unknown destination ${decision.destinationCode} for ${decision.evidenceId}`);
+        }
+        if (['retain', 'merge', 'rewrite'].includes(decision.disposition) && !decision.destinationCode) {
+            throw new Error(`Destination required for ${decision.evidenceId}`);
+        }
+        if (['archive', 'reject'].includes(decision.disposition) && decision.destinationCode) {
+            throw new Error(`Destination is not allowed for ${decision.evidenceId}`);
+        }
+        if (!decision.notes) throw new Error(`Missing decision notes for ${decision.evidenceId}`);
+    });
     const evidence = articles.map(article => ({
         evidenceId: `nodics:${article.source.path}`,
         sourceType: article.source.type,

@@ -11,6 +11,9 @@ const root = path.resolve(__dirname, '..');
 const taxonomy = JSON.parse(
     fs.readFileSync(path.join(root, 'source', 'navigation-taxonomy.json'), 'utf8')
 );
+const canonicalPages = JSON.parse(
+    fs.readFileSync(path.join(root, 'source', 'canonical-pages.json'), 'utf8')
+);
 const register = JSON.parse(
     fs.readFileSync(path.join(root, 'manifest', 'migration-register.json'), 'utf8')
 );
@@ -39,6 +42,19 @@ test('migration register accounts for every discovered source', () => {
         register.entries.length
     );
     assert.deepEqual(register.review.unknownDecisionIds, []);
+});
+
+test('reviewed destinations use canonical capability-first page identities', () => {
+    const destinationCodes = new Set(canonicalPages.pages.map(page => page.code));
+    const reviewed = register.entries.filter(entry => entry.reviewStatus === 'reviewed');
+    assert.equal(reviewed.length, 81);
+    reviewed.filter(entry => entry.destinationCode).forEach(entry => {
+        assert.equal(destinationCodes.has(entry.destinationCode), true, entry.evidenceId);
+    });
+    assert.equal(
+        canonicalPages.pages.some(page => /^n[A-Z]/.test(page.title)),
+        false
+    );
 });
 
 test('capability suggestions are advisory and reproducible', () => {
