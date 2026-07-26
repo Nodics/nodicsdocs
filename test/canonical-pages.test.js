@@ -289,3 +289,27 @@ test('AI journey preserves provider, data, tool, workflow, and cost authorities'
     assert.match(serialized('capability.ai.agentic-processes'), /target module independently authorizes/i);
     assert.match(serialized('capability.ai.partner-customization'), /own Axis\/assistant deployment/i);
 });
+
+test('business solution guides preserve domain ownership and deployment boundaries', () => {
+    const byCode = new Map(pages.map(page => [page.code, page]));
+    [
+        'solution.data-as-service.overview',
+        'solution.backoffice.schema-workbench',
+        'solution.backoffice.workspace-context',
+        'solution.backoffice.technical-reference',
+        'solution.learning-assessment.technical-reference',
+        'solution.customer-reviews.technical-reference',
+        'solution.kyc.technical-reference'
+    ].forEach(code => assert.equal(byCode.has(code), true, code));
+
+    const serialized = code => JSON.stringify(byCode.get(code));
+    assert.match(serialized('solution.data-as-service.overview'), /not an unrestricted database endpoint/i);
+    assert.match(serialized('solution.backoffice.schema-workbench'), /owning module CRUD\/search APIs/i);
+    assert.match(serialized('solution.backoffice.schema-workbench'), /cross-module relationships/i);
+    assert.match(serialized('solution.backoffice.workspace-context'), /One Axis deployment serves one customer project deployment/i);
+    assert.match(serialized('solution.backoffice.technical-reference'), /Registry is persistent logical state plus expiring runtime presence/i);
+    assert.match(serialized('solution.backoffice.technical-reference'), /calls CMS, Profile, CronJob, NEMS, DEAP, Assistant, and other modules directly/i);
+    assert.match(serialized('solution.learning-assessment.technical-reference'), /application curriculum or frontend journeys/i);
+    assert.match(serialized('solution.customer-reviews.technical-reference'), /do not write Product or customer identity records directly/i);
+    assert.match(serialized('solution.kyc.technical-reference'), /Profile remains identity authority/i);
+});
