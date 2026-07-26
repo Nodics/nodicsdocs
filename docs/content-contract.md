@@ -51,6 +51,10 @@ Navigation sequence is explicit data. Generators must not infer the learning
 journey from routes, filenames, alphabetical sorting, module order, or import
 order.
 
+Provider-capable documentation must conform to
+`docs/provider-documentation-standard.md`. Provider maturity is evidence-based;
+deterministic tests alone cannot establish production qualification.
+
 During migration, resolvable relative Markdown links are converted to canonical
 `/docs/...` routes. Verification rejects missing target routes, missing heading
 anchors, relative links that escaped canonicalization, and unsafe schemes.

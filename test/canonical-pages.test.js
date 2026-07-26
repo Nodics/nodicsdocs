@@ -62,3 +62,30 @@ test('search journey covers engines, provider extension, lifecycle, import, expo
     assert.match(serialized('capability.search-indexing.import-export'), /nExport/);
     assert.match(serialized('capability.search-indexing.operations'), /production qualification/i);
 });
+
+test('provider documentation standard governs every external adapter family', () => {
+    const standard = fs.readFileSync(
+        path.join(root, 'docs', 'provider-documentation-standard.md'),
+        'utf8'
+    );
+    [
+        'database',
+        'cache',
+        'search',
+        'messaging',
+        'AI',
+        'storage',
+        'identity',
+        'notification',
+        'payment'
+    ].forEach(capability => assert.match(standard, new RegExp(capability, 'i')));
+    [
+        'provider-neutral',
+        'Prebuilt providers',
+        'Building a provider',
+        'Lifecycle and resilience',
+        'Import and export interaction',
+        'Cross-capability assessment',
+        'Operations and verification'
+    ].forEach(section => assert.match(standard, new RegExp(section, 'i')));
+});

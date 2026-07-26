@@ -42,6 +42,11 @@ environment URLs, Git operations, or another import engine here.
   article is approved.
 - Follow `docs/information-architecture.md` and
   `docs/migration-and-retirement-policy.md` for all migration work.
+- Every external-provider capability must follow
+  `docs/provider-documentation-standard.md`. Document provider-neutral
+  ownership, prebuilt adapters and maturity, selection, how to add a provider,
+  lifecycle, import/export and cross-capability interaction, operations, and
+  verification. Record why an inapplicable section does not apply.
 
 ## Safety and compatibility
 
