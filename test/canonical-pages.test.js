@@ -192,3 +192,24 @@ test('provider-integrated pages preserve maturity and cross-capability truth', (
         });
     });
 });
+
+test('application execution journey preserves layer ownership and end-to-end contracts', () => {
+    const byCode = new Map(pages.map(page => [page.code, page]));
+    [
+        'capability.services-facades.overview', 'capability.services-facades.runtime',
+        'capability.services-facades.technical-reference', 'capability.apis-routing.overview',
+        'capability.apis-routing.runtime', 'capability.apis-routing.technical-reference',
+        'capability.execution-processes.overview', 'capability.execution-processes.runtime',
+        'capability.execution-processes.technical-reference', 'capability.libraries-utilities.overview',
+        'capability.libraries-utilities.runtime', 'capability.libraries-utilities.technical-reference',
+        'capability.status-errors.overview', 'capability.status-errors.runtime',
+        'capability.status-errors.technical-reference'
+    ].forEach(code => assert.equal(byCode.has(code), true, code));
+
+    const serialized = code => JSON.stringify(byCode.get(code));
+    assert.match(serialized('capability.services-facades.runtime'), /human login separate from service identity/i);
+    assert.match(serialized('capability.apis-routing.runtime'), /authTokenTypes/);
+    assert.match(serialized('capability.execution-processes.overview'), /durable business processes belong to workflow/i);
+    assert.match(serialized('capability.libraries-utilities.overview'), /second utility, enum, error, or status registry/i);
+    assert.match(serialized('capability.status-errors.runtime'), /public responses expose only allowlisted fields/i);
+});
