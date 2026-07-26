@@ -36,6 +36,7 @@ const allowedDepths = new Set(['overview', 'guided', 'implementation', 'referenc
 duplicates(pages.map(page => page.code)).forEach(code => errors.push(`Duplicate canonical page code: ${code}`));
 duplicates(pages.map(page => page.route)).forEach(route => errors.push(`Duplicate canonical route: ${route}`));
 const pageByRoute = new Map(pages.map(page => [page.route, page]));
+const pageByCode = new Map(pages.map(page => [page.code, page]));
 const siblingOrder = new Set();
 
 pages.forEach(page => {
@@ -47,7 +48,11 @@ pages.forEach(page => {
     if (page.section !== registered.section) errors.push(`Section mismatch: ${page.code}`);
     if (page.family !== registered.family) errors.push(`Page-family mismatch: ${page.code}`);
     if (!page.route?.startsWith('/docs/')) errors.push(`Invalid canonical route: ${page.code}`);
-    if (page.parent !== `section:${page.section}`) errors.push(`Invalid parent: ${page.code}`);
+    const sectionParent = page.parent === `section:${page.section}`;
+    const pageParentCode = page.parent?.startsWith('page:') ? page.parent.slice(5) : null;
+    if (!sectionParent && (!pageParentCode || !pageByCode.has(pageParentCode))) {
+        errors.push(`Invalid parent: ${page.code}`);
+    }
     if (!Number.isInteger(page.order) || page.order <= 0) errors.push(`Invalid order: ${page.code}`);
     const siblingKey = `${page.parent}:${page.order}`;
     if (siblingOrder.has(siblingKey)) errors.push(`Duplicate sibling order: ${siblingKey}`);
@@ -62,14 +67,23 @@ pages.forEach(page => {
     }
     if (page.status !== 'implemented') errors.push(`Non-implemented public page: ${page.code}`);
     if (!/^\d{4}-\d{2}-\d{2}$/.test(page.lastVerified)) errors.push(`Invalid verification date: ${page.code}`);
-    if (!Array.isArray(page.evidence) || page.evidence.length === 0) {
+    const directEvidence = Array.isArray(page.evidence) ? page.evidence : [];
+    const supportingEvidence = Array.isArray(page.supportingEvidence) ? page.supportingEvidence : [];
+    if (directEvidence.length + supportingEvidence.length === 0) {
         errors.push(`Missing evidence: ${page.code}`);
     } else {
-        page.evidence.forEach(evidenceId => {
+        directEvidence.forEach(evidenceId => {
             const evidence = migrationById.get(evidenceId);
             if (!evidence) errors.push(`Unknown evidence ${evidenceId}: ${page.code}`);
             else if (evidence.destinationCode !== page.code) {
                 errors.push(`Evidence destination mismatch ${evidenceId}: ${page.code}`);
+            }
+        });
+        supportingEvidence.forEach(evidenceId => {
+            const evidence = migrationById.get(evidenceId);
+            if (!evidence) errors.push(`Unknown supporting evidence ${evidenceId}: ${page.code}`);
+            else if (['archive', 'reject'].includes(evidence.disposition)) {
+                errors.push(`Unusable supporting evidence ${evidenceId}: ${page.code}`);
             }
         });
     }

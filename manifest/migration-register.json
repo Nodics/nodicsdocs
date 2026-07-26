@@ -4361,10 +4361,10 @@
       "contentHash": "b4a54325b2ad568383f011d4f6c2e16e55319421007b74d3529c6bcc6a08beed",
       "suggestedCapability": "configuration",
       "reviewStatus": "reviewed",
-      "reviewAuthority": "reviewed-prefix-rule",
-      "disposition": "merge",
-      "destinationCode": "capability.search-indexing.technical-reference",
-      "notes": "Use search gateway and provider packages as search evidence."
+      "reviewAuthority": "explicit-decision",
+      "disposition": "rewrite",
+      "destinationCode": "capability.search-indexing.prebuilt-engines",
+      "notes": "Document Elasticsearch as the current guarded engine provider and distinguish it from provider-neutral search."
     },
     {
       "evidenceId": "nodics:gFramework/nSearch/README.md",
@@ -4375,10 +4375,10 @@
       "contentHash": "2c223b50c2af69f1d9b80917afa7c915bb2275d4da4f607884cfae7a5ecd9695",
       "suggestedCapability": "search-indexing",
       "reviewStatus": "reviewed",
-      "reviewAuthority": "reviewed-prefix-rule",
-      "disposition": "merge",
-      "destinationCode": "capability.search-indexing.technical-reference",
-      "notes": "Use search gateway and provider packages as search evidence."
+      "reviewAuthority": "explicit-decision",
+      "disposition": "rewrite",
+      "destinationCode": "capability.search-indexing.overview",
+      "notes": "Promote provider-family ownership and maturity into the Search and Indexing hub."
     },
     {
       "evidenceId": "nodics:gFramework/nSearch/search/docs/README.md",
@@ -4403,10 +4403,10 @@
       "contentHash": "e3ebb2aef222a48be7279fce6cdd720b31181be90cdd21a6fff5eebbbaf84f60",
       "suggestedCapability": "search-indexing",
       "reviewStatus": "reviewed",
-      "reviewAuthority": "reviewed-prefix-rule",
-      "disposition": "merge",
-      "destinationCode": "capability.search-indexing.technical-reference",
-      "notes": "Use search gateway and provider packages as search evidence."
+      "reviewAuthority": "explicit-decision",
+      "disposition": "rewrite",
+      "destinationCode": "capability.query-modeling.overview",
+      "notes": "Promote the provider-neutral query and search-model contract into its capability hub."
     },
     {
       "evidenceId": "nodics:gFramework/nService/docs/module-transport-resilience-contract.md",

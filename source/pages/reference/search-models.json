@@ -1,0 +1,42 @@
+{
+  "code": "capability.query-modeling.technical-reference",
+  "title": "Search Model and Query Reference",
+  "route": "/docs/reference/search-models",
+  "section": "reference",
+  "family": "technical-reference",
+  "parent": "page:capability.query-modeling.overview",
+  "order": 90,
+  "audiences": ["developer", "architect", "framework-maintainer", "ai-tool"],
+  "readerIntent": "Locate provider-neutral search ownership, operations, extension points, and verification.",
+  "priorKnowledge": "Understand Nodics modules, schemas, routes, services, and pipelines.",
+  "depth": "reference",
+  "status": "implemented",
+  "owner": "gFramework/nSearch/search",
+  "lastVerified": "2026-07-26",
+  "summary": "The search module owns provider-neutral models, APIs, pipelines, cache policy, fallback semantics, and normalized errors.",
+  "supportingEvidence": [
+    "nodics:gFramework/nSearch/search/README.md",
+    "nodics:gFramework/nSearch/search/docs/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Authoritative source locations",
+      "items": [
+        "Business index declarations: owning module src/search/indexes.js.",
+        "Provider-neutral search capability: gFramework/nSearch/search.",
+        "Engine adapters: sibling provider modules under gFramework/nSearch or later project modules.",
+        "Configuration: layered properties.js and approved secret/runtime governance."
+      ]
+    },
+    {
+      "heading": "Focused verification",
+      "code": [
+        "node gFramework/nSearch/search/test/searchRouteContract.test.js",
+        "node gFramework/nSearch/search/test/searchServicePipelineContract.test.js",
+        "node gFramework/nSearch/search/test/searchControllerRequestMapping.test.js",
+        "node gFramework/nSearch/search/test/searchCachePolicyContract.test.js",
+        "node gFramework/nSearch/search/test/indexerServiceContract.test.js"
+      ]
+    }
+  ]
+}

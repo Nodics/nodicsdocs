@@ -1,0 +1,43 @@
+{
+  "code": "capability.query-modeling.overview",
+  "title": "Search Models and Querying",
+  "route": "/docs/capabilities/search-models",
+  "section": "capabilities",
+  "family": "overview",
+  "parent": "section:capabilities",
+  "order": 50,
+  "audiences": ["business-user", "developer", "architect"],
+  "readerIntent": "Understand how Nodics exposes searchable business data without coupling callers to one search engine.",
+  "priorKnowledge": "Understand the purpose of a Nodics schema and item model.",
+  "depth": "overview",
+  "status": "implemented",
+  "owner": "Nodics provider-neutral search capability",
+  "lastVerified": "2026-07-26",
+  "summary": "Search models describe searchable behavior and normalized operations; configured providers execute engine-specific indexing and queries.",
+  "evidence": ["nodics:gFramework/nSearch/search/README.md"],
+  "sections": [
+    {
+      "heading": "Four different responsibilities",
+      "items": [
+        "The owning business schema defines authoritative records and business rules.",
+        "A source-owned index definition declares what should be searchable.",
+        "The provider-neutral search model exposes normalized index and query operations.",
+        "A configured engine adapter translates those operations to an external engine."
+      ]
+    },
+    {
+      "heading": "Why this separation matters",
+      "paragraphs": [
+        "Business modules should not contain Elasticsearch, OpenSearch, or Solr client calls. They declare searchable intent and call the shared search contract, allowing the engine to change without rewriting business callers."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "links": [
+        {"label": "Learn how search models work", "target": "/docs/capabilities/search-models/concepts"},
+        {"label": "Define searchable data", "target": "/docs/capabilities/search-models/tutorial"},
+        {"label": "Explore search providers", "target": "/docs/capabilities/search-providers"}
+      ]
+    }
+  ]
+}

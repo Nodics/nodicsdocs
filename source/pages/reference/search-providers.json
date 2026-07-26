@@ -1,0 +1,45 @@
+{
+  "code": "capability.search-indexing.technical-reference",
+  "title": "Search and Indexing Implementation Reference",
+  "route": "/docs/reference/search-providers",
+  "section": "reference",
+  "family": "technical-reference",
+  "parent": "page:capability.search-indexing.overview",
+  "order": 90,
+  "audiences": ["developer", "framework-maintainer", "ai-tool"],
+  "readerIntent": "Locate provider-family ownership, configuration, source contracts, and focused tests.",
+  "priorKnowledge": "Understand the search-model and provider architecture.",
+  "depth": "reference",
+  "status": "implemented",
+  "owner": "gFramework/nSearch",
+  "lastVerified": "2026-07-26",
+  "summary": "nSearch owns the family boundary, search owns provider-neutral behavior, and elastic owns Elasticsearch-specific integration.",
+  "supportingEvidence": [
+    "nodics:gFramework/nSearch/README.md",
+    "nodics:gFramework/nSearch/search/README.md",
+    "nodics:gFramework/nSearch/elastic/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Ownership",
+      "items": [
+        "gFramework/nSearch: family ownership and provider selection guidance.",
+        "gFramework/nSearch/search: normalized routes, services, pipelines, models, cache, and errors.",
+        "gFramework/nSearch/elastic: Elasticsearch connection, mappings, operations, and client calls.",
+        "Owning business modules: schemas and src/search/indexes.js definitions.",
+        "Project/environment layers: provider activation and deployment configuration."
+      ]
+    },
+    {
+      "heading": "Focused tests",
+      "code": [
+        "node gFramework/nSearch/search/test/searchRouteContract.test.js",
+        "node gFramework/nSearch/search/test/searchServicePipelineContract.test.js",
+        "node gFramework/nSearch/search/test/searchCachePolicyContract.test.js",
+        "node gFramework/nSearch/search/test/indexerServiceContract.test.js",
+        "node gFramework/nSearch/elastic/test/elasticConnectionHandlerContract.test.js",
+        "node gFramework/nSearch/elastic/test/elasticSearchModelOperationContract.test.js"
+      ]
+    }
+  ]
+}

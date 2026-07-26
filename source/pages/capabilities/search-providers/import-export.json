@@ -1,0 +1,64 @@
+{
+  "code": "capability.search-indexing.import-export",
+  "title": "Search with Data Import and Export",
+  "route": "/docs/capabilities/search-providers/import-export",
+  "section": "capabilities",
+  "family": "runtime-behavior",
+  "parent": "page:capability.search-indexing.overview",
+  "order": 40,
+  "audiences": ["developer", "architect", "operator"],
+  "readerIntent": "Integrate indexing and search-assisted selection with governed data import and export.",
+  "priorKnowledge": "Understand nImport, nExport, authoritative models, and derived indexes.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "nImport, nExport, owning model, and nSearch",
+  "lastVerified": "2026-07-26",
+  "summary": "Import and export remain their own authorities; Search indexes imported records and may assist export selection without replacing authoritative model reads.",
+  "supportingEvidence": [
+    "nodics:gFramework/nData/nImport/README.md",
+    "nodics:gFramework/nData/nExport/README.md",
+    "nodics:gFramework/nSearch/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Import and indexing",
+      "items": [
+        "nImport owns parsing, validation, model persistence, run status, and finalization.",
+        "The owning model remains authoritative after import.",
+        "Search owns document transformation, bulk indexing, refresh, and index diagnostics.",
+        "Choose synchronous or asynchronous indexing explicitly.",
+        "Batch size, concurrency, retry, refresh, and final reconciliation must be configurable.",
+        "Record-level and bulk partial failures must remain correlated with the import run.",
+        "Retries must avoid duplicate documents by using stable identities."
+      ]
+    },
+    {
+      "heading": "Import completion",
+      "paragraphs": [
+        "An import must not be described as fully searchable until its selected indexing policy has completed or clearly reports pending/failed reconciliation. Search must not create a second import pipeline."
+      ]
+    },
+    {
+      "heading": "Export and search",
+      "items": [
+        "nExport owns export selection, authoritative record retrieval, formatting, delivery, and run status.",
+        "Search may identify candidate record identities for complex filters when configuration permits.",
+        "Export should reread authoritative records when completeness or current business state matters.",
+        "Use stable ordering and bounded pagination to prevent missing or duplicated candidates.",
+        "Detect stale-index risk before claiming a complete export.",
+        "A search-results export and a source-of-record business export are different contracts and must be named accordingly."
+      ]
+    },
+    {
+      "heading": "Verification",
+      "items": [
+        "Large bulk import with bounded memory and deterministic batching.",
+        "Partial index failure, retry, duplicate prevention, and reconciliation.",
+        "Export across page boundaries with stable ordering.",
+        "Stale, unavailable, and rebuilding index behavior.",
+        "Tenant, permission, and catalog isolation.",
+        "Normal import/export behavior when search is disabled."
+      ]
+    }
+  ]
+}

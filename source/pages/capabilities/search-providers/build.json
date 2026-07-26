@@ -1,0 +1,65 @@
+{
+  "code": "capability.search-indexing.provider-development",
+  "title": "Build a New Search Provider",
+  "route": "/docs/capabilities/search-providers/build",
+  "section": "capabilities",
+  "family": "configuration-customization",
+  "parent": "page:capability.search-indexing.overview",
+  "order": 20,
+  "audiences": ["developer", "architect", "framework-maintainer", "ai-tool"],
+  "readerIntent": "Implement another search engine without changing provider-neutral callers.",
+  "priorKnowledge": "Understand Nodics layering, provider modules, search models, pipelines, configuration, and tests.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "New provider module with gFramework/nSearch contract",
+  "lastVerified": "2026-07-26",
+  "summary": "A new engine is an adapter module that registers configured connection, schema, indexing, query, lifecycle, diagnostics, and error behavior behind the shared search contract.",
+  "supportingEvidence": [
+    "nodics:gFramework/nSearch/README.md",
+    "nodics:gFramework/nSearch/search/README.md",
+    "nodics:gFramework/nSearch/elastic/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Required module responsibilities",
+      "items": [
+        "Declare module metadata, ownership, dependencies, configuration, documentation, AI contracts, and focused tests.",
+        "Register the engine through layered search configuration.",
+        "Own connection creation, health, readiness, close, and unique resource cleanup.",
+        "Translate provider-neutral schema and index definitions to engine mappings.",
+        "Implement normalized get, search, save, bulk, update, remove, refresh, schema, and index operations that the engine supports.",
+        "Normalize provider failures into safe SearchError behavior."
+      ]
+    },
+    {
+      "heading": "Configuration required",
+      "items": [
+        "Engine name and activation.",
+        "Connection and schema handler service names.",
+        "Endpoint aliases and secret references.",
+        "Timeout, retry, backoff, bulk, refresh, and health policy.",
+        "Index naming, alias/version migration, tenant routing, and mapping policy.",
+        "Fallback, cacheability, diagnostics, and lifecycle options."
+      ]
+    },
+    {
+      "heading": "Implementation constraints",
+      "items": [
+        "Do not change business callers or the generic search service for one engine.",
+        "Do not hardcode endpoints, credentials, tenants, or customer index names.",
+        "Preserve tenant/module/schema/index context.",
+        "Keep provider initialization asynchronous and outside high-volume request paths.",
+        "Keep import and export execution owned by nImport and nExport."
+      ]
+    },
+    {
+      "heading": "Qualification",
+      "items": [
+        "Contract tests for activation, disabled behavior, every supported operation, and later-layer overrides.",
+        "Negative tests for invalid configuration, unavailable engine, mapping conflict, query failure, and partial bulk failure.",
+        "Live-provider tests for security, version compatibility, reconnect, recovery, cleanup, capacity, and tenant isolation.",
+        "Regression tests proving normal schema save/update and other providers still work."
+      ]
+    }
+  ]
+}

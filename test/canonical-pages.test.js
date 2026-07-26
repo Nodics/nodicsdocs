@@ -35,3 +35,30 @@ test('canonical pages use capability names and explicit ordered navigation', () 
         assert.equal(page.route.startsWith('/docs/'), true);
     });
 });
+
+test('search journey covers engines, provider extension, lifecycle, import, export, and operations', () => {
+    const byCode = new Map(pages.map(page => [page.code, page]));
+    [
+        'capability.query-modeling.overview',
+        'capability.query-modeling.concepts',
+        'capability.query-modeling.tutorial',
+        'capability.query-modeling.technical-reference',
+        'capability.search-indexing.overview',
+        'capability.search-indexing.prebuilt-engines',
+        'capability.search-indexing.provider-development',
+        'capability.search-indexing.lifecycle',
+        'capability.search-indexing.import-export',
+        'capability.search-indexing.operations',
+        'capability.search-indexing.technical-reference'
+    ].forEach(code => assert.equal(byCode.has(code), true, code));
+
+    const serialized = code => JSON.stringify(byCode.get(code));
+    assert.match(serialized('capability.search-indexing.prebuilt-engines'), /Elasticsearch/);
+    assert.match(serialized('capability.search-indexing.overview'), /OpenSearch/);
+    assert.match(serialized('capability.search-indexing.overview'), /Solr/);
+    assert.match(serialized('capability.search-indexing.provider-development'), /provider module/i);
+    assert.match(serialized('capability.search-indexing.lifecycle'), /reconcil/i);
+    assert.match(serialized('capability.search-indexing.import-export'), /nImport/);
+    assert.match(serialized('capability.search-indexing.import-export'), /nExport/);
+    assert.match(serialized('capability.search-indexing.operations'), /production qualification/i);
+});

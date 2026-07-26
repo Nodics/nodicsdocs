@@ -1,0 +1,60 @@
+{
+  "code": "capability.search-indexing.operations",
+  "title": "Operate and Troubleshoot Search",
+  "route": "/docs/capabilities/search-providers/operations",
+  "section": "capabilities",
+  "family": "operations-security-troubleshooting",
+  "parent": "page:capability.search-indexing.overview",
+  "order": 50,
+  "audiences": ["administrator", "security-reviewer", "operator"],
+  "readerIntent": "Qualify, monitor, recover, and tune a configured search provider.",
+  "priorKnowledge": "Know the selected engine, topology, tenant routing, mappings, and consistency policy.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Configured search provider and deployment operators",
+  "lastVerified": "2026-07-26",
+  "summary": "Production search requires live-provider security, health, capacity, recovery, mapping, and consistency qualification beyond deterministic framework tests.",
+  "supportingEvidence": [
+    "nodics:gFramework/nSearch/README.md",
+    "nodics:gFramework/nSearch/elastic/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Monitor",
+      "items": [
+        "Connection and cluster health.",
+        "Query, indexing, and bulk latency.",
+        "Rejected operations and partial failures.",
+        "Indexing lag and reconciliation results.",
+        "Mapping conflicts and alias migration.",
+        "Index size, shard/replica capacity, and cache effects.",
+        "Safe tenant-aware error and throughput dimensions."
+      ]
+    },
+    {
+      "heading": "Secure",
+      "items": [
+        "Use TLS, authenticated engine access, restricted credentials, and secret governance.",
+        "Keep management endpoints and provider diagnostics out of public routes.",
+        "Preserve tenant routing and authorization before query execution.",
+        "Do not log unrestricted query content, credentials, or raw provider errors."
+      ]
+    },
+    {
+      "heading": "Recover",
+      "items": [
+        "Define reconnect and bounded retry behavior.",
+        "Reconcile the derived index from authoritative records.",
+        "Use versioned indexes and aliases for incompatible mapping migrations.",
+        "Qualify snapshot/restore according to the engine and deployment.",
+        "Test degraded startup, provider outage, reconnect, reindex, rollback, and cleanup."
+      ]
+    },
+    {
+      "heading": "Local versus production",
+      "paragraphs": [
+        "A locally running Elasticsearch instance proves integration mechanics only. Production qualification must cover authentication, encryption, supported versions, capacity, high availability, backup, recovery, monitoring, and incident procedures."
+      ]
+    }
+  ]
+}

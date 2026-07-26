@@ -1,0 +1,50 @@
+{
+  "code": "capability.query-modeling.concepts",
+  "title": "How Search Models and Queries Work",
+  "route": "/docs/capabilities/search-models/concepts",
+  "section": "capabilities",
+  "family": "concepts-architecture",
+  "parent": "page:capability.query-modeling.overview",
+  "order": 10,
+  "audiences": ["developer", "architect", "ai-tool"],
+  "readerIntent": "Understand search-model resolution, query execution, consistency, cache, and tenant boundaries.",
+  "priorKnowledge": "Read Search Models and Querying.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Nodics provider-neutral search capability",
+  "lastVerified": "2026-07-26",
+  "summary": "A search operation resolves tenant, module, schema, and index context before dispatching a normalized operation through the configured provider pipeline.",
+  "supportingEvidence": [
+    "nodics:gFramework/nSearch/search/docs/README.md",
+    "nodics:gFramework/nSearch/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Runtime flow",
+      "items": [
+        "A secured API, service, import process, or internal workflow requests a search operation.",
+        "Nodics resolves the active tenant, owning module, schema model, and index name.",
+        "The provider-neutral service obtains the active search model.",
+        "The operation is dispatched through its search pipeline.",
+        "The configured adapter maps the operation to engine-specific behavior.",
+        "Eligible results use the centralized cacheability policy.",
+        "Failures return through normalized SearchError handling."
+      ]
+    },
+    {
+      "heading": "Supported normalized operations",
+      "items": [
+        "Health, refresh, exists, get, and search.",
+        "Save, bulk, update, remove, and remove by query.",
+        "Get or update schema mappings.",
+        "Create, execute, or remove an index."
+      ]
+    },
+    {
+      "heading": "Consistency",
+      "paragraphs": [
+        "Search is normally a derived view of authoritative records. Each capability must state whether indexing is synchronous or eventually consistent, how lag is detected, and whether a bounded permission-safe database fallback is supported."
+      ]
+    }
+  ]
+}

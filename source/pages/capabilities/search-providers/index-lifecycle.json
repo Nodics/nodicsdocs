@@ -1,0 +1,51 @@
+{
+  "code": "capability.search-indexing.lifecycle",
+  "title": "Search Index Lifecycle",
+  "route": "/docs/capabilities/search-providers/index-lifecycle",
+  "section": "capabilities",
+  "family": "runtime-behavior",
+  "parent": "page:capability.search-indexing.overview",
+  "order": 30,
+  "audiences": ["developer", "architect", "operator"],
+  "readerIntent": "Design and operate index creation, synchronization, evolution, reconciliation, and retirement.",
+  "priorKnowledge": "Understand authoritative schemas and derived search indexes.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Owning business capability, nSearch, and configured provider",
+  "lastVerified": "2026-07-26",
+  "summary": "Indexes are derived projections whose mappings, documents, aliases, and lifecycle must remain reconcilable with authoritative records.",
+  "supportingEvidence": [
+    "nodics:gFramework/nSearch/README.md",
+    "nodics:gFramework/nSearch/elastic/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Lifecycle stages",
+      "items": [
+        "Define index ownership, identity, fields, tenant routing, and refresh policy.",
+        "Create mapping and index or alias structures.",
+        "Populate initial records in bounded batches.",
+        "Apply incremental create, update, and delete changes.",
+        "Detect indexing lag, missing documents, duplicates, and mapping conflicts.",
+        "Reindex into a new version when incompatible mappings change.",
+        "Switch aliases only after validation.",
+        "Retire old indexes through a governed cleanup and rollback window."
+      ]
+    },
+    {
+      "heading": "Failure behavior",
+      "paragraphs": [
+        "A successful database mutation and a failed index mutation must remain observable and reconcilable. Do not report the search projection as authoritative or silently discard partial bulk failures."
+      ]
+    },
+    {
+      "heading": "Schema evolution",
+      "items": [
+        "Classify compatible versus incompatible field changes.",
+        "Version mappings and aliases when in-place updates are unsafe.",
+        "Test old and new query behavior before cutover.",
+        "Preserve tenant isolation and rollback evidence throughout migration."
+      ]
+    }
+  ]
+}

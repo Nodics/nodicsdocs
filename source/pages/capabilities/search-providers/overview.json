@@ -1,0 +1,43 @@
+{
+  "code": "capability.search-indexing.overview",
+  "title": "Search and Indexing Providers",
+  "route": "/docs/capabilities/search-providers",
+  "section": "capabilities",
+  "family": "overview",
+  "parent": "section:capabilities",
+  "order": 150,
+  "audiences": ["evaluator", "developer", "architect", "operator"],
+  "readerIntent": "Understand which search implementations Nodics supplies and how engine adapters remain replaceable.",
+  "priorKnowledge": "Read Search Models and Querying.",
+  "depth": "overview",
+  "status": "implemented",
+  "owner": "gFramework/nSearch",
+  "lastVerified": "2026-07-26",
+  "summary": "Nodics supplies a provider-neutral search capability and a guarded Elasticsearch adapter; additional engines use the same adapter boundary.",
+  "evidence": ["nodics:gFramework/nSearch/README.md"],
+  "sections": [
+    {
+      "heading": "Available implementations",
+      "items": [
+        "search: production-ready provider-neutral schemas, routes, indexing, query, cache, pipeline, and error contracts.",
+        "elastic: guarded Elasticsearch connection and operation adapter requiring live-cluster qualification before production."
+      ]
+    },
+    {
+      "heading": "Not prebuilt",
+      "paragraphs": [
+        "OpenSearch, Solr, and other engines are supported extension directions, not currently documented as prebuilt qualified providers. They require a provider module and the full contract and live-provider verification described here."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "links": [
+        {"label": "Review prebuilt engines", "target": "/docs/capabilities/search-providers/prebuilt"},
+        {"label": "Build a provider", "target": "/docs/capabilities/search-providers/build"},
+        {"label": "Understand index lifecycle", "target": "/docs/capabilities/search-providers/index-lifecycle"},
+        {"label": "Integrate import and export", "target": "/docs/capabilities/search-providers/import-export"},
+        {"label": "Operate search", "target": "/docs/capabilities/search-providers/operations"}
+      ]
+    }
+  ]
+}

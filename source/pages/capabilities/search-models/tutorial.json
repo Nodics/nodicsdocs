@@ -1,0 +1,53 @@
+{
+  "code": "capability.query-modeling.tutorial",
+  "title": "Define and Query Searchable Business Data",
+  "route": "/docs/capabilities/search-models/tutorial",
+  "section": "capabilities",
+  "family": "tutorial-example",
+  "parent": "page:capability.query-modeling.overview",
+  "order": 20,
+  "audiences": ["developer", "ai-tool"],
+  "readerIntent": "Add searchable behavior to an existing business schema through the supported source contracts.",
+  "priorKnowledge": "Know the owning module, schema, permissions, and expected query use cases.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "Owning business module and Nodics search capability",
+  "lastVerified": "2026-07-26",
+  "summary": "Declare index ownership beside the business capability, keep engine options in provider configuration, and verify query and indexing boundaries.",
+  "supportingEvidence": [
+    "nodics:gFramework/nSearch/search/README.md",
+    "nodics:gFramework/nSearch/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Before implementation",
+      "items": [
+        "Identify the authoritative schema and stable record identity.",
+        "List searchable fields, filters, sorting, pagination, and aggregation needs.",
+        "Define tenant, enterprise, catalog, ownership, and permission boundaries.",
+        "Choose indexing triggers, refresh expectations, and outage behavior."
+      ]
+    },
+    {
+      "heading": "Implementation path",
+      "items": [
+        "Add the index definition to the owning module under src/search/indexes.js.",
+        "Keep schema and index field definitions aligned.",
+        "Use provider-neutral search services and secured routes.",
+        "Configure engine endpoints, credentials, aliases, and provider options outside business source.",
+        "Regenerate affected search services, routes, tests, OpenAPI, and AI context."
+      ]
+    },
+    {
+      "heading": "Verification",
+      "items": [
+        "Valid filters, sorting, pagination, and empty results.",
+        "Invalid query shape and unsupported properties.",
+        "Unauthorized and cross-tenant access.",
+        "Create, update, delete, and bulk index synchronization.",
+        "Provider outage, stale data, cache interaction, and recovery.",
+        "Normal schema save and update regression behavior."
+      ]
+    }
+  ]
+}

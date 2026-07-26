@@ -1,6 +1,9 @@
 {
   "contractVersion": 1,
   "decisions": [
+    {"evidenceId":"nodics:gFramework/nSearch/README.md","disposition":"rewrite","destinationCode":"capability.search-indexing.overview","notes":"Promote provider-family ownership and maturity into the Search and Indexing hub."},
+    {"evidenceId":"nodics:gFramework/nSearch/search/README.md","disposition":"rewrite","destinationCode":"capability.query-modeling.overview","notes":"Promote the provider-neutral query and search-model contract into its capability hub."},
+    {"evidenceId":"nodics:gFramework/nSearch/elastic/README.md","disposition":"rewrite","destinationCode":"capability.search-indexing.prebuilt-engines","notes":"Document Elasticsearch as the current guarded engine provider and distinguish it from provider-neutral search."},
     {"evidenceId":"nodics:gDocs/README.md","disposition":"merge","destinationCode":"discover.overview","notes":"Merge entry-point guidance into the canonical documentation home."},
     {"evidenceId":"nodics:gDocs/ai/assistant-provider-and-knowledge-guide.md","disposition":"rewrite","destinationCode":"capability.ai.overview","notes":"Restructure as a capability hub overview and verify implemented provider and knowledge contracts."},
     {"evidenceId":"nodics:gDocs/ai/how-ai-cost-governance-works.md","disposition":"rewrite","destinationCode":"capability.ai.cost-governance","notes":"Retain verified cost-governance behavior in an operator-focused article."},

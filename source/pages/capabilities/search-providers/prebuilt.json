@@ -1,0 +1,43 @@
+{
+  "code": "capability.search-indexing.prebuilt-engines",
+  "title": "Prebuilt Search Engines",
+  "route": "/docs/capabilities/search-providers/prebuilt",
+  "section": "capabilities",
+  "family": "technical-reference",
+  "parent": "page:capability.search-indexing.overview",
+  "order": 10,
+  "audiences": ["developer", "architect", "operator"],
+  "readerIntent": "Select and qualify an available Nodics search implementation.",
+  "priorKnowledge": "Understand the provider-neutral search contract.",
+  "depth": "reference",
+  "status": "implemented",
+  "owner": "gFramework/nSearch",
+  "lastVerified": "2026-07-26",
+  "summary": "The generic search module is the caller contract; Elasticsearch is the current engine-specific adapter.",
+  "evidence": ["nodics:gFramework/nSearch/elastic/README.md"],
+  "sections": [
+    {
+      "heading": "Provider-neutral search",
+      "items": [
+        "Owns secured schema and index routes.",
+        "Owns normalized models, pipelines, errors, cache policy, and fallback rules.",
+        "Must remain free of engine client calls and customer index topology."
+      ]
+    },
+    {
+      "heading": "Elasticsearch adapter",
+      "items": [
+        "Owns connection handling, raw Elastic search-model loading, operation mapping, and client calls.",
+        "Supports health, refresh, exists, get, search, save, bulk, update, remove, remove by query, schema, and index lifecycle operations.",
+        "Normalizes the historical hosts configuration to the client nodes option.",
+        "Is guarded: deterministic tests exist, but each production deployment requires live cluster, security, version, recovery, and performance qualification."
+      ]
+    },
+    {
+      "heading": "Configuration boundary",
+      "paragraphs": [
+        "Endpoints, credentials, index names, aliases, tenant routing, timeouts, retries, refresh, mappings, and engine topology belong to layered configuration or approved secret/runtime governance—not provider-neutral business source."
+      ]
+    }
+  ]
+}
