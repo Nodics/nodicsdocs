@@ -337,3 +337,26 @@ test('build guides preserve layered ownership, generation, documentation, and ve
     assert.match(serialized('build.documentation'), /Temporary plans and action lists stay outside runtime documentation/i);
     assert.match(serialized('build.examples'), /call owning backend modules rather than placing business logic in the browser/i);
 });
+
+test('security guides preserve credential, browser, tenant, ownership, and shared-responsibility boundaries', () => {
+    const byCode = new Map(pages.map(page => [page.code, page]));
+    [
+        'security.identity-access',
+        'security.browser',
+        'security.shared-responsibility',
+        'security.evidence',
+        'capability.identity-access.technical-reference'
+    ].forEach(code => assert.equal(byCode.has(code), true, code));
+
+    const serialized = code => JSON.stringify(byCode.get(code));
+    assert.match(serialized('security.identity-access'), /Service principal.*never signs in with a person's password/i);
+    assert.match(serialized('security.identity-access'), /cannot broaden it/i);
+    assert.match(serialized('security.browser'), /short-lived in-memory employee access tokens/i);
+    assert.match(serialized('security.browser'), /exact allowed Origin/i);
+    assert.match(serialized('security.browser'), /Locking is not logout/i);
+    assert.match(serialized('security.shared-responsibility'), /passing local MonoServer test is not production certification/i);
+    assert.match(serialized('security.evidence'), /absence of evidence is not a pass/i);
+    assert.match(serialized('security.evidence'), /Never capture passwords, API keys, bearer\/refresh tokens/i);
+    assert.match(serialized('capability.identity-access.technical-reference'), /Target module: route permission, schema action\/group access, fields, ownership/i);
+    assert.match(serialized('capability.identity-access.technical-reference'), /Do not add a parallel identity store, token issuer, permission registry, session cache path/i);
+});

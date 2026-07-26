@@ -1,0 +1,55 @@
+{
+  "code": "security.browser",
+  "title": "Secure BackOffice Browser Sessions",
+  "route": "/docs/security/backoffice-browser-sessions",
+  "section": "security",
+  "family": "operations-security-troubleshooting",
+  "parent": "page:capability.identity-security.overview",
+  "order": 60,
+  "audiences": ["administrator", "developer", "architect", "security-reviewer", "operator", "ai-tool"],
+  "readerIntent": "Configure and verify secure Axis employee login, restoration, locking, and logout.",
+  "priorKnowledge": "Understand employee authentication and browser security basics.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Profile owns browser-session security; Axis holds presentation and an in-memory access token",
+  "lastVerified": "2026-07-26",
+  "summary": "Axis uses short-lived in-memory employee access tokens and an optional Profile-owned rotating refresh session in a scoped HttpOnly cookie, protected by exact origins and CSRF proof.",
+  "supportingEvidence": ["nodics:gCore/profile/README.md", "nodics:gFramework/nAuth/README.md", "nodics:gExp/backoffice/README.md"],
+  "sections": [
+    {
+      "heading": "Session flow",
+      "items": [
+        "Employee credentials are submitted only to Profile's browser-authenticate route.",
+        "Profile returns a short-lived employee access token for Axis memory and writes the refresh credential to a scoped HttpOnly cookie that JavaScript cannot read.",
+        "After browser refresh, Axis calls the restore route with credentials enabled and copies the readable CSRF cookie value into X-CSRF-Token.",
+        "Profile verifies the exact allowed Origin, atomically consumes the refresh state, rotates both credentials, and returns only the replacement access token and employee identifier.",
+        "Logout revokes refresh state, expires both cookies, and Axis immediately removes its in-memory access token."
+      ]
+    },
+    {
+      "heading": "Configuration",
+      "items": [
+        "The Profile browser-session facade is disabled by default and must be enabled through layered profileBrowserSession configuration.",
+        "Configure an explicit allowlist of credentialed-CORS origins; a wildcard origin is invalid for credentialed sessions.",
+        "Align the CSRF cookie name with the Axis public runtime setting.",
+        "Require HTTPS and Secure cookies in production; non-Secure cookies are restricted to explicitly allowed loopback HTTP development origins.",
+        "Use a strict shared auth cache with atomic consume and local fallback disabled when more than one process or node can serve the session."
+      ]
+    },
+    {
+      "heading": "Locking is not logout",
+      "paragraphs": [
+        "The Axis idle lock screen hides the workspace and requires the configured re-entry behavior, but it does not silently change Profile token, refresh, revocation, or expiry policy. Security-sensitive environments may configure logout instead of local locking."
+      ]
+    },
+    {
+      "heading": "Threat and verification checklist",
+      "items": [
+        "Wrong password, customer account, inactive/locked employee, missing enterprise, wrong origin, missing/mismatched CSRF, expired cookie, refresh replay, concurrent restore, and revoked session fail safely.",
+        "Only one concurrent refresh succeeds; a replaced or stolen refresh value cannot be replayed.",
+        "Access and refresh credentials never enter localStorage, sessionStorage, URLs, logs, telemetry, CMS content, generated context, or error responses.",
+        "Test page refresh, multi-tab behavior, idle lock, logout, network interruption, Profile restart, shared-cache outage, cookie scope, accessibility, and regression."
+      ]
+    }
+  ]
+}

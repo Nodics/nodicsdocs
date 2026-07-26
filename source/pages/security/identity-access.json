@@ -1,0 +1,60 @@
+{
+  "code": "security.identity-access",
+  "title": "Users, Tenants, and Permissions",
+  "route": "/docs/security/users-tenants-permissions",
+  "section": "security",
+  "family": "concepts-architecture",
+  "parent": "page:capability.identity-security.overview",
+  "order": 50,
+  "audiences": ["business-user", "administrator", "developer", "architect", "security-reviewer", "ai-tool"],
+  "readerIntent": "Understand how Nodics represents people, organizations, non-human callers, and access without requiring source-code knowledge.",
+  "priorKnowledge": "No technical knowledge is required.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "Profile identity records, nAuth credential security, and authorization in each target module",
+  "lastVerified": "2026-07-26",
+  "summary": "Nodics separates tenant and enterprise context, employee and customer identities, service principals, groups, permissions, record ownership, and target-module policy so every caller receives only the intended access.",
+  "supportingEvidence": ["nodics:gCore/profile/README.md", "nodics:gFramework/nAuth/README.md", "nodics:gFramework/nRouter/README.md"],
+  "sections": [
+    {
+      "heading": "Business model",
+      "items": [
+        "Tenant is the isolation and configuration boundary for an application deployment.",
+        "Enterprise represents a governed organization inside the supported tenant model; parent enterprise relationships may express business hierarchy.",
+        "Employee is a human permitted to use business and BackOffice capabilities.",
+        "Customer is a human consumer whose access is normally constrained to owned records and consumer operations.",
+        "Service principal represents a module, integration, or controlled scheduled process and never signs in with a person's password."
+      ]
+    },
+    {
+      "heading": "How access is decided",
+      "items": [
+        "Authentication proves the principal and credential are currently trusted.",
+        "Token type and audience prevent human, customer, and service credentials from becoming interchangeable.",
+        "Groups compose catalogued permissions through validated, active, acyclic inheritance.",
+        "The target route checks exposure, token class, permission, and tenant context.",
+        "The target schema and service check action, fields, ownership, relationships, and business state.",
+        "A caller may narrow trusted context but cannot broaden it by sending different tenant, enterprise, owner, or relationship values."
+      ]
+    },
+    {
+      "heading": "Administrative guidance",
+      "items": [
+        "Grant the smallest groups and permissions needed for a role.",
+        "Keep customer registration from accepting privileged groups, permissions, API keys, or service-only state.",
+        "Use user-friendly names in administrative interfaces while preserving stable codes for contracts.",
+        "Review inactive users, inherited access, service credentials, cross-tenant permissions, and security-stamp invalidation regularly.",
+        "Use governed migration, audit, rotation, and rollback for identity-policy changes."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "items": [
+        "[Authentication and Session Lifecycle](/docs/capabilities/identity-security/authentication)",
+        "[Authorization and Ownership](/docs/capabilities/identity-security/authorization)",
+        "[Tenants, Enterprises, and Identity Models](/docs/capabilities/identity-security/tenancy)",
+        "[Identity and Access Implementation Reference](/docs/reference/identity-access)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "code": "capability.identity-access.technical-reference",
+  "title": "Identity and Access Implementation Reference",
+  "route": "/docs/reference/identity-access",
+  "section": "reference",
+  "family": "technical-reference",
+  "parent": "page:capability.identity-security.overview",
+  "order": 100,
+  "audiences": ["developer", "architect", "security-reviewer", "operator", "framework-maintainer", "ai-tool"],
+  "readerIntent": "Locate identity, authentication, authorization, browser-session, migration, and extension responsibilities precisely.",
+  "priorKnowledge": "Read the identity-security journey.",
+  "depth": "reference",
+  "status": "implemented",
+  "owner": "Profile, nAuth, nToken, nRouter, nCache, and each target module according to responsibility",
+  "lastVerified": "2026-07-26",
+  "summary": "Profile owns persisted identity and tenancy; nAuth owns reusable authentication security; nToken owns generic token mechanics; nRouter applies route policy; nCache supplies strict shared state; target modules own operation and data authorization.",
+  "supportingEvidence": ["nodics:gCore/profile/README.md", "nodics:gFramework/nAuth/README.md", "nodics:gFramework/nToken/README.md", "nodics:gFramework/nRouter/README.md", "nodics:gFramework/nCache/README.md"],
+  "sections": [
+    {
+      "heading": "Authority map",
+      "items": [
+        "Profile: tenants, enterprises, people, employees, customers, service principals, groups, credentials, contacts, addresses, authentication state, browser-session facade, identity bootstrap, and governed identity migration.",
+        "nAuth: JWT security, API-key digest policy, service-token issuance, security stamps, principal/group governance configuration, strict auth activation, and reusable authentication contracts.",
+        "nToken: generic token mechanics; it does not own persisted people or business authorization.",
+        "nRouter: route exposure, token-type restrictions through authTokenTypes, permissions, tenant resolution, request pipeline, controller dispatch, and response handling.",
+        "nCache: provider-neutral shared authentication-state operations including atomic consume; strict modular deployments require a qualified distributed engine and disabled local fallback.",
+        "Target module: route permission, schema action/group access, fields, ownership, relationships, business validation, audit, and data."
+      ]
+    },
+    {
+      "heading": "Configuration and extension",
+      "items": [
+        "Configure JWT issuer, audience, algorithms, lifetimes, secret, API-key pepper, service-token permission, security stamps, identity governance, bootstrap identity, strict cache channel, and browser sessions through the layered properties/runtime contracts.",
+        "Reusable Profile schema policies live under schemaPolicies.profile; identity principal, registration, groups, permission catalog, migration, and separation-of-duties rules remain named configurable contributions.",
+        "Project modules extend configuration and owned schemas/services in later layers; never embed project group names in framework routes or closure constants inside schemas.",
+        "Use authTokenTypes to make a route service-only or otherwise explicitly constrain accepted authenticated token classes.",
+        "Do not add a parallel identity store, token issuer, permission registry, session cache path, browser refresh implementation, or database access path."
+      ]
+    },
+    {
+      "heading": "Browser endpoints",
+      "items": [
+        "POST /nodics/profile/v0/employee/browser/authenticate",
+        "POST /nodics/profile/v0/employee/browser/restore",
+        "POST /nodics/profile/v0/employee/browser/logout",
+        "Access tokens stay in client memory; refresh credentials stay in scoped HttpOnly cookies; restore/logout require exact allowed Origin and CSRF proof."
+      ]
+    },
+    {
+      "heading": "Lifecycle and failure",
+      "items": [
+        "Username/password login resolves enterprise/tenant before credential validation but is separate from secured module-to-module token retrieval.",
+        "Principal/password/group changes advance security stamps and invalidate affected human and service tokens through shared tenant-scoped state.",
+        "Group inheritance must be active, acyclic, and limited to catalogued permissions; descendant membership changes invalidate impacted sessions.",
+        "Fail closed on missing/weak secrets, missing tenant, untrusted stamp state, invalid scope/audience/type, permission denial, unavailable atomic consume, or unsafe local fallback.",
+        "Identity migration uses permissioned preview, apply, repeat, fail, and rollback with redacted audit; rollback never restores plaintext credentials."
+      ]
+    },
+    {
+      "heading": "Verification",
+      "items": [
+        "Run focused Profile and nAuth contracts, the auth P2 suite, and the required live Redis release gate for production qualification.",
+        "Cover positive, negative, boundary, contract, integration, distributed-race, security, performance, provider outage, recovery, upgrade, and regression behavior.",
+        "Verify customer registration cannot assign privileged groups/permissions/API keys, service-only routes reject human tokens, tenant boundaries hold across modules, browser refresh is single-use, and logs/audit remain credential-free."
+      ]
+    }
+  ]
+}

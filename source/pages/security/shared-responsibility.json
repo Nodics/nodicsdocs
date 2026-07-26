@@ -1,0 +1,58 @@
+{
+  "code": "security.shared-responsibility",
+  "title": "Security Shared-Responsibility Model",
+  "route": "/docs/security/shared-responsibility",
+  "section": "security",
+  "family": "business-value",
+  "parent": "page:capability.identity-security.overview",
+  "order": 70,
+  "audiences": ["evaluator", "business-user", "administrator", "developer", "architect", "security-reviewer", "operator"],
+  "readerIntent": "Understand which security controls Nodics provides and which controls remain with the deploying organization, partner, and operator.",
+  "priorKnowledge": "No technical knowledge is required.",
+  "depth": "overview",
+  "status": "implemented",
+  "owner": "Shared across Nodics capability owners, customer projects, deployment operators, cloud/provider controls, and business governance",
+  "lastVerified": "2026-07-26",
+  "summary": "Nodics provides security contracts and fail-closed controls, while every deployment remains responsible for correct configuration, infrastructure, access governance, monitoring, evidence, legal obligations, and incident response.",
+  "supportingEvidence": ["nodics:gFramework/nAuth/README.md", "nodics:gCore/profile/README.md", "nodics:gFramework/nRouter/README.md", "nodics:gFramework/nDynamo/README.md"],
+  "sections": [
+    {
+      "heading": "Nodics provides",
+      "items": [
+        "Separate human, customer, service, scheduled-process, API-key, and refresh-session credential contracts.",
+        "Tenant-aware authentication, token class/audience, permission, route exposure, schema action, field masking, record ownership, validation, and audit extension points.",
+        "Layered configuration and customization without requiring customer-specific framework forks.",
+        "Governed runtime preview, approval, activation, audit, and rollback for eligible policies.",
+        "Provider-neutral contracts, safe errors, observability dimensions, migration controls, and verification suites."
+      ]
+    },
+    {
+      "heading": "Customer and implementation partner responsibilities",
+      "items": [
+        "Classify data and threats; design tenants, enterprises, roles, permissions, ownership, retention, residency, consent, and regulatory controls.",
+        "Keep customer business rules in project modules and preserve Nodics authority boundaries when customizing.",
+        "Review third-party libraries and providers, qualify integrations, protect credentials, and maintain secure dependency/update practices.",
+        "Test project-specific authorization, abuse cases, privacy, workflows, data movement, clients, and integrations.",
+        "Maintain accurate end-user, administrator, developer, security, and recovery documentation."
+      ]
+    },
+    {
+      "heading": "Deployment and operations responsibilities",
+      "items": [
+        "Provide supported runtime versions, TLS, certificates, DNS, network segmentation, gateway/WAF/rate limits, secret management, encryption keys, provider hardening, backups, restore, and disaster recovery.",
+        "Configure strong secrets, strict distributed session state, exact browser origins, secure cookies, least privilege, disabled unnecessary exposure, and production-safe compatibility settings.",
+        "Monitor, alert, retain audit evidence, review access, rotate credentials, patch dependencies, rehearse recovery, and operate incident response.",
+        "Validate the real production-like topology and providers; a passing local MonoServer test is not production certification."
+      ]
+    },
+    {
+      "heading": "Decision-maker questions",
+      "items": [
+        "Who owns each dataset, access decision, provider, deployment, and incident?",
+        "Which evidence demonstrates tenant isolation, least privilege, resilience, recovery, privacy, and regulatory compliance?",
+        "Which compatibility or local-development exceptions remain enabled, and who approved their removal plan?",
+        "How quickly can credentials be revoked, affected principals identified, service restored, and customers notified?"
+      ]
+    }
+  ]
+}

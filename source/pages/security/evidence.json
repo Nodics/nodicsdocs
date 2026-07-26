@@ -1,0 +1,56 @@
+{
+  "code": "security.evidence",
+  "title": "Security Evidence Guide",
+  "route": "/docs/security/evidence",
+  "section": "security",
+  "family": "technical-reference",
+  "parent": "page:capability.identity-security.governance",
+  "order": 80,
+  "audiences": ["administrator", "developer", "architect", "security-reviewer", "operator", "framework-maintainer", "ai-tool"],
+  "readerIntent": "Assemble reviewable evidence that the implemented Nodics deployment enforces its security claims.",
+  "priorKnowledge": "Understand the identity-security journey and deployment architecture.",
+  "depth": "reference",
+  "status": "implemented",
+  "owner": "Capability teams and deployment operators; evidence does not replace target-module authority",
+  "lastVerified": "2026-07-26",
+  "summary": "Security evidence connects requirements to configuration, code contracts, tests, deployment state, monitoring, recovery, approvals, and known limitations without exposing secrets or sensitive data.",
+  "supportingEvidence": ["nodics:gFramework/nAuth/README.md", "nodics:gCore/profile/README.md", "nodics:gFramework/nRouter/README.md", "nodics:gFramework/nDynamo/README.md"],
+  "sections": [
+    {
+      "heading": "Evidence package",
+      "items": [
+        "Scope: deployment, version, environment class, modules, topology, tenants, data classifications, providers, clients, trust boundaries, and exclusions.",
+        "Control map: requirement, threat, owner, authoritative configuration/source contract, test, runtime signal, recovery procedure, and approval.",
+        "Configuration proof: redacted effective security settings, exposure, origins, cookie policy, token lifetimes/audiences, permissions, provider capabilities, local-fallback state, and compatibility exceptions.",
+        "Test proof: exact commands, versions, environment assumptions, results, timestamps, negative/boundary cases, live-provider qualification, and unresolved limitations.",
+        "Operational proof: dashboards, alerts, safe audit samples, access reviews, credential rotation, backups/restores, incident exercises, capacity/load evidence, and change approvals."
+      ]
+    },
+    {
+      "heading": "Minimum identity and API cases",
+      "items": [
+        "Valid login/access plus wrong password, inactive/locked principal, missing identity, expired/invalid token, audience/token-class mismatch, and revoked/security-stamp mismatch.",
+        "Missing permission, inherited permission, ownership, field masking, wrong tenant/enterprise, cross-tenant service-token denial, and service-only route rejection of human credentials.",
+        "Refresh rotation, replay, concurrent consume, CSRF/origin failure, logout, distributed invalidation, and strict-cache outage.",
+        "Unknown/disabled route exposure, invalid inputs and limits, safe status/error response, rate/abuse behavior, audit redaction, and dependency failure."
+      ]
+    },
+    {
+      "heading": "Evidence integrity",
+      "items": [
+        "Never capture passwords, API keys, bearer/refresh tokens, private keys, full cookies, secret values, sensitive payloads, local absolute paths, or unrestricted stack/provider output.",
+        "Use correlation identifiers, safe reason codes, hashes or version identifiers, approved projections, access-controlled storage, retention, and tamper-evident audit where required.",
+        "Separate developer assertions from independently reviewed deployment evidence.",
+        "Record untested production dependencies and failed/waived controls explicitly; absence of evidence is not a pass."
+      ]
+    },
+    {
+      "heading": "Release decision",
+      "items": [
+        "Confirm positive, negative, boundary, contract, integration, distributed-race, security, performance, outage, recovery, upgrade, and regression evidence.",
+        "Require owners to accept residual risk and expiry dates for temporary exceptions.",
+        "Block release when required secrets, atomic shared state, tenant context, permissions, provider qualification, rollback, or monitoring cannot be trusted."
+      ]
+    }
+  ]
+}
