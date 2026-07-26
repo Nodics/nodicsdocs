@@ -1,0 +1,71 @@
+{
+  "code": "reference.maturity",
+  "title": "Provider and Capability Maturity",
+  "route": "/docs/reference/maturity",
+  "section": "reference",
+  "family": "technical-reference",
+  "parent": "section:reference",
+  "order": 930,
+  "audiences": ["evaluator", "business-user", "administrator", "developer", "architect", "security-reviewer", "operator", "framework-maintainer", "ai-tool"],
+  "readerIntent": "Interpret capability and provider readiness honestly and understand the evidence required to promote it.",
+  "priorKnowledge": "Understand capability ownership, provider adapters, testing, and deployment qualification.",
+  "depth": "reference",
+  "status": "implemented",
+  "owner": "Owning capability/provider modules with repository governance and deployment evidence",
+  "lastVerified": "2026-07-26",
+  "summary": "Maturity is an evidence-backed engineering status, not a marketing label: framework capability readiness, provider readiness, and a customer's production deployment qualification are separate decisions.",
+  "supportingEvidence": ["nodics:gDocs/reference/provider-capability-maturity-matrix.md", "nodics:gFramework/nSearch/README.md", "nodics:gFramework/nEms/README.md"],
+  "sections": [
+    {
+      "heading": "Levels",
+      "items": [
+        "Production-ready capability: reusable contract, implementation, configuration/extension path, deterministic tests, operations, security, and documentation are ready for project use after project/deployment qualification.",
+        "Guarded provider: implemented adapter/runtime exists, but use requires explicit configuration, secrets, topology, isolation, live integration/release tests, and operational ownership.",
+        "Sample or reference: demonstrates behavior, seeds local development, or proves structure; it is not customer production policy.",
+        "Placeholder or scaffold: boundary exists but required implementation, provider capabilities, health, tests, or operations are incomplete; keep inactive or fail closed.",
+        "Parked future capability: need is recorded outside runtime documentation and intentionally deferred; do not expose or claim it as implemented."
+      ]
+    },
+    {
+      "heading": "Three independent questions",
+      "items": [
+        "Is the provider-neutral Nodics capability implemented and governed?",
+        "Is the selected provider adapter complete and qualified for its claimed guarantees?",
+        "Has this customer deployment configured and tested the capability/provider in its actual topology, scale, security, data, recovery, and compliance context?",
+        "A production-ready capability may use a guarded provider; neither label certifies a specific cloud/customer deployment automatically."
+      ]
+    },
+    {
+      "heading": "Current important boundaries",
+      "items": [
+        "NodeCache is sample/reference for local or single-process behavior; it is not strict distributed state.",
+        "Redis cache is guarded and requires configured live release evidence; strict distributed authentication depends on qualified atomic shared behavior.",
+        "Hazelcast cache remains placeholder/scaffold until a real adapter proves distributed operations, atomic behavior where claimed, health, lifecycle, and live tests.",
+        "MongoDB is guarded for production deployment and requires tenant databases, secrets, indexes, backup/restore, capacity, and live validation; Cassandra and elastic database adapters remain scaffold boundaries unless their evidence changes.",
+        "Elasticsearch search and Kafka messaging are guarded providers requiring endpoints/topology, isolation/security, health, recovery, capacity, upgrade, and live tests.",
+        "ActiveMQ remains a messaging provider scaffold until implementation and live evidence are complete.",
+        "CronJob and Workflow are implemented capabilities, while every customer job/workflow still owns idempotency, process rules, topology, failure, and release tests.",
+        "MonoServer and Startio are local/reference validation structures; modular/customer production topology requires independent deployment qualification."
+      ]
+    },
+    {
+      "heading": "Promotion evidence",
+      "items": [
+        "Named owner, neutral/provider boundary, supported versions, configuration and later-layer override path, secrets/endpoints, tenant/isolation model, data flow, lifecycle, health/readiness, diagnostics, capacity, failure/retry/recovery, backup/restore, migration/upgrade/rollback, and security threat model.",
+        "Positive, negative, boundary, contract, integration, customization, live-provider, outage, recovery, performance/load, topology, security, upgrade, and regression tests.",
+        "Current module README, canonical user/developer/operator documentation, generated context, examples, runbooks, and release gate.",
+        "Evidence date, environment, exact versions/commands/results, limitations, residual risks, approver, and requalification trigger."
+      ]
+    },
+    {
+      "heading": "Governance rules",
+      "items": [
+        "Change maturity only when owned evidence changes; never promote from a scaffold, unit test, local success, installed provider, or configuration flag alone.",
+        "A regression, unsupported version, missing owner, failed live gate, unsafe fallback, or absent recovery evidence may demote a capability/provider.",
+        "Keep unavailable behavior inactive or fail closed and state the missing work explicitly.",
+        "AI tools and developers must consult effective module configuration, current tests, provider health, and this register before recommending a production design.",
+        "Customer deployment approval remains the customer's shared-responsibility decision even when framework and provider evidence pass."
+      ]
+    }
+  ]
+}

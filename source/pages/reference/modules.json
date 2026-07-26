@@ -1,0 +1,75 @@
+{
+  "code": "reference.modules",
+  "title": "Module Implementation Reference",
+  "route": "/docs/reference/modules",
+  "section": "reference",
+  "family": "technical-reference",
+  "parent": "section:reference",
+  "order": 920,
+  "audiences": ["developer", "architect", "operator", "framework-maintainer", "ai-tool"],
+  "readerIntent": "Create, inspect, extend, and validate a Nodics module using the standard ownership and loader contracts.",
+  "priorKnowledge": "Understand layered architecture, configuration, schemas, services, APIs, testing, and documentation.",
+  "depth": "reference",
+  "status": "implemented",
+  "owner": "nConfig module metadata/loading and the concrete module that owns each contribution",
+  "lastVerified": "2026-07-26",
+  "summary": "A Nodics module is a package-defined ownership boundary with canonical metadata, layered configuration, loader-visible source contributions, owned data/tests/docs, and later-layer customization—not merely a folder or server.",
+  "supportingEvidence": ["nodics:gFramework/nConfig/README.md", "nodics:gFramework/nDefault/README.md"],
+  "sections": [
+    {
+      "heading": "Required root contract",
+      "items": [
+        "package.json: standard package identity/dependencies plus the minimal package.json.nodics metadata contract.",
+        "nodics.js: module lifecycle entrypoint used by Nodics startup/loading.",
+        "AGENTS.md: local AI/developer behavior and ownership rules.",
+        "README.md: concise human purpose, ownership, configuration, extension, operations, verification, and canonical-documentation links.",
+        "config/properties.js, prescripts.js, and postscripts.js: mandatory layered extension points, even when intentionally empty.",
+        "llm/README.md and generated module context for module-shaped packages except the designated setup authority."
+      ]
+    },
+    {
+      "heading": "Metadata",
+      "items": [
+        "package.json.name is the canonical runtime identifier; established identifiers require explicit compatibility migration before rename.",
+        "package.json.nodics.kind classifies application, group, environment, server, node, module, or other supported boundary; never infer kind from the folder name or n-prefix.",
+        "package.json.nodics.runtime and runtimeModule are the runtime/loader flags; package.json.nodics.owns declares owned source surfaces.",
+        "Parent, required, index, dependency, and composition metadata establish deterministic hierarchy and load order.",
+        "Runtime policy, permissions, navigation, endpoints, provider selection, limits, feature switches, and BackOffice presentation belong in layered properties.js, not package.json.",
+        "Do not introduce a parallel manifest or duplicate metadata name."
+      ]
+    },
+    {
+      "heading": "Source ownership",
+      "items": [
+        "src/schemas/schemas.js: item definitions, relationships, access, generation, cache/event/transaction, persistence, and search alignment.",
+        "src/router/routers.js and appConfig.js: route and HTTP application contributions.",
+        "src/controller: transport mapping only; src/facade: orchestration; src/service: business/provider/tooling behavior.",
+        "src/pipelines/pipelines.js: pipeline registry; src/event/listeners.js: listener definitions; src/interceptors: validation/lifecycle interception.",
+        "src/search/indexes.js: owned search indexes; src/utils: mergeable utilities, enums, and status definitions; src/lib: class-based libraries.",
+        "data/init is mandatory bootstrap only; data/core and data/sample are explicit imports. Pure groups and project roots do not own empty data folders.",
+        "test contains behavior owned by that layer. docs contains permanent local technical references and is excluded from runtime module discovery."
+      ]
+    },
+    {
+      "heading": "Implementation and customization",
+      "items": [
+        "Search existing authorities and extension points first; reuse, then customize, and create new behavior last.",
+        "Keep runtime files inside loader radar and export mergeable members so later modules can replace one behavior without copying the whole file.",
+        "Use named configurable policies instead of closure constants or hardcoded project roles/servers/tenants/providers.",
+        "Generated blank defaultSampleService.js is an optional module-creation placeholder only. It must remain empty and is never a required service or business-logic owner.",
+        "Do not hand-edit generated controllers, facades, services, models, tests, documentation projections, or context when their source definition/generator owns them.",
+        "Keep customer business logic in customer project modules and frontend renderers in client repositories."
+      ]
+    },
+    {
+      "heading": "Definition of done",
+      "items": [
+        "Metadata, parent/index, dependencies, ownership, configuration defaults/overrides, source map, permissions, tenancy, lifecycle, observability, performance, migration, deployment, and failure/recovery are explicit.",
+        "Positive, negative, boundary, contract, integration, customization/override, topology, security, performance, upgrade, generated-artifact, and regression tests pass as applicable.",
+        "Canonical user/developer documentation and concise module README match implementation; AGENTS and generated context express the same ownership rules.",
+        "Package and application dependencies remain synchronized with the root dependency-governance contract.",
+        "Structure, metadata, copyright, documentation, LLM/context, focused, baseline, and release gates report exact evidence and limitations."
+      ]
+    }
+  ]
+}

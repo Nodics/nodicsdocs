@@ -1,0 +1,85 @@
+{
+  "code": "reference.glossary",
+  "title": "Nodics Glossary",
+  "route": "/docs/reference/glossary",
+  "section": "reference",
+  "family": "technical-reference",
+  "parent": "section:reference",
+  "order": 900,
+  "audiences": ["evaluator", "business-user", "administrator", "developer", "architect", "security-reviewer", "operator", "framework-maintainer", "ai-tool"],
+  "readerIntent": "Use consistent business and technical meanings across Nodics documentation, code, operations, and BackOffice.",
+  "priorKnowledge": "None.",
+  "depth": "reference",
+  "status": "implemented",
+  "owner": "Nodics canonical documentation terminology",
+  "lastVerified": "2026-07-26",
+  "summary": "These definitions prefer capability and user-outcome language; internal module names appear only where they identify implementation ownership.",
+  "supportingEvidence": ["nodics:README.md", "nodics:gFramework/nConfig/README.md", "nodics:gCore/profile/README.md"],
+  "sections": [
+    {
+      "heading": "Platform and structure",
+      "items": [
+        "Nodics: a modular, governed, API-driven backend framework and application factory; it does not contain customer-facing or BackOffice frontend code.",
+        "Capability: a business or platform outcome with an explicit owner, contract, configuration, lifecycle, security, operations, tests, and documentation.",
+        "Module: the smallest package-defined ownership and extension boundary loaded by Nodics.",
+        "Module group: an organizational package that expands related modules; it is not automatically a deployable process.",
+        "Project module: a customer/application-owned later layer containing business behavior that must not be added to reusable framework modules.",
+        "Layered customization: overriding or extending an earlier definition through a later active module or governed configuration without editing released source.",
+        "Authority: the one source/service responsible for deciding and mutating a contract. Clients, caches, projections, registries, and tools do not become parallel authorities."
+      ]
+    },
+    {
+      "heading": "Runtime and deployment",
+      "items": [
+        "Environment: a deployable topology root such as local, development, QA, pre-production, or production.",
+        "Server: one runnable process composition hosting selected active modules; a server does not own the capabilities it hosts.",
+        "Node: an optional instance-specific child of a server for coordinates, identity, capacity, scheduling, or worker responsibility.",
+        "Canonical runtime identity: the environment/server/node identity derived at runtime from validated parent ancestry, not handwritten names.",
+        "activeModules: the local process activation contract deciding which module contributions load.",
+        "servers.*: endpoint coordinates for local or remote module communication; entries do not activate modules.",
+        "MonoServer: a consolidated local/reference process used for rapid integration; it is not proof of distributed production readiness.",
+        "Modular topology: capability modules hosted across separate processes so communication, credentials, failures, scale, and lifecycle boundaries are real.",
+        "Liveness: evidence that a process exists. Readiness: evidence that it may accept new work. Draining: bounded rejection of new work while in-flight work and resources close."
+      ]
+    },
+    {
+      "heading": "Identity and governance",
+      "items": [
+        "Tenant: the isolation and configuration scope resolved before identity and business operations.",
+        "Enterprise: a governed business organization within the supported tenant model.",
+        "Employee: a human business/BackOffice principal. Customer: a human consumer principal. Service principal: a non-human module, integration, or controlled scheduled-process identity.",
+        "Authentication: proof of caller identity and credential validity. Authorization: the target operation's decision that the principal may act.",
+        "Permission: a catalogued action grant composed through validated groups. Ownership: record-level constraint limiting principals to permitted data.",
+        "Runtime governance: preview, request, approval, activation, audit, cleanup, and rollback for supported mutable contracts.",
+        "Control plane: secured configuration, registry, diagnostics, lifecycle, and governance operations; it is not the business data path.",
+        "Data plane: normal module APIs and services that execute owned business operations."
+      ]
+    },
+    {
+      "heading": "Data, processes, and integration",
+      "items": [
+        "Schema: the source definition for an item model, fields, relationships, access, validation, cache/event/transaction, generation, and persistence behavior.",
+        "Item model: runtime object and generated model contract derived from a schema. Search model: the corresponding query/search contract; it does not replace the item authority.",
+        "Provider-neutral contract: a stable Nodics capability interface that callers use without knowing the selected vendor adapter.",
+        "Provider adapter: a module that implements a database, cache, search, messaging, AI, storage, identity, notification, payment, or other external technology behind its neutral contract.",
+        "Pipeline: bounded ordered technical execution inside an operation. Workflow: durable business process composed of actions that may be manual or automatic.",
+        "Event: a typed/versioned fact or trigger after an authoritative transition. Messaging: transport/delivery of that fact. NEMS: persisted event definition, distribution, log, retry, and recovery capability.",
+        "CronJob: persisted time/manual trigger and scheduler lifecycle; the target service retains business behavior.",
+        "Staged: editable versioned authoring authority. Online: separate deployed, normally non-versioned serving authority.",
+        "Publication: the nPublish-governed validation, approval consumption, activation, audit, reconciliation, and rollback lifecycle that deploys an exact approved version."
+      ]
+    },
+    {
+      "heading": "Applications and documentation",
+      "items": [
+        "Axis: reusable employee-only BackOffice web client; each customer project has its own deployment and Axis contains no backend business logic.",
+        "BackOffice backend: registry/control-plane capability that discovers active modules; Axis then calls the owning modules directly.",
+        "Storefront: backend capability resolving website/Site/Store/catalog/channel context; it is not a frontend application.",
+        "nodicsdocs: canonical structured documentation content-pack repository imported through Nodics CMS contracts and rendered by Axis or Nodicsweb.",
+        "Canonical page: approved structured source in nodicsdocs/source/pages with stable code, route, audience, order, evidence, and implementation-aligned content.",
+        "Module README: concise technical entrypoint for local ownership, setup, extension, operations, tests, and links; it is not a duplicate public user guide.",
+        "root docs/: temporary uncommitted planning/checklist space unless explicitly promoted; it is not runtime documentation authority."
+      ]
+    }
+  ]
+}

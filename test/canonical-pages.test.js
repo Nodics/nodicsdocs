@@ -403,3 +403,41 @@ test('scheduled execution, event delivery, and publishing guides preserve their 
     assert.match(serialized('capability.content-publishing.tutorial'), /nPublish consumes the decision but never duplicates workflow state/i);
     assert.match(serialized('capability.content-publishing.tutorial'), /never writes the Online database directly/i);
 });
+
+test('final references preserve governance, terminology, licensing, module, and maturity contracts', () => {
+    const byCode = new Map(pages.map(page => [page.code, page]));
+    [
+        'capability.observability-governance.technical-reference',
+        'reference.glossary',
+        'reference.licensing',
+        'reference.modules',
+        'reference.maturity'
+    ].forEach(code => assert.equal(byCode.has(code), true, code));
+
+    const serialized = code => JSON.stringify(byCode.get(code));
+    assert.match(serialized('capability.observability-governance.technical-reference'), /never become configuration or mutation authorities/i);
+    assert.match(serialized('capability.observability-governance.technical-reference'), /runtime governance does not become a second startup loader/i);
+    assert.match(serialized('reference.glossary'), /server does not own the capabilities it hosts/i);
+    assert.match(serialized('reference.glossary'), /root docs\/: temporary uncommitted planning\/checklist space/i);
+    assert.match(serialized('reference.licensing'), /not legal advice and not an additional license grant/i);
+    assert.match(serialized('reference.licensing'), /Third-party source.*must not be relabeled as Nodics-owned code/i);
+    assert.match(serialized('reference.modules'), /defaultSampleService\.js is an optional module-creation placeholder only/i);
+    assert.match(serialized('reference.modules'), /Runtime policy, permissions, navigation, endpoints, provider selection, limits, feature switches.*properties\.js, not package\.json/i);
+    assert.match(serialized('reference.maturity'), /three independent questions/i);
+    assert.match(serialized('reference.maturity'), /local MonoServer test is not production certification|MonoServer and Startio are local\/reference/i);
+});
+
+test('every registered canonical page has exactly one authored source page', () => {
+    const registryDocument = JSON.parse(
+        fs.readFileSync(path.join(root, 'source', 'canonical-pages.json'), 'utf8')
+    );
+    const registryPages = Array.isArray(registryDocument)
+        ? registryDocument
+        : registryDocument.pages;
+    const registeredCodes = registryPages.map(page => page.code).sort();
+    const authoredCodes = pages.map(page => page.code).sort();
+
+    assert.equal(new Set(registeredCodes).size, registeredCodes.length);
+    assert.equal(new Set(authoredCodes).size, authoredCodes.length);
+    assert.deepEqual(authoredCodes, registeredCodes);
+});

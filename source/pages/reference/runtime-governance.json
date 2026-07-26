@@ -1,0 +1,72 @@
+{
+  "code": "capability.observability-governance.technical-reference",
+  "title": "Runtime Governance Implementation Reference",
+  "route": "/docs/reference/runtime-governance",
+  "section": "reference",
+  "family": "technical-reference",
+  "parent": "page:capability.operational-governance.overview",
+  "order": 30,
+  "audiences": ["administrator", "developer", "architect", "security-reviewer", "operator", "framework-maintainer", "ai-tool"],
+  "readerIntent": "Implement or audit preview, request, approval, activation, audit, cleanup, rollback, lifecycle, and operational signals without creating a second configuration authority.",
+  "priorKnowledge": "Read configuration, operational governance, security, and runtime topology journeys.",
+  "depth": "reference",
+  "status": "implemented",
+  "owner": "nConfig owns static startup and process lifecycle; nDynamo governs supported runtime-mutable contracts; owning services apply changes",
+  "lastVerified": "2026-07-26",
+  "summary": "Runtime governance changes only supported control-plane contracts through immutable reviewed intent, tenant-scoped authorization, owned activation services, safe evidence, and rollback while static layered configuration and secrets remain in their original authorities.",
+  "supportingEvidence": ["nodics:gFramework/nDynamo/README.md", "nodics:gFramework/nConfig/README.md", "nodics:gFramework/nConfig/docs/runtime-lifecycle-resilience-contract.md", "nodics:gFramework/nRouter/README.md"],
+  "sections": [
+    {
+      "heading": "Authority map",
+      "items": [
+        "nConfig discovers modules, selects topology, loads static layered properties, and owns the single process lifecycle/signal coordinator.",
+        "nDynamo owns the governed lifecycle for supported schema, router, property, schema-access-policy, class, and pipeline control-plane behavior.",
+        "nRouter owns route exposure, token type, permission, tenant resolution, and request enforcement for control-plane APIs.",
+        "The owning schema/router/property/class/pipeline service validates and applies an approved change and restores its prior snapshot.",
+        "BackOffice, MCP, CLI, AI tools, and administrative clients may call and present these contracts but never become configuration or mutation authorities."
+      ]
+    },
+    {
+      "heading": "Governed lifecycle",
+      "items": [
+        "Preview is side-effect free and reports normalized changes, affected artifacts, warnings, dependencies, compatibility, and destructive risk.",
+        "Request stores tenant, type, target, canonical patch or reference, base revision, digest where required, requester, reason, correlation, preview, and policy state.",
+        "Approval or rejection records immutable intent and enforces configured separation of duties.",
+        "Activation revalidates tenant, actor separation, permission, digest, revision, target existence, policy, exposure, dependency, and provider readiness before calling the owner.",
+        "Success and failure append redacted correlated audit evidence; query projections never replace the authoritative activation record or owning runtime state.",
+        "Cleanup follows retention and legal/audit policy. Rollback restores the previous snapshot through the same owner and records a new governed transition."
+      ]
+    },
+    {
+      "heading": "Configuration-type rules",
+      "items": [
+        "Static defaults remain in module source and config/properties.js; runtime governance does not become a second startup loader.",
+        "Dynamic properties reject secret-bearing paths and prototype-mutating keys. Secrets stay in approved external/secret-manager configuration.",
+        "Schema and schema-access-policy changes preserve governed merge, generated model/service, tenant, access, cache, event, transaction, and version contracts.",
+        "Router changes preserve exposure, HTTP semantics, controller/action, token class, permission, limits, cache, API metadata, and compatibility.",
+        "Dynamic class, pipeline, or execution changes remain behind explicit permissions and exposure categories and are unavailable by default in production-like topologies.",
+        "A new mutable type extends this lifecycle and owner map; it does not introduce a dedicated database endpoint or parallel activation state machine."
+      ]
+    },
+    {
+      "heading": "Lifecycle and observability",
+      "items": [
+        "Governance activation stays off high-volume request paths and refreshes effective registries through existing owner services/events.",
+        "Required startup governance dependencies affect readiness; optional control-plane integrations recover asynchronously without delaying unrelated business traffic.",
+        "Correlate preview, request, decision, activation, propagation, audit, cleanup, rollback, and resulting health without logging protected values or unrestricted patches.",
+        "Monitor pending age, decision outcomes, digest/revision conflicts, activation duration/failure, propagation lag, cleanup backlog, rollback, repeated conflicts, and affected business indicators.",
+        "Backup governed persistence and owning state; verify restoration and rollback before high-risk changes."
+      ]
+    },
+    {
+      "heading": "Verification",
+      "items": [
+        "Positive preview/request/approve/activate/audit/rollback and repeated idempotent behavior.",
+        "Unauthorized, wrong principal/token class, wrong tenant, actor-separation violation, patch substitution, stale revision, unknown type/target, sensitive/prototype path, disabled exposure, and invalid dependency.",
+        "Partial activation, propagation failure, restart, concurrent requests, cleanup/retention, backup/restore, rollback conflict, performance, and bounded telemetry.",
+        "Contract, integration, modular topology, security, upgrade, generated artifacts, documentation, and regression tests.",
+        "Fail closed when immutable intent, tenant, revision, digest, permission, policy, owner, audit, or rollback safety cannot be trusted."
+      ]
+    }
+  ]
+}
