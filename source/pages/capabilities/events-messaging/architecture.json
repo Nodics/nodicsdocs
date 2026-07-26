@@ -1,0 +1,70 @@
+{
+  "code": "capability.events-messaging.architecture",
+  "title": "Events and Messaging Architecture",
+  "route": "/docs/capabilities/events-messaging/architecture",
+  "section": "capabilities",
+  "family": "concepts-architecture",
+  "parent": "page:capability.events-messaging.overview",
+  "order": 5,
+  "audiences": ["business-user", "administrator", "developer", "architect", "security-reviewer", "operator", "ai-tool"],
+  "readerIntent": "Choose the correct local event, broker transport, persisted distribution, workflow, or scheduled execution contract.",
+  "priorKnowledge": "Understand modules, services, runtime topology, and tenant context.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "nEvent listener runtime, nEms provider-neutral transport, NEMS persisted distribution, and each publishing/consuming module",
+  "lastVerified": "2026-07-26",
+  "summary": "Nodics separates facts and listeners, cross-process transport, and durable distribution state so applications can evolve consumers without embedding vendor clients or a parallel event authority in business modules.",
+  "supportingEvidence": ["nodics:gFramework/nEvent/README.md", "nodics:gFramework/nEms/README.md", "nodics:gCore/nems/README.md"],
+  "sections": [
+    {
+      "heading": "Architecture layers",
+      "items": [
+        "Publisher: the authoritative module completes or atomically commits its business transition, then publishes a stable typed/versioned fact with tenant, source, trace, and approved context.",
+        "nEvent: loads and merges listener definitions and executes eligible in-process listeners. This is low overhead but not durable by itself.",
+        "nEms: exposes the provider-neutral messaging contract and selects the configured adapter. Publishers and listeners never import a broker client directly.",
+        "Provider adapter: maps connection, destination alias, serialization, publish/subscribe, acknowledgement, retry/error, readiness, reconnect, and close to a broker.",
+        "NEMS: owns persisted event definitions, distribution state, event logs, retry/failure state, and authorized manual recovery when durable distribution is selected.",
+        "Consumer: validates tenant, source, type/version, authorization, idempotency, and business state before calling its own services."
+      ]
+    },
+    {
+      "heading": "Choose the mechanism",
+      "items": [
+        "Local listener when same-process best-effort reaction is sufficient and loss on crash is acceptable.",
+        "Broker transport when modules or infrastructure are separated and provider-qualified delivery is required.",
+        "Persisted NEMS distribution when the application needs durable state, retry evidence, event logs, replay/manual recovery, or cross-module outcome tracking.",
+        "Workflow when work is long-running, stateful, human-involved, approval-based, compensating, or requires visible business progress.",
+        "CronJob when execution is time-driven or needs scheduled reconciliation. These mechanisms may compose but must not duplicate one another's authority."
+      ]
+    },
+    {
+      "heading": "Event contract",
+      "items": [
+        "Stable event type and version, owning publisher, allowed sources/targets, tenant/enterprise context, trace/correlation, occurrence time, schema, size limit, and safe headers.",
+        "Honest delivery guarantee such as best effort, at-most-once, or at-least-once; scope any ordering claim by destination/partition/key.",
+        "Consumer idempotency key, duplicate/redelivery behavior, compatibility policy, timeout, retry/backoff, poison-message isolation, failed/dead-letter state, replay authorization, and retention.",
+        "Payload minimization, classification, encryption, access, masking/redaction, residency, and deletion. Prefer governed references when full business data does not need to travel."
+      ]
+    },
+    {
+      "heading": "Lifecycle",
+      "items": [
+        "Load governed listener and destination definitions from active modules and layered configuration.",
+        "Publish only after the authoritative transition succeeds; an event is evidence or a trigger, not an alternate persistence path.",
+        "Deliver locally and/or through the selected provider; persist NEMS state when configured.",
+        "Acknowledge success only after the consumer's owned acceptance boundary; otherwise record bounded retry or manual-recovery evidence.",
+        "On duplicate, crash, timeout, partition, or unknown outcome, reconcile the consumer's authoritative state before replay.",
+        "Drain stops new acquisition, allows bounded in-flight completion, and closes provider resources through the single lifecycle coordinator."
+      ]
+    },
+    {
+      "heading": "Security, operations, and proof",
+      "items": [
+        "Use governed destination aliases and least-privilege service identities; do not accept request-supplied topics, queues, endpoints, credentials, or unrestricted targets.",
+        "Monitor publish/consume/success/failure/retry/replay/duplicate rates, end-to-end latency, backlog/oldest age, consumer lag, poison state, acknowledgements, throttling, reconnects, and provider health without logging protected payloads.",
+        "Test local versus transported behavior, serialization/version compatibility, authorization/tenant isolation, duplicate/idempotency, ordering, redelivery, poison handling, replay audit, backpressure, broker loss/reconnect, consumer crash, network partition, backlog recovery, drain, capacity, upgrade, and regression.",
+        "A provider scaffold or unit test is not production qualification; claimed guarantees require live evidence with the chosen broker and production-like topology."
+      ]
+    }
+  ]
+}

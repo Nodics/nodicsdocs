@@ -1,0 +1,71 @@
+{
+  "code": "capability.scheduled-jobs.tutorial",
+  "title": "Create and Operate Scheduled Jobs",
+  "route": "/docs/capabilities/scheduled-jobs/tutorial",
+  "section": "capabilities",
+  "family": "tutorial-example",
+  "parent": "page:capability.scheduled-jobs.overview",
+  "order": 15,
+  "audiences": ["business-user", "administrator", "developer", "architect", "operator", "ai-tool"],
+  "readerIntent": "Create a safe tenant-owned scheduled job and operate it through restart, failure, and recovery.",
+  "priorKnowledge": "Understand services, service identity, tenant context, and runtime topology.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "CronJob owns scheduling and lifecycle; the selected handler or target module owns business behavior",
+  "lastVerified": "2026-07-26",
+  "summary": "Define an approved persisted job, implement business work in its owning service, assign eligible node placement, secure lifecycle commands, and prove idempotency, overlap, retry, restart, and reconciliation.",
+  "supportingEvidence": ["nodics:gCore/cronjob/README.md", "nodics:gFramework/nConfig/docs/runtime-lifecycle-resilience-contract.md", "nodics:gFramework/nService/README.md"],
+  "sections": [
+    {
+      "heading": "Example: reconcile stock reservations",
+      "paragraphs": [
+        "Suppose an ecommerce project must find expired stock reservations every five minutes and release them. Inventory owns reservation rules and updates. CronJob owns when the approved Inventory handler runs; it does not reimplement reservation logic."
+      ]
+    },
+    {
+      "heading": "1. Design the contract",
+      "items": [
+        "Choose a stable tenant-scoped job code, business owner, schedule and timezone, active state, start/end window, priority, normal runOnNode, and optional qualified failover policy.",
+        "Name the approved owning handler or target-module operation; never accept arbitrary service names, URLs, credentials, node identifiers, or executable code from untrusted request data.",
+        "Define timeout, maximum concurrency, overlap behavior, retry count/backoff, idempotency key, duplicate policy, retention, quarantine, reconciliation, compensation, and alert thresholds.",
+        "Decide whether a workflow or event is more appropriate: use Workflow for durable multi-step/manual business processes and events for decoupled facts; do not hide those responsibilities in a cron handler."
+      ]
+    },
+    {
+      "heading": "2. Implement in the owning project module",
+      "items": [
+        "Contribute the job definition and configuration through a later project module so framework CronJob remains reusable.",
+        "Implement reservation discovery and release in Inventory services using its schema models, validation, authorization, and persistence contracts.",
+        "Keep the scheduled handler bounded and resumable; process records in pages and persist enough progress or idempotency state to recover safely.",
+        "When the job calls another module, use the tenant-scoped internal service-token flow and satisfy that module's route permission. Never store or reuse an employee username/password."
+      ]
+    },
+    {
+      "heading": "3. Register and run",
+      "items": [
+        "Import or create the definition through the governed CronJob contracts; startup side effects must not create duplicates.",
+        "An eligible CronJob module instance builds its disposable local schedule from the persisted definition when runOnNode or approved tempNode matches.",
+        "Scheduled and authorized manual runs use the same definition, handler, tenant, eligibility, overlap, evidence, and failure contracts.",
+        "A server only hosts active modules; CronJob remains module-owned regardless of consolidated or distributed process placement."
+      ]
+    },
+    {
+      "heading": "4. Operate and recover",
+      "items": [
+        "Use secured create, update, run, start, stop, pause, resume, and remove commands; state changes must not use GET.",
+        "Monitor due, started, completed, failed, skipped, schedule delay, duration, overlap denial, attempts, node assignment/handoff, downstream latency, stale running state, and reconciliation outcome.",
+        "Graceful drain stops acquisition and local schedules while the persisted definition survives; restart rebuilds eligible schedules idempotently.",
+        "A timeout, network partition, crash, or node loss may leave the business outcome unknown. Reconcile authoritative Inventory state before retrying or compensating."
+      ]
+    },
+    {
+      "heading": "Verification",
+      "items": [
+        "Positive schedule and manual run; invalid definition; inactive job; unauthorized, wrong-token-type, and cross-tenant access.",
+        "Start/end and timezone boundaries; duplicate definition; concurrent trigger; overlap denial; timeout; safe and unsafe retry; pagination; rate/capacity limits.",
+        "Restart, drain, hard termination, node loss/return, delayed failure detection, downstream outage/recovery, temporary ownership, idempotency, reconciliation, and compensation.",
+        "Contract, integration, modular topology, observability/redaction, performance, upgrade, and regression evidence."
+      ]
+    }
+  ]
+}

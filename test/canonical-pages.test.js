@@ -382,3 +382,24 @@ test('operations guides preserve module activation, topology identity, lifecycle
     assert.match(serialized('operations.runtime-topology-reference'), /Node management.*does not choose active modules or own business work/i);
     assert.match(serialized('operations.runtime-topology-reference'), /Internal node\/module communication uses governed service identity/i);
 });
+
+test('scheduled execution, event delivery, and publishing guides preserve their distinct authorities', () => {
+    const byCode = new Map(pages.map(page => [page.code, page]));
+    [
+        'capability.scheduled-jobs.tutorial',
+        'capability.events-messaging.architecture',
+        'capability.content-publishing.tutorial'
+    ].forEach(code => assert.equal(byCode.has(code), true, code));
+
+    const serialized = code => JSON.stringify(byCode.get(code));
+    assert.match(serialized('capability.scheduled-jobs.tutorial'), /CronJob owns when the approved Inventory handler runs; it does not reimplement reservation logic/i);
+    assert.match(serialized('capability.scheduled-jobs.tutorial'), /Never store or reuse an employee username\/password/i);
+    assert.match(serialized('capability.scheduled-jobs.tutorial'), /server only hosts active modules; CronJob remains module-owned/i);
+    assert.match(serialized('capability.events-messaging.architecture'), /Publishers and listeners never import a broker client directly/i);
+    assert.match(serialized('capability.events-messaging.architecture'), /stable typed\/versioned fact/i);
+    assert.match(serialized('capability.events-messaging.architecture'), /event is evidence or a trigger, not an alternate persistence path/i);
+    assert.match(serialized('capability.content-publishing.tutorial'), /Staged and Online run as different systems or schemas/i);
+    assert.match(serialized('capability.content-publishing.tutorial'), /Workflow actions may be manual or automatic/i);
+    assert.match(serialized('capability.content-publishing.tutorial'), /nPublish consumes the decision but never duplicates workflow state/i);
+    assert.match(serialized('capability.content-publishing.tutorial'), /never writes the Online database directly/i);
+});

@@ -1,0 +1,81 @@
+{
+  "code": "capability.content-publishing.tutorial",
+  "title": "Approve and Publish Content",
+  "route": "/docs/capabilities/content-publishing/tutorial",
+  "section": "capabilities",
+  "family": "tutorial-example",
+  "parent": "page:capability.content-publishing.overview",
+  "order": 15,
+  "audiences": ["business-user", "administrator", "developer", "architect", "operator", "ai-tool"],
+  "readerIntent": "Configure and execute an approval-driven Staged-to-Online content publication without introducing parallel publishing behavior.",
+  "priorKnowledge": "Understand CMS catalogs, versioning, Workflow, nPublish, cache, search, and separate Staged and Online runtimes.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "CMS owns content, Workflow owns approval progress, nPublish owns publication lifecycle, and CMS target adapter owns authenticated deployment",
+  "lastVerified": "2026-07-26",
+  "summary": "A business user edits versioned Staged content, associates the exact change set with a workflow, completes manual and automatic actions, and publishes the approved version through nPublish to a separate non-versioned Online authority.",
+  "supportingEvidence": ["nodics:gFramework/nPublish/README.md", "nodics:gCore/workflow/README.md", "nodics:gContent/cms/README.md"],
+  "sections": [
+    {
+      "heading": "Example: publish a campaign page",
+      "paragraphs": [
+        "An editor updates a campaign page and its banner components in the Staged CMS. A workflow validates links automatically, asks a content manager for manual approval, and after final approval requests publication of those exact versions to the Online CMS used by the storefront."
+      ]
+    },
+    {
+      "heading": "1. Configure the two authorities",
+      "items": [
+        "Staged and Online run as different systems or schemas, even when both are tested locally.",
+        "Enable version variants only for publishable modules/schemas in Staged. Versioning is configuration-driven; unrelated schemas such as ordinary user data do not become versioned automatically.",
+        "Online does not activate version variants and stores only the deployed target form served to customers.",
+        "Configure authenticated target transport, target alias, dependency/validation rules, workflow provider, version provider, domain adapter, cache/search refresh, timeouts, limits, and redacted observability."
+      ]
+    },
+    {
+      "heading": "2. Author and submit",
+      "items": [
+        "Create or update the page and components in the correct Staged Site and content catalog.",
+        "Persist immutable versions and identify the exact tenant, domain, item codes, versions, dependencies, and target.",
+        "Create a workflow carrier referencing that change set. Workflow actions may be manual or automatic according to the configured business process.",
+        "Do not copy mutable draft content into workflow state or create a CMS-specific approval engine."
+      ]
+    },
+    {
+      "heading": "3. Validate and approve",
+      "items": [
+        "Run owning-domain validation and dependency checks for page, template, slots/components, media/references, locale, Site/catalog context, and target readiness.",
+        "Automatic actions may validate or enrich; manual actions may review, reject, request changes, or approve.",
+        "Workflow owns the approval decision and history. nPublish consumes the decision but never duplicates workflow state.",
+        "A rejection or changed source version returns the change to authoring/revalidation; an earlier approval never authorizes a later mutable draft."
+      ]
+    },
+    {
+      "heading": "4. Publish and serve",
+      "items": [
+        "Create the publication request with optimistic revision and the exact approved versions.",
+        "nPublish validates state, bounded dependencies, manifest, authorization, and configured providers, then invokes the CMS domain/target adapter.",
+        "The adapter deploys through authenticated Online transport; it never writes the Online database directly.",
+        "Record the authoritative transition journal and safe audit projection, then invalidate or refresh Online cache and reconcile search through their existing contracts.",
+        "The storefront resolves its Site/catalog context and serves only the Online published form."
+      ]
+    },
+    {
+      "heading": "5. Failure, reconciliation, and rollback",
+      "items": [
+        "A target timeout can leave completion unknown. Query/reconcile Online state before retrying; idempotent terminal replay prevents duplicate transitions.",
+        "Repair missing audit projections from the authoritative publication journal without inventing a second publication source of truth.",
+        "Rollback deploys an approved previous version through the same auditable adapter path where supported; it is not a direct database restore.",
+        "Reconcile cache, search, export, media/references, and storefront visibility after recovery or rollback. External effects may require explicit business compensation."
+      ]
+    },
+    {
+      "heading": "Verification",
+      "items": [
+        "Author, version, submit, automatic action, manual approve/reject/change request, exact-version activation, Online visibility, cache invalidation, search reconciliation, and storefront rendering.",
+        "Unauthorized/wrong-tenant/wrong-Site, invalid dependency, stale revision, changed source after approval, duplicate request/replay, unavailable workflow/version/domain/target provider, target timeout/outage, partial publication, and unknown completion.",
+        "Restart, reconciliation, rollback, compensation, audit redaction, staged/online isolation, performance, concurrent publication, contract, integration, modular topology, upgrade, accessibility of BackOffice guidance, and regression.",
+        "Product or another publishable domain reuses nPublish but contributes its own dependency resolver, validation, manifest, and target adapter rather than a parallel state machine."
+      ]
+    }
+  ]
+}
