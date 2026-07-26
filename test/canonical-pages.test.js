@@ -234,3 +234,23 @@ test('identity and security journey preserves separate principals and backend au
     assert.match(serialized('capability.identity-security.tenancy'), /caller may narrow but never broaden/i);
     assert.match(serialized('capability.identity-security.governance'), /local fallback disabled/i);
 });
+
+test('business process journey preserves scheduling, workflow, publishing, and operational authorities', () => {
+    const byCode = new Map(pages.map(page => [page.code, page]));
+    [
+        'capability.scheduled-jobs.overview', 'capability.scheduled-jobs.runtime',
+        'capability.scheduled-jobs.technical-reference', 'capability.workflows.overview',
+        'capability.workflows.runtime', 'capability.workflows.technical-reference',
+        'capability.content-publishing.overview', 'capability.content-publishing.runtime',
+        'capability.content-publishing.technical-reference', 'capability.operational-governance.overview',
+        'capability.operational-governance.runtime', 'capability.operational-governance.technical-reference'
+    ].forEach(code => assert.equal(byCode.has(code), true, code));
+
+    const serialized = code => JSON.stringify(byCode.get(code));
+    assert.match(serialized('capability.scheduled-jobs.overview'), /never human credentials/i);
+    assert.match(serialized('capability.workflows.overview'), /manual or automatic/i);
+    assert.match(serialized('capability.workflows.overview'), /Pipeline: bounded technical execution/i);
+    assert.match(serialized('capability.content-publishing.overview'), /separate online authority/i);
+    assert.match(serialized('capability.content-publishing.overview'), /nPublish is the single provider-neutral publication lifecycle/i);
+    assert.match(serialized('capability.operational-governance.overview'), /never become mutation authorities/i);
+});
