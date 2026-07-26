@@ -1,0 +1,65 @@
+{
+  "code": "docsArticle93a601e07de823995735",
+  "title": "Units Documentation",
+  "route": "/docs/modules/gcore/units/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gCore/units/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "d6ead868def425facd23d9ea104f5b1d3526fed4564695774023f1e6862f6411"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Units Documentation",
+      "anchor": "units-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Units Documentation",
+      "anchor": "units-documentation"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "[Units Foundation](/docs/modules/gcore/units/docs/units-foundation)",
+        "[Units Deployment And Integration](/docs/modules/gcore/units/docs/units-deployment-and-integration)",
+        "[Business and land-unit guide](/docs/data/how-to-use-units-and-land-measurements)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "Units Foundation",
+      "target": "units-foundation.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcore/units/docs/units-foundation",
+      "anchor": ""
+    },
+    {
+      "label": "Units Deployment And Integration",
+      "target": "units-deployment-and-integration.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcore/units/docs/units-deployment-and-integration",
+      "anchor": ""
+    },
+    {
+      "label": "Business and land-unit guide",
+      "target": "../../../gDocs/data/how-to-use-units-and-land-measurements.md",
+      "kind": "internal",
+      "route": "/docs/data/how-to-use-units-and-land-measurements",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

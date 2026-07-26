@@ -113,7 +113,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "For user-facing cache concepts, configuration examples, invalidation rules, diagnostics, and troubleshooting, read [How Cache Works](../../../gDocs/platform/how-cache-works.md). This module README is the implementation contract for the shared cache capability."
+      "text": "For user-facing cache concepts, configuration examples, invalidation rules, diagnostics, and troubleshooting, read [How Cache Works](/docs/platform/how-cache-works). This module README is the implementation contract for the shared cache capability."
     },
     {
       "kind": "heading",
@@ -431,10 +431,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Provider selection: [nCache](../README.md)",
-        "Local provider: [nodeCache](../nodeCache/README.md)",
-        "Distributed provider: [redisCache](../redisCache/README.md)",
-        "Public guide: [How Cache Works](../../../gDocs/platform/how-cache-works.md)"
+        "Provider selection: [nCache](/docs/modules/gframework/ncache)",
+        "Local provider: [nodeCache](/docs/modules/gframework/ncache/nodecache)",
+        "Distributed provider: [redisCache](/docs/modules/gframework/ncache/rediscache)",
+        "Public guide: [How Cache Works](/docs/platform/how-cache-works)"
       ]
     }
   ],

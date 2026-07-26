@@ -84,9 +84,9 @@
     {
       "kind": "unordered-list",
       "items": [
-        "[How Stock Movements Work](how-stock-movements-work.md)",
-        "[How Stock Transfers Work](how-stock-transfers-work.md)",
-        "[Nodics Documentation](../README.md)"
+        "[How Stock Movements Work](/docs/commerce/how-stock-movements-work)",
+        "[How Stock Transfers Work](/docs/commerce/how-stock-transfers-work)",
+        "[Nodics Documentation](/docs)"
       ]
     }
   ],

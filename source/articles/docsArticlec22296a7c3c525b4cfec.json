@@ -1,0 +1,47 @@
+{
+  "code": "docsArticlec22296a7c3c525b4cfec",
+  "title": "excelImport Documentation",
+  "route": "/docs/modules/gframework/ndata/nimport/excelimport/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nData/nImport/excelImport/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "3c61e4a107758e3717a8e52226785e1b652d411175a2a4e28566ea90ef17bd15"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "excelImport Documentation",
+      "anchor": "excelimport-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "excelImport Documentation",
+      "anchor": "excelimport-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gFramework/nData/nImport/excelImport` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

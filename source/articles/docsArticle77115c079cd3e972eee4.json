@@ -295,10 +295,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Messaging family: [nEms](../README.md)",
-        "Kafka provider: [kafka](../kafka/README.md)",
-        "ActiveMQ boundary: [activemq](../activemq/README.md)",
-        "Event execution: [nEvent](../../nEvent/README.md)"
+        "Messaging family: [nEms](/docs/modules/gframework/nems)",
+        "Kafka provider: [kafka](/docs/modules/gframework/nems/kafka)",
+        "ActiveMQ boundary: [activemq](/docs/modules/gframework/nems/activemq)",
+        "Event execution: [nEvent](/docs/modules/gframework/nevent)"
       ]
     }
   ],

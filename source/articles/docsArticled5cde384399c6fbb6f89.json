@@ -294,10 +294,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Provider selection: [nSearch](../README.md)",
-        "Elasticsearch adapter: [elastic](../elastic/README.md)",
-        "Cache policy: [How Cache Works](../../../gDocs/platform/how-cache-works.md)",
-        "Data guide: [How To Work With Data](../../../gDocs/data/how-to-work-with-data.md)"
+        "Provider selection: [nSearch](/docs/modules/gframework/nsearch)",
+        "Elasticsearch adapter: [elastic](/docs/modules/gframework/nsearch/elastic)",
+        "Cache policy: [How Cache Works](/docs/platform/how-cache-works)",
+        "Data guide: [How To Work With Data](/docs/data/how-to-work-with-data)"
       ]
     }
   ],

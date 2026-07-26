@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle2cc52db166c497a57696",
+  "title": "profileServer Documentation",
+  "route": "/docs/modules/startio/envs/startiolocal/profileserver/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/envs/startioLocal/profileServer/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "339214b0c643b6133acb779fd4d16fb9adfce4a089e2efe8cd47329e608b79bb"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "profileServer Documentation",
+      "anchor": "profileserver-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "profileServer Documentation",
+      "anchor": "profileserver-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `startio/envs/startioLocal/profileServer` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

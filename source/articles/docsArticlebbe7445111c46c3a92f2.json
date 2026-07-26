@@ -1,0 +1,47 @@
+{
+  "code": "docsArticlebbe7445111c46c3a92f2",
+  "title": "nSearch Documentation",
+  "route": "/docs/modules/gframework/nsearch/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nSearch/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "84b1e12b5fdf76124986dd991b3fba4ce472289c10779ec6506263ede89a749e"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "nSearch Documentation",
+      "anchor": "nsearch-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "nSearch Documentation",
+      "anchor": "nsearch-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gFramework/nSearch` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

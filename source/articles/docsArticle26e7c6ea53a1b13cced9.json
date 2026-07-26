@@ -735,10 +735,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Related capabilities: [How Platform Capabilities Work](how-platform-capabilities-work.md)",
-        "Owning modules: [Module Documentation Index](../reference/module-documentation-index.md)",
-        "Maturity: [Provider And Capability Maturity Matrix](../reference/provider-capability-maturity-matrix.md)",
-        "Documentation home: [Nodics Documentation](../README.md)"
+        "Related capabilities: [How Platform Capabilities Work](/docs/platform/how-platform-capabilities-work)",
+        "Owning modules: [Module Documentation Index](/docs/reference/module-documentation-index)",
+        "Maturity: [Provider And Capability Maturity Matrix](/docs/reference/provider-capability-maturity-matrix)",
+        "Documentation home: [Nodics Documentation](/docs)"
       ]
     }
   ],

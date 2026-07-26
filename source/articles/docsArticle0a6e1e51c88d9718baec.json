@@ -122,11 +122,11 @@
     {
       "kind": "ordered-list",
       "items": [
-        "[Why Businesses Choose Nodics](business/why-businesses-choose-nodics.md)",
-        "[Why Businesses Can Trust Nodics](business/security-and-trust.md)",
-        "[Business Capabilities And Outcomes](business/business-capabilities-and-outcomes.md)",
-        "[How Nodics Compares With Other Approaches](business/how-nodics-compares.md)",
-        "[Business And Technical Evaluation Checklist](business/evaluation-checklist.md)"
+        "[Why Businesses Choose Nodics](/docs/business/why-businesses-choose-nodics)",
+        "[Why Businesses Can Trust Nodics](/docs/business/security-and-trust)",
+        "[Business Capabilities And Outcomes](/docs/business/business-capabilities-and-outcomes)",
+        "[How Nodics Compares With Other Approaches](/docs/business/how-nodics-compares)",
+        "[Business And Technical Evaluation Checklist](/docs/business/evaluation-checklist)"
       ]
     },
     {
@@ -138,11 +138,11 @@
     {
       "kind": "ordered-list",
       "items": [
-        "[What Nodics Is](overview/what-is-nodics.md)",
-        "[How To Set Up Nodics](getting-started/how-to-setup-nodics.md)",
-        "[How Nodics Is Organized](architecture/how-nodics-is-organized.md)",
-        "[How Configuration Works](configuration/how-configuration-works.md)",
-        "[Build Your First Nodics Capability](getting-started/build-your-first-capability.md)"
+        "[What Nodics Is](/docs/overview/what-is-nodics)",
+        "[How To Set Up Nodics](/docs/getting-started/how-to-setup-nodics)",
+        "[How Nodics Is Organized](/docs/architecture/how-nodics-is-organized)",
+        "[How Configuration Works](/docs/configuration/how-configuration-works)",
+        "[Build Your First Nodics Capability](/docs/getting-started/build-your-first-capability)"
       ]
     },
     {
@@ -154,33 +154,33 @@
     {
       "kind": "ordered-list",
       "items": [
-        "[How To Create Application Functionality](development/how-to-create-application-functionality.md)",
-        "[How To Customize And Extend Nodics](development/how-to-customize-and-extend-nodics.md)",
-        "[Common Implementation Examples](development/common-implementation-examples.md)",
-        "[How To Create APIs](development/how-to-create-apis.md)",
-        "[How To Work With Data](data/how-to-work-with-data.md)",
-        "[How To Create Scheduled Jobs](jobs/how-to-create-scheduled-jobs.md)",
-        "[How To Test Nodics Changes](testing/how-to-test-nodics-changes.md)",
-        "[How To Approve And Publish Content](content/how-to-approve-and-publish-content.md)",
-        "[How Warehouse Management Works](commerce/how-to-manage-warehouses.md)",
-        "[How Store Management Works](commerce/how-to-manage-stores.md)",
-        "[How To Model Stores And Website Experiences](commerce/how-to-model-stores-and-websites.md)",
-        "[How Units And Land Measurements Work](data/how-to-use-units-and-land-measurements.md)",
-        "[How Stock Movements Work](commerce/how-stock-movements-work.md)",
-        "[How Stock Pools Work](commerce/how-to-manage-stock-pools.md)",
-        "[How Stock Sourcing Works](commerce/how-stock-sourcing-works.md)",
-        "[How Stock ON_HAND Availability Works](commerce/how-stock-availability-works.md)",
-        "[How to Reserve Stock](commerce/how-to-reserve-stock.md)",
-        "[How Stock Allocation Works](commerce/how-stock-allocation-works.md)",
-        "[How Stock Transfers Work](commerce/how-stock-transfers-work.md)",
-        "[How Inventory Reconciliation Works](commerce/how-inventory-reconciliation-works.md)",
-        "[How To Operate And Integrate Inventory](commerce/how-to-operate-and-integrate-inventory.md)",
-        "[How To Configure And Operate Pricing](commerce/how-to-configure-and-operate-pricing.md)",
-        "[How To Create And Identify Products](commerce/how-to-create-and-identify-products.md)",
-        "[How AI Cost Governance Works](ai/how-ai-cost-governance-works.md)",
-        "[Assistant, AI Providers, and Knowledge Guide](ai/assistant-provider-and-knowledge-guide.md)",
-        "[How To Read The Nodics Axis Workspace Context](backoffice/how-to-use-axis-workspace-context.md)",
-        "[How Schema Workbench Works](backoffice/how-schema-workbench-works.md)"
+        "[How To Create Application Functionality](/docs/development/how-to-create-application-functionality)",
+        "[How To Customize And Extend Nodics](/docs/development/how-to-customize-and-extend-nodics)",
+        "[Common Implementation Examples](/docs/development/common-implementation-examples)",
+        "[How To Create APIs](/docs/development/how-to-create-apis)",
+        "[How To Work With Data](/docs/data/how-to-work-with-data)",
+        "[How To Create Scheduled Jobs](/docs/jobs/how-to-create-scheduled-jobs)",
+        "[How To Test Nodics Changes](/docs/testing/how-to-test-nodics-changes)",
+        "[How To Approve And Publish Content](/docs/content/how-to-approve-and-publish-content)",
+        "[How Warehouse Management Works](/docs/commerce/how-to-manage-warehouses)",
+        "[How Store Management Works](/docs/commerce/how-to-manage-stores)",
+        "[How To Model Stores And Website Experiences](/docs/commerce/how-to-model-stores-and-websites)",
+        "[How Units And Land Measurements Work](/docs/data/how-to-use-units-and-land-measurements)",
+        "[How Stock Movements Work](/docs/commerce/how-stock-movements-work)",
+        "[How Stock Pools Work](/docs/commerce/how-to-manage-stock-pools)",
+        "[How Stock Sourcing Works](/docs/commerce/how-stock-sourcing-works)",
+        "[How Stock ON_HAND Availability Works](/docs/commerce/how-stock-availability-works)",
+        "[How to Reserve Stock](/docs/commerce/how-to-reserve-stock)",
+        "[How Stock Allocation Works](/docs/commerce/how-stock-allocation-works)",
+        "[How Stock Transfers Work](/docs/commerce/how-stock-transfers-work)",
+        "[How Inventory Reconciliation Works](/docs/commerce/how-inventory-reconciliation-works)",
+        "[How To Operate And Integrate Inventory](/docs/commerce/how-to-operate-and-integrate-inventory)",
+        "[How To Configure And Operate Pricing](/docs/commerce/how-to-configure-and-operate-pricing)",
+        "[How To Create And Identify Products](/docs/commerce/how-to-create-and-identify-products)",
+        "[How AI Cost Governance Works](/docs/ai/how-ai-cost-governance-works)",
+        "[Assistant, AI Providers, and Knowledge Guide](/docs/ai/assistant-provider-and-knowledge-guide)",
+        "[How To Read The Nodics Axis Workspace Context](/docs/backoffice/how-to-use-axis-workspace-context)",
+        "[How Schema Workbench Works](/docs/backoffice/how-schema-workbench-works)"
       ]
     },
     {
@@ -192,20 +192,20 @@
     {
       "kind": "ordered-list",
       "items": [
-        "[Why Businesses Can Trust Nodics](business/security-and-trust.md)",
-        "[Security Shared-Responsibility Model](security/shared-responsibility-model.md)",
-        "[Security Evidence Guide](security/security-evidence-guide.md)",
-        "[BackOffice Browser Security](security/backoffice-browser-security.md)",
-        "[How Platform Capabilities Work](platform/how-platform-capabilities-work.md)",
-        "[How Users, Tenants, And Permissions Work](security/how-users-tenants-and-permissions-work.md)",
-        "[How Cache Works](platform/how-cache-works.md)",
-        "[How To Run And Debug Nodics](operations/how-to-run-and-debug-nodics.md)",
-        "[How To Prepare For Deployment](operations/how-to-prepare-for-deployment.md)",
-        "[Production Operating Model](operations/production-operating-model.md)",
-        "[How AI Cost Governance Works](ai/how-ai-cost-governance-works.md)",
-        "[Assistant, AI Providers, and Knowledge Guide](ai/assistant-provider-and-knowledge-guide.md)",
-        "[How To Read The Nodics Axis Workspace Context](backoffice/how-to-use-axis-workspace-context.md)",
-        "[How Schema Workbench Works](backoffice/how-schema-workbench-works.md)"
+        "[Why Businesses Can Trust Nodics](/docs/business/security-and-trust)",
+        "[Security Shared-Responsibility Model](/docs/security/shared-responsibility-model)",
+        "[Security Evidence Guide](/docs/security/security-evidence-guide)",
+        "[BackOffice Browser Security](/docs/security/backoffice-browser-security)",
+        "[How Platform Capabilities Work](/docs/platform/how-platform-capabilities-work)",
+        "[How Users, Tenants, And Permissions Work](/docs/security/how-users-tenants-and-permissions-work)",
+        "[How Cache Works](/docs/platform/how-cache-works)",
+        "[How To Run And Debug Nodics](/docs/operations/how-to-run-and-debug-nodics)",
+        "[How To Prepare For Deployment](/docs/operations/how-to-prepare-for-deployment)",
+        "[Production Operating Model](/docs/operations/production-operating-model)",
+        "[How AI Cost Governance Works](/docs/ai/how-ai-cost-governance-works)",
+        "[Assistant, AI Providers, and Knowledge Guide](/docs/ai/assistant-provider-and-knowledge-guide)",
+        "[How To Read The Nodics Axis Workspace Context](/docs/backoffice/how-to-use-axis-workspace-context)",
+        "[How Schema Workbench Works](/docs/backoffice/how-schema-workbench-works)"
       ]
     },
     {
@@ -217,13 +217,13 @@
     {
       "kind": "unordered-list",
       "items": [
-        "[Module Documentation Index](reference/module-documentation-index.md)",
-        "[Complete Module Catalog](reference/module-catalog.md)",
-        "[Nodics Glossary](reference/glossary.md)",
-        "[Provider And Capability Maturity Matrix](reference/provider-capability-maturity-matrix.md)",
-        "[Licensing And Header Contract](reference/licensing-and-header-contract.md)",
-        "[Documentation Maintenance Guide](documentation/how-to-maintain-documentation.md)",
-        "[How To Publish Documentation On GitHub](documentation/how-to-publish-documentation-on-github.md)"
+        "[Module Documentation Index](/docs/reference/module-documentation-index)",
+        "[Complete Module Catalog](/docs/reference/module-catalog)",
+        "[Nodics Glossary](/docs/reference/glossary)",
+        "[Provider And Capability Maturity Matrix](/docs/reference/provider-capability-maturity-matrix)",
+        "[Licensing And Header Contract](/docs/reference/licensing-and-header-contract)",
+        "[Documentation Maintenance Guide](/docs/documentation/how-to-maintain-documentation)",
+        "[How To Publish Documentation On GitHub](/docs/documentation/how-to-publish-documentation-on-github)"
       ]
     },
     {
@@ -272,7 +272,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "Use the [Module Documentation Index](reference/module-documentation-index.md) to move from task-based guides to the module that owns the exact capability details."
+      "text": "Use the [Module Documentation Index](/docs/reference/module-documentation-index) to move from task-based guides to the module that owns the exact capability details."
     },
     {
       "kind": "paragraph",
@@ -297,179 +297,179 @@
       "rows": [
         [
           "Understand what Nodics is and why it exists",
-          "[What Nodics Is](overview/what-is-nodics.md)"
+          "[What Nodics Is](/docs/overview/what-is-nodics)"
         ],
         [
           "Decide whether Nodics fits a business or product",
-          "[Why Businesses Choose Nodics](business/why-businesses-choose-nodics.md), [Why Businesses Can Trust Nodics](business/security-and-trust.md), [How Nodics Compares](business/how-nodics-compares.md), and [Evaluation Checklist](business/evaluation-checklist.md)"
+          "[Why Businesses Choose Nodics](/docs/business/why-businesses-choose-nodics), [Why Businesses Can Trust Nodics](/docs/business/security-and-trust), [How Nodics Compares](/docs/business/how-nodics-compares), and [Evaluation Checklist](/docs/business/evaluation-checklist)"
         ],
         [
           "Install, build, and start the framework",
-          "[How To Set Up Nodics](getting-started/how-to-setup-nodics.md)"
+          "[How To Set Up Nodics](/docs/getting-started/how-to-setup-nodics)"
         ],
         [
           "Follow one complete beginner journey",
-          "[Build Your First Nodics Capability](getting-started/build-your-first-capability.md)"
+          "[Build Your First Nodics Capability](/docs/getting-started/build-your-first-capability)"
         ],
         [
           "Understand projects, modules, environments, servers, and nodes",
-          "[How Nodics Is Organized](architecture/how-nodics-is-organized.md)"
+          "[How Nodics Is Organized](/docs/architecture/how-nodics-is-organized)"
         ],
         [
           "Add new application behavior",
-          "[How To Create Application Functionality](development/how-to-create-application-functionality.md)"
+          "[How To Create Application Functionality](/docs/development/how-to-create-application-functionality)"
         ],
         [
           "Customize or generalize framework behavior safely",
-          "[How To Customize And Extend Nodics](development/how-to-customize-and-extend-nodics.md)"
+          "[How To Customize And Extend Nodics](/docs/development/how-to-customize-and-extend-nodics)"
         ],
         [
           "Follow examples for APIs, schemas, providers, scheduled jobs, and runtime configuration",
-          "[Common Implementation Examples](development/common-implementation-examples.md)"
+          "[Common Implementation Examples](/docs/development/common-implementation-examples)"
         ],
         [
           "Add or change APIs",
-          "[How To Create APIs](development/how-to-create-apis.md)"
+          "[How To Create APIs](/docs/development/how-to-create-apis)"
         ],
         [
           "Work with schemas, import, export, and data providers",
-          "[How To Work With Data](data/how-to-work-with-data.md)"
+          "[How To Work With Data](/docs/data/how-to-work-with-data)"
         ],
         [
           "Use exact quantities, compound units, and regional land-area conversions",
-          "[How Units And Land Measurements Work](data/how-to-use-units-and-land-measurements.md)"
+          "[How Units And Land Measurements Work](/docs/data/how-to-use-units-and-land-measurements)"
         ],
         [
           "Approve Staged content and publish it safely to Online",
-          "[How To Approve And Publish Content](content/how-to-approve-and-publish-content.md)"
+          "[How To Approve And Publish Content](/docs/content/how-to-approve-and-publish-content)"
         ],
         [
           "Understand or customize enterprise warehouses and warehouse locations",
-          "[How Warehouse Management Works](commerce/how-to-manage-warehouses.md)"
+          "[How Warehouse Management Works](/docs/commerce/how-to-manage-warehouses)"
         ],
         [
           "Create stores and associate Inventory warehouses",
-          "[How Store Management Works](commerce/how-to-manage-stores.md)"
+          "[How Store Management Works](/docs/commerce/how-to-manage-stores)"
         ],
         [
           "Model different websites, brands, countries, or shared Sites against Stores",
-          "[How To Model Stores And Website Experiences](commerce/how-to-model-stores-and-websites.md)"
+          "[How To Model Stores And Website Experiences](/docs/commerce/how-to-model-stores-and-websites)"
         ],
         [
           "Record exact, idempotent on-hand Stock changes",
-          "[How Stock Movements Work](commerce/how-stock-movements-work.md)"
+          "[How Stock Movements Work](/docs/commerce/how-stock-movements-work)"
         ],
         [
           "Group Warehouses for future sourcing without copying Stock",
-          "[How Stock Pools Work](commerce/how-to-manage-stock-pools.md)"
+          "[How Stock Pools Work](/docs/commerce/how-to-manage-stock-pools)"
         ],
         [
           "Select ordered Stock Pools from declarative business context",
-          "[How Stock Sourcing Works](commerce/how-stock-sourcing-works.md)"
+          "[How Stock Sourcing Works](/docs/commerce/how-stock-sourcing-works)"
         ],
         [
           "Calculate exact read-only ON_HAND Stock with Warehouse evidence",
-          "[How Stock ON_HAND Availability Works](commerce/how-stock-availability-works.md)"
+          "[How Stock ON_HAND Availability Works](/docs/commerce/how-stock-availability-works)"
         ],
         [
           "Hold Stock for checkout and fulfillment",
-          "[How to Reserve Stock](commerce/how-to-reserve-stock.md)"
+          "[How to Reserve Stock](/docs/commerce/how-to-reserve-stock)"
         ],
         [
           "Allocate Order demand across Warehouses",
-          "[How Stock Allocation Works](commerce/how-stock-allocation-works.md)"
+          "[How Stock Allocation Works](/docs/commerce/how-stock-allocation-works)"
         ],
         [
           "Transfer Stock safely between Warehouses",
-          "[How Stock Transfers Work](commerce/how-stock-transfers-work.md)"
+          "[How Stock Transfers Work](/docs/commerce/how-stock-transfers-work)"
         ],
         [
           "Detect and repair Inventory inconsistencies",
-          "[How Inventory Reconciliation Works](commerce/how-inventory-reconciliation-works.md)"
+          "[How Inventory Reconciliation Works](/docs/commerce/how-inventory-reconciliation-works)"
         ],
         [
           "Operate Inventory, reconstruct Stock, or connect WMS/POS",
-          "[How To Operate And Integrate Inventory](commerce/how-to-operate-and-integrate-inventory.md)"
+          "[How To Operate And Integrate Inventory](/docs/commerce/how-to-operate-and-integrate-inventory)"
         ],
         [
           "Configure scoped Price Lists, Price Groups, exact Prices, and Staged-to-Online releases",
-          "[How To Configure And Operate Pricing](commerce/how-to-configure-and-operate-pricing.md)"
+          "[How To Configure And Operate Pricing](/docs/commerce/how-to-configure-and-operate-pricing)"
         ],
         [
           "Understand tenant-scoped AI token and exact-cost controls",
-          "[How AI Cost Governance Works](ai/how-ai-cost-governance-works.md)"
+          "[How AI Cost Governance Works](/docs/ai/how-ai-cost-governance-works)"
         ],
         [
           "Configure the read-only Assistant, providers, and documentation Knowledge flow",
-          "[Assistant, AI Providers, and Knowledge Guide](ai/assistant-provider-and-knowledge-guide.md)"
+          "[Assistant, AI Providers, and Knowledge Guide](/docs/ai/assistant-provider-and-knowledge-guide)"
         ],
         [
           "Understand Axis Environment, Tenant, Enterprise, Site, and Catalog context",
-          "[How To Read The Nodics Axis Workspace Context](backoffice/how-to-use-axis-workspace-context.md)"
+          "[How To Read The Nodics Axis Workspace Context](/docs/backoffice/how-to-use-axis-workspace-context)"
         ],
         [
           "Discover and manage explicitly enabled schemas in Axis",
-          "[How Schema Workbench Works](backoffice/how-schema-workbench-works.md)"
+          "[How Schema Workbench Works](/docs/backoffice/how-schema-workbench-works)"
         ],
         [
           "Create enterprise Product Items and alternate identifiers",
-          "[How To Create And Identify Products](commerce/how-to-create-and-identify-products.md)"
+          "[How To Create And Identify Products](/docs/commerce/how-to-create-and-identify-products)"
         ],
         [
           "Use Nodics as a governed data lake or data hub",
-          "[How To Use Nodics As Data As A Service](data/how-to-use-nodics-as-data-as-a-service.md)"
+          "[How To Use Nodics As Data As A Service](/docs/data/how-to-use-nodics-as-data-as-a-service)"
         ],
         [
           "Add scheduled jobs",
-          "[How To Create Scheduled Jobs](jobs/how-to-create-scheduled-jobs.md)"
+          "[How To Create Scheduled Jobs](/docs/jobs/how-to-create-scheduled-jobs)"
         ],
         [
           "Understand processes, messaging, logging, and request handling",
-          "[How Platform Capabilities Work](platform/how-platform-capabilities-work.md)"
+          "[How Platform Capabilities Work](/docs/platform/how-platform-capabilities-work)"
         ],
         [
           "Configure, troubleshoot, or customize cache",
-          "[How Cache Works](platform/how-cache-works.md)"
+          "[How Cache Works](/docs/platform/how-cache-works)"
         ],
         [
           "Understand users, tenants, permissions, and runtime isolation",
-          "[How Users, Tenants, And Permissions Work](security/how-users-tenants-and-permissions-work.md)"
+          "[How Users, Tenants, And Permissions Work](/docs/security/how-users-tenants-and-permissions-work)"
         ],
         [
           "Evaluate security value, responsibilities, limitations, and evidence",
-          "[Why Businesses Can Trust Nodics](business/security-and-trust.md), [Security Shared-Responsibility Model](security/shared-responsibility-model.md), and [Security Evidence Guide](security/security-evidence-guide.md)"
+          "[Why Businesses Can Trust Nodics](/docs/business/security-and-trust), [Security Shared-Responsibility Model](/docs/security/shared-responsibility-model), and [Security Evidence Guide](/docs/security/security-evidence-guide)"
         ],
         [
           "Verify a change",
-          "[How To Test Nodics Changes](testing/how-to-test-nodics-changes.md)"
+          "[How To Test Nodics Changes](/docs/testing/how-to-test-nodics-changes)"
         ],
         [
           "Run, debug, deploy, or operate Nodics",
-          "[How To Run And Debug Nodics](operations/how-to-run-and-debug-nodics.md), [How To Prepare For Deployment](operations/how-to-prepare-for-deployment.md), and [Production Operating Model](operations/production-operating-model.md)"
+          "[How To Run And Debug Nodics](/docs/operations/how-to-run-and-debug-nodics), [How To Prepare For Deployment](/docs/operations/how-to-prepare-for-deployment), and [Production Operating Model](/docs/operations/production-operating-model)"
         ],
         [
           "Maintain public and module documentation",
-          "[Documentation Maintenance Guide](documentation/how-to-maintain-documentation.md)"
+          "[Documentation Maintenance Guide](/docs/documentation/how-to-maintain-documentation)"
         ],
         [
           "Find module-specific capability documentation",
-          "[Module Documentation Index](reference/module-documentation-index.md)"
+          "[Module Documentation Index](/docs/reference/module-documentation-index)"
         ],
         [
           "Browse every package-defined module",
-          "[Complete Module Catalog](reference/module-catalog.md)"
+          "[Complete Module Catalog](/docs/reference/module-catalog)"
         ],
         [
           "Understand Nodics terminology",
-          "[Nodics Glossary](reference/glossary.md)"
+          "[Nodics Glossary](/docs/reference/glossary)"
         ],
         [
           "Check whether a provider or capability is production-ready, guarded, sample, scaffolded, or parked",
-          "[Provider And Capability Maturity Matrix](reference/provider-capability-maturity-matrix.md)"
+          "[Provider And Capability Maturity Matrix](/docs/reference/provider-capability-maturity-matrix)"
         ],
         [
           "Understand which files require the Nodics source header and how the copyright year is enforced",
-          "[Licensing And Header Contract](reference/licensing-and-header-contract.md)"
+          "[Licensing And Header Contract](/docs/reference/licensing-and-header-contract)"
         ]
       ]
     },

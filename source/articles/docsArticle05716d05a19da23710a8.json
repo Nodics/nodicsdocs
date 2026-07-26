@@ -114,7 +114,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "For configuration, extension, security, recovery, and test details, read the [Stock Pool foundation contract](../../gComm/inventory/docs/stock-pool-foundation.md)."
+      "text": "For configuration, extension, security, recovery, and test details, read the [Stock Pool foundation contract](/docs/modules/gcomm/inventory/docs/stock-pool-foundation)."
     },
     {
       "kind": "heading",
@@ -125,11 +125,11 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Warehouses: [How Warehouse Management Works](how-to-manage-warehouses.md)",
-        "Stock: [How Stock Movements Work](how-stock-movements-work.md)",
-        "Security: [How Users, Tenants, And Permissions Work](../security/how-users-tenants-and-permissions-work.md)",
-        "Testing: [How To Test Nodics Changes](../testing/how-to-test-nodics-changes.md)",
-        "Documentation home: [Nodics Documentation](../README.md)"
+        "Warehouses: [How Warehouse Management Works](/docs/commerce/how-to-manage-warehouses)",
+        "Stock: [How Stock Movements Work](/docs/commerce/how-stock-movements-work)",
+        "Security: [How Users, Tenants, And Permissions Work](/docs/security/how-users-tenants-and-permissions-work)",
+        "Testing: [How To Test Nodics Changes](/docs/testing/how-to-test-nodics-changes)",
+        "Documentation home: [Nodics Documentation](/docs)"
       ]
     }
   ],

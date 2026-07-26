@@ -1021,10 +1021,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "[How To Read The Nodics Axis Workspace Context](how-to-use-axis-workspace-context.md)",
-        "[BackOffice Browser Security](../security/backoffice-browser-security.md)",
-        "[How Users, Tenants, And Permissions Work](../security/how-users-tenants-and-permissions-work.md)",
-        "[Database module documentation](../../gFramework/nDatabase/database/README.md)"
+        "[How To Read The Nodics Axis Workspace Context](/docs/backoffice/how-to-use-axis-workspace-context)",
+        "[BackOffice Browser Security](/docs/security/backoffice-browser-security)",
+        "[How Users, Tenants, And Permissions Work](/docs/security/how-users-tenants-and-permissions-work)",
+        "[Database module documentation](/docs/modules/gframework/ndatabase/database)"
       ]
     }
   ],

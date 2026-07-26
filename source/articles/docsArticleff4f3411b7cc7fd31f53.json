@@ -267,7 +267,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "See [Product foundation, Category, Classification, and Variant operations](docs/product-p0-operations.md) for business and developer procedures and [Product release-readiness evidence](docs/product-release-readiness.md) for the P4 validation matrix."
+      "text": "See [Product foundation, Category, Classification, and Variant operations](/docs/modules/gcomm/product/docs/product-p0-operations) for business and developer procedures and [Product release-readiness evidence](/docs/modules/gcomm/product/docs/product-release-readiness) for the P4 validation matrix."
     },
     {
       "kind": "heading",

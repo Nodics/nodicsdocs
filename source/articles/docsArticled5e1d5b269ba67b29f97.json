@@ -277,8 +277,19 @@
       "text": "In Nodics, a scheduled job is a persisted platform capability. The job definition, trigger information, handler/service behavior, logs, and lifecycle state are visible and testable."
     },
     {
-      "kind": "paragraph",
-      "text": "![CronJob Process](../assets/images/cron-job-process.jpg)"
+      "kind": "image",
+      "alt": "CronJob Process",
+      "target": "../assets/images/cron-job-process.jpg",
+      "title": "",
+      "media": {
+        "alt": "CronJob Process",
+        "target": "../assets/images/cron-job-process.jpg",
+        "title": "",
+        "kind": "local",
+        "assetCode": "docsMediadf58dba7385db94f2c4a",
+        "assetPath": "assets/images/50550fb35544fd3b.jpg",
+        "contentHash": "50550fb35544fd3b344f0f19986239356387500f7366819f69deec8f91323693"
+      }
     },
     {
       "kind": "heading",
@@ -364,8 +375,19 @@
       "text": "Each lifecycle action has permission checks, diagnostics, and tests. Repeated startup does not create duplicate jobs."
     },
     {
-      "kind": "paragraph",
-      "text": "![CronJob Lifecycle](../assets/images/cron-job-lifecycle.png)"
+      "kind": "image",
+      "alt": "CronJob Lifecycle",
+      "target": "../assets/images/cron-job-lifecycle.png",
+      "title": "",
+      "media": {
+        "alt": "CronJob Lifecycle",
+        "target": "../assets/images/cron-job-lifecycle.png",
+        "title": "",
+        "kind": "local",
+        "assetCode": "docsMediad06e9d37db80b32e3087",
+        "assetPath": "assets/images/8290d52e1e5c9041.png",
+        "contentHash": "8290d52e1e5c9041795fb39b5b729fb6c7086ff73635788795ee93ae1a375a52"
+      }
     },
     {
       "kind": "paragraph",
@@ -711,10 +733,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Platform behavior: [How Platform Capabilities Work](../platform/how-platform-capabilities-work.md)",
-        "Owning modules: [Module Documentation Index](../reference/module-documentation-index.md)",
-        "Testing: [How To Test Nodics Changes](../testing/how-to-test-nodics-changes.md)",
-        "Documentation home: [Nodics Documentation](../README.md)"
+        "Platform behavior: [How Platform Capabilities Work](/docs/platform/how-platform-capabilities-work)",
+        "Owning modules: [Module Documentation Index](/docs/reference/module-documentation-index)",
+        "Testing: [How To Test Nodics Changes](/docs/testing/how-to-test-nodics-changes)",
+        "Documentation home: [Nodics Documentation](/docs)"
       ]
     }
   ],

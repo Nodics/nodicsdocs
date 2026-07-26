@@ -1,0 +1,39 @@
+{
+  "code": "docsArticle48918147f991b836ea66",
+  "title": "Anthropic Provider Status",
+  "route": "/docs/modules/gai/aiproviders/anthropicprovider/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gAi/aiProviders/anthropicProvider/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "06dc2332b642fbe9be0578bf97466947925fdd822a6158ff3a1fda83993b21df"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Anthropic Provider Status",
+      "anchor": "anthropic-provider-status"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Anthropic Provider Status",
+      "anchor": "anthropic-provider-status"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The adapter, lifecycle registration, request and tool translation, streaming deltas, usage normalization, cancellation, and mocked conformance tests are implemented. Credentials, selection, retries, diagnostics, and accounting remain parent `aiProviders` responsibilities."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

@@ -100,7 +100,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "For the full engineering contract, read [Export Process Framework](docs/export-process-framework.md)."
+      "text": "For the full engineering contract, read [Export Process Framework](/docs/modules/gframework/ndata/nexport/export/docs/export-process-framework)."
     },
     {
       "kind": "heading",
@@ -198,10 +198,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Export family and completion gate: [nExport](../README.md)",
-        "Public data guide: [How To Work With Data](../../../../gDocs/data/how-to-work-with-data.md)",
-        "Data access policy: [database](../../../nDatabase/database/README.md)",
-        "Maturity matrix: [Provider And Capability Maturity Matrix](../../../../gDocs/reference/provider-capability-maturity-matrix.md)"
+        "Export family and completion gate: [nExport](/docs/modules/gframework/ndata/nexport)",
+        "Public data guide: [How To Work With Data](/docs/data/how-to-work-with-data)",
+        "Data access policy: [database](/docs/modules/gframework/ndatabase/database)",
+        "Maturity matrix: [Provider And Capability Maturity Matrix](/docs/reference/provider-capability-maturity-matrix)"
       ]
     }
   ],

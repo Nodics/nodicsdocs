@@ -1,0 +1,74 @@
+{
+  "code": "docsArticleb7e852d2707b83fd47ee",
+  "title": "Product Documentation",
+  "route": "/docs/modules/gcomm/product/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gComm/product/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "9ec83fcec9e85148c61e9c0a432741faf8f934aa84114572aa8c07c6d56a2043"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Product Documentation",
+      "anchor": "product-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Product Documentation",
+      "anchor": "product-documentation"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "[Product foundation, Category, and Classification operations](/docs/modules/gcomm/product/docs/product-p0-operations): business operation,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "administration, development, security, deployment, recovery, and testing."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "[Product release-readiness evidence](/docs/modules/gcomm/product/docs/product-release-readiness): P4"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "positive, negative, boundary, security, integration, recovery, and regression traceability."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Only implemented and verified Product behavior belongs here. Future Product design remains in the temporary root `docs/` workspace."
+    }
+  ],
+  "links": [
+    {
+      "label": "Product foundation, Category, and Classification operations",
+      "target": "product-p0-operations.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcomm/product/docs/product-p0-operations",
+      "anchor": ""
+    },
+    {
+      "label": "Product release-readiness evidence",
+      "target": "product-release-readiness.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcomm/product/docs/product-release-readiness",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

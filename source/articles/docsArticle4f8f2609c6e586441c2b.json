@@ -1,0 +1,86 @@
+{
+  "code": "docsArticle4f8f2609c6e586441c2b",
+  "title": "wcms Documentation",
+  "route": "/docs/modules/gcontent/wcms/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gContent/wcms/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "dacefc55d2c1dae4c9d8ad58fd3f80a960e0e7c15b93627c930f2b0b7b4b8408"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "wcms Documentation",
+      "anchor": "wcms-documentation"
+    },
+    {
+      "level": 2,
+      "text": "Approval-to-publication contract",
+      "anchor": "approval-to-publication-contract"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "wcms Documentation",
+      "anchor": "wcms-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gContent/wcms` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Approval-to-publication contract",
+      "anchor": "approval-to-publication-contract"
+    },
+    {
+      "kind": "paragraph",
+      "text": "WCMS retains the existing `cmsPagesApprovalFlowHead` and `cmsComponentApprovalFlowHead` schema mappings and manual review actions. A successful review now reaches a module-owned automatic publish action rather than creating a second workflow engine."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The business user attaches the intended nPublish release definition to `workflowCarrier.sourceDetail.publication`; `workflowCarrier.items` identifies the content involved in the decision. The automatic action calls nPublish create, validate, approve, and activate in order. nPublish creates the immutable CMS manifest and the CMS transport deploys it to the separately configured Online target. Missing release input fails closed."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The bridge has no public route. It can run only as the handler of the approved workflow action. Human username/password authentication remains separate from the internal module token used for Staged-to-Online deployment."
+    },
+    {
+      "kind": "paragraph",
+      "text": "CMS schema changes create unreleased carriers and retain `versionId` on their workflow items. This allows the business user to group the full affected change set and declare the page-route release scope before starting approval. Later modules may extend the action/channel graph, but successful approval must remain the only path to the terminal publication action."
+    },
+    {
+      "kind": "paragraph",
+      "text": "See the beginner and business-user guide at [`gDocs/content/how-to-approve-and-publish-content.md`](/docs/content/how-to-approve-and-publish-content) for the complete Staged-to-Online journey and configuration examples."
+    }
+  ],
+  "links": [
+    {
+      "label": "`gDocs/content/how-to-approve-and-publish-content.md`",
+      "target": "../../../gDocs/content/how-to-approve-and-publish-content.md",
+      "kind": "internal",
+      "route": "/docs/content/how-to-approve-and-publish-content",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

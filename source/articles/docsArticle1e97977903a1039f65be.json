@@ -95,11 +95,11 @@
     },
     {
       "kind": "paragraph",
-      "text": "`nDatabase` is the database capability group. It organizes the generic persistence contract and its provider modules. The child [database](database/README.md) module owns schema-driven persistence, tenant/module database configuration, connection lifecycle, generated models, CRUD pipelines, access-policy enforcement, and provider extension points."
+      "text": "`nDatabase` is the database capability group. It organizes the generic persistence contract and its provider modules. The child [database](/docs/modules/gframework/ndatabase/database) module owns schema-driven persistence, tenant/module database configuration, connection lifecycle, generated models, CRUD pipelines, access-policy enforcement, and provider extension points."
     },
     {
       "kind": "paragraph",
-      "text": "Provider modules such as [mongodb](mongodb/README.md) and [cassandradb](cassandradb/README.md) implement provider-specific behavior. The group itself must not become a second persistence implementation."
+      "text": "Provider modules such as [mongodb](/docs/modules/gframework/ndatabase/mongodb) and [cassandradb](/docs/modules/gframework/ndatabase/cassandradb) implement provider-specific behavior. The group itself must not become a second persistence implementation."
     },
     {
       "kind": "paragraph",
@@ -152,19 +152,19 @@
       "rows": [
         [
           "Understand generic schema, model, connection, CRUD, tenant, and access-policy behavior",
-          "[database](database/README.md)"
+          "[database](/docs/modules/gframework/ndatabase/database)"
         ],
         [
           "Configure or implement MongoDB behavior",
-          "[mongodb](mongodb/README.md)"
+          "[mongodb](/docs/modules/gframework/ndatabase/mongodb)"
         ],
         [
           "Configure or implement Cassandra behavior",
-          "[cassandradb](cassandradb/README.md)"
+          "[cassandradb](/docs/modules/gframework/ndatabase/cassandradb)"
         ],
         [
           "Evaluate another database adapter",
-          "Start with the generic [database provider checklist](database/README.md#provider-adapter-checklist), then create an owned provider module."
+          "Start with the generic [database provider checklist](/docs/modules/gframework/ndatabase/database#provider-adapter-checklist), then create an owned provider module."
         ]
       ]
     },
@@ -457,10 +457,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Public data guide: [How To Work With Data](../../gDocs/data/how-to-work-with-data.md)",
-        "Generic persistence capability: [database](database/README.md)",
-        "Provider maturity: [Provider And Capability Maturity Matrix](../../gDocs/reference/provider-capability-maturity-matrix.md)",
-        "Framework map: [gFramework](../README.md)"
+        "Public data guide: [How To Work With Data](/docs/data/how-to-work-with-data)",
+        "Generic persistence capability: [database](/docs/modules/gframework/ndatabase/database)",
+        "Provider maturity: [Provider And Capability Maturity Matrix](/docs/reference/provider-capability-maturity-matrix)",
+        "Framework map: [gFramework](/docs/modules/gframework)"
       ]
     }
   ],

@@ -1,0 +1,84 @@
+{
+  "code": "docsArticlec87b901493b48d7ceeb9",
+  "title": "vDatabase Documentation",
+  "route": "/docs/modules/gframework/ndatabase/database/vdatabase/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nDatabase/database/vDatabase/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "226dfc0667d6c3b0b9402c6409e295a62994dbe766884959c6764ce102bf0dca"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "vDatabase Documentation",
+      "anchor": "vdatabase-documentation"
+    },
+    {
+      "level": 2,
+      "text": "Runtime selection contract",
+      "anchor": "runtime-selection-contract"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "vDatabase Documentation",
+      "anchor": "vdatabase-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gFramework/nDatabase/database/vDatabase` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Runtime selection contract",
+      "anchor": "runtime-selection-contract"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Versioning is selected independently for each owning-module schema:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`super: 'base'` provides ordinary persistence metadata;",
+        "`isVersionedEnabled: true` opts one schema into the active `versioned` contract;",
+        "the effective runtime schema receives `versioned: true` and `versionId`;",
+        "schemas without the opt-in remain non-versioned even when `vDatabase` is active;",
+        "startup schema composition fails when opt-in is requested without the"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "`vDatabase` contract."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The public configuration flag and the internal runtime flag intentionally have different responsibilities. Module authors configure `isVersionedEnabled`; database and service implementations consume the derived `versioned` flag."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Publishing workflow state and database record versioning are separate contracts. For example, an nPublish request may use a workflow `revision` without storing versioned copies of the request itself."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

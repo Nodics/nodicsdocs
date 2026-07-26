@@ -214,10 +214,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Provider-neutral contract: [emsClient](../emsClient/README.md)",
-        "Messaging family: [nEms](../README.md)",
-        "Maturity matrix: [Provider And Capability Maturity Matrix](../../../gDocs/reference/provider-capability-maturity-matrix.md)",
-        "Event execution: [nEvent](../../nEvent/README.md)"
+        "Provider-neutral contract: [emsClient](/docs/modules/gframework/nems/emsclient)",
+        "Messaging family: [nEms](/docs/modules/gframework/nems)",
+        "Maturity matrix: [Provider And Capability Maturity Matrix](/docs/reference/provider-capability-maturity-matrix)",
+        "Event execution: [nEvent](/docs/modules/gframework/nevent)"
       ]
     }
   ],

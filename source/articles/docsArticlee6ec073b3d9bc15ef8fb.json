@@ -176,15 +176,15 @@
     },
     {
       "kind": "paragraph",
-      "text": "See [Runtime operations](docs/README.md) for beginner, operator, security, recovery, customization, and troubleshooting guidance."
+      "text": "See [Runtime operations](/docs/modules/gai/aiknowledge/docs) for beginner, operator, security, recovery, customization, and troubleshooting guidance."
     }
   ],
   "links": [
     {
       "label": "Runtime operations",
       "target": "docs/README.md",
-      "kind": "repository-reference",
-      "sourcePath": "gAi/aiKnowledge/docs/README.md",
+      "kind": "internal",
+      "route": "/docs/modules/gai/aiknowledge/docs",
       "anchor": ""
     }
   ],

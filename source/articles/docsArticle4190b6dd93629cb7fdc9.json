@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle4190b6dd93629cb7fdc9",
+  "title": "csvExport Documentation",
+  "route": "/docs/modules/gframework/ndata/nexport/csvexport/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nData/nExport/csvExport/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "1631439fd5fec15089d2440e58bdcedbc7380f62e61d5e84ca66a0d780192c08"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "csvExport Documentation",
+      "anchor": "csvexport-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "csvExport Documentation",
+      "anchor": "csvexport-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gFramework/nData/nExport/csvExport` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

@@ -103,10 +103,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "DEAP lifecycle: [gDeap](../README.md)",
-        "Processing stage: [dataProcessor](../dataProcessor/README.md)",
-        "Export lifecycle: [nExport](../../gFramework/nData/nExport/README.md)",
-        "Messaging providers: [nEms](../../gFramework/nEms/README.md)"
+        "DEAP lifecycle: [gDeap](/docs/modules/gdeap)",
+        "Processing stage: [dataProcessor](/docs/modules/gdeap/dataprocessor)",
+        "Export lifecycle: [nExport](/docs/modules/gframework/ndata/nexport)",
+        "Messaging providers: [nEms](/docs/modules/gframework/nems)"
       ]
     }
   ],

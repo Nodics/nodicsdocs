@@ -221,10 +221,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Application workflow family: [workflow](../../gCore/workflow/README.md)",
-        "Runtime engine: [flowCore](../../gCore/workflow/flowCore/README.md)",
-        "Application data contracts: [flowSchema](../../gCore/workflow/flowSchema/README.md)",
-        "Pipeline framework: [nPipeline](../nPipeline/README.md)"
+        "Application workflow family: [workflow](/docs/modules/gcore/workflow)",
+        "Runtime engine: [flowCore](/docs/modules/gcore/workflow/flowcore)",
+        "Application data contracts: [flowSchema](/docs/modules/gcore/workflow/flowschema)",
+        "Pipeline framework: [nPipeline](/docs/modules/gframework/npipeline)"
       ]
     }
   ],

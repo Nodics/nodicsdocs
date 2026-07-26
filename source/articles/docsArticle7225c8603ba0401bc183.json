@@ -1,0 +1,185 @@
+{
+  "code": "docsArticle7225c8603ba0401bc183",
+  "title": "BackOffice Documentation",
+  "route": "/docs/modules/gexp/backoffice/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gExp/backoffice/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "7d826e9a2efc85baae52e966a508b57807072c527f21e528b568846fa2d0f685"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "BackOffice Documentation",
+      "anchor": "backoffice-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "BackOffice Documentation",
+      "anchor": "backoffice-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder owns permanent human-readable documentation for the BackOffice backend capability. Document registry, discovery, self-registration, compatibility, security, operational, and customization contracts here as they are implemented."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The separate Nodics Axis frontend is a consumer of these APIs and is not part of this runtime module."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`module-registry-contract.md` defines ownership, identity, leases, discovery,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "storage, and reconciliation behavior."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`registry-operations-runbook.md` defines production configuration,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "diagnostics, failure behavior, rollout, and recovery checks."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`api-catalogue-contract.md` defines API schemas, module-owned metadata,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "compatibility negotiation, and audit events."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`environment-deployment-contract.md` defines deployment configuration through"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "the existing `envs` module-group layering without named-environment coupling."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`capability-discovery-contract.md` defines module-owned provider roles,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "bounded OpenAPI discovery, normalized snapshots, change classification, and CMS UI-composition provider selection."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`contract-history-lifecycle.md` defines durable immutable observations,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "activation-pointer concurrency, approval, rejection, rollback, retention, authorization, recovery, and validation behavior."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`availability-observation-contract.md` defines bounded public readiness"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "observation, freshness, multi-instance aggregation, security, recovery, and diagnostics behavior."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`registry-administration-contract.md` defines bounded administrative search,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "sanitized detail, action-specific permissions, and observer-reuse refresh."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`administrative-security-contract.md` defines human/service separation,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "permission ownership, tenant isolation, refresh abuse controls, and auditing."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`performance-and-scale-contract.md` defines structural performance budgets,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "bounded probe pressure, deterministic benchmark evidence, and load-test scope."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`backend-release-readiness.md` defines environment configuration, go-live,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "monitoring, rollback, and residual-risk gates for the backend capability."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`backend-acceptance-report.md` records the latest evidence-backed backend"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "acceptance decision and separates locally proven behavior from mandatory production-environment validation."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`axis-content-catalog.md` explains the module-owned core records for the"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "public employee login/recovery pages and authenticated employee dashboard."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Business users, administrators, and partner developers should also read [How To Read The Nodics Axis Workspace Context](/docs/backoffice/how-to-use-axis-workspace-context) for the implemented Environment, Tenant, Enterprise, Site, Catalog, and responsive authentication-screen behavior."
+    }
+  ],
+  "links": [
+    {
+      "label": "How To Read The Nodics Axis Workspace Context",
+      "target": "../../../gDocs/backoffice/how-to-use-axis-workspace-context.md",
+      "kind": "internal",
+      "route": "/docs/backoffice/how-to-use-axis-workspace-context",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle955b751abf7dd0f66342",
+  "title": "jsExport Documentation",
+  "route": "/docs/modules/gframework/ndata/nexport/jsexport/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nData/nExport/jsExport/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "d79533a33eef3f240e76ccbdb534924bb86e8ff6f8deadfabc1776e8dee63451"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "jsExport Documentation",
+      "anchor": "jsexport-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "jsExport Documentation",
+      "anchor": "jsexport-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gFramework/nData/nExport/jsExport` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

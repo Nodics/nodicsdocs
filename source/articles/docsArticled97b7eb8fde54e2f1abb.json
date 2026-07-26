@@ -248,10 +248,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Generic cache contract: [cache](../cache/README.md)",
-        "Distributed cache: [redisCache](../redisCache/README.md)",
-        "Provider selection: [nCache](../README.md)",
-        "Public guide: [How Cache Works](../../../gDocs/platform/how-cache-works.md)"
+        "Generic cache contract: [cache](/docs/modules/gframework/ncache/cache)",
+        "Distributed cache: [redisCache](/docs/modules/gframework/ncache/rediscache)",
+        "Provider selection: [nCache](/docs/modules/gframework/ncache)",
+        "Public guide: [How Cache Works](/docs/platform/how-cache-works)"
       ]
     }
   ],

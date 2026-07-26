@@ -3,7 +3,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 
-const { SUPPORTED_BLOCKS, hash, walkFiles } = require('./lib/content-utils');
+const { SUPPORTED_BLOCKS, hash, markdownReferences, walkFiles } = require('./lib/content-utils');
 
 const root = path.resolve(__dirname, '..');
 const errors = [];
@@ -21,17 +21,55 @@ if (compatibility.contentContractVersion !== 1) errors.push('Unsupported content
 duplicates(articles.map(article => article.code)).forEach(code => errors.push(`Duplicate article code: ${code}`));
 duplicates(articles.map(article => article.route)).forEach(route => errors.push(`Duplicate article route: ${route}`));
 
+const articleByRoute = new Map(articles.map(article => [article.route, article]));
+
+function validateAnchor(article, anchor, context) {
+    if (!anchor) return;
+    const anchors = new Set(article.headings.map(heading => heading.anchor));
+    if (!anchors.has(anchor)) errors.push(`Missing anchor #${anchor} in ${article.route} from ${context}`);
+}
+
+function validateRenderedLink(article, target, repositoryReferences) {
+    if (/^https?:\/\//i.test(target) || /^mailto:/i.test(target)) return;
+    if (target.startsWith('#')) {
+        validateAnchor(article, target.slice(1), article.route);
+        return;
+    }
+    if (target.startsWith('/docs')) {
+        const [route, anchor] = target.split('#');
+        const targetArticle = articleByRoute.get(route);
+        if (!targetArticle) {
+            errors.push(`Broken documentation route ${route} in ${article.code}`);
+            return;
+        }
+        validateAnchor(targetArticle, anchor, article.route);
+        return;
+    }
+    if (!repositoryReferences.has(target)) {
+        errors.push(`Noncanonical or unsafe rendered link ${target} in ${article.code}`);
+    }
+}
+
 articles.forEach(article => {
+    const repositoryReferences = new Set(
+        article.links.filter(item => item.kind === 'repository-reference').map(item => item.target)
+    );
     if (!article.code || !article.title || !article.route?.startsWith('/docs')) {
         errors.push(`Invalid article identity: ${article.code || article.source?.path || 'unknown'}`);
     }
     if (!/^[a-f0-9]{64}$/.test(article.source.contentHash)) errors.push(`Invalid source hash: ${article.code}`);
+    duplicates(article.headings.map(heading => heading.anchor)).forEach(anchor => {
+        errors.push(`Duplicate heading anchor #${anchor} in ${article.code}`);
+    });
     article.blocks.forEach(block => {
         if (!SUPPORTED_BLOCKS.has(block.kind)) errors.push(`Unsupported block ${block.kind} in ${article.code}`);
         const serialized = JSON.stringify(block);
         if (/<\s*(script|iframe|object|embed|style)\b/i.test(serialized) || /\son[a-z]+\s*=/i.test(serialized)) {
             errors.push(`Unsafe content in ${article.code}`);
         }
+        markdownReferences(serialized).links.forEach(link =>
+            validateRenderedLink(article, link.target, repositoryReferences)
+        );
     });
     article.media.filter(item => item.kind === 'local').forEach(item => {
         if (!fs.existsSync(path.join(root, item.assetPath))) errors.push(`Missing asset ${item.assetPath}`);
@@ -41,6 +79,14 @@ articles.forEach(article => {
     });
     article.links.filter(item => item.kind === 'missing').forEach(item => {
         errors.push(`Unresolved link ${item.sourcePath} in ${article.code}`);
+    });
+    article.links.filter(item => item.kind === 'internal').forEach(item => {
+        const targetArticle = articleByRoute.get(item.route);
+        if (!targetArticle) {
+            errors.push(`Broken internal link ${item.route} in ${article.code}`);
+        } else {
+            validateAnchor(targetArticle, item.anchor, article.route);
+        }
     });
 });
 

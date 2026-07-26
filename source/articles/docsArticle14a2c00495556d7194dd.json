@@ -1,0 +1,49 @@
+{
+  "code": "docsArticle14a2c00495556d7194dd",
+  "title": "Pricing documentation",
+  "route": "/docs/modules/gcomm/pricing/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gComm/pricing/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "bf738ddbe28806bef4dd583b29391e9be4bde570d69ad904c989e1bd6af90afd"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Pricing documentation",
+      "anchor": "pricing-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Pricing documentation",
+      "anchor": "pricing-documentation"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "[Pricing Architecture and Operations](/docs/modules/gcomm/pricing/docs/pricing-architecture-and-operations)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "Pricing Architecture and Operations",
+      "target": "pricing-architecture-and-operations.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcomm/pricing/docs/pricing-architecture-and-operations",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

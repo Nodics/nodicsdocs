@@ -228,8 +228,8 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Documentation maintenance: [Documentation Maintenance Guide](../documentation/how-to-maintain-documentation.md)",
-        "Documentation home: [Nodics Documentation](../README.md)"
+        "Documentation maintenance: [Documentation Maintenance Guide](/docs/documentation/how-to-maintain-documentation)",
+        "Documentation home: [Nodics Documentation](/docs)"
       ]
     }
   ],

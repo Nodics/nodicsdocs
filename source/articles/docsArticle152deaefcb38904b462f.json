@@ -107,7 +107,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "For practical task-by-task examples, read [Common Implementation Examples](common-implementation-examples.md). It shows how to create APIs, schemas, providers, scheduled jobs, and runtime configuration changes using the same ownership and verification rules."
+      "text": "For practical task-by-task examples, read [Common Implementation Examples](/docs/development/common-implementation-examples). It shows how to create APIs, schemas, providers, scheduled jobs, and runtime configuration changes using the same ownership and verification rules."
     },
     {
       "kind": "heading",
@@ -479,10 +479,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Beginner journey: [Build Your First Nodics Capability](../getting-started/build-your-first-capability.md)",
-        "Next: [How To Customize And Extend Nodics](how-to-customize-and-extend-nodics.md)",
-        "Testing: [How To Test Nodics Changes](../testing/how-to-test-nodics-changes.md)",
-        "Documentation home: [Nodics Documentation](../README.md)"
+        "Beginner journey: [Build Your First Nodics Capability](/docs/getting-started/build-your-first-capability)",
+        "Next: [How To Customize And Extend Nodics](/docs/development/how-to-customize-and-extend-nodics)",
+        "Testing: [How To Test Nodics Changes](/docs/testing/how-to-test-nodics-changes)",
+        "Documentation home: [Nodics Documentation](/docs)"
       ]
     }
   ],

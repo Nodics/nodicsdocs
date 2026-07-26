@@ -204,10 +204,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Previous: [Business Capabilities And Outcomes](business-capabilities-and-outcomes.md)",
-        "Next: [Business And Technical Evaluation Checklist](evaluation-checklist.md)",
-        "Technical organization: [How Nodics Is Organized](../architecture/how-nodics-is-organized.md)",
-        "Documentation home: [Nodics Documentation](../README.md)"
+        "Previous: [Business Capabilities And Outcomes](/docs/business/business-capabilities-and-outcomes)",
+        "Next: [Business And Technical Evaluation Checklist](/docs/business/evaluation-checklist)",
+        "Technical organization: [How Nodics Is Organized](/docs/architecture/how-nodics-is-organized)",
+        "Documentation home: [Nodics Documentation](/docs)"
       ]
     }
   ],

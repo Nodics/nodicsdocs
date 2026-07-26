@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle076eb3727153a501af86",
+  "title": "wquiz Documentation",
+  "route": "/docs/modules/gcore/quizer/wquiz/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gCore/quizer/wquiz/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "b12f00a59770cd0599edb8fdec209c5997c80a97f463c44b021b351db4fc858f"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "wquiz Documentation",
+      "anchor": "wquiz-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "wquiz Documentation",
+      "anchor": "wquiz-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gCore/quizer/wquiz` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

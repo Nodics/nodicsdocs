@@ -741,8 +741,8 @@
     {
       "kind": "unordered-list",
       "items": [
-        "[How AI Cost Governance Works](how-ai-cost-governance-works.md)",
-        "[Module Documentation Index](../reference/module-documentation-index.md)"
+        "[How AI Cost Governance Works](/docs/ai/how-ai-cost-governance-works)",
+        "[Module Documentation Index](/docs/reference/module-documentation-index)"
       ]
     }
   ],

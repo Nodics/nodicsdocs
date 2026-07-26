@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle6ea83c1387c6c70b010b",
+  "title": "workflowServer Documentation",
+  "route": "/docs/modules/startio/envs/startiolocal/workflowserver/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/envs/startioLocal/workflowServer/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "da9f216844f9171f8653af2f1390827b76f9c2835541a71a828496c18e52b315"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "workflowServer Documentation",
+      "anchor": "workflowserver-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "workflowServer Documentation",
+      "anchor": "workflowserver-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `startio/envs/startioLocal/workflowServer` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

@@ -282,7 +282,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "Implementation details and extension rules are in the Pricing module's [architecture guide](../../gComm/pricing/docs/pricing-architecture-and-operations.md)."
+      "text": "Implementation details and extension rules are in the Pricing module's [architecture guide](/docs/modules/gcomm/pricing/docs/pricing-architecture-and-operations)."
     },
     {
       "kind": "heading",
@@ -293,9 +293,9 @@
     {
       "kind": "unordered-list",
       "items": [
-        "[How Store Management Works](how-to-manage-stores.md)",
-        "[How Stock Availability Works](how-stock-availability-works.md)",
-        "[How To Approve And Publish Content](../content/how-to-approve-and-publish-content.md)"
+        "[How Store Management Works](/docs/commerce/how-to-manage-stores)",
+        "[How Stock Availability Works](/docs/commerce/how-stock-availability-works)",
+        "[How To Approve And Publish Content](/docs/content/how-to-approve-and-publish-content)"
       ]
     }
   ],

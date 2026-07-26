@@ -365,7 +365,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "Read the [Units module guide](../../gCore/units/docs/units-foundation.md) for schemas, arithmetic, regional selection, recovery, and tests, and the [deployment and integration guide](../../gCore/units/docs/units-deployment-and-integration.md) for configuration and topology decisions."
+      "text": "Read the [Units module guide](/docs/modules/gcore/units/docs/units-foundation) for schemas, arithmetic, regional selection, recovery, and tests, and the [deployment and integration guide](/docs/modules/gcore/units/docs/units-deployment-and-integration) for configuration and topology decisions."
     },
     {
       "kind": "heading",
@@ -376,11 +376,11 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Inventory: [How Warehouse Management Works](../commerce/how-to-manage-warehouses.md)",
-        "Data: [How To Work With Data](how-to-work-with-data.md)",
-        "Customization: [How To Customize And Extend Nodics](../development/how-to-customize-and-extend-nodics.md)",
-        "Testing: [How To Test Nodics Changes](../testing/how-to-test-nodics-changes.md)",
-        "Documentation home: [Nodics Documentation](../README.md)"
+        "Inventory: [How Warehouse Management Works](/docs/commerce/how-to-manage-warehouses)",
+        "Data: [How To Work With Data](/docs/data/how-to-work-with-data)",
+        "Customization: [How To Customize And Extend Nodics](/docs/development/how-to-customize-and-extend-nodics)",
+        "Testing: [How To Test Nodics Changes](/docs/testing/how-to-test-nodics-changes)",
+        "Documentation home: [Nodics Documentation](/docs)"
       ]
     }
   ],

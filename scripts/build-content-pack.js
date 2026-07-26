@@ -36,8 +36,11 @@ if (articles.length === 0) throw new Error('No source articles found; run npm ru
 const output = path.join(root, 'data', 'core', 'data', 'documentation');
 const pageType = 'nodicsDocumentationArticlePageType';
 const componentType = 'nodicsDocumentationArticleComponentType';
+const navigationComponentType = 'nodicsDocumentationNavigationComponentType';
 const template = 'nodicsDocumentationArticleTemplate';
-const slot = 'nodicsDocumentationArticleSlot';
+const navigationSlot = 'nodicsDocumentationNavigationSlot';
+const articleSlot = 'nodicsDocumentationArticleSlot';
+const navigationComponent = 'nodicsDocumentationNavigation';
 
 const catalogRecords = [{
     code: compatibility.catalog,
@@ -63,6 +66,20 @@ const typeRecords = [
             packVersion: 'string'
         },
         active: true
+    },
+    {
+        code: navigationComponentType,
+        kind: 'COMPONENT',
+        contractVersion: 1,
+        propertySchema: {
+            title: 'string',
+            searchLabel: 'string',
+            searchPlaceholder: 'string',
+            emptyMessage: 'string',
+            items: 'array',
+            packVersion: 'string'
+        },
+        active: true
     }
 ];
 const rendererRecords = [
@@ -81,26 +98,65 @@ const rendererRecords = [
         channels: ['web', 'mobile-webview'],
         deprecated: false,
         active: true
+    },
+    {
+        code: navigationComponentType,
+        renderer: 'documentation.component.navigation',
+        contractVersion: 1,
+        channels: ['web', 'mobile-webview'],
+        deprecated: false,
+        active: true
     }
 ];
-const slotRecords = [{
-    code: slot,
-    template,
-    name: 'article',
-    minItems: 1,
-    maxItems: 1,
-    allowedComponentTypes: [componentType],
-    active: true
-}];
+const slotRecords = [
+    {
+        code: navigationSlot,
+        template,
+        name: 'navigation',
+        minItems: 1,
+        maxItems: 1,
+        allowedComponentTypes: [navigationComponentType],
+        active: true
+    },
+    {
+        code: articleSlot,
+        template,
+        name: 'article',
+        minItems: 1,
+        maxItems: 1,
+        allowedComponentTypes: [componentType],
+        active: true
+    }
+];
 const templateRecords = [{
     code: template,
     name: 'Nodics Documentation Article',
     renderer: 'documentation.template.article',
     contractVersion: 1,
-    slots: [slot],
+    slots: [navigationSlot, articleSlot],
     active: true
 }];
-const componentRecords = articles.map(article => ({
+const navigationItems = articles.map(article => ({
+    title: article.title,
+    route: article.route,
+    category: article.category,
+    audience: article.audience
+}));
+const componentRecords = [{
+    code: navigationComponent,
+    typeCode: navigationComponentType,
+    renderer: 'documentation.component.navigation',
+    accessMode: 'PUBLIC',
+    properties: {
+        title: 'Documentation',
+        searchLabel: 'Search documentation',
+        searchPlaceholder: 'Search pages, categories, and audiences',
+        emptyMessage: 'No documentation matches your search.',
+        items: navigationItems,
+        packVersion: compatibility.version
+    },
+    active: true
+}, ...articles.map((article, index) => ({
     code: stableCode('docsComponent', article.code),
     typeCode: componentType,
     renderer: 'documentation.component.article',
@@ -115,10 +171,12 @@ const componentRecords = articles.map(article => ({
         links: article.links,
         media: article.media,
         source: article.source,
-        packVersion: compatibility.version
+        packVersion: compatibility.version,
+        previous: index > 0 ? navigationItems[index - 1] : undefined,
+        next: index < navigationItems.length - 1 ? navigationItems[index + 1] : undefined
     },
     active: true
-}));
+}))];
 const pageRecords = articles.map(article => ({
     code: stableCode('docsPage', article.code),
     name: article.title,
@@ -126,12 +184,20 @@ const pageRecords = articles.map(article => ({
     typeCode: pageType,
     template,
     renderer: 'documentation.page.article',
-    cmsComponents: [{
-        target: stableCode('docsComponent', article.code),
-        slot: 'article',
-        index: 10,
-        active: true
-    }],
+    cmsComponents: [
+        {
+            target: navigationComponent,
+            slot: 'navigation',
+            index: 5,
+            active: true
+        },
+        {
+            target: stableCode('docsComponent', article.code),
+            slot: 'article',
+            index: 10,
+            active: true
+        }
+    ],
     active: true
 }));
 const routeRecords = articles.flatMap(article => sites.map(site => ({
@@ -194,6 +260,11 @@ const generatedHashes = {};
 walkFiles(path.join(root, 'data', 'core'), filePath => filePath.endsWith('.js')).forEach(filePath => {
     generatedHashes[path.relative(root, filePath).replaceAll(path.sep, '/')] = hash(fs.readFileSync(filePath));
 });
+const releaseChecksum = hash(
+    Object.keys(generatedHashes).sort()
+        .map(fileName => `${fileName}:${generatedHashes[fileName]}`)
+        .join('|')
+);
 writeJson(path.join(root, 'manifest', 'generated-content-pack.json'), {
     pack: compatibility.pack,
     version: compatibility.version,
@@ -204,6 +275,7 @@ writeJson(path.join(root, 'manifest', 'generated-content-pack.json'), {
     components: componentRecords.length,
     pages: pageRecords.length,
     routes: routeRecords.length,
+    releaseChecksum,
     generatedHashes
 });
 console.log(`Built ${articles.length} documentation pages and ${routeRecords.length} Site routes`);

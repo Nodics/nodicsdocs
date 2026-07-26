@@ -337,7 +337,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "Process startup, readiness, draining, shutdown, and provider cleanup follow the [runtime lifecycle and resilience contract](docs/runtime-lifecycle-resilience-contract.md). `nConfig` owns the single signal coordinator; later modules contribute bounded hooks instead of installing parallel process handlers."
+      "text": "Process startup, readiness, draining, shutdown, and provider cleanup follow the [runtime lifecycle and resilience contract](/docs/modules/gframework/nconfig/docs/runtime-lifecycle-resilience-contract). `nConfig` owns the single signal coordinator; later modules contribute bounded hooks instead of installing parallel process handlers."
     },
     {
       "kind": "heading",
@@ -652,10 +652,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Public guide: [How Configuration Works](../../gDocs/configuration/how-configuration-works.md)",
-        "Runtime structure: [How Nodics Is Organized](../../gDocs/architecture/how-nodics-is-organized.md)",
-        "Lifecycle detail: [Runtime Lifecycle And Resilience Contract](docs/runtime-lifecycle-resilience-contract.md)",
-        "Framework map: [gFramework](../README.md)"
+        "Public guide: [How Configuration Works](/docs/configuration/how-configuration-works)",
+        "Runtime structure: [How Nodics Is Organized](/docs/architecture/how-nodics-is-organized)",
+        "Lifecycle detail: [Runtime Lifecycle And Resilience Contract](/docs/modules/gframework/nconfig/docs/runtime-lifecycle-resilience-contract)",
+        "Framework map: [gFramework](/docs/modules/gframework)"
       ]
     }
   ],

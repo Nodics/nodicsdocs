@@ -38,11 +38,11 @@
     },
     {
       "kind": "paragraph",
-      "text": "Pricing provides reusable scoped Price Lists, Price Groups, exact Price records, deterministic Online resolution, and Workflow/nPublish-controlled Staged-to-Online release. See [Pricing](pricing/README.md)."
+      "text": "Pricing provides reusable scoped Price Lists, Price Groups, exact Price records, deterministic Online resolution, and Workflow/nPublish-controlled Staged-to-Online release. See [Pricing](/docs/modules/gcomm/pricing)."
     },
     {
       "kind": "paragraph",
-      "text": "Product provides enterprise-scoped Product Item and alternate-Identifier identity, governed lifecycle, Catalog and Unit reference validation, human management intents, and service-token lookup. See [Product](product/README.md)."
+      "text": "Product provides enterprise-scoped Product Item and alternate-Identifier identity, governed lifecycle, Catalog and Unit reference validation, human management intents, and service-token lookup. See [Product](/docs/modules/gcomm/product)."
     },
     {
       "kind": "paragraph",

@@ -1,0 +1,73 @@
+{
+  "code": "docsArticleaf170ce6bc2155f78058",
+  "title": "Store Documentation",
+  "route": "/docs/modules/gcomm/store/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gComm/store/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "efa4f1fc5c7fd0a792ec8fff5ad310eb84af2554c3f032a883cc9ae6835655c8"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Store Documentation",
+      "anchor": "store-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Store Documentation",
+      "anchor": "store-documentation"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "[Store Foundation](/docs/modules/gcomm/store/docs/store-foundation) — architecture, models, lifecycle, security, configuration, customization, operations, and verification.",
+        "[Store and Storefront Integration](/docs/modules/gcomm/store/docs/store-site-and-integration) — authority boundaries and links to the owning Storefront guide.",
+        "[Business Guide](/docs/commerce/how-to-manage-stores) — plain-language procedures and recovery guidance.",
+        "[Store and Website Modeling](/docs/commerce/how-to-model-stores-and-websites) — requirement mapping, Electronics/Apparel walkthrough, payloads, shared-Site patterns, and ownership rules."
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "Store Foundation",
+      "target": "store-foundation.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcomm/store/docs/store-foundation",
+      "anchor": ""
+    },
+    {
+      "label": "Store and Storefront Integration",
+      "target": "store-site-and-integration.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcomm/store/docs/store-site-and-integration",
+      "anchor": ""
+    },
+    {
+      "label": "Business Guide",
+      "target": "../../../gDocs/commerce/how-to-manage-stores.md",
+      "kind": "internal",
+      "route": "/docs/commerce/how-to-manage-stores",
+      "anchor": ""
+    },
+    {
+      "label": "Store and Website Modeling",
+      "target": "../../../gDocs/commerce/how-to-model-stores-and-websites.md",
+      "kind": "internal",
+      "route": "/docs/commerce/how-to-model-stores-and-websites",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

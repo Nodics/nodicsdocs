@@ -298,11 +298,11 @@
     {
       "kind": "unordered-list",
       "items": [
-        "[nRouter](../../gFramework/nRouter/README.md) and [Router Framework](../../gFramework/nRouter/docs/router-framework.md) for route definitions, Express registration, request pipelines, security, response handlers, cache, and OpenAPI.",
-        "[nController](../../gFramework/nController/README.md) for controller request mapping.",
-        "[nFacade](../../gFramework/nFacade/README.md) for orchestration boundaries.",
-        "[nService](../../gFramework/nService/README.md) for service behavior and generated CRUD service flow.",
-        "[Module Documentation Index](../reference/module-documentation-index.md) when you need to find another owning module."
+        "[nRouter](/docs/modules/gframework/nrouter) and [Router Framework](/docs/modules/gframework/nrouter/docs/router-framework) for route definitions, Express registration, request pipelines, security, response handlers, cache, and OpenAPI.",
+        "[nController](/docs/modules/gframework/ncontroller) for controller request mapping.",
+        "[nFacade](/docs/modules/gframework/nfacade) for orchestration boundaries.",
+        "[nService](/docs/modules/gframework/nservice) for service behavior and generated CRUD service flow.",
+        "[Module Documentation Index](/docs/reference/module-documentation-index) when you need to find another owning module."
       ]
     },
     {
@@ -604,10 +604,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Previous: [Common Implementation Examples](common-implementation-examples.md)",
-        "Data: [How To Work With Data](../data/how-to-work-with-data.md)",
-        "Owning modules: [Module Documentation Index](../reference/module-documentation-index.md)",
-        "Documentation home: [Nodics Documentation](../README.md)"
+        "Previous: [Common Implementation Examples](/docs/development/common-implementation-examples)",
+        "Data: [How To Work With Data](/docs/data/how-to-work-with-data)",
+        "Owning modules: [Module Documentation Index](/docs/reference/module-documentation-index)",
+        "Documentation home: [Nodics Documentation](/docs)"
       ]
     }
   ],

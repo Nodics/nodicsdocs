@@ -320,11 +320,11 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Core capability family: [gCore](../README.md)",
-        "Profile and service identity: [profile](../profile/README.md)",
-        "Messaging and events: [nEms](../../gFramework/nEms/README.md)",
-        "Runtime module lifecycle: [nService](../../gFramework/nService/README.md)",
-        "Capability maturity: [Provider And Capability Maturity Matrix](../../gDocs/reference/provider-capability-maturity-matrix.md)"
+        "Core capability family: [gCore](/docs/modules/gcore)",
+        "Profile and service identity: [profile](/docs/modules/gcore/profile)",
+        "Messaging and events: [nEms](/docs/modules/gframework/nems)",
+        "Runtime module lifecycle: [nService](/docs/modules/gframework/nservice)",
+        "Capability maturity: [Provider And Capability Maturity Matrix](/docs/reference/provider-capability-maturity-matrix)"
       ]
     }
   ],

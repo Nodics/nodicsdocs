@@ -39,7 +39,6 @@ const moduleReadmes = walkFiles(nodicsRoot, filePath => {
 });
 const moduleDocuments = walkFiles(nodicsRoot, filePath => {
     if (path.extname(filePath).toLowerCase() !== '.md') return false;
-    if (path.basename(filePath).toLowerCase() === 'readme.md') return false;
     if (!filePath.split(path.sep).includes('docs')) return false;
     if (filePath.startsWith(path.join(nodicsRoot, 'docs'))) return false;
     let directory = path.dirname(filePath);
@@ -116,7 +115,7 @@ const articles = sources.map(source => {
     });
     const mediaByTarget = new Map(media.map(item => [item.target, item]));
     const blocks = parsed.blocks.map(block =>
-        block.kind === 'image' ? { ...block, ...mediaByTarget.get(block.target) } : block
+        block.kind === 'image' ? { ...block, media: mediaByTarget.get(block.target) } : block
     );
     const links = references.links.map(reference => {
         if (/^(https?:|mailto:|#)/i.test(reference.target)) return { ...reference, kind: 'external' };

@@ -1,0 +1,47 @@
+{
+  "code": "docsArticled344ffb11d812e3bf513",
+  "title": "startioProd Documentation",
+  "route": "/docs/modules/startio/envs/startioprod/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/envs/startioProd/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "8e9733e4435881574880b5ab23bc343659f89a9c05ea613d53df849a72099819"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "startioProd Documentation",
+      "anchor": "startioprod-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "startioProd Documentation",
+      "anchor": "startioprod-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `startio/envs/startioProd` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

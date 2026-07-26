@@ -155,10 +155,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Workflow family: [workflow](../README.md)",
-        "Data contracts: [flowSchema](../flowSchema/README.md)",
-        "HTTP commands: [flowApi](../flowApi/README.md)",
-        "Framework lifecycle integration: [nbpm](../../../gFramework/nbpm/README.md)"
+        "Workflow family: [workflow](/docs/modules/gcore/workflow)",
+        "Data contracts: [flowSchema](/docs/modules/gcore/workflow/flowschema)",
+        "HTTP commands: [flowApi](/docs/modules/gcore/workflow/flowapi)",
+        "Framework lifecycle integration: [nbpm](/docs/modules/gframework/nbpm)"
       ]
     }
   ],

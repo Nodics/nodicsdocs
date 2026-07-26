@@ -39,7 +39,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "Start with [the beginner and developer guide](docs/storefront-foundation.md). The public resolver is `GET /context/resolve`; protected human management is under `/management/:resource` for `storefronts` and `endpoints`."
+      "text": "Start with [the beginner and developer guide](/docs/modules/gexp/storefront/docs/storefront-foundation). The public resolver is `GET /context/resolve`; protected human management is under `/management/:resource` for `storefronts` and `endpoints`."
     },
     {
       "kind": "paragraph",

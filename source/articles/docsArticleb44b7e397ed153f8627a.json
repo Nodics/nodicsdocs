@@ -284,10 +284,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "System control plane: [nSystem](../nSystem/README.md)",
-        "Configuration guide: [How Configuration Works](../../gDocs/configuration/how-configuration-works.md)",
-        "Operations: [Production Operating Model](../../gDocs/operations/production-operating-model.md)",
-        "Framework map: [gFramework](../README.md)"
+        "System control plane: [nSystem](/docs/modules/gframework/nsystem)",
+        "Configuration guide: [How Configuration Works](/docs/configuration/how-configuration-works)",
+        "Operations: [Production Operating Model](/docs/operations/production-operating-model)",
+        "Framework map: [gFramework](/docs/modules/gframework)"
       ]
     }
   ],

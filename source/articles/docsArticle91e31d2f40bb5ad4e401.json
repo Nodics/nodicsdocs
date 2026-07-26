@@ -76,19 +76,19 @@
       ],
       "rows": [
         [
-          "[flowSchema](flowSchema/README.md)",
+          "[flowSchema](/docs/modules/gcore/workflow/flowschema)",
           "Authoritative workflow definitions and durable carrier/item contracts"
         ],
         [
-          "[flowCore](flowCore/README.md)",
+          "[flowCore](/docs/modules/gcore/workflow/flowcore)",
           "Application execution, actions, decisions, splits, retries, and event continuation"
         ],
         [
-          "[flowApi](flowApi/README.md)",
+          "[flowApi](/docs/modules/gcore/workflow/flowapi)",
           "Secured carrier and action command APIs"
         ],
         [
-          "[nbpm](../../gFramework/nbpm/README.md)",
+          "[nbpm](/docs/modules/gframework/nbpm)",
           "Generic framework workflow-to-schema lifecycle integration"
         ]
       ]
@@ -177,10 +177,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Core capability family: [gCore](../README.md)",
-        "Framework lifecycle integration: [nbpm](../../gFramework/nbpm/README.md)",
-        "Events and messaging: [nEvent](../../gFramework/nEvent/README.md)",
-        "Capability maturity: [Provider And Capability Maturity Matrix](../../gDocs/reference/provider-capability-maturity-matrix.md)"
+        "Core capability family: [gCore](/docs/modules/gcore)",
+        "Framework lifecycle integration: [nbpm](/docs/modules/gframework/nbpm)",
+        "Events and messaging: [nEvent](/docs/modules/gframework/nevent)",
+        "Capability maturity: [Provider And Capability Maturity Matrix](/docs/reference/provider-capability-maturity-matrix)"
       ]
     }
   ],

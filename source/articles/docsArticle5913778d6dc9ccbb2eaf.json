@@ -228,7 +228,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "This operation reuses the generated `DefaultEnterpriseService` against the Profile-owned default-tenant enterprise store. It is not a second search index, schema loader, registry, or persistence path. BackOffice discovers it from the effective OpenAPI contract, and Assistant may invoke it only when the reviewed tool policy also allowlists `profile.enterprise.search` with operation ID `profile_searchenterprises`. See [Enterprise Management Search](docs/enterprise-management-search.md)."
+      "text": "This operation reuses the generated `DefaultEnterpriseService` against the Profile-owned default-tenant enterprise store. It is not a second search index, schema loader, registry, or persistence path. BackOffice discovers it from the effective OpenAPI contract, and Assistant may invoke it only when the reviewed tool policy also allowlists `profile.enterprise.search` with operation ID `profile_searchenterprises`. See [Enterprise Management Search](/docs/modules/gcore/profile/docs/enterprise-management-search)."
     },
     {
       "kind": "paragraph",
@@ -500,11 +500,11 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Core capability family: [gCore](../README.md)",
-        "Authentication framework: [nAuth](../../gFramework/nAuth/README.md)",
-        "Token lifecycle: [nToken](../../gFramework/nToken/README.md)",
-        "Cache and distributed state: [nCache](../../gFramework/nCache/README.md)",
-        "Capability maturity: [Provider And Capability Maturity Matrix](../../gDocs/reference/provider-capability-maturity-matrix.md)"
+        "Core capability family: [gCore](/docs/modules/gcore)",
+        "Authentication framework: [nAuth](/docs/modules/gframework/nauth)",
+        "Token lifecycle: [nToken](/docs/modules/gframework/ntoken)",
+        "Cache and distributed state: [nCache](/docs/modules/gframework/ncache)",
+        "Capability maturity: [Provider And Capability Maturity Matrix](/docs/reference/provider-capability-maturity-matrix)"
       ]
     }
   ],

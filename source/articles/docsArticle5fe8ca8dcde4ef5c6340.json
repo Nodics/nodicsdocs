@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle5fe8ca8dcde4ef5c6340",
+  "title": "workflow Documentation",
+  "route": "/docs/modules/gcore/workflow/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gCore/workflow/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "768ba8381966201f99646087e66f269f11b5acb271a5000d3efacdc605c4024e"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "workflow Documentation",
+      "anchor": "workflow-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "workflow Documentation",
+      "anchor": "workflow-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gCore/workflow` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

@@ -186,8 +186,19 @@
       "text": "This structure lets a project customize behavior without modifying framework files."
     },
     {
-      "kind": "paragraph",
-      "text": "![Nodics Structure](../assets/images/nodics-structure.png)"
+      "kind": "image",
+      "alt": "Nodics Structure",
+      "target": "../assets/images/nodics-structure.png",
+      "title": "",
+      "media": {
+        "alt": "Nodics Structure",
+        "target": "../assets/images/nodics-structure.png",
+        "title": "",
+        "kind": "local",
+        "assetCode": "docsMediae93e05145b685596de40",
+        "assetPath": "assets/images/144d1e5253940c15.png",
+        "contentHash": "144d1e5253940c150e9f5b51b91bcf93bc06b07108916d9a3752714fd6243c20"
+      }
     },
     {
       "kind": "heading",
@@ -455,8 +466,19 @@
       "text": "A tenant is also the data-placement decision. One business can run inside the shared `default` tenant when shared infrastructure is acceptable. Another business can use a dedicated tenant when its data must remain inside its own database, search cluster, cache namespace, storage location, audit boundary, or operational environment. The application capability stays the same; tenant configuration decides where the data and runtime state are handled."
     },
     {
-      "kind": "paragraph",
-      "text": "![Enterprise Tenant Design](../assets/images/enterprise-tenant-design.jpg)"
+      "kind": "image",
+      "alt": "Enterprise Tenant Design",
+      "target": "../assets/images/enterprise-tenant-design.jpg",
+      "title": "",
+      "media": {
+        "alt": "Enterprise Tenant Design",
+        "target": "../assets/images/enterprise-tenant-design.jpg",
+        "title": "",
+        "kind": "local",
+        "assetCode": "docsMediadd39e3afb061373f4407",
+        "assetPath": "assets/images/17dc2f8e88fb6fe9.jpg",
+        "contentHash": "17dc2f8e88fb6fe9562f2306734d6fc9b379014c6d14c7cddc6949d59612491b"
+      }
     },
     {
       "kind": "paragraph",
@@ -579,10 +601,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Previous: [What Nodics Is](../overview/what-is-nodics.md)",
-        "Next: [How Configuration Works](../configuration/how-configuration-works.md)",
-        "Terminology: [Nodics Glossary](../reference/glossary.md)",
-        "Documentation home: [Nodics Documentation](../README.md)"
+        "Previous: [What Nodics Is](/docs/overview/what-is-nodics)",
+        "Next: [How Configuration Works](/docs/configuration/how-configuration-works)",
+        "Terminology: [Nodics Glossary](/docs/reference/glossary)",
+        "Documentation home: [Nodics Documentation](/docs)"
       ]
     }
   ],

@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle0d34d916e715a198dae2",
+  "title": "quizer Documentation",
+  "route": "/docs/modules/gcore/quizer/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gCore/quizer/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "88b90dcc7551d4813ca8baf3bdd732fe95333dd29ed001aca352f7171d95387e"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "quizer Documentation",
+      "anchor": "quizer-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "quizer Documentation",
+      "anchor": "quizer-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gCore/quizer` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

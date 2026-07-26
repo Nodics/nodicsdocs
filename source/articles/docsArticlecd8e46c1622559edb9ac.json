@@ -1,0 +1,47 @@
+{
+  "code": "docsArticlecd8e46c1622559edb9ac",
+  "title": "startioCore Documentation",
+  "route": "/docs/modules/startio/modules/startiocore/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/modules/startioCore/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "9aa70aaf29c046306a4888ee1d1357d79badffe0fea91d910e5da1d74b73701e"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "startioCore Documentation",
+      "anchor": "startiocore-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "startioCore Documentation",
+      "anchor": "startiocore-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `startio/modules/startioCore` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

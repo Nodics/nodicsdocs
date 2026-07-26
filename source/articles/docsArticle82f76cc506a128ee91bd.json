@@ -1,0 +1,39 @@
+{
+  "code": "docsArticle82f76cc506a128ee91bd",
+  "title": "Online CMS runtime contract",
+  "route": "/docs/modules/startio/envs/startiolocal/cmsonlineserver/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/envs/startioLocal/cmsOnlineServer/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "283efce1653e57b2b20e552fdcd82a91283f6983c3dcf181829eecfe4e60de68"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Online CMS runtime contract",
+      "anchor": "online-cms-runtime-contract"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Online CMS runtime contract",
+      "anchor": "online-cms-runtime-contract"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This server is the non-versioned deployment and delivery side of the local CMS topology. Only internal-token-protected target APIs may import, activate, query, or roll back immutable manifests. Direct Staged database access and local publication lifecycle execution are prohibited."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

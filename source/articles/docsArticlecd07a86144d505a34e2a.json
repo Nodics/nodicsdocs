@@ -65,7 +65,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "See [the local backend topology guide](docs/local-backend-runtime-topologies.md) for ports, startup commands, expected results, and troubleshooting."
+      "text": "See [the local backend topology guide](/docs/modules/startio/envs/startiolocal/docs/local-backend-runtime-topologies) for ports, startup commands, expected results, and troubleshooting."
     }
   ],
   "links": [

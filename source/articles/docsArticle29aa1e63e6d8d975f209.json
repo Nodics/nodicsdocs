@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "gFramework/nSystem/README.md",
     "type": "module-readme",
-    "contentHash": "3462436d2d8f46b7616aed769b3e1e886e9d077171724b6c207beb0dbabec01f"
+    "contentHash": "cb664583dbe8d2d2f3ed153457a0f6ba6f9e023bfcedec318500166b702777db"
   },
   "headings": [
     {
@@ -134,6 +134,16 @@
     {
       "kind": "paragraph",
       "text": "`import.sample.run`, or `import.local.run`;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "content-pack status and execution use `import.contentPack.view` and"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "`import.contentPack.run`; System exposes these routes while nImport remains manifest, staging, execution and history authority;"
     },
     {
       "kind": "unordered-list",
@@ -336,10 +346,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Runtime governance: [nDynamo](../nDynamo/README.md)",
-        "Router exposure and authorization: [nRouter](../nRouter/README.md)",
-        "Run and debug: [How To Run And Debug Nodics](../../gDocs/operations/how-to-run-and-debug-nodics.md)",
-        "Production operations: [Production Operating Model](../../gDocs/operations/production-operating-model.md)"
+        "Runtime governance: [nDynamo](/docs/modules/gframework/ndynamo)",
+        "Router exposure and authorization: [nRouter](/docs/modules/gframework/nrouter)",
+        "Run and debug: [How To Run And Debug Nodics](/docs/operations/how-to-run-and-debug-nodics)",
+        "Production operations: [Production Operating Model](/docs/operations/production-operating-model)"
       ]
     }
   ],

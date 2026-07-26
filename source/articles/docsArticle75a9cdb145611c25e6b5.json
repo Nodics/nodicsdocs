@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle75a9cdb145611c25e6b5",
+  "title": "jsonExport Documentation",
+  "route": "/docs/modules/gframework/ndata/nexport/jsonexport/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nData/nExport/jsonExport/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "96e335dd9c8ce2ae04552911518f4365b1862df28abb02c8f5dab7d2ebe5c253"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "jsonExport Documentation",
+      "anchor": "jsonexport-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "jsonExport Documentation",
+      "anchor": "jsonexport-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gFramework/nData/nExport/jsonExport` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

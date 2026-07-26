@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle063a2fff6dad3ead085f",
+  "title": "nData Documentation",
+  "route": "/docs/modules/gframework/ndata/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nData/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "786779b8689534556c71d230769c575b76abfda150aa237463c73c9aaa191dd8"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "nData Documentation",
+      "anchor": "ndata-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "nData Documentation",
+      "anchor": "ndata-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gFramework/nData` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

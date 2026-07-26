@@ -26,5 +26,16 @@ module.exports = {
         ],
         "deprecated": false,
         "active": true
+    },
+    "record2": {
+        "code": "nodicsDocumentationNavigationComponentType",
+        "renderer": "documentation.component.navigation",
+        "contractVersion": 1,
+        "channels": [
+            "web",
+            "mobile-webview"
+        ],
+        "deprecated": false,
+        "active": true
     }
 };

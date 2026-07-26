@@ -384,9 +384,9 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Related: [Documentation Maintenance Guide](how-to-maintain-documentation.md)",
-        "Module navigation: [Complete Module Catalog](../reference/module-catalog.md)",
-        "Documentation home: [Nodics Documentation](../README.md)"
+        "Related: [Documentation Maintenance Guide](/docs/documentation/how-to-maintain-documentation)",
+        "Module navigation: [Complete Module Catalog](/docs/reference/module-catalog)",
+        "Documentation home: [Nodics Documentation](/docs)"
       ]
     }
   ],

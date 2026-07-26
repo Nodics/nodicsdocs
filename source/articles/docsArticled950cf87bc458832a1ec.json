@@ -1,0 +1,298 @@
+{
+  "code": "docsArticled950cf87bc458832a1ec",
+  "title": "AI Knowledge Runtime Operations",
+  "route": "/docs/modules/gai/aiknowledge/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gAi/aiKnowledge/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "4190049cfd0625966cb17511d96b9c4a4d3643f603913e0c914392b5534c7de0"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "AI Knowledge Runtime Operations",
+      "anchor": "ai-knowledge-runtime-operations"
+    },
+    {
+      "level": 2,
+      "text": "Business and operator workflow",
+      "anchor": "business-and-operator-workflow"
+    },
+    {
+      "level": 2,
+      "text": "Runtime APIs",
+      "anchor": "runtime-apis"
+    },
+    {
+      "level": 2,
+      "text": "Local Elasticsearch setup",
+      "anchor": "local-elasticsearch-setup"
+    },
+    {
+      "level": 2,
+      "text": "Ingestion and recovery",
+      "anchor": "ingestion-and-recovery"
+    },
+    {
+      "level": 2,
+      "text": "Readiness and metrics",
+      "anchor": "readiness-and-metrics"
+    },
+    {
+      "level": 2,
+      "text": "Developer customization",
+      "anchor": "developer-customization"
+    },
+    {
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "AI Knowledge Runtime Operations",
+      "anchor": "ai-knowledge-runtime-operations"
+    },
+    {
+      "kind": "paragraph",
+      "text": "AI Knowledge is disabled by default. An environment must enable it through normal Nodics configuration layering and must provide a healthy nSearch deployment before ingestion or retrieval can be considered ready."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Business and operator workflow",
+      "anchor": "business-and-operator-workflow"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Create the corpus and source records through their generated Nodics"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "services or an approved project setup contribution. The OOTB init import provides an inactive `nodicsDocumentation` corpus and the explicit `nodicsGDocs` source for the default tenant."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Submit published documents to the service-token-protected ingestion route."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "The response identifies a durable ingestion run."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Inspect the ingestion run and readiness endpoints. A completed run means the"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "candidate chunks reached nSearch and the batch refresh completed; it still does not make them visible."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "An employee with `ai.knowledge.manage` activates the candidate version.",
+        "Retrieval now filters every query by the corpus `activeIndexVersion`.",
+        "If relevance or source quality is unacceptable, roll back to an explicitly"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "named previous version."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Candidate data never becomes visible merely because it was indexed. Activation changes one corpus-owned pointer using optimistic revision matching."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Runtime APIs",
+      "anchor": "runtime-apis"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`POST /internal/knowledge/ingest` requires the configured internal"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "module-token permission."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`POST /internal/knowledge/retrieve` requires the same module boundary and is"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "intended for Assistant or other backend modules."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`POST /operations/knowledge/activate` and `/rollback` require"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "`ai.knowledge.manage`."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`GET /operations/knowledge/readiness`, `/ingestion-runs`, and `/metrics`"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "require `ai.knowledge.read`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The OOTB bootstrap runtime administrator receives `ai.knowledge.read` and `ai.knowledge.manage` through Profile-owned init data. Production projects should assign these permissions to narrower operator groups according to separation-of-duties policy."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Human passwords and employee bearer tokens are not substitutes for internal module tokens. Internal module tokens are not accepted as employee management authority."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Local Elasticsearch setup",
+      "anchor": "local-elasticsearch-setup"
+    },
+    {
+      "kind": "paragraph",
+      "text": "For local development, set `ELASTICSEARCH_HOME` to the extracted Elasticsearch directory and `ES_JAVA_HOME` to a compatible JDK, then run:"
+    },
+    {
+      "kind": "code",
+      "language": "text",
+      "text": "ES_JAVA_HOME=\"$ES_JAVA_HOME\" \\\nES_JAVA_OPTS=\"-Xms1g -Xmx1g\" \\\n\"$ELASTICSEARCH_HOME/bin/elasticsearch\" \\\n-Ediscovery.type=single-node \\\n-Enetwork.host=127.0.0.1 \\\n-Ehttp.port=9200 \\\n-Expack.security.enabled=false"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Disabling Elasticsearch security is permitted only on a developer-owned local loopback interface. Shared environments must configure authentication, TLS, secret resolution, and network policy through their deployment layer."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Enable the existing nSearch authority and AI Knowledge in the local server layer, start Nodics, and verify:"
+    },
+    {
+      "kind": "code",
+      "language": "text",
+      "text": "curl http://127.0.0.1:9200/_cluster/health\ncurl http://127.0.0.1:9200/_cat/indices?v"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Run the explicit init import for `aiKnowledge` to install its corpus/source records. The import is not executed every time the server starts."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Ingestion and recovery",
+      "anchor": "ingestion-and-recovery"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Every ingestion has a unique run code. The durable run progresses from `RUNNING` to `COMPLETED` or `FAILED`. Replaying a completed run code returns the recorded result without indexing again. Reusing a running or failed code is rejected; choose a new run code after correcting the cause."
+    },
+    {
+      "kind": "paragraph",
+      "text": "If document persistence succeeds but indexing fails, the candidate remains inactive and the run becomes `FAILED`. Correct nSearch, verify readiness, and submit a new run. Do not modify `activeIndexVersion` directly and do not write to Elasticsearch outside nSearch."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Configured document-count and document-byte limits are enforced. Failure messages persisted with runs are bounded and credential-shaped values are redacted."
+    },
+    {
+      "kind": "paragraph",
+      "text": "After all chunks in a run have been indexed, AI Knowledge invokes the generated `KnowledgeChunk` service's nSearch refresh once for the batch. Source adapters must not call Elasticsearch refresh directly, and must not refresh once per chunk."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Readiness and metrics",
+      "anchor": "readiness-and-metrics"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Readiness reports:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "whether effective configuration enables Knowledge;",
+        "the configured search authority and search mode;",
+        "nSearch index health;",
+        "whether the requested corpus has an active version."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Metrics are derived from a bounded tenant-scoped window of durable ingestion runs, so they remain valid across application processes. They report run, document, chunk, state, and duration totals. Infrastructure-level nSearch latency and capacity remain owned by nSearch monitoring."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Provider relevance scores are non-negative but not necessarily normalized. For example, Elasticsearch BM25 scores may exceed `1`. Tune `retrieval.minimumEvidenceScore` using representative corpus queries rather than assuming a percentage."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Developer customization",
+      "anchor": "developer-customization"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Override the smallest property subtree through project, environment, server, node, or tenant layering. Source adapters contribute explicit documents to `DefaultAiKnowledgeOperationsService`; they do not open database or search connections."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The generated `KnowledgeChunk` service is the only item-to-search bridge:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`save` persists the derived item through nDatabase;",
+        "`doSave` indexes it through nSearch;",
+        "`doSearch` retrieves it through nSearch."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not call the database-backed `DefaultSearchService` as an index client. Vector and hybrid execution remain disabled until mappings, dimensions, embedding profile, and adapter capability are explicitly configured."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Verification",
+      "anchor": "verification"
+    },
+    {
+      "kind": "code",
+      "language": "text",
+      "text": "node gAi/aiKnowledge/test/aiKnowledgeRuntimeOperationsContract.test.js\nnode gAi/aiKnowledge/test/aiKnowledgeRouteSecurityContract.test.js\nnode gFramework/nSearch/elastic/test/elasticConnectionHandlerContract.test.js\nnode gFramework/nSearch/elastic/test/elasticSearchModelOperationContract.test.js\nnode gFramework/nTooling/bin/nodics-tool.js test:suite --suite=ai"
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

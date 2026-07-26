@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle5e9b8399b0e5ec286bf6",
+  "title": "cronjob Documentation",
+  "route": "/docs/modules/gcore/cronjob/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gCore/cronjob/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "7f9776967506e28f0a89aadba1b19c53faa4e41766365f679721a05140f7e8f7"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "cronjob Documentation",
+      "anchor": "cronjob-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "cronjob Documentation",
+      "anchor": "cronjob-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gCore/cronjob` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

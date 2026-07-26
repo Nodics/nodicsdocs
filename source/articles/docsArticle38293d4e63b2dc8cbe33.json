@@ -58,10 +58,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "[How to Reserve Stock](how-to-reserve-stock.md)",
-        "[How Stock Movements Work](how-stock-movements-work.md)",
-        "[How Stock Availability Works](how-stock-availability-works.md)",
-        "[Nodics Documentation](../README.md)"
+        "[How to Reserve Stock](/docs/commerce/how-to-reserve-stock)",
+        "[How Stock Movements Work](/docs/commerce/how-stock-movements-work)",
+        "[How Stock Availability Works](/docs/commerce/how-stock-availability-works)",
+        "[Nodics Documentation](/docs)"
       ]
     }
   ],

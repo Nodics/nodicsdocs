@@ -1,0 +1,47 @@
+{
+  "code": "docsArticlec046bc42dd59c705f10b",
+  "title": "nNms Documentation",
+  "route": "/docs/modules/gframework/nnms/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nNms/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "721cf737b32525ee8d93e330abf3d905ad1b0f93914c059868837aade8ae865d"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "nNms Documentation",
+      "anchor": "nnms-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "nNms Documentation",
+      "anchor": "nnms-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gFramework/nNms` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

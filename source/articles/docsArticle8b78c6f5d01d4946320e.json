@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle8b78c6f5d01d4946320e",
+  "title": "emsClient Documentation",
+  "route": "/docs/modules/gframework/nems/emsclient/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nEms/emsClient/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "a0bbb6971fbdaa8b14d8e837e69f3e180ff2c6a82e33cd32f8bca4dcd90ac8d1"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "emsClient Documentation",
+      "anchor": "emsclient-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "emsClient Documentation",
+      "anchor": "emsclient-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gFramework/nEms/emsClient` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

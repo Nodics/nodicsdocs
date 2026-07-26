@@ -436,7 +436,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "Developers and operators can find the complete implemented contract in the [Product module guide](../../gComm/product/README.md)."
+      "text": "Developers and operators can find the complete implemented contract in the [Product module guide](/docs/modules/gcomm/product)."
     },
     {
       "kind": "heading",
@@ -447,11 +447,11 @@
     {
       "kind": "unordered-list",
       "items": [
-        "[How To Configure And Operate Pricing](how-to-configure-and-operate-pricing.md)",
-        "[How To Operate And Integrate Inventory](how-to-operate-and-integrate-inventory.md)",
-        "[How Store Management Works](how-to-manage-stores.md)",
-        "[How To Customize And Extend Nodics](../development/how-to-customize-and-extend-nodics.md)",
-        "[Nodics Documentation](../README.md)"
+        "[How To Configure And Operate Pricing](/docs/commerce/how-to-configure-and-operate-pricing)",
+        "[How To Operate And Integrate Inventory](/docs/commerce/how-to-operate-and-integrate-inventory)",
+        "[How Store Management Works](/docs/commerce/how-to-manage-stores)",
+        "[How To Customize And Extend Nodics](/docs/development/how-to-customize-and-extend-nodics)",
+        "[Nodics Documentation](/docs)"
       ]
     }
   ],

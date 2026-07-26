@@ -450,9 +450,9 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Previous: [How To Create Application Functionality](../development/how-to-create-application-functionality.md)",
-        "Operations: [How To Run And Debug Nodics](../operations/how-to-run-and-debug-nodics.md)",
-        "Documentation home: [Nodics Documentation](../README.md)"
+        "Previous: [How To Create Application Functionality](/docs/development/how-to-create-application-functionality)",
+        "Operations: [How To Run And Debug Nodics](/docs/operations/how-to-run-and-debug-nodics)",
+        "Documentation home: [Nodics Documentation](/docs)"
       ]
     }
   ],

@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle81dd01e5a0a74be05721",
+  "title": "jsonImport Documentation",
+  "route": "/docs/modules/gframework/ndata/nimport/jsonimport/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nData/nImport/jsonImport/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "14cd2012730661e4d6a75306441ac589a687fc94d552e8f445fb26de7141a6c3"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "jsonImport Documentation",
+      "anchor": "jsonimport-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "jsonImport Documentation",
+      "anchor": "jsonimport-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gFramework/nData/nImport/jsonImport` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

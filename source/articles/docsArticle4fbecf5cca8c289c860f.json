@@ -118,12 +118,12 @@
       ],
       "rows": [
         [
-          "[search](search/README.md)",
+          "[search](/docs/modules/gframework/nsearch/search)",
           "Provider-neutral schemas, routes, indexing, query, cache, and error contract",
           "Production-ready capability"
         ],
         [
-          "[elastic](elastic/README.md)",
+          "[elastic](/docs/modules/gframework/nsearch/elastic)",
           "Elasticsearch client and operation adapter",
           "Guarded provider"
         ]
@@ -389,10 +389,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Generic search contract: [search](search/README.md)",
-        "Elasticsearch provider: [elastic](elastic/README.md)",
-        "Provider maturity: [Provider And Capability Maturity Matrix](../../gDocs/reference/provider-capability-maturity-matrix.md)",
-        "Public platform guide: [How Platform Capabilities Work](../../gDocs/platform/how-platform-capabilities-work.md)"
+        "Generic search contract: [search](/docs/modules/gframework/nsearch/search)",
+        "Elasticsearch provider: [elastic](/docs/modules/gframework/nsearch/elastic)",
+        "Provider maturity: [Provider And Capability Maturity Matrix](/docs/reference/provider-capability-maturity-matrix)",
+        "Public platform guide: [How Platform Capabilities Work](/docs/platform/how-platform-capabilities-work)"
       ]
     }
   ],

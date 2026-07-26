@@ -594,10 +594,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Previous: [How Nodics Is Organized](../architecture/how-nodics-is-organized.md)",
-        "Next: [Build Your First Nodics Capability](../getting-started/build-your-first-capability.md)",
-        "Owning modules: [Module Documentation Index](../reference/module-documentation-index.md)",
-        "Documentation home: [Nodics Documentation](../README.md)"
+        "Previous: [How Nodics Is Organized](/docs/architecture/how-nodics-is-organized)",
+        "Next: [Build Your First Nodics Capability](/docs/getting-started/build-your-first-capability)",
+        "Owning modules: [Module Documentation Index](/docs/reference/module-documentation-index)",
+        "Documentation home: [Nodics Documentation](/docs)"
       ]
     }
   ],

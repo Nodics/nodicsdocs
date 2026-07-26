@@ -343,8 +343,19 @@
       "text": "Human login routes are pre-authentication because the user does not have a token yet."
     },
     {
-      "kind": "paragraph",
-      "text": "![Authentication Flow](../assets/images/authentication-flow.jpg)"
+      "kind": "image",
+      "alt": "Authentication Flow",
+      "target": "../assets/images/authentication-flow.jpg",
+      "title": "",
+      "media": {
+        "alt": "Authentication Flow",
+        "target": "../assets/images/authentication-flow.jpg",
+        "title": "",
+        "kind": "local",
+        "assetCode": "docsMedia10c3aee37421f6efd345",
+        "assetPath": "assets/images/c3589b67dcdfbef1.jpg",
+        "contentHash": "c3589b67dcdfbef11b44a85df5589988c873021909e38954b479470e25954032"
+      }
     },
     {
       "kind": "paragraph",
@@ -355,8 +366,19 @@
       "text": "After login, secured APIs must validate authentication, tenant context, and permissions."
     },
     {
-      "kind": "paragraph",
-      "text": "![Authorization Flow](../assets/images/authorization-flow.jpg)"
+      "kind": "image",
+      "alt": "Authorization Flow",
+      "target": "../assets/images/authorization-flow.jpg",
+      "title": "",
+      "media": {
+        "alt": "Authorization Flow",
+        "target": "../assets/images/authorization-flow.jpg",
+        "title": "",
+        "kind": "local",
+        "assetCode": "docsMedia3c011e58b11e3e6aa735",
+        "assetPath": "assets/images/5748f710a8dca2fc.jpg",
+        "contentHash": "5748f710a8dca2fcb2d23b0197cd656d0b54df87896786c7708ebdc8c8f1bd5d"
+      }
     },
     {
       "kind": "heading",
@@ -690,13 +712,13 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Business overview: [Why Businesses Can Trust Nodics](../business/security-and-trust.md)",
-        "Responsibilities: [Security Shared-Responsibility Model](shared-responsibility-model.md)",
-        "Expert evidence: [Security Evidence Guide](security-evidence-guide.md)",
-        "Operations: [Production Operating Model](../operations/production-operating-model.md)",
-        "Testing: [How To Test Nodics Changes](../testing/how-to-test-nodics-changes.md)",
-        "Owning modules: [Module Documentation Index](../reference/module-documentation-index.md)",
-        "Documentation home: [Nodics Documentation](../README.md)"
+        "Business overview: [Why Businesses Can Trust Nodics](/docs/business/security-and-trust)",
+        "Responsibilities: [Security Shared-Responsibility Model](/docs/security/shared-responsibility-model)",
+        "Expert evidence: [Security Evidence Guide](/docs/security/security-evidence-guide)",
+        "Operations: [Production Operating Model](/docs/operations/production-operating-model)",
+        "Testing: [How To Test Nodics Changes](/docs/testing/how-to-test-nodics-changes)",
+        "Owning modules: [Module Documentation Index](/docs/reference/module-documentation-index)",
+        "Documentation home: [Nodics Documentation](/docs)"
       ]
     }
   ],

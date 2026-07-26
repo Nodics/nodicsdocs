@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle9020be8bf63329fac9ff",
+  "title": "cmsStagedServer Documentation",
+  "route": "/docs/modules/startio/envs/startiolocal/cmsstagedserver/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/envs/startioLocal/cmsStagedServer/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "8cf840211f0b6476af560e7d545903fbe17c0a004f1fcef7d7b7d193ce544a0f"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "cmsStagedServer Documentation",
+      "anchor": "cmsstagedserver-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "cmsStagedServer Documentation",
+      "anchor": "cmsstagedserver-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `startio/envs/startioLocal/cmsStagedServer` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

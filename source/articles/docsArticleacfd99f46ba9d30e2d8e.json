@@ -1,0 +1,47 @@
+{
+  "code": "docsArticleacfd99f46ba9d30e2d8e",
+  "title": "monoNode2 Documentation",
+  "route": "/docs/modules/startio/envs/startiolocal/monoserver/mononode2/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/envs/startioLocal/monoServer/monoNode2/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "0b196fb222410b7d0eda13dac83537fc9f7e1399d02479235458aa92b159f9be"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "monoNode2 Documentation",
+      "anchor": "mononode2-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "monoNode2 Documentation",
+      "anchor": "mononode2-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `startio/envs/startioLocal/monoServer/monoNode2` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

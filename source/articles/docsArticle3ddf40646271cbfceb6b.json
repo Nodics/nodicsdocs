@@ -1,0 +1,39 @@
+{
+  "code": "docsArticle3ddf40646271cbfceb6b",
+  "title": "Gemini Provider Status",
+  "route": "/docs/modules/gai/aiproviders/geminiprovider/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gAi/aiProviders/geminiProvider/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "237502a1903bfe72ee4fd47aac90d7e16ea57b55a3e664e1369eae417f68a144"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Gemini Provider Status",
+      "anchor": "gemini-provider-status"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Gemini Provider Status",
+      "anchor": "gemini-provider-status"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The Gemini API and Vertex AI adapter, lifecycle registration, generation, embedding, function-call translation, streaming deltas, usage normalization, cancellation, and mocked conformance tests are implemented. Credentials, selection, retries, diagnostics, and accounting remain parent `aiProviders` responsibilities."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

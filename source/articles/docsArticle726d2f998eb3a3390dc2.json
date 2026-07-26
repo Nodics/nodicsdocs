@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle726d2f998eb3a3390dc2",
+  "title": "startioQA Documentation",
+  "route": "/docs/modules/startio/envs/startioqa/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/envs/startioQA/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "e46d2e38dee9c0b6b9fa90cfa07204899da9c850177b826125aa3450618d2d41"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "startioQA Documentation",
+      "anchor": "startioqa-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "startioQA Documentation",
+      "anchor": "startioqa-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `startio/envs/startioQA` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

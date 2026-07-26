@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "gFramework/nData/nImport/import/README.md",
     "type": "module-readme",
-    "contentHash": "046d7f33d6ecb60a5568f94915b77945099795cbb7535661467223ed2dcf0cd8"
+    "contentHash": "4d231083c0bb2082017e34de1de9781f846eb0b977606646f2af50ab813194fb"
   },
   "headings": [
     {
@@ -76,6 +76,10 @@
     {
       "kind": "paragraph",
       "text": "The `import` module owns Nodics init, core, sample, local, and remote import initialization; multi-format finalization; tenant-safe dispatch; diagnostics; history; validation-only execution; and access-policy enforcement."
+    },
+    {
+      "kind": "paragraph",
+      "text": "It also owns disabled-by-default, versioned content-pack installation and updates. See [Governed Content-Pack Import](/docs/modules/gframework/ndata/nimport/import/docs/content-pack-import-contract) for the local `nodicsdocs` workspace, Axis administrator journey, configuration, security, update, extension and verification contracts."
     },
     {
       "kind": "heading",
@@ -579,7 +583,15 @@
       "text": "Headers are source definitions. Projects customize import behavior by adding or overriding headers and services in later active modules, then proving the effective behavior with import tests."
     }
   ],
-  "links": [],
+  "links": [
+    {
+      "label": "Governed Content-Pack Import",
+      "target": "docs/content-pack-import-contract.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata/nimport/import/docs/content-pack-import-contract",
+      "anchor": ""
+    }
+  ],
   "media": [],
   "unsupported": []
 }

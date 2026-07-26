@@ -291,10 +291,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Generic cache contract: [cache](../cache/README.md)",
-        "Release qualification: [Provider And Capability Maturity Matrix](../../../gDocs/reference/provider-capability-maturity-matrix.md)",
-        "Authentication use: [nAuth](../../nAuth/README.md)",
-        "Public guide: [How Cache Works](../../../gDocs/platform/how-cache-works.md)"
+        "Generic cache contract: [cache](/docs/modules/gframework/ncache/cache)",
+        "Release qualification: [Provider And Capability Maturity Matrix](/docs/reference/provider-capability-maturity-matrix)",
+        "Authentication use: [nAuth](/docs/modules/gframework/nauth)",
+        "Public guide: [How Cache Works](/docs/platform/how-cache-works)"
       ]
     }
   ],

@@ -1032,9 +1032,9 @@
     {
       "kind": "unordered-list",
       "items": [
-        "[AI Token Economics And Optimization](token-economics-and-optimization.md)",
-        "[AI Providers README](../README.md)",
-        "[Nodics Documentation](../../../gDocs/README.md)"
+        "[AI Token Economics And Optimization](/docs/modules/gai/aiproviders/docs/token-economics-and-optimization)",
+        "[AI Providers README](/docs/modules/gai/aiproviders)",
+        "[Nodics Documentation](/docs)"
       ]
     }
   ],

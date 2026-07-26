@@ -1,0 +1,49 @@
+{
+  "code": "docsArticle810c5584a664c5939765",
+  "title": "Storefront Documentation",
+  "route": "/docs/modules/gexp/storefront/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gExp/storefront/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "df06d934b881fb94ce983da73140c559aa2423de3fec9330032e6f6eadefa976"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Storefront Documentation",
+      "anchor": "storefront-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Storefront Documentation",
+      "anchor": "storefront-documentation"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "[Storefront foundation](/docs/modules/gexp/storefront/docs/storefront-foundation): beginner setup, business model, APIs, security, operations, extension rules, and examples."
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "Storefront foundation",
+      "target": "storefront-foundation.md",
+      "kind": "internal",
+      "route": "/docs/modules/gexp/storefront/docs/storefront-foundation",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

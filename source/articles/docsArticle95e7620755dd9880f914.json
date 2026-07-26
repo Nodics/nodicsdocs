@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle95e7620755dd9880f914",
+  "title": "vMongodb Documentation",
+  "route": "/docs/modules/gframework/ndatabase/mongodb/vmongodb/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nDatabase/mongodb/vMongodb/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "8e3cd22a9fa1ee4f8ae88baec3d788d636b02f686291da7a53ea7367ef7b2916"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "vMongodb Documentation",
+      "anchor": "vmongodb-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "vMongodb Documentation",
+      "anchor": "vmongodb-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gFramework/nDatabase/mongodb/vMongodb` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

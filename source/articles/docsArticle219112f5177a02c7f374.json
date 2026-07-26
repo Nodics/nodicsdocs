@@ -225,11 +225,11 @@
     {
       "kind": "ordered-list",
       "items": [
-        "Review [Business Capabilities And Outcomes](business-capabilities-and-outcomes.md).",
-        "Review [Why Businesses Can Trust Nodics](security-and-trust.md) with risk and security stakeholders.",
-        "Compare the architectural approaches in [How Nodics Compares](how-nodics-compares.md).",
-        "Use the [Evaluation Checklist](evaluation-checklist.md) with business and technical stakeholders.",
-        "Ask the delivery team to build one representative capability using [Build Your First Nodics Capability](../getting-started/build-your-first-capability.md).",
+        "Review [Business Capabilities And Outcomes](/docs/business/business-capabilities-and-outcomes).",
+        "Review [Why Businesses Can Trust Nodics](/docs/business/security-and-trust) with risk and security stakeholders.",
+        "Compare the architectural approaches in [How Nodics Compares](/docs/business/how-nodics-compares).",
+        "Use the [Evaluation Checklist](/docs/business/evaluation-checklist) with business and technical stakeholders.",
+        "Ask the delivery team to build one representative capability using [Build Your First Nodics Capability](/docs/getting-started/build-your-first-capability).",
         "Verify security, customization, testing, operations, and deployment—not only the happy-path demonstration."
       ]
     },
@@ -242,9 +242,9 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Next: [Why Businesses Can Trust Nodics](security-and-trust.md)",
-        "Documentation home: [Nodics Documentation](../README.md)",
-        "Technical introduction: [What Nodics Is](../overview/what-is-nodics.md)"
+        "Next: [Why Businesses Can Trust Nodics](/docs/business/security-and-trust)",
+        "Documentation home: [Nodics Documentation](/docs)",
+        "Technical introduction: [What Nodics Is](/docs/overview/what-is-nodics)"
       ]
     }
   ],

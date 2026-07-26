@@ -138,7 +138,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "Search the [Module Documentation Index](../reference/module-documentation-index.md) and [Complete Module Catalog](../reference/module-catalog.md). Extend an existing capability when it already owns the behavior. Create a new project module only when the business capability is genuinely new."
+      "text": "Search the [Module Documentation Index](/docs/reference/module-documentation-index) and [Complete Module Catalog](/docs/reference/module-catalog). Extend an existing capability when it already owns the behavior. Create a new project module only when the business capability is genuinely new."
     },
     {
       "kind": "paragraph",
@@ -178,7 +178,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "Use [How To Create Application Functionality](../development/how-to-create-application-functionality.md) for the detailed workflow. In summary:"
+      "text": "Use [How To Create Application Functionality](/docs/development/how-to-create-application-functionality) for the detailed workflow. In summary:"
     },
     {
       "kind": "ordered-list",
@@ -225,7 +225,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "Follow [How To Test Nodics Changes](../testing/how-to-test-nodics-changes.md) for the available test and generation commands."
+      "text": "Follow [How To Test Nodics Changes](/docs/testing/how-to-test-nodics-changes) for the available test and generation commands."
     },
     {
       "kind": "heading",
@@ -269,10 +269,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Previous: [How To Set Up Nodics](how-to-setup-nodics.md)",
-        "Next: [How To Create Application Functionality](../development/how-to-create-application-functionality.md)",
-        "Terminology: [Nodics Glossary](../reference/glossary.md)",
-        "Documentation home: [Nodics Documentation](../README.md)"
+        "Previous: [How To Set Up Nodics](/docs/getting-started/how-to-setup-nodics)",
+        "Next: [How To Create Application Functionality](/docs/development/how-to-create-application-functionality)",
+        "Terminology: [Nodics Glossary](/docs/reference/glossary)",
+        "Documentation home: [Nodics Documentation](/docs)"
       ]
     }
   ],

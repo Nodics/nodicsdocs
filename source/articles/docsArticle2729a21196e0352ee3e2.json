@@ -63,27 +63,27 @@
       "rows": [
         [
           "Identity and tenancy",
-          "[profile](profile/README.md)",
+          "[profile](/docs/modules/gcore/profile)",
           "Enterprises, tenants, people, groups, credentials, login, and service identities"
         ],
         [
           "Scheduled work",
-          "[cronjob](cronjob/README.md)",
+          "[cronjob](/docs/modules/gcore/cronjob)",
           "Governed recurring and requested background jobs"
         ],
         [
           "Events",
-          "[nems](nems/README.md)",
+          "[nems](/docs/modules/gcore/nems)",
           "Business-event management over the framework messaging contracts"
         ],
         [
           "Long-running processes",
-          "[workflow](workflow/README.md)",
+          "[workflow](/docs/modules/gcore/workflow)",
           "State, actions, channels, retries, and process continuation"
         ],
         [
           "Reference application patterns",
-          "[quizer](quizer/README.md)",
+          "[quizer](/docs/modules/gcore/quizer)",
           "Sample quiz capability family; qualify it for project use before production"
         ]
       ]
@@ -107,9 +107,9 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Business overview: [Business Capabilities And Outcomes](../gDocs/business/business-capabilities-and-outcomes.md)",
-        "Capability maturity: [Provider And Capability Maturity Matrix](../gDocs/reference/provider-capability-maturity-matrix.md)",
-        "Module index: [Module Documentation Index](../gDocs/reference/module-documentation-index.md)"
+        "Business overview: [Business Capabilities And Outcomes](/docs/business/business-capabilities-and-outcomes)",
+        "Capability maturity: [Provider And Capability Maturity Matrix](/docs/reference/provider-capability-maturity-matrix)",
+        "Module index: [Module Documentation Index](/docs/reference/module-documentation-index)"
       ]
     }
   ],

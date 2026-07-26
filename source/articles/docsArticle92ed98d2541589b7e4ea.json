@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle92ed98d2541589b7e4ea",
+  "title": "gContent Documentation",
+  "route": "/docs/modules/gcontent/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gContent/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "4142d8c1f7c58be437522c0b8ba8392b019851a7c82a1e670c8ef55be7e49fcb"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "gContent Documentation",
+      "anchor": "gcontent-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "gContent Documentation",
+      "anchor": "gcontent-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gContent` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

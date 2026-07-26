@@ -103,9 +103,9 @@
     {
       "kind": "unordered-list",
       "items": [
-        "[How Stock Availability Works](how-stock-availability-works.md)",
-        "[How Inventory Reconciliation Works](how-inventory-reconciliation-works.md)",
-        "[How Stock Movements Work](how-stock-movements-work.md)"
+        "[How Stock Availability Works](/docs/commerce/how-stock-availability-works)",
+        "[How Inventory Reconciliation Works](/docs/commerce/how-inventory-reconciliation-works)",
+        "[How Stock Movements Work](/docs/commerce/how-stock-movements-work)"
       ]
     }
   ],

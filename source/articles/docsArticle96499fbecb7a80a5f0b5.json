@@ -1,0 +1,39 @@
+{
+  "code": "docsArticle96499fbecb7a80a5f0b5",
+  "title": "OpenAI Provider Status",
+  "route": "/docs/modules/gai/aiproviders/openaiprovider/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gAi/aiProviders/openAiProvider/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "a676ce97559dff58db23597e869b0121b0286a06fe0e4db5719f465732eca7c4"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "OpenAI Provider Status",
+      "anchor": "openai-provider-status"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "OpenAI Provider Status",
+      "anchor": "openai-provider-status"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The adapter, lifecycle registration, request translation, streaming deltas, usage normalization, cancellation, bounded responses, and mocked conformance tests are implemented. Credentials, selection, retries, diagnostics, and accounting remain parent `aiProviders` responsibilities."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

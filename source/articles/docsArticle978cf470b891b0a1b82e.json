@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle978cf470b891b0a1b82e",
+  "title": "nValidator Documentation",
+  "route": "/docs/modules/gframework/nvalidator/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nValidator/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "5cc8d5ddca44d3a1341f33e47e3357af94863a677debdcdae196354d7792da0b"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "nValidator Documentation",
+      "anchor": "nvalidator-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "nValidator Documentation",
+      "anchor": "nvalidator-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gFramework/nValidator` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

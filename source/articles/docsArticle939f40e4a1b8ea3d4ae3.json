@@ -108,31 +108,31 @@
       "rows": [
         [
           "Startup, module discovery, hierarchy, configuration, clean, and build",
-          "[nConfig](nConfig/README.md)"
+          "[nConfig](/docs/modules/gframework/nconfig)"
         ],
         [
           "Shared errors, utilities, enums, processors, and traceability",
-          "[nCommon](nCommon/README.md)"
+          "[nCommon](/docs/modules/gframework/ncommon)"
         ],
         [
           "HTTP routes, request security, OpenAPI, and response handling",
-          "[nRouter](nRouter/README.md)"
+          "[nRouter](/docs/modules/gframework/nrouter)"
         ],
         [
           "Service behavior and module-to-module communication",
-          "[nService](nService/README.md)"
+          "[nService](/docs/modules/gframework/nservice)"
         ],
         [
           "Database capability and provider composition",
-          "[nDatabase](nDatabase/README.md)"
+          "[nDatabase](/docs/modules/gframework/ndatabase)"
         ],
         [
           "Ordered runtime execution",
-          "[nPipeline](nPipeline/README.md)"
+          "[nPipeline](/docs/modules/gframework/npipeline)"
         ],
         [
           "All framework capabilities",
-          "[Complete Module Catalog](../gDocs/reference/module-catalog.md#gframework)"
+          "[Complete Module Catalog](/docs/reference/module-catalog#gframework)"
         ]
       ]
     },
@@ -284,10 +284,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Beginner architecture: [How Nodics Is Organized](../gDocs/architecture/how-nodics-is-organized.md)",
-        "Build a capability: [Build Your First Nodics Capability](../gDocs/getting-started/build-your-first-capability.md)",
-        "Module catalog: [Complete Module Catalog](../gDocs/reference/module-catalog.md)",
-        "Public documentation: [Nodics Documentation](../gDocs/README.md)"
+        "Beginner architecture: [How Nodics Is Organized](/docs/architecture/how-nodics-is-organized)",
+        "Build a capability: [Build Your First Nodics Capability](/docs/getting-started/build-your-first-capability)",
+        "Module catalog: [Complete Module Catalog](/docs/reference/module-catalog)",
+        "Public documentation: [Nodics Documentation](/docs)"
       ]
     }
   ],

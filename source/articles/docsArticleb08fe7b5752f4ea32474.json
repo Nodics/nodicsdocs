@@ -84,7 +84,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "Units is normally co-hosted with its consuming business modules. Its separate service route is an optional transport choice, not a requirement that every Nodics module run on a different server. See [Units Deployment And Integration](units-deployment-and-integration.md)."
+      "text": "Units is normally co-hosted with its consuming business modules. Its separate service route is an optional transport choice, not a requirement that every Nodics module run on a different server. See [Units Deployment And Integration](/docs/modules/gcore/units/docs/units-deployment-and-integration)."
     },
     {
       "kind": "heading",

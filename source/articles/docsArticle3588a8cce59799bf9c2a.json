@@ -113,7 +113,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "Use this group for shared service mechanics, generated service contracts, tenant and enterprise context, authorization helpers, and the one governed module communication client. Put domain behavior in the module that owns the domain. Use [vService](vService/README.md) only for a deliberate service variant, not as a second home for base behavior."
+      "text": "Use this group for shared service mechanics, generated service contracts, tenant and enterprise context, authorization helpers, and the one governed module communication client. Put domain behavior in the module that owns the domain. Use [vService](/docs/modules/gframework/nservice/vservice) only for a deliberate service variant, not as a second home for base behavior."
     },
     {
       "kind": "heading",
@@ -377,10 +377,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Build application behavior: [How To Create Application Functionality](../../gDocs/development/how-to-create-application-functionality.md)",
-        "Module communication and APIs: [How To Create APIs](../../gDocs/development/how-to-create-apis.md)",
-        "Service variant: [vService](vService/README.md)",
-        "Framework map: [gFramework](../README.md)"
+        "Build application behavior: [How To Create Application Functionality](/docs/development/how-to-create-application-functionality)",
+        "Module communication and APIs: [How To Create APIs](/docs/development/how-to-create-apis)",
+        "Service variant: [vService](/docs/modules/gframework/nservice/vservice)",
+        "Framework map: [gFramework](/docs/modules/gframework)"
       ]
     }
   ],

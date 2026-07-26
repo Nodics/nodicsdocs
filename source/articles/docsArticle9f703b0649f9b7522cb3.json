@@ -87,7 +87,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "Read the [technical Availability contract](../../gComm/inventory/docs/stock-availability-foundation.md) for configuration, security, evidence, customization, deployment, and tests."
+      "text": "Read the [technical Availability contract](/docs/modules/gcomm/inventory/docs/stock-availability-foundation) for configuration, security, evidence, customization, deployment, and tests."
     },
     {
       "kind": "heading",
@@ -98,8 +98,8 @@
     {
       "kind": "unordered-list",
       "items": [
-        "[How Stock Sourcing Works](how-stock-sourcing-works.md)",
-        "[How Stock Movements Work](how-stock-movements-work.md)"
+        "[How Stock Sourcing Works](/docs/commerce/how-stock-sourcing-works)",
+        "[How Stock Movements Work](/docs/commerce/how-stock-movements-work)"
       ]
     }
   ],

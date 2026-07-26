@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle65bf3b4e80733265f3e3",
+  "title": "monoServer Documentation",
+  "route": "/docs/modules/startio/envs/startiolocal/monoserver/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/envs/startioLocal/monoServer/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "7038581f2379b88740bfa93c8de2e15accc73f478b9ee97d0c2d576e0cc403ae"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "monoServer Documentation",
+      "anchor": "monoserver-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "monoServer Documentation",
+      "anchor": "monoserver-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `startio/envs/startioLocal/monoServer` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

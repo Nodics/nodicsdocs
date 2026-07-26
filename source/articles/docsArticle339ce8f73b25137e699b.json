@@ -237,8 +237,19 @@
       "text": "It is more than a web framework and more than a collection of utilities. Nodics gives an application a complete operating structure: modules, APIs, schemas, services, permissions, tenants, runtime configuration, scheduled jobs, events, imports, exports, search indexing, catalog and content capabilities, tests, generated artifacts, deployment topology, and documentation."
     },
     {
-      "kind": "paragraph",
-      "text": "![Nodics Architecture](../assets/images/nodics-architecture.jpg)"
+      "kind": "image",
+      "alt": "Nodics Architecture",
+      "target": "../assets/images/nodics-architecture.jpg",
+      "title": "",
+      "media": {
+        "alt": "Nodics Architecture",
+        "target": "../assets/images/nodics-architecture.jpg",
+        "title": "",
+        "kind": "local",
+        "assetCode": "docsMedia57926863ee665f70abd7",
+        "assetPath": "assets/images/164530e775a35b9c.jpg",
+        "contentHash": "164530e775a35b9c22c1314d87952f9de244390c8eaed310f3c69edc70b5226e"
+      }
     },
     {
       "kind": "heading",
@@ -374,8 +385,19 @@
       "text": "Nodics uses Node.js and JavaScript as the runtime foundation for modular API development. It builds on common enterprise application concerns such as Express-style request handling, schema-driven data behavior, database providers, cache providers, search providers, messaging providers, scheduled execution, import/export processing, generated artifacts, and automated tests."
     },
     {
-      "kind": "paragraph",
-      "text": "![Nodics Technology Stack](../assets/images/technology-stack.jpg)"
+      "kind": "image",
+      "alt": "Nodics Technology Stack",
+      "target": "../assets/images/technology-stack.jpg",
+      "title": "",
+      "media": {
+        "alt": "Nodics Technology Stack",
+        "target": "../assets/images/technology-stack.jpg",
+        "title": "",
+        "kind": "local",
+        "assetCode": "docsMedia3c43d387b9f732f80b15",
+        "assetPath": "assets/images/ed0fa5e43568c6d7.jpg",
+        "contentHash": "ed0fa5e43568c6d7bc72e34d9426a6b968d871a5a5079c037745e49cedcc7e3b"
+      }
     },
     {
       "kind": "paragraph",
@@ -432,8 +454,19 @@
       ]
     },
     {
-      "kind": "paragraph",
-      "text": "![Microservices Architecture](../assets/images/microservices-architecture.jpg)"
+      "kind": "image",
+      "alt": "Microservices Architecture",
+      "target": "../assets/images/microservices-architecture.jpg",
+      "title": "",
+      "media": {
+        "alt": "Microservices Architecture",
+        "target": "../assets/images/microservices-architecture.jpg",
+        "title": "",
+        "kind": "local",
+        "assetCode": "docsMediaf57e59b68fa190dea891",
+        "assetPath": "assets/images/a8a9fd05d8cb370f.jpg",
+        "contentHash": "a8a9fd05d8cb370f02458f81d445f1ee559732ea937717aa19833838a27e619f"
+      }
     },
     {
       "kind": "heading",
@@ -2937,11 +2970,11 @@
     },
     {
       "kind": "paragraph",
-      "text": "If you are new, continue with [How To Set Up Nodics](../getting-started/how-to-setup-nodics.md)."
+      "text": "If you are new, continue with [How To Set Up Nodics](/docs/getting-started/how-to-setup-nodics)."
     },
     {
       "kind": "paragraph",
-      "text": "If you already have Nodics running, read [How Nodics Is Organized](../architecture/how-nodics-is-organized.md)."
+      "text": "If you already have Nodics running, read [How Nodics Is Organized](/docs/architecture/how-nodics-is-organized)."
     },
     {
       "kind": "heading",
@@ -2952,10 +2985,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Business view: [Why Businesses Choose Nodics](../business/why-businesses-choose-nodics.md)",
-        "Next: [How To Set Up Nodics](../getting-started/how-to-setup-nodics.md)",
-        "Terminology: [Nodics Glossary](../reference/glossary.md)",
-        "Documentation home: [Nodics Documentation](../README.md)"
+        "Business view: [Why Businesses Choose Nodics](/docs/business/why-businesses-choose-nodics)",
+        "Next: [How To Set Up Nodics](/docs/getting-started/how-to-setup-nodics)",
+        "Terminology: [Nodics Glossary](/docs/reference/glossary)",
+        "Documentation home: [Nodics Documentation](/docs)"
       ]
     }
   ],

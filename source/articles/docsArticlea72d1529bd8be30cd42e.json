@@ -1,0 +1,47 @@
+{
+  "code": "docsArticlea72d1529bd8be30cd42e",
+  "title": "nTooling Documentation",
+  "route": "/docs/modules/gframework/ntooling/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nTooling/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "c892b52fad689107a5956fc3d8dd6f2cc4d6c4b7ac59763d1770f92dde139933"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "nTooling Documentation",
+      "anchor": "ntooling-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "nTooling Documentation",
+      "anchor": "ntooling-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gFramework/nTooling` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

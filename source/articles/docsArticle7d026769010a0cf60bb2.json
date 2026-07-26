@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle7d026769010a0cf60bb2",
+  "title": "flowSchema Documentation",
+  "route": "/docs/modules/gcore/workflow/flowschema/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gCore/workflow/flowSchema/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "de24b78909c0ba74256c91c69c8623db67418846acd1f024d3a68da58536e1d4"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "flowSchema Documentation",
+      "anchor": "flowschema-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "flowSchema Documentation",
+      "anchor": "flowschema-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gCore/workflow/flowSchema` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle2937660dffe1c2d53aa3",
+  "title": "nExport Documentation",
+  "route": "/docs/modules/gframework/ndata/nexport/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nData/nExport/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "ee28357a60c4f96a8ddbaa1ca06523342e788e228bebd079afa38cad5e3ce767"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "nExport Documentation",
+      "anchor": "nexport-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "nExport Documentation",
+      "anchor": "nexport-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gFramework/nData/nExport` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

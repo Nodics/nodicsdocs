@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle9497437105c1f5403c48",
+  "title": "dataProcessor Documentation",
+  "route": "/docs/modules/gdeap/dataprocessor/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gDeap/dataProcessor/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "f83f1f75bff93a90fa269baaa638a1b4e3d06c5832f0bdd3597451e03e94b358"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "dataProcessor Documentation",
+      "anchor": "dataprocessor-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "dataProcessor Documentation",
+      "anchor": "dataprocessor-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gDeap/dataProcessor` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

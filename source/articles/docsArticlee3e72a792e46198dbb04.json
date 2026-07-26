@@ -103,10 +103,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "DEAP lifecycle: [gDeap](../README.md)",
-        "Consumption stage: [dataConsumer](../dataConsumer/README.md)",
-        "Publishing stage: [dataPublisher](../dataPublisher/README.md)",
-        "Shared processing: [dataCore](../../gFramework/nData/dataCore/README.md)"
+        "DEAP lifecycle: [gDeap](/docs/modules/gdeap)",
+        "Consumption stage: [dataConsumer](/docs/modules/gdeap/dataconsumer)",
+        "Publishing stage: [dataPublisher](/docs/modules/gdeap/datapublisher)",
+        "Shared processing: [dataCore](/docs/modules/gframework/ndata/datacore)"
       ]
     }
   ],

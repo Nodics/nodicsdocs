@@ -203,10 +203,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Export family: [nExport](../README.md)",
-        "Shared fail-closed engine: [export](../export/README.md)",
-        "Maturity matrix: [Provider And Capability Maturity Matrix](../../../../gDocs/reference/provider-capability-maturity-matrix.md)",
-        "Public data guide: [How To Work With Data](../../../../gDocs/data/how-to-work-with-data.md)"
+        "Export family: [nExport](/docs/modules/gframework/ndata/nexport)",
+        "Shared fail-closed engine: [export](/docs/modules/gframework/ndata/nexport/export)",
+        "Maturity matrix: [Provider And Capability Maturity Matrix](/docs/reference/provider-capability-maturity-matrix)",
+        "Public data guide: [How To Work With Data](/docs/data/how-to-work-with-data)"
       ]
     }
   ],

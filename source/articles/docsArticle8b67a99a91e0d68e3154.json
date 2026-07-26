@@ -92,7 +92,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "Read the [Stock Sourcing foundation contract](../../gComm/inventory/docs/stock-sourcing-foundation.md) for schemas, configuration, security, customization, recovery, and tests."
+      "text": "Read the [Stock Sourcing foundation contract](/docs/modules/gcomm/inventory/docs/stock-sourcing-foundation) for schemas, configuration, security, customization, recovery, and tests."
     },
     {
       "kind": "heading",
@@ -103,8 +103,8 @@
     {
       "kind": "unordered-list",
       "items": [
-        "[How To Manage Stock Pools](how-to-manage-stock-pools.md)",
-        "[How Stock Movements Work](how-stock-movements-work.md)"
+        "[How To Manage Stock Pools](/docs/commerce/how-to-manage-stock-pools)",
+        "[How Stock Movements Work](/docs/commerce/how-stock-movements-work)"
       ]
     }
   ],

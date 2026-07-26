@@ -1,0 +1,47 @@
+{
+  "code": "docsArticledd924b8ef6e5d8b45148",
+  "title": "kyc Documentation",
+  "route": "/docs/modules/goptional/kyc/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gOptional/kyc/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "993af7d1473491144185950dc08131edce6fd2a34966825eeaff8bfa71e7371e"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "kyc Documentation",
+      "anchor": "kyc-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "kyc Documentation",
+      "anchor": "kyc-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gOptional/kyc` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

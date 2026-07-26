@@ -54,9 +54,9 @@
     {
       "kind": "unordered-list",
       "items": [
-        "[How Stock Movements Work](how-stock-movements-work.md)",
-        "[How Stock Allocation Works](how-stock-allocation-works.md)",
-        "[Nodics Documentation](../README.md)"
+        "[How Stock Movements Work](/docs/commerce/how-stock-movements-work)",
+        "[How Stock Allocation Works](/docs/commerce/how-stock-allocation-works)",
+        "[Nodics Documentation](/docs)"
       ]
     }
   ],

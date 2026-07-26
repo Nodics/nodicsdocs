@@ -1,0 +1,76 @@
+{
+  "code": "docsArticlecb3898a3e5c5a87d0e49",
+  "title": "nPipeline Documentation",
+  "route": "/docs/modules/gframework/npipeline/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nPipeline/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "787cc3c5d291759e7d1253c01ea1d222feabac21a5353939db79725e98835dde"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "nPipeline Documentation",
+      "anchor": "npipeline-documentation"
+    },
+    {
+      "level": 2,
+      "text": "Guides",
+      "anchor": "guides"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "nPipeline Documentation",
+      "anchor": "npipeline-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gFramework/nPipeline` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Guides",
+      "anchor": "guides"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "[Pipeline Framework](/docs/modules/gframework/npipeline/docs/pipeline-framework): explains what pipelines are, how"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "nodes and processors work, how to define and extend pipelines, and how the request, database, and search pipelines run."
+    }
+  ],
+  "links": [
+    {
+      "label": "Pipeline Framework",
+      "target": "pipeline-framework.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/npipeline/docs/pipeline-framework",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

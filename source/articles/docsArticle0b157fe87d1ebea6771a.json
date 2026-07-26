@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle0b157fe87d1ebea6771a",
+  "title": "nAuth Documentation",
+  "route": "/docs/modules/gframework/nauth/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nAuth/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "ef4edd70f4c503f638babb3b5aee9db7acb23d224e002936730198e09ffa57b5"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "nAuth Documentation",
+      "anchor": "nauth-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "nAuth Documentation",
+      "anchor": "nauth-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gFramework/nAuth` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

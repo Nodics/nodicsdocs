@@ -1,0 +1,70 @@
+{
+  "code": "docsArticleee1d5a45eff4c96a8969",
+  "title": "elastic Documentation",
+  "route": "/docs/modules/gframework/nsearch/elastic/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nSearch/elastic/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "200fac7b57a9fbd36736fe11ad4c19043e74012cfc53b7579e024b4b5bbb0f4a"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "elastic Documentation",
+      "anchor": "elastic-documentation"
+    },
+    {
+      "level": 2,
+      "text": "Elasticsearch client compatibility",
+      "anchor": "elasticsearch-client-compatibility"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "elastic Documentation",
+      "anchor": "elastic-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gFramework/nSearch/elastic` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Elasticsearch client compatibility",
+      "anchor": "elasticsearch-client-compatibility"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The adapter owns translation between the stable Nodics connection contract and the installed Elasticsearch JavaScript client. Existing layered configuration may still provide `hosts`; the adapter normalizes it to `nodes` before client construction and removes obsolete client-only properties. Do not duplicate this translation in an application module."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Elasticsearch request parameters use their current wire names, including `op_type`, `ignore_unavailable`, and `expand_wildcards`. Connection timeout is configured on the client transport and the health ping sends an empty API request. Promise-based clients and callback-based project test adapters are both supported at this boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Local qualification must prove client ping, cluster health, index creation, indexing, refresh, filtered retrieval, and failure propagation. Local security may be disabled only on a developer-owned loopback interface; shared environments require TLS, authentication, and secret-managed credentials."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle9900fd388e6eff7294fd",
+  "title": "gCore Documentation",
+  "route": "/docs/modules/gcore/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gCore/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "54e6e6ccb978b7f2c39d4dcdfb8f32f921e1f155605d7232f1d50104407064c2"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "gCore Documentation",
+      "anchor": "gcore-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "gCore Documentation",
+      "anchor": "gcore-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gCore` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

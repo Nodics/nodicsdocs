@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle94b5ddf6c8b4bbb50e8d",
+  "title": "gOptional Documentation",
+  "route": "/docs/modules/goptional/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gOptional/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "fee6225123e3cbb3043693a7adca2155577bae79ba679a4288ea98306a9ce8fd"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "gOptional Documentation",
+      "anchor": "goptional-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "gOptional Documentation",
+      "anchor": "goptional-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gOptional` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

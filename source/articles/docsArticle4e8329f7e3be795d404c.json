@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle4e8329f7e3be795d404c",
+  "title": "cronNode2 Documentation",
+  "route": "/docs/modules/startio/envs/startiolocal/cronserver/cronnode2/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/envs/startioLocal/cronServer/cronNode2/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "f16b7d47782d15d99ab5f635c5aff6badfc734442cdda679584e3555dfe6a8f5"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "cronNode2 Documentation",
+      "anchor": "cronnode2-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "cronNode2 Documentation",
+      "anchor": "cronnode2-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `startio/envs/startioLocal/cronServer/cronNode2` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

@@ -139,7 +139,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "Use [Module Documentation Index](../reference/module-documentation-index.md) to connect public task guides to module-owned README and docs pages."
+      "text": "Use [Module Documentation Index](/docs/reference/module-documentation-index) to connect public task guides to module-owned README and docs pages."
     },
     {
       "kind": "paragraph",
@@ -480,9 +480,9 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Publishing: [How To Publish Documentation On GitHub](how-to-publish-documentation-on-github.md)",
-        "Module catalog: [Complete Module Catalog](../reference/module-catalog.md)",
-        "Documentation home: [Nodics Documentation](../README.md)"
+        "Publishing: [How To Publish Documentation On GitHub](/docs/documentation/how-to-publish-documentation-on-github)",
+        "Module catalog: [Complete Module Catalog](/docs/reference/module-catalog)",
+        "Documentation home: [Nodics Documentation](/docs)"
       ]
     }
   ],

@@ -11,6 +11,7 @@ module.exports = {
         "renderer": "documentation.template.article",
         "contractVersion": 1,
         "slots": [
+            "nodicsDocumentationNavigationSlot",
             "nodicsDocumentationArticleSlot"
         ],
         "active": true

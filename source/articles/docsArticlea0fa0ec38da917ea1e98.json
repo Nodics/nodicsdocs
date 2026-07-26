@@ -1,0 +1,47 @@
+{
+  "code": "docsArticlea0fa0ec38da917ea1e98",
+  "title": "dataConsumer Documentation",
+  "route": "/docs/modules/gdeap/dataconsumer/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gDeap/dataConsumer/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "b14369a8f49a195d8cc08286d81395138f6c203b8b9159d0126f79db95d5f768"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "dataConsumer Documentation",
+      "anchor": "dataconsumer-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "dataConsumer Documentation",
+      "anchor": "dataconsumer-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gDeap/dataConsumer` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

@@ -1,0 +1,129 @@
+{
+  "code": "docsArticle564d234101673bab5353",
+  "title": "Inventory Documentation",
+  "route": "/docs/modules/gcomm/inventory/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gComm/inventory/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "5db177426d2225d5e240f624ce6213f82bf25715028807c4da5105a2afec6a35"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Inventory Documentation",
+      "anchor": "inventory-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Inventory Documentation",
+      "anchor": "inventory-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Implemented and verified capabilities:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "[Warehouse Foundation](/docs/modules/gcomm/inventory/docs/warehouse-foundation)",
+        "[Stock Core](/docs/modules/gcomm/inventory/docs/stock-core)",
+        "[Stock Pool Foundation](/docs/modules/gcomm/inventory/docs/stock-pool-foundation)",
+        "[Stock Sourcing Foundation](/docs/modules/gcomm/inventory/docs/stock-sourcing-foundation)",
+        "[Stock ON_HAND Availability Foundation](/docs/modules/gcomm/inventory/docs/stock-availability-foundation)",
+        "[Stock Reservation Foundation](/docs/modules/gcomm/inventory/docs/stock-reservation-foundation)",
+        "[Stock Allocation Foundation](/docs/modules/gcomm/inventory/docs/stock-allocation-foundation)",
+        "[Stock Transfer Foundation](/docs/modules/gcomm/inventory/docs/stock-transfer-foundation)",
+        "[Stock Reconciliation Foundation](/docs/modules/gcomm/inventory/docs/stock-reconciliation-foundation)",
+        "[Inventory Operations and Integrations](/docs/modules/gcomm/inventory/docs/inventory-operations-and-integrations)"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Planned Inventory architecture must remain outside permanent documentation until implemented and verified."
+    }
+  ],
+  "links": [
+    {
+      "label": "Warehouse Foundation",
+      "target": "warehouse-foundation.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcomm/inventory/docs/warehouse-foundation",
+      "anchor": ""
+    },
+    {
+      "label": "Stock Core",
+      "target": "stock-core.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcomm/inventory/docs/stock-core",
+      "anchor": ""
+    },
+    {
+      "label": "Stock Pool Foundation",
+      "target": "stock-pool-foundation.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcomm/inventory/docs/stock-pool-foundation",
+      "anchor": ""
+    },
+    {
+      "label": "Stock Sourcing Foundation",
+      "target": "stock-sourcing-foundation.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcomm/inventory/docs/stock-sourcing-foundation",
+      "anchor": ""
+    },
+    {
+      "label": "Stock ON_HAND Availability Foundation",
+      "target": "stock-availability-foundation.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcomm/inventory/docs/stock-availability-foundation",
+      "anchor": ""
+    },
+    {
+      "label": "Stock Reservation Foundation",
+      "target": "stock-reservation-foundation.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcomm/inventory/docs/stock-reservation-foundation",
+      "anchor": ""
+    },
+    {
+      "label": "Stock Allocation Foundation",
+      "target": "stock-allocation-foundation.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcomm/inventory/docs/stock-allocation-foundation",
+      "anchor": ""
+    },
+    {
+      "label": "Stock Transfer Foundation",
+      "target": "stock-transfer-foundation.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcomm/inventory/docs/stock-transfer-foundation",
+      "anchor": ""
+    },
+    {
+      "label": "Stock Reconciliation Foundation",
+      "target": "stock-reconciliation-foundation.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcomm/inventory/docs/stock-reconciliation-foundation",
+      "anchor": ""
+    },
+    {
+      "label": "Inventory Operations and Integrations",
+      "target": "inventory-operations-and-integrations.md",
+      "kind": "internal",
+      "route": "/docs/modules/gcomm/inventory/docs/inventory-operations-and-integrations",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

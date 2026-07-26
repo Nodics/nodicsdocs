@@ -1,0 +1,72 @@
+{
+  "code": "docsArticle82217bde15e136c37abb",
+  "title": "export Documentation",
+  "route": "/docs/modules/gframework/ndata/nexport/export/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nData/nExport/export/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "d5b213b208bc4675482a24c75565abbad9e8b26e41d2181022c9649e8e958cd7"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "export Documentation",
+      "anchor": "export-documentation"
+    },
+    {
+      "level": 2,
+      "text": "Guides",
+      "anchor": "guides"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "export Documentation",
+      "anchor": "export-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gFramework/nData/nExport/export` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Guides",
+      "anchor": "guides"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "[Export Process Framework](/docs/modules/gframework/ndata/nexport/export/docs/export-process-framework)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "Export Process Framework",
+      "target": "export-process-framework.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata/nexport/export/docs/export-process-framework",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

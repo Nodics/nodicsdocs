@@ -1,0 +1,47 @@
+{
+  "code": "docsArticlef9c4798bdb4b91e9ce65",
+  "title": "gDeap Documentation",
+  "route": "/docs/modules/gdeap/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gDeap/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "3864079a6bf6d86ae8f75da583f7f3da35a7bf112c410f77b6cc8fc79278646e"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "gDeap Documentation",
+      "anchor": "gdeap-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "gDeap Documentation",
+      "anchor": "gdeap-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gDeap` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

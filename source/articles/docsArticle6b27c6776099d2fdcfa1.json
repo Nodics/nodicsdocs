@@ -264,10 +264,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Generic contract: [search](../search/README.md)",
-        "Provider selection: [nSearch](../README.md)",
-        "Maturity matrix: [Provider And Capability Maturity Matrix](../../../gDocs/reference/provider-capability-maturity-matrix.md)",
-        "Public platform guide: [How Platform Capabilities Work](../../../gDocs/platform/how-platform-capabilities-work.md)"
+        "Generic contract: [search](/docs/modules/gframework/nsearch/search)",
+        "Provider selection: [nSearch](/docs/modules/gframework/nsearch)",
+        "Maturity matrix: [Provider And Capability Maturity Matrix](/docs/reference/provider-capability-maturity-matrix)",
+        "Public platform guide: [How Platform Capabilities Work](/docs/platform/how-platform-capabilities-work)"
       ]
     }
   ],

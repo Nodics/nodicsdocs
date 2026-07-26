@@ -28,5 +28,19 @@ module.exports = {
             "packVersion": "string"
         },
         "active": true
+    },
+    "record2": {
+        "code": "nodicsDocumentationNavigationComponentType",
+        "kind": "COMPONENT",
+        "contractVersion": 1,
+        "propertySchema": {
+            "title": "string",
+            "searchLabel": "string",
+            "searchPlaceholder": "string",
+            "emptyMessage": "string",
+            "items": "array",
+            "packVersion": "string"
+        },
+        "active": true
     }
 };

@@ -1,0 +1,47 @@
+{
+  "code": "docsArticlee3f1c4a31e4068bdee73",
+  "title": "dataPublisher Documentation",
+  "route": "/docs/modules/gdeap/datapublisher/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gDeap/dataPublisher/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "0a17ad1e69a0fc7f2f807522b9d4343cd21ef3508986c66b209de4edadbbfa27"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "dataPublisher Documentation",
+      "anchor": "datapublisher-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "dataPublisher Documentation",
+      "anchor": "datapublisher-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gDeap/dataPublisher` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

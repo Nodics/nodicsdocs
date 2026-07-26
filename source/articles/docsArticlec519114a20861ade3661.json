@@ -115,25 +115,25 @@
       ],
       "rows": [
         [
-          "[cache](cache/README.md)",
+          "[cache](/docs/modules/gframework/ncache/cache)",
           "Provider-neutral policy and adapter contract",
           "Production-ready capability",
           "Define channels, keying, cacheability, invalidation, diagnostics, and engine selection."
         ],
         [
-          "[nodeCache](nodeCache/README.md)",
+          "[nodeCache](/docs/modules/gframework/ncache/nodecache)",
           "Process-local provider",
           "Sample or reference",
           "Local development, single-process optimization, or data that does not require cross-node consistency."
         ],
         [
-          "[redisCache](redisCache/README.md)",
+          "[redisCache](/docs/modules/gframework/ncache/rediscache)",
           "Distributed Redis provider",
           "Guarded provider",
           "Shared cache and strict distributed auth state after live release qualification."
         ],
         [
-          "[hazelcastCache](hazelcastCache/README.md)",
+          "[hazelcastCache](/docs/modules/gframework/ncache/hazelcastcache)",
           "Fail-closed provider slot",
           "Placeholder or scaffold",
           "Extension target only until a real adapter and live qualification exist."
@@ -312,10 +312,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Public cache guide: [How Cache Works](../../gDocs/platform/how-cache-works.md)",
-        "Generic contract: [cache](cache/README.md)",
-        "Provider maturity: [Provider And Capability Maturity Matrix](../../gDocs/reference/provider-capability-maturity-matrix.md)",
-        "Framework map: [gFramework](../README.md)"
+        "Public cache guide: [How Cache Works](/docs/platform/how-cache-works)",
+        "Generic contract: [cache](/docs/modules/gframework/ncache/cache)",
+        "Provider maturity: [Provider And Capability Maturity Matrix](/docs/reference/provider-capability-maturity-matrix)",
+        "Framework map: [gFramework](/docs/modules/gframework)"
       ]
     }
   ],

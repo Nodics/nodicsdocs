@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle1969c919ee68908b4e3e",
+  "title": "dataCore Documentation",
+  "route": "/docs/modules/gframework/ndata/datacore/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nData/dataCore/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "79784b84031aa4336f6aaf570ca56611a2c001c30f7f3d4c57d6b51709b51835"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "dataCore Documentation",
+      "anchor": "datacore-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "dataCore Documentation",
+      "anchor": "datacore-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gFramework/nData/dataCore` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle111adec4ea9583dceaac",
+  "title": "gComm Documentation",
+  "route": "/docs/modules/gcomm/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gComm/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "c03a2b1a4bdb3608f87860eae662597eb4716bdc3a097eb15f7907afb38c5bc7"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "gComm Documentation",
+      "anchor": "gcomm-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "gComm Documentation",
+      "anchor": "gcomm-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gComm` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

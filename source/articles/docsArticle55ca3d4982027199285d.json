@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle55ca3d4982027199285d",
+  "title": "gMrkty Documentation",
+  "route": "/docs/modules/gmrkty/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gMrkty/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "bdb86d64d69efe1d434416919967aba8c34e92892d720151c39b29eeab41ce79"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "gMrkty Documentation",
+      "anchor": "gmrkty-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "gMrkty Documentation",
+      "anchor": "gmrkty-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gMrkty` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

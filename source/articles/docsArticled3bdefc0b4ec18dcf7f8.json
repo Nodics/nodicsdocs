@@ -1,0 +1,43 @@
+{
+  "code": "docsArticled3bdefc0b4ec18dcf7f8",
+  "title": "gExp Documentation",
+  "route": "/docs/modules/gexp/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gExp/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "629d5cf0f987c2cd541e2404cbce13ca60fddffd3c21f1041af9b986b2a8bc97"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "gExp Documentation",
+      "anchor": "gexp-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "gExp Documentation",
+      "anchor": "gexp-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Permanent architecture and extension documentation for backend experience capabilities belongs here when it applies to the complete group. Child-specific contracts belong in the owning child module."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The group is backend/API-only. Separate frontend application documentation does not become runtime behavior or a source of Nodics platform authority."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

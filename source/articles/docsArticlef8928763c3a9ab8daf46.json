@@ -136,12 +136,12 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Read [Why Businesses Can Trust Nodics](security-and-trust.md), assign the"
+        "Read [Why Businesses Can Trust Nodics](/docs/business/security-and-trust), assign the"
       ]
     },
     {
       "kind": "paragraph",
-      "text": "[Security Shared-Responsibility Model](../security/shared-responsibility-model.md), and validate claims with the [Security Evidence Guide](../security/security-evidence-guide.md)."
+      "text": "[Security Shared-Responsibility Model](/docs/security/shared-responsibility-model), and validate claims with the [Security Evidence Guide](/docs/security/security-evidence-guide)."
     },
     {
       "kind": "unordered-list",
@@ -305,10 +305,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Previous: [How Nodics Compares](how-nodics-compares.md)",
-        "Start a technical evaluation: [How To Set Up Nodics](../getting-started/how-to-setup-nodics.md)",
-        "Build a representative capability: [Build Your First Nodics Capability](../getting-started/build-your-first-capability.md)",
-        "Documentation home: [Nodics Documentation](../README.md)"
+        "Previous: [How Nodics Compares](/docs/business/how-nodics-compares)",
+        "Start a technical evaluation: [How To Set Up Nodics](/docs/getting-started/how-to-setup-nodics)",
+        "Build a representative capability: [Build Your First Nodics Capability](/docs/getting-started/build-your-first-capability)",
+        "Documentation home: [Nodics Documentation](/docs)"
       ]
     }
   ],

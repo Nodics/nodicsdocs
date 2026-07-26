@@ -1,0 +1,47 @@
+{
+  "code": "docsArticled2f55a639398a9f6c24e",
+  "title": "nCache Documentation",
+  "route": "/docs/modules/gframework/ncache/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nCache/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "0a7a668191aa3c693fd57218e2c7138e1f26c87c5407835e1020ff78bae2a165"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "nCache Documentation",
+      "anchor": "ncache-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "nCache Documentation",
+      "anchor": "ncache-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gFramework/nCache` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

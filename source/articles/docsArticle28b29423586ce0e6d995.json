@@ -124,7 +124,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "Use the [Provider And Capability Maturity Matrix](../reference/provider-capability-maturity-matrix.md) before selecting a provider. Then verify the chosen capability against your security, availability, performance, data, compliance, and support needs."
+      "text": "Use the [Provider And Capability Maturity Matrix](/docs/reference/provider-capability-maturity-matrix) before selecting a provider. Then verify the chosen capability against your security, availability, performance, data, compliance, and support needs."
     },
     {
       "kind": "heading",
@@ -174,10 +174,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Previous: [Why Businesses Choose Nodics](why-businesses-choose-nodics.md)",
-        "Next: [How Nodics Compares](how-nodics-compares.md)",
-        "Capability details: [Module Documentation Index](../reference/module-documentation-index.md)",
-        "Documentation home: [Nodics Documentation](../README.md)"
+        "Previous: [Why Businesses Choose Nodics](/docs/business/why-businesses-choose-nodics)",
+        "Next: [How Nodics Compares](/docs/business/how-nodics-compares)",
+        "Capability details: [Module Documentation Index](/docs/reference/module-documentation-index)",
+        "Documentation home: [Nodics Documentation](/docs)"
       ]
     }
   ],

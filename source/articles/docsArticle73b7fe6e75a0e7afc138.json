@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle73b7fe6e75a0e7afc138",
+  "title": "nems Documentation",
+  "route": "/docs/modules/gcore/nems/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gCore/nems/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "8c57ca63e2152675e70763ce787a5d24e610d0c290e9962e1cf5c8b1c03f2222"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "nems Documentation",
+      "anchor": "nems-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "nems Documentation",
+      "anchor": "nems-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gCore/nems` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

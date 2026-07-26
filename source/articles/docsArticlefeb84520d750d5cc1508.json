@@ -1,0 +1,47 @@
+{
+  "code": "docsArticlefeb84520d750d5cc1508",
+  "title": "activemq Documentation",
+  "route": "/docs/modules/gframework/nems/activemq/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nEms/activemq/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "5f489a0439577a51ef1cbe69105cb543bf3a2426a021d081e4be7107f77f46d7"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "activemq Documentation",
+      "anchor": "activemq-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "activemq Documentation",
+      "anchor": "activemq-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gFramework/nEms/activemq` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

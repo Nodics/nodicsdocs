@@ -855,10 +855,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Previous: [What Nodics Is](../overview/what-is-nodics.md)",
-        "Next: [Build Your First Nodics Capability](build-your-first-capability.md)",
-        "Troubleshooting and runtime: [How To Run And Debug Nodics](../operations/how-to-run-and-debug-nodics.md)",
-        "Documentation home: [Nodics Documentation](../README.md)"
+        "Previous: [What Nodics Is](/docs/overview/what-is-nodics)",
+        "Next: [Build Your First Nodics Capability](/docs/getting-started/build-your-first-capability)",
+        "Troubleshooting and runtime: [How To Run And Debug Nodics](/docs/operations/how-to-run-and-debug-nodics)",
+        "Documentation home: [Nodics Documentation](/docs)"
       ]
     }
   ],

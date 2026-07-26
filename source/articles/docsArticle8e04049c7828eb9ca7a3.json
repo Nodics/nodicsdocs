@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle8e04049c7828eb9ca7a3",
+  "title": "nEvent Documentation",
+  "route": "/docs/modules/gframework/nevent/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nEvent/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "a58af73c2233ee53fc8da8cbca885294a76c80bb92d5582ed4936c5f6f79bbde"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "nEvent Documentation",
+      "anchor": "nevent-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "nEvent Documentation",
+      "anchor": "nevent-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gFramework/nEvent` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

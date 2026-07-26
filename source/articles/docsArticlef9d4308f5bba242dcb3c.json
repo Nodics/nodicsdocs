@@ -1,0 +1,47 @@
+{
+  "code": "docsArticlef9d4308f5bba242dcb3c",
+  "title": "deapNode1 Documentation",
+  "route": "/docs/modules/startio/envs/startiolocal/deapserver/deapnode1/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/envs/startioLocal/deapServer/deapNode1/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "95f46ba7f925d6aa4ee29d53c8079c52da8b9a87f970eff3e1cab533ddc1b24a"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "deapNode1 Documentation",
+      "anchor": "deapnode1-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "deapNode1 Documentation",
+      "anchor": "deapnode1-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `startio/envs/startioLocal/deapServer/deapNode1` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

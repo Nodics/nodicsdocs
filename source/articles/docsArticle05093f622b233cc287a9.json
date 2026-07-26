@@ -1,0 +1,39 @@
+{
+  "code": "docsArticle05093f622b233cc287a9",
+  "title": "backofficeServer docs",
+  "route": "/docs/modules/startio/envs/startiolocal/backofficeserver/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/envs/startioLocal/backofficeServer/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "d06ba0fea7e2758af861a9bccaf219a6bc31b370c27648f2efeb24a5b6c8ce00"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "backofficeServer docs",
+      "anchor": "backofficeserver-docs"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "backofficeServer docs",
+      "anchor": "backofficeserver-docs"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This module owns only local BackOffice server composition. Registry schemas, lifecycle rules, routes, authorization semantics, and self-registration contracts remain authoritative in `gExp/backoffice`."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

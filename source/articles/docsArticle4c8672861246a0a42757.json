@@ -1,0 +1,52 @@
+{
+  "code": "docsArticle4c8672861246a0a42757",
+  "title": "gAi Architecture",
+  "route": "/docs/modules/gai/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gAi/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "5286ecfc7fba5e4ae21b226b5b3354715915affb6475c41e181218af24ad6a98"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "gAi Architecture",
+      "anchor": "gai-architecture"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "gAi Architecture",
+      "anchor": "gai-architecture"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Callers never interact with a vendor provider:"
+    },
+    {
+      "kind": "code",
+      "language": "text",
+      "text": "aiAssistant ----\\\n                 > aiProviders gateway -> configured registered adapter\naiKnowledge ----/"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Active modules determine which adapter code exists. Provider modules self-register their normalized capabilities. Layered `aiProviders.profiles` configuration selects an active registered provider and model for a named use case. Configuration cannot activate code that is absent."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Target modules retain business authority, Workflow retains durable process authority, nSearch retains search authority, and source modules retain their data and publication authority."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

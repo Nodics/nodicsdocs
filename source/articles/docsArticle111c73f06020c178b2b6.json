@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle111c73f06020c178b2b6",
+  "title": "nCommon Documentation",
+  "route": "/docs/modules/gframework/ncommon/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nCommon/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "b76e6b5b7b6e001e6203ba2e5c98f53ab281767363a5dda13cbbbb8dd211aa9d"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "nCommon Documentation",
+      "anchor": "ncommon-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "nCommon Documentation",
+      "anchor": "ncommon-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gFramework/nCommon` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

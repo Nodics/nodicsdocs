@@ -633,10 +633,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Previous: [How To Customize And Extend Nodics](how-to-customize-and-extend-nodics.md)",
-        "Next: [How To Create APIs](how-to-create-apis.md)",
-        "Terminology: [Nodics Glossary](../reference/glossary.md)",
-        "Documentation home: [Nodics Documentation](../README.md)"
+        "Previous: [How To Customize And Extend Nodics](/docs/development/how-to-customize-and-extend-nodics)",
+        "Next: [How To Create APIs](/docs/development/how-to-create-apis)",
+        "Terminology: [Nodics Glossary](/docs/reference/glossary)",
+        "Documentation home: [Nodics Documentation](/docs)"
       ]
     }
   ],

@@ -338,10 +338,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Error and trace terminology: [Nodics Glossary](../../gDocs/reference/glossary.md)",
-        "Framework map: [gFramework](../README.md)",
-        "Ordered execution: [nPipeline](../nPipeline/README.md)",
-        "Public documentation: [Nodics Documentation](../../gDocs/README.md)"
+        "Error and trace terminology: [Nodics Glossary](/docs/reference/glossary)",
+        "Framework map: [gFramework](/docs/modules/gframework)",
+        "Ordered execution: [nPipeline](/docs/modules/gframework/npipeline)",
+        "Public documentation: [Nodics Documentation](/docs)"
       ]
     }
   ],

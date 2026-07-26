@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "gContent/cms/docs/content-delivery-contract.md",
     "type": "module-doc",
-    "contentHash": "9e5148976ead8b924d4e01d0e1f65366dbd43467c50c4651a2fd6f651664cdca"
+    "contentHash": "c1f950a7e7b2ac93752d3cd4f6a388d6fd4da1015995e1f32d15c21dc6d4cd7f"
   },
   "headings": [
     {
@@ -39,6 +39,11 @@
       "level": 2,
       "text": "Security",
       "anchor": "security"
+    },
+    {
+      "level": 3,
+      "text": "Client-safe failure responses",
+      "anchor": "client-safe-failure-responses"
     },
     {
       "level": 2,
@@ -153,13 +158,27 @@
     },
     {
       "kind": "heading",
+      "level": 3,
+      "text": "Client-safe failure responses",
+      "anchor": "client-safe-failure-responses"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Delivery maps invalid context or paths to `400`, protected component access to `403`, missing route/page/template/publication records to `404`, and bounded graph-limit violations to `422`. Axis and other clients must handle these stable statuses without displaying backend stack traces, queries, or record payloads."
+    },
+    {
+      "kind": "heading",
       "level": 2,
       "text": "Caching And Invalidation",
       "anchor": "caching-and-invalidation"
     },
     {
       "kind": "paragraph",
-      "text": "The routes use Nodics router caching. CMS mutations call the existing tenant-aware `DefaultCacheService.invalidateResource` contract for the `cmsDelivery` router resource. This intentionally uses the active cache engine, channel mapping, and cross-node invalidation behavior instead of creating a CMS cache implementation."
+      "text": "The routes use Nodics router caching. CMS mutations call the existing tenant-aware `DefaultCacheService.invalidateResource` contract for the configured delivery router resources. This intentionally uses the active cache engine, channel mapping, and cross-node invalidation behavior instead of creating a CMS cache implementation."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The effective router cache prefixes are configured through `cms.delivery.cacheResourceNames`. Defaults cover `resolvePublicPage` and `resolveAuthenticatedPage`; imports and other CMS mutations invalidate both. Later layers may extend this bounded list when they add another cacheable CMS delivery operation, without introducing a parallel cache authority."
     },
     {
       "kind": "heading",

@@ -59,7 +59,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "Read [Units Foundation](docs/units-foundation.md), the [deployment and integration guide](docs/units-deployment-and-integration.md), and the [business guide](../../gDocs/data/how-to-use-units-and-land-measurements.md)."
+      "text": "Read [Units Foundation](/docs/modules/gcore/units/docs/units-foundation), the [deployment and integration guide](/docs/modules/gcore/units/docs/units-deployment-and-integration), and the [business guide](/docs/data/how-to-use-units-and-land-measurements)."
     },
     {
       "kind": "heading",

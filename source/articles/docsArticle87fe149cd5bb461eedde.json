@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle87fe149cd5bb461eedde",
+  "title": "nFacade Documentation",
+  "route": "/docs/modules/gframework/nfacade/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nFacade/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "6993fb5b84e00f511e89890f828d69568ec2bfa26653189b6d6381232bd5bc5c"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "nFacade Documentation",
+      "anchor": "nfacade-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "nFacade Documentation",
+      "anchor": "nfacade-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gFramework/nFacade` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

@@ -121,10 +121,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Workflow family: [workflow](../README.md)",
-        "Runtime engine: [flowCore](../flowCore/README.md)",
-        "HTTP commands: [flowApi](../flowApi/README.md)",
-        "Database contracts: [nDatabase](../../../gFramework/nDatabase/README.md)"
+        "Workflow family: [workflow](/docs/modules/gcore/workflow)",
+        "Runtime engine: [flowCore](/docs/modules/gcore/workflow/flowcore)",
+        "HTTP commands: [flowApi](/docs/modules/gcore/workflow/flowapi)",
+        "Database contracts: [nDatabase](/docs/modules/gframework/ndatabase)"
       ]
     }
   ],

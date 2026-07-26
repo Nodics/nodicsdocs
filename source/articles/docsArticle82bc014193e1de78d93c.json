@@ -38,7 +38,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "For setup examples, human and service authentication, exact-host rules, operations, troubleshooting, and verification, read [Storefront Foundation](../../../gExp/storefront/docs/storefront-foundation.md) and [How To Model Stores And Website Experiences](../../../gDocs/commerce/how-to-model-stores-and-websites.md)."
+      "text": "For setup examples, human and service authentication, exact-host rules, operations, troubleshooting, and verification, read [Storefront Foundation](/docs/modules/gexp/storefront/docs/storefront-foundation) and [How To Model Stores And Website Experiences](/docs/commerce/how-to-model-stores-and-websites)."
     }
   ],
   "links": [

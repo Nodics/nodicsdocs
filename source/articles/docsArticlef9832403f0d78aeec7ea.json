@@ -179,7 +179,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "Use the maturity terms above consistently. If another document uses words such as *implemented*, *limited*, or *provider-dependent*, translate them into the more precise maturity statement in the [Provider And Capability Maturity Matrix](provider-capability-maturity-matrix.md). That matrix remains authoritative for current provider and capability status."
+      "text": "Use the maturity terms above consistently. If another document uses words such as *implemented*, *limited*, or *provider-dependent*, translate them into the more precise maturity statement in the [Provider And Capability Maturity Matrix](/docs/reference/provider-capability-maturity-matrix). That matrix remains authoritative for current provider and capability status."
     },
     {
       "kind": "heading",
@@ -190,9 +190,9 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Documentation home: [Nodics Documentation](../README.md)",
-        "Module ownership: [Module Documentation Index](module-documentation-index.md)",
-        "Platform structure: [How Nodics Is Organized](../architecture/how-nodics-is-organized.md)"
+        "Documentation home: [Nodics Documentation](/docs)",
+        "Module ownership: [Module Documentation Index](/docs/reference/module-documentation-index)",
+        "Platform structure: [How Nodics Is Organized](/docs/architecture/how-nodics-is-organized)"
       ]
     }
   ],

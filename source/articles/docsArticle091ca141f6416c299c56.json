@@ -103,10 +103,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Workflow family: [workflow](../README.md)",
-        "Runtime engine: [flowCore](../flowCore/README.md)",
-        "Data contracts: [flowSchema](../flowSchema/README.md)",
-        "Router governance: [nRouter](../../../gFramework/nRouter/README.md)"
+        "Workflow family: [workflow](/docs/modules/gcore/workflow)",
+        "Runtime engine: [flowCore](/docs/modules/gcore/workflow/flowcore)",
+        "Data contracts: [flowSchema](/docs/modules/gcore/workflow/flowschema)",
+        "Router governance: [nRouter](/docs/modules/gframework/nrouter)"
       ]
     }
   ],

@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle31a18b4eda52b19c35e3",
+  "title": "nEms Documentation",
+  "route": "/docs/modules/gframework/nems/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nEms/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "304863e91d87d87b4f61dcabc28aeba716f010b1946b90ba2de9e90e344165bb"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "nEms Documentation",
+      "anchor": "nems-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "nEms Documentation",
+      "anchor": "nems-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gFramework/nEms` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

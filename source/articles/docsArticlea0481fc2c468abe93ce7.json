@@ -1,0 +1,47 @@
+{
+  "code": "docsArticlea0481fc2c468abe93ce7",
+  "title": "nTest Documentation",
+  "route": "/docs/modules/gframework/ntest/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nTest/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "38e5a95119a3d60b42a86b960b2fe34db560e77c1aae0efdd3c79615295c08d3"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "nTest Documentation",
+      "anchor": "ntest-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "nTest Documentation",
+      "anchor": "ntest-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gFramework/nTest` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

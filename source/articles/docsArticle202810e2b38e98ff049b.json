@@ -247,10 +247,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Data family: [nData](../README.md)",
-        "Import lifecycle: [nImport](../nImport/README.md)",
-        "Export lifecycle: [nExport](../nExport/README.md)",
-        "Public data guide: [How To Work With Data](../../../gDocs/data/how-to-work-with-data.md)"
+        "Data family: [nData](/docs/modules/gframework/ndata)",
+        "Import lifecycle: [nImport](/docs/modules/gframework/ndata/nimport)",
+        "Export lifecycle: [nExport](/docs/modules/gframework/ndata/nexport)",
+        "Public data guide: [How To Work With Data](/docs/data/how-to-work-with-data)"
       ]
     }
   ],

@@ -93,7 +93,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "Detailed pipeline framework documentation is maintained in [docs/pipeline-framework.md](docs/pipeline-framework.md)."
+      "text": "Detailed pipeline framework documentation is maintained in [docs/pipeline-framework.md](/docs/modules/gframework/npipeline/docs/pipeline-framework)."
     },
     {
       "kind": "paragraph",
@@ -311,10 +311,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Detailed framework: [Pipeline Framework](docs/pipeline-framework.md)",
-        "Public platform guide: [How Platform Capabilities Work](../../gDocs/platform/how-platform-capabilities-work.md)",
-        "Business workflow modules: [workflow](../../gCore/workflow/README.md)",
-        "Framework map: [gFramework](../README.md)"
+        "Detailed framework: [Pipeline Framework](/docs/modules/gframework/npipeline/docs/pipeline-framework)",
+        "Public platform guide: [How Platform Capabilities Work](/docs/platform/how-platform-capabilities-work)",
+        "Business workflow modules: [workflow](/docs/modules/gcore/workflow)",
+        "Framework map: [gFramework](/docs/modules/gframework)"
       ]
     }
   ],

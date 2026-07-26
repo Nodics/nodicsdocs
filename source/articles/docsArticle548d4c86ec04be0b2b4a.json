@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle548d4c86ec04be0b2b4a",
+  "title": "startioApi Documentation",
+  "route": "/docs/modules/startio/modules/startioapi/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "startio/modules/startioApi/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "b3e57beaf7f5e9c9b4601b422a6a465f9ac0d01d184be5796a64b252558b4f94"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "startioApi Documentation",
+      "anchor": "startioapi-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "startioApi Documentation",
+      "anchor": "startioapi-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `startio/modules/startioApi` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

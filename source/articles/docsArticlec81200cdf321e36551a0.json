@@ -1,0 +1,76 @@
+{
+  "code": "docsArticlec81200cdf321e36551a0",
+  "title": "nRouter Documentation",
+  "route": "/docs/modules/gframework/nrouter/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nRouter/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "4498a6487075232ad3fafbe903e78a703044279eb8e7c520d26b077ca429822b"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "nRouter Documentation",
+      "anchor": "nrouter-documentation"
+    },
+    {
+      "level": 2,
+      "text": "Guides",
+      "anchor": "guides"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "nRouter Documentation",
+      "anchor": "nrouter-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gFramework/nRouter` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Guides",
+      "anchor": "guides"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "[Router Framework](/docs/modules/gframework/nrouter/docs/router-framework): explains how Nodics route definitions,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Express registration, security, request pipelines, controllers, response handlers, cache, and customization work together."
+    }
+  ],
+  "links": [
+    {
+      "label": "Router Framework",
+      "target": "router-framework.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/nrouter/docs/router-framework",
+      "anchor": ""
+    }
+  ],
+  "media": [],
+  "unsupported": []
+}

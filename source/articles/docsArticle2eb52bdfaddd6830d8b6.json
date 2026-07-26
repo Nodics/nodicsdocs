@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle2eb52bdfaddd6830d8b6",
+  "title": "jsImport Documentation",
+  "route": "/docs/modules/gframework/ndata/nimport/jsimport/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nData/nImport/jsImport/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "4aa7c2af4f2c9fce47bb5540b93171b6b773d6fcd5e0684eea20025a93360ec3"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "jsImport Documentation",
+      "anchor": "jsimport-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "jsImport Documentation",
+      "anchor": "jsimport-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gFramework/nData/nImport/jsImport` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

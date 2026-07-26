@@ -162,7 +162,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "The detailed shared engine contract is documented in [Export Process Framework](export/docs/export-process-framework.md)."
+      "text": "The detailed shared engine contract is documented in [Export Process Framework](/docs/modules/gframework/ndata/nexport/export/docs/export-process-framework)."
     },
     {
       "kind": "heading",
@@ -274,10 +274,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Shared engine: [export](export/README.md)",
-        "Data family: [nData](../README.md)",
-        "Public data guide: [How To Work With Data](../../../gDocs/data/how-to-work-with-data.md)",
-        "Maturity matrix: [Provider And Capability Maturity Matrix](../../../gDocs/reference/provider-capability-maturity-matrix.md)"
+        "Shared engine: [export](/docs/modules/gframework/ndata/nexport/export)",
+        "Data family: [nData](/docs/modules/gframework/ndata)",
+        "Public data guide: [How To Work With Data](/docs/data/how-to-work-with-data)",
+        "Maturity matrix: [Provider And Capability Maturity Matrix](/docs/reference/provider-capability-maturity-matrix)"
       ]
     }
   ],

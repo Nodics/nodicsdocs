@@ -491,7 +491,7 @@
     {
       "kind": "ordered-list",
       "items": [
-        "Read [nDatabase](../../gFramework/nDatabase/README.md) and the current"
+        "Read [nDatabase](/docs/modules/gframework/ndatabase) and the current"
       ]
     },
     {
@@ -608,12 +608,12 @@
     {
       "kind": "unordered-list",
       "items": [
-        "[nDatabase](../../gFramework/nDatabase/README.md) for database capability ownership and provider contracts.",
-        "[database](../../gFramework/nDatabase/database/README.md) for generated CRUD, schema access policy, model pipelines, and DAO lifecycle behavior.",
-        "[mongodb](../../gFramework/nDatabase/mongodb/README.md) and [cassandradb](../../gFramework/nDatabase/cassandradb/README.md) for current database providers.",
-        "[nData](../../gFramework/nData/README.md), [nImport](../../gFramework/nData/nImport/README.md), and [nExport](../../gFramework/nData/nExport/README.md) for import/export behavior.",
-        "[nSearch](../../gFramework/nSearch/README.md) and [search](../../gFramework/nSearch/search/README.md) for search indexes and searchable data.",
-        "[Module Documentation Index](../reference/module-documentation-index.md) when you need to find another data-related module."
+        "[nDatabase](/docs/modules/gframework/ndatabase) for database capability ownership and provider contracts.",
+        "[database](/docs/modules/gframework/ndatabase/database) for generated CRUD, schema access policy, model pipelines, and DAO lifecycle behavior.",
+        "[mongodb](/docs/modules/gframework/ndatabase/mongodb) and [cassandradb](/docs/modules/gframework/ndatabase/cassandradb) for current database providers.",
+        "[nData](/docs/modules/gframework/ndata), [nImport](/docs/modules/gframework/ndata/nimport), and [nExport](/docs/modules/gframework/ndata/nexport) for import/export behavior.",
+        "[nSearch](/docs/modules/gframework/nsearch) and [search](/docs/modules/gframework/nsearch/search) for search indexes and searchable data.",
+        "[Module Documentation Index](/docs/reference/module-documentation-index) when you need to find another data-related module."
       ]
     },
     {
@@ -689,12 +689,23 @@
       "text": "Nodics supports import and export flows for structured data."
     },
     {
-      "kind": "paragraph",
-      "text": "![Data Import Process](../assets/images/data-import-process.jpg)"
+      "kind": "image",
+      "alt": "Data Import Process",
+      "target": "../assets/images/data-import-process.jpg",
+      "title": "",
+      "media": {
+        "alt": "Data Import Process",
+        "target": "../assets/images/data-import-process.jpg",
+        "title": "",
+        "kind": "local",
+        "assetCode": "docsMedia6c9c031345923165e377",
+        "assetPath": "assets/images/c2154b50090905f1.jpg",
+        "contentHash": "c2154b50090905f1830dc52281fb0745fad876a16a27293064dd67ca2e8a05ca"
+      }
     },
     {
       "kind": "paragraph",
-      "text": "For a business-oriented data hub pattern, read [How To Use Nodics As Data As A Service](how-to-use-nodics-as-data-as-a-service.md)."
+      "text": "For a business-oriented data hub pattern, read [How To Use Nodics As Data As A Service](/docs/data/how-to-use-nodics-as-data-as-a-service)."
     },
     {
       "kind": "paragraph",
@@ -1006,8 +1017,19 @@
       "text": "Nodics export is the controlled data-egress side of the data platform."
     },
     {
-      "kind": "paragraph",
-      "text": "![Data Export Process](../assets/images/data-export-process.jpg)"
+      "kind": "image",
+      "alt": "Data Export Process",
+      "target": "../assets/images/data-export-process.jpg",
+      "title": "",
+      "media": {
+        "alt": "Data Export Process",
+        "target": "../assets/images/data-export-process.jpg",
+        "title": "",
+        "kind": "local",
+        "assetCode": "docsMediaa7b98afc9ca218b4276e",
+        "assetPath": "assets/images/0b2c7b6514e40957.jpg",
+        "contentHash": "0b2c7b6514e4095749704b1a9d6f5749567758859398c7e6f9e238937f2ec2f1"
+      }
     },
     {
       "kind": "paragraph",
@@ -1095,9 +1117,9 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Next: [How To Use Nodics As Data As A Service](how-to-use-nodics-as-data-as-a-service.md)",
-        "Owning modules: [Module Documentation Index](../reference/module-documentation-index.md)",
-        "Documentation home: [Nodics Documentation](../README.md)"
+        "Next: [How To Use Nodics As Data As A Service](/docs/data/how-to-use-nodics-as-data-as-a-service)",
+        "Owning modules: [Module Documentation Index](/docs/reference/module-documentation-index)",
+        "Documentation home: [Nodics Documentation](/docs)"
       ]
     }
   ],

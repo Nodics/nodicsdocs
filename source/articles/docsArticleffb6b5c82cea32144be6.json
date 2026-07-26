@@ -424,9 +424,9 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Next: [How To Prepare For Deployment](how-to-prepare-for-deployment.md)",
-        "Testing: [How To Test Nodics Changes](../testing/how-to-test-nodics-changes.md)",
-        "Documentation home: [Nodics Documentation](../README.md)"
+        "Next: [How To Prepare For Deployment](/docs/operations/how-to-prepare-for-deployment)",
+        "Testing: [How To Test Nodics Changes](/docs/testing/how-to-test-nodics-changes)",
+        "Documentation home: [Nodics Documentation](/docs)"
       ]
     }
   ],

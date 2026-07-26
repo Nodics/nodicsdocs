@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle204f082f1e8024b2f5f8",
+  "title": "kycApi Documentation",
+  "route": "/docs/modules/goptional/kyc/kycapi/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gOptional/kyc/kycApi/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "c0e70183d85a696152a855ed4d1d8aca664bebcb5531ae75dacd1b8ff3ed072d"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "kycApi Documentation",
+      "anchor": "kycapi-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "kycApi Documentation",
+      "anchor": "kycapi-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gOptional/kyc/kycApi` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

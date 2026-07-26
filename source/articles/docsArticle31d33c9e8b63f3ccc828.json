@@ -1,0 +1,47 @@
+{
+  "code": "docsArticle31d33c9e8b63f3ccc828",
+  "title": "cart Documentation",
+  "route": "/docs/modules/gcomm/cart/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gComm/cart/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "2e196f490ca888a4f53c8f5504c9fbb1c9749b2499605a1eacfa99d86152e368"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "cart Documentation",
+      "anchor": "cart-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "cart Documentation",
+      "anchor": "cart-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gComm/cart` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

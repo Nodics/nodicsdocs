@@ -110,22 +110,22 @@
       ],
       "rows": [
         [
-          "[emsClient](emsClient/README.md)",
+          "[emsClient](/docs/modules/gframework/nems/emsclient)",
           "Provider-neutral publish, consume, tenant resolution, processing, and failed-message contract",
           "Production-ready capability"
         ],
         [
-          "[kafka](kafka/README.md)",
+          "[kafka](/docs/modules/gframework/nems/kafka)",
           "Kafka adapter",
           "Guarded provider"
         ],
         [
-          "[activemq](activemq/README.md)",
+          "[activemq](/docs/modules/gframework/nems/activemq)",
           "ActiveMQ/STOMP adapter boundary",
           "Placeholder or scaffold"
         ],
         [
-          "[nEvent](../nEvent/README.md)",
+          "[nEvent](/docs/modules/gframework/nevent)",
           "In-platform listener execution after a local or translated message event",
           "Production-ready capability"
         ]
@@ -370,10 +370,10 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Provider-neutral client: [emsClient](emsClient/README.md)",
-        "In-platform events: [nEvent](../nEvent/README.md)",
-        "Provider maturity: [Provider And Capability Maturity Matrix](../../gDocs/reference/provider-capability-maturity-matrix.md)",
-        "Public platform guide: [How Platform Capabilities Work](../../gDocs/platform/how-platform-capabilities-work.md)"
+        "Provider-neutral client: [emsClient](/docs/modules/gframework/nems/emsclient)",
+        "In-platform events: [nEvent](/docs/modules/gframework/nevent)",
+        "Provider maturity: [Provider And Capability Maturity Matrix](/docs/reference/provider-capability-maturity-matrix)",
+        "Public platform guide: [How Platform Capabilities Work](/docs/platform/how-platform-capabilities-work)"
       ]
     }
   ],

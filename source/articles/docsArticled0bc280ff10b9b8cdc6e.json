@@ -1,0 +1,47 @@
+{
+  "code": "docsArticled0bc280ff10b9b8cdc6e",
+  "title": "cres Documentation",
+  "route": "/docs/modules/gmrkty/cres/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gMrkty/cres/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "7c8ca91ceac2cf13260769f43085ddf620919ecdf8d350bdbe06e073d3912bae"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "cres Documentation",
+      "anchor": "cres-documentation"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "cres Documentation",
+      "anchor": "cres-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gMrkty/cres` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

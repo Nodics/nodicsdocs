@@ -1,0 +1,66 @@
+{
+  "code": "docsArticlefb961f7bcdffa83a0b73",
+  "title": "mongodb Documentation",
+  "route": "/docs/modules/gframework/ndatabase/mongodb/docs",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nDatabase/mongodb/docs/README.md",
+    "type": "module-doc",
+    "contentHash": "71eee168f2a69b8c21a22f69c58ac0a386c1a9c28c91823e5e647c3878324913"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "mongodb Documentation",
+      "anchor": "mongodb-documentation"
+    },
+    {
+      "level": 2,
+      "text": "MongoDB transaction deployment",
+      "anchor": "mongodb-transaction-deployment"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "mongodb Documentation",
+      "anchor": "mongodb-documentation"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This folder contains permanent human-readable documentation for the `gFramework/nDatabase/mongodb` module boundary."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Keep architecture, runtime contracts, configuration behavior, operational notes, troubleshooting, and extension decisions here when they are too detailed for the module `README.md`."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "MongoDB transaction deployment",
+      "anchor": "mongodb-transaction-deployment"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Before enabling transactional business capabilities, run MongoDB as a replica set or sharded cluster, configure it through normal Nodics property layering, confirm transaction permission, and run live commit, forced rollback, concurrency-conflict, and primary-failover tests. Monitor aborts, commit latency, pool exhaustion, and unknown commit results."
+    },
+    {
+      "kind": "paragraph",
+      "text": "If MongoDB reports that transactions require a replica-set member or mongos, keep the consuming capability disabled. Never fall back to sequential writes."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

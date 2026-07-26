@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "gExp/backoffice/README.md",
     "type": "module-readme",
-    "contentHash": "1dd36a0c7604e6637b37263aa91aa812c3b94e6b1d3083a39e4794816642f1a6"
+    "contentHash": "89fa0e68c08bbd58e3b79f0539bba0e8eac2eee0173f620b4c6f1ea3426a4814"
   },
   "headings": [
     {
@@ -78,6 +78,16 @@
       "kind": "unordered-list",
       "items": [
         "Expose a permission-filtered, client-safe registry to Nodics Axis.",
+        "Contribute the active **Nodics Documentation** entry under the governed"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Workspace navigation group. The entry points to `/docs`; CMS owns route and content resolution while Axis owns presentation."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
         "Select an optional CMS UI-composition provider without depending on CMS at"
       ]
     },
@@ -163,7 +173,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "See [the registry contract](docs/module-registry-contract.md) and [the operations runbook](docs/registry-operations-runbook.md). API, catalogue, compatibility, and audit behavior is defined by [the API catalogue contract](docs/api-catalogue-contract.md); deployment configuration follows [the environment deployment contract](docs/environment-deployment-contract.md). Module capability discovery, safe snapshot behavior, and CMS provider selection follow [the capability discovery contract](docs/capability-discovery-contract.md). Durable observation history, breaking-change approval, rejection, rollback, retention, and replica concurrency follow [the contract history lifecycle](docs/contract-history-lifecycle.md). Runtime readiness observation and multi-instance availability aggregation follow [the availability observation contract](docs/availability-observation-contract.md). The same contract governs deduplicated state-transition events and sanitized probe/publication metrics through Nodics' existing event capability. Bounded administrative inventory, detail, and governed refresh behavior follow [the registry administration contract](docs/registry-administration-contract.md). Human/service separation and the administrative permission matrix follow [the administrative security contract](docs/administrative-security-contract.md). Structural scale budgets and benchmark evidence follow [the performance and scale contract](docs/performance-and-scale-contract.md). Backend go-live, monitoring, rollback, and residual-risk gates follow [the backend release-readiness checklist](docs/backend-release-readiness.md). The current evidence, acceptance decision, and remaining production gates are recorded in [the backend acceptance report](docs/backend-acceptance-report.md). The module-owned core records for the initial Axis login, employee password recovery, secured screen lock, and dashboard composition are described in [the Axis content catalog guide](docs/axis-content-catalog.md)."
+      "text": "See [the registry contract](/docs/modules/gexp/backoffice/docs/module-registry-contract) and [the operations runbook](/docs/modules/gexp/backoffice/docs/registry-operations-runbook). API, catalogue, compatibility, and audit behavior is defined by [the API catalogue contract](/docs/modules/gexp/backoffice/docs/api-catalogue-contract); deployment configuration follows [the environment deployment contract](/docs/modules/gexp/backoffice/docs/environment-deployment-contract). Module capability discovery, safe snapshot behavior, and CMS provider selection follow [the capability discovery contract](/docs/modules/gexp/backoffice/docs/capability-discovery-contract). Durable observation history, breaking-change approval, rejection, rollback, retention, and replica concurrency follow [the contract history lifecycle](/docs/modules/gexp/backoffice/docs/contract-history-lifecycle). Runtime readiness observation and multi-instance availability aggregation follow [the availability observation contract](/docs/modules/gexp/backoffice/docs/availability-observation-contract). The same contract governs deduplicated state-transition events and sanitized probe/publication metrics through Nodics' existing event capability. Bounded administrative inventory, detail, and governed refresh behavior follow [the registry administration contract](/docs/modules/gexp/backoffice/docs/registry-administration-contract). Human/service separation and the administrative permission matrix follow [the administrative security contract](/docs/modules/gexp/backoffice/docs/administrative-security-contract). Structural scale budgets and benchmark evidence follow [the performance and scale contract](/docs/modules/gexp/backoffice/docs/performance-and-scale-contract). Backend go-live, monitoring, rollback, and residual-risk gates follow [the backend release-readiness checklist](/docs/modules/gexp/backoffice/docs/backend-release-readiness). The current evidence, acceptance decision, and remaining production gates are recorded in [the backend acceptance report](/docs/modules/gexp/backoffice/docs/backend-acceptance-report). The module-owned core records for the initial Axis login, employee password recovery, secured screen lock, and dashboard composition are described in [the Axis content catalog guide](/docs/modules/gexp/backoffice/docs/axis-content-catalog)."
     },
     {
       "kind": "heading",
@@ -181,7 +191,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "The bootstrap response contains only active `clientCallable` modules permitted for the authenticated human and fields selected by `backofficeRegistry.clientSafeMetadata`. It also returns the authenticated request tenant code so Axis can display the same tenant context without guessing, parsing an unverified browser token, or hardcoding `default`. It does not expose service or Cron credentials, registration secrets, or internal lease-expiry state. See [`gDocs/security/backoffice-browser-security.md`](../../gDocs/security/backoffice-browser-security.md)."
+      "text": "The bootstrap response contains only active `clientCallable` modules permitted for the authenticated human and fields selected by `backofficeRegistry.clientSafeMetadata`. It also returns the authenticated request tenant code so Axis can display the same tenant context without guessing, parsing an unverified browser token, or hardcoding `default`. It does not expose service or Cron credentials, registration secrets, or internal lease-expiry state. See [`gDocs/security/backoffice-browser-security.md`](/docs/security/backoffice-browser-security)."
     }
   ],
   "links": [

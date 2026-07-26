@@ -46,7 +46,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "Token economics and optimization are mandatory. See [AI Token Economics and Optimization](docs/token-economics-and-optimization.md) and the beginner-to-expert [Persistent AI Token Ledger Guide](docs/persistent-token-ledger-guide.md)."
+      "text": "Token economics and optimization are mandatory. See [AI Token Economics and Optimization](/docs/modules/gai/aiproviders/docs/token-economics-and-optimization) and the beginner-to-expert [Persistent AI Token Ledger Guide](/docs/modules/gai/aiproviders/docs/persistent-token-ledger-guide)."
     },
     {
       "kind": "paragraph",
