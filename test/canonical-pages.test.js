@@ -271,3 +271,21 @@ test('commerce journey composes independent storefront, product, pricing, stock,
     assert.match(serialized('capability.commerce.stock-units'), /land and agricultural inventory/i);
     assert.match(serialized('capability.commerce.end-to-end'), /BackOffice and Storefront are not data-plane proxies/i);
 });
+
+test('AI journey preserves provider, data, tool, workflow, and cost authorities', () => {
+    const byCode = new Map(pages.map(page => [page.code, page]));
+    [
+        'capability.ai.overview', 'capability.ai.providers',
+        'capability.ai.cost-governance', 'capability.ai.knowledge',
+        'capability.ai.assistant', 'capability.ai.agentic-processes',
+        'capability.ai.partner-customization', 'capability.ai.technical-reference'
+    ].forEach(code => assert.equal(byCode.has(code), true, code));
+    const serialized = code => JSON.stringify(byCode.get(code));
+    assert.match(serialized('capability.ai.overview'), /never connect directly to a database/i);
+    assert.match(serialized('capability.ai.providers'), /caller supplies a usage-profile code/i);
+    assert.match(serialized('capability.ai.cost-governance'), /reserve estimated usage atomically/i);
+    assert.match(serialized('capability.ai.knowledge'), /direct database reads.*prohibited/i);
+    assert.match(serialized('capability.ai.assistant'), /SSE is the version 1 transport/i);
+    assert.match(serialized('capability.ai.agentic-processes'), /target module independently authorizes/i);
+    assert.match(serialized('capability.ai.partner-customization'), /own Axis\/assistant deployment/i);
+});
