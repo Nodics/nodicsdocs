@@ -1,0 +1,50 @@
+{
+  "code": "build.documentation",
+  "title": "Maintain Nodics Documentation",
+  "route": "/docs/build/documentation",
+  "section": "build",
+  "family": "technical-reference",
+  "parent": "section:build",
+  "order": 50,
+  "audiences": ["business-user", "developer", "architect", "operator", "framework-maintainer", "ai-tool"],
+  "readerIntent": "Keep user documentation current, capability-first, importable, and aligned with implementation.",
+  "priorKnowledge": "Understand the Nodics documentation content-pack contract.",
+  "depth": "reference",
+  "status": "implemented",
+  "owner": "nodicsdocs canonical source with Nodics CMS import and Axis/Nodicsweb renderers",
+  "lastVerified": "2026-07-26",
+  "summary": "Implemented functionality is documented once in nodicsdocs as structured capability-first content; module READMEs retain concise technical ownership/setup guidance; planned work remains outside runtime documentation.",
+  "supportingEvidence": ["nodics:README.md", "nodics:gFramework/docs/README.md"],
+  "sections": [
+    {
+      "heading": "Ownership",
+      "items": [
+        "source/pages is the canonical authored authority.",
+        "data/core is deterministic committed Nodics import data; the CMS database is a runtime projection.",
+        "Nodics owns content schemas, import, authorization, delivery, publishing, and runtime contracts.",
+        "Axis and Nodicsweb own renderers, never documentation business authority.",
+        "Module READMEs explain concise technical purpose, ownership, setup, extension points, and links; they do not duplicate full user guides.",
+        "Temporary plans and action lists stay outside runtime documentation until implementation is verified."
+      ]
+    },
+    {
+      "heading": "Writing standard",
+      "items": [
+        "Organize by capability and user outcome, not internal module names.",
+        "Write from business overview through concepts, runtime, configuration, customization, tutorial, operations/security, and technical reference as applicable.",
+        "Use beginner-friendly examples, explicit limitations, maturity, ownership, failure behavior, and verification.",
+        "For third-party integrations, document provider-neutral contracts, prebuilt adapters and maturity, selection, extension, lifecycle, import/export interaction, operations, and tests.",
+        "Use stable codes, explicit navigation order, reviewed media, and implementation evidence; do not embed secrets, local paths, scripts, or raw executable HTML."
+      ]
+    },
+    {
+      "heading": "Change workflow",
+      "items": [
+        "Update documentation in the same implementation change.",
+        "Run npm run verify in nodicsdocs and relevant Nodics documentation/governance gates.",
+        "Review generated import data rather than editing it.",
+        "Publish/import explicitly through Nodics-owned contracts and validate links, navigation, accessibility, mobile rendering, search, update behavior, and regression."
+      ]
+    }
+  ]
+}

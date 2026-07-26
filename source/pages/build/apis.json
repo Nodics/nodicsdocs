@@ -1,0 +1,47 @@
+{
+  "code": "build.apis",
+  "title": "Create Nodics APIs",
+  "route": "/docs/build/apis",
+  "section": "build",
+  "family": "tutorial-example",
+  "parent": "section:build",
+  "order": 20,
+  "audiences": ["developer", "architect", "security-reviewer", "ai-tool"],
+  "readerIntent": "Create a governed API without bypassing Nodics routing, authentication, authorization, or ownership layers.",
+  "priorKnowledge": "Understand schemas, services, facades, controllers, routing, and identity.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "Owning business module using Nodics API and router contracts",
+  "lastVerified": "2026-07-26",
+  "summary": "Define APIs in the owning module, keep transport mapping thin, delegate orchestration and business behavior, and let Nodics enforce exposure, identity, authorization, tenancy, validation, and responses.",
+  "supportingEvidence": ["nodics:gFramework/nRouter/README.md", "nodics:gFramework/nController/README.md", "nodics:gFramework/nFacade/README.md", "nodics:gFramework/nService/README.md"],
+  "sections": [
+    {
+      "heading": "Before writing code",
+      "items": [
+        "Confirm the capability owner and search existing schemas, CRUD routes, services, facades, and APIs before adding another path.",
+        "Describe method, stable versioned path, request and response contracts, tenant/enterprise scope, principal types, permissions, exposure, limits, errors, idempotency, caching, observability, and compatibility.",
+        "Keep human username/password login separate from employee access tokens, module/service credentials, and scheduled-job identity."
+      ]
+    },
+    {
+      "heading": "Implementation",
+      "items": [
+        "Place route metadata in the owning module and declare controller, action, security, permission, exposure, and API metadata explicitly.",
+        "Use a controller only to translate the Nodics request into a facade call; never place domain rules or persistence in it.",
+        "Use a facade for orchestration across services and a service for owned business behavior.",
+        "Access data only through schema models and database services; do not import a database client.",
+        "Use Nodics status/error contracts and expose only approved response fields.",
+        "Generate derived controllers, routes, tests, or OpenAPI from authoritative schemas and router definitions; do not hand-edit generated output."
+      ]
+    },
+    {
+      "heading": "Verification",
+      "items": [
+        "Test success, invalid body/query/header, missing identity, wrong principal type, missing permission, wrong tenant/enterprise, boundary values, contract compatibility, integration, rate/size limits, error masking, and regression.",
+        "Verify unauthorized requests fail before controller or business execution.",
+        "Regenerate API documentation and update canonical capability documentation whenever the public behavior changes."
+      ]
+    }
+  ]
+}

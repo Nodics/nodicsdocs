@@ -1,0 +1,42 @@
+{
+  "code": "build.examples",
+  "title": "Common Nodics Implementation Examples",
+  "route": "/docs/build/examples",
+  "section": "build",
+  "family": "tutorial-example",
+  "parent": "section:build",
+  "order": 60,
+  "audiences": ["developer", "architect", "operator", "ai-tool"],
+  "readerIntent": "Choose the correct Nodics ownership and extension pattern for common changes.",
+  "priorKnowledge": "Read application capability, API, customization, testing, and documentation guides.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "Nodics implementation guidance",
+  "lastVerified": "2026-07-26",
+  "summary": "Use these decision examples to place common changes in their existing authority instead of creating parallel implementations.",
+  "supportingEvidence": ["nodics:README.md", "nodics:gFramework/nConfig/README.md", "nodics:gFramework/nRouter/README.md", "nodics:gFramework/nDatabase/README.md"],
+  "sections": [
+    {
+      "heading": "Examples",
+      "items": [
+        "Add a field: extend the owning schema in a later project module, regenerate derived models/contracts, migrate or import data safely, and test old/new records.",
+        "Change a runtime value: expose it in properties.js and, only when operational updates are required, use the existing governed runtime configuration contract with validation, audit, and rollback.",
+        "Add an API: define an owned route, thin controller, facade orchestration, service behavior, schema model access, permissions, status codes, OpenAPI, and boundary tests.",
+        "Add a scheduled action: use CronJob with module/service identity; never reuse human username/password credentials.",
+        "Add a business approval: use Workflow actions that may be manual or automatic; do not turn a technical pipeline into a durable business process.",
+        "Integrate a provider: implement the existing provider-neutral adapter and selection configuration; callers must not reference the vendor directly.",
+        "Build a web UI: keep presentation/renderers in the client repository, load governed content and contracts, and call owning backend modules rather than placing business logic in the browser."
+      ]
+    },
+    {
+      "heading": "Review checklist",
+      "items": [
+        "Existing authority searched and reused where possible.",
+        "Owner, contract, configuration, security, observability, failure/retry, performance, deployment, and rollback are explicit.",
+        "No duplicate loader, registry, persistence, workflow, API, or documentation authority exists.",
+        "Positive, negative, boundary, contract, integration, resilience, and regression evidence is present.",
+        "Canonical documentation and concise module README match the code."
+      ]
+    }
+  ]
+}

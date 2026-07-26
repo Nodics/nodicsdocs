@@ -313,3 +313,27 @@ test('business solution guides preserve domain ownership and deployment boundari
     assert.match(serialized('solution.customer-reviews.technical-reference'), /do not write Product or customer identity records directly/i);
     assert.match(serialized('solution.kyc.technical-reference'), /Profile remains identity authority/i);
 });
+
+test('build guides preserve layered ownership, generation, documentation, and verification rules', () => {
+    const byCode = new Map(pages.map(page => [page.code, page]));
+    [
+        'build.application-capability',
+        'build.apis',
+        'build.customization',
+        'build.testing',
+        'build.documentation',
+        'build.examples'
+    ].forEach(code => assert.equal(byCode.has(code), true, code));
+
+    const serialized = code => JSON.stringify(byCode.get(code));
+    assert.match(serialized('build.application-capability'), /reus\w+ existing authorities first/i);
+    assert.match(serialized('build.apis'), /unauthorized requests fail before controller or business execution/i);
+    assert.match(serialized('build.apis'), /do not hand-edit generated output/i);
+    assert.match(serialized('build.customization'), /Do not introduce a second loader, registry, configuration source, persistence path, workflow engine, or governance layer/i);
+    assert.match(serialized('build.customization'), /application values out of package\.json/i);
+    assert.match(serialized('build.testing'), /human login separately from module\/service and cron credentials/i);
+    assert.match(serialized('build.testing'), /MonoServer/);
+    assert.match(serialized('build.documentation'), /source\/pages is the canonical authored authority/i);
+    assert.match(serialized('build.documentation'), /Temporary plans and action lists stay outside runtime documentation/i);
+    assert.match(serialized('build.examples'), /call owning backend modules rather than placing business logic in the browser/i);
+});

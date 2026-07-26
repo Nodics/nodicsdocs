@@ -1,0 +1,48 @@
+{
+  "code": "build.customization",
+  "title": "Customize and Extend Nodics",
+  "route": "/docs/build/customization",
+  "section": "build",
+  "family": "configuration-customization",
+  "parent": "section:build",
+  "order": 30,
+  "audiences": ["developer", "architect", "framework-maintainer", "ai-tool"],
+  "readerIntent": "Customize a customer project without forking or creating a competing authority.",
+  "priorKnowledge": "Understand modules, active load order, configuration, schemas, services, and runtime governance.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "Project modules loaded after reusable framework/domain modules",
+  "lastVerified": "2026-07-26",
+  "summary": "Nodics customization uses layered project modules and governed runtime configuration so different customer projects can change the same reusable capability independently.",
+  "supportingEvidence": ["nodics:README.md", "nodics:gFramework/nConfig/README.md", "nodics:gFramework/nDefault/README.md", "nodics:gFramework/nDynamo/README.md"],
+  "sections": [
+    {
+      "heading": "Choose the smallest extension",
+      "items": [
+        "Configuration: change an exposed property in project/environment/server/node or governed runtime configuration.",
+        "Data: import project-owned reference, core, or sample data through Nodics import contracts.",
+        "Layer override: contribute a later schema, service, facade, controller, route, pipeline, interceptor, status, or utility definition using the established loader.",
+        "Provider: implement the provider-neutral adapter contract when integrating a new database, cache, search, event, AI, storage, identity, notification, or payment technology.",
+        "New capability: create a project module only when no existing authority can be reused or safely extended."
+      ]
+    },
+    {
+      "heading": "Rules",
+      "items": [
+        "Never edit released reusable modules for customer-only policy.",
+        "Do not introduce a second loader, registry, configuration source, persistence path, workflow engine, or governance layer.",
+        "Keep application values out of package.json; keep secrets outside committed properties and data.",
+        "Do not place helper constants inside schema definitions when a named configurable contribution must remain overrideable.",
+        "Preserve stable public contracts or version them deliberately; document override precedence and rollback."
+      ]
+    },
+    {
+      "heading": "Prove customization",
+      "items": [
+        "Verify the base project remains unchanged, the custom project receives only its intended override, and another project can apply a different override.",
+        "Test load order, absent/invalid configuration, runtime activation, audit/rollback where supported, topology boundaries, upgrade compatibility, and regression.",
+        "Update the canonical customization guide and owning module README with the supported extension point."
+      ]
+    }
+  ]
+}

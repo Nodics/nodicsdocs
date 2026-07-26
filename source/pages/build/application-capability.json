@@ -1,0 +1,46 @@
+{
+  "code": "build.application-capability",
+  "title": "Create Application Functionality",
+  "route": "/docs/build/application-capability",
+  "section": "build",
+  "family": "tutorial-example",
+  "parent": "section:build",
+  "order": 10,
+  "audiences": ["developer", "architect", "business-user", "security-reviewer", "operator", "ai-tool"],
+  "readerIntent": "Turn a business outcome into a project-owned, testable Nodics capability.",
+  "priorKnowledge": "Complete local setup and understand the layered architecture.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "Customer project module with reusable Nodics framework contracts",
+  "lastVerified": "2026-07-26",
+  "summary": "Build customer functionality in project modules by reusing existing authorities first, extending them second, and adding new contracts only when no governed capability already owns the responsibility.",
+  "supportingEvidence": ["nodics:README.md", "nodics:gFramework/nConfig/README.md", "nodics:gFramework/nDefault/README.md"],
+  "sections": [
+    {
+      "heading": "Example",
+      "paragraphs": [
+        "A logistics project needs delivery exceptions that employees can report, supervisors can review, workflows can escalate, scheduled jobs can recheck, and APIs can expose to its own Axis deployment. This is one application capability composed from reusable Nodics contracts, not a reason to modify the framework."
+      ]
+    },
+    {
+      "heading": "Design sequence",
+      "items": [
+        "Define personas, business outcome, owner, states, data, relationships, permissions, tenancy, workflows, events, integrations, service objectives, audit, failure recovery, and retention.",
+        "Search for existing framework and domain authorities; check schemas, configuration, runtime loaders, services, workflows, import/export, search, cache, events, and documentation.",
+        "Reuse an existing contract where it fits; customize through a later-loaded project module where policy differs; create a new authority only after a duplication and parallel-path review.",
+        "Select only the necessary schema, service, facade, controller, router, pipeline, job, workflow, event, provider, configuration, data, and documentation layers.",
+        "Keep browser/client rendering separate from backend business behavior."
+      ]
+    },
+    {
+      "heading": "Definition of done",
+      "items": [
+        "Ownership and extension boundaries are explicit.",
+        "Configuration belongs in properties.js or its governed runtime contract; package.json remains module metadata.",
+        "Positive, negative, boundary, contract, integration, resilience, security, performance, and regression behavior pass.",
+        "Canonical end-user/developer documentation, concise module README, generated context, and API contracts match implementation.",
+        "MonoServer and relevant modular topology behavior are verified before production qualification."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "code": "build.testing",
+  "title": "Test Nodics Changes",
+  "route": "/docs/build/testing",
+  "section": "build",
+  "family": "technical-reference",
+  "parent": "section:build",
+  "order": 40,
+  "audiences": ["developer", "architect", "security-reviewer", "operator", "framework-maintainer", "ai-tool"],
+  "readerIntent": "Select proportional tests that prove a Nodics change across layers, authorities, and deployment topologies.",
+  "priorKnowledge": "Understand the capability owner, public contracts, configuration, security, and runtime topology.",
+  "depth": "reference",
+  "status": "implemented",
+  "owner": "Owning module tests plus repository-wide Nodics governance and regression suites",
+  "lastVerified": "2026-07-26",
+  "summary": "Nodics validation proves successful behavior and rejected behavior, boundaries, contracts, integrations, resilience, security, performance, topology, generated artifacts, and regressions.",
+  "supportingEvidence": ["nodics:README.md", "nodics:gFramework/nTest/README.md", "nodics:gFramework/nConfig/README.md"],
+  "sections": [
+    {
+      "heading": "Required dimensions",
+      "items": [
+        "Positive: the intended authorized workflow succeeds.",
+        "Negative: invalid, missing, unauthorized, wrong-principal, and wrong-tenant requests fail safely.",
+        "Boundary: empty, maximum, transition, concurrency, timeout, retry, replay, pagination, and size limits.",
+        "Contract: schemas, routes, statuses, events, provider interfaces, generated artifacts, and backward compatibility.",
+        "Integration: real module boundaries and qualified local providers where feasible; mocks alone are not completion evidence.",
+        "Regression: existing capabilities, base modules, custom layers, imports, documentation, and generated context remain valid."
+      ]
+    },
+    {
+      "heading": "Topology and resilience",
+      "items": [
+        "Use MonoServer for fast local integration while functionality is emerging.",
+        "Verify relevant modules independently in modular topology before production readiness; module ownership matters more than a fixed server list.",
+        "Test startup ordering, dependency absence, asynchronous registration, stale leases, restart, provider outage, partial failure, retry/backoff, idempotency, recovery, graceful shutdown, and observability.",
+        "For staged/online publishing, test separate systems or schemas, approval boundaries, publication, cache invalidation, failure recovery, and online non-versioned behavior."
+      ]
+    },
+    {
+      "heading": "Security and release evidence",
+      "items": [
+        "Test human login separately from module/service and cron credentials.",
+        "Prove tenant/enterprise isolation, least privilege, secrets handling, response masking, audit, abuse controls, and browser protections where applicable.",
+        "Run focused tests first, then repository governance and relevant baseline suites; regenerate derived documentation/context before its validators.",
+        "Record exact commands, results, limitations, environment assumptions, and untested production dependencies."
+      ]
+    }
+  ]
+}
