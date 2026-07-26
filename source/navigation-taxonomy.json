@@ -1,0 +1,200 @@
+{
+  "contractVersion": 1,
+  "sections": [
+    {
+      "code": "discover",
+      "title": "Discover Nodics",
+      "order": 10
+    },
+    {
+      "code": "evaluate",
+      "title": "Evaluate Nodics",
+      "order": 20
+    },
+    {
+      "code": "getting-started",
+      "title": "Get Started",
+      "order": 30
+    },
+    {
+      "code": "framework",
+      "title": "Learn the Framework",
+      "order": 40
+    },
+    {
+      "code": "capabilities",
+      "title": "Platform Capabilities",
+      "order": 50
+    },
+    {
+      "code": "solutions",
+      "title": "Business Solutions",
+      "order": 60
+    },
+    {
+      "code": "build",
+      "title": "Build and Extend",
+      "order": 70
+    },
+    {
+      "code": "security",
+      "title": "Secure and Govern",
+      "order": 80
+    },
+    {
+      "code": "operations",
+      "title": "Deploy and Operate",
+      "order": 90
+    },
+    {
+      "code": "reference",
+      "title": "Reference",
+      "order": 100
+    }
+  ],
+  "capabilities": [
+    {
+      "code": "configuration",
+      "title": "Nodics Configuration Layer",
+      "order": 10,
+      "aliases": ["configuration", "properties", "nconfig", "runtime configuration"]
+    },
+    {
+      "code": "layered-architecture",
+      "title": "Modular and Layered Architecture",
+      "order": 20,
+      "aliases": ["modular architecture", "layered architecture", "layer", "override", "customization", "structure"]
+    },
+    {
+      "code": "schema-modeling",
+      "title": "Schema and Item Modeling",
+      "order": 30,
+      "aliases": ["schema", "item model", "model"]
+    },
+    {
+      "code": "query-modeling",
+      "title": "Search Models and Querying",
+      "order": 40,
+      "aliases": ["query", "search model", "filter"]
+    },
+    {
+      "code": "persistence",
+      "title": "Database and Persistence",
+      "order": 50,
+      "aliases": ["database", "mongodb", "cassandra", "elasticdb", "persistence"]
+    },
+    {
+      "code": "services-facades",
+      "title": "Services and Facades",
+      "order": 60,
+      "aliases": ["service", "facade"]
+    },
+    {
+      "code": "apis-routing",
+      "title": "Controllers, Routers, and APIs",
+      "order": 70,
+      "aliases": ["controller", "router", "api", "openapi"]
+    },
+    {
+      "code": "execution-processes",
+      "title": "Pipelines, Interceptors, and Processes",
+      "order": 80,
+      "aliases": ["pipeline", "interceptor", "process", "middleware"]
+    },
+    {
+      "code": "libraries-utilities",
+      "title": "Libraries and Utilities",
+      "order": 90,
+      "aliases": ["library", "libraries", "utility", "utils", "common"]
+    },
+    {
+      "code": "errors-status",
+      "title": "Status Codes and Error Handling",
+      "order": 100,
+      "aliases": ["status", "error", "exception"]
+    },
+    {
+      "code": "identity-access",
+      "title": "Authentication and Authorization",
+      "order": 110,
+      "aliases": ["authentication", "authorization", "permission", "profile", "token", "otp"]
+    },
+    {
+      "code": "tenant-enterprise",
+      "title": "Tenants, Enterprises, and Ownership",
+      "order": 120,
+      "aliases": ["tenant", "enterprise", "ownership"]
+    },
+    {
+      "code": "caching",
+      "title": "Caching",
+      "order": 130,
+      "aliases": ["cache", "redis", "hazelcast", "nodecache"]
+    },
+    {
+      "code": "search-indexing",
+      "title": "Search and Indexing",
+      "order": 140,
+      "aliases": ["search", "index", "elasticsearch"]
+    },
+    {
+      "code": "events-messaging",
+      "title": "Events and Messaging",
+      "order": 150,
+      "aliases": ["event", "messaging", "nems", "ems", "kafka", "activemq"]
+    },
+    {
+      "code": "scheduled-jobs",
+      "title": "Scheduled Jobs",
+      "order": 160,
+      "aliases": ["cron", "scheduled job", "scheduler"]
+    },
+    {
+      "code": "workflows",
+      "title": "Workflows and Business Processes",
+      "order": 170,
+      "aliases": ["workflow", "business process", "bpm", "nbpm"]
+    },
+    {
+      "code": "data-exchange",
+      "title": "Import and Export",
+      "order": 180,
+      "aliases": ["import", "export", "data exchange"]
+    },
+    {
+      "code": "content-publishing",
+      "title": "Content Management and Publishing",
+      "order": 190,
+      "aliases": ["cms", "wcms", "content", "catalog", "publish"]
+    },
+    {
+      "code": "commerce",
+      "title": "Commerce Capabilities",
+      "order": 200,
+      "aliases": ["product", "pricing", "inventory", "stock", "store", "storefront", "cart", "order", "units"]
+    },
+    {
+      "code": "observability-governance",
+      "title": "Observability and Operational Governance",
+      "order": 210,
+      "aliases": ["observability", "logging", "metrics", "trace", "health", "governance", "deployment"]
+    },
+    {
+      "code": "ai",
+      "title": "AI Providers, Knowledge, and Assistants",
+      "order": 220,
+      "aliases": ["ai", "assistant", "knowledge", "rag", "openai", "anthropic", "gemini"]
+    }
+  ],
+  "pageFamilies": [
+    "overview",
+    "business-value",
+    "concepts-architecture",
+    "runtime-behavior",
+    "configuration-customization",
+    "tutorial-example",
+    "operations-security-troubleshooting",
+    "technical-reference"
+  ],
+  "dispositions": ["retain", "merge", "rewrite", "archive", "reject"]
+}
