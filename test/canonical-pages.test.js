@@ -254,3 +254,20 @@ test('business process journey preserves scheduling, workflow, publishing, and o
     assert.match(serialized('capability.content-publishing.overview'), /nPublish is the single provider-neutral publication lifecycle/i);
     assert.match(serialized('capability.operational-governance.overview'), /never become mutation authorities/i);
 });
+
+test('commerce journey composes independent storefront, product, pricing, stock, and unit authorities', () => {
+    const byCode = new Map(pages.map(page => [page.code, page]));
+    [
+        'capability.commerce.overview', 'capability.commerce.storefront',
+        'capability.commerce.stores-warehouses', 'capability.commerce.products',
+        'capability.commerce.pricing', 'capability.commerce.stock-units',
+        'capability.commerce.end-to-end'
+    ].forEach(code => assert.equal(byCode.has(code), true, code));
+    const serialized = code => JSON.stringify(byCode.get(code));
+    assert.match(serialized('capability.commerce.overview'), /separate commerce authorities/i);
+    assert.match(serialized('capability.commerce.storefront'), /apparel\.nodics\.com/);
+    assert.match(serialized('capability.commerce.products'), /without duplicating CMS, Pricing, Inventory, or Units authority/i);
+    assert.match(serialized('capability.commerce.pricing'), /deterministic/i);
+    assert.match(serialized('capability.commerce.stock-units'), /land and agricultural inventory/i);
+    assert.match(serialized('capability.commerce.end-to-end'), /BackOffice and Storefront are not data-plane proxies/i);
+});
