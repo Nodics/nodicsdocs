@@ -8,11 +8,6 @@ Supported block kinds are:
 
 - `heading`
 - `image`
-
-Every generated documentation page composes a shared declarative navigation
-component and one article component. Navigation supplies bounded page metadata
-for client-side discovery; articles supply their own headings plus adjacent
-article references. Renderers remain owned by the consuming frontend.
 - `paragraph`
 - `unordered-list`
 - `ordered-list`
@@ -20,9 +15,36 @@ article references. Renderers remain owned by the consuming frontend.
 - `code`
 - `table`
 
+Every generated documentation page composes a shared declarative navigation
+component and one article component. Navigation supplies bounded page metadata
+for client-side discovery; articles supply their own headings plus adjacent
+article references. Renderers remain owned by the consuming frontend.
+
 Inline Markdown remains presentation text inside a safe block. Renderers must
 support links, emphasis, and inline code through an allowlisted parser and must
 not execute raw HTML.
+
+## Canonical article metadata
+
+An approved article must identify:
+
+- stable article code and canonical route;
+- page family and capability or business-solution owner;
+- primary and secondary audiences;
+- reader intent, prior knowledge, and learning depth;
+- implementation status and applicable version or context;
+- documentation owner and last verified date;
+- source evidence and owning Nodics modules;
+- parent, ordered siblings, previous, next, and related pages;
+- migration sources and their retain, merge, rewrite, archive, or reject
+  decisions.
+
+Module paths are evidence and ownership metadata. They are not public
+information architecture.
+
+Navigation sequence is explicit data. Generators must not infer the learning
+journey from routes, filenames, alphabetical sorting, module order, or import
+order.
 
 During migration, resolvable relative Markdown links are converted to canonical
 `/docs/...` routes. Verification rejects missing target routes, missing heading

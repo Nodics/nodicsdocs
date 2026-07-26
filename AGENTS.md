@@ -19,6 +19,27 @@ environment URLs, Git operations, or another import engine here.
 - Never manually maintain the same article in Markdown and structured source.
 - Keep concise repository setup guidance in this README only.
 
+## Information architecture
+
+- Organize public documentation by Nodics capability and user outcome, never by
+  repository folder or implementation module name.
+- Module names are implementation ownership metadata and technical-reference
+  destinations. They must not define the primary documentation navigation.
+- Every major capability is a hub with separately navigable overview, business
+  value, concepts and architecture, runtime behavior, configuration and
+  customization, tutorial, operations and security, and technical-reference
+  pages where applicable.
+- Keep business solutions separate from platform capabilities. A solution page
+  composes implemented capabilities and must state implementation status and
+  limitations rather than presenting planned behavior as available.
+- Navigation order is explicit governed data. Never derive the learning journey
+  from filenames, alphabetical order, module discovery order, or import order.
+- WordPress, `gDocs`, root documentation, module READMEs, and module documents
+  are migration evidence. They are not parallel authorities after a canonical
+  article is approved.
+- Follow `docs/information-architecture.md` and
+  `docs/migration-and-retirement-policy.md` for all migration work.
+
 ## Safety and compatibility
 
 - Content is declarative and non-executable.
