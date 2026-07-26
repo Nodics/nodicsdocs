@@ -1912,5 +1912,17 @@ module.exports = {
         "deliveryState": "ONLINE",
         "accessMode": "AUTHENTICATED",
         "active": true
+    },
+    "record159": {
+        "code": "docsRoutef4d9fbe7c7ce2f3a349b",
+        "site": "axisCmsSite",
+        "path": "/docs",
+        "locale": "en",
+        "channel": "web",
+        "page": "docsPageb476935bf7d51a4aea5d",
+        "routeType": "PAGE",
+        "deliveryState": "ONLINE",
+        "accessMode": "AUTHENTICATED",
+        "active": true
     }
 };

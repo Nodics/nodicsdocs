@@ -1,6 +1,6 @@
 {
   "pack": "nodicsdocs",
-  "version": "0.3.0",
+  "version": "0.3.2",
   "nodicsCompatibility": ">=0.0.1 <1.0.0",
   "contentContractVersion": 1,
   "catalog": "nodicsDocumentationContentCatalog",

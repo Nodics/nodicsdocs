@@ -38,6 +38,15 @@ function uniqueHeadingAnchor(heading, usedAnchors) {
     return candidate;
 }
 
+function nestedStrings(value) {
+    if (typeof value === 'string') return [value];
+    if (Array.isArray(value)) return value.flatMap(nestedStrings);
+    if (value && typeof value === 'object') {
+        return Object.values(value).flatMap(nestedStrings);
+    }
+    return [];
+}
+
 function pageContent(page) {
     const blocks = [];
     const headings = [];
@@ -64,7 +73,7 @@ function pageContent(page) {
         }
     });
     blocks.forEach(block => {
-        markdownReferences(JSON.stringify(block)).links
+        nestedStrings(block).flatMap(value => markdownReferences(value).links)
             .filter(link => link.target.startsWith('/docs/'))
             .forEach(link => {
                 if (!links.some(existing =>
@@ -462,7 +471,7 @@ function main() {
         ],
         active: true
     })).concat(retiredOutput.pages);
-    const routeRecords = canonicalRecords.flatMap(record => sites.map(site => ({
+    const articleRouteRecords = canonicalRecords.flatMap(record => sites.map(site => ({
         code: stableCode('docsRoute', `${site}:${record.page.route}`),
         site,
         path: record.page.route,
@@ -473,7 +482,23 @@ function main() {
         deliveryState: 'ONLINE',
         accessMode,
         active: true
-    }))).concat(retiredOutput.routes);
+    })));
+    const documentationHome = canonicalRecords[0];
+    const landingRouteRecords = sites.map(site => ({
+        code: stableCode('docsRoute', `${site}:/docs`),
+        site,
+        path: '/docs',
+        locale: 'en',
+        channel: 'web',
+        page: stableCode('docsPage', documentationHome.page.code),
+        routeType: 'PAGE',
+        deliveryState: 'ONLINE',
+        accessMode,
+        active: true
+    }));
+    const routeRecords = articleRouteRecords
+        .concat(landingRouteRecords)
+        .concat(retiredOutput.routes);
 
     writeCommonJsRecords(path.join(output, 'nodicsDocumentationCatalogData.js'), catalogRecords, 'Documentation catalog records.');
     writeCommonJsRecords(path.join(output, 'nodicsDocumentationTypeCodeData.js'), typeRecords, 'Documentation page and component type records.');
@@ -560,6 +585,7 @@ if (require.main === module) main();
 
 module.exports = {
     main,
+    nestedStrings,
     orderedPages,
     pageContent,
     retiredRecords

@@ -70,6 +70,14 @@ test('generated articles come from canonical source and keep their internal link
     assert(pathBlock, 'Expected canonical next-path links');
     assert(pathBlock.items.every(item => item.includes('](/docs/')));
     assert.strictEqual(article.properties.source.authority, 'nodicsdocs/source/pages');
+    assert.deepStrictEqual(
+        article.properties.links.map(link => link.label),
+        [
+            'Evaluate Nodics for an organization',
+            'Set up Nodics locally',
+            'Learn how the framework is organized'
+        ]
+    );
 });
 
 test('generated navigation and adjacent article links form a complete route graph', () => {
@@ -111,6 +119,13 @@ test('canonical generation is deterministic and isolates the legacy snapshot', (
 
     const routes = records('data/core/data/documentation/nodicsDocumentationRouteData.js');
     assert(routes.some(route => route.path === '/docs/discover/what-is-nodics'));
+    const documentationHome = routes.find(route => route.path === '/docs');
+    const canonicalIntroduction = routes.find(
+        route => route.path === '/docs/discover/what-is-nodics'
+    );
+    assert(documentationHome, 'Expected the stable documentation landing route');
+    assert.strictEqual(documentationHome.page, canonicalIntroduction.page);
+    assert.strictEqual(documentationHome.accessMode, 'AUTHENTICATED');
     assert(!routes.some(route => route.path === '/docs/commerce/how-to-reserve-stock'));
 });
 
