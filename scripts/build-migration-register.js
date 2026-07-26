@@ -41,6 +41,7 @@ function main() {
     const taxonomy = readJson('source/navigation-taxonomy.json');
     const canonicalPages = readJson('source/canonical-pages.json');
     const decisions = readJson('source/migration-decisions.json');
+    const migrationRules = readJson('source/migration-rules.json');
     const wordpress = readJson('manifest/wordpress-reference.json');
     const articles = walkFiles(
         path.join(root, 'source', 'articles'),
@@ -68,7 +69,7 @@ function main() {
     }
     const dispositionSet = new Set(taxonomy.dispositions);
     const destinationSet = new Set(canonicalPageCodes);
-    decisions.decisions.forEach(decision => {
+    const validateDisposition = decision => {
         if (!dispositionSet.has(decision.disposition)) {
             throw new Error(`Unsupported disposition for ${decision.evidenceId}`);
         }
@@ -82,7 +83,14 @@ function main() {
             throw new Error(`Destination is not allowed for ${decision.evidenceId}`);
         }
         if (!decision.notes) throw new Error(`Missing decision notes for ${decision.evidenceId}`);
-    });
+    };
+    decisions.decisions.forEach(validateDisposition);
+    migrationRules.rules.forEach((rule, index) => validateDisposition({
+        ...rule,
+        evidenceId: `migration rule ${index}`
+    }));
+    const orderedRules = [...migrationRules.rules]
+        .sort((left, right) => right.sourcePrefix.length - left.sourcePrefix.length);
     const evidence = articles.map(article => ({
         evidenceId: `nodics:${article.source.path}`,
         sourceType: article.source.type,
@@ -105,10 +113,13 @@ function main() {
         }, taxonomy)
     }))).sort((left, right) => left.evidenceId.localeCompare(right.evidenceId));
     const entries = evidence.map(item => {
-        const decision = decisionByEvidence.get(item.evidenceId);
+        const explicitDecision = decisionByEvidence.get(item.evidenceId);
+        const ruleDecision = orderedRules.find(rule => item.sourcePath.startsWith(rule.sourcePrefix));
+        const decision = explicitDecision || ruleDecision;
         return {
             ...item,
             reviewStatus: decision ? 'reviewed' : 'pending',
+            reviewAuthority: explicitDecision ? 'explicit-decision' : ruleDecision ? 'reviewed-prefix-rule' : null,
             disposition: decision?.disposition || null,
             destinationCode: decision?.destinationCode || null,
             notes: decision?.notes || null

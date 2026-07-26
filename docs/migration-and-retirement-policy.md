@@ -25,7 +25,9 @@ Every discovered page or meaningful section receives one recorded decision:
 
 No source disappears without a recorded disposition and destination or reason.
 
-`source/migration-decisions.json` is the reviewed decision authority.
+`source/migration-decisions.json` is the individual reviewed decision
+authority. `source/migration-rules.json` contains reviewed ownership mappings
+for unambiguous package families; explicit decisions override those rules.
 `manifest/migration-register.json` is a deterministic inventory that combines
 those decisions with current Nodics and WordPress evidence. Capability
 suggestions in that register are discovery aids only; they never publish,

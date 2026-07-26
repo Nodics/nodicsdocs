@@ -72,6 +72,12 @@
       "aliases": ["schema", "item model", "model"]
     },
     {
+      "code": "validation",
+      "title": "Validation and Policy Enforcement",
+      "order": 35,
+      "aliases": ["validator", "validation", "policy enforcement"]
+    },
+    {
       "code": "query-modeling",
       "title": "Search Models and Querying",
       "order": 40,

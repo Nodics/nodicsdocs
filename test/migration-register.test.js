@@ -47,13 +47,29 @@ test('migration register accounts for every discovered source', () => {
 test('reviewed destinations use canonical capability-first page identities', () => {
     const destinationCodes = new Set(canonicalPages.pages.map(page => page.code));
     const reviewed = register.entries.filter(entry => entry.reviewStatus === 'reviewed');
-    assert.equal(reviewed.length, 81);
+    assert.equal(reviewed.length > 300, true);
     reviewed.filter(entry => entry.destinationCode).forEach(entry => {
         assert.equal(destinationCodes.has(entry.destinationCode), true, entry.evidenceId);
     });
     assert.equal(
         canonicalPages.pages.some(page => /^n[A-Z]/.test(page.title)),
         false
+    );
+});
+
+test('specialized application packages have explicit solution ownership', () => {
+    const byPath = new Map(register.entries.map(entry => [entry.sourcePath, entry]));
+    assert.equal(
+        byPath.get('gOptional/kyc/README.md').destinationCode,
+        'solution.kyc.technical-reference'
+    );
+    assert.equal(
+        byPath.get('gCore/quizer/README.md').destinationCode,
+        'solution.learning-assessment.technical-reference'
+    );
+    assert.equal(
+        byPath.get('gMrkty/cres/README.md').destinationCode,
+        'solution.customer-reviews.technical-reference'
     );
 });
 

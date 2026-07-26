@@ -37,25 +37,26 @@ order:
 1. Configuration and runtime governance
 2. Modular and layered architecture
 3. Schema and item modeling
-4. Search models and querying
-5. Database and persistence
-6. Services and facades
-7. Controllers, routers, and APIs
-8. Pipelines, interceptors, and processes
-9. Libraries and utilities
-10. Status codes and error handling
-11. Authentication and authorization
-12. Tenants, enterprises, and ownership
-13. Caching
-14. Search and indexing
-15. Events and messaging
-16. Scheduled jobs
-17. Workflows and business processes
-18. Import and export
-19. Content management and publishing
-20. Commerce capabilities
-21. Observability and operational governance
-22. AI providers, knowledge, and assistants
+4. Validation and policy enforcement
+5. Search models and querying
+6. Database and persistence
+7. Services and facades
+8. Controllers, routers, and APIs
+9. Pipelines, interceptors, and processes
+10. Libraries and utilities
+11. Status codes and error handling
+12. Authentication and authorization
+13. Tenants, enterprises, and ownership
+14. Caching
+15. Search and indexing
+16. Events and messaging
+17. Scheduled jobs
+18. Workflows and business processes
+19. Import and export
+20. Content management and publishing
+21. Commerce capabilities
+22. Observability and operational governance
+23. AI providers, knowledge, and assistants
 
 Only implemented and verified capabilities are published as available.
 Unimplemented design remains outside the public content pack.
