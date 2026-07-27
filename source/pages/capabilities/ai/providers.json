@@ -19,7 +19,7 @@
   "depth": "implementation",
   "status": "implemented",
   "owner": "aiProviders gateway and vendor adapter modules",
-  "lastVerified": "2026-07-26",
+  "lastVerified": "2026-07-27",
   "summary": "OpenAI Responses, Anthropic Messages, and Gemini/Vertex adapters translate normalized generation, embedding, streaming, cancellation, estimation, and usage contracts; the gateway owns selection and policy.",
   "supportingEvidence": [
     "nodics:gAi/aiProviders/README.md",
@@ -43,6 +43,15 @@
         "Use opaque backend secret references or injected vault resolvers; env:// is for governed process environments.",
         "Never place credential values in configuration snapshots, logs, browser responses, prompts, or persistence.",
         "Telemetry excludes prompts, responses, credentials, and user-controlled high-cardinality labels."
+      ]
+    },
+    {
+      "heading": "Where provider configuration belongs",
+      "items": [
+        "The aiProviders gateway owns provider-neutral contracts and the empty providers aggregation slot. Each vendor adapter module contributes its own disabled provider definition, endpoint and protocol defaults, conventional opaque secret reference, capabilities, and reviewed model pricing.",
+        "A customer project module owns reusable application policy such as enabled Assistant or Knowledge capabilities and token limits. An environment module adds only a real deployment difference, such as local acceptance tools or a region-specific secret-reference override.",
+        "A server or node is a topology and selection layer. It may activate the gateway and adapter modules, enable the gateway, select an active provider, and bind a usage profile to a provider and model.",
+        "Do not copy provider URLs, pricing, credential values, token policy, resilience, ledger, security, Assistant behavior, or Knowledge behavior into server or node properties. This keeps generated customer topologies small and prevents duplicate configuration authorities."
       ]
     },
     {

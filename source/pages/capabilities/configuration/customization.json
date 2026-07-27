@@ -17,7 +17,7 @@
   "depth": "guided",
   "status": "implemented",
   "owner": "Owning capability plus Nodics configuration contracts",
-  "lastVerified": "2026-07-26",
+  "lastVerified": "2026-07-27",
   "summary": "Start with the owning module default, override only at the required application or runtime scope, and validate both expected and fallback behavior.",
   "supportingEvidence": [
     "nodics:gFramework/nConfig/README.md",
@@ -37,7 +37,8 @@
         "Check all existing loaders and override paths before proposing another configuration mechanism.",
         "Keep standard package metadata in package.json and application behavior in properties.js or an explicit runtime-governance contract.",
         "Place secrets in the deployment secret mechanism, never committed source.",
-        "Override at the narrowest correct scope and document the default, allowed values, units, restart behavior, and security implications."
+        "Override at the narrowest correct scope and document the default, allowed values, units, restart behavior, and security implications.",
+        "Add only the changed property. Do not copy neighboring defaults merely to make the later file appear complete."
       ]
     },
     {
@@ -54,7 +55,8 @@
       "heading": "Worked example",
       "paragraphs": [
         "Assume the cache default is appropriate in production but local developers need faster expiry. Add only the local-environment override under the cache-owned namespace. Keep the unit explicit and preserve the production default.",
-        "Start startioLocal monoServer, inspect authorized effective configuration or observable cache behavior, and prove the local value. Start another environment or run its configuration test and prove it still receives the default."
+        "Start startioLocal monoServer, inspect authorized effective configuration or observable cache behavior, and prove the local value. Start another environment or run its configuration test and prove it still receives the default.",
+        "The same rule applies to server topology. A server selects active modules, ports, remote endpoints, or an active provider/engine when those differ for that process. It does not repeat an inherited context root, disabled search flag, retry limit, pricing table, or provider endpoint."
       ]
     },
     {

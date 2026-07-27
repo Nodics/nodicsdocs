@@ -18,7 +18,7 @@
   "depth": "reference",
   "status": "implemented",
   "owner": "Nodics configuration and runtime-governance capabilities",
-  "lastVerified": "2026-07-26",
+  "lastVerified": "2026-07-27",
   "summary": "Technical ownership is distributed across startup configuration, module configuration, topology, tenant properties, and explicitly governed runtime contracts.",
   "supportingEvidence": [
     "nodics:gFramework/nConfig/README.md",
@@ -30,7 +30,8 @@
       "items": [
         "Configuration loads through one authoritative layered process from framework and module defaults through project, environment, server, node, tenant, and supported runtime scopes.",
         "Later eligible layers override earlier values while provenance records where an effective value came from. Missing required configuration fails with a clear safe diagnostic.",
-        "Environment and topology selection use canonical runtime identity so same-named servers or nodes cannot cross local, development, preproduction, or production."
+        "Environment and topology selection use canonical runtime identity so same-named servers or nodes cannot cross local, development, preproduction, or production.",
+        "Later layers are deltas, not copied snapshots. If the earlier owning module already supplies the required value, the later properties.js omits it and inherits it."
       ]
     },
     {
@@ -72,6 +73,8 @@
       "heading": "Non-negotiable boundaries",
       "items": [
         "Do not create duplicate loaders or parallel authority paths.",
+        "Do not copy unchanged module defaults, disabled-provider placeholders, or complete capability policy blocks into project, environment, server, or node configuration.",
+        "Servers define process composition, ports, remote coordinates, and intentional process selections; nodes define instance identity and instance-specific differences. Neither becomes a second owner of reusable capability policy.",
         "Do not put credentials or secrets in committed properties.",
         "Do not convert executable business logic into unvalidated data.",
         "Do not treat root docs/ as runtime configuration.",

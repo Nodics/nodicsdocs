@@ -19,7 +19,7 @@
   "depth": "guided",
   "status": "implemented",
   "owner": "Customer project modules and configuration layered over reusable AI contracts",
-  "lastVerified": "2026-07-26",
+  "lastVerified": "2026-07-27",
   "summary": "Partners customize provider profiles, prompts, corpora, tools, policies, budgets, workflows, content, and branding through explicit modules and configuration.",
   "supportingEvidence": [
     "nodics:gAi/README.md",
@@ -32,7 +32,8 @@
       "heading": "Configuration-first choices",
       "items": [
         "Enable only required AI modules and provider adapters.",
-        "Define usage profiles, allowed models, pricing, secret references, budgets, rate limits, fallback, and kill switches.",
+        "Select usage profiles and allowed models, then configure project-owned budgets and token policy without copying provider definitions into topology modules.",
+        "Reuse vendor-owned endpoint defaults, opaque secret-reference conventions, capabilities, and reviewed pricing; override only genuine customer or deployment differences through the appropriate configuration layer.",
         "Contribute application-owned knowledge sources and classification/locale/audience policy.",
         "Create versioned approved prompts and Assistant definitions.",
         "Allowlist read tools and confirmation/workflow-governed mutations.",
@@ -53,7 +54,9 @@
       "heading": "Layered customization procedure",
       "items": [
         "First reuse an existing Assistant, source, tool, provider, prompt, and policy. Next override configuration in the customer project. Extend an existing adapter or service only when configuration cannot express the requirement, and implement a new authority only as the final option.",
-        "Place provider credentials and environment endpoints in governed runtime secret or configuration sources. Put application schemas and business services in their owning backend modules, and keep responsive renderers in the frontend repository.",
+        "Keep credential values in governed runtime secret systems and reference them only through opaque secret references. Put vendor defaults in the vendor adapter, reusable business policy in the customer project module, and only real deployment differences in the environment module.",
+        "Keep server and node configuration limited to active modules, gateway enablement, active-provider selection, and concise profile-to-provider/model binding. Do not make a generated server or node a duplicate owner of endpoints, pricing, credentials, token policy, resilience, ledger, or business behavior.",
+        "Put application schemas and business services in their owning backend modules, and keep responsive renderers in the frontend repository.",
         "Register contributed adapters through existing registry contracts. Do not add direct imports, parallel loaders, generic database access, or a second list of modules and tools.",
         "Keep user-facing labels, help, errors, and localized fragments backend-content driven while frontend component renderers remain small, individually navigable, testable, and free of business decisions."
       ]
