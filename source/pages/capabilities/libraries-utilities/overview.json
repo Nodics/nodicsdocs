@@ -1,1 +1,103 @@
-{"code":"capability.libraries-utilities.overview","title":"Libraries and Utilities","route":"/docs/capabilities/libraries-utilities","section":"capabilities","family":"overview-business-value","parent":"page:capability.layered-architecture.overview","order":80,"audiences":["developer","architect","framework-maintainer","ai-tool"],"readerIntent":"Decide whether reusable code belongs in a capability library, shared utility, or service.","priorKnowledge":"Understand layer ownership.","depth":"overview","status":"implemented","owner":"Owning capability or nCommon for genuinely framework-wide primitives","lastVerified":"2026-07-26","summary":"Libraries and utilities provide small explicit mechanics; they never become hidden homes for business logic, provider selection, configuration loading, or runtime state.","supportingEvidence":["nodics:gFramework/nCommon/README.md"],"sections":[{"heading":"Placement rule","items":["Keep capability-specific helpers beside the owning capability.","Use nCommon only for stable framework-wide deterministic primitives.","Use a service when behavior needs configuration, I/O, state, policy, providers, or business meaning.","Pass tenant, request, module, correlation, and execution context explicitly."]},{"heading":"Risks of casual sharing","items":["A shared helper becomes a widely consumed compatibility contract.","Hidden I/O or globals make testing, override, security, and performance unpredictable.","Moving code merely to shorten an import path erases ownership.","A second utility, enum, error, or status registry creates parallel authority."]},{"heading":"Continue","items":["[Design and Extend Shared Helpers](/docs/capabilities/libraries-utilities/runtime)","[Libraries and Utilities Technical Reference](/docs/reference/libraries-utilities)"]}]}
+{
+  "code": "capability.libraries-utilities.overview",
+  "title": "Libraries and Utilities",
+  "route": "/docs/capabilities/libraries-utilities",
+  "section": "capabilities",
+  "family": "overview",
+  "parent": "page:capability.layered-architecture.overview",
+  "order": 80,
+  "audiences": [
+    "developer",
+    "architect",
+    "framework-maintainer",
+    "ai-tool"
+  ],
+  "readerIntent": "Decide whether reusable code belongs in a capability library, shared utility, or service.",
+  "priorKnowledge": "Understand layer ownership.",
+  "depth": "overview",
+  "status": "implemented",
+  "owner": "Owning capability or nCommon for genuinely framework-wide primitives",
+  "lastVerified": "2026-07-26",
+  "summary": "Libraries and utilities provide small explicit mechanics; they never become hidden homes for business logic, provider selection, configuration loading, or runtime state.",
+  "supportingEvidence": [
+    "nodics:gFramework/nCommon/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "What is Libraries and Utilities?",
+      "paragraphs": [
+        "A library provides reusable code for a defined capability, while a utility performs a small broadly useful technical task. Correct placement matters because shared code can otherwise create hidden coupling, duplicate authority, or dependencies that every module must carry.",
+        "Think of specialist tools stored with the team that owns them and truly general tools stored in a common workshop. A tool should move to the common workshop only when several independent teams need the same stable behavior."
+      ]
+    },
+    {
+      "heading": "Placement rule",
+      "items": [
+        "Keep capability-specific helpers beside the owning capability.",
+        "Use nCommon only for stable framework-wide deterministic primitives.",
+        "Use a service when behavior needs configuration, I/O, state, policy, providers, or business meaning.",
+        "Pass tenant, request, module, correlation, and execution context explicitly."
+      ]
+    },
+    {
+      "heading": "Risks of casual sharing",
+      "items": [
+        "A shared helper becomes a widely consumed compatibility contract.",
+        "Hidden I/O or globals make testing, override, security, and performance unpredictable.",
+        "Moving code merely to shorten an import path erases ownership.",
+        "A second utility, enum, error, or status registry creates parallel authority."
+      ]
+    },
+    {
+      "heading": "Library, utility, or service",
+      "items": [
+        "Use a pure utility for deterministic transformation with explicit inputs and outputs.",
+        "Use a capability library for cohesive reusable mechanics owned by that capability.",
+        "Use a service for configuration, I/O, state, policy, provider access, business meaning, or lifecycle.",
+        "Use a provider adapter for vendor-specific behavior behind a neutral contract.",
+        "Do not use a utility to avoid proper dependency injection or module ownership."
+      ]
+    },
+    {
+      "heading": "Examples",
+      "paragraphs": [
+        "Safe examples include bounded string normalization, object-path handling, date parsing with explicit locale, or error-cause helpers. These operations do not choose a tenant, open a connection, or decide business permission.",
+        "Employee activation, cache access, database queries, token issuance, provider selection, and configuration loading are services or owned capabilities, not common utilities."
+      ]
+    },
+    {
+      "heading": "Compatibility responsibility",
+      "paragraphs": [
+        "A framework-wide helper can have hundreds of consumers. Changes to input tolerance, mutation, errors, ordering, Unicode, time zones, or performance can create broad regressions.",
+        "Keep the contract narrow, document edge cases, avoid hidden globals, and test representative consumers before changing shared behavior."
+      ]
+    },
+    {
+      "heading": "Security and performance",
+      "items": [
+        "Never serialize or log credentials for convenience.",
+        "Do not accept unbounded recursion, collections, regular expressions, or payloads.",
+        "Avoid prototype mutation and unsafe object merging.",
+        "Preserve safe cause and correlation without copying sensitive context.",
+        "Measure allocation and latency for helpers on high-volume paths."
+      ]
+    },
+    {
+      "heading": "Review checklist",
+      "items": [
+        "Existing helper and owner searched.",
+        "More than one genuine consumer identified.",
+        "Inputs, outputs, mutation, errors, complexity, and compatibility documented.",
+        "No I/O, provider, secret, tenant selection, or business authority hidden.",
+        "Boundary, security, concurrency, performance, and consumer tests present."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "items": [
+        "Design and Extend Shared Helpers",
+        "Libraries and Utilities Technical Reference"
+      ]
+    }
+  ]
+}

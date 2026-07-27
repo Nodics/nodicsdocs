@@ -6,7 +6,12 @@
   "family": "technical-reference",
   "parent": "page:capability.query-modeling.overview",
   "order": 90,
-  "audiences": ["developer", "architect", "framework-maintainer", "ai-tool"],
+  "audiences": [
+    "developer",
+    "architect",
+    "framework-maintainer",
+    "ai-tool"
+  ],
   "readerIntent": "Locate provider-neutral search ownership, operations, extension points, and verification.",
   "priorKnowledge": "Understand Nodics modules, schemas, routes, services, and pipelines.",
   "depth": "reference",
@@ -19,6 +24,38 @@
     "nodics:gFramework/nSearch/search/docs/README.md"
   ],
   "sections": [
+    {
+      "heading": "Purpose and authority",
+      "items": [
+        "A search model describes provider-neutral query and index behavior aligned with an owning business schema. It never replaces the authoritative item model or database service.",
+        "Define searchable, filterable, sortable, facetable, projected, localized, and masked fields explicitly with tenant and catalog context.",
+        "Display identity uses safe business code and description; opaque identifiers remain references and protected fields never enter an index accidentally."
+      ]
+    },
+    {
+      "heading": "Index definition and lifecycle",
+      "items": [
+        "The owning module declares index name, version, source projection, mappings, analyzers, aliases, refresh policy, and compatibility while nSearch executes provider operations.",
+        "Build a candidate index, populate from authorized source services, validate counts and samples, then activate an alias atomically where supported.",
+        "Schema changes classify compatible mapping updates versus rebuilds and retain rollback until the new projection is verified."
+      ]
+    },
+    {
+      "heading": "Query contract",
+      "items": [
+        "Normalize text, filters, ranges, sort, page, size, cursor, projection, locale, and context; reject unbounded, unsupported, or provider-specific query injection.",
+        "Apply authorization and field masking before results leave the service. Search permission does not imply create, update, delete, or unrestricted read.",
+        "Deterministic pagination requires stable ordering and documented maximums; scores and highlights are derived explanations rather than business truth."
+      ]
+    },
+    {
+      "heading": "Verification and recovery",
+      "items": [
+        "Test indexing, update, delete, rebuild, alias switch, empty query, typo/analyzer behavior, filters, sort, pagination, locale, masking, tenant isolation, and scale.",
+        "Test provider outage, partial batch, mapping conflict, stale projection, duplicate events, import completion, cache interaction, restart, recovery, and regression.",
+        "Measure query latency, error, zero-result rate, indexing throughput, lag, failed documents, alias state, and rebuild progress with safe bounded labels."
+      ]
+    },
     {
       "heading": "Authoritative source locations",
       "items": [
@@ -36,6 +73,9 @@
         "node gFramework/nSearch/search/test/searchControllerRequestMapping.test.js",
         "node gFramework/nSearch/search/test/searchCachePolicyContract.test.js",
         "node gFramework/nSearch/search/test/indexerServiceContract.test.js"
+      ],
+      "paragraphs": [
+        "Retain representative authorized queries and expected projections as compatibility evidence whenever schema, analyzer, mapping, provider, or pagination behavior changes."
       ]
     }
   ]

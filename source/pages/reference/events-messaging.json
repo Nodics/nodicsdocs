@@ -6,7 +6,13 @@
   "family": "technical-reference",
   "parent": "page:capability.events-messaging.overview",
   "order": 50,
-  "audiences": ["developer", "architect", "operator", "framework-maintainer", "ai-tool"],
+  "audiences": [
+    "developer",
+    "architect",
+    "operator",
+    "framework-maintainer",
+    "ai-tool"
+  ],
   "readerIntent": "Audit event ownership, delivery contracts, providers, and verification.",
   "priorKnowledge": "Read the events and messaging journey.",
   "depth": "reference",
@@ -14,9 +20,62 @@
   "owner": "Framework event, EMS provider, and NEMS distribution contracts",
   "lastVerified": "2026-07-26",
   "summary": "Each event defines its owner, stable type/version, context, delivery model, consumer behavior, failure policy, observability, and compatibility contract.",
-  "supportingEvidence": ["nodics:gFramework/nEvent/README.md", "nodics:gFramework/nEms/README.md", "nodics:gCore/nems/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nEvent/README.md",
+    "nodics:gFramework/nEms/README.md",
+    "nodics:gCore/nems/README.md"
+  ],
   "sections": [
-    {"heading": "Event checklist", "items": ["Owner, name, version, active state, source, target, tenant, trace, and schema.", "Publication point and authoritative state transition.", "Local, transported, persisted, replayable, or best-effort delivery.", "Ordering, acknowledgement, idempotency, retry, dead/failed state, and recovery.", "Payload minimization, authorization, retention, masking, and compatibility."]},
-    {"heading": "Provider checklist", "items": ["Connection, destinations, serialization, acknowledgement, redelivery, ordering, batching, backpressure, and limits.", "Readiness, reconnect, failover, diagnostics, drain, and close.", "Positive, negative, boundary, contract, integration, load, failure, security, recovery, upgrade, and regression tests."]}
+    {
+      "heading": "Authority and event design",
+      "items": [
+        "An event describes a completed or durable business fact owned by its source module; it is not an unauthenticated command or replacement for authoritative persistence.",
+        "Define stable name, version, owner, publication point, tenant context, minimal schema, classification, consumers, delivery expectation, retention, and compatibility.",
+        "Use references instead of copying large or sensitive records, and require consumers to retrieve and authorize current details through the owning service."
+      ]
+    },
+    {
+      "heading": "Delivery lifecycle",
+      "items": [
+        "Publish only after the authoritative transition required by the contract, using outbox or equivalent coordination where loss between persistence and transport is unacceptable.",
+        "Consumers acknowledge after idempotent processing, track event identity, tolerate redelivery, and make ordering assumptions only inside a declared partition or key.",
+        "Retries use bounded backoff; exhausted messages enter an observable failed or dead state with replay and reconciliation procedures."
+      ]
+    },
+    {
+      "heading": "Provider and extension boundary",
+      "items": [
+        "nEvent owns normalized publish, subscribe, serialization, lifecycle, and error contracts; adapters own broker connections, destinations, acknowledgements, batching, and vendor mapping.",
+        "Callers never import a broker SDK or select arbitrary destinations. Provider activation, endpoints, TLS, credentials, limits, and fallback use layered configuration and secret references.",
+        "A new adapter registers capabilities and proves compatibility without changing business event definitions or adding a second dispatcher."
+      ]
+    },
+    {
+      "heading": "Operations and recovery",
+      "items": [
+        "Monitor publish and consume latency, backlog, redelivery, failure, dead state, connection, partition, and drain using bounded tenant-safe dimensions.",
+        "Test duplicate, reorder, consumer crash, broker outage, reconnect, poison message, schema evolution, replay, backpressure, shutdown, security, load, and upgrade.",
+        "Replay never bypasses current authorization or idempotency and records actor, selection, reason, attempt, and outcome for audit."
+      ]
+    },
+    {
+      "heading": "Event checklist",
+      "items": [
+        "Owner, name, version, active state, source, target, tenant, trace, and schema.",
+        "Publication point and authoritative state transition.",
+        "Local, transported, persisted, replayable, or best-effort delivery.",
+        "Ordering, acknowledgement, idempotency, retry, dead/failed state, and recovery.",
+        "Payload minimization, authorization, retention, masking, and compatibility."
+      ]
+    },
+    {
+      "heading": "Provider checklist",
+      "items": [
+        "Connection, destinations, serialization, acknowledgement, redelivery, ordering, batching, backpressure, and limits.",
+        "Readiness, reconnect, failover, diagnostics, drain, and close.",
+        "Positive, negative, boundary, contract, integration, load, failure, security, recovery, upgrade, and regression tests.",
+        "Document capacity, service objectives, alerts, replay authorization, supported versions, and incident procedure."
+      ]
+    }
   ]
 }

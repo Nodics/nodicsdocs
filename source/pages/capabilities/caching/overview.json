@@ -4,9 +4,17 @@
   "route": "/docs/capabilities/caching",
   "section": "capabilities",
   "family": "overview",
-  "parent": "page:framework.architecture",
+  "parent": "section:capabilities",
   "order": 140,
-  "audiences": ["evaluator", "business-user", "administrator", "developer", "architect", "operator", "ai-tool"],
+  "audiences": [
+    "evaluator",
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "operator",
+    "ai-tool"
+  ],
   "readerIntent": "Understand how Nodics improves response time without making cache authoritative.",
   "priorKnowledge": "Understand the owning source of data.",
   "depth": "overview",
@@ -14,10 +22,380 @@
   "owner": "Nodics provider-neutral cache capability and configured cache adapters",
   "lastVerified": "2026-07-26",
   "summary": "Cache channels define tenant-safe keys, eligibility, TTL, invalidation, fallback, and provider requirements while authoritative data remains recoverable from its owner.",
-  "supportingEvidence": ["nodics:gFramework/nCache/README.md", "nodics:gFramework/nCache/cache/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nCache/README.md",
+    "nodics:gFramework/nCache/cache/README.md",
+    "nodics:gDocs/platform/how-cache-works.md"
+  ],
   "sections": [
-    {"heading": "Business outcomes", "items": ["Reduce repeated database, search, API, configuration, and computation work.", "Select local or distributed behavior per channel and topology.", "Change TTL and provider through layered configuration.", "Fail safely when a provider cannot meet security or consistency requirements."]},
-    {"heading": "Core rule", "paragraphs": ["A cache is a temporary projection. Every entry needs an owner, source fallback, bounded key, isolation scope, TTL, invalidation trigger, acceptable staleness, outage rule, diagnostics, and tests."]},
-    {"heading": "Continue", "items": ["[Prebuilt Cache Providers and Maturity](/docs/capabilities/caching/prebuilt-providers)", "[Build a Cache Provider](/docs/capabilities/caching/provider-development)", "[Cache Lifecycle and Invalidation](/docs/capabilities/caching/lifecycle)", "[Operate and Secure Cache](/docs/capabilities/caching/operations)", "[Caching Technical Reference](/docs/reference/caching)"]}
+    {
+      "heading": "What is Caching in Nodics?",
+      "paragraphs": [
+        "A cache is a fast temporary copy of data that is expensive or slow to obtain repeatedly. Applications use caches to reduce database and network work, improve response time, and absorb traffic spikes; the authoritative record still remains in its owning data store.",
+        "Think of a frequently used document placed on a nearby desk instead of retrieved from an archive for every question. When the archive changes, the desk copy must expire or be invalidated so users do not receive stale information."
+      ]
+    },
+    {
+      "heading": "Business outcomes",
+      "items": [
+        "Reduce repeated database, search, API, configuration, and computation work.",
+        "Select local or distributed behavior per channel and topology.",
+        "Change TTL and provider through layered configuration.",
+        "Fail safely when a provider cannot meet security or consistency requirements."
+      ]
+    },
+    {
+      "heading": "Core rule",
+      "paragraphs": [
+        "A cache is a temporary projection. Every entry needs an owner, source fallback, bounded key, isolation scope, TTL, invalidation trigger, acceptable staleness, outage rule, diagnostics, and tests."
+      ]
+    },
+    {
+      "heading": "Logical cache channels",
+      "paragraphs": [
+        "Callers select a logical channel such as item, search, configuration, authorization, session, or another owned use case. Channel policy defines provider, key scope, TTL, invalidation, serialization, fallback, and security requirements.",
+        "Business services never instantiate NodeCache, Redis, or Hazelcast clients directly."
+      ]
+    },
+    {
+      "heading": "Key and isolation design",
+      "items": [
+        "Include every tenant, principal, module, schema, operation, locale, catalog, version, or permission scope affecting the result.",
+        "Use bounded normalized identifiers rather than raw personal or secret values.",
+        "Version key namespaces when representation changes.",
+        "Prevent prefix collision across environments and applications.",
+        "Document maximum key and payload size."
+      ]
+    },
+    {
+      "heading": "Example: online stock availability",
+      "paragraphs": [
+        "Online Inventory loads published stock through its authoritative model and caches the computed availability. Storefront receives the result through Inventory; it does not own stock or read cache storage directly.",
+        "A staged approval and publish operation invalidates or refreshes the online key. If invalidation cannot be trusted, the channel bypasses cache or follows its documented fail-closed rule."
+      ]
+    },
+    {
+      "heading": "What must not be cached",
+      "items": [
+        "Passwords, reusable credentials, or unrestricted tokens.",
+        "Authorization results without complete principal and policy scope.",
+        "Personal or regulated data without explicit security, retention, and encryption review.",
+        "Unbounded error responses or raw provider payloads.",
+        "Mutable business state when no authoritative fallback or invalidation exists."
+      ]
+    },
+    {
+      "heading": "Design questions",
+      "items": [
+        "What work is avoided and what is the authority?",
+        "How stale may the result become?",
+        "Which change invalidates it and across which nodes?",
+        "What happens during provider outage or restart?",
+        "Can different users or tenants receive different answers?",
+        "How are correctness, latency, capacity, and cost verified?"
+      ]
+    },
+    {
+      "heading": "Continue",
+      "items": [
+        "Prebuilt Cache Providers and Maturity",
+        "Build a Cache Provider",
+        "Cache Lifecycle and Invalidation",
+        "Operate and Secure Cache",
+        "Caching Technical Reference"
+      ]
+    },
+    {
+      "heading": "Complete guide: How Cache Works",
+      "migratedFrom": "nodics:gDocs/platform/how-cache-works.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "Cache is a performance capability that stores safe, repeatable results so Nodics does not have to recompute or reload the same data for every request. It is useful for API responses, database reads, search results, authentication/session acceleration, expensive computed values, and provider lookups.",
+        "Cache must never become the source of truth. The source of truth remains the database, source definitions, runtime configuration records, search indexes, event logs, or provider system that owns the business data. Cache is a controlled acceleration layer around that source of truth."
+      ]
+    },
+    {
+      "heading": "Beginner Summary",
+      "migratedFrom": "nodics:gDocs/platform/how-cache-works.md",
+      "sourceAnchor": "beginner-summary",
+      "paragraphs": [
+        "Cache is like a short-term memory for data that is expensive to read or compute. It can make APIs, database reads, search, authentication checks, and provider lookups faster.",
+        "The important warning is simple:",
+        "```text\nCache can speed up truth, but cache is not truth.\n```",
+        "If data changes, cache must be expired, flushed, or invalidated. Otherwise a user may see stale data. If permissions change, auth or API cache must also be invalidated so an old permission result is not reused.",
+        "Use cache only when you can answer:"
+      ],
+      "items": [
+        "What exact data is cached?",
+        "Which tenant, user, route, schema, or search query owns the key?",
+        "When does this cached value expire?",
+        "Which save/update/remove/security/configuration event invalidates it?",
+        "What happens if cache is unavailable?"
+      ]
+    },
+    {
+      "heading": "When To Use Cache",
+      "migratedFrom": "nodics:gDocs/platform/how-cache-works.md",
+      "sourceAnchor": "when-to-use-cache",
+      "paragraphs": [
+        "Use cache when the same data is read many times and can safely be reused for a known period or until an invalidation event happens.",
+        "Good cache candidates include:",
+        "Do not use cache for:"
+      ],
+      "items": [
+        "read-only or mostly-read API responses;",
+        "schema/model reads that are repeated by services or generated CRUD APIs;",
+        "search query results that are expensive to recompute;",
+        "authentication or authorization state that has strict invalidation rules;",
+        "provider lookups where the provider is slow or rate-limited;",
+        "computed values that can be regenerated from source data.",
+        "data that must reflect every write immediately unless invalidation is guaranteed;",
+        "secret values or credential payloads;",
+        "user-specific data unless the cache key includes the governed principal context;",
+        "behavior that should be modeled as source-controlled configuration or governed runtime configuration;",
+        "compensating for slow business logic without understanding the invalidation impact."
+      ]
+    },
+    {
+      "heading": "Cache Layers",
+      "migratedFrom": "nodics:gDocs/platform/how-cache-works.md",
+      "sourceAnchor": "cache-layers",
+      "paragraphs": [
+        "Nodics supports cache at multiple framework layers. Each layer has a different owner and key strategy.",
+        "| Layer | What Is Cached | Owner | Configuration Source | Key Scope |\n| --- | --- | --- | --- | --- |\n| Router/API cache | Full safe controller response for a route | Router and cache modules | Route metadata plus `cache` properties | Tenant, enterprise, method, URL/body, and governed principal context |\n| Schema/item cache | Model or DAO read result behind generated services | Schema/database/cache modules | Schema metadata plus `cache` properties | Tenant, schema, query, search options, and read options |\n| Search cache | Repeatable search query result | Search and cache modules | Search/index metadata plus `cache` properties | Tenant, index/schema, query, filters, and search options |\n| Auth/runtime cache | Security or runtime acceleration data | Owning security/runtime module plus cache | Owning module configuration and cache properties | Tenant, principal, token/session/stamp, and security context |",
+        "Router/API cache belongs near the request pipeline. It can avoid controller execution when the route, tenant, user/security context, and request shape match a cached response.",
+        "Schema/item cache belongs behind the persistence service. It can avoid repeated database reads, but cached values must still pass schema/property access-policy checks before being returned.",
+        "Search cache belongs around repeatable search operations. It is useful only when indexing and invalidation rules are clear enough to prevent stale search results from being trusted incorrectly."
+      ]
+    },
+    {
+      "heading": "Where To Add Cache Behavior",
+      "migratedFrom": "nodics:gDocs/platform/how-cache-works.md",
+      "sourceAnchor": "where-to-add-cache-behavior",
+      "paragraphs": [
+        "| Need | Change here |\n| --- | --- |\n| Enable or disable cache globally or by channel | `gFramework/nCache/cache/config/properties.js` or later layered `config/properties.js` |\n| Cache a full API response | Route metadata and router/cache configuration |\n| Cache generated schema reads | Schema/database/cache metadata and cache configuration |\n| Cache search results | Search index/query service and cache configuration |\n| Add provider such as Redis | Cache provider module and engine configuration |\n| Invalidate data after save/update/remove | Model pipelines and cache service invalidation |\n| Add project-specific cacheability rule | Later module policy handler/service override |\n| Troubleshoot cache behavior | Cache diagnostics and status/reason codes |",
+        "Do not call Redis, local memory, or another cache provider directly from business controllers. Use the Nodics cache service so tenant scope, channel mapping, invalidation, diagnostics, and provider fallback stay consistent."
+      ]
+    },
+    {
+      "heading": "How Cache Is Configured",
+      "migratedFrom": "nodics:gDocs/platform/how-cache-works.md",
+      "sourceAnchor": "how-cache-is-configured",
+      "paragraphs": [
+        "Cache configuration is layered like other Nodics configuration. Framework defaults live in `gFramework/nCache/cache/config/properties.js`. Projects, environments, servers, nodes, tenants, or later modules can override the values through the standard hierarchy.",
+        "The most important configuration areas are:",
+        "```js\n{\n    cache: {\n        enabled: true,\n        diagnostics: {\n            enabled: true,\n            includeTenant: true\n        },\n        cacheability: {\n            enabled: true,\n            maxPayloadBytes: 262144,\n            allowSensitiveFields: false,\n            skipEmptyResults: false,\n            skipBinaryPayloads: true,\n            handlerFailureMode: 'failClosed',\n            policyHandlers: []\n        },\n        invalidation: {\n            crossNode: true,\n            eventName: 'cacheInvalidation'\n        },\n        default: {\n            channels: {\n                router: {\n                    enabled: true,\n                    fallback: true,\n                    engine: 'local'\n                },\n                schema: {\n                    enabled: true,\n                    fallback: true,\n                    engine: 'local'\n                }\n            },\n            engines: {\n                local: {\n                    enabled: true,\n                    ttl: 100\n                },\n                redis: {\n                    enabled: false,\n                    ttl: 100\n                }\n            }\n        }\n    }\n}\n```",
+        "`cache.enabled` controls whether cache starts and whether reads/writes are attempted. Engine connection values such as Redis host, port, or URL are values only; they must not activate cache by themselves.",
+        "Channels define cache purposes such as router/API cache and schema/item cache. Engines define the provider implementation such as local memory or Redis. A channel selects an engine. An enabled channel must point to an enabled and initialized engine.",
+        "TTL controls expiry. `0` means non-expiring, positive values are seconds, and invalid values fail during cache operation validation."
+      ]
+    },
+    {
+      "heading": "Cacheability Reasons",
+      "migratedFrom": "nodics:gDocs/platform/how-cache-works.md",
+      "sourceAnchor": "cacheability-reasons",
+      "paragraphs": [
+        "Not every response or read result should be cached. Nodics evaluates cacheability before writing a value.",
+        "The cacheability policy can skip writes for reasons such as:",
+        "Accepted or skipped write decisions should carry a stable `reason` and `reasonCode`. Framework reason codes use `RSN_CACHE_*` definitions in `gFramework/nCache/cache/src/utils/statusDefinitions.js`. Project-specific reasons should be added by the owning project or module."
+      ],
+      "items": [
+        "cacheability policy disabled;",
+        "route or schema is not cacheable;",
+        "payload contains binary data;",
+        "payload contains an empty result when empty results are configured to be skipped;",
+        "payload contains sensitive fields such as password, token, authorization, apiKey, secret, or credential;",
+        "payload cannot be serialized safely;",
+        "payload is larger than `cache.cacheability.maxPayloadBytes`;",
+        "a project-defined policy handler rejected the write;",
+        "a project-defined policy handler failed and `handlerFailureMode` is `failClosed`."
+      ]
+    },
+    {
+      "heading": "How Cache Works At Runtime",
+      "migratedFrom": "nodics:gDocs/platform/how-cache-works.md",
+      "sourceAnchor": "how-cache-works-at-runtime",
+      "paragraphs": [
+        "At startup, Nodics builds effective cache configuration from active modules and layered properties. The cache engine service validates enabled engines before binding channels to them. Unsupported or disabled adapters fail closed when selected.",
+        "For a cache read:",
+        "For a cache write:",
+        "For a cache mutation such as flush or configuration update:"
+      ],
+      "items": [
+        "The caller asks the Nodics cache service for a value by channel and key.",
+        "The cache service resolves the active channel and engine.",
+        "The key is built with tenant and resource scope.",
+        "The provider adapter attempts the read.",
+        "A hit returns the cached value through the normal response contract.",
+        "A miss returns `ERR_CACHE_00001` and the caller continues to the source of truth.",
+        "The business operation produces a response or read result.",
+        "The cache policy checks route/schema/search metadata and payload safety.",
+        "If accepted, the cache service writes through the configured engine.",
+        "If skipped, the business operation still succeeds and diagnostics record why the write was skipped.",
+        "The route requires the correct runtime configuration group and permission.",
+        "The service validates tenant and module scope.",
+        "The cache service applies the flush or publishes the configuration event.",
+        "Local engines may publish invalidation to peer nodes.",
+        "Distributed engines such as Redis invalidate shared storage directly."
+      ]
+    },
+    {
+      "heading": "Cache Invalidation",
+      "migratedFrom": "nodics:gDocs/platform/how-cache-works.md",
+      "sourceAnchor": "cache-invalidation",
+      "paragraphs": [
+        "Invalidation removes or expires cached values when source data or access rules change.",
+        "Invalidate cache when:",
+        "Schema save, update, and remove pipelines invalidate both related cache layers:",
+        "The standard single-model save pipeline waits for each best-effort cache invalidation attempt before reporting save completion. Therefore, a caller that reads the same resource immediately after a successful save or governed core import does not need a separate manual cache flush. An unavailable cache provider is logged and does not roll back an already-persisted model.",
+        "Invalidation must use the cache service, not direct provider calls. The service resolves channel mappings, tenant scope, module scope, and cross-node behavior.",
+        "Process-local engines use the configured `cacheInvalidation` event to tell peer module nodes to flush the same scoped resource. Shared engines such as Redis invalidate the shared store and normally do not need a second peer event for the same key."
+      ],
+      "items": [
+        "a model is saved, updated, or removed;",
+        "schema, router, search, permission, user-group, or access-policy behavior changes;",
+        "auth/session state changes;",
+        "runtime configuration changes;",
+        "search index data changes;",
+        "provider health or provider data becomes unsafe;",
+        "a project-specific rule says a cached result is no longer valid.",
+        "router/API cache for generated endpoints that may expose the changed data;",
+        "schema/item cache for direct generated service or DAO reads."
+      ]
+    },
+    {
+      "heading": "Operational Cache Routes",
+      "migratedFrom": "nodics:gDocs/platform/how-cache-works.md",
+      "sourceAnchor": "operational-cache-routes",
+      "paragraphs": [
+        "Cache exposes secured operational routes for flush and scoped API/item cache configuration. These routes are useful for administration and support work while the system is running.",
+        "Operational routes require runtime configuration administrator access and permissions such as:",
+        "Use these routes for immediate operational changes. Use `nDynamo` runtime configuration when the change must be previewed, approved, audited, rolled back, or preserved as a business/tenant runtime decision."
+      ],
+      "items": [
+        "`cache.flush`;",
+        "`cache.configuration.router.update`;",
+        "`cache.configuration.item.update`."
+      ]
+    },
+    {
+      "heading": "What To Check When Cache Fails",
+      "migratedFrom": "nodics:gDocs/platform/how-cache-works.md",
+      "sourceAnchor": "what-to-check-when-cache-fails",
+      "paragraphs": [
+        "Start with the error code and the layer where the failure happened.",
+        "| Symptom | Check |\n| --- | --- |\n| Cache does not start | `cache.enabled`, selected channel, selected engine, engine `enabled`, adapter contract, and provider connection values |\n| Redis test is skipped | `NODICS_CACHE_REDIS_URL` must be exported before running `npm run test:cache:release` |\n| Adapter selected but unavailable | Engine capability metadata, connection handler, cache handler, and `ERR_CACHE_00008` |\n| Unexpected cache miss | Tenant, module, channel, route/schema mapping, request method, URL/body, query/search options, and TTL |\n| Wrong user sees cached data | Router/API key must include governed principal/access context; check route cache metadata and key creation |\n| Stale data returned | Confirm save/update/remove pipelines call `invalidateResource`; check cross-node invalidation and provider shared/local behavior |\n| Cache write skipped | Inspect `cachePolicyDecision.reasonCode`, sensitive fields, payload size, binary payloads, empty-result policy, and policy handlers |\n| Flush fails | Confirm the caller has permission, tenant and module scope match, and the route uses `DELETE` |\n| Runtime cache configuration does not apply | Confirm the cache event listener is registered, event target/module is correct, and the configuration contains router or schema identifiers |\n| Sensitive values appear cacheable | Check `cache.cacheability.allowSensitiveFields`, `sensitiveFieldNames`, and custom policy handlers |",
+        "Useful files and services:"
+      ],
+      "items": [
+        "`gFramework/nCache/cache/config/properties.js` for defaults;",
+        "`DefaultCacheConfigurationService` for channel, engine, key, and TTL resolution;",
+        "`DefaultCacheEngineService` for adapter validation and startup binding;",
+        "`DefaultCacheService` for get, put, consume, flush, invalidation, metrics, and runtime cache events;",
+        "`DefaultCachePolicyService` for cacheability decisions and reason codes;",
+        "`gFramework/nCache/cache/src/utils/statusDefinitions.js` for cache error and reason codes."
+      ]
+    },
+    {
+      "heading": "Beginner Decision Checklist",
+      "migratedFrom": "nodics:gDocs/platform/how-cache-works.md",
+      "sourceAnchor": "beginner-decision-checklist",
+      "paragraphs": [
+        "Before adding cache, confirm:",
+        "cannot be cached accidentally."
+      ],
+      "items": [
+        "The route/service/search result is safe to reuse.",
+        "The cache key includes tenant and user/security context when required.",
+        "Sensitive fields such as tokens, passwords, API keys, secrets, and credentials",
+        "The invalidation path is known and tested.",
+        "The route or schema still works correctly when cache is disabled.",
+        "Metrics or diagnostics can explain hits, misses, skipped writes, and failures."
+      ]
+    },
+    {
+      "heading": "Diagnostics",
+      "migratedFrom": "nodics:gDocs/platform/how-cache-works.md",
+      "sourceAnchor": "diagnostics",
+      "paragraphs": [
+        "Cache diagnostics are stored in process memory by `DefaultCacheService`.",
+        "Use `DefaultCacheService.getCacheMetricsSnapshot(filter)` to inspect:",
+        "Use `DefaultCacheService.resetCacheMetrics()` in tests or controlled diagnostics flows.",
+        "Diagnostics are governed by:",
+        "```js\n{\n    cache: {\n        diagnostics: {\n            enabled: true,\n            includeTenant: true\n        }\n    }\n}\n```",
+        "Projects may forward diagnostics to an observability platform from a later module layer, but they should not bypass the cache service contract."
+      ],
+      "items": [
+        "operation counts;",
+        "hit, miss, success, error, accepted, and skipped results;",
+        "reason-code counts;",
+        "affected resources;",
+        "cache layers;",
+        "latency totals and latest result/error."
+      ]
+    },
+    {
+      "heading": "Testing Cache Changes",
+      "migratedFrom": "nodics:gDocs/platform/how-cache-works.md",
+      "sourceAnchor": "testing-cache-changes",
+      "paragraphs": [
+        "Run the deterministic cache suite for normal framework changes:",
+        "```bash\nnpm run test:cache\n```",
+        "Run the Redis release gate when validating distributed cache behavior:",
+        "```bash\nNODICS_CACHE_REDIS_URL=redis://127.0.0.1:6379 npm run test:cache:release\n```",
+        "Run broader checks when cache changes touch routing, schemas, search, auth, runtime configuration, or topology:",
+        "```bash\nnpm run test:runtime-overrides\nnpm run test:config\nnpm run llm:validate\nnpm run quality:docs\n```"
+      ]
+    },
+    {
+      "heading": "Customizing Cache",
+      "migratedFrom": "nodics:gDocs/platform/how-cache-works.md",
+      "sourceAnchor": "customizing-cache",
+      "paragraphs": [
+        "Prefer configuration before code. A project can override:",
+        "Use a new or later provider module when adding a cache engine. The provider must declare its contract version, handlers, and truthful capabilities. Business modules should continue calling the Nodics cache capability instead of calling provider clients directly."
+      ],
+      "items": [
+        "channel enablement;",
+        "channel-to-engine mapping;",
+        "engine activation;",
+        "TTL defaults;",
+        "provider connection values;",
+        "router/schema/auth channel name mappings;",
+        "cacheability policy;",
+        "ordered policy handlers;",
+        "invalidation event settings;",
+        "operational route permissions."
+      ]
+    },
+    {
+      "heading": "What To Avoid",
+      "migratedFrom": "nodics:gDocs/platform/how-cache-works.md",
+      "sourceAnchor": "what-to-avoid",
+      "paragraphs": [
+        "Avoid:"
+      ],
+      "items": [
+        "hardcoding Redis, local memory, or any provider in business services;",
+        "using provider connection values as activation switches;",
+        "caching security-sensitive payloads;",
+        "removing tenant or principal context from keys;",
+        "broad production flushes when targeted invalidation is possible;",
+        "using cache as the only copy of business data;",
+        "changing runtime behavior through direct cache events when the change needs approval and rollback;",
+        "adding policy logic in random routers or DAOs instead of `DefaultCachePolicyService` or configured policy handlers."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/platform/how-cache-works.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "Related capabilities: [How Platform Capabilities Work](/docs/framework/architecture)",
+        "Owning modules: [Module Documentation Index](/docs/reference/modules)",
+        "Maturity: [Provider And Capability Maturity Matrix](/docs/reference/maturity)",
+        "Documentation home: [Nodics Documentation](/docs)"
+      ]
+    }
   ]
 }

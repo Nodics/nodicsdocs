@@ -1,1 +1,132 @@
-{"code":"commerce.stock.operations","title":"Operate and Integrate Inventory","route":"/docs/capabilities/commerce/stock/operations","section":"capabilities","family":"operations-security-troubleshooting","parent":"page:capability.commerce.stock-units","order":90,"audiences":["administrator","developer","architect","security-reviewer","operator","ai-tool"],"readerIntent":"Secure, monitor, recover, and qualify Inventory.","priorKnowledge":"Understand all Inventory models and external integrations.","depth":"implementation","status":"implemented","owner":"Inventory capability and deployment operators","lastVerified":"2026-07-26","summary":"Operations correlate balances, movements, reservations, allocations, transfers, sourcing, reconciliation, publication, cache, search, and external evidence.","supportingEvidence":["nodics:gComm/inventory/README.md"],"sections":[{"heading":"Operate","items":["Monitor balance/movement throughput, reservation expiry, allocation failure, sourcing misses, transfer age, reconciliation variance, cache invalidation, publication lag, and provider health.","Secure lifecycle routes, tenant/store/warehouse scope, service identities, external source aliases, and sensitive location/business data.","Recover unknown outcomes through idempotency and reconciliation; never guess by replaying an unsafe movement.","Load-test high-contention products, zones, warehouses, unit conversion, publication, cache, and distributed topology."]}]}
+{
+  "code": "commerce.stock.operations",
+  "title": "Operate and Integrate Inventory",
+  "route": "/docs/capabilities/commerce/stock/operations",
+  "section": "capabilities",
+  "family": "operations-security-troubleshooting",
+  "parent": "page:capability.commerce.stock-units",
+  "order": 90,
+  "audiences": [
+    "administrator",
+    "developer",
+    "architect",
+    "security-reviewer",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Secure, monitor, recover, and qualify Inventory.",
+  "priorKnowledge": "Understand all Inventory models and external integrations.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Inventory capability and deployment operators",
+  "lastVerified": "2026-07-26",
+  "summary": "Operations correlate balances, movements, reservations, allocations, transfers, sourcing, reconciliation, publication, cache, search, and external evidence.",
+  "supportingEvidence": [
+    "nodics:gComm/inventory/README.md",
+    "nodics:gDocs/commerce/how-to-operate-and-integrate-inventory.md"
+  ],
+  "sections": [
+    {
+      "heading": "Operate",
+      "items": [
+        "Monitor balance/movement throughput, reservation expiry, allocation failure, sourcing misses, transfer age, reconciliation variance, cache invalidation, publication lag, and provider health.",
+        "Secure lifecycle routes, tenant/store/warehouse scope, service identities, external source aliases, and sensitive location/business data.",
+        "Recover unknown outcomes through idempotency and reconciliation; never guess by replaying an unsafe movement.",
+        "Load-test high-contention products, zones, warehouses, unit conversion, publication, cache, and distributed topology."
+      ]
+    },
+    {
+      "heading": "Security and authority",
+      "items": [
+        "Authorize every movement, reservation, allocation, transfer, reconciliation, and configuration operation.",
+        "Resolve tenant, enterprise, Store, warehouse, pool, product, and service context on the backend.",
+        "Separate employee, service, scheduled, and external integration identities.",
+        "Protect location, capacity, commercial policy, and personal data.",
+        "Audit adjustments, manual runs, replays, and overrides."
+      ]
+    },
+    {
+      "heading": "Performance and scale",
+      "items": [
+        "Partition high-contention balances deliberately.",
+        "Use bounded atomic or revision behavior.",
+        "Keep availability computation and cache keys context-complete.",
+        "Rate-limit reconciliation, expiry, import, and publication batches.",
+        "Load-test flash events, popular products, many zones, fractional units, and distributed nodes."
+      ]
+    },
+    {
+      "heading": "Incident examples",
+      "items": [
+        "Oversell risk: stop affected reservations, reconcile movements and holds, and repair through governed adjustments.",
+        "Stale availability: inspect publication, movement, invalidation, provider, and context key.",
+        "Unknown movement outcome: query by idempotency identity before retry.",
+        "Expired-reservation backlog: bound recovery and protect hot balances.",
+        "Transfer discrepancy: preserve dispatch and receipt evidence and start reconciliation."
+      ]
+    },
+    {
+      "heading": "Recovery and continuity",
+      "paragraphs": [
+        "Restart rebuilds disposable schedules and caches from persisted definitions and authoritative inventory. Provider or node failure never makes in-memory state the balance authority.",
+        "External integrations resume from stable source identities and reconciliation windows. Unsafe writes are not replayed blindly."
+      ]
+    },
+    {
+      "heading": "Production readiness",
+      "items": [
+        "Contention, load, soak, node loss, partition, restart, and recovery.",
+        "Unit precision and conversion boundaries.",
+        "Tenant and service-scope isolation.",
+        "Cache and search provider qualification.",
+        "Publishing staged-to-online and external-system reconciliation.",
+        "Dashboards, alerts, runbooks, backup, audit, and accountable ownership."
+      ]
+    },
+    {
+      "heading": "Complete guide: How To Operate And Integrate Inventory",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-operate-and-integrate-inventory.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "Operations teams and BackOffice users can inspect Stock Balances, Movements, Reservations, Allocations, Transfers, and reconciliation findings through dedicated read-only Inventory endpoints. A user needs the `inventory.operations.read` permission. The endpoints are paged and return only safe operational fields.",
+        "Developers must use the relevant command API to change Stock. The operational pages are not editable database screens."
+      ]
+    },
+    {
+      "heading": "Check and reconstruct on-hand Stock",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-operate-and-integrate-inventory.md",
+      "sourceAnchor": "check-and-reconstruct-on-hand-stock",
+      "paragraphs": [
+        "A scheduled service can create an immutable Movement checkpoint when a Balance has no pending Movement. Later, Inventory can replay the contiguous applied Movement revisions after that checkpoint and compare the expected on-hand quantity and revision with the current Balance.",
+        "This process does not reconstruct Reservation state. Use reconciliation findings and Reservation evidence for held quantities. If a revision is missing or out of order, investigate the history instead of forcing a correction."
+      ]
+    },
+    {
+      "heading": "Connect a WMS or POS",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-operate-and-integrate-inventory.md",
+      "sourceAnchor": "connect-a-wms-or-pos",
+      "paragraphs": [
+        "Inventory providers are disabled by default. An administrator configures a named WMS or POS provider that points to a Nodics connector module and lists its allowed operations. The connector module owns remote URLs and credentials.",
+        "Internal callers send an idempotency key, configured provider code, allowed operation, and bounded payload. Inventory records the attempt and outcome. A provider response never changes Stock directly; receipts, issues, transfers, and corrections still pass through Stock Movement."
+      ]
+    },
+    {
+      "heading": "Multi-hop Units",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-operate-and-integrate-inventory.md",
+      "sourceAnchor": "multi-hop-units",
+      "paragraphs": [
+        "Units can optionally convert through multiple exact conversion rules when no direct rule exists. Keep this disabled unless the business maintains a governed conversion graph. Nodics selects one shortest path; competing shortest paths fail instead of choosing silently."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-operate-and-integrate-inventory.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "[How Stock Availability Works](/docs/capabilities/commerce/stock/availability)",
+        "[How Inventory Reconciliation Works](/docs/capabilities/commerce/stock/reconciliation)",
+        "[How Stock Movements Work](/docs/capabilities/commerce/stock/movements)"
+      ]
+    }
+  ]
+}

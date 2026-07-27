@@ -92,6 +92,12 @@ pages.forEach(page => {
     if (!Array.isArray(page.sections) || page.sections.length === 0) {
         errors.push(`Missing content sections: ${page.code}`);
     } else {
+        if (
+            page.family === 'overview' &&
+            !/^What (?:is|are) /i.test(page.sections[0].heading || '')
+        ) {
+            errors.push(`Overview must begin with a beginner definition: ${page.code}`);
+        }
         page.sections.flatMap(section => section.links || []).forEach(link => {
             if (!link.label || !link.target?.startsWith('/docs/')) {
                 errors.push(`Invalid canonical link: ${page.code}`);

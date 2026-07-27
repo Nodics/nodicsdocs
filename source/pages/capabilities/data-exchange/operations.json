@@ -6,7 +6,12 @@
   "family": "operations-security-troubleshooting",
   "parent": "page:capability.data-exchange.guide",
   "order": 50,
-  "audiences": ["administrator", "security-reviewer", "operator", "architect"],
+  "audiences": [
+    "administrator",
+    "security-reviewer",
+    "operator",
+    "architect"
+  ],
   "readerIntent": "Monitor runs, protect data, recover failures, and prove delivery behavior.",
   "priorKnowledge": "Know definitions, providers, tenants, formats, limits, and retention.",
   "depth": "implementation",
@@ -14,10 +19,65 @@
   "owner": "Data exchange operators and configured external providers",
   "lastVerified": "2026-07-26",
   "summary": "Operations require bounded sources, destinations, payloads, retries, retention, cleanup, audit, reconciliation, and safe diagnostics.",
-  "supportingEvidence": ["nodics:gFramework/nData/nImport/README.md", "nodics:gFramework/nData/nExport/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nData/nImport/README.md",
+    "nodics:gFramework/nData/nExport/README.md"
+  ],
   "sections": [
-    {"heading": "Monitor", "items": ["Run state, source/destination alias, tenant, definition, format, and safe trace.", "Files/records read, validated, accepted, rejected, skipped, retried, and delivered.", "Bytes, batches, duration, throughput, backlog, provider latency, and failures.", "Checksums, duplicate fingerprints, reconciliation, rollback, retention, and cleanup outcomes."]},
-    {"heading": "Secure", "items": ["Authorize definitions and tenant/module scope.", "Allowlist extensions, sizes, counts, schemas, fields, queries, sources, and destinations.", "Scan and isolate untrusted files where deployment policy requires it.", "Encrypt transport and storage; govern secrets and retention.", "Sanitize row data, files, URLs, credentials, and provider errors in diagnostics."]},
-    {"heading": "Recover", "items": ["Resume only with stable run identity and idempotency.", "Quarantine invalid input and partial output with bounded retention.", "Reconcile authoritative and derived systems.", "Test provider outage, partial transfer, duplicate, restart, retry exhaustion, cleanup failure, rollback, and manual recovery."]}
+    {
+      "heading": "Monitor",
+      "items": [
+        "Run state, source/destination alias, tenant, definition, format, and safe trace.",
+        "Files/records read, validated, accepted, rejected, skipped, retried, and delivered.",
+        "Bytes, batches, duration, throughput, backlog, provider latency, and failures.",
+        "Checksums, duplicate fingerprints, reconciliation, rollback, retention, and cleanup outcomes."
+      ]
+    },
+    {
+      "heading": "Secure",
+      "items": [
+        "Authorize definitions and tenant/module scope.",
+        "Allowlist extensions, sizes, counts, schemas, fields, queries, sources, and destinations.",
+        "Scan and isolate untrusted files where deployment policy requires it.",
+        "Encrypt transport and storage; govern secrets and retention.",
+        "Sanitize row data, files, URLs, credentials, and provider errors in diagnostics."
+      ]
+    },
+    {
+      "heading": "Recover",
+      "items": [
+        "Resume only with stable run identity and idempotency.",
+        "Quarantine invalid input and partial output with bounded retention.",
+        "Reconcile authoritative and derived systems.",
+        "Test provider outage, partial transfer, duplicate, restart, retry exhaustion, cleanup failure, rollback, and manual recovery."
+      ]
+    },
+    {
+      "heading": "Capacity and backpressure",
+      "items": [
+        "Bound concurrent runs, file size, records, batch size, memory, and error detail.",
+        "Rate-limit provider, database, search, event, and destination work.",
+        "Separate interactive and bulk resource pools where required.",
+        "Estimate completion and recovery time from measured throughput.",
+        "Load and soak test production-representative data."
+      ]
+    },
+    {
+      "heading": "Incident response",
+      "paragraphs": [
+        "For a failed import, preserve run evidence, stop unsafe continuation, identify the last committed boundary, and choose resume, rollback, compensation, or corrected reimport. Do not delete history before reconciliation.",
+        "For a leaked or misdirected export, revoke access, preserve audit, assess scope, remove recoverable artifacts, rotate affected credentials, and correct destination policy."
+      ]
+    },
+    {
+      "heading": "Production readiness",
+      "items": [
+        "Provider and format qualification.",
+        "Security, privacy, retention, encryption, and destination review.",
+        "Load, failure, restart, resume, and duplicate tests.",
+        "Index, cache, event, workflow, and publishing reconciliation.",
+        "Dashboards, alerts, runbooks, ownership, rollback, and cleanup."
+      ]
+    }
   ]
 }

@@ -1,1 +1,82 @@
-{"code":"capability.status-errors.technical-reference","title":"Status and Error Technical Reference","route":"/docs/reference/status-errors","section":"reference","family":"technical-reference","parent":"page:capability.status-errors.overview","order":20,"audiences":["developer","architect","security-reviewer","operator","framework-maintainer","ai-tool"],"readerIntent":"Audit status identity, propagation, response safety, and observability.","priorKnowledge":"Read the status and error journey.","depth":"reference","status":"implemented","owner":"Owning capability and Nodics status/error contracts","lastVerified":"2026-07-26","summary":"Every outcome has stable identity, owner, classification, safe message intent, propagation rules, diagnostics, and tests.","supportingEvidence":["nodics:gFramework/nService/README.md","nodics:gFramework/nCommon/README.md","nodics:gFramework/nRouter/README.md"],"sections":[{"heading":"Checklist","items":["Unique stable code, capability owner, success/error classification, and response category.","Safe default message and separate presentation/localization key where needed.","Allowed contexts, cause preservation, trace identity, and cross-module mapping.","Public allowlist and protected diagnostic fields.","Logs, metrics, alerting, audit, retention, and privacy.","Positive, negative, unknown-code, boundary, contract, integration, security-redaction, trace, and regression tests."]}]}
+{
+  "code": "capability.status-errors.technical-reference",
+  "title": "Status and Error Technical Reference",
+  "route": "/docs/reference/status-errors",
+  "section": "reference",
+  "family": "technical-reference",
+  "parent": "page:capability.status-errors.overview",
+  "order": 20,
+  "audiences": [
+    "developer",
+    "architect",
+    "security-reviewer",
+    "operator",
+    "framework-maintainer",
+    "ai-tool"
+  ],
+  "readerIntent": "Audit status identity, propagation, response safety, and observability.",
+  "priorKnowledge": "Read the status and error journey.",
+  "depth": "reference",
+  "status": "implemented",
+  "owner": "Owning capability and Nodics status/error contracts",
+  "lastVerified": "2026-07-26",
+  "summary": "Every outcome has stable identity, owner, classification, safe message intent, propagation rules, diagnostics, and tests.",
+  "supportingEvidence": [
+    "nodics:gFramework/nService/README.md",
+    "nodics:gFramework/nCommon/README.md",
+    "nodics:gFramework/nRouter/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Status authority",
+      "items": [
+        "Each owning module defines stable success and error codes in its status catalog. Response handlers resolve registered codes and must not invent an unregistered success code at runtime.",
+        "Codes are machine contracts; user-facing messages are safe, localizable content. HTTP response status, Nodics code, name, context, and trace identity serve different purposes.",
+        "Callers branch on documented code or category rather than parsing English text or stack output."
+      ]
+    },
+    {
+      "heading": "Error creation and propagation",
+      "items": [
+        "Create errors at the boundary that understands the failure, preserve the causal chain, add safe structured context, and allow shared handlers to map the response.",
+        "Do not repeatedly wrap the same error, overwrite its code, expose provider internals, or convert authorization denial into a generic success.",
+        "Pipelines record the failing layer and phase once while correlation connects downstream calls and asynchronous work."
+      ]
+    },
+    {
+      "heading": "Response and security",
+      "items": [
+        "Public responses omit credentials, tokens, personal data, filesystem paths, stacks, queries, provider payloads, and policy details useful for enumeration.",
+        "Authentication failures remain intentionally generic; protected logs may distinguish safe outcome categories without recording submitted secrets.",
+        "Validation errors identify permitted fields and constraints while respecting field masking and tenant boundaries."
+      ]
+    },
+    {
+      "heading": "Customization and compatibility",
+      "items": [
+        "Custom modules allocate codes within their owned catalog, document semantics and HTTP mapping, and register them through existing status loading contracts.",
+        "Do not copy another module's code for a different meaning or place application status configuration in package.json.",
+        "Changing established semantics is a contract change requiring compatibility, consumers, documentation, migration, and regression review."
+      ]
+    },
+    {
+      "heading": "Verification and operations",
+      "items": [
+        "Test every code registration, success mapping, validation aggregation, causal chain, unknown-code failure, localization, masking, and API contract.",
+        "Monitor bounded error categories and rates with trace correlation; never use raw messages or user identifiers as metric labels.",
+        "Troubleshooting starts with response code and trace identity, then follows safe module, pipeline, provider, and audit evidence to the authority."
+      ]
+    },
+    {
+      "heading": "Checklist",
+      "items": [
+        "Unique stable code, capability owner, success/error classification, and response category.",
+        "Safe default message and separate presentation/localization key where needed.",
+        "Allowed contexts, cause preservation, trace identity, and cross-module mapping.",
+        "Public allowlist and protected diagnostic fields.",
+        "Logs, metrics, alerting, audit, retention, and privacy.",
+        "Positive, negative, unknown-code, boundary, contract, integration, security-redaction, trace, and regression tests."
+      ]
+    }
+  ]
+}

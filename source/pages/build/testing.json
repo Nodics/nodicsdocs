@@ -6,7 +6,14 @@
   "family": "technical-reference",
   "parent": "section:build",
   "order": 40,
-  "audiences": ["developer", "architect", "security-reviewer", "operator", "framework-maintainer", "ai-tool"],
+  "audiences": [
+    "developer",
+    "architect",
+    "security-reviewer",
+    "operator",
+    "framework-maintainer",
+    "ai-tool"
+  ],
   "readerIntent": "Select proportional tests that prove a Nodics change across layers, authorities, and deployment topologies.",
   "priorKnowledge": "Understand the capability owner, public contracts, configuration, security, and runtime topology.",
   "depth": "reference",
@@ -14,8 +21,39 @@
   "owner": "Owning module tests plus repository-wide Nodics governance and regression suites",
   "lastVerified": "2026-07-26",
   "summary": "Nodics validation proves successful behavior and rejected behavior, boundaries, contracts, integrations, resilience, security, performance, topology, generated artifacts, and regressions.",
-  "supportingEvidence": ["nodics:README.md", "nodics:gFramework/nTest/README.md", "nodics:gFramework/nConfig/README.md"],
+  "supportingEvidence": [
+    "nodics:README.md",
+    "nodics:gFramework/nTest/README.md",
+    "nodics:gFramework/nConfig/README.md",
+    "nodics:gDocs/testing/how-to-test-nodics-changes.md"
+  ],
   "sections": [
+    {
+      "heading": "Test design from the contract",
+      "items": [
+        "Begin with the owning schema, service, route, lifecycle, security, provider, and operational contracts. Map each promise and failure mode to an observable assertion before selecting a test framework.",
+        "Use isolated unit tests for deterministic logic, contract tests for module and provider boundaries, integration tests for real composition, and acceptance tests for business journeys.",
+        "Fixtures use explicit tenant and enterprise context, stable business codes, least-privilege identities, and safe cleanup. Never depend on accidental developer data or test only as administrator.",
+        "A passing happy path is incomplete until denial, boundary, duplicate, concurrency, timeout, partial failure, recovery, upgrade, and existing-behavior regression are covered."
+      ]
+    },
+    {
+      "heading": "Evidence and maintenance",
+      "items": [
+        "Record command, version, configuration profile, topology, dependencies, start and end time, result, failures, and artifact location so another team can reproduce the decision.",
+        "Separate mocked provider compatibility from qualified live-provider evidence. Local NodeCache success does not prove Redis or Hazelcast behavior, and a monoServer run does not prove distributed ownership.",
+        "Flaky tests are defects: classify timing, shared state, order dependence, external instability, and resource leakage, then repair or quarantine with an owner and expiry.",
+        "Update tests and beginner documentation in the same implementation change; generated reports supplement but never replace maintained contract explanation."
+      ]
+    },
+    {
+      "heading": "Release decision",
+      "items": [
+        "Summarize passed, failed, skipped, flaky, and not-applicable cases with risk, owner, and evidence rather than reporting only a total count.",
+        "Block release when an authoritative contract, security boundary, data migration, recovery path, or required topology lacks evidence.",
+        "Retain reports according to policy and link failures to fixes and regression tests so the next release does not rediscover the same defect."
+      ]
+    },
     {
       "heading": "Required dimensions",
       "items": [
@@ -43,6 +81,166 @@
         "Prove tenant/enterprise isolation, least privilege, secrets handling, response masking, audit, abuse controls, and browser protections where applicable.",
         "Run focused tests first, then repository governance and relevant baseline suites; regenerate derived documentation/context before its validators.",
         "Record exact commands, results, limitations, environment assumptions, and untested production dependencies."
+      ]
+    },
+    {
+      "heading": "Complete guide: How To Test Nodics Changes",
+      "migratedFrom": "nodics:gDocs/testing/how-to-test-nodics-changes.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "Testing in Nodics proves that capabilities still work after framework, project, configuration, or generated-artifact changes.",
+        "Tests are not only for finding bugs. They are part of the platform contract."
+      ]
+    },
+    {
+      "heading": "Beginner Summary",
+      "migratedFrom": "nodics:gDocs/testing/how-to-test-nodics-changes.md",
+      "sourceAnchor": "beginner-summary",
+      "paragraphs": [
+        "Testing in Nodics answers four questions:",
+        "| Question | Example proof |\n| --- | --- |\n| Does the default framework behavior still work? | Framework/module test passes |\n| Does the project override work? | Later-module override test passes |\n| Is the behavior secure and tenant-safe? | Permission, auth, tenant, cache, and data isolation tests pass |\n| Are generated artifacts still aligned with source? | Generated schema/API/OpenAPI/LLM tests pass |",
+        "Do not only test the happy path. A good Nodics change proves success, failure, permission denial, tenant behavior, configuration override, and generated artifact alignment where relevant."
+      ]
+    },
+    {
+      "heading": "Choose The Right Test",
+      "migratedFrom": "nodics:gDocs/testing/how-to-test-nodics-changes.md",
+      "sourceAnchor": "choose-the-right-test",
+      "paragraphs": [
+        "Use focused tests while developing.",
+        "Use broader suites before committing or releasing.",
+        "Nodics testing is layered in the same way as the framework. A module can own common tests, environment-specific tests, generated schema/API tests, provider tests, topology tests, and override/customization tests.",
+        "The goal is not only to prove one function works. The goal is to prove the capability still works through the hierarchy."
+      ]
+    },
+    {
+      "heading": "Common Commands",
+      "migratedFrom": "nodics:gDocs/testing/how-to-test-nodics-changes.md",
+      "sourceAnchor": "common-commands",
+      "paragraphs": [
+        "Syntax check:",
+        "```bash\nnpm run check:syntax\n```",
+        "Main deterministic gate:",
+        "```bash\nnpm run test:basic\n```",
+        "Full gate with modular topology:",
+        "```bash\nnpm run test:full\n```",
+        "Configuration and tooling:",
+        "```bash\nnpm run test:config\nnpm run test:tooling\n```",
+        "Generated API and schema contracts:",
+        "```bash\nnpm run test:generated\n```",
+        "Import behavior:",
+        "```bash\nnpm run test:import\n```",
+        "Runtime configuration:",
+        "```bash\nnpm run test:runtime-overrides\n```",
+        "Run a named suite:",
+        "```bash\nnpm run test:suite -- --suite=<suite-name>\n```"
+      ]
+    },
+    {
+      "heading": "What To Test For A New Feature",
+      "migratedFrom": "nodics:gDocs/testing/how-to-test-nodics-changes.md",
+      "sourceAnchor": "what-to-test-for-a-new-feature",
+      "paragraphs": [
+        "Test:",
+        "For extension points, also test:"
+      ],
+      "items": [
+        "Valid input.",
+        "Invalid input.",
+        "Permission failure.",
+        "Tenant behavior.",
+        "Configuration override behavior.",
+        "Runtime behavior if runtime configuration is involved.",
+        "Generated API behavior if schemas or routes changed.",
+        "Documentation and generated context if source files changed.",
+        "default framework behavior;",
+        "later module override behavior;",
+        "configuration override behavior;",
+        "tenant-specific behavior when tenant context is involved;",
+        "consolidated runtime behavior;",
+        "modular process behavior when modules communicate across servers."
+      ]
+    },
+    {
+      "heading": "Test Selection Guide",
+      "migratedFrom": "nodics:gDocs/testing/how-to-test-nodics-changes.md",
+      "sourceAnchor": "test-selection-guide",
+      "paragraphs": [
+        "| Change type | Start with | Also consider |\n| --- | --- | --- |\n| JavaScript syntax or file-level edit | `npm run check:syntax` | `npm run quality:docs` |\n| Configuration or module metadata | `npm run test:config` | `npm run test:basic` |\n| API route/controller/facade/service | Route contract and focused capability test | `npm run docs:openapi`, `npm run test:basic` |\n| Schema or generated CRUD | `npm run test:generated` | `npm run build`, `npm run docs:openapi` |\n| Import/export | `npm run test:import` | Capability tests and tenant tests |\n| Cache | `npm run test:cache` | Redis release gate only when Redis behavior changed |\n| Auth, permission, tenant | Header/auth/security suites | `npm run test:basic` |\n| Runtime configuration | `npm run test:runtime-overrides` | Dynamo/runtime governance tests |\n| Topology/server/node behavior | `npm run test:topology` | Consolidated and modular topology tests |\n| Documentation or AI guidance | `npm run quality:docs`, `npm run llm:validate` | `npm run llm:generate` first |"
+      ]
+    },
+    {
+      "heading": "Live Tests",
+      "migratedFrom": "nodics:gDocs/testing/how-to-test-nodics-changes.md",
+      "sourceAnchor": "live-tests",
+      "paragraphs": [
+        "Some tests require live infrastructure such as Redis.",
+        "Live tests are explicit and guarded. They do not silently use shared developer, staging, or production data.",
+        "Example:",
+        "```bash\nNODICS_CACHE_REDIS_URL=redis://127.0.0.1:6379 npm run test:cache:release\n```"
+      ]
+    },
+    {
+      "heading": "Documentation Checks",
+      "migratedFrom": "nodics:gDocs/testing/how-to-test-nodics-changes.md",
+      "sourceAnchor": "documentation-checks",
+      "paragraphs": [
+        "Run:",
+        "```bash\nnpm run docs:coverage:source -- --limit=20\nnpm run docs:coverage:contracts -- --limit=20\n```",
+        "If a source file changes, make sure file-level documentation and exported method documentation remain complete."
+      ]
+    },
+    {
+      "heading": "Generated Context",
+      "migratedFrom": "nodics:gDocs/testing/how-to-test-nodics-changes.md",
+      "sourceAnchor": "generated-context",
+      "paragraphs": [
+        "When source behavior or documentation changes, regenerate and validate LLM context:",
+        "```bash\nnpm run llm:generate\nnpm run llm:validate\n```",
+        "Generated LLM context is part of the verification story. It helps future AI tools and developers understand which files, tests, extension points, generated artifacts, and documentation belong to a module."
+      ]
+    },
+    {
+      "heading": "What To Avoid",
+      "migratedFrom": "nodics:gDocs/testing/how-to-test-nodics-changes.md",
+      "sourceAnchor": "what-to-avoid",
+      "paragraphs": [
+        "Avoid:"
+      ],
+      "items": [
+        "Only running the test that proves your happy path.",
+        "Skipping generated tests after schema or route changes.",
+        "Running live tests against unsafe data.",
+        "Editing generated tests manually as the source of truth.",
+        "Updating code without updating documentation."
+      ]
+    },
+    {
+      "heading": "Beginner Failure Handling",
+      "migratedFrom": "nodics:gDocs/testing/how-to-test-nodics-changes.md",
+      "sourceAnchor": "beginner-failure-handling",
+      "paragraphs": [
+        "When a test fails:",
+        "Do not hide a failing test by weakening the assertion unless the product contract intentionally changed and the documentation also explains that change."
+      ],
+      "items": [
+        "Read the first failed assertion.",
+        "Identify the owner: module, route, schema, service, config, provider, or generated artifact.",
+        "Check whether the failure is from source behavior or stale generated output.",
+        "Fix the source definition or implementation.",
+        "Regenerate generated artifacts when needed.",
+        "Rerun the smallest failed test.",
+        "Rerun the broader suite only after the focused test is green."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/testing/how-to-test-nodics-changes.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "Previous: [How To Create Application Functionality](/docs/build/application-capability)",
+        "Operations: [How To Run And Debug Nodics](/docs/operations/local-runtime)",
+        "Documentation home: [Nodics Documentation](/docs)"
       ]
     }
   ]

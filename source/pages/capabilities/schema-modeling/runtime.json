@@ -3,10 +3,15 @@
   "title": "Schema Composition and Runtime Models",
   "route": "/docs/capabilities/schema-modeling/runtime",
   "section": "capabilities",
-  "family": "concepts-runtime",
+  "family": "runtime-behavior",
   "parent": "page:capability.schema-modeling.overview",
   "order": 10,
-  "audiences": ["developer", "architect", "framework-maintainer", "ai-tool"],
+  "audiences": [
+    "developer",
+    "architect",
+    "framework-maintainer",
+    "ai-tool"
+  ],
   "readerIntent": "Understand inheritance, layered merging, model generation, and provider delegation.",
   "priorKnowledge": "Read Schema and Item Modeling.",
   "depth": "implementation",
@@ -14,7 +19,11 @@
   "owner": "Nodics schema, data-model, and database capabilities",
   "lastVerified": "2026-07-26",
   "summary": "Nodics composes schema definitions at runtime, supplies the base contract where appropriate, and creates models that interact through provider-neutral data services.",
-  "supportingEvidence": ["nodics:gFramework/nData/README.md", "nodics:gFramework/nDatabase/README.md", "nodics:gFramework/nConfig/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nData/README.md",
+    "nodics:gFramework/nDatabase/README.md",
+    "nodics:gFramework/nConfig/README.md"
+  ],
   "sections": [
     {
       "heading": "Composition",
@@ -39,6 +48,65 @@
       "heading": "Optional capabilities",
       "paragraphs": [
         "Search, caching, versioning, publishing, and workflow are enabled per owning module or schema according to configuration. Their metadata must not imply that every record automatically uses every capability."
+      ]
+    },
+    {
+      "heading": "Base behavior and inheritance",
+      "paragraphs": [
+        "Nodics supplies common base behavior at runtime where required. A schema declares owned differences and does not repeat super: base merely as boilerplate when composition already supplies it.",
+        "Explicit inheritance remains appropriate for a non-default parent or when the parent relationship is itself contractual. Effective-schema evidence makes the result inspectable."
+      ]
+    },
+    {
+      "heading": "Layered schema extension",
+      "items": [
+        "The reusable capability defines the original schema meaning.",
+        "A later project layer may refine supported fields, metadata, validation, permissions, indexes, or relationships.",
+        "Conflicting type or ownership changes require migration and compatibility decisions.",
+        "Customizable access rules belong in owned properties, not closed constants.",
+        "Composition remains deterministic for reviewers and AI tools."
+      ]
+    },
+    {
+      "heading": "Runtime initialization",
+      "items": [
+        "Configuration selects modules and providers.",
+        "Definitions are discovered and composed in load order.",
+        "Effective schemas are validated before readiness.",
+        "Database services translate schemas and indexes through the configured adapter.",
+        "Item and search models become available to services and routes.",
+        "Failures prevent false readiness and retain diagnostics."
+      ]
+    },
+    {
+      "heading": "Item and search models",
+      "paragraphs": [
+        "The item model represents authoritative record operations through provider-neutral persistence. The search model represents normalized discovery. They share owning schema context but serve different responsibilities.",
+        "Every model can be searchable without requiring every model to use an external engine. Simple queries may use persistence; advanced indexing uses a configured search provider."
+      ]
+    },
+    {
+      "heading": "Versioning and publishing",
+      "paragraphs": [
+        "Versioning is enabled through module or schema configuration, not copied fields in every schema. A staged catalog may retain versions and approvals while a separate online system consumes the published representation.",
+        "The existing publishing capability owns staged-to-online transfer. Composition contributes versioned shape only when enabled."
+      ]
+    },
+    {
+      "heading": "Schema evolution",
+      "items": [
+        "Optional additive fields normally carry lower migration risk.",
+        "Index changes require provider-qualified rollout.",
+        "Rename, removal, type, and ownership changes require migration and compatibility.",
+        "Search, cache, import/export, events, generated APIs, and docs evolve together.",
+        "Staged and online schemas remain compatible during publishing rollout."
+      ]
+    },
+    {
+      "heading": "Example and verification",
+      "paragraphs": [
+        "Profile defines Enterprise. A project adds an optional regulatory identifier through a later schema layer while retaining base audit fields, Tenant relationship, ownership, and existing indexes.",
+        "Verify effective schemas with and without the project, valid CRUD/search/import/export, conflicting extensions, provider failure, tenant isolation, versioning enabled and disabled, migration, and generated contracts."
       ]
     }
   ]

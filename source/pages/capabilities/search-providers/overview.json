@@ -6,7 +6,12 @@
   "family": "overview",
   "parent": "section:capabilities",
   "order": 150,
-  "audiences": ["evaluator", "developer", "architect", "operator"],
+  "audiences": [
+    "evaluator",
+    "developer",
+    "architect",
+    "operator"
+  ],
   "readerIntent": "Understand which search implementations Nodics supplies and how engine adapters remain replaceable.",
   "priorKnowledge": "Read Search Models and Querying.",
   "depth": "overview",
@@ -14,8 +19,17 @@
   "owner": "gFramework/nSearch",
   "lastVerified": "2026-07-26",
   "summary": "Nodics supplies a provider-neutral search capability and a guarded Elasticsearch adapter; additional engines use the same adapter boundary.",
-  "evidence": ["nodics:gFramework/nSearch/README.md"],
+  "evidence": [
+    "nodics:gFramework/nSearch/README.md"
+  ],
   "sections": [
+    {
+      "heading": "What is Search and Indexing Providers?",
+      "paragraphs": [
+        "Search and indexing create a query-optimized representation of information so users and applications can find matching records quickly. A search provider connects that provider-neutral Nodics contract to an engine such as Elasticsearch.",
+        "It resembles a book index: the index accelerates discovery, but the original book remains authoritative and the index must be rebuilt or reconciled when its entries drift."
+      ]
+    },
     {
       "heading": "Available implementations",
       "items": [
@@ -30,13 +44,63 @@
       ]
     },
     {
+      "heading": "Responsibility split",
+      "items": [
+        "The business capability owns searchable meaning and authoritative records.",
+        "Provider-neutral Search owns normalized operations, pipelines, cache policy, errors, and secured routes.",
+        "The engine adapter owns connections and vendor operation mapping.",
+        "Deployment configuration owns endpoints, credentials, topology, aliases, and tuning.",
+        "Operators own production qualification and recovery."
+      ]
+    },
+    {
+      "heading": "Why provider neutrality matters",
+      "paragraphs": [
+        "Business services can search without importing an engine client or understanding shards, aliases, or vendor query syntax. A project can add a new adapter while existing models and callers retain their contracts.",
+        "Provider neutrality does not imply identical engine behavior. Unsupported operations and semantic differences are explicit."
+      ]
+    },
+    {
+      "heading": "Example: product discovery",
+      "paragraphs": [
+        "Product owns product identity and fields. Search indexes the approved online representation through the configured adapter. Storefront queries normalized filters, text, sort, and pagination and then uses Product or related owners for authoritative details.",
+        "A stale or unavailable index follows the documented consistency and fallback policy; it does not become product authority."
+      ]
+    },
+    {
+      "heading": "Selection and qualification",
+      "items": [
+        "Required text, filter, aggregation, language, scale, and freshness behavior.",
+        "Tenant isolation and index routing.",
+        "Supported engine and client versions.",
+        "TLS, credentials, network, and secret handling.",
+        "Capacity, high availability, backup, restore, upgrade, and cost.",
+        "Live contract, load, outage, reindex, and recovery evidence."
+      ]
+    },
+    {
       "heading": "Continue",
       "links": [
-        {"label": "Review prebuilt engines", "target": "/docs/capabilities/search-providers/prebuilt"},
-        {"label": "Build a provider", "target": "/docs/capabilities/search-providers/build"},
-        {"label": "Understand index lifecycle", "target": "/docs/capabilities/search-providers/index-lifecycle"},
-        {"label": "Integrate import and export", "target": "/docs/capabilities/search-providers/import-export"},
-        {"label": "Operate search", "target": "/docs/capabilities/search-providers/operations"}
+        {
+          "label": "Review prebuilt engines",
+          "target": "/docs/capabilities/search-providers/prebuilt"
+        },
+        {
+          "label": "Build a provider",
+          "target": "/docs/capabilities/search-providers/build"
+        },
+        {
+          "label": "Understand index lifecycle",
+          "target": "/docs/capabilities/search-providers/index-lifecycle"
+        },
+        {
+          "label": "Integrate import and export",
+          "target": "/docs/capabilities/search-providers/import-export"
+        },
+        {
+          "label": "Operate search",
+          "target": "/docs/capabilities/search-providers/operations"
+        }
       ]
     }
   ]

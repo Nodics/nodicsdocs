@@ -6,7 +6,15 @@
   "family": "business-value",
   "parent": "page:capability.identity-security.overview",
   "order": 70,
-  "audiences": ["evaluator", "business-user", "administrator", "developer", "architect", "security-reviewer", "operator"],
+  "audiences": [
+    "evaluator",
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "security-reviewer",
+    "operator"
+  ],
   "readerIntent": "Understand which security controls Nodics provides and which controls remain with the deploying organization, partner, and operator.",
   "priorKnowledge": "No technical knowledge is required.",
   "depth": "overview",
@@ -14,7 +22,13 @@
   "owner": "Shared across Nodics capability owners, customer projects, deployment operators, cloud/provider controls, and business governance",
   "lastVerified": "2026-07-26",
   "summary": "Nodics provides security contracts and fail-closed controls, while every deployment remains responsible for correct configuration, infrastructure, access governance, monitoring, evidence, legal obligations, and incident response.",
-  "supportingEvidence": ["nodics:gFramework/nAuth/README.md", "nodics:gCore/profile/README.md", "nodics:gFramework/nRouter/README.md", "nodics:gFramework/nDynamo/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nAuth/README.md",
+    "nodics:gCore/profile/README.md",
+    "nodics:gFramework/nRouter/README.md",
+    "nodics:gFramework/nDynamo/README.md",
+    "nodics:gDocs/security/shared-responsibility-model.md"
+  ],
   "sections": [
     {
       "heading": "Nodics provides",
@@ -52,6 +66,111 @@
         "Which evidence demonstrates tenant isolation, least privilege, resilience, recovery, privacy, and regulatory compliance?",
         "Which compatibility or local-development exceptions remain enabled, and who approved their removal plan?",
         "How quickly can credentials be revoked, affected principals identified, service restored, and customers notified?"
+      ]
+    },
+    {
+      "heading": "Complete guide: Security Shared-Responsibility Model",
+      "migratedFrom": "nodics:gDocs/security/shared-responsibility-model.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "This guide helps business owners, project teams, platform operators, providers, and auditors agree who must protect what. A secure framework cannot compensate for missing production secrets, open networks, unprotected backups, or absent operational ownership."
+      ]
+    },
+    {
+      "heading": "Beginner View",
+      "migratedFrom": "nodics:gDocs/security/shared-responsibility-model.md",
+      "sourceAnchor": "beginner-view",
+      "paragraphs": [
+        "Think of Nodics as a secure building design.",
+        "inspection points.",
+        "Every layer must do its part."
+      ],
+      "items": [
+        "Nodics supplies doors, locks, room boundaries, access rules, alarms, and",
+        "The project decides who receives access and how the building is customized.",
+        "Infrastructure operates the site, network, keys, backups, and monitoring.",
+        "The business decides which information is sensitive and which rules apply."
+      ]
+    },
+    {
+      "heading": "Responsibility Matrix",
+      "migratedFrom": "nodics:gDocs/security/shared-responsibility-model.md",
+      "sourceAnchor": "responsibility-matrix",
+      "paragraphs": [
+        "| Area | Nodics framework | Customer/project | Infrastructure/provider | Business/security organization |\n| --- | --- | --- | --- | --- |\n| Identity model | Human, service, API-key, permission, group, tenant, and token contracts | Connect selected IAM/CIAM and define project identities | Protect identity-provider availability and transport | Approve identity lifecycle and access policy |\n| Authorization | Route permissions, token-type boundaries, service checks | Assign least-privilege roles and project permissions | Enforce gateway/mesh identity where selected | Approve roles, segregation of duties, reviews |\n| Tenant isolation | Tenant-aware route, service, data, cache, search, job, import, and event contracts | Choose tenant model and prove custom code preserves it | Provide isolated storage/network where required | Classify customers and residency requirements |\n| Secrets | Governed secret inputs, insecure-default rejection, redaction | Supply and rotate real secrets outside source control | Operate secret manager/KMS/HSM if selected | Set rotation and emergency-access policy |\n| API security | Authentication pipeline, permissions, exposure gates, CORS, headers, limits, rate policy | Enable only required API categories and origins | TLS, WAF, gateway, DDoS, certificate lifecycle | Define external exposure and abuse objectives |\n| Data protection | Validation, exact ownership, access policy, safe projections | Classify fields and add project-specific controls | Encryption at rest/in transit, storage access, backup protection | Retention, deletion, privacy, legal basis |\n| Runtime change | Preview, approval, activation, audit, rollback capabilities | Configure approvers and protected environments | Preserve audit storage and deployment separation | Define change authority and emergency process |\n| Logging/diagnostics | Central redaction and sanitized diagnostic contracts | Avoid logging project secrets or sensitive payloads | Secure collection, retention, access, alerting | Approve retention and investigation access |\n| Resilience | Bounded retry, circuit, readiness, cache and topology contracts | Select policies for business criticality | Operate redundant providers and capacity | Define SLO, RTO, RPO, crisis priorities |\n| Testing/release | Security, route, tenant, topology, generated, and release gates | Add project and customer-specific misuse tests | Run gates in controlled CI/CD | Approve acceptance evidence and exceptions |\n| Vulnerabilities | Dependency ownership and supported runtime contract | Track project dependencies and remediation | Patch hosts, images, databases, brokers, gateways | Set risk acceptance and disclosure process |\n| Compliance | Evidence-producing capabilities | Configure solution-specific controls | Supply provider attestations | Own legal interpretation and certification |"
+      ]
+    },
+    {
+      "heading": "Required Production Decisions",
+      "migratedFrom": "nodics:gDocs/security/shared-responsibility-model.md",
+      "sourceAnchor": "required-production-decisions",
+      "paragraphs": [
+        "Before production, record owners and evidence for:",
+        "requirements."
+      ],
+      "items": [
+        "Identity provider and break-glass administration.",
+        "Secret source, rotation, revocation, and recovery.",
+        "Public, partner, internal, and administration network boundaries.",
+        "Tenant placement and any dedicated database, search, cache, or messaging",
+        "TLS termination and trust between gateway, servers, and modules.",
+        "Log, audit, and security-event retention.",
+        "Backup encryption, restore testing, RTO, and RPO.",
+        "Dependency and container/host patching.",
+        "Vulnerability reporting, triage, remediation, and disclosure.",
+        "Release approval, rollback authority, and emergency change.",
+        "Incident detection, containment, evidence preservation, and notification.",
+        "Provider qualification and failure behavior."
+      ]
+    },
+    {
+      "heading": "Fail-Safe Configuration Rules",
+      "migratedFrom": "nodics:gDocs/security/shared-responsibility-model.md",
+      "sourceAnchor": "fail-safe-configuration-rules",
+      "paragraphs": [
+        "configured and tested.",
+        "topology requires them.",
+        "confidential business payloads.",
+        "the intended topology."
+      ],
+      "items": [
+        "Do not enable insecure compatibility flags in production-like environments.",
+        "Do not use local sample credentials or source-controlled secrets.",
+        "Do not make an internal route public to solve connectivity.",
+        "Do not allow cache fallback for authoritative security state.",
+        "Do not trust forwarded headers until the proxy boundary is explicitly",
+        "Do not treat a successful gateway check as authorization for every module.",
+        "Do not expose test, file, dynamic-runtime, or diagnostic APIs unless that",
+        "Do not log bearer handles, passwords, API keys, cookies, credentials, or",
+        "Do not claim a provider is production-ready without live qualification in"
+      ]
+    },
+    {
+      "heading": "Operational Review Cadence",
+      "migratedFrom": "nodics:gDocs/security/shared-responsibility-model.md",
+      "sourceAnchor": "operational-review-cadence",
+      "paragraphs": [
+        "| Frequency | Review |\n| --- | --- |\n| Every release | Dependency changes, route exposure, permissions, generated contracts, security tests, rollback plan |\n| Monthly or risk-based | Privileged access, inactive accounts, secret age, provider health, alert quality |\n| Quarterly or policy-defined | Tenant isolation evidence, restore exercise, incident exercise, provider and runtime maturity |\n| After an incident or major change | Threat assumptions, access paths, logs, detection gaps, recovery evidence, documentation |"
+      ]
+    },
+    {
+      "heading": "Acceptance Record Template",
+      "migratedFrom": "nodics:gDocs/security/shared-responsibility-model.md",
+      "sourceAnchor": "acceptance-record-template",
+      "paragraphs": [
+        "```text\nBusiness/service:\nData classification:\nTenant model:\nPublic APIs:\nAdministrative APIs:\nIdentity provider:\nSecret provider:\nSelected database/cache/search/message providers:\nSecurity and audit owners:\nRTO / RPO:\nRequired regulations or contractual controls:\nEvidence reviewed:\nKnown gaps and compensating controls:\nRisk acceptance owner and expiry:\n```"
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/security/shared-responsibility-model.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "Business overview: [Why Businesses Can Trust Nodics](/docs/evaluate/security-and-trust)",
+        "Technical foundations: [How Users, Tenants, And Permissions Work](/docs/security/users-tenants-permissions)",
+        "Evidence and tests: [Security Evidence Guide](/docs/security/evidence)",
+        "Deployment: [How To Prepare For Deployment](/docs/operations/deployment)",
+        "Production model: [Production Operating Model](/docs/operations/production)"
       ]
     }
   ]

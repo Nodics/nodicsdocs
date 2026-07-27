@@ -1,1 +1,94 @@
-{"code":"capability.status-errors.runtime","title":"Error Runtime, Security, and Extension","route":"/docs/capabilities/status-errors/runtime","section":"security","family":"runtime-customization","parent":"page:capability.status-errors.overview","order":10,"audiences":["developer","architect","security-reviewer","operator","ai-tool"],"readerIntent":"Register, propagate, present, and observe an outcome safely.","priorKnowledge":"Know the owning capability and failure classification.","depth":"implementation","status":"implemented","owner":"Owning capability, common error primitives, status service, pipeline, and response handler","lastVerified":"2026-07-26","summary":"Failures retain code, response classification, safe context, cause, and trace through layers; public responses expose only allowlisted fields.","supportingEvidence":["nodics:gFramework/nCommon/README.md","nodics:gFramework/nRouter/README.md","nodics:gFramework/nService/README.md"],"sections":[{"heading":"Runtime","items":["Create or propagate a registered capability-owned code.","Preserve the original cause and add bounded layer, pipeline, module, tenant, operation, and trace context.","Let the pipeline follow its error terminal and cleanup contract.","Resolve status metadata from the central catalog.","Map to a safe HTTP or transport response.","Keep stacks, paths, queries, payloads, credentials, nested causes, and protected context in server diagnostics only."]},{"heading":"Extension","items":["Add capability-specific codes in the owning module, not a global catch-all file.","Keep codes stable; version or deprecate semantic changes.","Separate developer diagnostics from user-facing content and localization.","Never convert unknown codes to invented success responses.","Test known/unknown code lookup, nested causes, cross-module propagation, public redaction, trace correlation, and regression."]}]}
+{
+  "code": "capability.status-errors.runtime",
+  "title": "Error Runtime, Security, and Extension",
+  "route": "/docs/capabilities/status-errors/runtime",
+  "section": "security",
+  "family": "configuration-customization",
+  "parent": "page:capability.status-errors.overview",
+  "order": 10,
+  "audiences": [
+    "developer",
+    "architect",
+    "security-reviewer",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Register, propagate, present, and observe an outcome safely.",
+  "priorKnowledge": "Know the owning capability and failure classification.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Owning capability, common error primitives, status service, pipeline, and response handler",
+  "lastVerified": "2026-07-26",
+  "summary": "Failures retain code, response classification, safe context, cause, and trace through layers; public responses expose only allowlisted fields.",
+  "supportingEvidence": [
+    "nodics:gFramework/nCommon/README.md",
+    "nodics:gFramework/nRouter/README.md",
+    "nodics:gFramework/nService/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Runtime",
+      "items": [
+        "Create or propagate a registered capability-owned code.",
+        "Preserve the original cause and add bounded layer, pipeline, module, tenant, operation, and trace context.",
+        "Let the pipeline follow its error terminal and cleanup contract.",
+        "Resolve status metadata from the central catalog.",
+        "Map to a safe HTTP or transport response.",
+        "Keep stacks, paths, queries, payloads, credentials, nested causes, and protected context in server diagnostics only."
+      ]
+    },
+    {
+      "heading": "Cause and context chain",
+      "paragraphs": [
+        "Each layer preserves the original error and adds only bounded safe context such as capability, service, pipeline, node, operation, and correlation. Repeated wrapping must not create unlimited serialized cause trees.",
+        "Tenant or record context appears only where safe and useful for authorized diagnostics."
+      ]
+    },
+    {
+      "heading": "Unknown code behavior",
+      "paragraphs": [
+        "An unregistered code is a contract defect. The status service rejects it and the runtime reports an internal failure rather than pretending the requested success or exposing arbitrary metadata.",
+        "Tests validate every route and service success code as well as error codes so missing catalog entries are found before runtime."
+      ]
+    },
+    {
+      "heading": "User-facing presentation",
+      "paragraphs": [
+        "Backend status remains stable and language-neutral. Axis or CMS content maps appropriate outcomes to friendly multilingual text, recovery guidance, and field focus.",
+        "Presentation never changes backend meaning and never displays protected developer diagnostics."
+      ]
+    },
+    {
+      "heading": "Extension",
+      "items": [
+        "Add capability-specific codes in the owning module, not a global catch-all file.",
+        "Keep codes stable; version or deprecate semantic changes.",
+        "Separate developer diagnostics from user-facing content and localization.",
+        "Never convert unknown codes to invented success responses.",
+        "Test known/unknown code lookup, nested causes, cross-module propagation, public redaction, trace correlation, and regression."
+      ]
+    },
+    {
+      "heading": "Observability and alerting",
+      "items": [
+        "Count outcomes by stable code, capability, route, and safe runtime context.",
+        "Track latency and failure point across pipeline layers.",
+        "Alert on unexpected internal, provider, security, or retry patterns.",
+        "Correlate user reports with trace identifiers.",
+        "Protect logs from sensitive data and unbounded error payloads."
+      ]
+    },
+    {
+      "heading": "Verification matrix",
+      "items": [
+        "Registered success and error lookup.",
+        "Unknown and duplicate code rejection.",
+        "Nested and remote cause preservation.",
+        "Public redaction and protected diagnostics.",
+        "Authentication enumeration and authorization privacy.",
+        "Localization independent of machine code.",
+        "Trace, metric, OpenAPI, client, and regression compatibility."
+      ]
+    }
+  ]
+}

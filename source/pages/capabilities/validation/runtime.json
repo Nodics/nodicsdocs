@@ -3,10 +3,17 @@
   "title": "Validation Runtime and Error Behavior",
   "route": "/docs/capabilities/validation/runtime",
   "section": "capabilities",
-  "family": "runtime-operations",
+  "family": "operations-security-troubleshooting",
   "parent": "page:capability.validation.overview",
   "order": 20,
-  "audiences": ["administrator", "developer", "architect", "security-reviewer", "operator", "ai-tool"],
+  "audiences": [
+    "administrator",
+    "developer",
+    "architect",
+    "security-reviewer",
+    "operator",
+    "ai-tool"
+  ],
   "readerIntent": "Understand how validation executes, reports failures, and remains observable.",
   "priorKnowledge": "Know the validation layers.",
   "depth": "implementation",
@@ -14,7 +21,11 @@
   "owner": "Owning validation services, pipelines, status definitions, and response handlers",
   "lastVerified": "2026-07-26",
   "summary": "Validation is executed through declarative schema rules, services, interceptors, and pipelines, then normalized into stable status codes and safe diagnostic context.",
-  "supportingEvidence": ["nodics:gFramework/nPipeline/README.md", "nodics:gFramework/nRouter/README.md", "nodics:gFramework/nService/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nPipeline/README.md",
+    "nodics:gFramework/nRouter/README.md",
+    "nodics:gFramework/nService/README.md"
+  ],
   "sections": [
     {
       "heading": "Runtime behavior",
@@ -45,6 +56,58 @@
         "Import rejection counts and reconciliation outcomes.",
         "Validator latency and downstream work avoided.",
         "Configuration preview and activation validation failures."
+      ]
+    },
+    {
+      "heading": "Field errors and invariant failures",
+      "paragraphs": [
+        "Independent field problems can be accumulated so a user corrects several inputs at once. Security, tenant, ownership, and critical invariant failures stop processing immediately when continuing could reveal data or perform unsafe work.",
+        "The owning validator decides whether details are safe. A public response never includes raw database errors, internal stack traces, credentials, or inaccessible record content."
+      ]
+    },
+    {
+      "heading": "Stable status resolution",
+      "items": [
+        "Every emitted success or error code is registered by its owner.",
+        "Response classification and HTTP mapping remain stable for clients.",
+        "Presentation text can be localized without changing the machine contract.",
+        "Trace context identifies the pipeline and layer for authorized diagnostics.",
+        "Unknown status codes fail validation rather than becoming accidental HTTP 500 behavior."
+      ]
+    },
+    {
+      "heading": "Transactions and side effects",
+      "paragraphs": [
+        "Validation completes before irreversible side effects where possible. Multi-record changes use the supported transaction contract or explicit compensation. Events and external notifications follow the committed authoritative transition.",
+        "A transient provider error is not a validation failure. Runtime handling preserves this distinction so retry policy does not repeat deterministic invalid requests."
+      ]
+    },
+    {
+      "heading": "Example failure trace",
+      "paragraphs": [
+        "An employee submits an Enterprise with a Tenant outside the authorized scope. Request shape is valid, but relationship policy rejects the target. The response uses a safe authorization or relationship status and does not confirm protected Tenant details.",
+        "Operators can correlate the request, capability, validation layer, safe tenant context, and outcome. Axis renders a friendly backend-driven message."
+      ]
+    },
+    {
+      "heading": "Performance and abuse protection",
+      "items": [
+        "Run inexpensive deterministic checks before database or remote calls.",
+        "Bound collection sizes, nesting depth, query complexity, and error detail.",
+        "Monitor repeated invalid and unauthorized attempts without logging secrets.",
+        "Cache only validation data that remains permission-safe and correctly invalidated.",
+        "Load-test large imports and bulk validation independently from interactive requests."
+      ]
+    },
+    {
+      "heading": "Recovery and verification",
+      "items": [
+        "Prove no state or derived event follows a rejected mutation.",
+        "Prove partial multi-record work rolls back or compensates.",
+        "Verify the same stable error through API, import, workflow, job, and assistant paths.",
+        "Verify localization does not alter machine codes.",
+        "Verify logs, metrics, and traces remain useful and non-sensitive.",
+        "Regression-test valid legacy records after rule changes."
       ]
     }
   ]

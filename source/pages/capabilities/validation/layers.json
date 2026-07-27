@@ -6,7 +6,12 @@
   "family": "concepts-architecture",
   "parent": "page:capability.validation.overview",
   "order": 10,
-  "audiences": ["developer", "architect", "security-reviewer", "ai-tool"],
+  "audiences": [
+    "developer",
+    "architect",
+    "security-reviewer",
+    "ai-tool"
+  ],
   "readerIntent": "Place a rule at the boundary that owns it and avoid frontend-only or route-only enforcement.",
   "priorKnowledge": "Read Validation and Policy Enforcement.",
   "depth": "implementation",
@@ -14,7 +19,11 @@
   "owner": "Owning capability plus shared request, schema, access-policy, and pipeline contracts",
   "lastVerified": "2026-07-26",
   "summary": "Nodics validates transport, schema, business transition, relationship, security, provider, and runtime-governance concerns at distinct but coordinated boundaries.",
-  "supportingEvidence": ["nodics:gFramework/nRouter/README.md", "nodics:gFramework/nData/README.md", "nodics:gFramework/nDynamo/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nRouter/README.md",
+    "nodics:gFramework/nData/README.md",
+    "nodics:gFramework/nDynamo/README.md"
+  ],
   "sections": [
     {
       "heading": "Validation layers",
@@ -41,6 +50,48 @@
         "Resolve tenant and principal context before ownership or field-policy checks.",
         "Validate the intended business transition before persistence.",
         "Emit events and update derived systems only after the authoritative transition succeeds."
+      ]
+    },
+    {
+      "heading": "Why ordering protects the system",
+      "paragraphs": [
+        "Early rejection reduces cost and attack surface. Tenant and principal resolution must precede record ownership checks, otherwise the validator may load or reveal a record outside the caller's scope.",
+        "Derived work such as indexing, cache invalidation, events, and publishing follows successful authoritative persistence so rejected requests do not create false projections."
+      ]
+    },
+    {
+      "heading": "Declarative and behavioral rules",
+      "paragraphs": [
+        "Stable field constraints such as required, type, length, range, and enum belong in schema metadata. Cross-record invariants and state transitions belong in the owning service, validator, or interceptor.",
+        "Thresholds or group mappings that projects must customize belong in properties.js. Hiding them in schema closures makes layering difficult."
+      ]
+    },
+    {
+      "heading": "Relationship and tenant policy",
+      "items": [
+        "Resolve the target through its owning contract.",
+        "Confirm it exists in the caller's authorized scope.",
+        "Check cardinality, duplication, cycles, and lifecycle compatibility.",
+        "Reject a raw identifier that points to another tenant or inaccessible owner.",
+        "Apply the same rule to nested creation, import, workflow, job, and API paths."
+      ]
+    },
+    {
+      "heading": "Example: publish content",
+      "paragraphs": [
+        "Transport validates the publish request. Authentication establishes the employee. Authorization checks publishing permission. CMS validates the content and catalog relationship. Workflow validates approval completion. Publishing validates the target and version contract.",
+        "Only after these checks does the staged-to-online transition execute. The frontend cannot publish by changing a page status locally."
+      ]
+    },
+    {
+      "heading": "Layer review questions",
+      "items": [
+        "Does every caller reach this rule?",
+        "Is the rule about shape, business state, permission, provider input, or runtime governance?",
+        "Could the check leak another tenant's existence?",
+        "Which stable status represents failure?",
+        "What safe detail can be shown to users and operators?",
+        "Which boundary and regression tests prove placement?"
       ]
     }
   ]

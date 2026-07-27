@@ -1,1 +1,116 @@
-{"code":"commerce.stock.availability","title":"Calculate Stock Availability","route":"/docs/capabilities/commerce/stock/availability","section":"capabilities","family":"runtime-behavior","parent":"page:capability.commerce.stock-units","order":40,"audiences":["business-user","developer","architect","operator","ai-tool"],"readerIntent":"Calculate availability-to-sell for a trusted commerce context.","priorKnowledge":"Know balances, reservations, allocations, safety stock, and sourcing.","depth":"implementation","status":"implemented","owner":"Inventory capability","lastVerified":"2026-07-26","summary":"Availability derives from eligible balances and policy; it is not a stored Product attribute or cache authority.","supportingEvidence":["nodics:gComm/inventory/README.md"],"sections":[{"heading":"Flow","items":["Verify tenant/audience Storefront context.","Resolve sellability and eligible warehouses/pools by enterprise, Store, country, zone, channel, segment, and purpose.","Normalize units and compute on-hand minus reserved, allocated, safety, and blocked quantities according to policy.","Apply sourcing priority, aggregation, exclusions, and requested quantity.","Return bounded ON_HAND, reserved, and AVAILABLE_TO_SELL totals while hiding internal locations when the contract requires it."]}]}
+{
+  "code": "commerce.stock.availability",
+  "title": "Calculate Stock Availability",
+  "route": "/docs/capabilities/commerce/stock/availability",
+  "section": "capabilities",
+  "family": "runtime-behavior",
+  "parent": "page:capability.commerce.stock-units",
+  "order": 40,
+  "audiences": [
+    "business-user",
+    "developer",
+    "architect",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Calculate availability-to-sell for a trusted commerce context.",
+  "priorKnowledge": "Know balances, reservations, allocations, safety stock, and sourcing.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Inventory capability",
+  "lastVerified": "2026-07-26",
+  "summary": "Availability derives from eligible balances and policy; it is not a stored Product attribute or cache authority.",
+  "supportingEvidence": [
+    "nodics:gComm/inventory/README.md",
+    "nodics:gDocs/commerce/how-stock-availability-works.md"
+  ],
+  "sections": [
+    {
+      "heading": "Flow",
+      "items": [
+        "Verify tenant/audience Storefront context.",
+        "Resolve sellability and eligible warehouses/pools by enterprise, Store, country, zone, channel, segment, and purpose.",
+        "Normalize units and compute on-hand minus reserved, allocated, safety, and blocked quantities according to policy.",
+        "Apply sourcing priority, aggregation, exclusions, and requested quantity.",
+        "Return bounded ON_HAND, reserved, and AVAILABLE_TO_SELL totals while hiding internal locations when the contract requires it."
+      ]
+    },
+    {
+      "heading": "Availability terms",
+      "items": [
+        "On hand: authoritative physical or logical balance before eligibility deductions.",
+        "Reserved: temporarily held for owners.",
+        "Allocated: committed to fulfillment.",
+        "Safety: protected quantity not offered for ordinary sale.",
+        "Blocked: damaged, quarantined, restricted, or otherwise ineligible.",
+        "Available to sell: eligible quantity after configured deductions and scope."
+      ]
+    },
+    {
+      "heading": "Context matters",
+      "paragraphs": [
+        "The same product can be available for one country, zone, Store, channel, or customer segment and unavailable for another. Availability is therefore a result, not a Product field.",
+        "Storefront supplies a governed context handle. Inventory verifies its audience and derives tenant and service scopes rather than trusting arbitrary browser fields."
+      ]
+    },
+    {
+      "heading": "Units and aggregation",
+      "paragraphs": [
+        "Balances aggregate only after compatible unit normalization with controlled precision. Quantity, mass, volume, area, and project-defined land measurements cannot be mixed without a valid conversion.",
+        "Internal source detail can remain hidden while the response exposes bounded totals and fulfillment promise."
+      ]
+    },
+    {
+      "heading": "Caching and freshness",
+      "paragraphs": [
+        "Online reads may cache availability using every relevant context in the key. Movements, reservations, allocations, transfers, reconciliation, publication, and policy changes invalidate affected entries.",
+        "Cache is a projection; unknown invalidation or provider failure follows the channel's bypass or fail-closed policy."
+      ]
+    },
+    {
+      "heading": "Verification",
+      "items": [
+        "On-hand, reserved, allocated, safety, blocked, and available-to-sell calculation.",
+        "Zone, Store, channel, segment, product, pool, and warehouse eligibility.",
+        "Unit conversion, precision, zero, insufficient, and large values.",
+        "Wrong audience, tenant, and hidden source detail.",
+        "Concurrent movement and reservation.",
+        "Cache hit, invalidation, outage, sourcing, and performance."
+      ]
+    },
+    {
+      "heading": "Complete guide: How Stock ON_HAND Availability Works",
+      "migratedFrom": "nodics:gDocs/commerce/how-stock-availability-works.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "ON_HAND is the quantity currently recorded in Online Inventory for an item across eligible Warehouses. Inventory also reports active holds and computes `AVAILABLE_TO_SELL = ON_HAND - reservedQuantity`; this still does not promise a delivery date or fulfilment outcome.",
+        "Nodics first chooses Stock Pools using Sourcing Policies. It expands active Warehouse memberships, reads Stock Balances, converts compatible Units exactly, and returns a total with contributing Warehouse and Balance evidence.",
+        "Business configuration such as Pools and sourcing rules can follow staged approval and publishing. Operational quantities remain Online Inventory state; the cache is never authoritative. Applications call the Inventory API rather than reading NodeCache, Redis, or Hazelcast directly.",
+        "Availability responses may be cached for performance. Every cached response retains the contributing Balance revisions, which Inventory validates before returning a hit. Stock and sourcing changes invalidate the tenant cache across nodes. If a cache provider is unavailable, Inventory calculates from authoritative data instead. Administrators select one provider per channel in layered `properties.js`; business code never selects a provider.",
+        "If the result is zero, verify Online Pool/rule/member lifecycle, item identity, Warehouse balance, Unit compatibility, and effective dates. If the request fails, correct the dependency or configured boundary and retry; Nodics does not return a misleading partial total."
+      ]
+    },
+    {
+      "heading": "Checking stock from a website",
+      "migratedFrom": "nodics:gDocs/commerce/how-stock-availability-works.md",
+      "sourceAnchor": "checking-stock-from-a-website",
+      "paragraphs": [
+        "Suppose Apparel and Electronics are two websites belonging to the same enterprise and tenant. Storefront resolves each hostname to its own Store, country, and channel. The application sends the returned opaque handle to Inventory:",
+        "```http\nPOST /nodics/inventory/v0/delivery/storefront/stock-availability/evaluate HTTP/1.1\nContent-Type: application/json\nx-nodics-storefront-context: <opaque handle from Storefront>\n\n{\n  \"item\": {\n    \"itemType\": \"SKU\",\n    \"itemCode\": \"IPHONE-17-PRO\",\n    \"unitCode\": \"piece\"\n  }\n}\n```",
+        "Inventory verifies the handle for its own audience and derives the correct tenant, enterprise, Store, country, and channel. The browser cannot select another website's sourcing rules by submitting its own context. The result returns ON_HAND, reserved, and AVAILABLE_TO_SELL totals but hides internal Pools, Warehouses, Balance records, revisions, and enterprise identity.",
+        "An expired or unverifiable handle is denied. Resolve the hostname again and retry with a fresh handle; do not add tenant, enterprise, Store, or sourcing information to the browser payload. Trusted services that require operational evidence use the separate service-token-only reference intent.",
+        "Operators configure Storefront introspection under `inventory.storefrontContext` in layered `properties.js`. Multi-node Storefront deployments require a shared security-state cache so any node can introspect a recently issued handle. Inventory Availability cache failure remains fail-open to authoritative Stock calculation, but Storefront security-state failure remains fail-closed.",
+        "Read the [technical Availability contract](/docs/reference/commerce) for configuration, security, evidence, customization, deployment, and tests."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/commerce/how-stock-availability-works.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "[How Stock Sourcing Works](/docs/capabilities/commerce/stock/sourcing)",
+        "[How Stock Movements Work](/docs/capabilities/commerce/stock/movements)"
+      ]
+    }
+  ]
+}

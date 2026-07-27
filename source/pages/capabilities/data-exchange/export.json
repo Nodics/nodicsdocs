@@ -3,10 +3,17 @@
   "title": "Export Data Safely",
   "route": "/docs/capabilities/data-exchange/export",
   "section": "capabilities",
-  "family": "concepts-runtime",
+  "family": "runtime-behavior",
   "parent": "page:capability.data-exchange.guide",
   "order": 20,
-  "audiences": ["business-user", "administrator", "developer", "architect", "operator", "ai-tool"],
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "operator",
+    "ai-tool"
+  ],
   "readerIntent": "Understand the guarded export boundary and production completion requirements.",
   "priorKnowledge": "Know the source schema/service, tenant, allowed fields, format, and destination.",
   "depth": "implementation",
@@ -14,10 +21,77 @@
   "owner": "Shared export engine, active format implementation, and governed delivery provider",
   "lastVerified": "2026-07-26",
   "summary": "The current base export service fails closed until an active module supplies source-backed selection, policy-safe rendering, governed delivery, diagnostics, and release evidence.",
-  "supportingEvidence": ["nodics:gFramework/nData/nExport/README.md", "nodics:gFramework/nData/nExport/export/README.md", "nodics:gFramework/nData/nExport/export/docs/export-process-framework.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nData/nExport/README.md",
+    "nodics:gFramework/nData/nExport/export/README.md",
+    "nodics:gFramework/nData/nExport/export/docs/export-process-framework.md"
+  ],
   "sections": [
-    {"heading": "Intended flow", "items": ["Select an authorized export definition rather than arbitrary source or destination input.", "Resolve tenant, source schema/service, allowed query, format, and destination alias.", "Apply record and property access policy before data leaves Nodics.", "Render through a completed format adapter.", "Deliver through a governed provider with timeout, retry, checksum, retention, and cleanup.", "Record safe run history and outcome."]},
-    {"heading": "Current maturity", "paragraphs": ["CSV, Excel, JSON, and JavaScript-oriented modules provide structure and extension points but must not be described as completed production writers without source-backed behavior and tests. The fail-closed base prevents accidental leakage from partial configuration."]},
-    {"heading": "Production gate", "items": ["Source-backed definitions and deterministic rendering.", "Tenant, schema, field, and query policy.", "Streaming/batching limits and backpressure.", "Governed destination aliases and secrets.", "Idempotency, retries, partial failure, checksums, retention, and cleanup.", "Live delivery, security, performance, recovery, and regression tests."]}
+    {
+      "heading": "Intended flow",
+      "items": [
+        "Select an authorized export definition rather than arbitrary source or destination input.",
+        "Resolve tenant, source schema/service, allowed query, format, and destination alias.",
+        "Apply record and property access policy before data leaves Nodics.",
+        "Render through a completed format adapter.",
+        "Deliver through a governed provider with timeout, retry, checksum, retention, and cleanup.",
+        "Record safe run history and outcome."
+      ]
+    },
+    {
+      "heading": "Current maturity",
+      "paragraphs": [
+        "CSV, Excel, JSON, and JavaScript-oriented modules provide structure and extension points but must not be described as completed production writers without source-backed behavior and tests. The fail-closed base prevents accidental leakage from partial configuration."
+      ]
+    },
+    {
+      "heading": "Export scope and policy",
+      "items": [
+        "Authorized model, fields, filters, tenant, catalog, locale, and version.",
+        "Stable run identity, format, destination, and checksum.",
+        "Maximum records, payload, duration, and concurrency.",
+        "Masking, redaction, encryption, retention, and expiry.",
+        "Approval and audit for sensitive or bulk data."
+      ]
+    },
+    {
+      "heading": "Snapshot consistency",
+      "paragraphs": [
+        "The export states whether it represents a transactionally consistent snapshot, a bounded point-in-time view, or a streaming view that may observe concurrent changes.",
+        "Search may discover candidates only when permission and freshness are suitable; authoritative services supply protected exported fields."
+      ]
+    },
+    {
+      "heading": "Destination behavior",
+      "items": [
+        "Write to a governed file, object store, API, or messaging destination adapter.",
+        "Use secret references rather than embedded credentials.",
+        "Write atomically or publish a completion marker where supported.",
+        "Calculate checksum and record size/count.",
+        "Clean partial output after failure or retain it as explicitly unusable evidence."
+      ]
+    },
+    {
+      "heading": "Production gate",
+      "items": [
+        "Source-backed definitions and deterministic rendering.",
+        "Tenant, schema, field, and query policy.",
+        "Streaming/batching limits and backpressure.",
+        "Governed destination aliases and secrets.",
+        "Idempotency, retries, partial failure, checksums, retention, and cleanup.",
+        "Live delivery, security, performance, recovery, and regression tests."
+      ]
+    },
+    {
+      "heading": "Verification",
+      "items": [
+        "Allowed and forbidden fields.",
+        "Tenant, owner, catalog, and permission isolation.",
+        "Empty, small, boundary, and large result sets.",
+        "Concurrent data change and declared snapshot behavior.",
+        "Destination timeout, partial write, retry, and duplicate request.",
+        "Encryption, checksum, expiry, audit, cleanup, and restore."
+      ]
+    }
   ]
 }

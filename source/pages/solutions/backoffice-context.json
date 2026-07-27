@@ -1,1 +1,224 @@
-{"code":"solution.backoffice.workspace-context","title":"Understand the Nodics Axis Workspace Context","route":"/docs/solutions/backoffice/workspace-context","section":"solutions","family":"runtime-behavior","parent":"section:solutions","order":30,"audiences":["business-user","administrator","developer","architect","security-reviewer"],"readerIntent":"Understand the context displayed and enforced in an Axis deployment.","priorKnowledge":"Understand tenants, enterprises, Sites, catalogs, and employee sessions.","depth":"guided","status":"implemented","owner":"Axis displays context; BackOffice and target modules resolve and enforce it","lastVerified":"2026-07-26","summary":"Axis presents friendly environment, tenant, enterprise, Site, Store, and catalog context while backend modules remain authoritative for every operation.","supportingEvidence":["nodics:gExp/backoffice/README.md","nodics:gCore/profile/README.md","nodics:gExp/storefront/README.md"],"sections":[{"heading":"Context fields","items":["Environment display name, never a raw implementation key alone.","Tenant code plus user-friendly name.","Enterprise code plus user-friendly name and parent label when applicable.","Site, Store, content catalog, product catalog, country, channel, locale, and currency where relevant.","Employee identity, permitted perspective, and active module capabilities."]},{"heading":"Rules","items":["One Axis deployment serves one customer project deployment, not several unrelated applications.","A browser selection can narrow valid context but cannot invent or broaden tenant scope.","Target modules verify the forwarded context and bearer on every call.","Refresh restores an active employee session securely rather than discarding context or persisting bearer credentials in browser storage."]}]}
+{
+  "code": "solution.backoffice.workspace-context",
+  "title": "Understand the Nodics Axis Workspace Context",
+  "route": "/docs/solutions/backoffice/workspace-context",
+  "section": "solutions",
+  "family": "runtime-behavior",
+  "parent": "section:solutions",
+  "order": 30,
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "security-reviewer"
+  ],
+  "readerIntent": "Understand the context displayed and enforced in an Axis deployment.",
+  "priorKnowledge": "Understand tenants, enterprises, Sites, catalogs, and employee sessions.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "Axis displays context; BackOffice and target modules resolve and enforce it",
+  "lastVerified": "2026-07-26",
+  "summary": "Axis presents friendly environment, tenant, enterprise, Site, Store, and catalog context while backend modules remain authoritative for every operation.",
+  "supportingEvidence": [
+    "nodics:gExp/backoffice/README.md",
+    "nodics:gCore/profile/README.md",
+    "nodics:gExp/storefront/README.md",
+    "nodics:gDocs/backoffice/how-to-use-axis-workspace-context.md"
+  ],
+  "sections": [
+    {
+      "heading": "Context fields",
+      "items": [
+        "Environment display name, never a raw implementation key alone.",
+        "Tenant code plus user-friendly name.",
+        "Enterprise code plus user-friendly name and parent label when applicable.",
+        "Site, Store, content catalog, product catalog, country, channel, locale, and currency where relevant.",
+        "Employee identity, permitted perspective, and active module capabilities."
+      ]
+    },
+    {
+      "heading": "Resolution and display example",
+      "items": [
+        "After employee authentication, Axis loads the authorized environment and workspace context from backend contracts. It displays friendly values such as Local, Default Tenant, Nodics Enterprise, Electronics Site, and Axis Content Catalog rather than raw keys alone.",
+        "A context selector searches permitted values and matching navigation entries. Selecting a country, Store, catalog, or perspective narrows subsequent requests but does not change the authenticated tenant silently.",
+        "Every direct module call carries the required trusted context and employee bearer. CMS, Profile, Pricing, Inventory, Cron, and other modules independently validate the audience, tenant, enterprise, permission, and requested resource.",
+        "Context labels and selectable options are backend metadata or content driven so partners can localize and customize them without embedding business rules in Axis."
+      ]
+    },
+    {
+      "heading": "Session restoration and change",
+      "items": [
+        "A browser refresh restores the employee session through the secure refresh contract and reloads authorized context. Axis does not store reusable bearer or refresh credentials in localStorage.",
+        "If a previously selected context is no longer active or permitted, restoration falls back to an authorized default or asks the employee to select again; it never preserves stale privilege.",
+        "Changing context clears or scopes cached page, search, assistant, and workbench state so records from the previous selection cannot appear under the new one.",
+        "Lock mode hides the workspace after configured inactivity but remains distinct from server token expiry, revocation, logout, and permission changes."
+      ]
+    },
+    {
+      "heading": "Rules",
+      "items": [
+        "One Axis deployment serves one customer project deployment, not several unrelated applications.",
+        "A browser selection can narrow valid context but cannot invent or broaden tenant scope.",
+        "Target modules verify the forwarded context and bearer on every call.",
+        "Refresh restores an active employee session securely rather than discarding context or persisting bearer credentials in browser storage."
+      ]
+    },
+    {
+      "heading": "Failure and acceptance",
+      "items": [
+        "Fail safely when registry discovery, Profile, CMS content, or a target module is unavailable. Recovery UI explains the affected capability and offers retry without pretending static data is authoritative.",
+        "Test duplicate codes across tenants, inactive enterprises and sites, cross-tenant selection, stale restored context, target denial, registry changes, direct module outage, and concurrent permission removal.",
+        "Verify responsive desktop and mobile-webview rendering, keyboard navigation, searchable selectors, friendly labels, localization, long descriptions, empty states, and protected diagnostic details.",
+        "Audit material context changes where business risk requires it, while ordinary navigation telemetry remains privacy-safe and avoids high-cardinality identifiers."
+      ]
+    },
+    {
+      "heading": "Who this guide is for",
+      "migratedFrom": "nodics:gDocs/backoffice/how-to-use-axis-workspace-context.md",
+      "sourceAnchor": "who-this-guide-is-for",
+      "paragraphs": [
+        "This guide is for business users, BackOffice administrators, operators, and partner developers using the implemented Nodics Axis dashboard.",
+        "Axis is the employee-only BackOffice application. It is not a customer storefront. The context bar tells an employee which governed business and content scope they are currently viewing before they start an operation."
+      ]
+    },
+    {
+      "heading": "What the context labels mean",
+      "migratedFrom": "nodics:gDocs/backoffice/how-to-use-axis-workspace-context.md",
+      "sourceAnchor": "what-the-context-labels-mean",
+      "paragraphs": [
+        "| Label | Plain-language meaning | Example |\n| --- | --- | --- |\n| Environment | The deployed Nodics environment serving this Axis application. | `Startio Local` |\n| Tenant | The isolated organization or platform partition that owns the current data boundary. | `Default` |\n| Enterprise | The business organization currently being administered inside the tenant. | `Default` |\n| Site | The CMS Site that resolves the current Axis pages and experience. | `Axis CMS Site` |\n| Catalog | The content catalog containing the current Axis pages and components. | `Axis Content Catalog` |",
+        "Axis converts technical identifiers such as `startioLocal` and `axisContentCatalog` into readable labels for display. This presentation change does not rename, rewrite, or replace the backend identifier. API requests, authorization checks, cache keys, audit records, and tenant isolation continue to use the exact backend-provided code."
+      ]
+    },
+    {
+      "heading": "Business-user workflow",
+      "migratedFrom": "nodics:gDocs/backoffice/how-to-use-axis-workspace-context.md",
+      "sourceAnchor": "business-user-workflow",
+      "paragraphs": [
+        "administer.",
+        "view or change.",
+        "The left navigation is grouped by business purpose. When more than one perspective is available, use **Perspective** to narrow the menu without changing authorization. **All work** restores every authorized destination. Use the star beside a destination to add or remove it from **Favourites**. Destinations opened recently appear as **Recent Items** inside Workspace. These two lists store only bounded module and navigation identifiers in the current browser; they never store employee tokens, tenant data, record data, or backend responses."
+      ],
+      "items": [
+        "Sign in with an authorized employee account.",
+        "Read all five context labels before opening a business module.",
+        "Confirm that the Tenant and Enterprise match the business you intend to",
+        "Confirm that Site and Catalog match the content experience you intend to",
+        "Open only an enabled module from the left navigation."
+      ]
+    },
+    {
+      "heading": "Left-navigation groups",
+      "migratedFrom": "nodics:gDocs/backoffice/how-to-use-axis-workspace-context.md",
+      "sourceAnchor": "left-navigation-groups",
+      "paragraphs": [
+        "Axis uses seven stable business groups. Each destination still belongs to, and is authorized by, the backend module that provides the functionality.",
+        "| Group | Available and planned destinations |\n| --- | --- |\n| Workspace | Dashboard, My Work, Assigned to Me, Approvals, Returned Work, Workflows I Started, Completed Work, Recent Items, and Favourites |\n| Content and Experience | Content, Pages, Components, Media, Page Templates, Content Catalogs, Storefronts, Sites, Domains, Store Bindings, Catalog Bindings, and Publishing |\n| Commerce | Products, Categories, Product Catalogs, Classifications, Bundles, Pricing, Price Lists, Price Groups, Stock, Stock Pools, Warehouses, Availability, Stores, Locations, Orders, and Carts |\n| Customers and Organization | Customers, Customer Segments, Employees, Roles, Permission Groups, Enterprises, and Business Units |\n| Process and Automation | Workflows, workflow definitions and instances, actions and failures, Scheduled Jobs, triggers, execution history, the future visual designer, and agentic processes |\n| Operations and Integration | Module Registry, Module Health, Integrations, Imports and Exports, Events, Audit Trail, and Operational Failures |\n| Administration | Schema Workbench, Axis and module configuration, Localization, Units, Security Policies, Themes and Branding, and System Information |",
+        "A grey or disabled destination communicates roadmap visibility only: its business screen is not yet available. It cannot be opened and does not imply API permission. An enabled destination is still subject to the owning module's authorization on every request. Partners extend the relevant module's `backofficeCapabilities.navigation` configuration instead of hardcoding a second menu inside Axis.",
+        "For the current implementation, the context bar is informational. It is not a tenant, enterprise, Site, or Catalog switcher. A future selector must use a governed backend context-switching contract; changing visible browser text must never change authority."
+      ]
+    },
+    {
+      "heading": "Expected and rejected behavior",
+      "migratedFrom": "nodics:gDocs/backoffice/how-to-use-axis-workspace-context.md",
+      "sourceAnchor": "expected-and-rejected-behavior",
+      "paragraphs": [
+        "This heading groups the detailed subsections that immediately follow."
+      ]
+    },
+    {
+      "heading": "Successful",
+      "migratedFrom": "nodics:gDocs/backoffice/how-to-use-axis-workspace-context.md",
+      "sourceAnchor": "successful",
+      "paragraphs": [
+        "An authorized employee opens the dashboard and sees readable context such as `Environment: Startio Local` and `Site: Axis CMS Site`. Axis still sends the original codes supplied by BackOffice and CMS when it calls backend APIs."
+      ]
+    },
+    {
+      "heading": "Unauthorized",
+      "migratedFrom": "nodics:gDocs/backoffice/how-to-use-axis-workspace-context.md",
+      "sourceAnchor": "unauthorized",
+      "paragraphs": [
+        "A hidden or disabled navigation entry does not grant or deny access. Every backend module independently authorizes the employee and tenant when an API is called."
+      ]
+    },
+    {
+      "heading": "Boundary",
+      "migratedFrom": "nodics:gDocs/backoffice/how-to-use-axis-workspace-context.md",
+      "sourceAnchor": "boundary",
+      "paragraphs": [
+        "Long translated labels may wrap or truncate through an accessible responsive presentation, but the underlying identifiers remain unchanged. At tablet and mobile widths, the context remains readable without horizontal page overflow."
+      ]
+    },
+    {
+      "heading": "Failure and recovery",
+      "migratedFrom": "nodics:gDocs/backoffice/how-to-use-axis-workspace-context.md",
+      "sourceAnchor": "failure-and-recovery",
+      "paragraphs": [
+        "If BackOffice or CMS cannot provide a validated context, Axis shows a recovery state instead of inventing a tenant, enterprise, Site, or Catalog. Retry uses the same authoritative bootstrap or CMS delivery contract."
+      ]
+    },
+    {
+      "heading": "Administrator and operator guidance",
+      "migratedFrom": "nodics:gDocs/backoffice/how-to-use-axis-workspace-context.md",
+      "sourceAnchor": "administrator-and-operator-guidance",
+      "paragraphs": [
+        "core-data contribution and CMS-owned schemas.",
+        "bootstrap, CMS delivery, and the employee's tenant and permissions."
+      ],
+      "items": [
+        "Maintain tenant and enterprise identity through Profile-owned contracts.",
+        "Maintain Axis Site, Catalog, pages, and components through the BackOffice",
+        "Do not edit the Axis frontend to change an authoritative code.",
+        "Do not treat a friendly label as proof of authorization.",
+        "Investigate an unexpected context by checking authenticated BackOffice"
+      ]
+    },
+    {
+      "heading": "Partner developer guidance",
+      "migratedFrom": "nodics:gDocs/backoffice/how-to-use-axis-workspace-context.md",
+      "sourceAnchor": "partner-developer-guidance",
+      "paragraphs": [
+        "Axis presentation may humanize a validated identifier for readability, but must retain the raw value separately. A display-name helper must:",
+        "keys, audit data, or telemetry dimensions;",
+        "Backend modules remain the authority for explicit business names and translations. Identifier humanization is only a safe fallback for presentation."
+      ],
+      "items": [
+        "operate only after the backend contract has been validated;",
+        "preserve common technical acronyms such as AI, API, CMS, ID, and UI;",
+        "never mutate request payloads, query keys, authorization context, storage",
+        "remain generic and must not contain project-specific identifier mappings;",
+        "allow a future backend-provided localized display name to take precedence."
+      ]
+    },
+    {
+      "heading": "Authentication-screen behavior",
+      "migratedFrom": "nodics:gDocs/backoffice/how-to-use-axis-workspace-context.md",
+      "sourceAnchor": "authentication-screen-behavior",
+      "paragraphs": [
+        "On desktop and tablet widths at or above the medium breakpoint, login, password recovery, and lock screens use a 60-percent dark brand panel and a 40-percent light interaction panel. Below that breakpoint, the decorative brand panel is hidden and the complete employee journey uses one full-width column. The responsive change must not remove form labels, assistance, legal content, keyboard access, or screen-reader information."
+      ]
+    },
+    {
+      "heading": "Verification",
+      "migratedFrom": "nodics:gDocs/backoffice/how-to-use-axis-workspace-context.md",
+      "sourceAnchor": "verification",
+      "paragraphs": [
+        "Frontend contributors run `npm run verify` in the Nodics Axis repository. Acceptance covers readable labels, preservation of raw identifiers, the 60/40 desktop split, single-column mobile behavior, keyboard accessibility, and absence of horizontal overflow.",
+        "Backend contributors run the BackOffice, CMS, Profile, cache, and topology contracts through the standard Nodics test suites. Browser presentation is not a replacement for backend tenant isolation or authorization tests."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/backoffice/how-to-use-axis-workspace-context.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "[BackOffice Browser Security](/docs/security/backoffice-browser-sessions)",
+        "[How Users, Tenants, And Permissions Work](/docs/security/users-tenants-permissions)",
+        "[How Cache Works](/docs/capabilities/caching)",
+        "[BackOffice module documentation](/docs/reference/backoffice)"
+      ]
+    }
+  ]
+}

@@ -6,7 +6,11 @@
   "family": "overview",
   "parent": "section:evaluate",
   "order": 10,
-  "audiences": ["evaluator", "business-user", "architect"],
+  "audiences": [
+    "evaluator",
+    "business-user",
+    "architect"
+  ],
   "readerIntent": "Relate implemented Nodics capabilities to business outcomes.",
   "priorKnowledge": "A general understanding of the intended business product is helpful.",
   "depth": "overview",
@@ -20,7 +24,18 @@
   ],
   "sections": [
     {
+      "heading": "What is Business Capabilities and Outcomes?",
+      "paragraphs": [
+        "A business capability describes an outcome an organization must reliably achieve, independent of a particular screen or source-code module. Examples include managing identity, publishing approved content, finding data, scheduling work, and maintaining stock availability.",
+        "This page translates Nodics technical capabilities into the time, governance, scalability, and operating outcomes that decision makers evaluate."
+      ]
+    },
+    {
       "heading": "Business outcomes",
+      "paragraphs": [
+        "Nodics capabilities are reusable building blocks rather than isolated features. Their business value appears when a product composes them under clear ownership—for example identity plus schemas, APIs, workflow, publishing, search, and operations.",
+        "The following outcomes describe what the platform structure enables. A project must still verify that the required capability maturity, configuration, scale, and operating model fit its use case."
+      ],
       "items": [
         "Shorter time to a governed minimum viable product.",
         "Reusable security, tenancy, data, integration, workflow, and operational foundations.",
@@ -39,10 +54,124 @@
       ]
     },
     {
+      "heading": "Identity, access, and organization",
+      "items": [
+        "Represent tenants, enterprises, employees, customers, groups, roles, permissions, contacts, addresses, and ownership relationships.",
+        "Authenticate human users through explicit login flows while keeping internal service and scheduled-process access separate.",
+        "Authorize each operation at the owning capability rather than trusting a frontend selection.",
+        "Support employee-facing BackOffice experiences without exposing them to consumer customer accounts.",
+        "Carry tenant and enterprise context across data, APIs, search, cache, workflow, import, export, and diagnostics."
+      ]
+    },
+    {
+      "heading": "Data, API, and integration",
+      "items": [
+        "Define business data through schemas and corresponding item and search models.",
+        "Expose validated CRUD and business operations through versioned routers, controllers, facades, and services.",
+        "Import and export governed data using provider-based formats while preserving owning-model validation.",
+        "Index and retrieve searchable projections without making the search engine the source of truth.",
+        "Integrate asynchronous systems through events and enterprise messaging providers."
+      ]
+    },
+    {
+      "heading": "Process automation and publishing",
+      "items": [
+        "Execute scheduled jobs with controlled ownership, node participation, retry, diagnostics, and access.",
+        "Model workflows as collections of actions where each action may be manual or automatic.",
+        "Route staged business changes through review and approval before publishing them to a separate online target.",
+        "Coordinate long-running pipelines and processors without blocking a browser request.",
+        "Preserve audit and failure evidence for operational and compliance review."
+      ]
+    },
+    {
+      "heading": "Content, commerce, and experience",
+      "items": [
+        "Manage catalogs, pages, templates, components, and site-specific content for several websites within one enterprise and tenant.",
+        "Model stores, storefronts, warehouses, stock pools, units, availability, pricing, products, and publishing as related but separately owned capabilities.",
+        "Serve staged authoring and online delivery through different systems or schemas where publishing is enabled.",
+        "Provide employee BackOffice discovery and schema-driven operations while target modules retain authority.",
+        "Deliver presentation data to separate responsive web applications without moving business logic into the frontend."
+      ]
+    },
+    {
+      "heading": "AI-assisted capabilities",
+      "items": [
+        "Use provider-neutral AI contracts with configurable adapters for supported model providers.",
+        "Build assistants that stream progress and responses to separate frontend clients.",
+        "Retrieve governed knowledge from documentation or configured Nodics models.",
+        "Control token budgets, provider selection, credentials, authorization, tools, audit, and cost.",
+        "Allow partners to extend AI behavior without exposing individual provider details to business callers."
+      ]
+    },
+    {
+      "heading": "Example composition",
+      "paragraphs": [
+        "Consider a multi-country retailer with Apparel and Electronics websites. Identity establishes the employee and tenant. Storefront resolves each hostname to its Site and Store. CMS supplies the correct content catalog. Product, pricing, and stock capabilities supply sellable information. Workflow approves staged changes, publishing transfers them to online systems, cache and search accelerate reads, and Axis provides employee operations.",
+        "No single module owns the entire retailer. Each capability owns its contracts and the project composes them. This is the central Nodics business-platform model."
+      ]
+    },
+    {
+      "heading": "Capability maturity and limitations",
+      "paragraphs": [
+        "Implemented does not mean every production requirement is configured automatically. Provider maturity, scale limits, operational runbooks, optional modules, and project-specific business rules differ by capability. Follow the maturity and technical-reference evidence before treating a capability as production-ready for a particular workload.",
+        "Planned features remain outside this canonical content pack until their implementation and verification exist."
+      ]
+    },
+    {
       "heading": "Important evaluation rule",
       "paragraphs": [
-        "A documentation claim is not proof by itself. Follow its evidence links to the current contracts, configuration, source, and tests before using the claim in an architecture or procurement decision."
+        "A documentation claim is not proof by itself. Follow its evidence links to the current contracts, configuration, source, and tests before using the claim in an architecture or procurement decision. Validate one representative end-to-end scenario, including rejected, boundary, integration, recovery, and regression behavior."
+      ]
+    },
+    {
+      "heading": "Complete guide: Business Capabilities And Outcomes",
+      "migratedFrom": "nodics:gDocs/business/business-capabilities-and-outcomes.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "Nodics groups common enterprise application needs into reusable capabilities. The table below translates those technical capabilities into business outcomes.",
+        "| Business need | Nodics capability | Intended outcome |\n| --- | --- | --- |\n| Launch APIs and business services | Governed modules, schemas, services, routes, and generated contracts | Deliver new functionality through repeatable patterns. |\n| Serve several organizations or customers | Tenant-aware identity, configuration, data, and permissions | Share a platform while keeping customer context and policy explicit. |\n| Offer controlled customer variation | Layered modules and runtime configuration | Customize without creating an unmaintainable fork for every customer. |\n| Manage users and access | Users, groups, permissions, authentication, tokens, and access policy | Make access decisions visible, testable, and consistently enforced. |\n| Automate recurring work | Scheduled-job and lifecycle capabilities | Run governed background work with operational visibility. |\n| Connect systems and move data | Events, messaging, import, export, APIs, and provider modules | Integrate without placing every external concern inside business logic. |\n| Find and organize information | Search, catalog, CMS, and content capabilities | Build discoverable product and content experiences over governed APIs. |\n| Coordinate complex operations | Pipelines and workflows | Make multi-step business processing explicit and testable. |\n| Operate safely | Logging, diagnostics, audit, validation, rollback, and topology contracts | Detect problems and change behavior with clearer evidence and control. |\n| Evolve infrastructure | Replaceable cache, database, search, and messaging providers | Change implementation choices without changing the meaning of the capability. |\n| Improve engineering consistency | Generated artifacts, tests, documentation contracts, and AI guidance | Reduce variation between teams and AI-assisted changes. |"
+      ]
+    },
+    {
+      "heading": "What Is Available Versus What Is Appropriate",
+      "migratedFrom": "nodics:gDocs/business/business-capabilities-and-outcomes.md",
+      "sourceAnchor": "what-is-available-versus-what-is-appropriate",
+      "paragraphs": [
+        "The presence of a module does not automatically mean that every provider is ready for every production workload. Some modules are complete platform capabilities; some providers are guarded, examples, scaffolds, or planned extension points.",
+        "Use the [Provider And Capability Maturity Matrix](/docs/reference/maturity) before selecting a provider. Then verify the chosen capability against your security, availability, performance, data, compliance, and support needs."
+      ]
+    },
+    {
+      "heading": "Questions For Business Stakeholders",
+      "migratedFrom": "nodics:gDocs/business/business-capabilities-and-outcomes.md",
+      "sourceAnchor": "questions-for-business-stakeholders",
+      "paragraphs": [
+        "the delivery budget?",
+        "recovery, and testing?",
+        "The answers help determine whether Nodics' structure creates enough long-term value to justify its learning and governance cost."
+      ],
+      "items": [
+        "Which capabilities make the product different from competitors?",
+        "Which capabilities are necessary foundations but should not consume most of",
+        "Which customer variations are expected during the next two years?",
+        "Which integrations or providers may change?",
+        "What evidence will enterprise customers require for access, audit, tenancy,",
+        "Which parts may need independent scaling or deployment?"
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/business/business-capabilities-and-outcomes.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "Previous: [Why Businesses Choose Nodics](/docs/evaluate/why-nodics)",
+        "Next: [How Nodics Compares](/docs/evaluate/comparison)",
+        "Capability details: [Module Documentation Index](/docs/reference/modules)",
+        "Documentation home: [Nodics Documentation](/docs)"
       ]
     }
+  ],
+  "supportingEvidence": [
+    "nodics:gDocs/business/business-capabilities-and-outcomes.md"
   ]
 }

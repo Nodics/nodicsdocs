@@ -1,1 +1,84 @@
-{"code":"capability.identity-security.overview","title":"Identity and Security Boundaries","route":"/docs/capabilities/identity-security","section":"security","family":"overview-business-value","parent":"section:security","order":10,"audiences":["evaluator","business-user","administrator","developer","architect","security-reviewer","operator","ai-tool"],"readerIntent":"Understand who may access each Nodics surface and why credential flows remain separate.","priorKnowledge":"No technical knowledge is required.","depth":"overview","status":"implemented","owner":"Profile owns persisted identities; nAuth owns reusable credential security; every target module owns authorization","lastVerified":"2026-07-26","summary":"Axis employees, consumer customers, and internal modules or scheduled processes are three distinct security boundaries with different credentials, audiences, permissions, and lifecycle rules.","supportingEvidence":["nodics:gCore/profile/README.md","nodics:gFramework/nAuth/README.md"],"sections":[{"heading":"Three non-interchangeable boundaries","items":["Employee: human login and access token for permitted BackOffice operations; Axis is never for customer accounts.","Customer: human login and ownership-scoped access to consumer application capabilities.","Module or scheduled process: service principal, API key, and bounded internal service token; never a person's username/password or bearer session."]},{"heading":"Independent gates","items":["Authentication proves the caller identity and credential validity.","Authorization decides whether that principal may perform the target action.","Tenant and ownership policy constrain which records and fields are reachable.","API exposure decides whether a sensitive route family exists in the topology.","Business validation still governs the requested transition."]},{"heading":"Continue","items":["[Authentication and Session Lifecycle](/docs/capabilities/identity-security/authentication)","[Authorization and Ownership](/docs/capabilities/identity-security/authorization)","[Tenants, Enterprises, and Identity Models](/docs/capabilities/identity-security/tenancy)","[Security Governance and Production Evidence](/docs/capabilities/identity-security/governance)"]}]}
+{
+  "code": "capability.identity-security.overview",
+  "title": "Identity and Security Boundaries",
+  "route": "/docs/capabilities/identity-security",
+  "section": "security",
+  "family": "overview",
+  "parent": "section:security",
+  "order": 10,
+  "audiences": [
+    "evaluator",
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "security-reviewer",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Understand who may access each Nodics surface and why credential flows remain separate.",
+  "priorKnowledge": "No technical knowledge is required.",
+  "depth": "overview",
+  "status": "implemented",
+  "owner": "Profile owns persisted identities; nAuth owns reusable credential security; every target module owns authorization",
+  "lastVerified": "2026-07-26",
+  "summary": "Axis employees, consumer customers, and internal modules or scheduled processes are three distinct security boundaries with different credentials, audiences, permissions, and lifecycle rules.",
+  "supportingEvidence": [
+    "nodics:gCore/profile/README.md",
+    "nodics:gFramework/nAuth/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "What is Identity and Security Boundaries?",
+      "paragraphs": [
+        "Identity answers who or what is calling; authentication proves that claim; authorization decides which action the authenticated caller may perform. These controls protect tenant data and business operations across humans, modules, scheduled jobs, and external clients.",
+        "A building badge is a useful analogy: showing a valid badge proves identity, but access to a specific room still depends on the permissions assigned to that badge."
+      ]
+    },
+    {
+      "heading": "Three non-interchangeable boundaries",
+      "items": [
+        "Employee: human login and access token for permitted BackOffice operations; Axis is never for customer accounts.",
+        "Customer: human login and ownership-scoped access to consumer application capabilities.",
+        "Module or scheduled process: service principal, API key, and bounded internal service token; never a person's username/password or bearer session."
+      ]
+    },
+    {
+      "heading": "Independent gates",
+      "items": [
+        "Authentication proves the caller identity and credential validity.",
+        "Authorization decides whether that principal may perform the target action.",
+        "Tenant and ownership policy constrain which records and fields are reachable.",
+        "API exposure decides whether a sensitive route family exists in the topology.",
+        "Business validation still governs the requested transition."
+      ]
+    },
+    {
+      "heading": "A request from identity to business outcome",
+      "items": [
+        "A caller first reaches an exposed route in a known environment and tenant context. The request pipeline parses only the credential type allowed by that route and rejects malformed, missing, expired, revoked, or wrong-audience credentials.",
+        "After identity is established, permission, group, schema action, field, ownership, tenant, enterprise, and business rules are evaluated independently. Passing one gate never implies that another gate can be skipped.",
+        "The owning module performs the final authorization and validation even when Axis, Assistant, a workflow, or another module initiated the request. Intermediaries cannot convert discovery access into business authority.",
+        "Successful and denied outcomes emit safe correlation evidence. Logs and responses must not disclose passwords, tokens, API keys, personal data, internal paths, or policy details useful to an attacker."
+      ]
+    },
+    {
+      "heading": "Business value and design principles",
+      "items": [
+        "Separate employee, customer, and service identities prevent a convenient credential from becoming a universal platform key. Each audience receives the minimum lifecycle and permissions required for its purpose.",
+        "Tenant and ownership enforcement support shared infrastructure without treating a query filter as the only isolation boundary. Route, service, model, cache, search, event, import, and audit behavior preserve context.",
+        "Configuration and layered policy let partners add groups, permissions, routes, and stricter constraints without editing framework schema closures or creating a second security authority.",
+        "Security readiness requires evidence for positive use, denial, boundary, distributed races, outages, rotation, recovery, upgrade, and regression—not merely a successful login demonstration."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "items": [
+        "Authentication and Session Lifecycle",
+        "Authorization and Ownership",
+        "Tenants, Enterprises, and Identity Models",
+        "Security Governance and Production Evidence"
+      ]
+    }
+  ]
+}

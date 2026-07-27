@@ -1,1 +1,108 @@
-{"code":"capability.content-publishing.runtime","title":"Publishing Lifecycle, Rollback, and Operations","route":"/docs/capabilities/content-publishing/runtime","section":"operations","family":"runtime-operations","parent":"page:capability.content-publishing.overview","order":10,"audiences":["business-user","administrator","developer","architect","operator","ai-tool"],"readerIntent":"Configure, execute, observe, and recover publication.","priorKnowledge":"Know the domain adapter, workflow, versions, dependencies, and Online target.","depth":"implementation","status":"implemented","owner":"nPublish lifecycle plus owning workflow, version, domain, and deployment providers","lastVerified":"2026-07-26","summary":"Publication requests move through staged, validation, approval, activation, online, failure, and rollback states with optimistic revision and immutable transition evidence.","supportingEvidence":["nodics:gFramework/nPublish/README.md"],"sections":[{"heading":"Governed lifecycle","items":["Create request for exact tenant, domain, items, versions, and target.","Validate source state, dependencies, manifest, target readiness, and authorization.","Obtain workflow decision without duplicating workflow state.","Activate through the configured domain and target adapters.","Record atomic journal and query-oriented audit projection.","Reconcile missing projections and refresh derived cache/search/export behavior.","Rollback through an auditable previous-version deployment where supported."]},{"heading":"Failure boundaries","items":["Optimistic revision and idempotent terminal replay prevent accidental duplicate transitions.","Target timeout may leave unknown completion; reconcile before retry.","External effects require business compensation; database rollback alone is insufficient.","Never bypass target transport, write Online storage directly, or publish an unapproved mutable record."]},{"heading":"Evidence","items":["Stage, validate, approve/reject, activate, visible online, cache/search refresh, duplicate, stale revision, dependency failure, target outage, retry, reconciliation, rollback, tenant isolation, security, performance, integration, and regression tests."]}]}
+{
+  "code": "capability.content-publishing.runtime",
+  "title": "Publishing Lifecycle, Rollback, and Operations",
+  "route": "/docs/capabilities/content-publishing/runtime",
+  "section": "operations",
+  "family": "operations-security-troubleshooting",
+  "parent": "page:capability.content-publishing.overview",
+  "order": 10,
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Configure, execute, observe, and recover publication.",
+  "priorKnowledge": "Know the domain adapter, workflow, versions, dependencies, and Online target.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "nPublish lifecycle plus owning workflow, version, domain, and deployment providers",
+  "lastVerified": "2026-07-26",
+  "summary": "Publication requests move through staged, validation, approval, activation, online, failure, and rollback states with optimistic revision and immutable transition evidence.",
+  "supportingEvidence": [
+    "nodics:gFramework/nPublish/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Governed lifecycle",
+      "items": [
+        "Create request for exact tenant, domain, items, versions, and target.",
+        "Validate source state, dependencies, manifest, target readiness, and authorization.",
+        "Obtain workflow decision without duplicating workflow state.",
+        "Activate through the configured domain and target adapters.",
+        "Record atomic journal and query-oriented audit projection.",
+        "Reconcile missing projections and refresh derived cache/search/export behavior.",
+        "Rollback through an auditable previous-version deployment where supported."
+      ]
+    },
+    {
+      "heading": "Failure boundaries",
+      "items": [
+        "Optimistic revision and idempotent terminal replay prevent accidental duplicate transitions.",
+        "Target timeout may leave unknown completion; reconcile before retry.",
+        "External effects require business compensation; database rollback alone is insufficient.",
+        "Never bypass target transport, write Online storage directly, or publish an unapproved mutable record."
+      ]
+    },
+    {
+      "heading": "Manifest and dependency validation",
+      "items": [
+        "Exact source version and checksum for each item.",
+        "Tenant, catalog, site, store, country, channel, locale, and target.",
+        "Required related content, media, product, price, stock, and configuration.",
+        "Workflow approval identity and decision.",
+        "Target schema and adapter compatibility.",
+        "Request revision and idempotency identity."
+      ]
+    },
+    {
+      "heading": "Target deployment",
+      "paragraphs": [
+        "The domain adapter converts the approved staged representation to the target contract. Authenticated transport calls the online capability, which validates and persists its own data.",
+        "The journal records request, attempt, target response, and reconciliation state without exposing credentials or sensitive payloads."
+      ]
+    },
+    {
+      "heading": "Cache, search, and visibility",
+      "paragraphs": [
+        "Online visibility is complete only when target data is authoritative and required cache/search projections have reached the documented consistency point. A successful transport response alone may not mean storefront visibility.",
+        "Post-deployment failures remain observable and reconcilable through Cache and Search contracts."
+      ]
+    },
+    {
+      "heading": "Rollback and compensation",
+      "items": [
+        "Select an approved previous version and create a new governed deployment.",
+        "Validate that current dependencies still allow rollback.",
+        "Use optimistic revision so rollback cannot overwrite a newer decision silently.",
+        "Reconcile target, cache, search, and event outcomes.",
+        "Record business reason, actor, result, and any manual compensation."
+      ]
+    },
+    {
+      "heading": "Operations",
+      "items": [
+        "Monitor requests by state, domain, target, tenant, age, and safe outcome.",
+        "Alert on stuck approval, validation failure, target timeout, unknown completion, and projection lag.",
+        "Provide authorized retry, reconcile, cancel, and rollback procedures.",
+        "Control concurrency and dependency ordering for large change sets.",
+        "Retain journal and audit evidence according to policy."
+      ]
+    },
+    {
+      "heading": "Evidence",
+      "items": [
+        "Stage, validate, approve/reject, activate, visible online, cache/search refresh, duplicate, stale revision, dependency failure, target outage, retry, reconciliation, rollback, tenant isolation, security, performance, integration, and regression tests."
+      ]
+    },
+    {
+      "heading": "Configuration and extension",
+      "paragraphs": [
+        "Versioning enablement, domain mappings, target aliases, timeouts, retry, concurrency, and retention belong to owned properties. Credentials remain in secret management.",
+        "New domains implement adapters and dependency rules behind nPublish. They do not create another publication lifecycle."
+      ]
+    }
+  ]
+}

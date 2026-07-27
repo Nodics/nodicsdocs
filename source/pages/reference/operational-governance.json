@@ -1,1 +1,79 @@
-{"code":"capability.operational-governance.technical-reference","title":"Operational Governance Technical Reference","route":"/docs/reference/operational-governance","section":"reference","family":"technical-reference","parent":"page:capability.operational-governance.overview","order":20,"audiences":["developer","architect","security-reviewer","operator","framework-maintainer","ai-tool"],"readerIntent":"Audit lifecycle, observability, runtime governance, and operational evidence.","priorKnowledge":"Read the operational-governance journey.","depth":"reference","status":"implemented","owner":"Runtime lifecycle, diagnostics, audit, health, and nDynamo contracts","lastVerified":"2026-07-26","summary":"Every operational capability defines readiness, bounded lifecycle, safe signals, authority, failure, recovery, retention, and tests.","supportingEvidence":["nodics:gFramework/nConfig/docs/runtime-lifecycle-resilience-contract.md","nodics:gFramework/nDynamo/README.md"],"sections":[{"heading":"Checklist","items":["Owned resource, contributor name/order/deadline, required/optional dependency, readiness, drain, shutdown, and cleanup.","Trace/correlation, tenant, module, operation, safe outcomes, metrics cardinality, audit, masking, retention, and alerts.","Preview, approval, actor separation, digest/revision, activation, conflict, cleanup, rollback, backup, and restore.","Positive, negative, timeout, restart, hard-failure, contract, integration, distributed topology, security, load, incident-recovery, and regression tests."]}]}
+{
+  "code": "capability.operational-governance.technical-reference",
+  "title": "Operational Governance Technical Reference",
+  "route": "/docs/reference/operational-governance",
+  "section": "reference",
+  "family": "technical-reference",
+  "parent": "page:capability.operational-governance.overview",
+  "order": 20,
+  "audiences": [
+    "developer",
+    "architect",
+    "security-reviewer",
+    "operator",
+    "framework-maintainer",
+    "ai-tool"
+  ],
+  "readerIntent": "Audit lifecycle, observability, runtime governance, and operational evidence.",
+  "priorKnowledge": "Read the operational-governance journey.",
+  "depth": "reference",
+  "status": "implemented",
+  "owner": "Runtime lifecycle, diagnostics, audit, health, and nDynamo contracts",
+  "lastVerified": "2026-07-26",
+  "summary": "Every operational capability defines readiness, bounded lifecycle, safe signals, authority, failure, recovery, retention, and tests.",
+  "supportingEvidence": [
+    "nodics:gFramework/nConfig/docs/runtime-lifecycle-resilience-contract.md",
+    "nodics:gFramework/nDynamo/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Lifecycle states and authority",
+      "items": [
+        "nConfig owns process start, readiness transition, signal handling, drain, shutdown, and terminal state. Modules contribute bounded hooks but cannot create competing lifecycle coordinators.",
+        "Liveness states that the process exists; readiness states that composed required modules can accept work. Degraded optional control-plane integrations do not automatically block customer traffic.",
+        "Lifecycle identity names environment, server, node, process, module, provider, state, revision, timestamp, and safe reason category."
+      ]
+    },
+    {
+      "heading": "Startup, drain, and shutdown",
+      "items": [
+        "Classify dependencies as required or optional, initialize required authority before readiness, and recover optional registration or observation asynchronously with bounded backoff.",
+        "SIGTERM and SIGINT mark readiness false, reject new work, stop claims, drain within deadline, close resources in dependency order, and preserve recoverable state.",
+        "SIGKILL and hard OOM cannot run hooks; replicas, external supervision, durable leases, idempotency, and reconciliation provide resilience."
+      ]
+    },
+    {
+      "heading": "Governed runtime changes",
+      "items": [
+        "Only explicitly supported mutable contracts enter nDynamo governance. Static layered configuration, secrets, code, and prototype-sensitive paths remain outside runtime mutation.",
+        "Preview calculates impact without side effects; approval binds actor and immutable digest; activation validates scope and revision; audit records outcome; rollback uses the same owner.",
+        "BackOffice, CLI, MCP, and AI tools invoke governance APIs and display evidence but never write governed persistence directly."
+      ]
+    },
+    {
+      "heading": "Observability and incidents",
+      "items": [
+        "Correlate request, job, event, workflow, publication, import, provider call, configuration activation, and target outcome using safe bounded context.",
+        "Logs explain events, metrics expose trends, traces show paths, health reports service state, and audit proves governed intent; none replaces the owning business record.",
+        "Incident flow detects, assesses customer impact, contains, preserves evidence, recovers authority, reconciles derived state, verifies outcome, and documents prevention."
+      ]
+    },
+    {
+      "heading": "Verification checklist",
+      "items": [
+        "Test clean and partial startup, ambiguous topology, required and optional outages, rolling restart, repeated signals, stuck work, lease takeover, crash, and recovery.",
+        "Test runtime preview, stale digest, unauthorized approval, concurrent activation, forbidden path, owner failure, audit, rollback, and multi-node visibility.",
+        "Measure startup, readiness, drain, hook, backlog, lease, retry, reconciliation, and activation behavior; document alerts, runbooks, service objectives, and known limitations."
+      ]
+    },
+    {
+      "heading": "Checklist",
+      "items": [
+        "Owned resource, contributor name/order/deadline, required/optional dependency, readiness, drain, shutdown, and cleanup.",
+        "Trace/correlation, tenant, module, operation, safe outcomes, metrics cardinality, audit, masking, retention, and alerts.",
+        "Preview, approval, actor separation, digest/revision, activation, conflict, cleanup, rollback, backup, and restore.",
+        "Positive, negative, timeout, restart, hard-failure, contract, integration, distributed topology, security, load, incident-recovery, and regression tests."
+      ]
+    }
+  ]
+}

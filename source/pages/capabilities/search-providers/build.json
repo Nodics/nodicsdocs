@@ -6,7 +6,12 @@
   "family": "configuration-customization",
   "parent": "page:capability.search-indexing.overview",
   "order": 20,
-  "audiences": ["developer", "architect", "framework-maintainer", "ai-tool"],
+  "audiences": [
+    "developer",
+    "architect",
+    "framework-maintainer",
+    "ai-tool"
+  ],
   "readerIntent": "Implement another search engine without changing provider-neutral callers.",
   "priorKnowledge": "Understand Nodics layering, provider modules, search models, pipelines, configuration, and tests.",
   "depth": "implementation",
@@ -20,6 +25,14 @@
     "nodics:gFramework/nSearch/elastic/README.md"
   ],
   "sections": [
+    {
+      "heading": "Partner handoff",
+      "items": [
+        "Document supported operations, configuration, secret references, mappings, limits, unsupported behavior, local setup, production qualification, monitoring, backup, recovery, upgrade, and removal.",
+        "Register through nSearch and keep provider SDK types inside the adapter. Existing business schemas, search models, import/export, and callers must remain unchanged.",
+        "Prove that disabling the adapter restores the previous configured provider path without orphaned authority or a parallel loader."
+      ]
+    },
     {
       "heading": "Required module responsibilities",
       "items": [

@@ -1,1 +1,78 @@
-{"code":"solution.backoffice.technical-reference","title":"BackOffice Technical Reference","route":"/docs/reference/backoffice","section":"reference","family":"technical-reference","parent":"page:solution.backoffice.schema-workbench","order":40,"audiences":["developer","architect","security-reviewer","operator","framework-maintainer","ai-tool"],"readerIntent":"Audit BackOffice registration, discovery, content, security, and direct-module interaction.","priorKnowledge":"Read BackOffice solution pages.","depth":"reference","status":"implemented","owner":"gExp/backoffice backend contracts and separate Axis frontend repository","lastVerified":"2026-07-26","summary":"BackOffice owns registry/control-plane contracts and CMS seed content; Axis owns responsive renderers; business modules own APIs, data, validation, authorization, and execution.","supportingEvidence":["nodics:gExp/backoffice/README.md"],"sections":[{"heading":"Architecture","items":["Modules register asynchronously at startup with logical endpoint, capabilities, contract version, lease, and safe instance metadata.","Registry is persistent logical state plus expiring runtime presence, not a load balancer or data proxy.","Axis discovers authorized modules, then calls CMS, Profile, CronJob, NEMS, DEAP, Assistant, and other modules directly.","CMS content defines pages/components/labels; Axis maps stable renderer keys one component per renderer file.","Frontend contains no business rules, database access, or backend runtime."]},{"heading":"Security and tests","items":["Employee-only browser session, exact CORS/CSRF, HttpOnly refresh, in-memory access token, target authorization, module/service credential separation.","Registration retry/recovery, stale lease, duplicate instance, mono/distributed topology, CMS fallback, contract drift, direct-module outage, responsive/webview, accessibility, positive, negative, boundary, integration, and regression tests."]}]}
+{
+  "code": "solution.backoffice.technical-reference",
+  "title": "BackOffice Technical Reference",
+  "route": "/docs/reference/backoffice",
+  "section": "reference",
+  "family": "technical-reference",
+  "parent": "page:solution.backoffice.schema-workbench",
+  "order": 40,
+  "audiences": [
+    "developer",
+    "architect",
+    "security-reviewer",
+    "operator",
+    "framework-maintainer",
+    "ai-tool"
+  ],
+  "readerIntent": "Audit BackOffice registration, discovery, content, security, and direct-module interaction.",
+  "priorKnowledge": "Read BackOffice solution pages.",
+  "depth": "reference",
+  "status": "implemented",
+  "owner": "gExp/backoffice backend contracts and separate Axis frontend repository",
+  "lastVerified": "2026-07-26",
+  "summary": "BackOffice owns registry/control-plane contracts and CMS seed content; Axis owns responsive renderers; business modules own APIs, data, validation, authorization, and execution.",
+  "supportingEvidence": [
+    "nodics:gExp/backoffice/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Repository and runtime boundaries",
+      "items": [
+        "Nodics is backend and API authority; nodicsaxis is a separate responsive React web client; each customer project deploys its own Axis instance.",
+        "Axis contains renderers, interaction, accessibility, session presentation, and generated clients but no business persistence, provider credentials, module startup, or authorization decisions.",
+        "Backend page and component content supplies labels, help, localization, and layout definitions while stable renderer keys map to small dedicated frontend files."
+      ]
+    },
+    {
+      "heading": "Registry and direct modules",
+      "items": [
+        "Modules register asynchronously with BackOffice after startup using service identity, logical endpoints, capabilities, contract version, lease, and safe instance metadata.",
+        "Persistent logical registration survives restarts while expiring presence represents current instances. Registration outage is optional control-plane degradation and retries without request-path latency.",
+        "Axis discovers authorized modules through BackOffice, then calls Profile, CMS, Cron, Inventory, Pricing, Assistant, and other owning modules directly."
+      ]
+    },
+    {
+      "heading": "Content, workbench, and assistant",
+      "items": [
+        "axisContentCatalog supplies login, recovery, lock, dashboard, navigation, workbench, documentation, and assistant presentation content and is imported idempotently as governed data.",
+        "Schema Workbench discovers authorized models, searches friendly code and description, invokes CRUD routes, and supports select-existing or nested creation across module relationships.",
+        "Axis Assistant streams conversations over authenticated SSE, retrieves governed evidence, proposes approved tools, obtains confirmation, and leaves target and Workflow authority intact."
+      ]
+    },
+    {
+      "heading": "Operations and acceptance",
+      "items": [
+        "Test secure login and refresh, lock and logout, registry recovery, CMS fallback, direct-module denial, session context, navigation, responsive mobile webview, accessibility, and localization.",
+        "Test writable and read-only schemas, nested relations, tenant isolation, assistant reconnect and cancellation, contract drift, monoServer, distributed modules, outage, recovery, and load.",
+        "Document customer setup in nodicsaxis while full business/user capability guidance remains with Nodics backend documentation and authoritative content."
+      ]
+    },
+    {
+      "heading": "Architecture",
+      "items": [
+        "Modules register asynchronously at startup with logical endpoint, capabilities, contract version, lease, and safe instance metadata.",
+        "Registry is persistent logical state plus expiring runtime presence, not a load balancer or data proxy.",
+        "Axis discovers authorized modules, then calls CMS, Profile, CronJob, NEMS, DEAP, Assistant, and other modules directly.",
+        "CMS content defines pages/components/labels; Axis maps stable renderer keys one component per renderer file.",
+        "Frontend contains no business rules, database access, or backend runtime."
+      ]
+    },
+    {
+      "heading": "Security and tests",
+      "items": [
+        "Employee-only browser session, exact CORS/CSRF, HttpOnly refresh, in-memory access token, target authorization, module/service credential separation.",
+        "Registration retry/recovery, stale lease, duplicate instance, mono/distributed topology, CMS fallback, contract drift, direct-module outage, responsive/webview, accessibility, positive, negative, boundary, integration, and regression tests."
+      ]
+    }
+  ]
+}

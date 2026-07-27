@@ -6,7 +6,13 @@
   "family": "technical-reference",
   "parent": "page:capability.validation.overview",
   "order": 40,
-  "audiences": ["developer", "architect", "security-reviewer", "framework-maintainer", "ai-tool"],
+  "audiences": [
+    "developer",
+    "architect",
+    "security-reviewer",
+    "framework-maintainer",
+    "ai-tool"
+  ],
   "readerIntent": "Audit validation placement, extension, status handling, and test completeness.",
   "priorKnowledge": "Read the validation journey.",
   "depth": "reference",
@@ -14,8 +20,45 @@
   "owner": "Owning capabilities plus shared validation, policy, pipeline, and status contracts",
   "lastVerified": "2026-07-26",
   "summary": "A complete rule identifies its authority, execution boundary, configuration, stable failure contract, observability, and cross-entry-path evidence.",
-  "supportingEvidence": ["nodics:gFramework/nData/README.md", "nodics:gFramework/nRouter/README.md", "nodics:gFramework/nDynamo/README.md", "nodics:gFramework/nService/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nData/README.md",
+    "nodics:gFramework/nRouter/README.md",
+    "nodics:gFramework/nDynamo/README.md",
+    "nodics:gFramework/nService/README.md"
+  ],
   "sections": [
+    {
+      "heading": "Validation layers",
+      "items": [
+        "Transport validation checks shape and limits; schema validation checks types and constraints; authorization checks principal policy; services enforce business invariants and transitions.",
+        "Provider adapters validate technology-specific capability and mapping behind provider-neutral contracts. Frontend validation improves feedback but never replaces backend enforcement.",
+        "Each rule has one authority and all create, update, import, workflow, event, assistant, and scheduled entry paths reach it."
+      ]
+    },
+    {
+      "heading": "Declarative and behavioral placement",
+      "items": [
+        "Place stable field type, required, range, format, default, immutability, and relationship constraints in schema declarations.",
+        "Place cross-record, state-transition, external evidence, concurrency, and context-dependent rules in owning services or supported interceptors.",
+        "Keep reusable policy names and thresholds in properties.js so customer layers can extend them without editing schema closures."
+      ]
+    },
+    {
+      "heading": "Errors and security",
+      "items": [
+        "Return stable registered codes and field-safe messages while preserving causal details in protected diagnostics with correlation.",
+        "Do not reveal masked fields, credentials, existence of unauthorized records, internal paths, stacks, queries, or provider payloads.",
+        "Normalize and reject unknown fields, prototype-sensitive paths, unsupported operators, oversized collections, and ambiguous related references."
+      ]
+    },
+    {
+      "heading": "Verification and evolution",
+      "items": [
+        "Test valid, invalid, missing, empty, minimum, maximum, malformed, malicious, duplicate, concurrent, cross-tenant, ownership, and field-mask cases.",
+        "Exercise every entry path plus import/export, publishing, search, cache, workflow, events, scheduled jobs, assistant tools, migration, and legacy records.",
+        "A changed rule includes compatibility, data assessment, migration, rollback, layered customization, documentation, and regression evidence."
+      ]
+    },
     {
       "heading": "Implementation checklist",
       "items": [

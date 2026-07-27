@@ -17,39 +17,34 @@
       "order": 30
     },
     {
-      "code": "framework",
-      "title": "Learn the Framework",
-      "order": 40
-    },
-    {
       "code": "capabilities",
       "title": "Platform Capabilities",
-      "order": 50
+      "order": 40
     },
     {
       "code": "solutions",
       "title": "Business Solutions",
-      "order": 60
+      "order": 50
     },
     {
       "code": "build",
       "title": "Build and Extend",
-      "order": 70
+      "order": 60
     },
     {
       "code": "security",
       "title": "Secure and Govern",
-      "order": 80
+      "order": 70
     },
     {
       "code": "operations",
       "title": "Deploy and Operate",
-      "order": 90
+      "order": 80
     },
     {
       "code": "reference",
       "title": "Reference",
-      "order": 100
+      "order": 90
     }
   ],
   "capabilities": [

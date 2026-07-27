@@ -70,14 +70,55 @@ test('generated articles come from canonical source and keep their internal link
     assert(pathBlock, 'Expected canonical next-path links');
     assert(pathBlock.items.every(item => item.includes('](/docs/')));
     assert.strictEqual(article.properties.source.authority, 'nodicsdocs/source/pages');
-    assert.deepStrictEqual(
-        article.properties.links.map(link => link.label),
-        [
-            'Evaluate Nodics for an organization',
-            'Set up Nodics locally',
-            'Learn how the framework is organized'
-        ]
+    const labels = article.properties.links.map(link => link.label);
+    [
+        'Evaluate Nodics for an organization',
+        'Understand why teams choose Nodics',
+        'Review security and trust',
+        'Set up Nodics locally',
+        'Learn how the framework is organized',
+        'Explore Nodics as Data as a Service'
+    ].forEach(label => assert(labels.includes(label), `Expected canonical link: ${label}`));
+    assert(
+        article.properties.links.length > 6,
+        'Expected preserved detailed guides to retain their canonicalized internal links'
     );
+});
+
+test('generated articles preserve every reviewed image as a safe structured block', () => {
+    const components = records('data/core/data/documentation/nodicsDocumentationComponentData.js');
+    const images = components.flatMap(record => record.properties?.blocks || [])
+        .filter(block => block.kind === 'image');
+
+    assert.strictEqual(images.length, 21);
+    images.forEach(image => {
+        assert(image.alt);
+        assert.match(image.source, /^data:image\/(?:jpeg|png);base64,[A-Za-z0-9+/=]+$/);
+        assert(['image/jpeg', 'image/png'].includes(image.mimeType));
+        assert.match(image.contentHash, /^[a-f0-9]{64}$/);
+    });
+});
+
+test('generated articles convert fenced code and Markdown tables into structured blocks', () => {
+    const components = records('data/core/data/documentation/nodicsDocumentationComponentData.js');
+    const blocks = components.flatMap(record => record.properties?.blocks || []);
+    const overview = components.find(record =>
+        record.properties?.route === '/docs/discover/what-is-nodics'
+    );
+
+    assert(blocks.some(block => block.kind === 'code' && block.text === 'npm ci'));
+    assert(blocks.some(block => block.kind === 'table'));
+    assert(
+        overview.properties.blocks.some(block =>
+            block.kind === 'table' &&
+            block.headers[0] === 'Need' &&
+            block.headers[1] === 'Read'
+        )
+    );
+    blocks.filter(block => block.kind === 'paragraph').forEach(block => {
+        assert.equal(block.text.includes('```'), false);
+        assert.equal(/^\|.*\n\|\s*:?-+/m.test(block.text), false);
+    });
 });
 
 test('generated navigation and adjacent article links form a complete route graph', () => {

@@ -1,1 +1,81 @@
-{"code":"capability.operational-governance.overview","title":"Observability and Operational Governance","route":"/docs/capabilities/operational-governance","section":"operations","family":"overview-business-value","parent":"section:operations","order":10,"audiences":["evaluator","administrator","developer","architect","security-reviewer","operator","ai-tool"],"readerIntent":"Understand how Nodics exposes health, evidence, governed changes, and recovery across modules.","priorKnowledge":"Understand modules and runtime topology.","depth":"overview","status":"implemented","owner":"Runtime lifecycle, diagnostics, audit, health, and nDynamo governance capabilities","lastVerified":"2026-07-26","summary":"Logs, metrics, traces, health, readiness, audit, and governed runtime changes let operators understand and control independently deployed modules without creating new authorities.","supportingEvidence":["nodics:gFramework/nConfig/docs/runtime-lifecycle-resilience-contract.md","nodics:gFramework/nDynamo/README.md"],"sections":[{"heading":"Operational outcomes","items":["Know whether a process is live, ready, degraded, draining, stopped, or failed.","Trace a request, job, event, workflow, publication, import, provider call, and runtime change across module boundaries.","Preview, approve, activate, audit, clean up, and roll back eligible runtime contracts.","Diagnose failures without exposing secrets or sensitive payloads."]},{"heading":"Authority","items":["nConfig owns the single process lifecycle and signal handling.","Each module/provider contributes bounded readiness, drain, and shutdown hooks.","nDynamo governs only supported runtime-mutable contracts; static layered configuration remains authoritative.","BackOffice, MCP, CLI, and AI tools call these contracts and never become mutation authorities."]},{"heading":"Continue","items":["[Lifecycle, Signals, and Incident Recovery](/docs/capabilities/operational-governance/runtime)","[Operational Governance Technical Reference](/docs/reference/operational-governance)"]}]}
+{
+  "code": "capability.operational-governance.overview",
+  "title": "Observability and Operational Governance",
+  "route": "/docs/capabilities/operational-governance",
+  "section": "operations",
+  "family": "overview",
+  "parent": "section:operations",
+  "order": 10,
+  "audiences": [
+    "evaluator",
+    "administrator",
+    "developer",
+    "architect",
+    "security-reviewer",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Understand how Nodics exposes health, evidence, governed changes, and recovery across modules.",
+  "priorKnowledge": "Understand modules and runtime topology.",
+  "depth": "overview",
+  "status": "implemented",
+  "owner": "Runtime lifecycle, diagnostics, audit, health, and nDynamo governance capabilities",
+  "lastVerified": "2026-07-26",
+  "summary": "Logs, metrics, traces, health, readiness, audit, and governed runtime changes let operators understand and control independently deployed modules without creating new authorities.",
+  "supportingEvidence": [
+    "nodics:gFramework/nConfig/docs/runtime-lifecycle-resilience-contract.md",
+    "nodics:gFramework/nDynamo/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "What is Observability and Operational Governance?",
+      "paragraphs": [
+        "Observability is the ability to understand a running system through logs, metrics, traces, health signals, and audit evidence. Operational governance defines who may change runtime behavior, how that change is approved, and how operators recover when a change or dependency fails.",
+        "It is the combination of an aircraft instrument panel and its operating procedures: signals reveal current conditions, while governed controls prevent an operator from making an untracked or unsafe adjustment."
+      ]
+    },
+    {
+      "heading": "Operational outcomes",
+      "items": [
+        "Know whether a process is live, ready, degraded, draining, stopped, or failed.",
+        "Trace a request, job, event, workflow, publication, import, provider call, and runtime change across module boundaries.",
+        "Preview, approve, activate, audit, clean up, and roll back eligible runtime contracts.",
+        "Diagnose failures without exposing secrets or sensitive payloads."
+      ]
+    },
+    {
+      "heading": "Authority",
+      "items": [
+        "nConfig owns the single process lifecycle and signal handling.",
+        "Each module/provider contributes bounded readiness, drain, and shutdown hooks.",
+        "nDynamo governs only supported runtime-mutable contracts; static layered configuration remains authoritative.",
+        "BackOffice, MCP, CLI, and AI tools call these contracts and never become mutation authorities."
+      ]
+    },
+    {
+      "heading": "Why this matters to a business",
+      "items": [
+        "A modular platform is useful only when operators can distinguish a healthy process from one that merely accepts a TCP connection. Readiness protects customers from partially initialized modules and unavailable required dependencies.",
+        "Graceful drain reduces interrupted requests and duplicated scheduled work during deployment. Durable ownership, idempotency, and reconciliation protect work that cannot be completed inside a process shutdown hook.",
+        "Governed runtime changes let authorized teams adjust supported behavior without rebuilding while retaining preview, approval, provenance, audit, rollback, and protection of static or secret configuration.",
+        "Consistent correlation across APIs, jobs, events, workflows, imports, publications, caches, search, and providers shortens incident diagnosis without creating a second observability authority."
+      ]
+    },
+    {
+      "heading": "Example and readiness evidence",
+      "items": [
+        "When a CMS node restarts during a campaign, the load balancer stops sending new traffic after readiness becomes false, in-flight work drains within policy, and other replicas continue serving.",
+        "BackOffice registration is optional control-plane work and retries asynchronously after startup. Its outage does not block customer traffic, while a missing required database dependency prevents readiness.",
+        "Evidence includes lifecycle state transitions, hook duration, rejected work during drain, durable work recovery, registration retry, correlated safe telemetry, configuration activation audit, and rollback outcome.",
+        "Acceptance covers normal startup, partial dependencies, signal handling, timeout, crash, OOM assumptions, duplicate ownership, multi-node coordination, provider outage, incident recovery, and regression."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "items": [
+        "Lifecycle, Signals, and Incident Recovery",
+        "Operational Governance Technical Reference"
+      ]
+    }
+  ]
+}

@@ -6,7 +6,15 @@
   "family": "technical-reference",
   "parent": "page:capability.identity-security.governance",
   "order": 80,
-  "audiences": ["administrator", "developer", "architect", "security-reviewer", "operator", "framework-maintainer", "ai-tool"],
+  "audiences": [
+    "administrator",
+    "developer",
+    "architect",
+    "security-reviewer",
+    "operator",
+    "framework-maintainer",
+    "ai-tool"
+  ],
   "readerIntent": "Assemble reviewable evidence that the implemented Nodics deployment enforces its security claims.",
   "priorKnowledge": "Understand the identity-security journey and deployment architecture.",
   "depth": "reference",
@@ -14,8 +22,32 @@
   "owner": "Capability teams and deployment operators; evidence does not replace target-module authority",
   "lastVerified": "2026-07-26",
   "summary": "Security evidence connects requirements to configuration, code contracts, tests, deployment state, monitoring, recovery, approvals, and known limitations without exposing secrets or sensitive data.",
-  "supportingEvidence": ["nodics:gFramework/nAuth/README.md", "nodics:gCore/profile/README.md", "nodics:gFramework/nRouter/README.md", "nodics:gFramework/nDynamo/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nAuth/README.md",
+    "nodics:gCore/profile/README.md",
+    "nodics:gFramework/nRouter/README.md",
+    "nodics:gFramework/nDynamo/README.md",
+    "nodics:gDocs/security/security-evidence-guide.md"
+  ],
   "sections": [
+    {
+      "heading": "Collection procedure",
+      "items": [
+        "Define the control, threat, expected result, environment, topology, versions, identity class, tenant scope, and owner before execution.",
+        "Capture reproducible commands or automated cases, timestamps, safe correlation identifiers, results, reviewed failures, and artifact integrity without copying secrets or personal data.",
+        "Link each artifact to a release criterion and expiration condition. Evidence from an older provider, topology, security policy, or major version may require requalification.",
+        "Independent review confirms that the test exercised the intended boundary rather than a mocked shortcut or administrator-only path."
+      ]
+    },
+    {
+      "heading": "Operational and recovery evidence",
+      "items": [
+        "Include rotation, revocation, distributed cache failure, replay, concurrent refresh, rate limiting, dependency outage, rolling restart, backup/restore, migration interruption, incident response, and rollback.",
+        "Verify logs, metrics, traces, and audits remain useful while masking credentials, tokens, personal data, payloads, paths, stacks, and unbounded identifiers.",
+        "Record unresolved risk with severity, affected scope, compensating control, owner, deadline, and explicit acceptance authority; a missing test is not silently interpreted as passed.",
+        "Retain evidence according to policy with tenant-safe access, integrity, deletion, and legal requirements."
+      ]
+    },
     {
       "heading": "Evidence package",
       "items": [
@@ -50,6 +82,145 @@
         "Confirm positive, negative, boundary, contract, integration, distributed-race, security, performance, outage, recovery, upgrade, and regression evidence.",
         "Require owners to accept residual risk and expiry dates for temporary exceptions.",
         "Block release when required secrets, atomic shared state, tenant context, permissions, provider qualification, rollback, or monitoring cannot be trusted."
+      ]
+    },
+    {
+      "heading": "Complete guide: Security Evidence Guide",
+      "migratedFrom": "nodics:gDocs/security/security-evidence-guide.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "This page is for security architects, principal engineers, auditors, operators, and expert evaluators. It maps security claims to implemented Nodics contracts and explains what must still be proven by the customer solution."
+      ]
+    },
+    {
+      "heading": "Evidence Rule",
+      "migratedFrom": "nodics:gDocs/security/security-evidence-guide.md",
+      "sourceAnchor": "evidence-rule",
+      "paragraphs": [
+        "A security statement is acceptable only when it identifies:",
+        "Documentation is guidance, not proof by itself. Generated OpenAPI, source contracts, test results, configuration reports, runtime readiness, audit data, and deployment evidence must agree."
+      ],
+      "items": [
+        "the authoritative module or configuration;",
+        "the enforcement boundary;",
+        "positive and negative behavior;",
+        "tenant and topology implications;",
+        "failure behavior;",
+        "executable tests or operational evidence;",
+        "project/provider responsibilities and limitations."
+      ]
+    },
+    {
+      "heading": "Implemented Control Map",
+      "migratedFrom": "nodics:gDocs/security/security-evidence-guide.md",
+      "sourceAnchor": "implemented-control-map",
+      "paragraphs": [
+        "| Control objective | Nodics authority and enforcement | Evidence examples | Customer proof still required |\n| --- | --- | --- | --- |\n| Human authentication | `nAuth`, Profile, secured request pipeline | Auth security, login-route, token-isolation, revocation tests | Selected IAM/CIAM, MFA/session policy, lifecycle operations |\n| Service identity separation | Service tokens, route `authTokenTypes`, internal-token permission | Route authorization and modular token tests | Service inventory, token distribution, transport protection |\n| Action authorization | Router permission metadata and permission catalog | Route-action and control-plane permission contracts | Role design, assignments, access reviews, segregation of duties |\n| Tenant/enterprise isolation | Trusted auth context carried through business/data services | Profile, cache, import, generated access-policy, module tests | Project code review and dedicated customer isolation scenarios |\n| API surface reduction | `apiExposure` before help/controller dispatch | Request-pipeline and route contracts | Production server/category configuration and gateway exposure |\n| HTTP hardening | nRouter hardening service and layered properties | CORS, headers, body, rate, proxy tests | TLS/WAF/DDoS/gateway capacity and trusted-proxy validation |\n| Secret bootstrap | Governed bootstrap source and insecure-source compatibility gate | Profile/auth/import bootstrap contracts | Secret manager, rotation, emergency procedure, no CI leakage |\n| Secret-safe output | Central logger redaction and bounded diagnostics | Logger-redaction and diagnostics contracts | Project logger review, sink access, retention and alert rules |\n| Runtime governance | nDynamo preview/request/approval/activation/audit/rollback | Runtime governance suites | Approver assignment, environment separation, audit retention |\n| Cache isolation | nCache tenant/security keying and provider contract | Local/Redis isolation, mutation, invalidation tests | Selected engine hardening, shared-state topology, eviction/capacity |\n| Publishing integrity | Workflow plus nPublish; distinct Staged and Online runtimes | CMS/Product/Pricing publication and rollback tests | Production transport, Online isolation, backup and reconciliation |\n| Operational health | nSystem liveness/readiness and sanitized contributors | Health route and topology tests | Monitoring, paging, SLOs, provider-specific readiness |\n| Release quality | Build, documentation, generated context, basic/full and release gates | `npm run build`, `test:basic`, `test:full`, `release:check` | Independent CI execution, artifact integrity, approval records |"
+      ]
+    },
+    {
+      "heading": "Identity And Trust Boundaries",
+      "migratedFrom": "nodics:gDocs/security/security-evidence-guide.md",
+      "sourceAnchor": "identity-and-trust-boundaries",
+      "paragraphs": [
+        "Nodics keeps these identities separate:",
+        "user groups, permissions, tenant, token state, and security stamp.",
+        "substitute for a human password.",
+        "accepted only by routes designed for service identity.",
+        "human identity for the action it invokes.",
+        "audience-bound, and introspected by an authenticated module. It grants no mutation authority.",
+        "Reviewers should reject designs that convert one identity type into another, make internal APIs public, or accept tenant/enterprise authority from an untrusted browser field."
+      ],
+      "items": [
+        "**Human access token:** represents a logged-in person and is constrained by",
+        "**API key:** represents a governed API principal and scope; it is not a",
+        "**Module service token:** represents runtime-to-runtime communication and is",
+        "**Scheduled execution:** uses CronJob ownership and an appropriate service or",
+        "**Public context handle:** where implemented, is an opaque, short-lived bearer reference,"
+      ]
+    },
+    {
+      "heading": "Tenant Isolation Review",
+      "migratedFrom": "nodics:gDocs/security/security-evidence-guide.md",
+      "sourceAnchor": "tenant-isolation-review",
+      "paragraphs": [
+        "Trace at least one business identifier through:",
+        "```text\nHTTP request\n  -> authentication or trusted public-context establishment\n  -> route permission and token-type decision\n  -> service enterprise validation\n  -> DAO/database tenant selection\n  -> cache and search partition\n  -> events, jobs, import/export and audit\n  -> response projection and logs\n```",
+        "Test the correct tenant, wrong tenant, absent tenant, conflicting enterprise, cross-tenant identifier, cache hit, cache miss, provider outage, background execution, and modular transport. A tenant header alone must never create or broaden authority."
+      ]
+    },
+    {
+      "heading": "Failure And Abuse Review",
+      "migratedFrom": "nodics:gDocs/security/security-evidence-guide.md",
+      "sourceAnchor": "failure-and-abuse-review",
+      "paragraphs": [
+        "Every protected capability should answer:",
+        "of the wrong type?",
+        "database, distributed cache, search, event broker, or target module is down?",
+        "traces, or confidential payloads?",
+        "exhaust the service?",
+        "Security-sensitive uncertainty must deny the protected action. Availability fallback is acceptable only when another path preserves the same authority and security contract."
+      ],
+      "items": [
+        "What happens when credentials are missing, expired, revoked, malformed, or",
+        "What happens when the permission catalog, auth cache, Profile, Storefront,",
+        "Are retries limited to safe/idempotent operations?",
+        "Can a circuit breaker or fallback bypass authorization?",
+        "Does an error disclose tenant names, URLs, tokens, keys, cached values, stack",
+        "Can request size, graph depth, result count, concurrency, or queue growth",
+        "Is recovery automatic, auditable, and tested without editing authority data?"
+      ]
+    },
+    {
+      "heading": "Verification Commands",
+      "migratedFrom": "nodics:gDocs/security/security-evidence-guide.md",
+      "sourceAnchor": "verification-commands",
+      "paragraphs": [
+        "```bash\nnpm run test:basic\nnpm run test:full\nnpm run quality:docs\nnpm run llm:validate\nnpm run build\nnpm run release:check -- --execute --full\n```",
+        "Focused suites and contracts include authentication, authorization, HTTP hardening, tenant-aware cache, runtime governance, route contracts, generated schema access, Profile identity, Storefront context, and modular topology. Provider-specific live tests must be run when the deployment depends on that provider; deterministic mocks alone do not qualify external infrastructure."
+      ]
+    },
+    {
+      "heading": "Security Review Deliverables",
+      "migratedFrom": "nodics:gDocs/security/security-evidence-guide.md",
+      "sourceAnchor": "security-review-deliverables",
+      "paragraphs": [
+        "An enterprise review should retain:"
+      ],
+      "items": [
+        "architecture and data-flow diagrams;",
+        "data classification and tenant placement;",
+        "route/OpenAPI inventory and exposure categories;",
+        "identity, role, permission, and service-account matrix;",
+        "effective environment/server/node configuration with secrets removed;",
+        "threat model and misuse cases;",
+        "test and release-gate reports;",
+        "provider qualification and maturity decisions;",
+        "vulnerability and dependency report;",
+        "backup/restore and failover evidence;",
+        "log/audit retention and access model;",
+        "incident and rollback procedures;",
+        "accepted risks, accountable owner, and review expiry."
+      ]
+    },
+    {
+      "heading": "Standards And Compliance Position",
+      "migratedFrom": "nodics:gDocs/security/security-evidence-guide.md",
+      "sourceAnchor": "standards-and-compliance-position",
+      "paragraphs": [
+        "Nodics principles align with common enterprise practices such as least privilege, explicit verification, defense in depth, secure failure, separation of duties, auditable change, and resource-local enforcement. Alignment is not certification. Map the implemented controls and deployment evidence to the specific standard or regulation selected by the organization, then obtain the required independent review."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/security/security-evidence-guide.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "Executive context: [Why Businesses Can Trust Nodics](/docs/evaluate/security-and-trust)",
+        "Responsibility assignment: [Security Shared-Responsibility Model](/docs/security/shared-responsibility)",
+        "Identity and tenant implementation: [How Users, Tenants, And Permissions Work](/docs/security/users-tenants-permissions)",
+        "Provider qualification: [Provider And Capability Maturity Matrix](/docs/reference/maturity)",
+        "Testing: [How To Test Nodics Changes](/docs/build/testing)"
       ]
     }
   ]

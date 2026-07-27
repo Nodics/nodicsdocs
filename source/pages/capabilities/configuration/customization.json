@@ -3,10 +3,15 @@
   "title": "Configure and Customize a Nodics Application",
   "route": "/docs/capabilities/configuration/customization",
   "section": "capabilities",
-  "family": "configuration-tutorial",
+  "family": "tutorial-example",
   "parent": "page:capability.configuration.overview",
   "order": 30,
-  "audiences": ["administrator", "developer", "operator", "ai-tool"],
+  "audiences": [
+    "administrator",
+    "developer",
+    "operator",
+    "ai-tool"
+  ],
   "readerIntent": "Place an application setting at the correct layer and verify it safely.",
   "priorKnowledge": "Know the owning capability and the runtime scope that must vary.",
   "depth": "guided",
@@ -14,7 +19,10 @@
   "owner": "Owning capability plus Nodics configuration contracts",
   "lastVerified": "2026-07-26",
   "summary": "Start with the owning module default, override only at the required application or runtime scope, and validate both expected and fallback behavior.",
-  "supportingEvidence": ["nodics:gFramework/nConfig/README.md", "nodics:gFramework/nDynamo/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nConfig/README.md",
+    "nodics:gFramework/nDynamo/README.md"
+  ],
   "sections": [
     {
       "heading": "Example decision",
@@ -33,6 +41,30 @@
       ]
     },
     {
+      "heading": "Locate the existing authority",
+      "items": [
+        "Search properties.js files and generated configuration context for the capability namespace.",
+        "Read the owning module documentation and tests to understand default, type, units, and allowed scopes.",
+        "Check project, environment, server, node, tenant, and runtime loaders for an existing override path.",
+        "Confirm whether the value is public configuration, a secret reference, or implementation behavior.",
+        "Run a duplication check before adding a property with similar meaning."
+      ]
+    },
+    {
+      "heading": "Worked example",
+      "paragraphs": [
+        "Assume the cache default is appropriate in production but local developers need faster expiry. Add only the local-environment override under the cache-owned namespace. Keep the unit explicit and preserve the production default.",
+        "Start startioLocal monoServer, inspect authorized effective configuration or observable cache behavior, and prove the local value. Start another environment or run its configuration test and prove it still receives the default."
+      ]
+    },
+    {
+      "heading": "Runtime-managed example",
+      "paragraphs": [
+        "For an employee idle-lock timeout stored as an operational setting, define the property contract in the owning BackOffice backend capability. Authorized operations preview and activate the bounded value; Axis consumes the resulting behavior after authentication.",
+        "Axis may schedule its lock experience, but it cannot invent or broaden the backend policy. Invalid, unauthorized, expired, conflicting, and rollback behavior remain backend-governed."
+      ]
+    },
+    {
       "heading": "Verification",
       "items": [
         "Default value when no override exists.",
@@ -41,6 +73,29 @@
         "Invalid type, range, missing dependency, and secret-handling behavior.",
         "Restart and governed runtime-update behavior where supported.",
         "Regression of the original reusable default."
+      ]
+    },
+    {
+      "heading": "Negative test matrix",
+      "items": [
+        "Unknown property or unsupported layer.",
+        "Wrong type, malformed value, zero, negative, or maximum boundary.",
+        "Missing referenced provider or dependency.",
+        "Secret supplied as literal committed content.",
+        "Unauthorized runtime preview, approval, activation, or rollback.",
+        "Concurrent update based on a stale version.",
+        "Restart with the last valid state after a rejected change."
+      ]
+    },
+    {
+      "heading": "Documentation and handoff",
+      "items": [
+        "Business meaning and safe default.",
+        "Owning capability, namespace, type, unit, range, and example.",
+        "Supported override scopes and precedence.",
+        "Secret, security, tenant, performance, and cost implications.",
+        "Restart, reload, runtime activation, monitoring, and rollback behavior.",
+        "Tests and current source evidence."
       ]
     }
   ]

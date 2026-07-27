@@ -3,21 +3,98 @@
   "title": "Events and Messaging",
   "route": "/docs/capabilities/events-messaging",
   "section": "capabilities",
-  "family": "overview-business-value",
-  "parent": "page:framework.architecture",
+  "family": "overview",
+  "parent": "section:capabilities",
   "order": 160,
-  "audiences": ["evaluator", "business-user", "administrator", "developer", "architect", "operator", "ai-tool"],
+  "audiences": [
+    "evaluator",
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "operator",
+    "ai-tool"
+  ],
   "readerIntent": "Understand how Nodics decouples module reactions while preserving delivery meaning and ownership.",
   "priorKnowledge": "Understand modules and runtime topology.",
   "depth": "overview",
   "status": "implemented",
   "owner": "Framework events, broker messaging, and persisted NEMS distribution capabilities",
   "lastVerified": "2026-07-26",
-  "summary": "Local listeners, broker transport, and persisted distribution are separate contracts; a publisher declares a business fact without hardcoding every consumer.",
-  "supportingEvidence": ["nodics:gFramework/nEvent/README.md", "nodics:gFramework/nEms/README.md", "nodics:gCore/nems/README.md"],
+  "summary": "Local listeners, broker transport, and persisted distribution are separate contracts; a publisher clearly declares a business fact without hardcoding every consumer.",
+  "supportingEvidence": [
+    "nodics:gFramework/nEvent/README.md",
+    "nodics:gFramework/nEms/README.md",
+    "nodics:gCore/nems/README.md"
+  ],
   "sections": [
-    {"heading": "Business outcomes", "items": ["Add or replace reactions without editing the publishing capability.", "Support consolidated and distributed module topology.", "Use persisted distribution, retry, and event logs when delivery requires them.", "Integrate a broker through an adapter instead of embedding client logic in listeners."]},
-    {"heading": "Three responsibilities", "items": ["Framework events register and execute in-platform listeners.", "Messaging adapters transport events across processes or infrastructure.", "NEMS owns persisted definitions, distribution state, event logs, retry, and manual recovery."]},
-    {"heading": "Continue", "items": ["[Event Delivery Models and Guarantees](/docs/capabilities/events-messaging/delivery)", "[Build a Messaging Provider](/docs/capabilities/events-messaging/provider-development)", "[Event Lifecycle and Data Exchange](/docs/capabilities/events-messaging/lifecycle)", "[Operate and Secure Events](/docs/capabilities/events-messaging/operations)", "[Events and Messaging Technical Reference](/docs/reference/events-messaging)"]}
+    {
+      "heading": "What is Events and Messaging?",
+      "paragraphs": [
+        "An event records that something meaningful happened, while messaging transports that information to interested consumers. Applications use events and messages when work can continue independently instead of making the original caller wait for every downstream task.",
+        "It resembles a tracked notification sent to several departments after an order is placed: each department reacts independently, while delivery, retry, duplication, and failure must remain governed."
+      ]
+    },
+    {
+      "heading": "Business outcomes",
+      "items": [
+        "Add or replace reactions without editing the publishing capability.",
+        "Support consolidated and distributed module topology.",
+        "Use persisted distribution, retry, and event logs when delivery requires them.",
+        "Integrate a broker through an adapter instead of embedding client logic in listeners."
+      ]
+    },
+    {
+      "heading": "Three responsibilities",
+      "items": [
+        "Framework events register and execute in-platform listeners.",
+        "Messaging adapters transport events across processes or infrastructure.",
+        "NEMS owns persisted definitions, distribution state, event logs, retry, and manual recovery."
+      ]
+    },
+    {
+      "heading": "Event ownership",
+      "paragraphs": [
+        "The capability completing the authoritative state transition owns the event meaning, type, version, and safe payload. Consumers own their reactions but cannot reinterpret the source fact or mutate the publisher's storage directly.",
+        "An event announces what happened; it is not a hidden remote procedure call with an unrestricted command payload."
+      ]
+    },
+    {
+      "heading": "Example: stock published",
+      "paragraphs": [
+        "After approved staged stock is published to the online system, Inventory can publish a versioned StockPublished fact. Cache invalidation, search refresh, storefront preparation, analytics, and notifications can react independently.",
+        "Each consumer is idempotent because transport or recovery may redeliver the fact. Inventory remains stock authority."
+      ]
+    },
+    {
+      "heading": "Choosing a mechanism",
+      "items": [
+        "Use local events for bounded in-process reactions that need no durability.",
+        "Use broker transport for decoupled cross-process delivery.",
+        "Use NEMS when persisted distribution, logs, retry, and manual recovery are required.",
+        "Use workflow for durable business state and manual or automatic actions.",
+        "Use a scheduled job for time-based owned execution."
+      ]
+    },
+    {
+      "heading": "Event contract essentials",
+      "items": [
+        "Stable type and version.",
+        "Publisher, tenant, source, target, time, correlation, and business identity.",
+        "Bounded schema with no secrets or unnecessary personal data.",
+        "Delivery, ordering, acknowledgement, redelivery, and retention meaning.",
+        "Consumer idempotency, retry, replay, and explicit recovery ownership."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "items": [
+        "Event Delivery Models and Guarantees",
+        "Build a Messaging Provider",
+        "Event Lifecycle and Data Exchange",
+        "Operate and Secure Events",
+        "Events and Messaging Technical Reference"
+      ]
+    }
   ]
 }

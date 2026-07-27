@@ -1,1 +1,77 @@
-{"code":"capability.execution-processes.technical-reference","title":"Pipeline and Interceptor Technical Reference","route":"/docs/reference/execution-processes","section":"reference","family":"technical-reference","parent":"page:capability.execution-processes.overview","order":20,"audiences":["developer","architect","framework-maintainer","ai-tool"],"readerIntent":"Audit ordered execution contracts and extension safety.","priorKnowledge":"Read the pipeline journey.","depth":"reference","status":"implemented","owner":"Nodics pipeline engine and owning capability","lastVerified":"2026-07-26","summary":"Every pipeline identifies owner, context, node graph, terminals, side effects, extension points, error semantics, observability, and tests.","supportingEvidence":["nodics:gFramework/nPipeline/README.md"],"sections":[{"heading":"Checklist","items":["Stable name, owner, purpose, caller, request, response, and process context.","Ordered nodes, handlers, success/error transitions, terminals, and interceptors.","Tenant/auth assumptions, side effects, idempotency, retry, compensation, timeout, and cancellation.","Dynamic governance, trace context, safe logs/metrics, and cleanup.","Positive, negative, boundary, contract, integration, override, repeated-execution, failure, performance, and regression tests."]}]}
+{
+  "code": "capability.execution-processes.technical-reference",
+  "title": "Pipeline and Interceptor Technical Reference",
+  "route": "/docs/reference/execution-processes",
+  "section": "reference",
+  "family": "technical-reference",
+  "parent": "page:capability.execution-processes.overview",
+  "order": 20,
+  "audiences": [
+    "developer",
+    "architect",
+    "framework-maintainer",
+    "ai-tool"
+  ],
+  "readerIntent": "Audit ordered execution contracts and extension safety.",
+  "priorKnowledge": "Read the pipeline journey.",
+  "depth": "reference",
+  "status": "implemented",
+  "owner": "Nodics pipeline engine and owning capability",
+  "lastVerified": "2026-07-26",
+  "summary": "Every pipeline identifies owner, context, node graph, terminals, side effects, extension points, error semantics, observability, and tests.",
+  "supportingEvidence": [
+    "nodics:gFramework/nPipeline/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Process types and ownership",
+      "items": [
+        "Use a direct service call for bounded synchronous work, a pipeline for ordered in-request stages, an event for decoupled notification, a job for scheduled execution, and Workflow for durable business processes.",
+        "Choosing a carrier does not transfer business authority. The target module still validates, authorizes, persists, and reports its outcome.",
+        "Manual and automatic actions may coexist in one workflow; agentic assistance may propose or initiate governed work but cannot replace approval authority."
+      ]
+    },
+    {
+      "heading": "Common execution envelope",
+      "items": [
+        "Carry tenant, enterprise, actor or service principal, correlation, causation, idempotency, contract version, timestamps, deadline, and safe input references.",
+        "Large or sensitive business payloads remain in owning storage and are referenced through authorized identities rather than copied across every carrier.",
+        "Every consumer validates version, context, permissions, current state, and replay behavior before material action."
+      ]
+    },
+    {
+      "heading": "State and concurrency",
+      "items": [
+        "Durable processes persist state transitions and ownership. In-memory flags are insufficient for retry, failover, audit, or multi-node coordination.",
+        "Leases, optimistic revisions, idempotency keys, and immutable action identities prevent duplicate owners and repeated effects.",
+        "A timeout can produce an uncertain outcome; query or reconcile with the authority before retrying a non-idempotent operation."
+      ]
+    },
+    {
+      "heading": "Failure and recovery",
+      "items": [
+        "Classify validation, authorization, conflict, transient dependency, permanent provider, cancellation, and uncertain failures so policy can respond safely.",
+        "Compensation is an explicit business action, not database rollback across independent modules. Record what succeeded, what failed, and what remains unresolved.",
+        "Shutdown stops new work, preserves durable state, and resumes or reassigns according to the owning process contract."
+      ]
+    },
+    {
+      "heading": "Verification and operations",
+      "items": [
+        "Test success, denial, boundary, duplicate delivery, reordering, concurrency, timeout, cancellation, crash, lease takeover, partial completion, compensation, and regression.",
+        "Correlate API, pipeline, event, job, workflow, publication, provider, and target audit while keeping telemetry tenant-safe and payload-free.",
+        "Document selection rationale, owner, states, transitions, permissions, service objectives, retry, reconciliation, alerts, and operator procedures."
+      ]
+    },
+    {
+      "heading": "Checklist",
+      "items": [
+        "Stable name, owner, purpose, caller, request, response, and process context.",
+        "Ordered nodes, handlers, success/error transitions, terminals, and interceptors.",
+        "Tenant/auth assumptions, side effects, idempotency, retry, compensation, timeout, and cancellation.",
+        "Dynamic governance, trace context, safe logs/metrics, and cleanup.",
+        "Positive, negative, boundary, contract, integration, override, repeated-execution, failure, performance, and regression tests."
+      ]
+    }
+  ]
+}

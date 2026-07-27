@@ -6,7 +6,11 @@
   "family": "runtime-behavior",
   "parent": "page:capability.search-indexing.overview",
   "order": 30,
-  "audiences": ["developer", "architect", "operator"],
+  "audiences": [
+    "developer",
+    "architect",
+    "operator"
+  ],
   "readerIntent": "Design and operate index creation, synchronization, evolution, reconciliation, and retirement.",
   "priorKnowledge": "Understand authoritative schemas and derived search indexes.",
   "depth": "implementation",
@@ -45,6 +49,53 @@
         "Version mappings and aliases when in-place updates are unsafe.",
         "Test old and new query behavior before cutover.",
         "Preserve tenant isolation and rollback evidence throughout migration."
+      ]
+    },
+    {
+      "heading": "Initial index build",
+      "paragraphs": [
+        "Create the mapping from the effective search model, read authoritative records through governed services, and populate bounded batches. Record source position, counts, rejects, duration, and provider results.",
+        "Validate document count, samples, tenant routing, queries, permissions, and lag before exposing the new alias."
+      ]
+    },
+    {
+      "heading": "Incremental synchronization",
+      "items": [
+        "Create and update after authoritative commit.",
+        "Remove or tombstone after lifecycle change.",
+        "Use stable identity and idempotent delivery.",
+        "Retry transient failure within bounds.",
+        "Record poison documents for governed repair.",
+        "Measure lag from authoritative change to searchable projection."
+      ]
+    },
+    {
+      "heading": "Reindex and alias cutover",
+      "items": [
+        "Create a new versioned index and mapping.",
+        "Backfill from the authority while capturing concurrent changes.",
+        "Validate counts, samples, tenant isolation, and query acceptance.",
+        "Apply remaining changes and switch the alias atomically where supported.",
+        "Observe the new version and retain a rollback window.",
+        "Retire the old index only after approval."
+      ]
+    },
+    {
+      "heading": "Reconciliation",
+      "paragraphs": [
+        "Compare authoritative identities, versions, and expected documents with the index. Repair missing, stale, duplicate, unauthorized, and orphaned projections without treating indexed content as truth.",
+        "Large reconciliation is rate-limited so it does not overwhelm persistence or search."
+      ]
+    },
+    {
+      "heading": "Verification matrix",
+      "items": [
+        "Empty and populated initial build.",
+        "Create, update, delete, publish, and import synchronization.",
+        "Duplicate, out-of-order, and partial bulk delivery.",
+        "Mapping conflict and rejected document.",
+        "Provider outage, restart, resume, and reconciliation.",
+        "Alias cutover, rollback, cleanup, and tenant isolation."
       ]
     }
   ]

@@ -1,1 +1,81 @@
-{"code":"capability.execution-processes.runtime","title":"Pipeline Runtime and Safe Extension","route":"/docs/capabilities/execution-processes/runtime","section":"build","family":"runtime-customization","parent":"page:capability.execution-processes.overview","order":10,"audiences":["developer","architect","operator","ai-tool"],"readerIntent":"Define, extend, and verify an ordered execution contract.","priorKnowledge":"Know the caller, context, nodes, side effects, and failure policy.","depth":"implementation","status":"implemented","owner":"Owning pipeline module","lastVerified":"2026-07-26","summary":"The engine loads effective definitions, builds ordered nodes, propagates request/response/process context, and follows explicit success, error, and terminal transitions.","supportingEvidence":["nodics:gFramework/nPipeline/README.md","nodics:gFramework/nPipeline/docs/pipeline-framework.md"],"sections":[{"heading":"Runtime","items":["Load source definitions and governed persisted overrides where supported.","Merge the named definition with pipeline defaults.","Create an instance identity and ordered nodes.","Each node validates required context, performs bounded work, and chooses success, error, or terminal transition.","Enrich failures with safe execution context and preserve the cause.","Update or remove effective definitions only through loader/event governance."]},{"heading":"Extension rules","items":["Add, replace, disable, or reorder nodes through layered definitions.","Declare input/output mutations, side effects, retry safety, compensation, and timeout.","Use processors as bounded handlers, not hidden pipeline controllers.","Keep durable business state out of in-memory process context.","Test default order, later-module override, repeated execution, partial failure, error path, observability, performance, and consumer regressions."]}]}
+{
+  "code": "capability.execution-processes.runtime",
+  "title": "Pipeline Runtime and Safe Extension",
+  "route": "/docs/capabilities/execution-processes/runtime",
+  "section": "build",
+  "family": "configuration-customization",
+  "parent": "page:capability.execution-processes.overview",
+  "order": 10,
+  "audiences": [
+    "developer",
+    "architect",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Define, extend, and verify an ordered execution contract.",
+  "priorKnowledge": "Know the caller, context, nodes, side effects, and failure policy.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Owning pipeline module",
+  "lastVerified": "2026-07-26",
+  "summary": "The engine loads effective definitions, builds ordered nodes, propagates request/response/process context, and follows explicit success, error, and terminal transitions.",
+  "supportingEvidence": [
+    "nodics:gFramework/nPipeline/README.md",
+    "nodics:gFramework/nPipeline/docs/pipeline-framework.md"
+  ],
+  "sections": [
+    {
+      "heading": "Runtime",
+      "items": [
+        "Load source definitions and governed persisted overrides where supported.",
+        "Merge the named definition with pipeline defaults.",
+        "Create an instance identity and ordered nodes.",
+        "Each node validates required context, performs bounded work, and chooses success, error, or terminal transition.",
+        "Enrich failures with safe execution context and preserve the cause.",
+        "Update or remove effective definitions only through loader/event governance."
+      ]
+    },
+    {
+      "heading": "Definition and node contracts",
+      "paragraphs": [
+        "The owner supplies defaults; later layers refine supported nodes through the existing loader. Persisted definitions apply only where explicitly governed and cannot contain arbitrary executable code."
+      ],
+      "items": [
+        "Required input and context.",
+        "Allowed context mutations.",
+        "Bounded handler and deadline.",
+        "Transitions, effects, idempotency, retry, compensation, and diagnostics."
+      ]
+    },
+    {
+      "heading": "Concurrency and error behavior",
+      "items": [
+        "Limit parallel nodes, items, queue depth, and context size.",
+        "Propagate cancellation and deadline.",
+        "Move durable or high-volume work to jobs, processors, or workflows.",
+        "Preserve the first authoritative cause through bounded cleanup.",
+        "Reject or neutralize repeated transitions."
+      ]
+    },
+    {
+      "heading": "Extension rules",
+      "items": [
+        "Add, replace, disable, or reorder nodes through layered definitions.",
+        "Declare input/output mutations, side effects, retry safety, compensation, and timeout.",
+        "Use processors as bounded handlers, not hidden pipeline controllers.",
+        "Keep durable business state out of in-memory process context.",
+        "Test default order, later-module override, repeated execution, partial failure, error path, observability, performance, and consumer regressions."
+      ]
+    },
+    {
+      "heading": "Runtime governance and verification",
+      "items": [
+        "Preview dependency and ordering impact.",
+        "Authorize, audit, activate, observe, and roll back eligible definitions.",
+        "Test default and layered order.",
+        "Test success, skip, terminal, error, cleanup, timeout, cancellation, retry, duplicate, and compensation.",
+        "Test concurrency, restart, diagnostics, performance, and every consumer regression."
+      ]
+    }
+  ]
+}

@@ -1,1 +1,110 @@
-{"code":"commerce.stock.allocation","title":"Allocate Stock","route":"/docs/capabilities/commerce/stock/allocation","section":"capabilities","family":"runtime-behavior","parent":"page:capability.commerce.stock-units","order":30,"audiences":["business-user","developer","operator","ai-tool"],"readerIntent":"Commit reserved stock to a fulfillment intent safely.","priorKnowledge":"Know reservation, source, quantity/unit, order/fulfillment identity, and concurrency policy.","depth":"implementation","status":"implemented","owner":"Inventory capability","lastVerified":"2026-07-26","summary":"Allocation atomically validates reservation and available balance, records fulfillment ownership, and prevents duplicate consumption.","supportingEvidence":["nodics:gComm/inventory/README.md"],"sections":[{"heading":"Contract","items":["Tenant, product/variant, warehouse/pool, reservation, fulfillment reference, quantity/unit, idempotency key, expiry, and revision.","Reject missing/expired reservation, unit mismatch, insufficient balance, duplicate/conflicting idempotency, wrong tenant, and stale revision.","Publish safe outcome and invalidate affected availability only after commit."]}]}
+{
+  "code": "commerce.stock.allocation",
+  "title": "Allocate Stock",
+  "route": "/docs/capabilities/commerce/stock/allocation",
+  "section": "capabilities",
+  "family": "runtime-behavior",
+  "parent": "page:capability.commerce.stock-units",
+  "order": 30,
+  "audiences": [
+    "business-user",
+    "developer",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Commit reserved stock to a fulfillment intent safely.",
+  "priorKnowledge": "Know reservation, source, quantity/unit, order/fulfillment identity, and concurrency policy.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Inventory capability",
+  "lastVerified": "2026-07-26",
+  "summary": "Allocation atomically validates reservation and available balance, records fulfillment ownership, and prevents duplicate consumption.",
+  "supportingEvidence": [
+    "nodics:gComm/inventory/README.md",
+    "nodics:gDocs/commerce/how-stock-allocation-works.md"
+  ],
+  "sections": [
+    {
+      "heading": "Contract",
+      "items": [
+        "Tenant, product/variant, warehouse/pool, reservation, fulfillment reference, quantity/unit, idempotency key, expiry, and revision.",
+        "Reject missing/expired reservation, unit mismatch, insufficient balance, duplicate/conflicting idempotency, wrong tenant, and stale revision.",
+        "Publish safe outcome and invalidate affected availability only after commit."
+      ]
+    },
+    {
+      "heading": "Business meaning",
+      "paragraphs": [
+        "Allocation converts a valid reservation into stock committed to a fulfillment outcome. It is stronger than a reservation and must not be created from an expired, released, or unrelated hold.",
+        "The fulfillment owner may be an order, shipment, project, service request, or another governed domain reference."
+      ]
+    },
+    {
+      "heading": "Atomic behavior",
+      "items": [
+        "Load reservation and balance under concurrency control.",
+        "Verify tenant, product, source, unit, quantity, expiry, and revision.",
+        "Ensure the requested quantity remains reserved and not already consumed.",
+        "Create the allocation and adjust reserved and allocated totals atomically where supported.",
+        "Record one idempotent outcome for the fulfillment reference."
+      ]
+    },
+    {
+      "heading": "Example",
+      "paragraphs": [
+        "Checkout reserves two units of a phone from a zonal warehouse. Order fulfillment allocates those same two units using the reservation and order-line identity. A repeated delivery returns the existing result; a conflicting quantity is rejected.",
+        "Shipment later records the physical issue movement. Allocation alone does not prove goods left the warehouse."
+      ]
+    },
+    {
+      "heading": "Failure and recovery",
+      "items": [
+        "Expired or released reservation.",
+        "Partial quantity no longer available.",
+        "Stale revision or concurrent allocation.",
+        "Provider timeout with uncertain commit.",
+        "Duplicate and conflicting idempotency key.",
+        "Compensation when downstream fulfillment is cancelled."
+      ]
+    },
+    {
+      "heading": "Verification and operations",
+      "items": [
+        "Full and supported partial allocation.",
+        "Insufficient, wrong-unit, wrong-source, and wrong-tenant rejection.",
+        "High-concurrency prevention of duplicate consumption.",
+        "Retry and reconciliation after uncertain response.",
+        "Availability, cache, event, audit, and movement integration.",
+        "Latency, conflict, failure, and ageing metrics."
+      ]
+    },
+    {
+      "heading": "Audit retention",
+      "paragraphs": [
+        "Retain fulfillment reference, reservation, source, quantity, unit, revision, actor or service, idempotency result, and any compensation according to commercial and regulatory policy."
+      ]
+    },
+    {
+      "heading": "Complete guide: How Stock Allocation Works",
+      "migratedFrom": "nodics:gDocs/commerce/how-stock-allocation-works.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "Allocation connects customer demand to reserved supply. An Order line can use one Warehouse, split across several Warehouses, or allocate what is available and backorder the remainder.",
+        "Order owns the customer order. Inventory receives only stable Order and line references, item identity, exact requested quantity, and active Reservation references. It records which Warehouses will supply the line and later connects each assignment to its applied Stock ISSUE movement.",
+        "Cancellation releases unfulfilled Reservation holds. Fulfillment cannot be claimed by a caller; Inventory verifies movement evidence. This keeps checkout, Inventory, and fulfillment consistent while allowing each module to remain independently deployable.",
+        "Configure partial allocation and assignment limits in Inventory `properties.js`. Internal allocation routes require service tokens and are intended for Order or fulfillment modules, not direct human access."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/commerce/how-stock-allocation-works.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "[How to Reserve Stock](/docs/capabilities/commerce/stock/reservations)",
+        "[How Stock Movements Work](/docs/capabilities/commerce/stock/movements)",
+        "[How Stock Availability Works](/docs/capabilities/commerce/stock/availability)",
+        "[Nodics Documentation](/docs)"
+      ]
+    }
+  ]
+}

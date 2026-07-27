@@ -3,10 +3,15 @@
   "title": "From API Request to Business Result",
   "route": "/docs/capabilities/layered-architecture/runtime",
   "section": "capabilities",
-  "family": "runtime-example",
+  "family": "tutorial-example",
   "parent": "page:capability.layered-architecture.overview",
   "order": 20,
-  "audiences": ["developer", "architect", "operator", "ai-tool"],
+  "audiences": [
+    "developer",
+    "architect",
+    "operator",
+    "ai-tool"
+  ],
   "readerIntent": "Follow a typical secured operation through Nodics layers.",
   "priorKnowledge": "Know the core layer responsibilities.",
   "depth": "guided",
@@ -14,7 +19,10 @@
   "owner": "Owning business module plus shared request, pipeline, data, and security capabilities",
   "lastVerified": "2026-07-26",
   "summary": "A route enters the governed request pipeline, resolves identity and context, delegates through controller and service layers, uses authoritative models, and returns normalized status and trace context.",
-  "supportingEvidence": ["nodics:gFramework/nRouter/docs/router-framework.md", "nodics:gFramework/nPipeline/docs/pipeline-framework.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nRouter/docs/router-framework.md",
+    "nodics:gFramework/nPipeline/docs/pipeline-framework.md"
+  ],
   "sections": [
     {
       "heading": "Example flow",
@@ -29,6 +37,31 @@
       ]
     },
     {
+      "heading": "Concrete example: update an enterprise",
+      "paragraphs": [
+        "An authenticated employee edits an Enterprise in Axis. The browser sends the bearer or approved session-derived credential, enterprise identifier, changed fields, and current workspace context to the Profile-owned API.",
+        "The request pipeline validates exposure and headers, resolves the tenant from trusted authentication context, authenticates the employee, evaluates permissions, and attaches correlation information. A browser-supplied tenant label cannot broaden this scope."
+      ]
+    },
+    {
+      "heading": "Business and data execution",
+      "items": [
+        "The controller maps transport data and delegates the update use case.",
+        "The Profile service loads the Enterprise through its authoritative model.",
+        "Schema and relationship rules validate fields, parent Enterprise, Tenant, addresses, and contacts.",
+        "Business logic protects ownership and any lifecycle constraints.",
+        "Persistence resolves the configured tenant-aware connection and executes through its provider.",
+        "Declared interceptors, cache invalidation, search indexing, audit, and events run at owned lifecycle points."
+      ]
+    },
+    {
+      "heading": "Response and observability",
+      "paragraphs": [
+        "A registered success status becomes the normalized API response. Axis displays a user-friendly message and updated record. Logs and metrics correlate the request, capability, operation, duration, outcome, and safe tenant context.",
+        "Sensitive field values, credentials, tokens, and provider internals are excluded from user responses and normal diagnostics."
+      ]
+    },
+    {
       "heading": "Failure behavior",
       "items": [
         "Authentication, authorization, validation, conflict, provider, and internal failures retain distinct stable codes.",
@@ -37,9 +70,38 @@
       ]
     },
     {
+      "heading": "Failure walkthrough",
+      "items": [
+        "Missing authentication stops before business execution with an authentication status.",
+        "A valid employee without update permission receives an authorization failure.",
+        "Wrong-tenant or inaccessible relationships are rejected without disclosing protected records.",
+        "Malformed fields or invalid state produce stable validation or conflict statuses.",
+        "A transient provider failure is distinguished from deterministic business rejection.",
+        "Error pipeline cleanup and response normalization execute once and preserve the original trace."
+      ]
+    },
+    {
       "heading": "Deployment independence",
       "paragraphs": [
         "The same logical flow can execute with modules in one local monoServer or across separately deployed module servers. Transport and resilience become topology concerns; capability ownership does not move."
+      ]
+    },
+    {
+      "heading": "Distributed execution",
+      "paragraphs": [
+        "When Profile runs remotely, the calling module or frontend uses its configured API contract. Timeouts, retries, circuit behavior, and readiness protect the transport boundary. Retrying a non-idempotent mutation requires an idempotency contract.",
+        "Module self-registration with BackOffice improves discovery but is asynchronous and retryable. A temporary BackOffice outage must not move Profile ownership or block unrelated local requests after Profile is ready."
+      ]
+    },
+    {
+      "heading": "Verification matrix",
+      "items": [
+        "Successful local and configured remote execution.",
+        "Unauthenticated, unauthorized, wrong-tenant, invalid-field, invalid-relation, and conflict behavior.",
+        "Provider timeout, dependency loss, restart, retry, and duplicate-request boundaries.",
+        "Stable statuses and safe trace context across every failure layer.",
+        "Cache, search, event, audit, and generated-contract integration.",
+        "Regression with the capability hosted in monoServer and a dedicated server."
       ]
     }
   ]

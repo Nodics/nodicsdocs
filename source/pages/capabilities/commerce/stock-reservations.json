@@ -1,1 +1,119 @@
-{"code":"commerce.stock.reservations","title":"Reserve Stock","route":"/docs/capabilities/commerce/stock/reservations","section":"capabilities","family":"tutorial-example","parent":"page:capability.commerce.stock-units","order":100,"audiences":["business-user","developer","operator","ai-tool"],"readerIntent":"Create, extend, consume, release, or expire a reservation safely.","priorKnowledge":"Know trusted context, product/variant, requested quantity/unit, source, owner, and expiry policy.","depth":"guided","status":"implemented","owner":"Inventory capability","lastVerified":"2026-07-26","summary":"A reservation temporarily reduces available-to-sell under tenant-safe ownership, expiry, concurrency, and idempotency rules.","supportingEvidence":["nodics:gComm/inventory/README.md"],"sections":[{"heading":"Flow","items":["Resolve eligible sources and current availability.","Create reservation with stable owner/reference, source, quantity/unit, expiry, revision, and idempotency key.","Prevent oversell through atomic or qualified concurrency behavior.","Consume into allocation, release explicitly, or expire through governed job/event processing.","Persist evidence and invalidate affected availability cache after commit."]}]}
+{
+  "code": "commerce.stock.reservations",
+  "title": "Reserve Stock",
+  "route": "/docs/capabilities/commerce/stock/reservations",
+  "section": "capabilities",
+  "family": "tutorial-example",
+  "parent": "page:capability.commerce.stock-units",
+  "order": 100,
+  "audiences": [
+    "business-user",
+    "developer",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Create, extend, consume, release, or expire a reservation safely.",
+  "priorKnowledge": "Know trusted context, product/variant, requested quantity/unit, source, owner, and expiry policy.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "Inventory capability",
+  "lastVerified": "2026-07-26",
+  "summary": "A reservation temporarily reduces available-to-sell under tenant-safe ownership, expiry, concurrency, and idempotency rules.",
+  "supportingEvidence": [
+    "nodics:gComm/inventory/README.md",
+    "nodics:gDocs/commerce/how-to-reserve-stock.md"
+  ],
+  "sections": [
+    {
+      "heading": "Flow",
+      "items": [
+        "Resolve eligible sources and current availability.",
+        "Create reservation with stable owner/reference, source, quantity/unit, expiry, revision, and idempotency key.",
+        "Prevent oversell through atomic or qualified concurrency behavior.",
+        "Consume into allocation, release explicitly, or expire through governed job/event processing.",
+        "Persist evidence and invalidate affected availability cache after commit."
+      ]
+    },
+    {
+      "heading": "Business meaning",
+      "paragraphs": [
+        "A reservation promises that eligible stock will be held temporarily for an owner such as a cart, order, quote, project, or service process. It reduces available-to-sell but does not prove fulfillment.",
+        "The owner, expiry, source, and quantity are explicit so abandoned holds can be released safely."
+      ]
+    },
+    {
+      "heading": "Concurrency control",
+      "items": [
+        "Recalculate eligible availability at the authoritative source.",
+        "Acquire through qualified atomic or revision behavior.",
+        "Reject oversell and stale availability.",
+        "Use idempotency for repeated owner requests.",
+        "Return the existing reservation for an exact duplicate and reject conflict."
+      ]
+    },
+    {
+      "heading": "Example",
+      "paragraphs": [
+        "A customer cart reserves 1.5 kilograms of produce for ten minutes from an eligible pool. Units validates the quantity. Inventory records the hold and updates availability.",
+        "Checkout consumes the hold into allocation. If checkout never completes, a governed scheduled job expires and releases it idempotently."
+      ]
+    },
+    {
+      "heading": "Lifecycle",
+      "items": [
+        "Create, extend where policy permits, partially or fully consume, release, expire, cancel, and reconcile.",
+        "Do not extend beyond product, campaign, or fulfillment limits.",
+        "Do not release consumed quantity.",
+        "Treat late expiry and allocation races through revision policy.",
+        "Retain bounded audit evidence."
+      ]
+    },
+    {
+      "heading": "Tests and operations",
+      "items": [
+        "Available, insufficient, exact-boundary, and fractional quantity.",
+        "Duplicate, conflicting, expired, released, and consumed reservation.",
+        "Concurrent requests and expiry/allocation race.",
+        "Wrong tenant, source, unit, owner, and permission.",
+        "Restart, repeated expiry job, unknown response, and reconciliation.",
+        "Reservation age, expiry backlog, conflict, and cache invalidation metrics."
+      ]
+    },
+    {
+      "heading": "Complete guide: How to reserve stock",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-reserve-stock.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "A Stock Reservation protects units for a short-lived business process such as checkout, pickup preparation, or order allocation."
+      ]
+    },
+    {
+      "heading": "Business sequence",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-reserve-stock.md",
+      "sourceAnchor": "business-sequence",
+      "paragraphs": [
+        "Reservations operate on Online operational Stock. Staged publishing remains appropriate for stable Warehouse, Pool, and Sourcing configuration, not live holds or movements.",
+        "Only authenticated modules and CronJob processes use these commands. Human BackOffice users act through an approved business API or workflow rather than calling internal reservation routes directly."
+      ],
+      "items": [
+        "Sourcing identifies eligible Stock Pools and Warehouses.",
+        "Availability reports `ON_HAND`, `reservedQuantity`, and `AVAILABLE_TO_SELL`.",
+        "The checkout or order module requests a reservation with a unique idempotency key and expiry time.",
+        "Inventory atomically increases the balance's reserved quantity if enough stock remains.",
+        "Cancellation, release, or expiry returns the quantity to sale.",
+        "Fulfillment consumes the reservation and applies a matching Stock `ISSUE`; Inventory decreases on-hand and held quantity together."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-reserve-stock.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "[How Stock Availability Works](/docs/capabilities/commerce/stock/availability)",
+        "[How Stock Movements Work](/docs/capabilities/commerce/stock/movements)",
+        "[How To Create Scheduled Jobs](/docs/capabilities/scheduled-jobs/tutorial)",
+        "[Nodics Documentation](/docs)"
+      ]
+    }
+  ]
+}

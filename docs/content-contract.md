@@ -29,6 +29,21 @@ Inline Markdown remains presentation text inside a safe block. Renderers must
 support links, emphasis, and inline code through an allowlisted parser and must
 not execute raw HTML.
 
+Canonical paragraph entries that contain a complete fenced-code block or
+Markdown table are converted during generation into `code` or `table` blocks.
+They must never reach a frontend as paragraphs containing visible backticks,
+pipe delimiters, or separator rows. The rule applies to every article rather
+than to a page-specific renderer exception.
+
+Reviewed local images are generated as `image` blocks, never left as Markdown
+paragraph text. Each block carries alternative text, an allowlisted PNG or JPEG
+data source, MIME type, and verified content hash. Embedding keeps the committed
+content pack directly importable without a build step, filesystem URL, frontend
+asset copy, or parallel media server. Renderers must reject other data schemes,
+apply responsive bounds, preserve aspect ratio, lazy-load images, and expose
+alternative text. A future governed CMS media authority may replace the
+transport representation without changing the image-block capability.
+
 ## Canonical article metadata
 
 An approved article must identify:
@@ -62,6 +77,20 @@ Repository references that are not documentation pages remain provenance
 metadata and are rendered as text rather than client navigation. Shared
 navigation and previous/next references are generated from the same canonical
 article graph.
+
+## Nodics principle conformance
+
+The platform-wide documentation-impact, detail-preservation, audience,
+use-case, and generation rules are authoritative in
+`nodics/gSetup/llm/contracts/documentation-impact-contract.md`.
+`nodicsdocs` implements those rules through structured page metadata, reviewed
+migration decisions, source attribution, depth and coverage validation,
+canonical-link normalization, deterministic generation, and immutable release
+metadata.
+
+This content-pack contract adds no competing product-development principle.
+Its responsibility is to ensure that canonical content and generated CMS
+records faithfully preserve the Nodics-owned documentation contract.
 
 The reusable renderer keys are:
 

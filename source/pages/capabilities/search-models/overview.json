@@ -6,7 +6,11 @@
   "family": "overview",
   "parent": "section:capabilities",
   "order": 50,
-  "audiences": ["business-user", "developer", "architect"],
+  "audiences": [
+    "business-user",
+    "developer",
+    "architect"
+  ],
   "readerIntent": "Understand how Nodics exposes searchable business data without coupling callers to one search engine.",
   "priorKnowledge": "Understand the purpose of a Nodics schema and item model.",
   "depth": "overview",
@@ -14,8 +18,17 @@
   "owner": "Nodics provider-neutral search capability",
   "lastVerified": "2026-07-26",
   "summary": "Search models describe searchable behavior and normalized operations; configured providers execute engine-specific indexing and queries.",
-  "evidence": ["nodics:gFramework/nSearch/search/README.md"],
+  "evidence": [
+    "nodics:gFramework/nSearch/search/README.md"
+  ],
   "sections": [
+    {
+      "heading": "What is Search Models and Querying?",
+      "paragraphs": [
+        "A search model is a structured request that describes filters, sorting, paging, projection, and related query choices. It separates what a caller wants to find from the database or search provider that executes the query.",
+        "Think of an advanced library request form: the reader describes subject, date, order, and result size, while the library decides how to locate the matching records safely."
+      ]
+    },
     {
       "heading": "Four different responsibilities",
       "items": [
@@ -32,11 +45,61 @@
       ]
     },
     {
+      "heading": "Search model versus search engine",
+      "paragraphs": [
+        "A search model is the Nodics contract describing searchable fields, index ownership, normalized operations, and business context. A provider translates that contract to an engine such as Elasticsearch.",
+        "Business modules depend on normalized search, not engine clients. This permits provider changes and keeps engine settings out of business schemas."
+      ]
+    },
+    {
+      "heading": "Search is a projection",
+      "paragraphs": [
+        "The item model and owning service remain the source of truth. A search index is a rebuildable projection optimized for discovery.",
+        "Search results preserve tenant, ownership, permission, catalog, and business scopes. A fast query is not acceptable if it reveals a record the owning API would reject."
+      ]
+    },
+    {
+      "heading": "Normalized responsibilities",
+      "items": [
+        "Create or update an index from the effective search model.",
+        "Index, update, or remove documents after authoritative changes.",
+        "Execute supported text, filter, sort, aggregation, pagination, and identifier queries.",
+        "Rebuild or reconcile indexes after imports, migrations, mapping changes, or drift.",
+        "Report provider health, index state, failures, lag, and diagnostics."
+      ]
+    },
+    {
+      "heading": "Example: find enterprises",
+      "paragraphs": [
+        "An employee searches Enterprise by code, description, or approved aliases. The query resolves tenant and authorization context, selects the Enterprise search model, and executes through the configured provider.",
+        "Results expose safe display fields. Selecting one retrieves or mutates it through the Profile API; Axis never treats a search document as update authority."
+      ]
+    },
+    {
+      "heading": "Consistency and implementation choices",
+      "items": [
+        "Synchronous indexing reduces read-after-write delay but adds provider latency to mutations.",
+        "Asynchronous indexing isolates writes but introduces lag, retry, and reconciliation.",
+        "Bulk import coordinates indexing and exposes finalization status.",
+        "Delete, publishing, tenant movement, and schema changes define index cleanup.",
+        "Small datasets may use item-model queries; external search is justified by relevance, aggregation, scale, or query needs."
+      ]
+    },
+    {
       "heading": "Continue",
       "links": [
-        {"label": "Learn how search models work", "target": "/docs/capabilities/search-models/concepts"},
-        {"label": "Define searchable data", "target": "/docs/capabilities/search-models/tutorial"},
-        {"label": "Explore search providers", "target": "/docs/capabilities/search-providers"}
+        {
+          "label": "Learn how search models work",
+          "target": "/docs/capabilities/search-models/concepts"
+        },
+        {
+          "label": "Define searchable data",
+          "target": "/docs/capabilities/search-models/tutorial"
+        },
+        {
+          "label": "Explore search providers",
+          "target": "/docs/capabilities/search-providers"
+        }
       ]
     }
   ]

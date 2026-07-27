@@ -1,1 +1,366 @@
-{"code":"capability.ai.overview","title":"AI Providers, Knowledge, and Assistants","route":"/docs/capabilities/ai","section":"capabilities","family":"overview","parent":"page:framework.architecture","order":230,"audiences":["evaluator","business-user","administrator","developer","architect","security-reviewer","operator","ai-tool"],"readerIntent":"Understand Nodics AI capabilities and their authority boundaries.","priorKnowledge":"Understand schemas, search, services, workflows, and security.","depth":"overview","status":"implemented","owner":"aiProviders, aiKnowledge, aiAssistant, and owning Nodics business capabilities","lastVerified":"2026-07-26","summary":"Nodics provides configurable AI generation, embeddings, governed knowledge retrieval, conversational assistance, tool execution, and usage governance without granting AI direct infrastructure authority.","supportingEvidence":["nodics:gAi/aiProviders/README.md","nodics:gAi/aiKnowledge/README.md","nodics:gAi/aiAssistant/README.md"],"sections":[{"heading":"Authority map","items":["aiProviders is the only provider-neutral AI gateway; callers never import vendor adapters.","aiKnowledge owns corpus ingestion, versioned retrieval evidence, and citations; nSearch executes search.","aiAssistant owns conversations, turns, streaming, tool orchestration, confirmations, and recovery.","Target modules retain authorization, validation, persistence, and business execution.","Workflow retains durable multi-step process authority.","Generated schema services and nDatabase own persistence; AI modules never connect directly to a database."]},{"heading":"Default safety","items":["AI capabilities and vendor adapters are disabled until configured.","Provider/model selection, pricing, credentials, limits, and kill switches are backend configuration.","Retrieved content is untrusted reference data, not executable instruction.","Material mutations require immutable arguments, explicit confirmation, target authorization, idempotency, and workflow handoff where configured."]},{"heading":"Continue","items":["[AI Providers and Adapter Selection](/docs/capabilities/ai/providers)","[AI Token and Cost Governance](/docs/capabilities/ai/token-governance)","[AI Knowledge and RAG](/docs/capabilities/ai/knowledge)","[AI Assistant](/docs/capabilities/ai/assistant)","[Agentic Business Processes](/docs/capabilities/ai/agentic-processes)","[Partner AI Customization](/docs/capabilities/ai/partner-customization)","[AI Technical Reference](/docs/reference/ai)"]}]}
+{
+  "code": "capability.ai.overview",
+  "title": "AI Providers, Knowledge, and Assistants",
+  "route": "/docs/capabilities/ai",
+  "section": "capabilities",
+  "family": "overview",
+  "parent": "section:capabilities",
+  "order": 230,
+  "audiences": [
+    "evaluator",
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "security-reviewer",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Understand Nodics AI capabilities and their authority boundaries.",
+  "priorKnowledge": "Understand schemas, search, services, workflows, and security.",
+  "depth": "overview",
+  "status": "implemented",
+  "owner": "aiProviders, aiKnowledge, aiAssistant, and owning Nodics business capabilities",
+  "lastVerified": "2026-07-26",
+  "summary": "Nodics provides configurable AI generation, embeddings, governed knowledge retrieval, conversational assistance, tool execution, and usage governance without granting AI direct infrastructure authority.",
+  "supportingEvidence": [
+    "nodics:gAi/aiProviders/README.md",
+    "nodics:gAi/aiKnowledge/README.md",
+    "nodics:gAi/aiAssistant/README.md",
+    "nodics:gDocs/ai/assistant-provider-and-knowledge-guide.md"
+  ],
+  "sections": [
+    {
+      "heading": "What is AI Providers, Knowledge, and Assistants?",
+      "paragraphs": [
+        "Artificial intelligence (AI) lets software interpret information, generate useful responses, and assist with work that normally requires human judgement. In Nodics, AI is an optional governed capability: providers supply models, Knowledge supplies approved evidence, and Assistants coordinate conversations and permitted actions without becoming a second business authority.",
+        "Think of it as a trained assistant working at a controlled service desk. The assistant may explain, search, or prepare an action, but the owning Nodics API still validates identity, permission, tenant, data, and the final operation."
+      ]
+    },
+    {
+      "heading": "Authority map",
+      "items": [
+        "aiProviders is the only provider-neutral AI gateway; callers never import vendor adapters.",
+        "aiKnowledge owns corpus ingestion, versioned retrieval evidence, and citations; nSearch executes search.",
+        "aiAssistant owns conversations, turns, streaming, tool orchestration, confirmations, and recovery.",
+        "Target modules retain authorization, validation, persistence, and business execution.",
+        "Workflow retains durable multi-step process authority.",
+        "Generated schema services and nDatabase own persistence; AI modules never connect directly to a database."
+      ]
+    },
+    {
+      "heading": "Default safety",
+      "items": [
+        "AI capabilities and vendor adapters are disabled until configured.",
+        "Provider/model selection, pricing, credentials, limits, and kill switches are backend configuration.",
+        "Retrieved content is untrusted reference data, not executable instruction.",
+        "Material mutations require immutable arguments, explicit confirmation, target authorization, idempotency, and workflow handoff where configured."
+      ]
+    },
+    {
+      "heading": "Business value and practical boundaries",
+      "items": [
+        "Nodics AI capabilities let partners add conversational assistance, documentation discovery, governed automation, and application-specific copilots without moving business authority into an LLM.",
+        "A model can explain, retrieve, classify, summarize, or propose an action. It cannot grant itself permission, bypass a target module, write directly to a database, or turn retrieved text into trusted instructions.",
+        "Provider-neutral contracts protect applications from one vendor's SDK, response format, pricing model, or outage. OpenAI, Anthropic, Gemini, and future adapters remain replaceable behind aiProviders.",
+        "The same foundation can support an employee Axis Assistant, a public documentation assistant, or a partner's logistics chatbot, but each deployment has separate identity, tools, corpora, budgets, and policy."
+      ]
+    },
+    {
+      "heading": "How to evaluate readiness",
+      "items": [
+        "Start with a bounded read-only use case, explicit source ownership, citations, a usage profile, a disabled-by-default provider, and measurable acceptance criteria.",
+        "Add mutations only after confirmation, idempotency, authorization, workflow handoff, audit, uncertain-outcome recovery, and negative security tests are proven.",
+        "Production evidence includes grounded-answer quality, refusal behavior, tenant isolation, prompt-injection resistance, cost limits, latency, cancellation, provider outage, fallback, redaction, retention, and human escalation.",
+        "AI enhances existing Nodics contracts; it is never a parallel router, schema system, persistence layer, security authority, or workflow engine."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "items": [
+        "AI Providers and Adapter Selection",
+        "AI Token and Cost Governance",
+        "AI Knowledge and RAG",
+        "AI Assistant",
+        "Agentic Business Processes",
+        "Partner AI Customization",
+        "AI Technical Reference"
+      ]
+    },
+    {
+      "heading": "Complete guide: Assistant, AI Providers, and Knowledge Guide",
+      "migratedFrom": "nodics:gDocs/ai/assistant-provider-and-knowledge-guide.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "This guide explains the implemented Nodics backend capability from a business overview through developer and operator details. The capability is disabled by default. Employee-secured JSON APIs and normalized SSE delivery are implemented. Nodics supplies the CMS composition contract for the Axis chat screen; rendering remains in the separate `nodicsaxis` repository. Confirmed enterprise creation and optional Workflow handoff are implemented."
+      ]
+    },
+    {
+      "heading": "What A Business Can Use",
+      "migratedFrom": "nodics:gDocs/ai/assistant-provider-and-knowledge-guide.md",
+      "sourceAnchor": "what-a-business-can-use",
+      "paragraphs": [
+        "The implemented backend can:",
+        "tenants;",
+        "turn through provider-neutral contracts.",
+        "Profile;",
+        "reference.",
+        "No customer identity can use the Axis Assistant flow. A partner can reuse the same modules for another employee assistant by configuration and later-layer prompt/source contributions."
+      ],
+      "items": [
+        "accept an authenticated employee's read-only Assistant turn;",
+        "keep that employee's conversations isolated from other employees and",
+        "redact configured sensitive patterns before provider execution;",
+        "retrieve approved documentation evidence with citations;",
+        "estimate and reserve token/cost capacity before calling an AI provider;",
+        "use OpenAI, Anthropic, or Google through one provider-neutral gateway;",
+        "retain normalized usage and replayable Assistant events.",
+        "create, list, and load employee-owned conversations through secured APIs;",
+        "submit and inspect turns, replay persisted events, and cancel an accepted",
+        "bind enterprise-create approval to immutable arguments and execute through",
+        "hand configured multi-step work to Workflow and retain only its carrier"
+      ]
+    },
+    {
+      "heading": "Responsibility Map",
+      "migratedFrom": "nodics:gDocs/ai/assistant-provider-and-knowledge-guide.md",
+      "sourceAnchor": "responsibility-map",
+      "paragraphs": [
+        "| Owner | Responsibility |\n| --- | --- |\n| `aiAssistant` | Conversation, message, turn, event, prompt, confirmation and orchestration |\n| `aiKnowledge` | Corpus, explicit sources, chunks, evidence and citations |\n| `aiProviders` | Selection, credentials, estimates, pricing, budgets, retries and normalized results |\n| Provider module | Vendor request/response translation only |\n| `nDatabase` | Generated-service persistence and transactions |\n| `nCache` | Rate-limit and eligible reuse storage |\n| `nSearch` | Indexing and retrieval execution |\n| Profile | Employee identity and permissions |\n| BackOffice/CMS | Capability discovery and non-executable Axis page composition |\n| Workflow | Durable multi-step state, manual actions, retries and recovery |\n| CronJob | Scheduling disabled ledger maintenance jobs |",
+        "Do not copy these responsibilities into a customer module. Override the smallest configuration or service implementation through normal Nodics layering."
+      ]
+    },
+    {
+      "heading": "Safe Default State",
+      "migratedFrom": "nodics:gDocs/ai/assistant-provider-and-knowledge-guide.md",
+      "sourceAnchor": "safe-default-state",
+      "paragraphs": [
+        "exact pricing, an opaque secret reference, rate limiting, and the persistent ledger."
+      ],
+      "items": [
+        "`aiAssistant.enabled` is `false`.",
+        "`aiKnowledge.enabled` is `false`.",
+        "`aiProviders.enabled` is `false`.",
+        "Every vendor provider is `enabled: false`.",
+        "The two contributed CronJobs are inactive.",
+        "No secret is stored in source, `package.json`, a schema, or browser code.",
+        "No provider is usable without active code, registration, configuration,"
+      ]
+    },
+    {
+      "heading": "Administrator Setup",
+      "migratedFrom": "nodics:gDocs/ai/assistant-provider-and-knowledge-guide.md",
+      "sourceAnchor": "administrator-setup",
+      "paragraphs": [
+        "Create a later-layer `properties.js` contribution. Configure:",
+        "Never put an API key into the properties object. `secretReference` is an opaque identifier such as a vault path. Runtime resolution happens only on the backend.",
+        "The Google adapter supports `GEMINI_API` and `VERTEX`. Gemini API uses an API key resolved from the reference. Vertex uses a resolved bearer credential plus configured project and location. OpenAI uses Responses API. Anthropic uses Messages API."
+      ],
+      "items": [
+        "one `aiProviders.profiles` entry;",
+        "an enabled provider whose module is active;",
+        "a model alias;",
+        "revisioned exact-decimal rates and currency;",
+        "a secret reference understood by the deployment's secret resolver;",
+        "token and exact-cost ceilings;",
+        "Assistant or Knowledge activation only after dependencies are ready."
+      ]
+    },
+    {
+      "heading": "Token And Failure Behavior",
+      "migratedFrom": "nodics:gDocs/ai/assistant-provider-and-knowledge-guide.md",
+      "sourceAnchor": "token-and-failure-behavior",
+      "paragraphs": [
+        "This heading groups the detailed subsections that immediately follow."
+      ]
+    },
+    {
+      "heading": "Confirmed Enterprise Creation",
+      "migratedFrom": "nodics:gDocs/ai/assistant-provider-and-knowledge-guide.md",
+      "sourceAnchor": "confirmed-enterprise-creation",
+      "paragraphs": [
+        "`MUTATION_PROPOSAL`; neither is executable.",
+        "policy and the current employee-filtered BackOffice observation of Profile. A model-supplied URL, method, permission, credential, or unknown argument is rejected.",
+        "confirmation and performs no Profile call.",
+        "creates a `PENDING` confirmation containing a client-safe impact summary and SHA-256 argument digest. No enterprise exists yet.",
+        "revision before expiry.",
+        "replayed request cannot win the same database claim.",
+        "key to Profile. Profile rechecks permission, validates fields, rejects duplicates, and persists through its generated enterprise service.",
+        "all actions, manual approvals, retries, recovery, and final process state.",
+        "`UNCERTAIN` and is never blindly retried.",
+        "Expired or changed confirmations must be recreated. Permission removal is enforced by Profile at execution time. Customer and service tokens cannot use the employee confirmation routes."
+      ],
+      "items": [
+        "The employee asks to create an enterprise.",
+        "The provider-neutral planner may return `CLARIFICATION` or a",
+        "Assistant resolves the proposal's stable identity against the active tool",
+        "Missing `code` or `name` emits structured clarification. It creates no",
+        "When code and name are present, Assistant validates the bounded proposal and",
+        "Axis displays the impact. Approval must return the same digest and expected",
+        "Execute atomically claims the confirmation as `EXECUTING`. A concurrent or",
+        "Without `workflowCode`, Assistant forwards the human bearer and idempotency",
+        "With `workflowCode`, Assistant creates one Workflow carrier. Workflow owns",
+        "Success becomes `CONSUMED`. A target failure after dispatch becomes"
+      ]
+    },
+    {
+      "heading": "Offline acceptance",
+      "migratedFrom": "nodics:gDocs/ai/assistant-provider-and-knowledge-guide.md",
+      "sourceAnchor": "offline-acceptance",
+      "paragraphs": [
+        "`gAi/aiAssistant/test/aiAssistantEnterpriseCreationAcceptance.test.js` exercises the complete provider-neutral business boundary without credentials or billable provider traffic. It feeds deterministic structured planner output through current-contract resolution, the real confirmation service, approval, and the existing Profile module transport. It proves clarification without persistence, safe confirmation projection, employee-bearer forwarding, successful consumption, stale revision, replay rejection, tenant isolation, expiry, duplicate-target rejection, and uncertain target failure.",
+        "The acceptance uses injected test output and transport only. It does not register a mock production provider, bypass `aiProviders`, or create another mutation executor. Live provider wording and model behavior remain a separate credentialed local acceptance step."
+      ]
+    },
+    {
+      "heading": "Axis Content and Repository Boundary",
+      "migratedFrom": "nodics:gDocs/ai/assistant-provider-and-knowledge-guide.md",
+      "sourceAnchor": "axis-content-and-repository-boundary",
+      "paragraphs": [
+        "BackOffice core data contributes the authenticated `/assistant` page to `axisContentCatalog`, including template, slots, safe text properties, and logical renderer keys. Core import remains explicit and idempotent; server startup never imports this content.",
+        "The workspace component owns localized title, welcome, empty state, input placeholder, Send, Stop, employee, Assistant, working, cancelling, and failure labels. It also owns conversation-history, new-conversation, empty-history, pagination, clarification, governed-action, confirmation, approval, execution, expiry, and completion labels. Operators change those values through CMS content rather than editing Axis source. Axis owns layout and interaction only; CMS cannot supply React, HTML, JavaScript, CSS, or event handlers.",
+        "Axis renders structured `CLARIFICATION`, `TOOL_PLAN`, and `CONFIRMATION_REQUIRED` events as separate accessible components. It never derives target URLs, permissions, mutation arguments, digests, or revisions. Approval sends the exact persisted digest and revision returned by Assistant; execution uses only the confirmation code. Malformed events fail closed, and Profile or Workflow remains the final business authority.",
+        "Axis also renders the complete safe tool lifecycle (`TOOL_PLAN`, `TOOL_STARTED`, and `TOOL_RESULT`), governed citation metadata, normalized token categories, and usage-reconciliation state. Raw tool responses, arguments, internal target URLs, reservation identifiers, credentials, and provider diagnostics do not enter the presentation model. Citation locators remain text until an owning backend contract explicitly marks a navigation target safe. Axis does not calculate authoritative cost, remaining budget, or quota from token counts; those values require an explicit client-safe aiProviders projection.",
+        "Nodics owns content contracts, authentication, authorization, persistence, workflow, provider calls, and SSE APIs. `nodicsaxis` owns React renderers, responsive/mobile-webview presentation, accessibility, SSE consumption, and browser state. Neither repository may copy the other's authority.",
+        "Each cost-bearing attempt has a different idempotency identity and reservation. If a provider fails after invocation started, its reservation becomes `UNCERTAIN`; a fallback attempt creates another reservation. This avoids reporting a possibly billed request as free.",
+        "Pricing is immutable within a plan. A configured `effectiveAt` or `expiresAt` outside the attempt time rejects execution. Exact cost uses decimal-string and BigInt arithmetic, never JavaScript floating point.",
+        "Eligible deterministic response or embedding reuse is stored only through nCache. A cache entry never approves spend capacity and never replaces the persistent ledger."
+      ]
+    },
+    {
+      "heading": "Documentation Knowledge Flow",
+      "migratedFrom": "nodics:gDocs/ai/assistant-provider-and-knowledge-guide.md",
+      "sourceAnchor": "documentation-knowledge-flow",
+      "paragraphs": [
+        "Only explicit published documents may be ingested:",
+        "```text\ngDocs or another authoritative source\n  -> explicit source contribution\n  -> deterministic document and section chunks\n  -> optional aiProviders embeddings\n  -> nSearch candidate index\n  -> governed retrieval\n  -> evidence plus citations\n  -> Assistant prompt context\n```",
+        "Root `docs/` is temporary planning material and is rejected as a runtime Knowledge source. Knowledge does not crawl schemas or query a database directly. A business module must explicitly contribute a safe projection before its records can become Knowledge material.",
+        "Retrieval always filters by tenant, corpus, audience, and allowed classification. When no evidence reaches the configured score, the response marks evidence insufficient. Assistant refuses an evidence-required answer instead of inventing one."
+      ]
+    },
+    {
+      "heading": "Employee Turn Flow",
+      "migratedFrom": "nodics:gDocs/ai/assistant-provider-and-knowledge-guide.md",
+      "sourceAnchor": "employee-turn-flow",
+      "paragraphs": [
+        "invokes the configured adapter.",
+        "Axis implements the employee conversation composer, streamed text, progress, cancellation, and failure presentation. Backend JSON APIs, durable events, and authenticated normalized SSE delivery remain the authority."
+      ],
+      "items": [
+        "Profile authenticates an employee.",
+        "Assistant validates that the identity is human and not a customer.",
+        "The effective configuration is snapshotted.",
+        "Sensitive text is redacted and the user message is persisted.",
+        "The active approved prompt version is loaded.",
+        "Recent history is bounded without removing security instructions.",
+        "Knowledge returns governed evidence and citations when requested.",
+        "`aiProviders` estimates, rate-limits, reserves, resolves the credential, and",
+        "Usage is reconciled and normalized.",
+        "Assistant persists the answer and replay events."
+      ]
+    },
+    {
+      "heading": "Employee API workflow",
+      "migratedFrom": "nodics:gDocs/ai/assistant-provider-and-knowledge-guide.md",
+      "sourceAnchor": "employee-api-workflow",
+      "paragraphs": [
+        "After Profile authentication, an employee with the required permissions uses the `aiAssistant` module routes:",
+        "client-safe page of persisted turns and redacted user/Assistant messages. It excludes configuration snapshots, provider identifiers, credentials, leases, and internal execution metadata.",
+        "idempotency key. The enabled Assistant Definition supplies the governed prompt and provider-profile codes.",
+        "bounded ordered page after an optional sequence.",
+        "a queued turn or requests cancellation of active provider execution.",
+        "events and continues live delivery.",
+        "Required permissions are `ai.assistant.use`, `ai.assistant.read`, and `ai.assistant.cancel`. The standard Profile bearer pipeline authenticates the employee. Assistant adds no second login or token authority. Tenant and principal values in browser payloads are neither required nor trusted.",
+        "If an employee guesses another employee's conversation or turn identifier, the ownership-filtered lookup returns no accessible record. Customers and module/service identities are rejected. Result and event sizes are bounded by the effective `aiAssistant.api` configuration. The `aiAssistant` API exposure category remains disabled at framework level and must be explicitly enabled by an environment; Startio Local enables it for local development.",
+        "Turn submission returns HTTP 202 once the user message, turn, and accepted event are durable. Axis then connects to the stream. Each SSE frame contains a stable event ID and sequence. Axis retains the latest event ID and sends it as `Last-Event-ID` after reconnect. Nodics replays later persisted events before continuing live delivery. Heartbeats keep idle connections observable.",
+        "A browser disconnect removes only the live subscriber; it does not cancel the business turn. Explicit cancellation propagates to the active provider request. If provider invocation may already have incurred cost, `aiProviders` preserves uncertain accounting rather than guessing that usage was free.",
+        "Cancellation intent is persisted before any process-local abort. The owning employee can cancel an accepted turn immediately or move an executing turn to `CANCELLATION_REQUESTED`. The lease owner observes that state through its heartbeat even when the request reached another server. Raw browser reason text is not retained. Conditional terminal updates ensure completion and cancellation cannot both win, and recovery finishes an abandoned cancellation without invoking the provider again.",
+        "The current live subscriber registry is deliberately process-local and is not a second event store. In distributed operation a reconnect may reach another node, which recovers from durable turn events. A later deployment may override live fan-out with the existing messaging authority while preserving the same SSE and persistence contracts.",
+        "Provider execution itself uses a different rule: each accepted turn is claimed with a persisted compare-and-set lease before any provider call. The winning runtime renews a bounded heartbeat and projects the lease through nCache. For monoServer development the local cache engine is sufficient. A distributed deployment configures the existing `aiAssistant.executionLease` channel to Redis or Hazelcast; it does not add another registry or turn store.",
+        "If a runtime stops, the service-token recovery endpoint scans a bounded tenant batch. A turn abandoned before provider invocation is marked retry-required. A turn abandoned in the provider phase is marked provider-outcome-uncertain and is not automatically invoked again. This avoids duplicate cost and duplicate side effects. Operations reconcile the provider ledger/evidence, then the employee may submit a new turn with a new idempotency key when safe.",
+        "Operations users with `ai.assistant.operations.read` can inspect `GET /operations/ai-assistant/diagnostics`. It reports sanitized readiness and fixed counters for lease claims, conflicts, renewals, heartbeat/cache failures, and recovery outcomes. It never returns prompts, responses, tenant identifiers, employee identifiers, turn identifiers, provider identifiers, or credentials. The optional nSystem readiness contribution surfaces Assistant degradation without making unrelated Nodics capabilities unavailable."
+      ],
+      "items": [
+        "`POST /conversations` with a definition code creates an owned conversation.",
+        "`GET /conversations` lists only that employee's bounded result page.",
+        "`GET /conversations/:conversationCode` loads one owned conversation.",
+        "`GET /conversations/:conversationCode/history` returns a bounded,",
+        "`POST /conversations/:conversationCode/turns` submits a message and",
+        "`GET /conversations/:conversationCode/turns/:turnCode` reads status.",
+        "`GET /conversations/:conversationCode/turns/:turnCode/events` replays a",
+        "`POST /conversations/:conversationCode/turns/:turnCode/cancel` cancels only",
+        "`GET /conversations/:conversationCode/turns/:turnCode/stream` replays missed"
+      ]
+    },
+    {
+      "heading": "Operations And Recovery",
+      "migratedFrom": "nodics:gDocs/ai/assistant-provider-and-knowledge-guide.md",
+      "sourceAnchor": "operations-and-recovery",
+      "paragraphs": [
+        "Core import contributes three inactive CronJob records:",
+        "Operations must review configuration and permissions before activation. CronJob only invokes service-token-protected internal APIs. `aiProviders` retains all ledger state and repair decisions.",
+        "The Assistant recovery job is assigned to `node0` and defaults to a two-minute schedule and 30-second module-call timeout. Operators may update its persisted Cron expression, node assignment, timeout, logging, and active state before creating and starting it. Batch size and lease timing come from the layered `aiAssistant.execution` configuration. Concurrent scans remain safe because each candidate recovery uses a persisted tenant-scoped compare-and-set.",
+        "On a timeout after provider invocation, do not manually release capacity. Inspect the uncertain reservation and use provider evidence through the governed reconciliation process. Repair scanning is dry-run-first.",
+        "The OpenAI adapter can retrieve a stored Response's positive usage evidence. Anthropic and Gemini adapters currently report provider lookup unavailable because their implemented generation contracts do not provide an equivalent reliable message lookup. Those reservations remain uncertain until governed external evidence or a later adapter capability is available; the system does not guess or release them."
+      ],
+      "items": [
+        "`aiAssistantTurnRecoveryJob`;",
+        "`aiTokenReservationExpiryJob`;",
+        "`aiTokenLedgerRepairScanJob`."
+      ]
+    },
+    {
+      "heading": "Partner Customization",
+      "migratedFrom": "nodics:gDocs/ai/assistant-provider-and-knowledge-guide.md",
+      "sourceAnchor": "partner-customization",
+      "paragraphs": [
+        "A partner adding another provider should:",
+        "usage;",
+        "parent module.",
+        "A partner adding application knowledge should contribute an explicit source or safe model projection from the authoritative module. Do not create another index engine, crawler, database client, or retrieval store.",
+        "Knowledge persistence and search deliberately use two views of the same `knowledgeChunk` schema:",
+        "when the schema search contract is enabled.",
+        "Do not call `DefaultSearchService` for chunk indexing or retrieval: it is the generated database service for the `search` schema, not the nSearch client. Candidate versions may be indexed before approval, but indexed retrieval always loads the corpus and filters by its `activeIndexVersion`. Activation and rollback change this corpus-owned pointer with optimistic revision matching; nSearch continues to own index creation, query execution, and provider translation.",
+        "Retrieval strategy and search execution are independent. `INDEXED`, `LIVE`, and `HYBRID` describe where evidence comes from. `LEXICAL`, `VECTOR`, and `HYBRID` describe how nSearch queries an index. The first operational mode is lexical. Vector and hybrid search remain disabled until an environment supplies an explicit vector mapping and dimensions, a compatible embedding profile, and a capable nSearch adapter."
+      ],
+      "items": [
+        "create a provider module under `gAi/aiProviders`;",
+        "translate only the vendor protocol;",
+        "implement truthful capabilities, estimation, cancellation, and normalized",
+        "self-register during module lifecycle;",
+        "run the common adapter conformance suite;",
+        "leave selection, secrets, pricing, retry, ledger, cache, and controls in the",
+        "the generated item service persists the authoritative derived chunk record;",
+        "the same generated service exposes nSearch indexing and retrieval methods"
+      ]
+    },
+    {
+      "heading": "Running Knowledge locally",
+      "migratedFrom": "nodics:gDocs/ai/assistant-provider-and-knowledge-guide.md",
+      "sourceAnchor": "running-knowledge-locally",
+      "paragraphs": [
+        "Knowledge is intentionally disabled by default. Enable it only in the chosen local environment after nSearch is healthy. Submit published source documents through the internal ingestion route, inspect the durable run, and activate the candidate through the employee operations route. A completed ingestion is not an activation.",
+        "If nSearch fails partway through ingestion, the run is recorded as failed and the corpus continues serving its previous active version. Repair nSearch and use a new run code. Completed run codes replay safely without duplicate indexing. Readiness and bounded metrics are available to employees with `ai.knowledge.read`; activation and rollback require `ai.knowledge.manage`."
+      ]
+    },
+    {
+      "heading": "Verification",
+      "migratedFrom": "nodics:gDocs/ai/assistant-provider-and-knowledge-guide.md",
+      "sourceAnchor": "verification",
+      "paragraphs": [
+        "Run:",
+        "```text\nnode gFramework/nTooling/bin/nodics-tool.js test:suite --suite=ai\nnpm run build\nnpm run llm:generate\nnpm run llm:validate\n```",
+        "The focused suite covers success, disabled defaults, inline-secret rejection, provider translation, rate limits, retry/fallback accounting, transaction and hierarchy behavior, employee/customer boundaries, redaction, citation preservation, nSearch delegation, temporary-doc rejection, and ledger repair. The secured-route contract additionally covers route metadata, cross-principal rejection, replay boundaries, and idempotent distributed cancellation. The SSE contract covers cursor validation, normalized frames, terminal closure, incremental provider chunks, and response ownership."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/ai/assistant-provider-and-knowledge-guide.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "[How AI Cost Governance Works](/docs/capabilities/ai/token-governance)",
+        "[Module Documentation Index](/docs/reference/modules)"
+      ]
+    }
+  ]
+}

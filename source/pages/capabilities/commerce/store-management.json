@@ -1,1 +1,200 @@
-{"code":"commerce.store.management","title":"Manage Stores","route":"/docs/capabilities/commerce/stores/manage","section":"capabilities","family":"tutorial-example","parent":"page:capability.commerce.stores-warehouses","order":10,"audiences":["business-user","administrator","developer","ai-tool"],"readerIntent":"Create a Store and connect its governed commerce contexts.","priorKnowledge":"Know enterprise, countries, channels, Sites, catalogs, currencies, languages, and fulfillment needs.","depth":"guided","status":"implemented","owner":"Store capability","lastVerified":"2026-07-26","summary":"A Store binds a commercial touchpoint to referenced contexts without taking ownership of their records.","supportingEvidence":["nodics:gComm/store/README.md"],"sections":[{"heading":"Steps","items":["Create stable Store code, name, type, tenant, enterprise, and active state.","Associate allowed countries, channels, currencies, languages, Sites, and catalog references.","Associate eligible warehouses/pickup locations by reference; Inventory still owns sourcing.","Configure operational policy and validate cross-tenant/inactive relationships.","Publish where required and verify Storefront resolution and downstream audience checks."]}]}
+{
+  "code": "commerce.store.management",
+  "title": "Manage Stores",
+  "route": "/docs/capabilities/commerce/stores/manage",
+  "section": "capabilities",
+  "family": "tutorial-example",
+  "parent": "page:capability.commerce.stores-warehouses",
+  "order": 10,
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "ai-tool"
+  ],
+  "readerIntent": "Create a Store and connect its governed commerce contexts.",
+  "priorKnowledge": "Know enterprise, countries, channels, Sites, catalogs, currencies, languages, and fulfillment needs.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "Store capability",
+  "lastVerified": "2026-07-26",
+  "summary": "A Store binds a commercial touchpoint to referenced contexts without taking ownership of their records.",
+  "supportingEvidence": [
+    "nodics:gComm/store/README.md",
+    "nodics:gDocs/commerce/how-to-manage-stores.md"
+  ],
+  "sections": [
+    {
+      "heading": "Steps",
+      "items": [
+        "Create stable Store code, name, type, tenant, enterprise, and active state.",
+        "Associate allowed countries, channels, currencies, languages, Sites, and catalog references.",
+        "Associate eligible warehouses/pickup locations by reference; Inventory still owns sourcing.",
+        "Configure operational policy and validate cross-tenant/inactive relationships.",
+        "Publish where required and verify Storefront resolution and downstream audience checks."
+      ]
+    },
+    {
+      "heading": "What a Store represents",
+      "paragraphs": [
+        "A Store is a commercial or operational touchpoint, such as an online brand store, physical retail store, pickup location, marketplace, or project-defined channel context.",
+        "It references Sites, catalogs, countries, channels, languages, currencies, and warehouses while each owning capability retains authority."
+      ]
+    },
+    {
+      "heading": "Store versus Site and Storefront",
+      "items": [
+        "Site owns a digital experience and content-catalog association.",
+        "Store owns commercial and operational context.",
+        "Storefront resolves an incoming host and audience to the valid Site and Store context.",
+        "One Site may intentionally serve several Stores.",
+        "One enterprise may use separate Sites and catalogs for different brands."
+      ]
+    },
+    {
+      "heading": "Example",
+      "paragraphs": [
+        "One tenant and enterprise operate apparel.nodics.com and electronics.nodics.com. Two Sites select different content catalogs and branding. Each Site associates with its relevant Store.",
+        "A physical Electronics Store can also act as a pickup location linked to Inventory warehouses. Store does not calculate stock."
+      ]
+    },
+    {
+      "heading": "Relationship governance",
+      "items": [
+        "All references share compatible tenant and enterprise scope.",
+        "Inactive Site, warehouse, country, or catalog cannot become active context.",
+        "Friendly selection uses code and description.",
+        "Nested creation uses target APIs and permissions.",
+        "Deletion or deactivation evaluates dependent storefront and fulfillment use."
+      ]
+    },
+    {
+      "heading": "Verification",
+      "items": [
+        "Online, physical, pickup, and project-defined types.",
+        "Multi-Site, shared Site, and multi-Store associations.",
+        "Country, currency, language, channel, and catalog rules.",
+        "Wrong-tenant, inactive, duplicate, and incompatible relation.",
+        "Storefront host resolution and Inventory sourcing.",
+        "Publishing, cache, search, audit, and operations."
+      ]
+    },
+    {
+      "heading": "What A Store Means",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-manage-stores.md",
+      "sourceAnchor": "what-a-store-means",
+      "paragraphs": [
+        "A Store is the business unit customers buy from or interact with. It may be a physical shop, an online storefront, a combined physical-and-online operation, a dark store, or a pickup point.",
+        "A Store and a Warehouse are different:",
+        "The foundation records these identities and relationships. It also connects Stores to CMS Sites so that separate businesses, brands, countries, or channels can use different content catalogs and website experiences. It does not calculate stock availability, reserve products, choose a warehouse, or render a website."
+      ],
+      "items": [
+        "The Store represents the customer-facing sales or service context.",
+        "The Warehouse represents the Inventory-owned place or logical authority that holds stock.",
+        "One Store may have no Warehouse, one Warehouse, or several Warehouses.",
+        "One Warehouse may serve several Stores."
+      ]
+    },
+    {
+      "heading": "Before You Begin",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-manage-stores.md",
+      "sourceAnchor": "before-you-begin",
+      "paragraphs": [
+        "You need an authenticated identity associated with the correct enterprise. Create any Warehouse you intend to assign through the Inventory capability first. Confirm the Store code and Warehouse code with the responsible business teams because they cannot be renamed after creation.",
+        "BackOffice frontend screens are not implemented yet. Approved Store management APIs are implemented for a future BackOffice or another human client: readers need `store.backoffice.read`, writers need `store.backoffice.manage`, and both require a human access token. Store validates Warehouses and CMS Sites locally when co-hosted or through secured service-token module reference routes when separately hosted."
+      ]
+    },
+    {
+      "heading": "Create And Activate A Store",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-manage-stores.md",
+      "sourceAnchor": "create-and-activate-a-store",
+      "paragraphs": [
+        "If creation is rejected, verify the authenticated enterprise, code format, effective dates, and effective configuration. Do not work around rejection by changing the internal `code` or enterprise field."
+      ],
+      "items": [
+        "Choose a stable `storeCode`, such as `dubaiMall` or `uaeOnline`.",
+        "Enter the business name.",
+        "Select the type: physical, online, hybrid, dark store, or pickup point.",
+        "Add country, timezone, address reference, channels, and capabilities when applicable.",
+        "Save the Store in `DRAFT`.",
+        "Review the result. The system derives the internal identity and enterprise ownership.",
+        "Move the Store to `ACTIVE` after review."
+      ]
+    },
+    {
+      "heading": "Assign Warehouses",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-manage-stores.md",
+      "sourceAnchor": "assign-warehouses",
+      "paragraphs": [
+        "An assignment is rejected when the Store or Warehouse is missing/retired, belongs to another enterprise, has an unsupported purpose, uses an invalid priority, or has reversed effective dates."
+      ],
+      "items": [
+        "Confirm the Store and Warehouse both exist and are not retired.",
+        "Create one assignment for the Store/Warehouse pair.",
+        "Choose one or more purposes: fulfilment, pickup, returns, or replenishment.",
+        "Enter a priority. Lower numbers are considered earlier by future sourcing behavior; priority does not itself move stock or route an order today.",
+        "Save in `DRAFT`, review, then activate.",
+        "Repeat for each additional Warehouse that may serve the Store."
+      ]
+    },
+    {
+      "heading": "Connect Stores To Website Experiences",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-manage-stores.md",
+      "sourceAnchor": "connect-stores-to-website-experiences",
+      "paragraphs": [
+        "For the full requirement-to-model guide and developer payloads, read [How To Model Stores And Website Experiences](/docs/capabilities/commerce/storefront/modeling).",
+        "Suppose one enterprise sells Electronics and Apparel from two websites with different designs and content:",
+        "A CMS Site may serve several Stores: put their unique codes in one `storeCodes` list. One Store may use several CMS Sites: create one binding per Site, for example web/mobile or country-specific experiences. Optionally set `primaryStoreCode`; it must be one of the listed Stores. Channels, country codes, locale codes, priority, and effective dates can narrow business applicability, but the consuming frontend must apply the final selection/rendering behavior.",
+        "The Store module never copies pages, templates, components, or catalogs. CMS remains responsible for those records. If a Site is already bound, update that binding instead of creating another registry or duplicate Site."
+      ],
+      "items": [
+        "Create `electronics` and `apparel` as Stores.",
+        "In CMS, create `electronicsSite` linked to the Electronics content catalog.",
+        "In CMS, create `apparelSite` linked to the Apparel content catalog.",
+        "Create Site binding `electronicsWeb` with `cmsSiteCode: electronicsSite` and `storeCodes: [electronics]`.",
+        "Create Site binding `apparelWeb` with `cmsSiteCode: apparelSite` and `storeCodes: [apparel]`.",
+        "Review and activate each binding."
+      ]
+    },
+    {
+      "heading": "Suspend Or Retire",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-manage-stores.md",
+      "sourceAnchor": "suspend-or-retire",
+      "paragraphs": [
+        "Use `SUSPENDED` for a temporary operational stop. Use `RETIRED` when a Store or assignment will no longer be used. Records are retained for history and cannot be hard-deleted.",
+        "Before retiring a Store:",
+        "If retirement fails, complete the dependent assignment retirement and retry. Never delete database records manually."
+      ],
+      "items": [
+        "Find every assignment that is not retired.",
+        "Find every CMS Site binding that references the Store and is not retired.",
+        "Retire each assignment and Site binding.",
+        "Confirm no live dependencies remain.",
+        "Retire the Store."
+      ]
+    },
+    {
+      "heading": "What Developers Can Customize",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-manage-stores.md",
+      "sourceAnchor": "what-developers-can-customize",
+      "paragraphs": [
+        "Projects can extend Store types, assignment purposes, priority bounds, Site-binding bounds/applicability, lifecycle transitions, and local/remote reference settings through later-layer `properties.js` configuration. More complex rules can replace the smallest validation/provider service through Nodics layering.",
+        "Customizations must keep enterprise isolation, derived identities, Inventory/CMS reference validation, human-versus-service authentication, and historical records. Do not create a second Store, Warehouse, or CMS Site registry or copy owning-module state into Store.",
+        "For technical details, read the [Store module guide](/docs/reference/commerce) and [Store, CMS Site, and Integration](/docs/reference/commerce)."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-manage-stores.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "Inventory: [How Warehouse Management Works](/docs/capabilities/commerce/stock/warehouses)",
+        "Architecture: [How Nodics Is Organized](/docs/framework/architecture)",
+        "Security: [How Users, Tenants, And Permissions Work](/docs/security/users-tenants-permissions)",
+        "Development: [How To Customize And Extend Nodics](/docs/build/customization)",
+        "Testing: [How To Test Nodics Changes](/docs/build/testing)",
+        "Documentation home: [Nodics Documentation](/docs)"
+      ]
+    }
+  ]
+}

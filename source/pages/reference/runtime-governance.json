@@ -6,7 +6,15 @@
   "family": "technical-reference",
   "parent": "page:capability.operational-governance.overview",
   "order": 30,
-  "audiences": ["administrator", "developer", "architect", "security-reviewer", "operator", "framework-maintainer", "ai-tool"],
+  "audiences": [
+    "administrator",
+    "developer",
+    "architect",
+    "security-reviewer",
+    "operator",
+    "framework-maintainer",
+    "ai-tool"
+  ],
   "readerIntent": "Implement or audit preview, request, approval, activation, audit, cleanup, rollback, lifecycle, and operational signals without creating a second configuration authority.",
   "priorKnowledge": "Read configuration, operational governance, security, and runtime topology journeys.",
   "depth": "reference",
@@ -14,8 +22,22 @@
   "owner": "nConfig owns static startup and process lifecycle; nDynamo governs supported runtime-mutable contracts; owning services apply changes",
   "lastVerified": "2026-07-26",
   "summary": "Runtime governance changes only supported control-plane contracts through immutable reviewed intent, tenant-scoped authorization, owned activation services, safe evidence, and rollback while static layered configuration and secrets remain in their original authorities.",
-  "supportingEvidence": ["nodics:gFramework/nDynamo/README.md", "nodics:gFramework/nConfig/README.md", "nodics:gFramework/nConfig/docs/runtime-lifecycle-resilience-contract.md", "nodics:gFramework/nRouter/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nDynamo/README.md",
+    "nodics:gFramework/nConfig/README.md",
+    "nodics:gFramework/nConfig/docs/runtime-lifecycle-resilience-contract.md",
+    "nodics:gFramework/nRouter/README.md"
+  ],
   "sections": [
+    {
+      "heading": "Operator quick checks",
+      "items": [
+        "Confirm the contract is eligible for runtime mutation and identify its owning service before previewing a change.",
+        "Compare digest, revision, scope, actor, approval, impact, warnings, and rollback snapshot before activation.",
+        "After activation, verify the business outcome and derived systems rather than relying only on an audit success flag.",
+        "Use the same authority for rollback; never edit persisted governance records or static layered configuration as an emergency shortcut."
+      ]
+    },
     {
       "heading": "Authority map",
       "items": [

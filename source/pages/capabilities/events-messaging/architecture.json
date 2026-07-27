@@ -6,7 +6,15 @@
   "family": "concepts-architecture",
   "parent": "page:capability.events-messaging.overview",
   "order": 5,
-  "audiences": ["business-user", "administrator", "developer", "architect", "security-reviewer", "operator", "ai-tool"],
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "security-reviewer",
+    "operator",
+    "ai-tool"
+  ],
   "readerIntent": "Choose the correct local event, broker transport, persisted distribution, workflow, or scheduled execution contract.",
   "priorKnowledge": "Understand modules, services, runtime topology, and tenant context.",
   "depth": "implementation",
@@ -14,7 +22,11 @@
   "owner": "nEvent listener runtime, nEms provider-neutral transport, NEMS persisted distribution, and each publishing/consuming module",
   "lastVerified": "2026-07-26",
   "summary": "Nodics separates facts and listeners, cross-process transport, and durable distribution state so applications can evolve consumers without embedding vendor clients or a parallel event authority in business modules.",
-  "supportingEvidence": ["nodics:gFramework/nEvent/README.md", "nodics:gFramework/nEms/README.md", "nodics:gCore/nems/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nEvent/README.md",
+    "nodics:gFramework/nEms/README.md",
+    "nodics:gCore/nems/README.md"
+  ],
   "sections": [
     {
       "heading": "Architecture layers",

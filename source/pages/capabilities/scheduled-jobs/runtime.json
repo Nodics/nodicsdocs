@@ -1,1 +1,96 @@
-{"code":"capability.scheduled-jobs.runtime","title":"Job Lifecycle, Resilience, and Operations","route":"/docs/capabilities/scheduled-jobs/runtime","section":"operations","family":"runtime-operations","parent":"page:capability.scheduled-jobs.overview","order":10,"audiences":["administrator","developer","architect","operator","ai-tool"],"readerIntent":"Configure, execute, restart, and recover jobs safely.","priorKnowledge":"Know the job owner, schedule, handler, and side effects.","depth":"implementation","status":"implemented","owner":"CronJob definitions, scheduler, lifecycle services, and owning handler","lastVerified":"2026-07-26","summary":"Create, update, run, start, stop, pause, resume, and remove operate on persisted definitions while runtime pools rebuild idempotently after restart.","supportingEvidence":["nodics:gCore/cronjob/README.md","nodics:gFramework/nConfig/docs/runtime-lifecycle-resilience-contract.md"],"sections":[{"heading":"Definition","items":["Stable code, tenant, schedule, active state, handler, start/end, priority, node assignment, timeout, retry, overlap, idempotency, retention, and permissions.","Customer jobs belong in project modules; no arbitrary request service names, URLs, credentials, or executable handlers."]},{"heading":"Resilience","items":["Drain stops acquisition and process schedules while persisted definitions survive.","Restart rebuilds eligible schedules idempotently.","Node loss, network partition, and timeout can create uncertain outcomes; define duplicate policy, reconciliation, and compensation.","Retry only safe or explicitly idempotent work; process-local flags are not distributed locks."]},{"heading":"Evidence","items":["Positive, invalid, unauthorized, cross-tenant, schedule boundary, manual run, overlap, timeout, retry, restart, drain, node loss/return, recovery, reconciliation, performance, integration, and regression tests."]}]}
+{
+  "code": "capability.scheduled-jobs.runtime",
+  "title": "Job Lifecycle, Resilience, and Operations",
+  "route": "/docs/capabilities/scheduled-jobs/runtime",
+  "section": "operations",
+  "family": "operations-security-troubleshooting",
+  "parent": "page:capability.scheduled-jobs.overview",
+  "order": 10,
+  "audiences": [
+    "administrator",
+    "developer",
+    "architect",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Configure, execute, restart, and recover jobs safely.",
+  "priorKnowledge": "Know the job owner, schedule, handler, and side effects.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "CronJob definitions, scheduler, lifecycle services, and owning handler",
+  "lastVerified": "2026-07-26",
+  "summary": "Create, update, run, start, stop, pause, resume, and remove operate on persisted definitions while runtime pools rebuild idempotently after restart.",
+  "supportingEvidence": [
+    "nodics:gCore/cronjob/README.md",
+    "nodics:gFramework/nConfig/docs/runtime-lifecycle-resilience-contract.md"
+  ],
+  "sections": [
+    {
+      "heading": "Definition",
+      "items": [
+        "Stable code, tenant, schedule, active state, handler, start/end, priority, node assignment, timeout, retry, overlap, idempotency, retention, and permissions.",
+        "Customer jobs belong in project modules; no arbitrary request service names, URLs, credentials, or executable handlers."
+      ]
+    },
+    {
+      "heading": "Resilience",
+      "items": [
+        "Drain stops acquisition and process schedules while persisted definitions survive.",
+        "Restart rebuilds eligible schedules idempotently.",
+        "Node loss, network partition, and timeout can create uncertain outcomes; define duplicate policy, reconciliation, and compensation.",
+        "Retry only safe or explicitly idempotent work; process-local flags are not distributed locks."
+      ]
+    },
+    {
+      "heading": "Acquisition and overlap",
+      "paragraphs": [
+        "Eligible nodes coordinate acquisition through the supported runtime contract. Process-local flags cannot prevent two different nodes from starting the same job.",
+        "The definition states whether overlapping runs are rejected, queued, coalesced, or permitted and how each run is identified."
+      ]
+    },
+    {
+      "heading": "Execution lifecycle",
+      "items": [
+        "Resolve the persisted definition, tenant, node, handler, and authorization context.",
+        "Acquire within the overlap policy and create a run identity.",
+        "Invoke the owning handler with a deadline and scheduled service identity.",
+        "Record progress and safe diagnostics where supported.",
+        "Complete, retry, reconcile, compensate, or fail according to the contract.",
+        "Release acquisition and retain bounded history."
+      ]
+    },
+    {
+      "heading": "Misfire and time behavior",
+      "items": [
+        "Declare time zone and daylight-saving behavior.",
+        "Define whether missed executions are skipped, coalesced, or replayed within a bound.",
+        "Prevent an extended outage from creating an unlimited replay storm.",
+        "Use a trusted clock and stable schedule parsing.",
+        "Test start/end and calendar boundaries."
+      ]
+    },
+    {
+      "heading": "Operations",
+      "items": [
+        "Monitor scheduled, acquired, running, completed, failed, timed-out, retried, and skipped runs.",
+        "Alert on oldest pending age, duration, repeated failure, and node imbalance.",
+        "Pause acquisition before maintenance and drain bounded work.",
+        "Resume from persisted definitions and reconcile uncertain runs.",
+        "Archive history according to audit and privacy retention."
+      ]
+    },
+    {
+      "heading": "Evidence",
+      "items": [
+        "Positive, invalid, unauthorized, cross-tenant, schedule boundary, manual run, overlap, timeout, retry, restart, drain, node loss/return, recovery, reconciliation, performance, integration, and regression tests."
+      ]
+    },
+    {
+      "heading": "Security",
+      "paragraphs": [
+        "Create, update, manual run, pause, resume, and removal are authorized operations. Handler and parameters come from governed definitions, not arbitrary request values.",
+        "Scheduled service identity remains separate from human login and receives only target permissions required by the handler."
+      ]
+    }
+  ]
+}

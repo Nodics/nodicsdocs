@@ -3,10 +3,17 @@
   "title": "Schema and Item Modeling",
   "route": "/docs/capabilities/schema-modeling",
   "section": "capabilities",
-  "family": "overview-business-value",
-  "parent": "page:framework.architecture",
+  "family": "overview",
+  "parent": "section:capabilities",
   "order": 30,
-  "audiences": ["evaluator", "business-user", "administrator", "developer", "architect", "ai-tool"],
+  "audiences": [
+    "evaluator",
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "ai-tool"
+  ],
   "readerIntent": "Understand how Nodics turns business concepts into governed, provider-independent data contracts.",
   "priorKnowledge": "Read Modular and Layered Architecture.",
   "depth": "overview",
@@ -14,8 +21,19 @@
   "owner": "Owning business modules plus Nodics schema and data-model capabilities",
   "lastVerified": "2026-07-26",
   "summary": "A schema defines a business record once; Nodics builds the corresponding item-model behavior and delegates persistence through configured database contracts.",
-  "supportingEvidence": ["nodics:gFramework/nData/README.md", "nodics:gFramework/nDatabase/README.md", "nodics:gCore/profile/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nData/README.md",
+    "nodics:gFramework/nDatabase/README.md",
+    "nodics:gCore/profile/README.md"
+  ],
   "sections": [
+    {
+      "heading": "What is Schema and Item Modeling?",
+      "paragraphs": [
+        "A schema describes the structure and rules of a business record, such as an Employee, Product, Address, or Warehouse. An item model gives application code a governed way to create, read, update, validate, relate, and persist records that follow that schema.",
+        "A schema is like a well-designed business form: it defines the fields, relationships, required information, and rules before records are accepted."
+      ]
+    },
     {
       "heading": "Business value",
       "items": [
@@ -35,12 +53,61 @@
       ]
     },
     {
+      "heading": "What a schema describes",
+      "items": [
+        "Stable business identity, fields, data types, defaults, requirements, and descriptive metadata.",
+        "Indexes, uniqueness, relationships, ownership, lifecycle, and versioning choices.",
+        "Declarative validation and access metadata applied consistently.",
+        "Fields participating in APIs, import, export, display, and search.",
+        "Supported extension points for later project modules."
+      ]
+    },
+    {
+      "heading": "Authority boundaries",
+      "paragraphs": [
+        "The business capability defines its schemas. Nodics data and database capabilities compose runtime models and delegate persistence to the configured provider. A business module does not create a direct database connection or duplicate provider-specific models.",
+        "A search model describes searchable behavior but does not replace the item model as source of truth. Clients may render schema metadata, but backend schemas and services remain authoritative for validation and permissions."
+      ]
+    },
+    {
+      "heading": "Relationships across capabilities",
+      "paragraphs": [
+        "A model can refer to another model owned by the same or a different module. For example, an Enterprise can refer to a Tenant owned by Profile and relate to addresses and contacts.",
+        "Each owner validates access and lifecycle. A schema-driven UI may select an existing related record or create a new one only when the target model exposes that operation and the employee has permission."
+      ]
+    },
+    {
+      "heading": "Versioned and publishable data",
+      "paragraphs": [
+        "Versioning and publishing are configurable per owning module or schema. Content or catalog data may require staged versions and approval before publishing to a separate online system, while a user identity schema may not.",
+        "Enabling versioning adds the approved publishing contract; it does not create a parallel staging mechanism."
+      ]
+    },
+    {
+      "heading": "Example: employee record",
+      "paragraphs": [
+        "An Employee schema identifies the employee and relates it to tenant, enterprise, groups, contacts, and addresses. Friendly display metadata lets BackOffice show code and description rather than only an opaque identifier.",
+        "Creation validates required fields, relationship permissions, tenant scope, uniqueness, and business rules. Persistence flows through framework models, search uses the corresponding search contract, and later project modules extend approved metadata without replacing Profile ownership."
+      ]
+    },
+    {
+      "heading": "Modeling decisions to document",
+      "items": [
+        "Why the model exists and which capability owns it.",
+        "How users identify records and which fields are safe for display.",
+        "Relationship cardinality, ownership, selection, nested creation, and deletion.",
+        "Tenant, enterprise, catalog, site, store, country, channel, or customer scope.",
+        "Validation, permissions, states, versioning, publishing, audit, and retention.",
+        "Search, cache, import, export, event, and migration implications."
+      ]
+    },
+    {
       "heading": "Continue",
       "items": [
-        "[Schema Composition and Runtime Models](/docs/capabilities/schema-modeling/runtime)",
-        "[Relationships, Ownership, and Lifecycle](/docs/capabilities/schema-modeling/relationships)",
-        "[Model a Business Entity](/docs/capabilities/schema-modeling/tutorial)",
-        "[Schema and Item Model Technical Reference](/docs/reference/schema-modeling)"
+        "Schema Composition and Runtime Models",
+        "Relationships, Ownership, and Lifecycle",
+        "Model a Business Entity",
+        "Schema and Item Model Technical Reference"
       ]
     }
   ]

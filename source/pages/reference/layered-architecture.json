@@ -6,7 +6,12 @@
   "family": "technical-reference",
   "parent": "page:capability.layered-architecture.overview",
   "order": 40,
-  "audiences": ["developer", "architect", "framework-maintainer", "ai-tool"],
+  "audiences": [
+    "developer",
+    "architect",
+    "framework-maintainer",
+    "ai-tool"
+  ],
   "readerIntent": "Map a technical artifact to its responsibility and validation expectations.",
   "priorKnowledge": "Read the layered architecture pages.",
   "depth": "reference",
@@ -14,8 +19,44 @@
   "owner": "Nodics modular runtime and all module owners",
   "lastVerified": "2026-07-26",
   "summary": "The technical hierarchy is consistent across modules even when a small module does not require every optional layer.",
-  "supportingEvidence": ["nodics:gFramework/nService/README.md", "nodics:gFramework/nRouter/README.md", "nodics:gFramework/nPipeline/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nService/README.md",
+    "nodics:gFramework/nRouter/README.md",
+    "nodics:gFramework/nPipeline/README.md"
+  ],
   "sections": [
+    {
+      "heading": "Ownership rules",
+      "items": [
+        "Every artifact has one reason to change and one owning capability. Schemas own shape, services own behavior, controllers own transport adaptation, and providers own vendor mapping.",
+        "Generated files are derived and not hand-authored; temporary root docs are planning material and not runtime or canonical implemented documentation.",
+        "Dependencies point from application coordination toward stable framework contracts without circular group imports or direct access to another module's persistence."
+      ]
+    },
+    {
+      "heading": "Layered customization",
+      "items": [
+        "Reuse existing behavior first, customize properties second, extend the smallest supported service or schema third, and create a new implementation only when required.",
+        "A customer project layers modules beside the reusable Nodics framework so two applications can customize the same base service independently.",
+        "Do not copy whole modules, edit vendor adapters from business code, add parallel loaders, or put frontend renderers inside backend repositories."
+      ]
+    },
+    {
+      "heading": "Runtime composition",
+      "items": [
+        "Modules compose in monoServer or distributed topology through the same contracts. Server layout is deployment choice rather than business ownership.",
+        "Direct module communication uses configured logical endpoints and authenticated service or human identity; BackOffice registry assists discovery but is not a data proxy.",
+        "Lifecycle hooks, readiness, drain, observability, and provider cleanup remain bounded contributions to the single process lifecycle."
+      ]
+    },
+    {
+      "heading": "Review and verification",
+      "items": [
+        "Review placement, dependency direction, authority duplication, configuration location, generated boundaries, security, observability, testing, and beginner documentation.",
+        "Test framework defaults, customer overrides, two projects with different overrides, mono and distributed runtime, provider substitution, upgrade, rollback, and regression.",
+        "Automated structure checks support review but do not justify meaningless scaffold code or modifications to blank module templates."
+      ]
+    },
     {
       "heading": "Artifact map",
       "items": [

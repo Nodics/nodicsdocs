@@ -1,1 +1,103 @@
-{"code":"capability.workflows.runtime","title":"Workflow Lifecycle, Extension, and Recovery","route":"/docs/capabilities/workflows/runtime","section":"capabilities","family":"runtime-operations","parent":"page:capability.workflows.overview","order":10,"audiences":["business-user","administrator","developer","architect","operator","ai-tool"],"readerIntent":"Design and operate a durable workflow safely.","priorKnowledge":"Know the business states, actors, items, decisions, and side effects.","depth":"implementation","status":"implemented","owner":"Workflow definitions, durable carriers/items, action/channel services, and target capabilities","lastVerified":"2026-07-26","summary":"Definitions select a head action; commands or events create tenant-scoped carriers; transitions persist before continuation; restart recovers from durable state.","supportingEvidence":["nodics:gCore/workflow/README.md","nodics:gFramework/nbpm/README.md"],"sections":[{"heading":"Lifecycle","items":["Initialize carrier/items from governed mappings.","Release begins automatic work or exposes a permitted manual action.","Action result selects an allowed channel and persists the transition.","Splits create traceable branches; aggregation waits under explicit policy.","Pause, resume, block, retry, cancel, finish, archive, and error states remain durable."]},{"heading":"Extension","items":["Project modules add definitions, mappings, actions, channels, handlers, interceptors, pipelines, events, validation, and access policy.","Runtime workflow-builder data must use the same governed definitions and cannot accept arbitrary executable code.","External API and AI actions use adapters, secrets, token/cost policy, timeouts, idempotency, audit, and human approval where risk requires."]},{"heading":"Recovery proof","items":["Duplicate/out-of-order events, concurrency, restart, remote timeout, late response, retry/replay, split/aggregation, definition versions, cancellation, compensation, redaction, performance, integration, and regression."]}]}
+{
+  "code": "capability.workflows.runtime",
+  "title": "Workflow Lifecycle, Extension, and Recovery",
+  "route": "/docs/capabilities/workflows/runtime",
+  "section": "capabilities",
+  "family": "operations-security-troubleshooting",
+  "parent": "page:capability.workflows.overview",
+  "order": 10,
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Design and operate a durable workflow safely.",
+  "priorKnowledge": "Know the business states, actors, items, decisions, and side effects.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Workflow definitions, durable carriers/items, action/channel services, and target capabilities",
+  "lastVerified": "2026-07-26",
+  "summary": "Definitions select a head action; commands or events create tenant-scoped carriers; transitions persist before continuation; restart recovers from durable state.",
+  "supportingEvidence": [
+    "nodics:gCore/workflow/README.md",
+    "nodics:gFramework/nbpm/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Lifecycle",
+      "items": [
+        "Initialize carrier/items from governed mappings.",
+        "Release begins automatic work or exposes a permitted manual action.",
+        "Action result selects an allowed channel and persists the transition.",
+        "Splits create traceable branches; aggregation waits under explicit policy.",
+        "Pause, resume, block, retry, cancel, finish, archive, and error states remain durable."
+      ]
+    },
+    {
+      "heading": "Extension",
+      "items": [
+        "Project modules add definitions, mappings, actions, channels, handlers, interceptors, pipelines, events, validation, and access policy.",
+        "Runtime workflow-builder data must use the same governed definitions and cannot accept arbitrary executable code.",
+        "External API and AI actions use adapters, secrets, token/cost policy, timeouts, idempotency, audit, and human approval where risk requires."
+      ]
+    },
+    {
+      "heading": "Manual action behavior",
+      "items": [
+        "Expose the action only to authorized actors in the correct tenant and state.",
+        "Record assignment, claim, decision, comment, evidence, and time safely.",
+        "Reject stale decisions after another transition.",
+        "Support delegation and escalation only through explicit policy.",
+        "Persist the transition before continuing."
+      ]
+    },
+    {
+      "heading": "Automatic action behavior",
+      "items": [
+        "Invoke an approved service, event, external API, or AI adapter.",
+        "Use bounded deadline, idempotency, retry, and circuit policy.",
+        "Store safe input reference and outcome rather than credentials.",
+        "Require human approval where cost or impact demands it.",
+        "Compensate or reconcile uncertain side effects."
+      ]
+    },
+    {
+      "heading": "Definition versioning",
+      "paragraphs": [
+        "Running carriers retain the definition version they started with unless an explicit migration is approved. New instances use the newly activated version.",
+        "Changing action meaning, channels, mappings, or permissions requires compatibility, migration, rollback, and in-flight process analysis."
+      ]
+    },
+    {
+      "heading": "Observability and operations",
+      "items": [
+        "Instances and items by state, definition, version, tenant, and safe business type.",
+        "Action wait time, execution time, failure, retry, escalation, and compensation.",
+        "Stuck, orphaned, overdue, and inconsistent branches.",
+        "External dependency and AI token or cost outcomes.",
+        "Authorized pause, resume, retry, cancel, migrate, and archive procedures."
+      ]
+    },
+    {
+      "heading": "Recovery proof",
+      "items": [
+        "Duplicate/out-of-order events, concurrency, restart, remote timeout, late response, retry/replay, split/aggregation, definition versions, cancellation, compensation, redaction, performance, integration, and regression."
+      ]
+    },
+    {
+      "heading": "End-to-end acceptance",
+      "items": [
+        "Mixed manual and automatic happy path.",
+        "Unauthorized, wrong-tenant, stale, and duplicate decision.",
+        "Remote timeout, late response, retry, and idempotency.",
+        "Restart during wait and during automatic work.",
+        "Split, aggregation, cancellation, compensation, and definition upgrade.",
+        "Publishing through the existing owner and no parallel authority.",
+        "Audit, privacy, performance, and regression."
+      ]
+    }
+  ]
+}

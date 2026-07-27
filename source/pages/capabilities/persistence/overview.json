@@ -3,10 +3,18 @@
   "title": "Database and Persistence",
   "route": "/docs/capabilities/persistence",
   "section": "capabilities",
-  "family": "overview-business-value",
+  "family": "overview",
   "parent": "page:capability.schema-modeling.overview",
   "order": 50,
-  "audiences": ["evaluator", "business-user", "administrator", "developer", "architect", "operator", "ai-tool"],
+  "audiences": [
+    "evaluator",
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "operator",
+    "ai-tool"
+  ],
   "readerIntent": "Understand how Nodics persists schema-owned records without coupling business modules to a database vendor.",
   "priorKnowledge": "Read Schema and Item Modeling.",
   "depth": "overview",
@@ -14,10 +22,90 @@
   "owner": "Nodics provider-neutral database capability and configured provider modules",
   "lastVerified": "2026-07-26",
   "summary": "Schema models call a provider-neutral persistence contract that resolves tenant and module context before delegating connection, schema, model, query, and transaction behavior to the selected adapter.",
-  "supportingEvidence": ["nodics:gFramework/nDatabase/README.md", "nodics:gFramework/nDatabase/database/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nDatabase/README.md",
+    "nodics:gFramework/nDatabase/database/README.md"
+  ],
   "sections": [
-    {"heading": "Business outcomes", "items": ["Keep business models stable while infrastructure choices evolve.", "Isolate tenant and module data through governed database resolution.", "Reuse generated CRUD, validation, access policy, middleware, diagnostics, and transaction contracts.", "Extend a customer project with another provider without adding vendor branches to business services."]},
-    {"heading": "Authority", "paragraphs": ["Business modules own schemas and business rules. The database capability owns provider-neutral persistence. Each adapter owns vendor connection and operation mapping. No adapter becomes a second schema authority."]},
-    {"heading": "Continue", "items": ["[Prebuilt Database Providers and Maturity](/docs/capabilities/persistence/prebuilt-providers)", "[Build a Database Provider](/docs/capabilities/persistence/provider-development)", "[Persistence Lifecycle and Data Exchange](/docs/capabilities/persistence/lifecycle)", "[Operate and Secure Persistence](/docs/capabilities/persistence/operations)", "[Database and Persistence Technical Reference](/docs/reference/persistence)"]}
+    {
+      "heading": "What is Database and Persistence?",
+      "paragraphs": [
+        "Persistence stores business information so it survives a process restart. A database provider implements physical storage and querying, while Nodics schemas, item models, and services preserve the business contract independently of the selected provider.",
+        "Think of a governed records office: business teams use one approved records process, while the archive technology behind it may change without giving every team direct archive access."
+      ]
+    },
+    {
+      "heading": "Business outcomes",
+      "items": [
+        "Keep business models stable while infrastructure choices evolve.",
+        "Isolate tenant and module data through governed database resolution.",
+        "Reuse generated CRUD, validation, access policy, middleware, diagnostics, and transaction contracts.",
+        "Extend a customer project with another provider without adding vendor branches to business services."
+      ]
+    },
+    {
+      "heading": "Authority",
+      "paragraphs": [
+        "Business modules own schemas and business rules. The database capability owns provider-neutral persistence. Each adapter owns vendor connection and operation mapping. No adapter becomes a second schema authority."
+      ]
+    },
+    {
+      "heading": "Provider-neutral flow",
+      "items": [
+        "The owning capability defines its effective schema and calls framework model or data services.",
+        "Persistence resolves module, schema, tenant, connection, and operation context.",
+        "The selected provider translates schema, query, index, middleware, and transaction behavior.",
+        "The provider returns normalized results and failures through Nodics contracts.",
+        "Business services remain unaware of connection-driver details."
+      ]
+    },
+    {
+      "heading": "Why direct database access is prohibited",
+      "paragraphs": [
+        "A direct driver call from a business module bypasses tenant resolution, schema composition, middleware, validation, transactions, diagnostics, provider selection, and extension contracts. It also makes later provider changes expensive.",
+        "Even when a database is installed locally, AI, Profile, CMS, commerce, and customer modules define their own schemas but interact through framework models and services."
+      ]
+    },
+    {
+      "heading": "Connections and tenant placement",
+      "paragraphs": [
+        "A deployment may place tenants on shared infrastructure or assign dedicated database resources. Connection resolution uses governed tenant and module context rather than browser-selected connection details.",
+        "The provider lifecycle opens only required unique connections, verifies readiness, creates effective models and indexes, monitors health, and closes owned resources during shutdown."
+      ]
+    },
+    {
+      "heading": "Transactions and consistency",
+      "paragraphs": [
+        "Transaction behavior depends on the normalized persistence contract and the selected provider's proven capability. A module must not assume distributed transactions merely because one adapter supports local transactions.",
+        "Cross-capability workflows may require idempotency, events, compensation, reconciliation, or publishing boundaries instead of one database transaction."
+      ]
+    },
+    {
+      "heading": "Example: create an enterprise",
+      "paragraphs": [
+        "Profile validates the enterprise and tenant relationship, then uses its framework model service. Persistence resolves the tenant-aware connection and the configured adapter stores the record.",
+        "Axis sees the API response only. Search indexing, audit, cache invalidation, and events occur through owned lifecycle contracts. No frontend or BackOffice registry receives direct database authority."
+      ]
+    },
+    {
+      "heading": "Production responsibilities",
+      "items": [
+        "Credentials, encryption, network exposure, provider hardening, and least privilege.",
+        "Indexes, query plans, connection pools, capacity, latency, and resource limits.",
+        "Backup, verified restore, retention, archival, migration, and disaster recovery.",
+        "Replication, failover, retry, idempotency, and degraded-dependency behavior.",
+        "Tenant isolation, audit evidence, monitoring, alerting, and provider-qualified tests."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "items": [
+        "Prebuilt Database Providers and Maturity",
+        "Build a Database Provider",
+        "Persistence Lifecycle and Data Exchange",
+        "Operate and Secure Persistence",
+        "Database and Persistence Technical Reference"
+      ]
+    }
   ]
 }

@@ -6,7 +6,13 @@
   "family": "runtime-behavior",
   "parent": "page:capability.persistence.overview",
   "order": 30,
-  "audiences": ["administrator", "developer", "architect", "operator", "ai-tool"],
+  "audiences": [
+    "administrator",
+    "developer",
+    "architect",
+    "operator",
+    "ai-tool"
+  ],
   "readerIntent": "Understand startup, operation, import/export interaction, and shutdown.",
   "priorKnowledge": "Know the selected provider and schema contract.",
   "depth": "implementation",
@@ -14,10 +20,98 @@
   "owner": "Provider-neutral database lifecycle plus selected adapter",
   "lastVerified": "2026-07-26",
   "summary": "Nodics validates database configuration, opens unique required connections, creates effective models and indexes, serves tenant-aware operations, and closes owned resources through the central runtime lifecycle.",
-  "supportingEvidence": ["nodics:gFramework/nDatabase/README.md", "nodics:gFramework/nData/nImport/README.md", "nodics:gFramework/nData/nExport/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nDatabase/README.md",
+    "nodics:gFramework/nData/nImport/README.md",
+    "nodics:gFramework/nData/nExport/README.md"
+  ],
   "sections": [
-    {"heading": "Lifecycle", "items": ["Validate provider, tenant, module, master, and database configuration.", "Open connections with bounded startup and readiness policy.", "Compose schemas and create provider-backed runtime models and indexes.", "Execute authorized operations through generated services and pipelines.", "Reconnect or fail according to required versus optional dependency policy.", "Drain work and close each unique owned connection during shutdown."]},
-    {"heading": "Import interaction", "paragraphs": ["Imports map approved input into schema models and save through generated services. They do not write directly to provider collections or tables. Provider batching may optimize the same governed operation but cannot bypass validation, access policy, diagnostics, or lifecycle hooks."]},
-    {"heading": "Export interaction", "paragraphs": ["Exports query through authorized schema/service contracts, apply property access policy, and then render a governed format. A provider adapter must not expose unrestricted database export as an alternative authority path."]}
+    {
+      "heading": "Lifecycle",
+      "items": [
+        "Validate provider, tenant, module, master, and database configuration.",
+        "Open connections with bounded startup and readiness policy.",
+        "Compose schemas and create provider-backed runtime models and indexes.",
+        "Execute authorized operations through generated services and pipelines.",
+        "Reconnect or fail according to required versus optional dependency policy.",
+        "Drain work and close each unique owned connection during shutdown."
+      ]
+    },
+    {
+      "heading": "Import interaction",
+      "paragraphs": [
+        "Imports map approved input into schema models and save through generated services. They do not write directly to provider collections or tables. Provider batching may optimize the same governed operation but cannot bypass validation, access policy, diagnostics, or lifecycle hooks."
+      ]
+    },
+    {
+      "heading": "Export interaction",
+      "paragraphs": [
+        "Exports query through authorized schema/service contracts, apply property access policy, and then render a governed format. A provider adapter must not expose unrestricted database export as an alternative authority path."
+      ]
+    },
+    {
+      "heading": "Startup phases",
+      "items": [
+        "Resolve the selected runtime topology and active modules.",
+        "Validate provider types, connection aliases, tenant placement, secrets, and required capabilities.",
+        "Open each unique connection with bounded deadlines.",
+        "Compose effective schemas and create model handlers.",
+        "Create or validate indexes according to safe rollout policy.",
+        "Run readiness checks before accepting dependent traffic."
+      ]
+    },
+    {
+      "heading": "Normal operation",
+      "paragraphs": [
+        "Services call item models with resolved tenant, module, principal, and trace context. Database handlers obtain the correct connection, translate the normalized operation, apply middleware and transaction policy, and return a normalized result.",
+        "Connection pooling, query deadlines, conflict handling, and diagnostics remain provider-owned while business validation remains capability-owned."
+      ]
+    },
+    {
+      "heading": "Schema and index change",
+      "items": [
+        "Validate compatibility before applying a changed effective schema.",
+        "Use explicit migrations for rename, type, required, ownership, or destructive changes.",
+        "Create indexes through provider-qualified rollout that does not unexpectedly block production traffic.",
+        "Coordinate search projections, cache invalidation, import/export, and publishing compatibility.",
+        "Retain rollback and recovery evidence."
+      ]
+    },
+    {
+      "heading": "Bulk import lifecycle",
+      "paragraphs": [
+        "Import validates source metadata, maps records to owning schemas, and uses normal services. Batching can reduce provider overhead, while finalization coordinates indexes, search, caches, reconciliation, and summary evidence.",
+        "Restart or retry uses stable identities and idempotency so a partially completed import does not duplicate authoritative records."
+      ]
+    },
+    {
+      "heading": "Failure and recovery",
+      "items": [
+        "Startup failure prevents false readiness for required persistence.",
+        "Mid-operation disconnection returns a normalized transient failure.",
+        "Retries respect idempotency and bounded deadlines.",
+        "Transactions roll back where supported; cross-capability work compensates or reconciles.",
+        "Reconnect restores health before readiness changes.",
+        "Shutdown drains bounded work and closes each owned connection once."
+      ]
+    },
+    {
+      "heading": "Example: documentation import",
+      "paragraphs": [
+        "A versioned nodicsdocs pack is validated and imported explicitly. CMS-owned documentation records save through schema services and the configured database provider. Reimport uses pack version and source hashes to update changed content without duplicating unchanged records.",
+        "Generation belongs to nodicsdocs maintainers; consuming Nodics validates committed import data and does not require consumers to build the documentation repository."
+      ]
+    },
+    {
+      "heading": "Lifecycle evidence",
+      "items": [
+        "Configuration and connection validation.",
+        "Effective models and index results.",
+        "Operation latency, errors, conflicts, and pool state.",
+        "Import counts, rejections, finalization, and reconciliation.",
+        "Export authorization and redaction.",
+        "Outage, reconnect, shutdown, backup, restore, migration, and rollback tests."
+      ]
+    }
   ]
 }

@@ -6,7 +6,13 @@
   "family": "technical-reference",
   "parent": "page:operations.local-runtime",
   "order": 110,
-  "audiences": ["developer", "architect", "operator", "framework-maintainer", "ai-tool"],
+  "audiences": [
+    "developer",
+    "architect",
+    "operator",
+    "framework-maintainer",
+    "ai-tool"
+  ],
   "readerIntent": "Resolve and audit application, group, environment, server, node, module activation, endpoint, and runtime lifecycle behavior.",
   "priorKnowledge": "Understand layered configuration and module metadata.",
   "depth": "reference",
@@ -14,8 +20,21 @@
   "owner": "nConfig hierarchy and lifecycle; environment/server/node modules contribute deployment-specific topology",
   "lastVerified": "2026-07-26",
   "summary": "Runtime topology is derived from package metadata, validated parent ancestry, selected environment/server/node, deterministic indexes, active modules, and layered properties—not naming conventions or handwritten canonical identifiers.",
-  "supportingEvidence": ["nodics:gFramework/nConfig/README.md", "nodics:gFramework/nConfig/docs/runtime-lifecycle-resilience-contract.md", "nodics:gFramework/nNms/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nConfig/README.md",
+    "nodics:gFramework/nConfig/docs/runtime-lifecycle-resilience-contract.md",
+    "nodics:gFramework/nNms/README.md"
+  ],
   "sections": [
+    {
+      "heading": "Operator quick checks",
+      "items": [
+        "Resolve environment, server, node, and module identity from current topology metadata before starting or diagnosing a process.",
+        "When a server name exists in several environments, supply or interactively select the environment; non-interactive execution must fail clearly rather than guess.",
+        "A node requires its server selection. Canonical runtime identity is derived during loading so short human names remain safe across environments.",
+        "Verify readiness per composed module, advertised endpoints, direct module communication settings, and optional registration recovery after startup."
+      ]
+    },
     {
       "heading": "Kinds and responsibilities",
       "items": [

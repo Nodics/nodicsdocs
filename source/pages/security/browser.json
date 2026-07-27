@@ -6,7 +6,14 @@
   "family": "operations-security-troubleshooting",
   "parent": "page:capability.identity-security.overview",
   "order": 60,
-  "audiences": ["administrator", "developer", "architect", "security-reviewer", "operator", "ai-tool"],
+  "audiences": [
+    "administrator",
+    "developer",
+    "architect",
+    "security-reviewer",
+    "operator",
+    "ai-tool"
+  ],
   "readerIntent": "Configure and verify secure Axis employee login, restoration, locking, and logout.",
   "priorKnowledge": "Understand employee authentication and browser security basics.",
   "depth": "implementation",
@@ -14,7 +21,12 @@
   "owner": "Profile owns browser-session security; Axis holds presentation and an in-memory access token",
   "lastVerified": "2026-07-26",
   "summary": "Axis uses short-lived in-memory employee access tokens and an optional Profile-owned rotating refresh session in a scoped HttpOnly cookie, protected by exact origins and CSRF proof.",
-  "supportingEvidence": ["nodics:gCore/profile/README.md", "nodics:gFramework/nAuth/README.md", "nodics:gExp/backoffice/README.md"],
+  "supportingEvidence": [
+    "nodics:gCore/profile/README.md",
+    "nodics:gFramework/nAuth/README.md",
+    "nodics:gExp/backoffice/README.md",
+    "nodics:gDocs/security/backoffice-browser-security.md"
+  ],
   "sections": [
     {
       "heading": "Session flow",
@@ -49,6 +61,119 @@
         "Only one concurrent refresh succeeds; a replaced or stolen refresh value cannot be replayed.",
         "Access and refresh credentials never enter localStorage, sessionStorage, URLs, logs, telemetry, CMS content, generated context, or error responses.",
         "Test page refresh, multi-tab behavior, idle lock, logout, network interruption, Profile restart, shared-cache outage, cookie scope, accessibility, and regression."
+      ]
+    },
+    {
+      "heading": "Complete guide: BackOffice browser security",
+      "migratedFrom": "nodics:gDocs/security/backoffice-browser-security.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "This page explains the browser-security foundation implemented for Nodics Axis and other BackOffice clients, including secure refresh restoration."
+      ]
+    },
+    {
+      "heading": "The simple model",
+      "migratedFrom": "nodics:gDocs/security/backoffice-browser-security.md",
+      "sourceAnchor": "the-simple-model",
+      "paragraphs": [
+        "Axis is a browser application. Profile authenticates a human. BackOffice tells Axis which authorized modules are available. Axis then calls those modules directly. BackOffice is discovery and governance, not a proxy for CMS, jobs, profiles, or other business APIs.",
+        "Human browser access, module-to-module access, and Cron execution are separate credential families. A browser must never receive or reuse a service API key, module token, or Cron credential."
+      ]
+    },
+    {
+      "heading": "Audience-bound direct calls",
+      "migratedFrom": "nodics:gDocs/security/backoffice-browser-security.md",
+      "sourceAnchor": "audience-bound-direct-calls",
+      "paragraphs": [
+        "Profile is the only token issuer. A browser access token is short-lived and bound to the module it is intended to call. The default audience format is `nodics-module:<moduleName>` and can be replaced by layered `authSecurity.browserAccess.moduleAudiences` configuration.",
+        "For example, a CMS token has audience `nodics-module:cms`. CMS must reject that token if its expected audience is BackOffice, Profile, Cron, or another functional module. Permissions, enterprise, tenant, principal security stamp, expiry, revocation, and token type are still validated in addition to audience.",
+        "The browser audience helpers are available now."
+      ]
+    },
+    {
+      "heading": "Refresh-safe employee sessions",
+      "migratedFrom": "nodics:gDocs/security/backoffice-browser-security.md",
+      "sourceAnchor": "refresh-safe-employee-sessions",
+      "paragraphs": [
+        "Profile owns the browser-session facade. Axis never persists access or refresh tokens in JavaScript-readable storage. Profile returns the short-lived access token to Axis memory and stores the refresh credential only in a scoped `HttpOnly` cookie.",
+        "After browser refresh, Axis calls `POST /nodics/profile/v0/employee/browser/restore`. Profile requires an exact allowed Origin and a matching `X-CSRF-Token` header and readable CSRF cookie. It atomically consumes the old refresh token, rotates the credential pair and cookies, and returns only the new access token and employee identifier.",
+        "Logout revokes refresh state and expires both cookies. Invalid origin, missing or mismatched CSRF, expired or replayed refresh state, inactive identity, tenant mismatch, and stale security stamp all fail closed.",
+        "`profileBrowserSession` is layered configuration and is disabled by default. Production must use `Secure` cookies and exact HTTPS origins. The local environment explicitly enables non-Secure localhost cookies only for local testing."
+      ]
+    },
+    {
+      "heading": "Browser transport policy",
+      "migratedFrom": "nodics:gDocs/security/backoffice-browser-security.md",
+      "sourceAnchor": "browser-transport-policy",
+      "paragraphs": [
+        "Every browser-facing deployment must configure exact HTTPS origins. Wildcard origins are prohibited when credentials are enabled. Nodics rejects both preflight and actual requests from an unapproved origin and emits `Vary: Origin`.",
+        "The shared router policy publishes:",
+        "documentation assets;",
+        "correlation headers;",
+        "OAuth or OpenID Connect integrations must use Authorization Code with PKCE, validate `state` and `nonce`, allow only registered redirect URIs, and never put credentials in query strings or fragments."
+      ],
+      "items": [
+        "a restrictive API Content Security Policy that retains same-origin API",
+        "clickjacking, MIME-sniffing, referrer, and cross-origin resource controls;",
+        "bounded request and correlation identifiers;",
+        "CORS allowlists for authorization, CSRF, idempotency, client-contract, and",
+        "exposed retry, correlation, and rate-limit response headers."
+      ]
+    },
+    {
+      "heading": "Errors, retries, and idempotency",
+      "migratedFrom": "nodics:gDocs/security/backoffice-browser-security.md",
+      "sourceAnchor": "errors-retries-and-idempotency",
+      "paragraphs": [
+        "Browser clients use the Nodics `code`, HTTP `responseCode`, and safe `message`. The shared response handler removes pipeline contexts, metadata, nested causes, stack traces, filesystem paths, queries, and payload internals from public error envelopes. Stack traces and secrets are not browser data. `X-Request-Id` and `X-Correlation-Id` connect a browser failure to server diagnostics without revealing credentials.",
+        "Retry only safe reads automatically. Honor `Retry-After` for throttling. A mutation may be retried only when its module contract declares idempotency and the client supplies `Idempotency-Key`. The owning module remains authoritative for duplicate detection and result replay."
+      ]
+    },
+    {
+      "heading": "BackOffice bootstrap",
+      "migratedFrom": "nodics:gDocs/security/backoffice-browser-security.md",
+      "sourceAnchor": "backoffice-bootstrap",
+      "paragraphs": [
+        "`GET /nodics/backoffice/bootstrap` requires a human access token and `backoffice.bootstrap.view`. The response contains only:",
+        "It excludes non-browser modules, registration credentials, service tokens, lease-expiry internals, secrets, and unrestricted infrastructure configuration."
+      ],
+      "items": [
+        "active modules marked `clientCallable`;",
+        "modules permitted for the current human;",
+        "fields selected by `backofficeRegistry.clientSafeMetadata`;",
+        "sanitized module-owned capability and navigation metadata;",
+        "compatibility and observed availability."
+      ]
+    },
+    {
+      "heading": "Verification checklist",
+      "migratedFrom": "nodics:gDocs/security/backoffice-browser-security.md",
+      "sourceAnchor": "verification-checklist",
+      "paragraphs": [
+        "Before enabling a browser session in an environment, test:",
+        "The local `monoServer` topology is suitable for initial functional testing. A distributed topology is required before release to prove shared refresh, revocation, security-stamp, and registry state.",
+        "The implemented contract suite verifies successful and failed human authentication, wrong audience, expired and revoked access tokens, single-use refresh rotation, logout revocation of access and refresh state, cross-tenant denial, service-versus-human separation, CORS denial, bootstrap filtering, bounded idempotency, correlation, secret-safe audit projection, browser-cookie creation, CSRF mismatch denial, origin denial, rotation, and logout clearing."
+      ],
+      "items": [
+        "successful and failed human login;",
+        "expired, revoked, replayed, and wrong-audience access;",
+        "tenant and enterprise mismatch;",
+        "disallowed CORS origin;",
+        "logout and refresh-secret rotation;",
+        "rejection of service and Cron credentials on human administrative routes;",
+        "bootstrap permission filtering and field sanitization;",
+        "safe errors, correlation headers, retry guidance, and mutation idempotency."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/security/backoffice-browser-security.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "Identity and permissions: [How Users, Tenants, And Permissions Work](/docs/security/users-tenants-permissions)",
+        "Security responsibilities: [Security Shared-Responsibility Model](/docs/security/shared-responsibility)",
+        "Verification evidence: [Security Evidence Guide](/docs/security/evidence)",
+        "BackOffice backend: [BackOffice Module README](/docs/reference/backoffice)"
       ]
     }
   ]

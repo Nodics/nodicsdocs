@@ -3,10 +3,16 @@
   "title": "Prebuilt Database Providers and Maturity",
   "route": "/docs/capabilities/persistence/prebuilt-providers",
   "section": "capabilities",
-  "family": "provider-maturity",
+  "family": "technical-reference",
   "parent": "page:capability.persistence.overview",
   "order": 10,
-  "audiences": ["evaluator", "administrator", "developer", "architect", "operator"],
+  "audiences": [
+    "evaluator",
+    "administrator",
+    "developer",
+    "architect",
+    "operator"
+  ],
   "readerIntent": "Select a database adapter using truthful implementation and release evidence.",
   "priorKnowledge": "Read Database and Persistence.",
   "depth": "implementation",
@@ -14,10 +20,83 @@
   "owner": "Configured database provider",
   "lastVerified": "2026-07-26",
   "summary": "A module slot or deterministic contract is not production qualification; the selected provider must prove live connectivity, isolation, transactions, failure, recovery, and performance for the target topology.",
-  "supportingEvidence": ["nodics:gFramework/nDatabase/README.md", "nodics:gFramework/nDatabase/mongodb/README.md", "nodics:gFramework/nDatabase/cassandradb/README.md", "nodics:gFramework/nDatabase/elasticdb/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nDatabase/README.md",
+    "nodics:gFramework/nDatabase/mongodb/README.md",
+    "nodics:gFramework/nDatabase/cassandradb/README.md",
+    "nodics:gFramework/nDatabase/elasticdb/README.md"
+  ],
   "sections": [
-    {"heading": "MongoDB", "paragraphs": ["MongoDB is the implemented primary adapter for connection, schema, model, query, index, middleware, and transaction mapping. Transactions require a replica set or sharded cluster; a standalone local server is not transaction-qualified. Production use still requires live release qualification."]},
-    {"heading": "Cassandra and Elastic database adapters", "paragraphs": ["Their repository modules are extension evidence, not permission to claim feature parity or production readiness. Confirm actual connection, model, query, schema, transaction, tenant-isolation, and lifecycle implementations before selection."]},
-    {"heading": "Selection criteria", "items": ["Application query and transaction needs.", "Tenant isolation and database-routing model.", "Consistency, availability, recovery, and migration requirements.", "Supported versions, security controls, operational skills, and cost.", "Live contract, load, outage, reconnect, backup, restore, and upgrade evidence."]}
+    {
+      "heading": "MongoDB",
+      "paragraphs": [
+        "MongoDB is the implemented primary adapter for connection, schema, model, query, index, middleware, and transaction mapping. Transactions require a replica set or sharded cluster; a standalone local server is not transaction-qualified. Production use still requires live release qualification."
+      ]
+    },
+    {
+      "heading": "Cassandra and Elastic database adapters",
+      "paragraphs": [
+        "Their repository modules are extension evidence, not permission to claim feature parity or production readiness. Confirm actual connection, model, query, schema, transaction, tenant-isolation, and lifecycle implementations before selection."
+      ]
+    },
+    {
+      "heading": "Selection criteria",
+      "items": [
+        "Application query and transaction needs.",
+        "Tenant isolation and database-routing model.",
+        "Consistency, availability, recovery, and migration requirements.",
+        "Supported versions, security controls, operational skills, and cost.",
+        "Live contract, load, outage, reconnect, backup, restore, and upgrade evidence."
+      ]
+    },
+    {
+      "heading": "Provider maturity levels",
+      "items": [
+        "A module placeholder proves only intended extension structure.",
+        "A deterministic mock or contract test proves interface shape, not live engine behavior.",
+        "A live local test proves basic connectivity and operations for one version and topology.",
+        "Release qualification proves supported versions, security, isolation, failure, recovery, performance, and operations.",
+        "Production approval remains deployment-specific and time-bounded."
+      ]
+    },
+    {
+      "heading": "MongoDB operating fit",
+      "paragraphs": [
+        "MongoDB is the current primary implemented persistence path and is appropriate when document-oriented models, indexes, queries, and supported transactions match the product. Nodics still owns schema composition, tenant resolution, middleware, and normalized errors.",
+        "Replica-set transaction requirements, index rollout, connection pools, backup, restore, sharding, upgrade, and failure behavior must be qualified for the target deployment."
+      ]
+    },
+    {
+      "heading": "Cassandra assessment",
+      "paragraphs": [
+        "Cassandra favors query-driven denormalized modeling, partition-key design, horizontal scale, and eventual-consistency choices. A generic document-schema mapping cannot be assumed to provide equivalent queries or transactions.",
+        "Before selection, verify actual handler completeness, relationship strategy, migrations, tenant partitioning, batch semantics, repair, backup, restore, topology change, and operational expertise."
+      ]
+    },
+    {
+      "heading": "Elastic database assessment",
+      "paragraphs": [
+        "Elasticsearch is normally a search projection rather than the authoritative transactional database. An elastic database adapter must not be confused with the separate search-provider capability.",
+        "Using it for authoritative persistence requires explicit evidence for consistency, update conflicts, schema mapping, retention, recovery, access control, and every required business operation."
+      ]
+    },
+    {
+      "heading": "Decision example",
+      "paragraphs": [
+        "A Profile and commerce deployment requiring governed CRUD, relationships, indexes, and transactional updates may select the qualified MongoDB adapter. Product discovery can still use Elasticsearch through Search as a derived index.",
+        "The decision records why the provider fits, which capabilities are unsupported, how tenants are placed, and which tests and runbooks qualify the selected versions."
+      ]
+    },
+    {
+      "heading": "Evidence before production",
+      "items": [
+        "Provider contract suite against a real instance.",
+        "Tenant and module isolation under concurrency.",
+        "Representative CRUD, query, relationship, index, and transaction workloads.",
+        "Credential rotation, encryption, network restriction, and audit.",
+        "Startup outage, mid-operation failure, retry, reconnect, failover, and shutdown.",
+        "Backup restore, migration rollback, version upgrade, load, soak, and capacity evidence."
+      ]
+    }
   ]
 }

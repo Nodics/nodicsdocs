@@ -6,7 +6,17 @@
   "family": "technical-reference",
   "parent": "section:reference",
   "order": 900,
-  "audiences": ["evaluator", "business-user", "administrator", "developer", "architect", "security-reviewer", "operator", "framework-maintainer", "ai-tool"],
+  "audiences": [
+    "evaluator",
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "security-reviewer",
+    "operator",
+    "framework-maintainer",
+    "ai-tool"
+  ],
   "readerIntent": "Use consistent business and technical meanings across Nodics documentation, code, operations, and BackOffice.",
   "priorKnowledge": "None.",
   "depth": "reference",
@@ -14,8 +24,22 @@
   "owner": "Nodics canonical documentation terminology",
   "lastVerified": "2026-07-26",
   "summary": "These definitions prefer capability and user-outcome language; internal module names appear only where they identify implementation ownership.",
-  "supportingEvidence": ["nodics:README.md", "nodics:gFramework/nConfig/README.md", "nodics:gCore/profile/README.md"],
+  "supportingEvidence": [
+    "nodics:README.md",
+    "nodics:gFramework/nConfig/README.md",
+    "nodics:gCore/profile/README.md",
+    "nodics:gDocs/reference/glossary.md"
+  ],
   "sections": [
+    {
+      "heading": "Reading conventions",
+      "items": [
+        "Capability names describe business or framework functionality; module names identify current implementation ownership and may evolve.",
+        "Authoritative means the contract that decides and persists a fact, not every cache, search projection, client, tool, or document that displays it.",
+        "Staged and Online refer to governed authoring and delivery targets, not merely status values in one record.",
+        "Examples use friendly codes and names; opaque identifiers remain transport and persistence details."
+      ]
+    },
     {
       "heading": "Platform and structure",
       "items": [
@@ -79,6 +103,33 @@
         "Canonical page: approved structured source in nodicsdocs/source/pages with stable code, route, audience, order, evidence, and implementation-aligned content.",
         "Module README: concise technical entrypoint for local ownership, setup, extension, operations, tests, and links; it is not a duplicate public user guide.",
         "root docs/: temporary uncommitted planning/checklist space unless explicitly promoted; it is not runtime documentation authority."
+      ]
+    },
+    {
+      "heading": "Complete guide: Nodics Glossary",
+      "migratedFrom": "nodics:gDocs/reference/glossary.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "This glossary gives business readers, beginners, experienced developers, and AI tools one shared meaning for important Nodics terms.",
+        "| Term | Plain-language meaning |\n| --- | --- |\n| Application factory | A platform that supplies a governed structure for repeatedly building and evolving applications, not only a library of utility code. |\n| Capability | A stable business or platform responsibility, such as authentication, scheduled jobs, search, or catalog management. |\n| Implementation | The code or provider that performs a capability. Implementations may change while the capability contract remains stable. |\n| Module | The ownership boundary for a capability, configuration contribution, environment, server, node, or project layer. |\n| Group module | A module that organizes related child modules and their shared meaning. It may have little or no runtime source of its own. |\n| Project module | A module that owns application-specific behavior or customization built on Nodics. |\n| Framework module | A reusable Nodics module that provides a default platform capability. |\n| Environment | Configuration and composition for a deployment stage or operating context. Environment names are project-defined, not hardcoded framework policy. |\n| Server | A deployable composition of active modules. It is not the primary ownership boundary for business capabilities. |\n| Node | One running instance within a server topology. |\n| Tenant | An organization or customer context whose data, configuration, and access decisions must remain isolated as defined by the application contract. |\n| Layered override | A later project, environment, server, node, tenant, or runtime contribution that customizes an earlier default through a governed extension point. |\n| Schema | The structure, rules, access behavior, and supporting metadata for a kind of data. |\n| Route | An API operation that accepts a controlled request and maps it into Nodics processing. |\n| Controller | The boundary that translates request data into application context and a response. |\n| Facade | An orchestration boundary that coordinates capability calls without placing that coordination in a controller. |\n| Service | The layer that owns reusable business or application behavior. |\n| Pipeline | An ordered lifecycle of processing steps whose nodes can be extended or overridden. |\n| Provider | A replaceable implementation for infrastructure or external behavior such as cache, database, messaging, or search. |\n| Runtime governance | Controlled configuration behavior that includes validation, preview, activation, audit, cleanup, and rollback where supported. |\n| Generated artifact | Output created from authoritative source definitions. It must be regenerated, not treated as hand-maintained authority. |\n| Consolidated topology | Several active modules running together in a simpler deployment composition. |\n| Modular topology | Active modules distributed across independently composed processes or deployment units. |\n| Human authentication | A person's login and identity flow. It remains separate from module-to-module and scheduled-process credentials. |\n| Internal communication | Authenticated module-to-module access using platform service identity and contracts rather than a person's username and password. |\n| Production-ready | Implemented and supported by sufficient contract, security, operational, and test evidence for its stated scope. Production suitability still depends on the target workload. |\n| Guarded | Implemented but intentionally restricted by policy or requiring explicit qualification before production use. |\n| Sample/reference | An example that demonstrates an extension pattern and is not a production claim. |\n| Scaffolded | A discoverable module or extension boundary whose full runtime behavior is not yet complete. |\n| Parked | Intentionally retained for later work and not presented as currently usable functionality. |"
+      ]
+    },
+    {
+      "heading": "Canonical Status Language",
+      "migratedFrom": "nodics:gDocs/reference/glossary.md",
+      "sourceAnchor": "canonical-status-language",
+      "paragraphs": [
+        "Use the maturity terms above consistently. If another document uses words such as *implemented*, *limited*, or *provider-dependent*, translate them into the more precise maturity statement in the [Provider And Capability Maturity Matrix](/docs/reference/maturity). That matrix remains authoritative for current provider and capability status."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/reference/glossary.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "Documentation home: [Nodics Documentation](/docs)",
+        "Module ownership: [Module Documentation Index](/docs/reference/modules)",
+        "Platform structure: [How Nodics Is Organized](/docs/framework/architecture)"
       ]
     }
   ]

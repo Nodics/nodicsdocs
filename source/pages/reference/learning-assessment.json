@@ -1,1 +1,88 @@
-{"code":"solution.learning-assessment.technical-reference","title":"Learning and Assessment Technical Reference","route":"/docs/reference/learning-assessment","section":"reference","family":"technical-reference","parent":"section:reference","order":210,"audiences":["business-user","developer","architect","operator","ai-tool"],"readerIntent":"Understand the implemented quiz-oriented learning capability and extension boundaries.","priorKnowledge":"Understand schemas, workflows, publishing, and user identity.","depth":"reference","status":"implemented","owner":"Quizer capability family and consuming project modules","lastVerified":"2026-07-26","summary":"Quiz, versioned quiz, and workflow-oriented quiz modules provide reusable assessment contracts; each learning application owns its curriculum, pedagogy, presentation, and learner journeys.","supportingEvidence":["nodics:gCore/quizer/README.md","nodics:gCore/quizer/quiz/README.md","nodics:gCore/quizer/vquiz/README.md","nodics:gCore/quizer/wquiz/README.md"],"sections":[{"heading":"Capability map","items":["Quiz definitions, questions, answers, attempts, scoring, and results according to active schemas/services.","Versioned authoring and approved publication where configured.","Workflow integration for review, assessment, or learning processes.","Tenant/user ownership, permissions, search, events, analytics, and operational evidence."]},{"heading":"Extension","items":["Project modules contribute learning-domain schemas, services, routes, workflows, content, and clients.","Do not place application curriculum or frontend journeys in the reusable framework module.","Validate scoring boundaries, retries, version changes, concurrent attempts, privacy, performance, accessibility, and regression."]}]}
+{
+  "code": "solution.learning-assessment.technical-reference",
+  "title": "Learning and Assessment Technical Reference",
+  "route": "/docs/reference/learning-assessment",
+  "section": "reference",
+  "family": "technical-reference",
+  "parent": "section:reference",
+  "order": 210,
+  "audiences": [
+    "business-user",
+    "developer",
+    "architect",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Understand the implemented quiz-oriented learning capability and extension boundaries.",
+  "priorKnowledge": "Understand schemas, workflows, publishing, and user identity.",
+  "depth": "reference",
+  "status": "implemented",
+  "owner": "Quizer capability family and consuming project modules",
+  "lastVerified": "2026-07-26",
+  "summary": "Quiz, versioned quiz, and workflow-oriented quiz modules provide reusable assessment contracts; each learning application owns its curriculum, pedagogy, presentation, and learner journeys.",
+  "supportingEvidence": [
+    "nodics:gCore/quizer/README.md",
+    "nodics:gCore/quizer/quiz/README.md",
+    "nodics:gCore/quizer/vquiz/README.md",
+    "nodics:gCore/quizer/wquiz/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Model and authority",
+      "items": [
+        "The learning application module owns assessment definitions, questions, answer options, scoring rules, attempts, responses, results, feedback, and completion state.",
+        "Profile owns learner identity, Workflow may own review or approval, CMS may own presentation content, and AI providers may assist only through governed contracts.",
+        "Reusable framework modules do not contain customer curriculum, course journeys, scoring decisions, or frontend-specific classroom behavior."
+      ]
+    },
+    {
+      "heading": "Authoring and versioning",
+      "items": [
+        "Authors create versioned assessments with stable code, title, instructions, availability, attempt policy, question selection, scoring, pass threshold, feedback, and accessibility metadata.",
+        "Manual and automatic review actions validate answer keys, scoring boundaries, locale content, randomization, privacy, and publication readiness.",
+        "Approved versions publish to the learner target; an in-progress attempt remains bound to its declared assessment version according to policy."
+      ]
+    },
+    {
+      "heading": "Attempt lifecycle",
+      "items": [
+        "Start validates learner, tenant, enrollment or eligibility, active window, remaining attempts, version, accommodations, and idempotency.",
+        "Responses save with optimistic revision, timing, question identity, and safe resume state; submission finalizes once and invokes deterministic scoring where configured.",
+        "Manual grading, review, appeal, expiry, cancellation, retry, and result release are explicit states with permissions and audit."
+      ]
+    },
+    {
+      "heading": "Security and analytics",
+      "items": [
+        "Protect answer keys, unpublished questions, learner responses, results, accommodations, and personal data through field masking, ownership, retention, and tenant isolation.",
+        "Randomization and timing support fairness but do not replace identity, proctoring, anti-abuse, or accessible accommodation policy.",
+        "Analytics consumes permission-safe derived events and aggregates; it cannot rewrite attempts or expose another learner's data."
+      ]
+    },
+    {
+      "heading": "Verification and operations",
+      "items": [
+        "Test scoring minimum and maximum, partial credit, unanswered items, rounding, version change, retry policy, concurrent submission, timeout, resume, manual grade, and appeal.",
+        "Test wrong learner and tenant, hidden answers, publication, search, events, analytics, cache outage, accessibility, localization, load, recovery, and regression.",
+        "Monitor active attempts, completion, scoring errors, manual backlog, publication version, event lag, and privacy incidents with business and operator runbooks."
+      ]
+    },
+    {
+      "heading": "Capability map",
+      "items": [
+        "Quiz definitions, questions, answers, attempts, scoring, and results according to active schemas/services.",
+        "Versioned authoring and approved publication where configured.",
+        "Workflow integration for review, assessment, or learning processes.",
+        "Tenant/user ownership, permissions, search, events, analytics, and operational evidence."
+      ]
+    },
+    {
+      "heading": "Extension",
+      "items": [
+        "Project modules contribute learning-domain schemas, services, routes, workflows, content, and clients.",
+        "Do not place application curriculum or frontend journeys in the reusable framework module.",
+        "Validate scoring boundaries, retries, version changes, concurrent attempts, privacy, performance, accessibility, and regression."
+      ]
+    }
+  ]
+}

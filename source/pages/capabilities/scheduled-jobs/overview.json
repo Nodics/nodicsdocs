@@ -1,1 +1,100 @@
-{"code":"capability.scheduled-jobs.overview","title":"Scheduled Jobs","route":"/docs/capabilities/scheduled-jobs","section":"capabilities","family":"overview-business-value","parent":"page:framework.architecture","order":170,"audiences":["business-user","administrator","developer","architect","operator","ai-tool"],"readerIntent":"Understand governed timed and manual execution.","priorKnowledge":"Understand modules, services, and service identity.","depth":"overview","status":"implemented","owner":"CronJob module","lastVerified":"2026-07-26","summary":"Persisted tenant job definitions schedule approved handlers on eligible module nodes; in-memory schedules are disposable and never the authority.","supportingEvidence":["nodics:gCore/cronjob/README.md"],"sections":[{"heading":"Business uses","items":["Scheduled synchronization, reconciliation, cleanup, reminders, reporting, and integration work.","Authorized manual runs using the same definition and handler contract.","Node placement and temporary failover without turning servers into capability owners."]},{"heading":"Boundaries","items":["CronJob triggers work; services own business behavior and workflows own durable multi-step processes.","Manual execution cannot bypass tenant, node eligibility, permissions, overlap protection, or diagnostics.","Remote calls use service identity and target authorization, never human credentials."]},{"heading":"Continue","items":["[Job Lifecycle, Resilience, and Operations](/docs/capabilities/scheduled-jobs/runtime)","[Scheduled Jobs Technical Reference](/docs/reference/scheduled-jobs)"]}]}
+{
+  "code": "capability.scheduled-jobs.overview",
+  "title": "Scheduled Jobs",
+  "route": "/docs/capabilities/scheduled-jobs",
+  "section": "capabilities",
+  "family": "overview",
+  "parent": "section:capabilities",
+  "order": 170,
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Understand governed timed and manual execution.",
+  "priorKnowledge": "Understand modules, services, and service identity.",
+  "depth": "overview",
+  "status": "implemented",
+  "owner": "CronJob module",
+  "lastVerified": "2026-07-26",
+  "summary": "Persisted tenant job definitions schedule approved handlers on eligible module nodes; in-memory schedules are disposable and never the authority.",
+  "supportingEvidence": [
+    "nodics:gCore/cronjob/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "What is Scheduled Jobs?",
+      "paragraphs": [
+        "A scheduled job is work that starts at a configured time or interval instead of from an immediate user request. Typical examples include reconciliation, cleanup, report generation, import, and maintenance.",
+        "It resembles a recurring calendar task assigned to an accountable service. The schedule starts the work, but identity, permission, retry, concurrency, history, and recovery still require explicit governance."
+      ]
+    },
+    {
+      "heading": "Business uses",
+      "items": [
+        "Scheduled synchronization, reconciliation, cleanup, reminders, reporting, and integration work.",
+        "Authorized manual runs using the same definition and handler contract.",
+        "Node placement and temporary failover without turning servers into capability owners."
+      ]
+    },
+    {
+      "heading": "Boundaries",
+      "items": [
+        "CronJob triggers work; services own business behavior and workflows own durable multi-step processes.",
+        "Manual execution cannot bypass tenant, node eligibility, permissions, overlap protection, or diagnostics.",
+        "Remote calls use service identity and target authorization, never human credentials."
+      ]
+    },
+    {
+      "heading": "Definition and runtime schedule",
+      "paragraphs": [
+        "The persisted job definition is authoritative. A runtime scheduler creates disposable in-memory schedules for definitions assigned to an eligible node. Restart rebuilds them idempotently.",
+        "Editing or losing an in-memory timer never changes the persisted business schedule."
+      ]
+    },
+    {
+      "heading": "Example: stock reconciliation",
+      "paragraphs": [
+        "Inventory owns a reconciliation service comparing stock balances and movements. CronJob owns when the approved handler runs and which eligible node acquires it.",
+        "A manual run invokes the same definition with authorization and audit; it does not call an arbitrary service name supplied by the browser."
+      ]
+    },
+    {
+      "heading": "Scheduling decisions",
+      "items": [
+        "Tenant and capability owner.",
+        "Time zone, expression, start, end, and missed-run policy.",
+        "Node eligibility, concurrency, overlap, and distributed acquisition.",
+        "Timeout, retry, idempotency, reconciliation, and compensation.",
+        "Input references, secrets, retention, permissions, and diagnostics."
+      ]
+    },
+    {
+      "heading": "When not to use a job",
+      "items": [
+        "Use a normal service for immediate synchronous work.",
+        "Use an event consumer for reaction to a completed fact.",
+        "Use a workflow for durable manual and automatic business actions.",
+        "Use a data processor for high-volume partitioned processing.",
+        "Do not poll unnecessarily when an owned event contract exists."
+      ]
+    },
+    {
+      "heading": "What operators and business owners can expect",
+      "paragraphs": [
+        "A scheduled job is visible as an owned, tenant-aware definition rather than an invisible operating-system timer. Teams can explain what it does, when it may run, which node is eligible, what happened on the last execution, and how a failure is recovered.",
+        "High-volume or financially sensitive work still requires capacity planning, idempotency, reconciliation, bounded retries, audit retention, and an explicit missed-run decision. Scheduling alone does not make a business operation safe."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "items": [
+        "Job Lifecycle, Resilience, and Operations",
+        "Scheduled Jobs Technical Reference"
+      ]
+    }
+  ]
+}

@@ -6,7 +6,14 @@
   "family": "technical-reference",
   "parent": "section:build",
   "order": 50,
-  "audiences": ["business-user", "developer", "architect", "operator", "framework-maintainer", "ai-tool"],
+  "audiences": [
+    "business-user",
+    "developer",
+    "architect",
+    "operator",
+    "framework-maintainer",
+    "ai-tool"
+  ],
   "readerIntent": "Keep user documentation current, capability-first, importable, and aligned with implementation.",
   "priorKnowledge": "Understand the Nodics documentation content-pack contract.",
   "depth": "reference",
@@ -14,7 +21,12 @@
   "owner": "nodicsdocs canonical source with Nodics CMS import and Axis/Nodicsweb renderers",
   "lastVerified": "2026-07-26",
   "summary": "Implemented functionality is documented once in nodicsdocs as structured capability-first content; module READMEs retain concise technical ownership/setup guidance; planned work remains outside runtime documentation.",
-  "supportingEvidence": ["nodics:README.md", "nodics:gFramework/docs/README.md"],
+  "supportingEvidence": [
+    "nodics:README.md",
+    "nodics:gFramework/docs/README.md",
+    "nodics:gDocs/documentation/how-to-maintain-documentation.md",
+    "nodics:gDocs/documentation/how-to-publish-documentation-on-github.md"
+  ],
   "sections": [
     {
       "heading": "Ownership",
@@ -41,9 +53,458 @@
       "heading": "Change workflow",
       "items": [
         "Update documentation in the same implementation change.",
+        "Change the canonical structured page under source/pages; do not edit generated data/core records or the CMS database as the long-term source.",
+        "Increase the release version in compatibility.json and package.json whenever the generated release content changes.",
+        "Generate the directly importable release with npm run generate -- --sites axisCmsSite --access AUTHENTICATED.",
         "Run npm run verify in nodicsdocs and relevant Nodics documentation/governance gates.",
         "Review generated import data rather than editing it.",
         "Publish/import explicitly through Nodics-owned contracts and validate links, navigation, accessibility, mobile rendering, search, update behavior, and regression."
+      ]
+    },
+    {
+      "heading": "How an update reaches the CMS database",
+      "paragraphs": [
+        "The CMS database is a runtime projection of a reviewed nodicsdocs release. Starting Nodics does not repeatedly import documentation. An authorized update is explicit so startup remains fast, distributed nodes do not compete to import the same release, and operational state is not silently overwritten.",
+        "Nodics compares the available content-pack version and checksum with the installed release. Axis uses this Nodics-owned status contract to show whether documentation is unavailable, current, importing, failed, or has an update available."
+      ],
+      "items": [
+        "An authorized employee selects Import documentation when the pack is not installed or Update documentation when a newer release is available.",
+        "Axis calls POST /nodics/system/v0/content-packs/nodicsDocumentation/imports; it does not read files, write CMS collections, or implement a second import engine.",
+        "Nodics validates compatibility, release identity, checksum, permissions, tenant context, committed import structure, and required CMS schemas before processing records.",
+        "Stable page, component, route, template, and navigation codes update the corresponding CMS records. New stable codes create new records.",
+        "Removed content uses an explicit inactive retirement or tombstone record so deletion is intentional, reviewable, and compatible; omission alone does not silently delete runtime content.",
+        "The import run records the version, checksum, tenant, source, start and finish time, counts, failures, validation errors, and outcome for operational evidence.",
+        "Repeating the same installed release is idempotent and becomes a safe no-op.",
+        "A changed checksum under an already installed version is rejected. Content changes require a new content-pack version."
+      ]
+    },
+    {
+      "heading": "Axis and Nodicsweb delivery",
+      "paragraphs": [
+        "After a successful import, Nodics CMS immediately becomes the authoritative delivery source for that installed documentation release. Axis resolves secured documentation pages through authenticated CMS delivery. The future Nodicsweb corporate site will resolve the approved public documentation projection through the same Nodics CMS contracts.",
+        "Axis and Nodicsweb may use different sites, access modes, layouts, navigation shells, responsive behavior, and component renderers. They must not copy or independently maintain documentation business content. The nodicsdocs release and Nodics CMS projection remain shared authorities."
+      ],
+      "items": [
+        "Axis serves employee BackOffice documentation and requires authenticated employee access.",
+        "Nodicsweb will serve the corporate/public documentation experience through an explicitly configured public Site and approved publication state.",
+        "Each client owns presentation renderers and supported renderer-contract versions; Nodics owns delivery contracts and authorization.",
+        "A content update is authored and released once, then imported and published to the appropriate CMS targets so every approved client receives the same canonical meaning.",
+        "A client must fail safely when it does not support a page, template, component, channel, or contract version."
+      ]
+    },
+    {
+      "heading": "Local, shared, and production release sources",
+      "items": [
+        "Local development may enable the configured sibling nodicsdocs repository as the available content-pack source.",
+        "A shared or production environment should use a reviewed immutable release artifact or controlled repository revision, not an operator's mutable local folder.",
+        "Source location and availability are configurable Nodics properties and remain disabled unless the environment intentionally enables documentation import.",
+        "Credentials, absolute developer paths, database access, and environment-specific URLs never belong in nodicsdocs content.",
+        "Promoting a release between environments preserves its version, checksum, generated records, compatibility metadata, and audit identity."
+      ]
+    },
+    {
+      "heading": "Verification checklist",
+      "items": [
+        "Positive: a new version imports successfully and updated text appears through CMS delivery in Axis.",
+        "Negative: missing permission, unsupported compatibility, invalid source, changed checksum without a version change, malformed data, or missing schema fails closed.",
+        "Boundary: empty pack, maximum configured size, large navigation, repeated import, interrupted import, and retirement records remain deterministic and bounded.",
+        "Contract: stable identities, renderer versions, access modes, routes, source hashes, release checksum, and installed status agree across nodicsdocs, Nodics, Axis, and later Nodicsweb.",
+        "Integration: import, CMS persistence, authenticated or public delivery, navigation, search, links, media, responsive rendering, update notification, audit, and recovery work end to end.",
+        "Regression: normal server startup does not re-import documentation, existing CMS behavior remains intact, and an unchanged release remains a no-op."
+      ]
+    },
+    {
+      "heading": "Preserve detail during migration and restructuring",
+      "paragraphs": [
+        "Changing navigation from repository-oriented pages to capability-oriented pages must not reduce the knowledge available to a beginner, business reader, developer, operator, security reviewer, or framework maintainer. A shorter destination is not complete merely because it satisfies a word-count threshold.",
+        "The migration register gives every source an explicit disposition and canonical destination. Sources marked merge, rewrite, or retain keep their substantive headings and instructional detail unless a reviewed decision identifies a specific passage as obsolete, unsafe, duplicated by a named authority, or unsupported by implemented behavior.",
+        "Run `npm run sync:gdocs-detail` after refreshing extracted legacy evidence. The command replaces previously synchronized sections from the same evidence source, so repeated execution updates content without producing duplicates. Run `npm run normalize:links` afterward to translate legacy documentation links into governed canonical routes.",
+        "Run `npm run audit:coverage` to prove source citation, heading preservation, and detailed-content preservation. Run `npm run audit:depth` as a complementary editorial signal, then generate and verify the content pack. Coverage is the anti-compression gate; depth is not a substitute for it."
+      ],
+      "items": [
+        "Keep stronger new explanations, scenarios, decisions, and limitations added to the canonical page.",
+        "Preserve tables, examples, configuration choices, extension guidance, failure behavior, security controls, operational procedures, troubleshooting, and verification detail.",
+        "Keep module READMEs as technical ownership evidence until their user-facing knowledge is proven to have a canonical home.",
+        "Do not delete gDocs or retire its inbound links while the cutover audit remains blocked."
+      ]
+    },
+    {
+      "heading": "Complete guide: How To Maintain Documentation",
+      "migratedFrom": "nodics:gDocs/documentation/how-to-maintain-documentation.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "Documentation is part of the Nodics product.",
+        "It helps new users learn, helps experienced developers move quickly, and helps AI tools avoid unsafe implementation choices."
+      ]
+    },
+    {
+      "heading": "Documentation Types",
+      "migratedFrom": "nodics:gDocs/documentation/how-to-maintain-documentation.md",
+      "sourceAnchor": "documentation-types",
+      "paragraphs": [
+        "Nodics has several documentation types.",
+        "**Root README**",
+        "The root README is the public entry point. Keep it short, friendly, and easy to scan.",
+        "**Public documentation**",
+        "The `gDocs` module contains permanent public business, user, developer, architecture, security, operations, and reference documentation.",
+        "**Temporary root documentation workspace**",
+        "The root `docs/` folder is an untracked, non-runtime workspace for temporary inventories, checklists, audits, drafts, proposed architecture, unresolved decisions, implementation backlogs, and action plans. It is not the Nodics documentation module or a source of runtime truth. Promote only functionality that has been implemented in authoritative Nodics contracts and verified into `gDocs`, a module `README.md`, or a module `docs/` folder.",
+        "Permanent repository documentation describes current implemented behavior. A plan may change during implementation, so it must not be linked into the public documentation journey or generated module context as though it were available. After implementation, reconcile the plan with the delivered source and tests, then promote only the implemented sections and leave unresolved work in root `docs/`.",
+        "**Module README files**",
+        "Each module README explains the purpose, behavior, configuration, extension points, and tests for that module.",
+        "Use [Module Documentation Index](/docs/reference/modules) to connect public task guides to module-owned README and docs pages.",
+        "**AI and implementation contracts**",
+        "`AGENTS.md` and `gSetup/llm` contain rules for AI tools and developers changing the codebase. They guide implementation work and do not replace user-facing documentation.",
+        "**Generated documentation**",
+        "Regenerate generated API docs, generated LLM context, and generated reports from source definitions."
+      ]
+    },
+    {
+      "heading": "Documentation Source Map",
+      "migratedFrom": "nodics:gDocs/documentation/how-to-maintain-documentation.md",
+      "sourceAnchor": "documentation-source-map",
+      "paragraphs": [
+        "Use the right documentation layer for the right audience.",
+        "| Documentation | Audience | Purpose |\n| --- | --- | --- |\n| Root `README.md` | New visitors, evaluators, and developers | Explain what Nodics is, why it exists, and where to start. |\n| `gDocs` | Business owners, evaluators, users, application developers, framework developers, operators, and technical leads | Provide business decision journeys and task-based guides such as setup, APIs, data, jobs, security, testing, and deployment. |\n| Module `README.md` files | Developers working inside one capability | Explain module purpose, owned schemas/routes/services/data/tests, configuration, extension paths, and verification. |\n| Module `docs/` folders | Developers needing deeper module detail | Hold permanent module documentation that belongs with the product. |\n| `gDocs/reference/module-documentation-index.md` | Users and developers moving from guide pages to module details | Maps task-based documentation to the module README and module docs that own exact capability behavior. |\n| `AGENTS.md` | AI tools and developers changing code | Define local implementation behavior, ownership boundaries, and safety rules. |\n| `gSetup/llm` | AI tools, automation, and developers doing implementation work | Define cross-cutting contracts, prompts, standards, generated context rules, and structure guidance. |\n| Generated LLM context | AI tools and reviewers | Summarize source-derived module facts and documentation gaps after regeneration. |"
+      ]
+    },
+    {
+      "heading": "Writing Style",
+      "migratedFrom": "nodics:gDocs/documentation/how-to-maintain-documentation.md",
+      "sourceAnchor": "writing-style",
+      "paragraphs": [
+        "Write for guided adoption first. A Nodics page should be understandable by a developer with basic programming knowledge, useful to an experienced developer, and explicit enough for an AI tool to place code in the correct folder without inventing a new structure.",
+        "Start with plain language:",
+        "Then add deeper framework internals for advanced readers.",
+        "Use task-based titles:",
+        "Avoid internal-only titles unless the reader must know the internal name.",
+        "Prefer:",
+        "```text\nHow To Create Scheduled Jobs\n```",
+        "Instead of:",
+        "```text\ncronjob module internals\n```"
+      ],
+      "items": [
+        "what the feature is;",
+        "why it exists;",
+        "when to use it;",
+        "what problem it solves;",
+        "where code belongs;",
+        "how to customize it safely;",
+        "how to verify it.",
+        "How to set up Nodics.",
+        "How to create a scheduled job.",
+        "How to add configuration.",
+        "How to create an API.",
+        "How to test a change."
+      ]
+    },
+    {
+      "heading": "Required Detail",
+      "migratedFrom": "nodics:gDocs/documentation/how-to-maintain-documentation.md",
+      "sourceAnchor": "required-detail",
+      "paragraphs": [
+        "Every page explains:"
+      ],
+      "items": [
+        "Purpose.",
+        "When to use it.",
+        "Step-by-step process.",
+        "Files or folders involved.",
+        "Which layer owns each change.",
+        "Where code should be written.",
+        "Configuration involved.",
+        "Security considerations.",
+        "Testing commands.",
+        "Common mistakes.",
+        "Extension or customization path.",
+        "Generated artifacts that must be regenerated.",
+        "AI/developer rules that must be preserved."
+      ]
+    },
+    {
+      "heading": "Write For Partial Discovery",
+      "migratedFrom": "nodics:gDocs/documentation/how-to-maintain-documentation.md",
+      "sourceAnchor": "write-for-partial-discovery",
+      "paragraphs": [
+        "Most readers and AI tools will not read the whole documentation site. Write so that the nearest module boundary is safe and useful by itself:",
+        "`llm/examples/`.",
+        "Do not force a reader to discover an unrelated planning note before learning a security, authority, persistence, or extension rule."
+      ],
+      "items": [
+        "Put global rules in root `AGENTS.md`.",
+        "Put module ownership and prohibitions in the nearest `AGENTS.md`.",
+        "Put human capability guidance in the module README and module `docs/`.",
+        "Put concise machine-oriented rules and examples in `llm/contracts/` and",
+        "Protect critical rules with tests.",
+        "Link the public task journey in `gDocs` to the owning module."
+      ]
+    },
+    {
+      "heading": "Required Use Cases",
+      "migratedFrom": "nodics:gDocs/documentation/how-to-maintain-documentation.md",
+      "sourceAnchor": "required-use-cases",
+      "paragraphs": [
+        "For a significant implemented capability, include:",
+        "Use real Nodics terminology and source-backed behavior. Clearly mark any unimplemented limitation instead of documenting it as an available feature."
+      ],
+      "items": [
+        "the simplest successful journey;",
+        "an unauthorized or invalid journey and the rejection users should see;",
+        "a realistic boundary or high-volume journey;",
+        "a failure, retry, rollback, or recovery journey;",
+        "a partner customization using a later-loaded module or layered property;",
+        "the expected result and verification method for every example."
+      ]
+    },
+    {
+      "heading": "Navigation Contract",
+      "migratedFrom": "nodics:gDocs/documentation/how-to-maintain-documentation.md",
+      "sourceAnchor": "navigation-contract",
+      "paragraphs": [
+        "The root README must provide short, visible journeys for business evaluators, beginners, builders, architects, operators, and readers seeking module detail.",
+        "Every permanent `gDocs` page must be reachable from the root README through `gDocs/README.md` or another visible public guide. A task guide should end with a small **Continue** section containing the most useful previous or next step, related capability documentation, and the documentation home. Do not add links merely to satisfy a count; each link must help the reader make a decision or complete the next task.",
+        "The module documentation index provides a curated task-to-capability map. The complete module catalog provides exhaustive package-to-README reachability. Package metadata and the module README remain authoritative for module identity and behavior.",
+        "Documentation quality validation must check:"
+      ],
+      "items": [
+        "local Markdown link targets and path case;",
+        "reachability of permanent `gDocs` pages from the public entry point;",
+        "reachability of package-defined module READMEs through the module catalog;",
+        "required business, beginner, glossary, maturity, and module-index entry pages;",
+        "navigation out of task guides so readers are not left at dead ends."
+      ]
+    },
+    {
+      "heading": "Updating Documentation With Code",
+      "migratedFrom": "nodics:gDocs/documentation/how-to-maintain-documentation.md",
+      "sourceAnchor": "updating-documentation-with-code",
+      "paragraphs": [
+        "When code changes, ask:",
+        "If yes, update the related docs in the same work."
+      ],
+      "items": [
+        "Does the public behavior change?",
+        "Does configuration change?",
+        "Does a route, schema, service, job, import/export process, or permission change?",
+        "Does a module extension contract change?",
+        "Does the AI/developer implementation rule change?",
+        "Do generated docs need regeneration?"
+      ]
+    },
+    {
+      "heading": "Using Planning Notes",
+      "migratedFrom": "nodics:gDocs/documentation/how-to-maintain-documentation.md",
+      "sourceAnchor": "using-planning-notes",
+      "paragraphs": [
+        "Planning notes and captured product notes preserve useful concepts and page structure. Final documentation states current Nodics behavior directly.",
+        "For each topic:"
+      ],
+      "items": [
+        "Preserve the useful concept.",
+        "Verify the current implementation.",
+        "Update terminology.",
+        "Add current commands and tests.",
+        "Move module-specific detail to the module README.",
+        "Keep broad user guidance in `gDocs`."
+      ]
+    },
+    {
+      "heading": "Verification",
+      "migratedFrom": "nodics:gDocs/documentation/how-to-maintain-documentation.md",
+      "sourceAnchor": "verification",
+      "paragraphs": [
+        "Run:",
+        "```bash\nnpm run docs:coverage:source -- --limit=20\nnpm run docs:coverage:contracts -- --limit=20\nnpm run llm:generate\nnpm run llm:validate\n```",
+        "Use documentation review as part of feature review, not as a cleanup task after the feature is finished."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/documentation/how-to-maintain-documentation.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "Publishing: [How To Publish Documentation On GitHub](/docs/build/documentation)",
+        "Module catalog: [Complete Module Catalog](/docs/reference/modules)",
+        "Documentation home: [Nodics Documentation](/docs)"
+      ]
+    },
+    {
+      "heading": "Complete guide: How To Publish Documentation On GitHub",
+      "migratedFrom": "nodics:gDocs/documentation/how-to-publish-documentation-on-github.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "This guide explains how Nodics documentation appears to people browsing the GitHub repository.",
+        "The goal is simple:",
+        "```text\nUsers find clear documentation from GitHub without needing to understand internal repository history.\n```"
+      ]
+    },
+    {
+      "heading": "Beginner Summary",
+      "migratedFrom": "nodics:gDocs/documentation/how-to-publish-documentation-on-github.md",
+      "sourceAnchor": "beginner-summary",
+      "paragraphs": [
+        "GitHub has several places where people may look for documentation. Nodics keeps the source-controlled documentation in the repository so docs change together with code.",
+        "Use this mental model:",
+        "| Place | Purpose |\n| --- | --- |\n| Root `README.md` | Short public front door. |\n| `gDocs` | Main user and developer documentation source. |\n| Module `README.md` files | Exact capability details for one module. |\n| GitHub Pages | Published website view of repository docs. |\n| GitHub Wiki | Optional index or mirror, not the source of truth. |"
+      ]
+    },
+    {
+      "heading": "Recommended Approach",
+      "migratedFrom": "nodics:gDocs/documentation/how-to-publish-documentation-on-github.md",
+      "sourceAnchor": "recommended-approach",
+      "paragraphs": [
+        "Use this structure:",
+        "This keeps documentation changes reviewable with code while still giving users a readable documentation experience."
+      ],
+      "items": [
+        "Keep the root `README.md` short and friendly.",
+        "Keep detailed documentation in `gDocs`.",
+        "Publish `gDocs` as a GitHub Pages documentation site.",
+        "Use GitHub Wiki only as an optional index or mirror."
+      ]
+    },
+    {
+      "heading": "Why Not Put Everything In The Root README",
+      "migratedFrom": "nodics:gDocs/documentation/how-to-publish-documentation-on-github.md",
+      "sourceAnchor": "why-not-put-everything-in-the-root-readme",
+      "paragraphs": [
+        "The root README is the front door.",
+        "It helps a new visitor answer:",
+        "It does not contain every feature, every setup detail, every module rule, or every internal implementation contract.",
+        "Long README files become hard to scan. They also make it harder for new users to know where to begin."
+      ],
+      "items": [
+        "What is Nodics?",
+        "Why should I use it?",
+        "How do I start?",
+        "Where is the full documentation?"
+      ]
+    },
+    {
+      "heading": "Why Use `gDocs`",
+      "migratedFrom": "nodics:gDocs/documentation/how-to-publish-documentation-on-github.md",
+      "sourceAnchor": "why-use-gdocs",
+      "paragraphs": [
+        "The `gDocs` folder is the documentation source that lives with the repository.",
+        "This means:"
+      ],
+      "items": [
+        "Documentation changes can be reviewed with code changes.",
+        "Links can point to exact repository files.",
+        "Documentation can be versioned with branches.",
+        "Developers can update docs in the same pull request as implementation.",
+        "GitHub Pages can publish the same content as a website."
+      ]
+    },
+    {
+      "heading": "Why Use GitHub Pages",
+      "migratedFrom": "nodics:gDocs/documentation/how-to-publish-documentation-on-github.md",
+      "sourceAnchor": "why-use-github-pages",
+      "paragraphs": [
+        "GitHub Pages is a good fit for the official documentation site.",
+        "It can provide:",
+        "At first, Nodics can publish simple Markdown pages. Later, it can use a documentation generator such as MkDocs, Docusaurus, or Jekyll."
+      ],
+      "items": [
+        "A public documentation URL.",
+        "Better navigation than raw Markdown.",
+        "Search when a documentation generator is added.",
+        "A cleaner experience for new users.",
+        "Versioned documentation later if needed."
+      ]
+    },
+    {
+      "heading": "How GitHub Wiki Should Be Used",
+      "migratedFrom": "nodics:gDocs/documentation/how-to-publish-documentation-on-github.md",
+      "sourceAnchor": "how-github-wiki-should-be-used",
+      "paragraphs": [
+        "Use GitHub Wiki as an index or mirror, not as the source of truth.",
+        "Recommended Wiki use:",
+        "Avoid using GitHub Wiki as the only maintained copy because it is a separate git repository from the main codebase. Documentation can drift when code and docs are reviewed separately."
+      ],
+      "items": [
+        "Create a `Home` page.",
+        "Explain that official documentation lives in `gDocs` or the GitHub Pages site.",
+        "Link to the main documentation sections.",
+        "Optionally mirror stable overview pages."
+      ]
+    },
+    {
+      "heading": "Suggested GitHub Wiki Home Page",
+      "migratedFrom": "nodics:gDocs/documentation/how-to-publish-documentation-on-github.md",
+      "sourceAnchor": "suggested-github-wiki-home-page",
+      "paragraphs": [
+        "Use content like this:",
+        "```markdown\n# Nodics Documentation\n\nWelcome to Nodics documentation.\n\nThe official documentation source lives in the main repository under `gDocs`.\n\nStart here:\n\n- What Nodics Is\n- How To Set Up Nodics\n- How Nodics Is Organized\n- How Configuration Works\n- How To Create APIs\n- How To Create Scheduled Jobs\n- How To Test Nodics Changes\n\nFor the latest source-controlled documentation, use the repository documentation or the published GitHub Pages site.\n```"
+      ]
+    },
+    {
+      "heading": "Suggested GitHub Pages Flow",
+      "migratedFrom": "nodics:gDocs/documentation/how-to-publish-documentation-on-github.md",
+      "sourceAnchor": "suggested-github-pages-flow",
+      "paragraphs": [
+        "Use this flow when the repository is ready to publish:"
+      ],
+      "items": [
+        "Keep documentation source in `gDocs`.",
+        "Add a documentation site configuration.",
+        "Configure GitHub Pages to publish the generated site.",
+        "Add a link from root `README.md` to the published site.",
+        "Add a link from GitHub Wiki to the published site.",
+        "Keep module README files linked from the relevant `gDocs` pages."
+      ]
+    },
+    {
+      "heading": "Documentation Source Rule",
+      "migratedFrom": "nodics:gDocs/documentation/how-to-publish-documentation-on-github.md",
+      "sourceAnchor": "documentation-source-rule",
+      "paragraphs": [
+        "Use this rule:",
+        "```text\nIf documentation explains Nodics behavior, maintain it in the repository.\n```",
+        "GitHub Wiki may display or link to documentation, but repository documentation remains the controlled source."
+      ]
+    },
+    {
+      "heading": "What To Avoid",
+      "migratedFrom": "nodics:gDocs/documentation/how-to-publish-documentation-on-github.md",
+      "sourceAnchor": "what-to-avoid",
+      "paragraphs": [
+        "Avoid:"
+      ],
+      "items": [
+        "Copying planning notes directly without turning them into current product documentation.",
+        "Keeping one version in `gDocs` and another different version in GitHub Wiki.",
+        "Putting AI-only implementation rules into public user documentation.",
+        "Making root README the full documentation site.",
+        "Publishing private planning material from root `docs`."
+      ]
+    },
+    {
+      "heading": "Next Step",
+      "migratedFrom": "nodics:gDocs/documentation/how-to-publish-documentation-on-github.md",
+      "sourceAnchor": "next-step",
+      "paragraphs": [
+        "The next practical step is to continue expanding `gDocs` one topic at a time. Start with high-value user tasks:"
+      ],
+      "items": [
+        "Set up Nodics.",
+        "Create an application module.",
+        "Create configuration.",
+        "Create APIs.",
+        "Work with data.",
+        "Create scheduled jobs.",
+        "Configure users, tenants, and permissions.",
+        "Test and deploy changes."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/documentation/how-to-publish-documentation-on-github.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "Related: [Documentation Maintenance Guide](/docs/build/documentation)",
+        "Module navigation: [Complete Module Catalog](/docs/reference/modules)",
+        "Documentation home: [Nodics Documentation](/docs)"
       ]
     }
   ]

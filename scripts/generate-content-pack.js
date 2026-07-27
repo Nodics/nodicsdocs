@@ -6,6 +6,7 @@ const path = require('node:path');
 const {
     hash,
     markdownReferences,
+    parseMarkdown,
     slug,
     stableCode,
     walkFiles,
@@ -56,7 +57,9 @@ function pageContent(page) {
         const anchor = uniqueHeadingAnchor(section.heading, usedAnchors);
         headings.push({ level: 2, text: section.heading, anchor });
         blocks.push({ kind: 'heading', level: 2, text: section.heading, anchor });
-        (section.paragraphs || []).forEach(text => blocks.push({ kind: 'paragraph', text }));
+        (section.paragraphs || []).forEach(text => {
+            structuredParagraphBlocks(text).forEach(block => blocks.push(block));
+        });
         if (section.items?.length > 0) {
             blocks.push({ kind: 'unordered-list', items: section.items });
         }
@@ -84,6 +87,66 @@ function pageContent(page) {
             });
     });
     return { blocks, headings, links };
+}
+
+function structuredParagraphBlocks(text) {
+    const trimmed = text.trim();
+    const isCode = trimmed.startsWith('```');
+    const isTable = /^\|.*\n\|\s*:?-+/m.test(trimmed);
+    const isImage = /^!\[[^\]]*\]\([^)]+\)$/.test(trimmed);
+    if (!isCode && !isTable && !isImage) return [{ kind: 'paragraph', text }];
+
+    const parsed = parseMarkdown(text);
+    if (parsed.unsupported.length > 0) {
+        throw new Error(`Unsupported structured documentation content: ${parsed.unsupported.join(', ')}`);
+    }
+    return parsed.blocks.map(block => {
+        if (block.kind !== 'image') return block;
+        const media = resolveMedia(block.target);
+        return {
+            kind: 'image',
+            alt: block.alt,
+            title: block.title || '',
+            source: media.source,
+            mimeType: media.mimeType,
+            contentHash: media.contentHash
+        };
+    });
+}
+
+const mediaByTarget = (() => {
+    const result = new Map();
+    walkFiles(path.join(root, 'source', 'articles'), filePath => filePath.endsWith('.json'))
+        .forEach(filePath => {
+            const article = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+            (article.media || []).filter(media => media.kind === 'local').forEach(media => {
+                result.set(media.target, media);
+            });
+        });
+    return result;
+})();
+
+function resolveMedia(target) {
+    const media = mediaByTarget.get(target);
+    if (!media) throw new Error(`Documentation image has no reviewed media mapping: ${target}`);
+    const assetPath = path.join(root, media.assetPath);
+    if (!fs.existsSync(assetPath)) {
+        throw new Error(`Documentation image asset is missing: ${media.assetPath}`);
+    }
+    const extension = path.extname(assetPath).toLowerCase();
+    const mimeType = extension === '.png' ? 'image/png' :
+        extension === '.jpg' || extension === '.jpeg' ? 'image/jpeg' : undefined;
+    if (!mimeType) throw new Error(`Unsupported documentation image type: ${extension}`);
+    const bytes = fs.readFileSync(assetPath);
+    const contentHash = hash(bytes);
+    if (contentHash !== media.contentHash) {
+        throw new Error(`Documentation image checksum mismatch: ${media.assetPath}`);
+    }
+    return {
+        source: `data:${mimeType};base64,${bytes.toString('base64')}`,
+        mimeType,
+        contentHash
+    };
 }
 
 function orderedPages(pages, taxonomy) {

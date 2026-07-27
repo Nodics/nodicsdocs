@@ -6,7 +6,17 @@
   "family": "technical-reference",
   "parent": "section:reference",
   "order": 930,
-  "audiences": ["evaluator", "business-user", "administrator", "developer", "architect", "security-reviewer", "operator", "framework-maintainer", "ai-tool"],
+  "audiences": [
+    "evaluator",
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "security-reviewer",
+    "operator",
+    "framework-maintainer",
+    "ai-tool"
+  ],
   "readerIntent": "Interpret capability and provider readiness honestly and understand the evidence required to promote it.",
   "priorKnowledge": "Understand capability ownership, provider adapters, testing, and deployment qualification.",
   "depth": "reference",
@@ -14,8 +24,21 @@
   "owner": "Owning capability/provider modules with repository governance and deployment evidence",
   "lastVerified": "2026-07-26",
   "summary": "Maturity is an evidence-backed engineering status, not a marketing label: framework capability readiness, provider readiness, and a customer's production deployment qualification are separate decisions.",
-  "supportingEvidence": ["nodics:gDocs/reference/provider-capability-maturity-matrix.md", "nodics:gFramework/nSearch/README.md", "nodics:gFramework/nEms/README.md"],
+  "supportingEvidence": [
+    "nodics:gDocs/reference/provider-capability-maturity-matrix.md",
+    "nodics:gFramework/nSearch/README.md",
+    "nodics:gFramework/nEms/README.md"
+  ],
   "sections": [
+    {
+      "heading": "How to use this reference",
+      "items": [
+        "Assess implementation, documentation, and production qualification separately; a complete design document does not prove runtime behavior.",
+        "Record evidence, environment, topology, provider, version, owner, limitations, and next promotion criteria for each capability.",
+        "Reassess after material contract, dependency, security, topology, or provider changes.",
+        "Communicate maturity in business-facing language without presenting planned or locally mocked behavior as production ready."
+      ]
+    },
     {
       "heading": "Levels",
       "items": [
@@ -65,6 +88,125 @@
         "Keep unavailable behavior inactive or fail closed and state the missing work explicitly.",
         "AI tools and developers must consult effective module configuration, current tests, provider health, and this register before recommending a production design.",
         "Customer deployment approval remains the customer's shared-responsibility decision even when framework and provider evidence pass."
+      ]
+    },
+    {
+      "heading": "Complete guide: Provider And Capability Maturity Matrix",
+      "migratedFrom": "nodics:gDocs/reference/provider-capability-maturity-matrix.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "This page shows the current maturity of major Nodics capabilities and provider adapters. Use it before selecting a capability for production work, before adding a new provider, and before an AI tool recommends implementation steps.",
+        "The matrix is not a marketing checklist. It is an engineering control that keeps capability status visible, testable, and honest."
+      ]
+    },
+    {
+      "heading": "Maturity Levels",
+      "migratedFrom": "nodics:gDocs/reference/provider-capability-maturity-matrix.md",
+      "sourceAnchor": "maturity-levels",
+      "paragraphs": [
+        "| Level | Meaning | Allowed Use |\n| --- | --- | --- |\n| Production-ready capability | The framework contract is implemented, documented, covered by deterministic tests, and ready for project use after normal project configuration, secrets, tenant setup, and release validation. | Use for project implementation. Keep module contracts, tests, and documentation aligned when extending. |\n| Guarded provider | The provider or runtime behavior exists, but live use requires explicit configuration, secrets, topology, tenant isolation, and guarded release/integration tests. | Use when the project owns the provider setup and runs the required gate. Do not make basic tests depend on it. |\n| Sample or reference | The module, data, or topology exists to demonstrate Nodics behavior, seed local development, or prove structure. | Use for learning, local validation, examples, and project skeleton decisions. Do not treat sample values as production policy. |\n| Placeholder or scaffold | The capability boundary exists, but the provider or feature is not complete enough for production behavior. | Keep it fail-closed or inactive. Implement the missing provider contract before using it. |\n| Parked future capability | The need is known, but the implementation is intentionally deferred. | Keep documented in backlog and design notes. Do not expose public runtime behavior until owned and tested. |"
+      ]
+    },
+    {
+      "heading": "How To Use This Matrix",
+      "migratedFrom": "nodics:gDocs/reference/provider-capability-maturity-matrix.md",
+      "sourceAnchor": "how-to-use-this-matrix",
+      "paragraphs": [
+        "Before using or changing a capability:",
+        "If a project needs a capability at a stronger level than this page lists, the project must implement the missing provider, tests, documentation, operations rules, and release gate. Do not silently treat guarded or scaffolded behavior as production-ready."
+      ],
+      "items": [
+        "Identify the owning module.",
+        "Check the maturity level.",
+        "Read the module `README.md` and any linked `gDocs` page.",
+        "Confirm which provider or engine is active through layered configuration.",
+        "Run the focused tests for the capability.",
+        "Use `npm run release:check` before claiming release readiness."
+      ]
+    },
+    {
+      "heading": "Core Runtime Capabilities",
+      "migratedFrom": "nodics:gDocs/reference/provider-capability-maturity-matrix.md",
+      "sourceAnchor": "core-runtime-capabilities",
+      "paragraphs": [
+        "| Capability | Owner | Current Maturity | Notes And Required Gate |\n| --- | --- | --- | --- |\n| Module loading and configuration hierarchy | `nConfig`, `nCommon` | Production-ready capability | Metadata-driven project, environment, server, node, tenant, and active-module loading is governed and tested. Changes require configuration, topology, and LLM validation. |\n| Router registration and request pipeline | `nRouter`, `nController`, `nFacade`, `nService` | Production-ready capability | Routes, controllers, request pipeline, response envelope, API method standards, OpenAPI generation, exposure gates, and route permissions are tested. |\n| Pipeline framework | `nPipeline` | Production-ready capability | Pipeline definitions, nodes, processors, interceptors, override rules, and examples are documented. Runtime changes must preserve ordered execution and failure behavior. |\n| Runtime governance | `nDynamo` | Production-ready capability | Runtime configuration preview, request, approval, activation, audit, rollback, cleanup, and schema access policy behavior are covered by deterministic tests. Production exposure still depends on topology gates and permissions. |\n| Testing and generated contracts | `nTest`, `nTooling` | Production-ready capability | Generated schema/API/scenario tests, module-owned tests, docs gates, LLM validation, structure audit, and release checks are wired through tooling. |\n| LLM/developer governance | `gSetup/llm`, module `AGENTS.md` | Production-ready capability | AI and human developer contracts define ownership, structure, layering, testing, release, and implementation rules. Keep generated context current after behavior changes. |"
+      ]
+    },
+    {
+      "heading": "Security And Identity",
+      "migratedFrom": "nodics:gDocs/reference/provider-capability-maturity-matrix.md",
+      "sourceAnchor": "security-and-identity",
+      "paragraphs": [
+        "| Capability | Owner | Current Maturity | Notes And Required Gate |\n| --- | --- | --- | --- |\n| Human authentication and profile identity | `nAuth`, `profile` | Production-ready capability | Login, route-security boundary, identity bootstrap, service account groups, token invalidation, audit redaction, and permission resolution are covered. Production requires governed secrets, not local sample values. |\n| Internal service token access | `nAuth`, `nService`, `profile` | Production-ready capability | Internal token access remains secured and separate from pre-authentication login routes. Service credentials must come from governed bootstrap sources. |\n| Strict distributed auth cache | `nAuth`, `nCache`, `redisCache` | Guarded provider | Redis-backed strict shared-cache behavior is required for distributed auth state. Live Redis validation is guarded and must run in release/deployment environments. |\n| Local compatibility cache for auth state | `nodeCache` | Sample or reference | Useful for local development where strict distributed auth is not required. It must not be selected for strict distributed auth contracts. |\n| OTP and token lifecycle | `nOtp`, `nToken` | Production-ready capability | Token and OTP behavior is module-owned and documented. Project-specific delivery channels or policies must be layered through services/configuration. |"
+      ]
+    },
+    {
+      "heading": "Data, Persistence, Import, And Export",
+      "migratedFrom": "nodics:gDocs/reference/provider-capability-maturity-matrix.md",
+      "sourceAnchor": "data-persistence-import-and-export",
+      "paragraphs": [
+        "| Capability | Owner | Current Maturity | Notes And Required Gate |\n| --- | --- | --- | --- |\n| Schema-driven database CRUD | `nDatabase/database`, `nService` | Production-ready capability | Model get/save/update/remove pipelines, access policy, generated services, and generated tests are covered. Provider-specific behavior stays behind database provider modules. |\n| MongoDB provider | `nDatabase/mongodb`, `vMongodb` | Guarded provider | MongoDB behavior is implemented and used by the framework. Production use requires configured tenant databases, secrets, backup/restore rules, indexes, and release validation. |\n| Cassandra provider | `nDatabase/cassandradb` | Placeholder or scaffold | The provider boundary exists, but projects must verify/complete provider contracts, connection handling, DAO behavior, tests, and operations before production use. |\n| Elastic database provider | `nDatabase/elasticdb` | Placeholder or scaffold | Treat as a provider boundary, not a production database adapter, until the missing contracts and live tests are implemented. |\n| New database provider such as Oracle | Project/provider module under database ownership | Parked future capability | Implement as a provider module with configuration, connection service, DAO behavior, schema access policy compatibility, tests, and documentation. Do not edit framework database contracts for one customer. |\n| File-based import | `nData/nImport/import`, format modules | Production-ready capability | Init, core, sample, local, remote staging, diagnostics, run history, validation-only mode, checksums, retry metadata, rollback hooks, failure consolidation, and batch dispatch are covered. |\n| Import format processors | `csvImport`, `excelImport`, `jsonImport`, `jsImport` | Production-ready capability | Format modules parse owned input files and feed the shared import lifecycle. Very large Excel streaming remains a future improvement. |\n| Remote import staging | `nData/nImport/import` plus project/provider transport | Guarded provider | Remote import stages files first and then uses trusted active-module headers. Public production remote import remains gated until a project/provider owns source configuration, credentials, live tests, and operations. |\n| Direct arbitrary remote pull from request payload | None | Parked future capability | Nodics should not accept arbitrary URLs, credentials, schemas, or operations from request payloads. Use governed source names and staged files. |\n| Shared export contract | `nData/nExport/export` | Guarded provider | The default export service is intentionally fail-closed while source-backed definitions, lifecycle, format renderers, delivery providers, history, diagnostics, and production tests are designed. |\n| Export format modules | `csvExport`, `excelExport`, `jsonExport`, `jsExport` | Placeholder or scaffold | Format ownership exists, but production export rendering must be completed through governed export definitions and tests. |"
+      ]
+    },
+    {
+      "heading": "Cache, Search, Messaging, Jobs, And Workflow",
+      "migratedFrom": "nodics:gDocs/reference/provider-capability-maturity-matrix.md",
+      "sourceAnchor": "cache-search-messaging-jobs-and-workflow",
+      "paragraphs": [
+        "| Capability | Owner | Current Maturity | Notes And Required Gate |\n| --- | --- | --- | --- |\n| Cache framework | `nCache/cache` | Production-ready capability | Cache policy, router/item/search cache behavior, invalidation, diagnostics, and adapter selection are documented and tested. |\n| Node in-memory cache | `nodeCache` | Sample or reference | Suitable for local, single-process, or non-strict behavior. Do not use as the only state store for distributed consistency requirements. |\n| Redis cache provider | `redisCache` | Guarded provider | Redis-backed behavior is available for distributed cache and strict auth cache. Live Redis release gates must be explicitly configured. |\n| Hazelcast cache provider | `hazelcastCache` | Placeholder or scaffold | The boundary exists, but production use requires adapter completion, health checks, distributed behavior tests, and operations documentation. |\n| Search framework | `nSearch/search` | Production-ready capability | Search routes, schema/index contracts, indexing pipeline, target dispatch from import, cache policy, and generated search tests are covered. |\n| Elasticsearch provider | `nSearch/elastic` | Guarded provider | Elasticsearch-compatible behavior requires configured engine endpoints, index prefixes, tenant isolation, health checks, and guarded live-provider tests. |\n| EMS provider-neutral messaging | `nEms`, `emsClient`, `nEvent`, `nems` | Production-ready capability | Event and messaging contracts, NEMS routes, EMS client behavior, tenant message resolution, failed-message schema, and process flow are tested. |\n| Kafka provider | `nEms/kafka` | Guarded provider | Kafka publish capability is covered deterministically. Production use requires broker configuration, topic ownership, consumer groups, retry/dead-letter policy, and guarded live tests. |\n| ActiveMQ provider | `nEms/activemq` | Placeholder or scaffold | Treat as a provider boundary until live adapter behavior, operations, and tests are completed. |\n| CronJob runtime | `cronjob` | Production-ready capability | Scheduler lifecycle, route contracts, runtime container ownership, event handler behavior, and logs are tested. Multi-node production scheduling still requires topology ownership and release validation. |\n| Workflow and BPM lifecycle | `workflow`, `nbpm` | Production-ready capability | Workflow carrier/action/channel behavior, lifecycle pipelines, event continuation, split/retry, and generated schema routers are covered. Project workflows must add flow-specific tests. |"
+      ]
+    },
+    {
+      "heading": "Business Capability Modules",
+      "migratedFrom": "nodics:gDocs/reference/provider-capability-maturity-matrix.md",
+      "sourceAnchor": "business-capability-modules",
+      "paragraphs": [
+        "| Capability | Owner | Current Maturity | Notes And Required Gate |\n| --- | --- | --- | --- |\n| Profile, tenant, enterprise, users, groups | `profile` | Production-ready capability | Core identity/domain data is implemented and tested. Production setup requires governed bootstrap identities and tenant-specific data planning. |\n| CMS and WCMS | `cms`, `wcms` | Production-ready capability | Content schemas, workflow content contracts, initializer/sample data, and generated tests are documented and covered. Project content models must own their renderer and workflow extensions. |\n| Catalog and product information patterns | `nCatalog`, commerce modules | Production-ready capability | Catalog capability supports DaaS and product-information-center patterns. Project catalogs must define tenant/application-specific schemas, import/export, search, and workflow rules. |\n| Cart and order | `cart`, `order` | Production-ready capability | Commerce schemas, routes, services, initializer/sample data, and generated tests are covered as framework business examples. |\n| Quizer modules | `quizer`, `quiz`, `wquiz`, `vquiz` | Sample or reference | Useful for optional/application examples. Promote to production only after product-specific requirements, tests, and documentation are completed. |\n| KYC modules | `gOptional/kyc` | Sample or reference | Optional capability structure exists. Project KYC work must define compliance rules, identity provider integration, audit, retention, and release tests. |"
+      ]
+    },
+    {
+      "heading": "Project And Topology Reference",
+      "migratedFrom": "nodics:gDocs/reference/provider-capability-maturity-matrix.md",
+      "sourceAnchor": "project-and-topology-reference",
+      "paragraphs": [
+        "| Capability | Owner | Current Maturity | Notes And Required Gate |\n| --- | --- | --- | --- |\n| Startio project | `startio` | Sample or reference | Startio is the framework validation project for end-to-end local, environment, server, node, and topology behavior. It proves structure, not customer production policy. |\n| Local consolidated runtime | `monoServer` | Sample or reference | Used for development and deterministic tests. Local API exposure can enable developer/admin categories that production must disable by default. |\n| Modular multi-server runtime | Startio environment/server/node modules | Guarded provider | Modular topology smoke tests prove basic communication. Production topology requires environment-owned secrets, health checks, service discovery, observability, backup, and deployment rules. |\n| Production operating model | Project/environment/server/node modules | Parked future capability | The operating model still needs deployment topology, observability, audit retention, backup/restore, rollback, disaster recovery, and support diagnostics to be fully defined for a reference production project. |"
+      ]
+    },
+    {
+      "heading": "Rules For Changing Maturity",
+      "migratedFrom": "nodics:gDocs/reference/provider-capability-maturity-matrix.md",
+      "sourceAnchor": "rules-for-changing-maturity",
+      "paragraphs": [
+        "Changing a maturity level is a framework governance change. The developer or AI tool must update this page only when the evidence changes.",
+        "To promote a capability:",
+        "generated context;",
+        "`npm run release:check`.",
+        "To demote a capability:"
+      ],
+      "items": [
+        "identify the owner module and provider boundary;",
+        "implement or verify layered configuration and override paths;",
+        "keep secrets out of source, logs, generated context, and request payloads;",
+        "add deterministic contract tests;",
+        "add guarded live-provider tests when an external engine is required;",
+        "document health checks, diagnostics, rollback, and failure behavior;",
+        "update module `README.md`, relevant `gDocs` guides, LLM contracts, and",
+        "run focused tests, `npm run llm:validate`, `npm run quality:docs`, and",
+        "explain why the capability is no longer safe at the previous level;",
+        "fail closed where runtime behavior could be unsafe;",
+        "update public documentation and AI/developer contracts;",
+        "add a backlog item for the missing work."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/reference/provider-capability-maturity-matrix.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "Business capabilities: [Business Capabilities And Outcomes](/docs/evaluate/business-capabilities)",
+        "Terminology: [Nodics Glossary](/docs/reference/glossary)",
+        "Module ownership: [Module Documentation Index](/docs/reference/modules)",
+        "Documentation home: [Nodics Documentation](/docs)"
       ]
     }
   ]

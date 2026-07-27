@@ -6,7 +6,13 @@
   "family": "tutorial-example",
   "parent": "page:capability.data-exchange.guide",
   "order": 10,
-  "audiences": ["business-user", "administrator", "developer", "operator", "ai-tool"],
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "operator",
+    "ai-tool"
+  ],
   "readerIntent": "Configure and run a tenant-safe import through existing Nodics contracts.",
   "priorKnowledge": "Know the source, target schema or index, mapping, tenant, and permission.",
   "depth": "guided",
@@ -14,10 +20,78 @@
   "owner": "Import definitions, format adapters, dataCore processors, and target schema/search services",
   "lastVerified": "2026-07-26",
   "summary": "A governed import resolves trusted headers, narrows tenant scope, parses and validates input, dispatches finalized models through target services, and records run evidence.",
-  "supportingEvidence": ["nodics:gFramework/nData/nImport/README.md", "nodics:gFramework/nData/nImport/import/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nData/nImport/README.md",
+    "nodics:gFramework/nData/nImport/import/README.md"
+  ],
   "sections": [
-    {"heading": "Supported inputs", "items": ["Core, init, sample, and governed local imports.", "CSV, Excel, JSON, and trusted JavaScript definitions owned by active modules.", "Push-based API inputs that meet the governed contract.", "Named remote sources supplied by a project/provider adapter; arbitrary request URLs and credentials are forbidden."]},
-    {"heading": "Run flow", "items": ["Select a trusted import definition, source, tenant, and active-module header.", "Validate count, size, extension, checksum, duplicate fingerprint, and source policy.", "Parse and map through format readers and data processors.", "Apply interceptors, validators, access groups, and tenant narrowing.", "Dispatch batches through generated schema or search services.", "Record counts, diagnostics, failure, retry, rollback evidence, and finalization events."]},
-    {"heading": "Verify", "items": ["Validation-only and successful runs.", "Malformed, oversized, duplicate, unauthorized, cross-tenant, and partial inputs.", "Batch boundaries, retries, idempotency, stop-on-failure, and cleanup.", "Schema/search target contracts, cache invalidation, events, workflows, and normal-save regression."]}
+    {
+      "heading": "Supported inputs",
+      "items": [
+        "Core, init, sample, and governed local imports.",
+        "CSV, Excel, JSON, and trusted JavaScript definitions owned by active modules.",
+        "Push-based API inputs that meet the governed contract.",
+        "Named remote sources supplied by a project/provider adapter; arbitrary request URLs and credentials are forbidden."
+      ]
+    },
+    {
+      "heading": "Run flow",
+      "items": [
+        "Select a trusted import definition, source, tenant, and active-module header.",
+        "Validate count, size, extension, checksum, duplicate fingerprint, and source policy.",
+        "Parse and map through format readers and data processors.",
+        "Apply interceptors, validators, access groups, and tenant narrowing.",
+        "Dispatch batches through generated schema or search services.",
+        "Record counts, diagnostics, failure, retry, rollback evidence, and finalization events."
+      ]
+    },
+    {
+      "heading": "Modes and identity",
+      "items": [
+        "Create-only rejects existing identity.",
+        "Update-only rejects missing identity.",
+        "Upsert follows an explicit owner-approved contract.",
+        "Replace requires stronger scope, deletion, and rollback governance.",
+        "Stable source and record identities make retry and update idempotent."
+      ]
+    },
+    {
+      "heading": "Relationships and ordering",
+      "paragraphs": [
+        "Import resolves related records through schema contracts. Parent-first ordering, deferred reference resolution, or bounded multi-pass behavior is explicit. Cross-module records still use target authority.",
+        "A missing Tenant during Enterprise import cannot be inserted directly into Profile storage."
+      ]
+    },
+    {
+      "heading": "Finalization",
+      "items": [
+        "Commit or close the accepted run.",
+        "Reconcile indexes and search lag.",
+        "Invalidate affected caches.",
+        "Publish approved completion facts.",
+        "Start workflow or publishing only through configured ownership.",
+        "Store counts, rejects, checksums, duration, and recovery state."
+      ]
+    },
+    {
+      "heading": "Verify",
+      "items": [
+        "Validation-only and successful runs.",
+        "Malformed, oversized, duplicate, unauthorized, cross-tenant, and partial inputs.",
+        "Batch boundaries, retries, idempotency, stop-on-failure, and cleanup.",
+        "Schema/search target contracts, cache invalidation, events, workflows, and normal-save regression."
+      ]
+    },
+    {
+      "heading": "Negative and recovery tests",
+      "items": [
+        "Malformed source, unsupported format, excessive size, and checksum mismatch.",
+        "Invalid field, duplicate identity, missing relation, and wrong tenant.",
+        "Partial batch, provider outage, restart, resume, and duplicate delivery.",
+        "Error-threshold stop and rollback or compensation.",
+        "Index, cache, event, and finalization failure.",
+        "Reimport unchanged and changed versioned pack."
+      ]
+    }
   ]
 }

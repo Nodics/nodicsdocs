@@ -4865,10 +4865,10 @@
       "contentHash": "0b8dd834a09b8f6317b3b992132b6d6b69a09003fda6bfae597eb52fe6b63159",
       "suggestedCapability": "ai",
       "reviewStatus": "reviewed",
-      "reviewAuthority": "reviewed-prefix-rule",
+      "reviewAuthority": "explicit-decision",
       "disposition": "merge",
       "destinationCode": "discover.overview",
-      "notes": "Use the repository entry point as evidence for the canonical introduction."
+      "notes": "Preserve the complete repository introduction, platform strengths, MVP-to-scale guidance, architecture orientation, commands, and adoption paths in the canonical Nodics introduction."
     },
     {
       "evidenceId": "nodics:startio/docs/README.md",

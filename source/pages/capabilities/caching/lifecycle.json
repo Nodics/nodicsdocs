@@ -6,7 +6,13 @@
   "family": "runtime-behavior",
   "parent": "page:capability.caching.overview",
   "order": 30,
-  "audiences": ["administrator", "developer", "architect", "operator", "ai-tool"],
+  "audiences": [
+    "administrator",
+    "developer",
+    "architect",
+    "operator",
+    "ai-tool"
+  ],
   "readerIntent": "Understand lookup, population, invalidation, import/export interaction, and recovery.",
   "priorKnowledge": "Know the logical cache channel and authoritative source.",
   "depth": "implementation",
@@ -14,10 +20,82 @@
   "owner": "Owning capability, cache policy, and configured provider",
   "lastVerified": "2026-07-26",
   "summary": "A read computes a tenant-safe key, checks eligibility, returns a valid hit or loads the authority, and invalidates or refreshes entries after owned state changes.",
-  "supportingEvidence": ["nodics:gFramework/nCache/README.md", "nodics:gFramework/nCache/cache/README.md", "nodics:gFramework/nData/nImport/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nCache/README.md",
+    "nodics:gFramework/nCache/cache/README.md",
+    "nodics:gFramework/nData/nImport/README.md"
+  ],
   "sections": [
-    {"heading": "Read flow", "items": ["Resolve tenant, principal, module, operation, and channel.", "Apply the centralized cacheability policy.", "Build a bounded namespaced key without sensitive raw values.", "Return a valid hit or load from the authoritative owner.", "Store only eligible results with configured TTL and serialization.", "Record safe hit, miss, bypass, provider, and latency signals."]},
-    {"heading": "Invalidation", "items": ["The owning successful state transition emits or invokes its invalidation contract.", "Single-process providers clear local entries; distributed providers propagate required invalidation.", "If invalidation assurance is insufficient for a security-sensitive channel, fail closed or bypass cache.", "Restart, reconnect, and topology changes must not make cached data authoritative."]},
-    {"heading": "Data exchange", "paragraphs": ["A finalized import invalidates or refreshes affected cache entries through the same ownership contracts as ordinary saves. Export may read through authorized services, but correctness cannot depend on a stale cache and export must never dump cache storage as authoritative data."]}
+    {
+      "heading": "Read flow",
+      "items": [
+        "Resolve tenant, principal, module, operation, and channel.",
+        "Apply the centralized cacheability policy.",
+        "Build a bounded namespaced key without sensitive raw values.",
+        "Return a valid hit or load from the authoritative owner.",
+        "Store only eligible results with configured TTL and serialization.",
+        "Record safe hit, miss, bypass, provider, and latency signals."
+      ]
+    },
+    {
+      "heading": "Invalidation",
+      "items": [
+        "The owning successful state transition emits or invokes its invalidation contract.",
+        "Single-process providers clear local entries; distributed providers propagate required invalidation.",
+        "If invalidation assurance is insufficient for a security-sensitive channel, fail closed or bypass cache.",
+        "Restart, reconnect, and topology changes must not make cached data authoritative."
+      ]
+    },
+    {
+      "heading": "Data exchange",
+      "paragraphs": [
+        "A finalized import invalidates or refreshes affected cache entries through the same ownership contracts as ordinary saves. Export may read through authorized services, but correctness cannot depend on a stale cache and export must never dump cache storage as authoritative data."
+      ]
+    },
+    {
+      "heading": "Population strategies",
+      "items": [
+        "Cache-aside loads on a miss and stores an eligible result.",
+        "Read-through delegates loading through the cache contract where supported.",
+        "Write invalidation removes entries after authoritative success.",
+        "Write refresh recomputes only when ordering and cost are safe.",
+        "Prewarming is optional and never replaces readiness of the authority."
+      ]
+    },
+    {
+      "heading": "TTL and staleness",
+      "paragraphs": [
+        "TTL limits how long an entry survives without invalidation; it does not guarantee freshness. Select it from business tolerance, change frequency, load, and invalidation assurance.",
+        "Non-expiring entries require a stronger invalidation and representation-version contract and should be rare."
+      ]
+    },
+    {
+      "heading": "Failure behavior",
+      "items": [
+        "Provider unavailable before lookup: bypass or fail according to channel policy.",
+        "Load authority unavailable: return its normalized failure, not an invented stale success unless explicitly allowed.",
+        "Put failure after authoritative read: return the valid result and record cache degradation when policy permits.",
+        "Invalidation failure: retry, bypass, or fail closed according to sensitivity.",
+        "Reconnect or provider change: prevent incompatible old entries from becoming valid."
+      ]
+    },
+    {
+      "heading": "Concurrency",
+      "paragraphs": [
+        "Concurrent misses can create a stampede. Channels may use bounded coalescing, jittered expiry, or locks where provider semantics are qualified. Locks themselves require deadlines and failure recovery.",
+        "Consume-once behavior requires an atomic provider operation; read followed by delete is not equivalent."
+      ]
+    },
+    {
+      "heading": "Lifecycle verification",
+      "items": [
+        "Hit, miss, bypass, expiry, and non-expiring behavior.",
+        "Create, update, delete, publishing, and import invalidation.",
+        "Tenant, principal, locale, catalog, and permission isolation.",
+        "Concurrent miss, stampede control, and atomic consume.",
+        "Provider outage, invalidation failure, reconnect, restart, and topology change.",
+        "Normal operation with caching disabled."
+      ]
+    }
   ]
 }

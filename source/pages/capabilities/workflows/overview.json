@@ -1,1 +1,96 @@
-{"code":"capability.workflows.overview","title":"Workflows and Business Processes","route":"/docs/capabilities/workflows","section":"capabilities","family":"overview-business-value","parent":"page:framework.architecture","order":180,"audiences":["business-user","administrator","developer","architect","operator","ai-tool"],"readerIntent":"Understand durable processes containing manual and automatic actions.","priorKnowledge":"Understand services, events, and pipelines.","depth":"overview","status":"implemented","owner":"Application workflow family; nbpm supplies generic schema-lifecycle integration","lastVerified":"2026-07-26","summary":"A durable carrier groups items while actions and channels move work through decisions, approvals, splits, retries, waiting, completion, and recovery.","supportingEvidence":["nodics:gCore/workflow/README.md","nodics:gFramework/nbpm/README.md"],"sections":[{"heading":"Action model","items":["A workflow is a collection of actions; each action may be manual or automatic according to its definition.","Manual actions wait for an authorized human decision.","Automatic actions call governed services, external APIs, AI providers, events, or other configured handlers.","One process may mix both types and branch or aggregate under explicit policy."]},{"heading":"Not a pipeline or job","items":["Pipeline: bounded technical execution without durable business state.","Scheduled job: timed trigger for approved work.","Workflow: durable business-visible state, actions, waiting, decisions, retries, compensation, and versioned recovery."]},{"heading":"Continue","items":["[Workflow Lifecycle, Extension, and Recovery](/docs/capabilities/workflows/runtime)","[Workflow Technical Reference](/docs/reference/workflows)"]}]}
+{
+  "code": "capability.workflows.overview",
+  "title": "Workflows and Business Processes",
+  "route": "/docs/capabilities/workflows",
+  "section": "capabilities",
+  "family": "overview",
+  "parent": "section:capabilities",
+  "order": 180,
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Understand durable processes containing manual and automatic actions.",
+  "priorKnowledge": "Understand services, events, and pipelines.",
+  "depth": "overview",
+  "status": "implemented",
+  "owner": "Application workflow family; nbpm supplies generic schema-lifecycle integration",
+  "lastVerified": "2026-07-26",
+  "summary": "A durable carrier groups items while actions and channels move work through decisions, approvals, splits, retries, waiting, completion, and recovery.",
+  "supportingEvidence": [
+    "nodics:gCore/workflow/README.md",
+    "nodics:gFramework/nbpm/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "What is Workflows and Business Processes?",
+      "paragraphs": [
+        "A workflow is a durable sequence of business actions used to coordinate people and automated systems toward an outcome. Each action may be manual or automatic, and the process records state, decisions, retries, and responsibility.",
+        "An approval process is a familiar example: an author submits work, reviewers decide, automated checks run where appropriate, and an approved result proceeds to publication."
+      ]
+    },
+    {
+      "heading": "Action model",
+      "items": [
+        "A workflow is a collection of actions; each action may be manual or automatic according to its definition.",
+        "Manual actions wait for an authorized human decision.",
+        "Automatic actions call governed services, external APIs, AI providers, events, or other configured handlers.",
+        "One process may mix both types and branch or aggregate under explicit policy."
+      ]
+    },
+    {
+      "heading": "Not a pipeline or job",
+      "items": [
+        "Pipeline: bounded technical execution without durable business state.",
+        "Scheduled job: timed trigger for approved work.",
+        "Workflow: durable business-visible state, actions, waiting, decisions, retries, compensation, and versioned recovery."
+      ]
+    },
+    {
+      "heading": "Business participants",
+      "items": [
+        "Definition describes allowed actions, channels, mappings, and version.",
+        "Carrier represents one durable workflow instance.",
+        "Items associate business records such as content or products.",
+        "Actions perform manual or automatic work.",
+        "Channels describe allowed transitions and branching.",
+        "Handlers call owned services and external adapters."
+      ]
+    },
+    {
+      "heading": "Example: staged content publishing",
+      "paragraphs": [
+        "A business user updates content in a staged catalog and starts a workflow associated with those content items. Manual review actions and automatic validation can be mixed.",
+        "After all required approvals, an automatic publishing action invokes the existing Publishing capability to transfer the approved representation to the separate online target. Workflow does not create another publishing path."
+      ]
+    },
+    {
+      "heading": "Runtime-designed processes",
+      "paragraphs": [
+        "A future or current builder can compose approved action types, mappings, channels, external API adapters, and AI actions. Stored definitions remain declarative and governed; they cannot contain arbitrary executable code.",
+        "Backend workflow contracts validate and execute the design. Axis owns the visual renderer, not workflow authority."
+      ]
+    },
+    {
+      "heading": "Governance decisions",
+      "items": [
+        "Who may create, approve, activate, version, or retire definitions?",
+        "Which actions require human approval or separation of duties?",
+        "How are tenant, item, role, deadline, escalation, and delegation scoped?",
+        "What is idempotent, compensatable, retryable, or irreversible?",
+        "How are audit, privacy, token cost, and external secrets controlled?"
+      ]
+    },
+    {
+      "heading": "Continue",
+      "items": [
+        "Workflow Lifecycle, Extension, and Recovery",
+        "Workflow Technical Reference"
+      ]
+    }
+  ]
+}

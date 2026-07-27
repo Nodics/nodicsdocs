@@ -6,7 +6,13 @@
   "family": "technical-reference",
   "parent": "page:capability.caching.overview",
   "order": 50,
-  "audiences": ["developer", "architect", "operator", "framework-maintainer", "ai-tool"],
+  "audiences": [
+    "developer",
+    "architect",
+    "operator",
+    "framework-maintainer",
+    "ai-tool"
+  ],
   "readerIntent": "Audit cache policy, provider capabilities, channels, and verification.",
   "priorKnowledge": "Read the caching journey.",
   "depth": "reference",
@@ -14,9 +20,72 @@
   "owner": "Nodics cache contracts and configured provider",
   "lastVerified": "2026-07-26",
   "summary": "Every channel must declare source authority, key scope, eligibility, TTL, invalidation, provider requirements, fallback, diagnostics, and tests.",
-  "supportingEvidence": ["nodics:gFramework/nCache/README.md", "nodics:gFramework/nCache/cache/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nCache/README.md",
+    "nodics:gFramework/nCache/cache/README.md"
+  ],
   "sections": [
-    {"heading": "Provider capability checklist", "items": ["Distribution and consistency scope.", "TTL and non-expiring support.", "Atomic consume and conditional operations.", "Single-key and prefix invalidation.", "Serialization and maximum key/value limits.", "Diagnostics, readiness, reconnect, and close."]},
-    {"heading": "Channel checklist", "items": ["Owner and authoritative fallback.", "Tenant, enterprise, catalog, principal, locale, and permission key partitions.", "Cacheability and negative-result policy.", "TTL, acceptable staleness, and invalidation event.", "Outage bypass versus fail-closed behavior.", "Positive, negative, boundary, contract, multi-node integration, performance, security, and regression tests."]}
+    {
+      "heading": "Authority and selection",
+      "items": [
+        "nCache provides the provider-neutral contract and resolves the configured adapter; NodeCache, Redis, and qualified Hazelcast support different topology and operational needs.",
+        "Callers never import provider SDKs or treat a cache entry as business authority. The owning database/service contract can rebuild cached projections.",
+        "Only the configured provider path is active for a cache role. Fallback behavior is explicit and must not create two writable cache authorities."
+      ]
+    },
+    {
+      "heading": "Keys, values, and lifetime",
+      "items": [
+        "A key includes tenant and every context dimension that changes the result, uses stable bounded encoding, and never contains credentials or sensitive raw identifiers.",
+        "Values are safe serializable projections with schema/version identity where compatibility requires it; mutable business objects are not shared by reference.",
+        "TTL, maximum size, eviction, null caching, stale policy, and namespace are configured according to data volatility and failure tolerance."
+      ]
+    },
+    {
+      "heading": "Read and invalidation lifecycle",
+      "items": [
+        "Read-through checks cache, loads from the owning service on miss, and stores only a successful safe projection. Stampede protection bounds concurrent loaders.",
+        "Successful authoritative mutations invalidate or replace only affected keys after persistence. Publication, price, stock, context, permission, and relationship changes include their dependent dimensions.",
+        "Broad flush is an operational recovery tool, not the normal consistency design; invalidation is idempotent and observable."
+      ]
+    },
+    {
+      "heading": "Provider behavior and outages",
+      "items": [
+        "NodeCache is process-local and cannot provide shared distributed session or authorization atomicity. Redis supports qualified shared operations; Hazelcast requires its own compatibility evidence.",
+        "Failure policy may bypass cache and load authority for safe reads, fail closed for security/session state, or reject work under overload according to the caller contract.",
+        "Circuit, timeout, retry, serialization, connection, and shutdown behavior are normalized without hiding provider-specific operational requirements."
+      ]
+    },
+    {
+      "heading": "Verification and operations",
+      "items": [
+        "Test hit, miss, expiry, eviction, invalidation, stampede, negative caching, serialization, version mismatch, tenant isolation, outage, recovery, and provider switching.",
+        "Run multi-node atomicity, failover, load, memory, connection, rolling restart, security, TLS, secret rotation, backup assumptions, and supported-version qualification where applicable.",
+        "Monitor hit ratio, latency, errors, bypass, evictions, loader duration, invalidation lag, key volume, memory, circuit state, and saturation with bounded labels."
+      ]
+    },
+    {
+      "heading": "Provider capability checklist",
+      "items": [
+        "Distribution and consistency scope.",
+        "TTL and non-expiring support.",
+        "Atomic consume and conditional operations.",
+        "Single-key and prefix invalidation.",
+        "Serialization and maximum key/value limits.",
+        "Diagnostics, readiness, reconnect, and close."
+      ]
+    },
+    {
+      "heading": "Channel checklist",
+      "items": [
+        "Owner and authoritative fallback.",
+        "Tenant, enterprise, catalog, principal, locale, and permission key partitions.",
+        "Cacheability and negative-result policy.",
+        "TTL, acceptable staleness, and invalidation event.",
+        "Outage bypass versus fail-closed behavior.",
+        "Positive, negative, boundary, contract, multi-node integration, performance, security, and regression tests."
+      ]
+    }
   ]
 }

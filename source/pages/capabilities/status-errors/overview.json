@@ -1,1 +1,110 @@
-{"code":"capability.status-errors.overview","title":"Status Codes and Error Handling","route":"/docs/capabilities/status-errors","section":"capabilities","family":"overview-business-value","parent":"page:capability.layered-architecture.overview","order":90,"audiences":["business-user","administrator","developer","architect","security-reviewer","operator","ai-tool"],"readerIntent":"Understand stable outcomes, safe user messages, and diagnostic traceability.","priorKnowledge":"Understand request and service execution.","depth":"overview","status":"implemented","owner":"Each capability owns status meaning; Nodics common and response contracts own lookup, formatting, and trace propagation","lastVerified":"2026-07-26","summary":"Stable success and error codes let clients, users, support teams, and monitoring identify outcomes without exposing internal exceptions.","supportingEvidence":["nodics:gFramework/nService/README.md","nodics:gFramework/nCommon/README.md","nodics:gFramework/nRouter/README.md"],"sections":[{"heading":"Why stable codes matter","items":["Clients react to machine-stable codes instead of mutable text.","Business-friendly and multilingual presentation messages can evolve independently.","Operators correlate safe public responses with protected diagnostics and traces.","Cross-module failures preserve their original category and cause."]},{"heading":"Authority","items":["The owning capability registers its success and error meanings.","The status catalog resolves known codes and rejects unregistered codes.","Response handlers map outcomes to safe transport envelopes.","Axis/CMS content may present friendly text but never redefine backend success or failure."]},{"heading":"Continue","items":["[Error Runtime, Security, and Extension](/docs/capabilities/status-errors/runtime)","[Status and Error Technical Reference](/docs/reference/status-errors)"]}]}
+{
+  "code": "capability.status-errors.overview",
+  "title": "Status Codes and Error Handling",
+  "route": "/docs/capabilities/status-errors",
+  "section": "capabilities",
+  "family": "overview",
+  "parent": "page:capability.layered-architecture.overview",
+  "order": 90,
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "security-reviewer",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Understand stable outcomes, safe user messages, and diagnostic traceability.",
+  "priorKnowledge": "Understand request and service execution.",
+  "depth": "overview",
+  "status": "implemented",
+  "owner": "Each capability owns status meaning; Nodics common and response contracts own lookup, formatting, and trace propagation",
+  "lastVerified": "2026-07-26",
+  "summary": "Stable success and error codes let clients, users, support teams, and monitoring identify outcomes without exposing internal exceptions.",
+  "supportingEvidence": [
+    "nodics:gFramework/nService/README.md",
+    "nodics:gFramework/nCommon/README.md",
+    "nodics:gFramework/nRouter/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "What is Status Codes and Error Handling?",
+      "paragraphs": [
+        "A status code is a stable machine-readable identifier for a successful or failed outcome. Error handling converts failures into safe, traceable responses without exposing secrets, stack traces, or provider-specific internals.",
+        "It is similar to a tracked support reference: the caller receives a consistent code and useful message, while operators use protected diagnostics to investigate the deeper cause."
+      ]
+    },
+    {
+      "heading": "Why stable codes matter",
+      "items": [
+        "Clients react to machine-stable codes instead of mutable text.",
+        "Business-friendly and multilingual presentation messages can evolve independently.",
+        "Operators correlate safe public responses with protected diagnostics and traces.",
+        "Cross-module failures preserve their original category and cause."
+      ]
+    },
+    {
+      "heading": "Authority",
+      "items": [
+        "The owning capability registers its success and error meanings.",
+        "The status catalog resolves known codes and rejects unregistered codes.",
+        "Response handlers map outcomes to safe transport envelopes.",
+        "Axis/CMS content may present friendly text but never redefine backend success or failure."
+      ]
+    },
+    {
+      "heading": "Outcome anatomy",
+      "items": [
+        "Stable capability-owned machine code.",
+        "Success or error category and transport classification.",
+        "Safe default meaning.",
+        "Optional structured validation detail.",
+        "Protected cause and trace context for operators.",
+        "Separate localized presentation message for users."
+      ]
+    },
+    {
+      "heading": "Business example",
+      "paragraphs": [
+        "When employee authentication fails, Profile returns a stable authentication code rather than a raw password-library or database exception. Axis presents a friendly message without confirming whether the username exists.",
+        "Operators correlate the code and trace with protected diagnostics. Monitoring groups failures by the stable code even when display language changes."
+      ]
+    },
+    {
+      "heading": "Cross-module propagation",
+      "paragraphs": [
+        "A caller preserves the target capability's failure category and cause. It may add bounded service, pipeline, module, operation, and correlation context but must not convert the failure into an invented generic success or discard the root cause.",
+        "Transport gateways redact protected detail while retaining the machine contract."
+      ]
+    },
+    {
+      "heading": "Security and privacy",
+      "items": [
+        "Authentication failures avoid account enumeration.",
+        "Authorization failures do not reveal protected record existence.",
+        "Validation details expose only fields the caller may know.",
+        "Provider messages, stacks, paths, queries, tokens, and credentials remain server-side.",
+        "Logs apply data classification, retention, and access control."
+      ]
+    },
+    {
+      "heading": "Lifecycle and governance",
+      "items": [
+        "Register new codes with the owning capability.",
+        "Validate uniqueness and catalog availability.",
+        "Keep semantics stable after clients depend on a code.",
+        "Deprecate or version changed meaning.",
+        "Update OpenAPI, tests, monitoring, runbooks, and presentation content.",
+        "Reject unknown success and error codes during verification."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "items": [
+        "Error Runtime, Security, and Extension",
+        "Status and Error Technical Reference"
+      ]
+    }
+  ]
+}

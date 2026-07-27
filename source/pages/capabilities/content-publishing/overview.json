@@ -1,1 +1,108 @@
-{"code":"capability.content-publishing.overview","title":"Content Management and Publishing","route":"/docs/capabilities/content-publishing","section":"capabilities","family":"overview-business-value","parent":"page:framework.architecture","order":200,"audiences":["business-user","administrator","developer","architect","operator","ai-tool"],"readerIntent":"Understand governed staged-to-online publishing.","priorKnowledge":"Understand schemas, versions, workflows, cache, and search.","depth":"overview","status":"implemented","owner":"Owning content/catalog module, workflow, nPublish, version providers, and target adapter","lastVerified":"2026-07-26","summary":"Business users edit versioned staged records, approval workflows authorize a version, and nPublish deploys that approved form to a separate online authority.","supportingEvidence":["nodics:gFramework/nPublish/README.md"],"sections":[{"heading":"End-to-end example","items":["Business user creates or updates content in Staged.","The change set is associated with a workflow carrier.","Manual and automatic validation, enrichment, and approval actions execute.","Final approval requests publication of the exact approved version.","nPublish validates dependencies and calls the domain adapter.","The adapter deploys through authenticated target transport to Online; it does not write the Online database directly.","Online cache invalidates or refreshes and search reconciles through their existing contracts.","Storefront serves only the published online form."]},{"heading":"Two runtime authorities","items":["Staged activates configured version variants and keeps editable immutable versions.","Online does not activate version variants and stores the deployed target form.","Versioning is enabled per module/schema; a user schema need not be versioned while content or catalog schemas may be.","nPublish is the single provider-neutral publication lifecycle; domains contribute adapters and dependency rules, not parallel state machines."]},{"heading":"Continue","items":["[Publishing Lifecycle, Rollback, and Operations](/docs/capabilities/content-publishing/runtime)","[Content and Publishing Technical Reference](/docs/reference/content-publishing)"]}]}
+{
+  "code": "capability.content-publishing.overview",
+  "title": "Content Management and Publishing",
+  "route": "/docs/capabilities/content-publishing",
+  "section": "capabilities",
+  "family": "overview",
+  "parent": "section:capabilities",
+  "order": 200,
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Understand governed staged-to-online publishing.",
+  "priorKnowledge": "Understand schemas, versions, workflows, cache, and search.",
+  "depth": "overview",
+  "status": "implemented",
+  "owner": "Owning content/catalog module, workflow, nPublish, version providers, and target adapter",
+  "lastVerified": "2026-07-26",
+  "summary": "Business users edit versioned staged records, approval workflows authorize a version, and nPublish deploys that approved form to a separate online authority.",
+  "supportingEvidence": [
+    "nodics:gFramework/nPublish/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "What is Content Management and Publishing?",
+      "paragraphs": [
+        "Content management is the controlled creation and organization of pages, components, templates, text, and related assets. Publishing is the governed process that moves an approved version from a staged authoring system to a distinct online delivery system.",
+        "Think of an editorial newsroom: authors prepare a draft, reviewers approve it, and only the approved edition reaches readers. The draft workspace and public edition are intentionally different authorities."
+      ]
+    },
+    {
+      "heading": "End-to-end example",
+      "items": [
+        "Business user creates or updates content in Staged.",
+        "The change set is associated with a workflow carrier.",
+        "Manual and automatic validation, enrichment, and approval actions execute.",
+        "Final approval requests publication of the exact approved version.",
+        "nPublish validates dependencies and calls the domain adapter.",
+        "The adapter deploys through authenticated target transport to Online; it does not write the Online database directly.",
+        "Online cache invalidates or refreshes and search reconciles through their existing contracts.",
+        "Storefront serves only the published online form."
+      ]
+    },
+    {
+      "heading": "Two runtime authorities",
+      "items": [
+        "Staged activates configured version variants and keeps editable immutable versions.",
+        "Online does not activate version variants and stores the deployed target form.",
+        "Versioning is enabled per module/schema; a user schema need not be versioned while content or catalog schemas may be.",
+        "nPublish is the single provider-neutral publication lifecycle; domains contribute adapters and dependency rules, not parallel state machines."
+      ]
+    },
+    {
+      "heading": "Business roles",
+      "items": [
+        "Author creates or updates staged business records.",
+        "Reviewer validates quality, policy, and dependencies.",
+        "Approver authorizes the exact version and target.",
+        "Publishing service coordinates deployment.",
+        "Target capability validates and owns online state.",
+        "Operator observes, reconciles, and recovers publication."
+      ]
+    },
+    {
+      "heading": "What can be published",
+      "paragraphs": [
+        "The pattern applies to content, product, price, stock, and other modules that explicitly enable versioning and publishing. Each domain defines dependencies, target mapping, validation, and post-deployment behavior.",
+        "Not every schema should be versioned. Identity and operational records may use ordinary lifecycle rules."
+      ]
+    },
+    {
+      "heading": "Example: two websites",
+      "paragraphs": [
+        "One enterprise and tenant operate Apparel and Electronics Sites with different content catalogs. Editors change each staged catalog independently, workflows approve the associated items, and Publishing deploys to the correct online target.",
+        "Storefront resolves each hostname to its Site and catalog and serves only online content. A Site may intentionally serve several Stores without duplicating CMS ownership."
+      ]
+    },
+    {
+      "heading": "Safety principles",
+      "items": [
+        "Publish the immutable approved version, not the latest mutable draft.",
+        "Use authenticated target APIs, never direct online database writes.",
+        "Preserve tenant, catalog, site, country, channel, and target scope.",
+        "Make requests idempotent and revisions optimistic.",
+        "Reconcile uncertain target outcomes before retry.",
+        "Invalidate cache and update search through existing owners."
+      ]
+    },
+    {
+      "heading": "Business limitations",
+      "paragraphs": [
+        "Publishing does not make approval policy, target mapping, dependency rules, or rollback automatic for every new domain. The domain adapter and workflow must define them.",
+        "External systems may not support atomic rollback. The capability must state whether recovery redeploys a previous version, compensates, or requires manual action."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "items": [
+        "Publishing Lifecycle, Rollback, and Operations",
+        "Content and Publishing Technical Reference"
+      ]
+    }
+  ]
+}

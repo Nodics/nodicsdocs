@@ -1,1 +1,125 @@
-{"code":"capability.services-facades.overview","title":"Services and Facades","route":"/docs/capabilities/services-facades","section":"capabilities","family":"overview-business-value","parent":"page:capability.layered-architecture.overview","order":50,"audiences":["business-user","developer","architect","ai-tool"],"readerIntent":"Understand where reusable behavior and use-case coordination belong.","priorKnowledge":"Read Modular and Layered Architecture.","depth":"overview","status":"implemented","owner":"Each capability owns its domain services; shared mechanics belong to Nodics service contracts","lastVerified":"2026-07-26","summary":"Services perform reusable domain behavior; facades coordinate a use case across services; controllers remain transport adapters.","supportingEvidence":["nodics:gFramework/nService/README.md"],"sections":[{"heading":"Business value","items":["Keep one behavior reusable from APIs, jobs, events, workflows, imports, and assistants.","Override customer-specific behavior through later modules without copying callers.","Coordinate multi-service use cases without turning controllers into business owners.","Use one governed module-communication client with resilience and safe diagnostics."]},{"heading":"Decision rule","items":["Use a service for cohesive reusable behavior.","Use a facade when a use case coordinates several services or response concerns.","Keep domain ownership in the owning module even when a facade coordinates other modules.","Do not add a facade that only renames one service call."]},{"heading":"Continue","items":["[Service Runtime, Communication, and Extension](/docs/capabilities/services-facades/runtime)","[Services and Facades Technical Reference](/docs/reference/services-facades)"]}]}
+{
+  "code": "capability.services-facades.overview",
+  "title": "Services and Facades",
+  "route": "/docs/capabilities/services-facades",
+  "section": "capabilities",
+  "family": "overview",
+  "parent": "page:capability.layered-architecture.overview",
+  "order": 50,
+  "audiences": [
+    "business-user",
+    "developer",
+    "architect",
+    "ai-tool"
+  ],
+  "readerIntent": "Understand where reusable behavior and use-case coordination belong.",
+  "priorKnowledge": "Read Modular and Layered Architecture.",
+  "depth": "overview",
+  "status": "implemented",
+  "owner": "Each capability owns its domain services; shared mechanics belong to Nodics service contracts",
+  "lastVerified": "2026-07-26",
+  "summary": "Services perform reusable domain behavior; facades coordinate a use case across services; controllers remain transport adapters.",
+  "supportingEvidence": [
+    "nodics:gFramework/nService/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "What is Services and Facades?",
+      "paragraphs": [
+        "A service owns reusable business or technical behavior. A facade presents a stable capability boundary to controllers and other callers while hiding internal service composition and implementation changes.",
+        "Think of a customer-service counter backed by several specialist teams. Callers use one stable counter, while the internal assignment can evolve without changing every caller."
+      ]
+    },
+    {
+      "heading": "Business value",
+      "items": [
+        "Keep one behavior reusable from APIs, jobs, events, workflows, imports, and assistants.",
+        "Override customer-specific behavior through later modules without copying callers.",
+        "Coordinate multi-service use cases without turning controllers into business owners.",
+        "Use one governed module-communication client with resilience and safe diagnostics."
+      ]
+    },
+    {
+      "heading": "Service responsibility",
+      "paragraphs": [
+        "A service owns cohesive business or technical behavior. It receives normalized input and explicit context, enforces its invariants, uses owned models or provider-neutral capabilities, and returns normalized results.",
+        "Because transport details remain outside the service, the same behavior can be called by a controller, facade, workflow, scheduled job, event consumer, import process, or governed AI tool."
+      ]
+    },
+    {
+      "heading": "Facade responsibility",
+      "paragraphs": [
+        "A facade coordinates one use case that requires several services or capability calls. It decides sequencing, aggregation, compensation, and the response-oriented result while each service retains its domain ownership.",
+        "A facade is not required for every route. Adding one that only renames a service call increases navigation and override complexity without adding responsibility."
+      ]
+    },
+    {
+      "heading": "Controller boundary",
+      "paragraphs": [
+        "Controllers adapt HTTP or another transport: extract normalized input, delegate, and return the result for response handling. Authentication, tenant resolution, authorization, and request validation are coordinated by the request pipeline.",
+        "Business rules in controllers become inaccessible to jobs, imports, events, and other callers and therefore create duplicate behavior."
+      ]
+    },
+    {
+      "heading": "Example: publish approved content",
+      "paragraphs": [
+        "A publishing facade can coordinate CMS content retrieval, workflow approval evidence, target publishing, cache invalidation, search updates, and audit. CMS, Workflow, Publishing, Cache, and Search services each retain their own contracts.",
+        "The facade must not write another module's collections directly or pretend several separate updates form one distributed transaction. It uses idempotency, compensation, and reconciliation where required."
+      ]
+    },
+    {
+      "heading": "Local and remote service calls",
+      "paragraphs": [
+        "When the target module is active in the same process, the runtime may use local service resolution. When it is remote, the governed module transport resolves configured servers and calls the target API. The caller depends on the same capability result rather than provider or deployment details.",
+        "Human login tokens, internal service identities, and scheduled access remain separate trust paths."
+      ]
+    },
+    {
+      "heading": "Decision rule",
+      "items": [
+        "Use a service for cohesive reusable behavior.",
+        "Use a facade when a use case coordinates several services or response concerns.",
+        "Keep domain ownership in the owning module even when a facade coordinates other modules.",
+        "Do not add a facade that only renames one service call.",
+        "Use pipelines or workflows when ordered processing or long-running manual and automatic actions exceed one synchronous use case.",
+        "Use a provider adapter when variation is external technology rather than business behavior."
+      ]
+    },
+    {
+      "heading": "Customization",
+      "paragraphs": [
+        "A customer project first configures supported behavior. When the algorithm changes, a later module extends or overrides the smallest owning service or facade while preserving its public contract.",
+        "Two customer projects can customize independently. Neither edits reusable Nodics source or moves the rule into Axis."
+      ]
+    },
+    {
+      "heading": "Operational concerns",
+      "items": [
+        "Bounded deadlines and cancellation propagation.",
+        "Retries only for safe reads or idempotent writes.",
+        "Circuit and pool behavior for remote dependencies.",
+        "Stable failures and safe causal context.",
+        "Metrics for latency, outcome, dependency, retry, and saturation.",
+        "Shutdown, in-flight work, and degraded dependency behavior."
+      ]
+    },
+    {
+      "heading": "Verification",
+      "items": [
+        "Direct service contract and facade coordination tests.",
+        "API, job, event, workflow, import, and assistant integration.",
+        "Unauthorized and wrong-tenant behavior.",
+        "Timeout, retry, duplicate, partial failure, and compensation.",
+        "Default implementation and project override.",
+        "MonoServer and distributed topology regression."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "items": [
+        "Service Runtime, Communication, and Extension",
+        "Services and Facades Technical Reference"
+      ]
+    }
+  ]
+}

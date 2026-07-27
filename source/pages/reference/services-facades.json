@@ -1,1 +1,79 @@
-{"code":"capability.services-facades.technical-reference","title":"Services and Facades Technical Reference","route":"/docs/reference/services-facades","section":"reference","family":"technical-reference","parent":"page:capability.services-facades.overview","order":20,"audiences":["developer","architect","framework-maintainer","ai-tool"],"readerIntent":"Audit service ownership, context, dependencies, resilience, and tests.","priorKnowledge":"Read the services journey.","depth":"reference","status":"implemented","owner":"Owning capability and Nodics service contracts","lastVerified":"2026-07-26","summary":"Every service documents its owner, contract, configuration, context, dependencies, side effects, failures, observability, performance, and override path.","supportingEvidence":["nodics:gFramework/nService/README.md"],"sections":[{"heading":"Checklist","items":["Stable name, owner, input, output, side effects, and idempotency.","Tenant, enterprise, principal, permission, correlation, and transaction context.","Schema, pipeline, event, provider, remote-module, cache, and search dependencies.","Timeout, retry, circuit, cleanup, status codes, logs, metrics, and audit.","Positive, negative, boundary, contract, integration, distributed, security, performance, and regression tests."]},{"heading":"Prohibited","items":["Business logic in controllers, utilities, generated artifacts, or frontend code.","Direct HTTP clients instead of the governed module service.","Unsafe write retries or human credentials for internal calls.","Hardcoded module URLs, secrets, tenants, or permission decisions."]}]}
+{
+  "code": "capability.services-facades.technical-reference",
+  "title": "Services and Facades Technical Reference",
+  "route": "/docs/reference/services-facades",
+  "section": "reference",
+  "family": "technical-reference",
+  "parent": "page:capability.services-facades.overview",
+  "order": 20,
+  "audiences": [
+    "developer",
+    "architect",
+    "framework-maintainer",
+    "ai-tool"
+  ],
+  "readerIntent": "Audit service ownership, context, dependencies, resilience, and tests.",
+  "priorKnowledge": "Read the services journey.",
+  "depth": "reference",
+  "status": "implemented",
+  "owner": "Owning capability and Nodics service contracts",
+  "lastVerified": "2026-07-26",
+  "summary": "Every service documents its owner, contract, configuration, context, dependencies, side effects, failures, observability, performance, and override path.",
+  "supportingEvidence": [
+    "nodics:gFramework/nService/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Service and facade roles",
+      "items": [
+        "A service owns cohesive business or framework behavior and its invariants. A facade coordinates a use case across owned services without taking their data authority.",
+        "Controllers adapt transport, pipelines order processing, models handle provider-neutral persistence, and utilities provide mechanics; none should absorb service decisions.",
+        "Name contracts by responsibility, use explicit inputs and outputs, preserve tenant and principal context, and document side effects and idempotency."
+      ]
+    },
+    {
+      "heading": "Cross-module communication",
+      "items": [
+        "Use DefaultModuleService and configured logical server endpoints for module calls instead of hard-coded URLs or direct imports across runtime boundaries.",
+        "Human bearer tokens and internal service tokens remain distinct. The target route verifies audience, tenant, permission, ownership, validation, and business state.",
+        "Set timeout, cancellation, retry classification, circuit, response mapping, correlation, and uncertain-outcome handling for every remote dependency."
+      ]
+    },
+    {
+      "heading": "Customization and transactions",
+      "items": [
+        "Projects override the smallest supported layered service and delegate unchanged behavior instead of copying an entire module.",
+        "Transactions stay within provider and authority boundaries. Cross-module processes use idempotency, workflow, compensation, and reconciliation rather than pretending to share one database transaction.",
+        "Reusable policy and behavior values belong in properties.js; secrets and endpoints use governed configuration, not constants or package metadata."
+      ]
+    },
+    {
+      "heading": "Operations and verification",
+      "items": [
+        "Test invariants, denial, boundary values, concurrency, duplicate commands, dependency timeout, cancellation, circuit, partial completion, recovery, and regression.",
+        "Measure latency, result category, dependency calls, retries, saturation, and business-safe audit with correlation and bounded labels.",
+        "Review ownership, dependency direction, generated model use, cleanup, API compatibility, documentation, and behavior under mono and distributed topology."
+      ]
+    },
+    {
+      "heading": "Checklist",
+      "items": [
+        "Stable name, owner, input, output, side effects, and idempotency.",
+        "Tenant, enterprise, principal, permission, correlation, and transaction context.",
+        "Schema, pipeline, event, provider, remote-module, cache, and search dependencies.",
+        "Timeout, retry, circuit, cleanup, status codes, logs, metrics, and audit.",
+        "Positive, negative, boundary, contract, integration, distributed, security, performance, and regression tests."
+      ]
+    },
+    {
+      "heading": "Prohibited",
+      "items": [
+        "Business logic in controllers, utilities, generated artifacts, or frontend code.",
+        "Direct HTTP clients instead of the governed module service.",
+        "Unsafe write retries or human credentials for internal calls.",
+        "Hardcoded module URLs, secrets, tenants, or permission decisions.",
+        "Detached work without lifecycle, cancellation, durable ownership, correlation, and recovery."
+      ]
+    }
+  ]
+}

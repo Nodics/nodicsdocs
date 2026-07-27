@@ -6,7 +6,11 @@
   "family": "technical-reference",
   "parent": "page:capability.search-indexing.overview",
   "order": 90,
-  "audiences": ["developer", "framework-maintainer", "ai-tool"],
+  "audiences": [
+    "developer",
+    "framework-maintainer",
+    "ai-tool"
+  ],
   "readerIntent": "Locate provider-family ownership, configuration, source contracts, and focused tests.",
   "priorKnowledge": "Understand the search-model and provider architecture.",
   "depth": "reference",
@@ -20,6 +24,38 @@
     "nodics:gFramework/nSearch/elastic/README.md"
   ],
   "sections": [
+    {
+      "heading": "Normalized search contract",
+      "items": [
+        "nSearch defines index lifecycle, document operations, query, pagination, bulk, refresh, alias, health, error, and provider selection contracts.",
+        "Business modules own search models and index declarations; adapters map those contracts to Elasticsearch or future engines without becoming business authority.",
+        "Callers supply approved provider-neutral queries and never raw engine DSL, connection clients, arbitrary index names, or credentials."
+      ]
+    },
+    {
+      "heading": "Configuration and capabilities",
+      "items": [
+        "Properties configure active provider, endpoints, TLS, secret reference, indexes, timeouts, retries, bulk limits, refresh, aliases, and engine-specific approved options.",
+        "Adapters register truthful support for analyzers, mappings, aliases, vector search, highlighting, aggregation, pagination, and operational lifecycle.",
+        "Elasticsearch local development configuration does not establish production clustering, security, backup, capacity, compatibility, or upgrade qualification."
+      ]
+    },
+    {
+      "heading": "Index and query lifecycle",
+      "items": [
+        "Create candidate mappings, populate from authorized source models, validate counts and samples, activate aliases, retain rollback, and retire old indexes by policy.",
+        "Import finalization and ordinary mutations index only after authoritative persistence; failures create recoverable derived-state work rather than repeating business writes blindly.",
+        "Queries enforce tenant, permission, field projection, bounded page/size, stable sorting, timeout, and provider-neutral error behavior."
+      ]
+    },
+    {
+      "heading": "Qualification and operations",
+      "items": [
+        "Test mapping, analyzer, CRUD, bulk, query, sort, pagination, alias, rebuild, tenant isolation, masking, outage, retry, partial batch, and recovery.",
+        "Qualify live security, TLS, credentials, load, shards, replicas, disk, snapshots, restore, rolling upgrade, supported versions, and failure modes.",
+        "Monitor query latency, errors, zero results, indexing throughput and lag, rejected work, cluster state, alias state, disk, and rebuild progress."
+      ]
+    },
     {
       "heading": "Ownership",
       "items": [
@@ -39,6 +75,9 @@
         "node gFramework/nSearch/search/test/indexerServiceContract.test.js",
         "node gFramework/nSearch/elastic/test/elasticConnectionHandlerContract.test.js",
         "node gFramework/nSearch/elastic/test/elasticSearchModelOperationContract.test.js"
+      ],
+      "paragraphs": [
+        "Record engine, adapter, mapping, topology, volume, security mode, and qualification results so provider claims remain reproducible."
       ]
     }
   ]

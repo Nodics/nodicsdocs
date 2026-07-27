@@ -1,1 +1,77 @@
-{"code":"capability.content-publishing.technical-reference","title":"Content and Publishing Technical Reference","route":"/docs/reference/content-publishing","section":"reference","family":"technical-reference","parent":"page:capability.content-publishing.overview","order":20,"audiences":["developer","architect","operator","framework-maintainer","ai-tool"],"readerIntent":"Audit publishing ownership, configuration, transitions, adapters, and evidence.","priorKnowledge":"Read the publishing journey.","depth":"reference","status":"implemented","owner":"nPublish and contributing domain/workflow/version/target providers","lastVerified":"2026-07-26","summary":"A publishable domain defines version enablement, dependencies, validation, workflow mapping, manifest, deployment, derived refresh, audit, reconciliation, and rollback.","supportingEvidence":["nodics:gFramework/nPublish/README.md"],"sections":[{"heading":"Checklist","items":["Staged and Online topology, tenant, domain, schema/version provider, immutable version identity, and target alias.","Workflow provider, approvers, validation, dependencies, manifest/export shape, domain adapter, and authenticated deployment.","Revision, idempotency, timeout, retry, unknown completion, journal, audit projection, reconciliation, rollback, and compensation.","Cache invalidation, search indexing, events, observability, security, positive, negative, boundary, contract, integration, failure, performance, and regression tests."]}]}
+{
+  "code": "capability.content-publishing.technical-reference",
+  "title": "Content and Publishing Technical Reference",
+  "route": "/docs/reference/content-publishing",
+  "section": "reference",
+  "family": "technical-reference",
+  "parent": "page:capability.content-publishing.overview",
+  "order": 20,
+  "audiences": [
+    "developer",
+    "architect",
+    "operator",
+    "framework-maintainer",
+    "ai-tool"
+  ],
+  "readerIntent": "Audit publishing ownership, configuration, transitions, adapters, and evidence.",
+  "priorKnowledge": "Read the publishing journey.",
+  "depth": "reference",
+  "status": "implemented",
+  "owner": "nPublish and contributing domain/workflow/version/target providers",
+  "lastVerified": "2026-07-26",
+  "summary": "A publishable domain defines version enablement, dependencies, validation, workflow mapping, manifest, deployment, derived refresh, audit, reconciliation, and rollback.",
+  "supportingEvidence": [
+    "nodics:gFramework/nPublish/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Authority map",
+      "items": [
+        "The owning domain controls staged records and versioning, Workflow controls approval, nPublish controls publication orchestration and adapters, and the Online target controls accepted persistence.",
+        "Cache, search, and events are derived or notification mechanisms. They do not become the authority for what was approved or persisted.",
+        "A publication carries exact tenant, catalog, item, version, target, operation, correlation, and idempotency identity rather than a vague instruction to publish current data."
+      ]
+    },
+    {
+      "heading": "Staged-to-online lifecycle",
+      "items": [
+        "Business changes are associated with a workflow whose manual and automatic actions validate dependencies and approval policy.",
+        "After approval, nPublish resolves the owning domain adapter, authenticates to the configured target, submits the exact representation, and records attempt and response.",
+        "Authoritative Online persistence precedes cache invalidation, search indexing, and publication events; derived failures remain visible for reconciliation."
+      ]
+    },
+    {
+      "heading": "Configuration and extension",
+      "items": [
+        "Module properties decide whether versioning and publishing apply; a User schema may remain unversioned while Product, Content, Pricing, or Inventory configuration participates.",
+        "Add a domain adapter behind nPublish rather than implementing another staging status or transport path. Add targets through governed connection and service-identity configuration.",
+        "Keep credentials as secret references, target schemas separate, mappings versioned, and unsupported operations explicit."
+      ]
+    },
+    {
+      "heading": "Failure and recovery",
+      "items": [
+        "Failure before target persistence can retry with the same publication identity; timeout after submission is uncertain and requires target query or reconciliation.",
+        "Failure after persistence but before indexing or invalidation does not justify repeating the business write blindly. Rebuild affected projections from authority.",
+        "Rejection, cancellation, rollback, republish, deletion, dependency ordering, and partial batch behavior are explicit policies with audit evidence."
+      ]
+    },
+    {
+      "heading": "Verification and operations",
+      "items": [
+        "Test approval denial, stale version, wrong target, service-token audience, duplicate request, timeout, partial batch, mapping error, target outage, retry, reconciliation, and rollback.",
+        "Verify separate staged and Online stores, cross-tenant denial, exact-version integrity, cache/search consistency, event duplication, load, security, observability, and regression.",
+        "Monitor publication age, attempts, target latency, uncertain outcomes, derived refresh lag, and unresolved failures; provide business and operator runbooks."
+      ]
+    },
+    {
+      "heading": "Checklist",
+      "items": [
+        "Staged and Online topology, tenant, domain, schema/version provider, immutable version identity, and target alias.",
+        "Workflow provider, approvers, validation, dependencies, manifest/export shape, domain adapter, and authenticated deployment.",
+        "Revision, idempotency, timeout, retry, unknown completion, journal, audit projection, reconciliation, rollback, and compensation.",
+        "Cache invalidation, search indexing, events, observability, security, positive, negative, boundary, contract, integration, failure, performance, and regression tests."
+      ]
+    }
+  ]
+}

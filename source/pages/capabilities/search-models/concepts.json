@@ -6,7 +6,11 @@
   "family": "concepts-architecture",
   "parent": "page:capability.query-modeling.overview",
   "order": 10,
-  "audiences": ["developer", "architect", "ai-tool"],
+  "audiences": [
+    "developer",
+    "architect",
+    "ai-tool"
+  ],
   "readerIntent": "Understand search-model resolution, query execution, consistency, cache, and tenant boundaries.",
   "priorKnowledge": "Read Search Models and Querying.",
   "depth": "implementation",
@@ -44,6 +48,65 @@
       "heading": "Consistency",
       "paragraphs": [
         "Search is normally a derived view of authoritative records. Each capability must state whether indexing is synchronous or eventually consistent, how lag is detected, and whether a bounded permission-safe database fallback is supported."
+      ]
+    },
+    {
+      "heading": "Index identity and isolation",
+      "paragraphs": [
+        "Index naming and aliases derive from governed tenant, module, schema, version, and environment context. A browser does not submit an arbitrary physical index name.",
+        "Shared and dedicated indexes both preserve isolation. Provider credentials and aliases are configuration, while the business module owns searchable meaning."
+      ]
+    },
+    {
+      "heading": "Query contract",
+      "items": [
+        "Allowed fields, operators, filters, sorting, pagination, and aggregation are explicit.",
+        "Unknown fields and unbounded query shapes are rejected.",
+        "Authorization and tenant filters cannot be removed by client input.",
+        "Stable record identifiers allow authoritative retrieval after discovery.",
+        "Highlighting and display fields exclude secrets and protected content."
+      ]
+    },
+    {
+      "heading": "Indexing lifecycle",
+      "items": [
+        "Create or update mappings from the effective search model.",
+        "Index after authoritative create and update.",
+        "Remove or tombstone after authoritative lifecycle change.",
+        "Coordinate bulk import, publishing, migration, and reindexing.",
+        "Detect lag, rejected documents, mapping conflicts, and drift.",
+        "Rebuild safely without mixing environments or tenants."
+      ]
+    },
+    {
+      "heading": "Cache interaction",
+      "paragraphs": [
+        "Search-result caching follows centralized cacheability policy. Cache keys include every scope that changes authorization or result meaning. Mutations, publishing, and index changes invalidate or expire eligible entries.",
+        "Cache never repairs a stale index and cannot broaden result visibility."
+      ]
+    },
+    {
+      "heading": "Provider outage behavior",
+      "paragraphs": [
+        "The capability defines whether a query fails, returns a bounded stale result, or uses a permission-safe database fallback. Fallback is not automatic because an unrestricted database query can change semantics or overload persistence.",
+        "Indexing failures enter retry or reconciliation with observable lag. Authoritative data remains valid even while its search projection is degraded."
+      ]
+    },
+    {
+      "heading": "Example: BackOffice model search",
+      "paragraphs": [
+        "An employee searches for Tenant by code and description. BackOffice discovers the authorized Tenant contract; Search resolves the Profile-owned model and tenant context and returns friendly results.",
+        "The employee selects a result, then Profile reads or updates the item authoritatively. A missing result can lead to authorized nested creation, not direct insertion into the index."
+      ]
+    },
+    {
+      "heading": "Operational evidence",
+      "items": [
+        "Query latency, error rate, timeouts, and rejected complexity.",
+        "Indexing throughput, lag, retry queue, and rejected documents.",
+        "Mapping and alias versions, health, shard or provider capacity.",
+        "Tenant-isolation and permission-denial tests.",
+        "Reindex, import finalization, publishing, backup, and recovery results."
       ]
     }
   ]

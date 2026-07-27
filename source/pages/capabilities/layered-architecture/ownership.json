@@ -6,7 +6,12 @@
   "family": "concepts-architecture",
   "parent": "page:capability.layered-architecture.overview",
   "order": 10,
-  "audiences": ["developer", "architect", "framework-maintainer", "ai-tool"],
+  "audiences": [
+    "developer",
+    "architect",
+    "framework-maintainer",
+    "ai-tool"
+  ],
   "readerIntent": "Choose the correct layer for a change.",
   "priorKnowledge": "Read Modular and Layered Architecture.",
   "depth": "implementation",
@@ -14,7 +19,11 @@
   "owner": "Each Nodics module for its own business or framework capability",
   "lastVerified": "2026-07-26",
   "summary": "Each layer has one primary responsibility; keeping those boundaries prevents duplicate authority, hidden coupling, and untestable customization.",
-  "supportingEvidence": ["nodics:gFramework/nService/README.md", "nodics:gFramework/nRouter/README.md", "nodics:gFramework/nPipeline/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nService/README.md",
+    "nodics:gFramework/nRouter/README.md",
+    "nodics:gFramework/nPipeline/README.md"
+  ],
   "sections": [
     {
       "heading": "Core layers",
@@ -39,12 +48,75 @@
       ]
     },
     {
+      "heading": "Configuration and metadata",
+      "paragraphs": [
+        "properties.js owns configurable application behavior under capability namespaces. package.json owns concise module metadata. Moving behavioral maps, endpoints, timeouts, or BackOffice policy into package metadata makes later project customization unclear and is not an acceptable shortcut.",
+        "Constants are appropriate for true implementation invariants. Values that partners, environments, tenants, or operations must refine belong in an owned configurable contract."
+      ]
+    },
+    {
+      "heading": "Schema, model, and persistence",
+      "paragraphs": [
+        "The business capability owns schema meaning. Framework data and database capabilities compose item models, search models, indexes, middleware, and provider interaction. The configured adapter owns vendor translation.",
+        "A feature service uses its schema models or owning services. It does not install a database driver or create another provider-specific model."
+      ]
+    },
+    {
+      "heading": "Service, facade, controller, and router",
+      "items": [
+        "Service: reusable domain or technical behavior and invariants.",
+        "Facade: coordination across services or capabilities for one use case.",
+        "Controller: transport adaptation and delegation.",
+        "Router: versioned exposure, method/path binding, and route security metadata.",
+        "Response handler: stable status-to-transport mapping."
+      ],
+      "paragraphs": [
+        "A controller that contains the real algorithm makes jobs, imports, events, and other callers duplicate it. A service that formats HTTP details couples business behavior to one transport."
+      ]
+    },
+    {
+      "heading": "Cross-cutting and asynchronous layers",
+      "items": [
+        "Pipelines own ordered multi-step execution with success and error paths.",
+        "Interceptors extend declared lifecycle boundaries such as save behavior.",
+        "Events communicate completed facts or trigger asynchronous consumers.",
+        "Scheduled jobs own time-based execution.",
+        "Workflows coordinate manual and automatic business actions.",
+        "Processors handle long-running or data-intensive execution."
+      ]
+    },
+    {
+      "heading": "Frontend and tool responsibility",
+      "paragraphs": [
+        "A frontend owns rendering, interaction, responsive presentation, and accessible user feedback. Backend content may supply labels, page composition, and component properties. Backend modules own authentication, authorization, validation, data, and business transitions.",
+        "AI assistants, MCP bridges, CLI tools, and generated clients call governed contracts. They do not obtain direct storage authority or create alternate validation and workflow paths."
+      ]
+    },
+    {
+      "heading": "Worked ownership example",
+      "paragraphs": [
+        "An employee creates an Enterprise in Axis. Axis renders the schema-driven form. Profile owns Enterprise and Tenant schemas, permissions, relationship validation, and CRUD behavior. The database capability persists through its configured provider. Search creates a projection. Audit and status handlers provide traceable results.",
+        "If the requested Tenant is absent, Axis may offer nested creation only because the Tenant contract and employee permission allow it. Axis does not insert the Tenant directly."
+      ]
+    },
+    {
       "heading": "Common mistakes",
       "items": [
         "Business logic in a frontend, controller, utility, package.json, or database adapter.",
         "Direct persistence from a feature service instead of its schema model and service contracts.",
         "A second loader, registry, validation route, or governance mechanism for the same authority.",
         "Cross-module source imports that bypass the owning module API or event contract."
+      ]
+    },
+    {
+      "heading": "Review checklist",
+      "items": [
+        "One authoritative capability owns each rule and record.",
+        "The selected source layer matches the responsibility.",
+        "All callers reach the same validation and policy boundary.",
+        "Cross-module interaction uses a public API, service, event, or model relationship contract.",
+        "Project customization is isolated from reusable source.",
+        "Generated artifacts, tests, diagnostics, and canonical documentation remain aligned."
       ]
     }
   ]

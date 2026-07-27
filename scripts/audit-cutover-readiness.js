@@ -168,7 +168,7 @@ function main() {
                 generated.articles === pages.length &&
                 generated.pages === pages.length + generated.retiredPages &&
                 generated.routes ===
-                    (pages.length + generated.retiredPages) * generated.sites.length &&
+                    (pages.length + generated.retiredPages + 1) * generated.sites.length &&
                 generated.legacySnapshotArticles === legacyArticleCount
                 ? 'PASS'
                 : 'BLOCKED',

@@ -6,7 +6,15 @@
   "family": "operations-security-troubleshooting",
   "parent": "page:capability.operational-governance.overview",
   "order": 40,
-  "audiences": ["business-user", "administrator", "architect", "security-reviewer", "operator", "framework-maintainer", "ai-tool"],
+  "audiences": [
+    "business-user",
+    "administrator",
+    "architect",
+    "security-reviewer",
+    "operator",
+    "framework-maintainer",
+    "ai-tool"
+  ],
   "readerIntent": "Understand the operating disciplines required after a Nodics deployment is production-qualified.",
   "priorKnowledge": "Read deployment preparation, security shared responsibility, and operational governance.",
   "depth": "implementation",
@@ -14,7 +22,13 @@
   "owner": "Deployment operators and capability owners under the shared-responsibility model",
   "lastVerified": "2026-07-26",
   "summary": "Production operation combines owned lifecycle signals, service objectives, capacity, safe telemetry, provider health, backup/recovery, change governance, security operations, and business-outcome reconciliation.",
-  "supportingEvidence": ["nodics:gFramework/nConfig/docs/runtime-lifecycle-resilience-contract.md", "nodics:gFramework/nConfig/README.md", "nodics:gFramework/nNms/README.md", "nodics:gFramework/nDynamo/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nConfig/docs/runtime-lifecycle-resilience-contract.md",
+    "nodics:gFramework/nConfig/README.md",
+    "nodics:gFramework/nNms/README.md",
+    "nodics:gFramework/nDynamo/README.md",
+    "nodics:gDocs/operations/production-operating-model.md"
+  ],
   "sections": [
     {
       "heading": "Service model",
@@ -57,6 +71,248 @@
       "heading": "Current scope",
       "paragraphs": [
         "Nodics supplies these operating contracts, but a specific cloud production environment is not certified by framework documentation alone. Each customer deployment must complete provider, infrastructure, security, scale, recovery, and compliance qualification."
+      ]
+    },
+    {
+      "heading": "Complete guide: Production Operating Model",
+      "migratedFrom": "nodics:gDocs/operations/production-operating-model.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "Production operation is the contract for running Nodics safely after the application has been built, configured, deployed, and opened for traffic.",
+        "It answers five questions:"
+      ],
+      "items": [
+        "What is running?",
+        "Is it alive?",
+        "Is it ready to serve traffic?",
+        "Can operators diagnose and recover problems without exposing sensitive data?",
+        "Can a release be rolled forward, rolled back, or isolated by topology?"
+      ]
+    },
+    {
+      "heading": "Beginner Summary",
+      "migratedFrom": "nodics:gDocs/operations/production-operating-model.md",
+      "sourceAnchor": "beginner-summary",
+      "paragraphs": [
+        "Production operation is about trust. A production Nodics runtime must tell operators what is running, whether it can accept traffic, how to diagnose failures, and how to recover safely.",
+        "For beginners, separate these concepts:",
+        "| Concept | Meaning |\n| --- | --- |\n| Liveness | The process can answer a very small HTTP probe. |\n| Readiness | The process has completed required startup checks and can receive traffic. |\n| Observability | Logs, diagnostics, metrics, and audit explain what happened. |\n| Rollback | The system can return to a known safe state. |\n| Topology | The project/environment/server/node shape explains what runs where. |",
+        "Nodics can run as a consolidated server during local development or as multiple server/node processes in an enterprise topology. The operating model must work for both. A production-ready project should not depend on a single all-in-one process unless that topology is an intentional deployment decision."
+      ]
+    },
+    {
+      "heading": "Runtime Topology",
+      "migratedFrom": "nodics:gDocs/operations/production-operating-model.md",
+      "sourceAnchor": "runtime-topology",
+      "paragraphs": [
+        "A Nodics deployment is described through project, environment, server, and node modules.",
+        "| Runtime Layer | Production Responsibility |\n| --- | --- |\n| Project | Owns the application composition, project modules, documentation, and default project policy. |\n| Environment | Owns deployment class such as local, QA, UAT, pre-production, or production. |\n| Server | Owns a runnable process, active module selection, ports, provider endpoints, and process-level responsibility. |\n| Node | Owns instance-specific behavior below a server, such as scheduled-job ownership or capacity separation. |\n| Tenant | Owns data placement, isolation, runtime governance, and tenant-specific data behavior. |",
+        "Keep local activation and remote communication separate. `activeModules` decides what runs inside the current process. `server.*` endpoint coordinates describe where other capabilities can be reached. Do not activate modules implicitly through tenant, server URL, or request data."
+      ]
+    },
+    {
+      "heading": "Health Endpoints",
+      "migratedFrom": "nodics:gDocs/operations/production-operating-model.md",
+      "sourceAnchor": "health-endpoints",
+      "paragraphs": [
+        "Nodics exposes health probes through `nSystem`.",
+        "| Endpoint | Purpose | Security Contract |\n| --- | --- | --- |\n| `GET /nodics/system/v0/health/live` | Confirms that the process can answer HTTP. | Unsecured and intentionally low-disclosure. |\n| `GET /nodics/system/v0/health/ready` | Confirms that the runtime has completed required startup invariants. | Secured with `system.health.readiness.view` and gated by `apiExposure.categories.operationalHealth`. |",
+        "Liveness must be safe for load balancers and orchestrators. It returns only a minimal `UP` status and must not expose paths, provider URLs, credentials, tenant details, module lists, cache keys, or diagnostics.",
+        "In Nodics route metadata, liveness uses `publicProbe: true`. This is different from a normal `secured: false` business route. A normal non-secured route still resolves enterprise and tenant context for pre-authentication or public business flows. A public probe is infrastructure-only and intentionally bypasses enterprise/tenant request resolution.",
+        "Readiness is operational information. It may report sanitized runtime state such as server state, selected environment/server/node names, active module count, active tenant count, and readiness checks. It must stay secured because it helps operators understand the running topology."
+      ]
+    },
+    {
+      "heading": "Readiness Baseline",
+      "migratedFrom": "nodics:gDocs/operations/production-operating-model.md",
+      "sourceAnchor": "readiness-baseline",
+      "paragraphs": [
+        "The framework readiness baseline checks:",
+        "Projects may extend readiness in later modules. Common project checks include:",
+        "Provider checks must be sanitized. Do not return credentials, full URLs, private paths, tokens, raw connection strings, or customer data from readiness."
+      ],
+      "items": [
+        "runtime state is `started`;",
+        "a server has been selected;",
+        "active modules have been loaded;",
+        "at least one tenant is active.",
+        "database connection is reachable;",
+        "cache engine is reachable;",
+        "search provider is reachable;",
+        "EMS or message broker is reachable;",
+        "required runtime configuration is active;",
+        "required secrets are present through governed secret sources;",
+        "import/export locations or provider aliases are configured;",
+        "node-owned scheduled jobs are not running on unauthorized nodes."
+      ]
+    },
+    {
+      "heading": "Startup And Traffic Admission",
+      "migratedFrom": "nodics:gDocs/operations/production-operating-model.md",
+      "sourceAnchor": "startup-and-traffic-admission",
+      "paragraphs": [
+        "Startup must complete before traffic is admitted.",
+        "The runtime state moves to `started` only after normal startup has completed. Readiness should be the gate used by load balancers, API gateways, container orchestrators, and deployment automation before sending business traffic to the process.",
+        "In a modular deployment, each server has its own readiness responsibility. A profile server, import server, event server, scheduled-job server, and content server may all be healthy independently. Do not treat one process as proof that the whole environment is ready."
+      ]
+    },
+    {
+      "heading": "Secrets",
+      "migratedFrom": "nodics:gDocs/operations/production-operating-model.md",
+      "sourceAnchor": "secrets",
+      "paragraphs": [
+        "Production secrets must come from governed sources, not source-controlled files.",
+        "Examples include:",
+        "The production operating model must identify required secrets for each server and node, including authentication, API keys, database, cache, search, messaging, storage, import/export, and provider credentials."
+      ],
+      "items": [
+        "environment variables managed by deployment automation;",
+        "external property files outside source control;",
+        "secret-manager integrations;",
+        "runtime secret providers."
+      ]
+    },
+    {
+      "heading": "Observability",
+      "migratedFrom": "nodics:gDocs/operations/production-operating-model.md",
+      "sourceAnchor": "observability",
+      "paragraphs": [
+        "Production observability should answer:",
+        "provider was involved?",
+        "configuration, provider, or data quality?",
+        "Logs and diagnostics must be sanitized. Passwords, bearer tokens, API keys, refresh tokens, cookies, authorization headers, credentials, private keys, and secret values must never be emitted."
+      ],
+      "items": [
+        "Which server/node handled the request?",
+        "Which tenant and enterprise context was used?",
+        "Which route, pipeline, service, schema, job, event, import, export, cache, or",
+        "What correlation id links logs, audit, diagnostics, and errors?",
+        "Was the failure caused by validation, permission, dependency, timeout,"
+      ]
+    },
+    {
+      "heading": "Audit And Retention",
+      "migratedFrom": "nodics:gDocs/operations/production-operating-model.md",
+      "sourceAnchor": "audit-and-retention",
+      "paragraphs": [
+        "Runtime mutation paths must preserve audit evidence:",
+        "Retention must be defined by project and environment. Local development may keep short retention. Production may require longer retention for audit, compliance, support, and incident investigation."
+      ],
+      "items": [
+        "runtime configuration preview/request/approval/activation/rollback;",
+        "schema and router governance changes;",
+        "identity and permission governance;",
+        "import/export runs;",
+        "credential rotation;",
+        "operational route usage where policy requires it."
+      ]
+    },
+    {
+      "heading": "Backup, Restore, And Rollback",
+      "migratedFrom": "nodics:gDocs/operations/production-operating-model.md",
+      "sourceAnchor": "backup-restore-and-rollback",
+      "paragraphs": [
+        "Production readiness is not complete until restore and rollback are proven.",
+        "At minimum, define:",
+        "Manual database repair should not be the normal recovery strategy."
+      ],
+      "items": [
+        "database backup and restore;",
+        "search index rebuild or restore;",
+        "cache warm-up or safe flush strategy;",
+        "import run retry and failed-record handling;",
+        "runtime configuration rollback;",
+        "versioned or publishable data rollback;",
+        "deployment rollback;",
+        "tenant-specific recovery when one tenant is affected."
+      ]
+    },
+    {
+      "heading": "Release Gates",
+      "migratedFrom": "nodics:gDocs/operations/production-operating-model.md",
+      "sourceAnchor": "release-gates",
+      "paragraphs": [
+        "Before release, run:",
+        "```bash\nnpm run release:check -- --execute\n```",
+        "For release-candidate evidence, run:",
+        "```bash\nnpm run release:check -- --execute --full\n```",
+        "Projects with live providers must also run the guarded live-provider gates for their chosen providers, such as Redis, Elasticsearch, Kafka, SFTP, object storage, or other production dependencies."
+      ]
+    },
+    {
+      "heading": "Support Diagnostics",
+      "migratedFrom": "nodics:gDocs/operations/production-operating-model.md",
+      "sourceAnchor": "support-diagnostics",
+      "paragraphs": [
+        "Support diagnostics should be available through governed APIs, reports, or deployment tooling. They should help operators inspect runtime state without exposing sensitive information.",
+        "Useful diagnostic evidence includes:",
+        "Every diagnostic surface must have an owner, permission, exposure category, redaction policy, and test coverage."
+      ],
+      "items": [
+        "runtime topology summary;",
+        "active module list;",
+        "active tenant count;",
+        "generated OpenAPI artifact status;",
+        "provider maturity status;",
+        "route exposure categories;",
+        "runtime configuration governance summary;",
+        "import/export run summaries;",
+        "cache and search diagnostics;",
+        "recent sanitized error summaries."
+      ]
+    },
+    {
+      "heading": "Beginner Production Checklist",
+      "migratedFrom": "nodics:gDocs/operations/production-operating-model.md",
+      "sourceAnchor": "beginner-production-checklist",
+      "paragraphs": [
+        "Before calling a Nodics deployment production-ready, confirm:"
+      ],
+      "items": [
+        "every server/node has a clear owner and active-module list;",
+        "liveness and readiness probes are configured with the correct versioned URLs;",
+        "readiness checks are secured and sanitized;",
+        "production secrets do not live in source-controlled files;",
+        "data backup and restore have been tested;",
+        "runtime configuration rollback works;",
+        "import/export failures can be diagnosed and retried;",
+        "scheduled jobs run only on responsible nodes;",
+        "cache can be safely flushed or rebuilt;",
+        "generated OpenAPI reflects deployed routes;",
+        "local-only API exposure categories are disabled;",
+        "release gates pass from a clean checkout."
+      ]
+    },
+    {
+      "heading": "What To Avoid",
+      "migratedFrom": "nodics:gDocs/operations/production-operating-model.md",
+      "sourceAnchor": "what-to-avoid",
+      "paragraphs": [
+        "Avoid:",
+        "`publicProbe: true` only for low-disclosure probes;",
+        "from health endpoints;"
+      ],
+      "items": [
+        "exposing readiness publicly with detailed topology or provider data;",
+        "treating every `secured: false` route as public infrastructure; use",
+        "returning secrets, URLs with credentials, private file paths, or tenant data",
+        "treating a consolidated local server as proof of modular production readiness;",
+        "enabling local-only control-plane APIs in production;",
+        "deploying without a clean-checkout release gate;",
+        "using sample bootstrap credentials in production;",
+        "relying on manual database changes for rollback;",
+        "allowing scheduled jobs to run on every node without ownership rules."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/operations/production-operating-model.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "Previous: [How To Prepare For Deployment](/docs/operations/deployment)",
+        "Security: [How Users, Tenants, And Permissions Work](/docs/security/users-tenants-permissions)",
+        "Business evaluation: [Business And Technical Evaluation Checklist](/docs/evaluate/checklist)",
+        "Documentation home: [Nodics Documentation](/docs)"
       ]
     }
   ]

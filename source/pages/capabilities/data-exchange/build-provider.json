@@ -6,7 +6,12 @@
   "family": "configuration-customization",
   "parent": "page:capability.data-exchange.guide",
   "order": 30,
-  "audiences": ["developer", "architect", "framework-maintainer", "ai-tool"],
+  "audiences": [
+    "developer",
+    "architect",
+    "framework-maintainer",
+    "ai-tool"
+  ],
   "readerIntent": "Integrate SFTP, object storage, HTTPS, partner APIs, enterprise gateways, or delivery systems safely.",
   "priorKnowledge": "Know the import remote-source or export destination contract.",
   "depth": "guided",
@@ -14,10 +19,77 @@
   "owner": "Reusable provider or customer-project adapter module",
   "lastVerified": "2026-07-26",
   "summary": "Providers resolve named configuration, stage or deliver bounded data, and return normalized evidence; they never accept arbitrary request credentials or bypass the shared lifecycle.",
-  "supportingEvidence": ["nodics:gFramework/nData/nImport/README.md", "nodics:gFramework/nData/nExport/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nData/nImport/README.md",
+    "nodics:gFramework/nData/nExport/README.md"
+  ],
   "sections": [
-    {"heading": "Import source provider", "items": ["Register named sources and transports in layered configuration.", "Resolve credentials through secret governance.", "Enforce tenant/module allowlists, timeouts, retries, count, size, extension, and checksum policy.", "Stage files into an isolated server-owned location.", "Return trusted references to the normal import lifecycle and clean up according to policy."]},
-    {"heading": "Export destination provider", "items": ["Register governed destination aliases and capabilities.", "Accept normalized streams or batches from the shared export engine.", "Enforce path/key constraints, encryption, checksums, retries, idempotency, retention, and cleanup.", "Return normalized delivery evidence without exposing provider secrets."]},
-    {"heading": "Qualification", "items": ["Invalid configuration and secret handling.", "Tenant isolation and source/destination authorization.", "Timeout, retry, duplicate, partial transfer, resume, cleanup, and shutdown.", "Live provider compatibility, limits, performance, outage, recovery, security, and upgrade."]}
+    {
+      "heading": "Import source provider",
+      "items": [
+        "Register named sources and transports in layered configuration.",
+        "Resolve credentials through secret governance.",
+        "Enforce tenant/module allowlists, timeouts, retries, count, size, extension, and checksum policy.",
+        "Stage files into an isolated server-owned location.",
+        "Return trusted references to the normal import lifecycle and clean up according to policy."
+      ]
+    },
+    {
+      "heading": "Export destination provider",
+      "items": [
+        "Register governed destination aliases and capabilities.",
+        "Accept normalized streams or batches from the shared export engine.",
+        "Enforce path/key constraints, encryption, checksums, retries, idempotency, retention, and cleanup.",
+        "Return normalized delivery evidence without exposing provider secrets."
+      ]
+    },
+    {
+      "heading": "Qualification",
+      "items": [
+        "Invalid configuration and secret handling.",
+        "Tenant isolation and source/destination authorization.",
+        "Timeout, retry, duplicate, partial transfer, resume, cleanup, and shutdown.",
+        "Live provider compatibility, limits, performance, outage, recovery, security, and upgrade."
+      ]
+    },
+    {
+      "heading": "Provider-neutral boundaries",
+      "paragraphs": [
+        "An import provider parses and normalizes; it does not own business validation or persistence. An export provider renders or delivers already authorized data; it does not choose unrestricted fields.",
+        "Business modules and generic data-exchange services remain unchanged when a provider is added."
+      ]
+    },
+    {
+      "heading": "Configuration and secrets",
+      "items": [
+        "Stable provider type and supported modes.",
+        "Encoding, delimiter, sheet, mapping, compression, and size options.",
+        "Destination aliases, endpoints, TLS, and secret references.",
+        "Timeout, retry, concurrency, batching, and cleanup.",
+        "Explicit capability and limitation flags."
+      ]
+    },
+    {
+      "heading": "Failure and lifecycle",
+      "items": [
+        "Reject malformed or unsupported input safely.",
+        "Bound parsing and rendering resources.",
+        "Preserve record and destination error context without payload leakage.",
+        "Retry only idempotent reads or writes.",
+        "Clean temporary resources and close connections.",
+        "Support restart and resume where claimed."
+      ]
+    },
+    {
+      "heading": "Release evidence",
+      "items": [
+        "Contract and format compatibility.",
+        "Boundary, malicious, malformed, and large inputs.",
+        "Credential, tenant, field, and destination isolation.",
+        "Partial source or destination failure.",
+        "Load, recovery, upgrade, and rollback.",
+        "Beginner configuration and operator runbooks."
+      ]
+    }
   ]
 }

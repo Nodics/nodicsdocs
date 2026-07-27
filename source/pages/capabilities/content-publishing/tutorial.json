@@ -6,7 +6,14 @@
   "family": "tutorial-example",
   "parent": "page:capability.content-publishing.overview",
   "order": 15,
-  "audiences": ["business-user", "administrator", "developer", "architect", "operator", "ai-tool"],
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "operator",
+    "ai-tool"
+  ],
   "readerIntent": "Configure and execute an approval-driven Staged-to-Online content publication without introducing parallel publishing behavior.",
   "priorKnowledge": "Understand CMS catalogs, versioning, Workflow, nPublish, cache, search, and separate Staged and Online runtimes.",
   "depth": "guided",
@@ -14,7 +21,12 @@
   "owner": "CMS owns content, Workflow owns approval progress, nPublish owns publication lifecycle, and CMS target adapter owns authenticated deployment",
   "lastVerified": "2026-07-26",
   "summary": "A business user edits versioned Staged content, associates the exact change set with a workflow, completes manual and automatic actions, and publishes the approved version through nPublish to a separate non-versioned Online authority.",
-  "supportingEvidence": ["nodics:gFramework/nPublish/README.md", "nodics:gCore/workflow/README.md", "nodics:gContent/cms/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nPublish/README.md",
+    "nodics:gCore/workflow/README.md",
+    "nodics:gContent/cms/README.md",
+    "nodics:gDocs/content/how-to-approve-and-publish-content.md"
+  ],
   "sections": [
     {
       "heading": "Example: publish a campaign page",
@@ -75,6 +87,196 @@
         "Unauthorized/wrong-tenant/wrong-Site, invalid dependency, stale revision, changed source after approval, duplicate request/replay, unavailable workflow/version/domain/target provider, target timeout/outage, partial publication, and unknown completion.",
         "Restart, reconciliation, rollback, compensation, audit redaction, staged/online isolation, performance, concurrent publication, contract, integration, modular topology, upgrade, accessibility of BackOffice guidance, and regression.",
         "Product or another publishable domain reuses nPublish but contributes its own dependency resolver, validation, manifest, and target adapter rather than a parallel state machine."
+      ]
+    },
+    {
+      "heading": "Complete guide: How To Approve And Publish Content",
+      "migratedFrom": "nodics:gDocs/content/how-to-approve-and-publish-content.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "This guide explains the implemented Nodics content-publishing flow in plain language. It is for business users who manage content, operators who configure Staged and Online systems, and developers who customize publishing."
+      ]
+    },
+    {
+      "heading": "What This Capability Does",
+      "migratedFrom": "nodics:gDocs/content/how-to-approve-and-publish-content.md",
+      "sourceAnchor": "what-this-capability-does",
+      "paragraphs": [
+        "Nodics keeps editable content away from the public Online system. A content editor works in **Staged**, sends a complete change set for review, and an approved workflow publishes one immutable release to **Online**. A rejected change does not alter Online content. An operator can roll back to the previous deployed release.",
+        "The current backend capability is implemented and tested. A BackOffice visual client is not part of this implementation yet; an authorized client can invoke the same module APIs and workflow contracts later without changing their authority."
+      ]
+    },
+    {
+      "heading": "The Business Journey",
+      "migratedFrom": "nodics:gDocs/content/how-to-approve-and-publish-content.md",
+      "sourceAnchor": "the-business-journey",
+      "paragraphs": [
+        "in Staged.",
+        "the page route to release.",
+        "internal module token.",
+        "its delivery cache, and records a deployment receipt.",
+        "is enabled.",
+        "Replaying the same approved release is safe and does not create a duplicate deployment receipt. Restarting Online does not lose the active release because the pointer and manifests are persisted."
+      ],
+      "items": [
+        "An editor creates or updates pages, routes, components, templates, or slots",
+        "Nodics retains exact versions of the changed records.",
+        "The editor groups the affected records in a workflow carrier and identifies",
+        "Reviewers approve or reject the existing WCMS workflow.",
+        "Rejection ends the release without changing Online.",
+        "Approval invokes the existing `nPublish` lifecycle automatically.",
+        "CMS validates the exact dependency graph and creates an immutable manifest.",
+        "Staged sends that manifest to the separately deployed Online CMS using an",
+        "Online verifies and stores the manifest, switches its active pointer, clears",
+        "Public delivery reads only the active Online manifest when manifest delivery"
+      ]
+    },
+    {
+      "heading": "Responsibilities And Authority",
+      "migratedFrom": "nodics:gDocs/content/how-to-approve-and-publish-content.md",
+      "sourceAnchor": "responsibilities-and-authority",
+      "paragraphs": [
+        "| Capability | Authority |\n| --- | --- |\n| Review steps and approval decision | `gContent/wcms` using the existing workflow engine |\n| Generic publication states, revisions, journal, and audit projection | `gFramework/nPublish` |\n| CMS dependency rules and immutable delivery snapshot | `gContent/cms` |\n| Editable content versions | Staged versioned database variants |\n| Deployed manifests and active delivery pointer | Online CMS database |\n| Human login and permissions | Profile and the normal user authentication flow |\n| Staged-to-Online deployment | Internal module authentication, never a human password |",
+        "Do not add a second workflow engine, publication state machine, version store, or Online pointer. Project code should extend these owners."
+      ]
+    },
+    {
+      "heading": "Configure The Two Systems",
+      "migratedFrom": "nodics:gDocs/content/how-to-approve-and-publish-content.md",
+      "sourceAnchor": "configure-the-two-systems",
+      "paragraphs": [
+        "Staged and Online must be independent deployments with different databases. The supplied local examples are:",
+        "`startioCmsOnline`.",
+        "The Staged environment activates the existing publish/version variants:",
+        "```js\nmodule.exports = {\n    publishEnabled: true,\n    activeModules: {\n        modules: ['cms', 'wcms', 'workflow', 'publish', 'myCmsStagedServer']\n    },\n    database: {\n        default: { mongodb: { master: { databaseName: 'myCmsStaged' } } }\n    },\n    cms: {\n        publication: {\n            runtimeRole: 'STAGED',\n            targetTransportProvider: 'DefaultCmsPublicationModuleTransportService',\n            target: {\n                moduleName: 'cms',\n                connectionName: 'cmsOnline',\n                connectionType: 'server',\n                timeoutMs: 30000,\n                maxAttempts: 3\n            }\n        }\n    },\n    servers: {\n        cmsOnline: {\n            options: { contextRoot: 'nodics' },\n            endpoint: { httpHost: 'online-cms', httpPort: 3070 }\n        }\n    }\n};\n```",
+        "`moduleName` remains `cms`, because that is the API path and capability owner. `connectionName` selects the separately configured Online endpoint. Do not use the default or self connection as the publication target.",
+        "The Online environment must not activate version variants:",
+        "```js\nmodule.exports = {\n    publishEnabled: false,\n    activeModules: { modules: ['cms', 'myCmsOnlineServer'] },\n    database: {\n        default: { mongodb: { master: { databaseName: 'myCmsOnline' } } }\n    },\n    cms: {\n        publication: {\n            enabled: true,\n            runtimeRole: 'ONLINE',\n            targetTransportProvider: null\n        }\n    }\n};\n```",
+        "Here, `cms.publication.enabled` selects manifest-based Online delivery. Enable it only after an initial manifest is available; missing pointers fail closed. The Online runtime also rejects target mutations if `publishEnabled` is true."
+      ],
+      "items": [
+        "`cmsStagedServer` on port `3040`, database `startioCmsStaged`;",
+        "`cmsOnlineServer` on port `3070`, database"
+      ]
+    },
+    {
+      "heading": "Select Which Schemas Are Versioned",
+      "migratedFrom": "nodics:gDocs/content/how-to-approve-and-publish-content.md",
+      "sourceAnchor": "select-which-schemas-are-versioned",
+      "paragraphs": [
+        "Versioning is opt-in at module/schema level. A Staged catalog or CMS schema can set `isVersionedEnabled: true` through its layered schema configuration while unrelated schemas, such as users, remain non-versioned. The Online deployment uses the ordinary non-versioned schemas and stores only deployed target forms.",
+        "Do not copy base schemas merely to add common properties. Nodics merges base schema properties at runtime; override only the setting or business property that differs."
+      ]
+    },
+    {
+      "heading": "Start A Content Approval",
+      "migratedFrom": "nodics:gDocs/content/how-to-approve-and-publish-content.md",
+      "sourceAnchor": "start-a-content-approval",
+      "paragraphs": [
+        "The implemented WCMS bridge expects:",
+        "including `schemaName`, stable `code`, and `versionId`;",
+        "`code`, `domain`, `rootType`, `rootCode`, and `sourceVersion`.",
+        "For CMS page publishing, use `domain: 'cms'` and the default `rootType: 'pageRoute'`. The route is the release root; CMS resolves its exact page, component, association, component, template, and slot dependencies. Missing release input or missing exact versions fails closed.",
+        "Business clients should show the editor the complete affected-item list before submission. The approval decision applies to that frozen release scope, not to whatever content happens to be latest later."
+      ],
+      "items": [
+        "`workflowCarrier.items`: every content identity associated with the review,",
+        "`workflowCarrier.sourceDetail.schemaName`: the workflow source schema;",
+        "`workflowCarrier.sourceDetail.publication`: the release definition with"
+      ]
+    },
+    {
+      "heading": "Customize The Workflow",
+      "migratedFrom": "nodics:gDocs/content/how-to-approve-and-publish-content.md",
+      "sourceAnchor": "customize-the-workflow",
+      "paragraphs": [
+        "Projects can layer new reviewers, actions, and channels over the existing WCMS workflow data. Keep the final automatic action connected only to the successful approval path. A rejection path must never call publication activation.",
+        "Project-specific content types, renderer keys, templates, and sample data belong in the project module. Reusable CMS must not contain one customer's page model or executable frontend paths."
+      ]
+    },
+    {
+      "heading": "Extend Publishing To Another Domain",
+      "migratedFrom": "nodics:gDocs/content/how-to-approve-and-publish-content.md",
+      "sourceAnchor": "extend-publishing-to-another-domain",
+      "paragraphs": [
+        "Developers should reuse `nPublish` and contribute domain-specific providers:",
+        "graph, validates business rules, and performs post-activation hooks.",
+        "immutable target release, and rolls back to a previously deployed version.",
+        "bounded retries, integrity checks, and a separate Online authority.",
+        "configuration that maps the domain to those services.",
+        "Product catalogs should follow this extension path rather than creating a parallel staging/publishing framework."
+      ],
+      "items": [
+        "A domain adapter that loads exact versions, resolves a bounded dependency",
+        "A version provider that reads the current Online version, activates one",
+        "A target adapter and transport that use internal authentication, idempotency,",
+        "Layered `publish.providers.domainAdapters` and `versionProviders`"
+      ]
+    },
+    {
+      "heading": "Security And Operations Checklist",
+      "migratedFrom": "nodics:gDocs/content/how-to-approve-and-publish-content.md",
+      "sourceAnchor": "security-and-operations-checklist",
+      "paragraphs": [
+        "username/password credential.",
+        "even when the human principal has a broad administrative permission.",
+        "projection, target receipt, transport retries, latency, and circuit state.",
+        "pointers, reconciliation failures, and unsupported manifest versions.",
+        "Online pointer, and restoring Online alone does not recreate authoring history.",
+        "If Online is unavailable, the approved attempt ends in an auditable `FAILED` state and the previous Online pointer remains active. After Online recovers, create a new publication request for the same source version. Nodics does not rewrite a terminal failure because its history is operational evidence."
+      ],
+      "items": [
+        "Keep Staged authoring APIs behind human authentication and permissions.",
+        "Use only internal module tokens for Staged-to-Online calls; never forward a",
+        "Mark target APIs as service-token-only. Human access tokens remain rejected",
+        "Give Staged network access only to the required Online internal endpoints.",
+        "Keep Staged and Online database credentials and schemas separate.",
+        "Monitor publication state, revision, correlation ID, immutable journal, audit",
+        "Alert on repeated `FAILED` transitions, unavailable Online targets, stale",
+        "Back up both authorities. Restoring Staged alone does not recreate the active"
+      ]
+    },
+    {
+      "heading": "Troubleshooting",
+      "migratedFrom": "nodics:gDocs/content/how-to-approve-and-publish-content.md",
+      "sourceAnchor": "troubleshooting",
+      "paragraphs": [
+        "| Symptom | Check |\n| --- | --- |\n| Publication fails before deployment | Exact source versions, dependency limits, renderer keys, and workflow release input |\n| Target connection is unavailable | `servers.<connectionName>`, host/port, internal token readiness, timeout, retry, and circuit diagnostics |\n| Online rejects deployment | `runtimeRole: 'ONLINE'`, `publishEnabled: false`, manifest size, integrity, and supported contract version |\n| Online returns no page | Active pointer for tenant/site/path/locale/channel/access mode and `cms.publication.enabled` rollout order |\n| A rejected change appears Online | Verify the workflow graph: only the approved terminal action may call nPublish |\n| Rollback is unavailable | A previous Online manifest must have been deployed and captured by the later publication |"
+      ]
+    },
+    {
+      "heading": "Verify A Change",
+      "migratedFrom": "nodics:gDocs/content/how-to-approve-and-publish-content.md",
+      "sourceAnchor": "verify-a-change",
+      "paragraphs": [
+        "Run focused contracts first:",
+        "```bash\nnode gFramework/nPublish/test/publicationLifecycleService.test.js\nnode gFramework/nPublish/test/publicationAtomicAuditContract.test.js\nnode gFramework/nPublish/test/publicationAuditReconciliationService.test.js\nnode gContent/cms/test/cmsPublicationManifestContract.test.js\nnode gContent/wcms/test/wcmsPublicationWorkflowContract.test.js\n```",
+        "Build the Staged server so generated version-aware services match its active module set, then run the real modular topology proof:",
+        "```bash\nenv SERVER=cmsStagedServer npm run build\nnpm run test:topology:modular\n```",
+        "The modular test verifies separate processes and databases, approval, rejection, replay idempotency, a second release, target restart recovery, and rollback. Also run the repository's normal documentation, generated-context, and regression suites before release."
+      ]
+    },
+    {
+      "heading": "Related Detail",
+      "migratedFrom": "nodics:gDocs/content/how-to-approve-and-publish-content.md",
+      "sourceAnchor": "related-detail",
+      "items": [
+        "[CMS publication manifest contract](/docs/reference/content-publishing)",
+        "[WCMS approval-to-publication contract](/docs/reference/content-publishing)",
+        "[nPublish lifecycle contract](/docs/reference/content-publishing)",
+        "[How users, tenants, and permissions work](/docs/security/users-tenants-permissions)",
+        "[How to test Nodics changes](/docs/build/testing)"
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/content/how-to-approve-and-publish-content.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "Security: [How Users, Tenants, And Permissions Work](/docs/security/users-tenants-permissions)",
+        "Operations: [How To Run And Debug Nodics](/docs/operations/local-runtime)",
+        "Testing: [How To Test Nodics Changes](/docs/build/testing)",
+        "Documentation home: [Nodics Documentation](/docs)"
       ]
     }
   ]

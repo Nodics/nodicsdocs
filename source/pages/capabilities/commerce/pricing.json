@@ -1,1 +1,76 @@
-{"code":"capability.commerce.pricing","title":"Pricing Resolution","route":"/docs/capabilities/commerce/pricing","section":"capabilities","family":"concepts-runtime","parent":"page:capability.commerce.overview","order":40,"audiences":["business-user","administrator","developer","architect","operator","ai-tool"],"readerIntent":"Configure and resolve contextual prices without embedding them in Product.","priorKnowledge":"Understand product identity and trusted commerce context.","depth":"implementation","status":"implemented","owner":"Pricing capability","lastVerified":"2026-07-26","summary":"Price lists and price groups organize prices; resolution filters eligible entries and applies deterministic priority and specificity for the trusted context.","supportingEvidence":["nodics:gComm/pricing/README.md"],"sections":[{"heading":"Scopes","items":["Tenant and enterprise.","Storefront Site and Store.","Country, region, channel, currency, and locale.","Customer segment, price group, customer, contract, and promotion context.","Product/variant, unit, quantity tier, date range, and active state."]},{"heading":"Resolution","items":["Normalize and validate trusted context.","Select active eligible price lists and price groups.","Filter prices by product, scope, currency, unit, quantity, and effective time.","Rank explicit priority and specificity deterministically.","Return price, tax/discount metadata, provenance, and safe explanation according to contract.","Reject ambiguous ties or apply a documented configurable rule."]},{"heading":"Publishing and cache","items":["Staged prices enter approval and nPublish deployment before Online use.","Cache keys include every context dimension that can change the result.","Price/group/list changes invalidate bounded affected projections; cache never becomes price authority."]}]}
+{
+  "code": "capability.commerce.pricing",
+  "title": "Pricing Resolution",
+  "route": "/docs/capabilities/commerce/pricing",
+  "section": "capabilities",
+  "family": "runtime-behavior",
+  "parent": "page:capability.commerce.overview",
+  "order": 40,
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Configure and resolve contextual prices without embedding them in Product.",
+  "priorKnowledge": "Understand product identity and trusted commerce context.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Pricing capability",
+  "lastVerified": "2026-07-26",
+  "summary": "Price lists and price groups organize prices; resolution filters eligible entries and applies deterministic priority and specificity for the trusted context.",
+  "supportingEvidence": [
+    "nodics:gComm/pricing/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Scopes",
+      "items": [
+        "Tenant and enterprise.",
+        "Storefront Site and Store.",
+        "Country, region, channel, currency, and locale.",
+        "Customer segment, price group, customer, contract, and promotion context.",
+        "Product/variant, unit, quantity tier, date range, and active state."
+      ]
+    },
+    {
+      "heading": "Price structures and responsibility",
+      "items": [
+        "A PriceList is a governed collection with validity, currency, priority, and business scope. A PriceGroup lets several customers, segments, stores, or sites share eligibility without copying every price.",
+        "A Price is the sellable amount for a product or variant under declared conditions. Product owns identity and merchandising; Pricing owns monetary eligibility and resolution.",
+        "Currency, selling unit, quantity tier, tax treatment, discount metadata, and effective dates must remain explicit. A numeric amount without these qualifiers is not a complete enterprise price.",
+        "Storefront supplies trusted website context and Store supplies commercial relationships, but neither calculates or persists the resolved price."
+      ]
+    },
+    {
+      "heading": "Resolution",
+      "items": [
+        "Normalize and validate trusted context.",
+        "Select active eligible price lists and price groups.",
+        "Filter prices by product, scope, currency, unit, quantity, and effective time.",
+        "Rank explicit priority and specificity deterministically.",
+        "Return price, tax/discount metadata, provenance, and safe explanation according to contract.",
+        "Reject ambiguous ties or apply a documented configurable rule."
+      ]
+    },
+    {
+      "heading": "Publishing and cache",
+      "items": [
+        "Staged prices enter approval and nPublish deployment before Online use.",
+        "Cache keys include every context dimension that can change the result.",
+        "Price/group/list changes invalidate bounded affected projections; cache never becomes price authority."
+      ]
+    },
+    {
+      "heading": "Example, failures, and acceptance",
+      "items": [
+        "Assume an iPhone has a general UAE web price, a Dubai Store price, and a negotiated enterprise-customer price. The resolver first removes entries with the wrong tenant, enterprise, currency, unit, date, channel, or customer eligibility.",
+        "Among eligible entries it applies configured priority and specificity. The negotiated customer entry wins only when the authenticated principal and trusted context prove that relationship; a browser-supplied customer code is insufficient.",
+        "If two entries are equally eligible and no documented tie-breaker exists, fail as ambiguous instead of silently choosing an unstable result. If no entry is eligible, return a deliberate not-priced outcome rather than zero.",
+        "Acceptance tests cover boundary dates, quantity tiers, unit compatibility, currency, store/site/segment specificity, unauthorized context injection, deterministic ties, staged-to-online publishing, invalidation, provider failure, and regression of existing prices."
+      ]
+    }
+  ]
+}

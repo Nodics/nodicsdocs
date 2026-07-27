@@ -6,7 +6,13 @@
   "family": "technical-reference",
   "parent": "page:capability.data-exchange.guide",
   "order": 60,
-  "audiences": ["developer", "architect", "operator", "framework-maintainer", "ai-tool"],
+  "audiences": [
+    "developer",
+    "architect",
+    "operator",
+    "framework-maintainer",
+    "ai-tool"
+  ],
   "readerIntent": "Audit definitions, formats, providers, security, lifecycle, and verification.",
   "priorKnowledge": "Read the data exchange journey.",
   "depth": "reference",
@@ -14,9 +20,63 @@
   "owner": "Nodics import/export contracts and configured provider modules",
   "lastVerified": "2026-07-26",
   "summary": "A production definition identifies its owner, tenant, source or destination, data contract, limits, processing, policy, run evidence, failure semantics, and provider maturity.",
-  "supportingEvidence": ["nodics:gFramework/nData/nImport/README.md", "nodics:gFramework/nData/nExport/README.md", "nodics:gFramework/nData/dataCore/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nData/nImport/README.md",
+    "nodics:gFramework/nData/nExport/README.md",
+    "nodics:gFramework/nData/dataCore/README.md"
+  ],
   "sections": [
-    {"heading": "Definition checklist", "items": ["Stable name, owner, active state, tenant/module scope, permissions, and trigger.", "Trusted source or governed destination alias.", "Format, version, schema/service/index target, mapping, processors, validators, interceptors, and operation.", "Count, size, extension, query, field, batch, timeout, retry, idempotency, and checksum limits.", "Diagnostics, run history, audit, reconciliation, rollback, retention, and cleanup."]},
-    {"heading": "Test checklist", "items": ["Positive valid and repeat runs.", "Negative malformed, unauthorized, cross-tenant, duplicate, oversized, unsupported, and provider-failure cases.", "Empty, maximum, batch, streaming, timeout, retry, restart, and partial-failure boundaries.", "Schema/search/cache/event/job/workflow/publishing integration.", "Live provider, security, performance, recovery, compatibility, and regression."]}
+    {
+      "heading": "Authority and definitions",
+      "items": [
+        "nImport and nExport orchestrate governed exchange definitions; owning schemas and services validate and persist business data; providers supply trusted source or destination access.",
+        "A definition declares format, version, mapping, processors, validators, operation, tenant scope, limits, idempotency, checksum, permissions, audit, and retention.",
+        "Input paths and remote locations are resolved through approved aliases and configuration, not unrestricted caller filesystem or URL access."
+      ]
+    },
+    {
+      "heading": "Import lifecycle",
+      "items": [
+        "Discover and validate input, establish run identity, parse bounded batches, map stable business references, invoke owning models/services, checkpoint, finalize, and record counts and errors.",
+        "Core data import is explicit and idempotent; server startup does not repeatedly duplicate persistent sample or application data.",
+        "Search indexing, cache invalidation, events, and derived refresh occur after authoritative writes and reconcile independently when partial failure occurs."
+      ]
+    },
+    {
+      "heading": "Export lifecycle",
+      "items": [
+        "Authorize definition and field projection, read through owning services or approved search contract, paginate deterministically, serialize, checksum, deliver, and record completion.",
+        "Exports preserve tenant, masking, classification, purpose, retention, and destination constraints and never expose provider collections as an unrestricted dump.",
+        "Incremental export states cursor, revision, deletion, ordering, and replay semantics so retry cannot silently skip or duplicate business records."
+      ]
+    },
+    {
+      "heading": "Failure, security, and operations",
+      "items": [
+        "Classify malformed, validation, authorization, conflict, duplicate, provider, timeout, and partial failures; resume only from durable verified checkpoints.",
+        "Test path traversal, unsupported format, oversized input, malicious fields, cross-tenant references, duplicate run, crash, restart, cleanup, search outage, and rollback.",
+        "Monitor run state, throughput, counts, validation categories, checkpoint age, retries, destination delivery, derived lag, and retained artifacts with runbooks."
+      ]
+    },
+    {
+      "heading": "Definition checklist",
+      "items": [
+        "Stable name, owner, active state, tenant/module scope, permissions, and trigger.",
+        "Trusted source or governed destination alias.",
+        "Format, version, schema/service/index target, mapping, processors, validators, interceptors, and operation.",
+        "Count, size, extension, query, field, batch, timeout, retry, idempotency, and checksum limits.",
+        "Diagnostics, run history, audit, reconciliation, rollback, retention, and cleanup."
+      ]
+    },
+    {
+      "heading": "Test checklist",
+      "items": [
+        "Positive valid and repeat runs.",
+        "Negative malformed, unauthorized, cross-tenant, duplicate, oversized, unsupported, and provider-failure cases.",
+        "Empty, maximum, batch, streaming, timeout, retry, restart, and partial-failure boundaries.",
+        "Schema/search/cache/event/job/workflow/publishing integration.",
+        "Live provider, security, performance, recovery, compatibility, and regression."
+      ]
+    }
   ]
 }

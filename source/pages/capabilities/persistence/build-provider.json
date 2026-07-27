@@ -6,7 +6,12 @@
   "family": "configuration-customization",
   "parent": "page:capability.persistence.overview",
   "order": 20,
-  "audiences": ["developer", "architect", "framework-maintainer", "ai-tool"],
+  "audiences": [
+    "developer",
+    "architect",
+    "framework-maintainer",
+    "ai-tool"
+  ],
   "readerIntent": "Add a database engine behind existing Nodics contracts.",
   "priorKnowledge": "Know the generic database contract and target provider.",
   "depth": "guided",
@@ -14,10 +19,102 @@
   "owner": "A reusable provider module or customer-project adapter module",
   "lastVerified": "2026-07-26",
   "summary": "A new adapter registers provider configuration and implements connection, schema, model, query, middleware, and transaction capabilities without changing generic DAO or generated CRUD callers.",
-  "supportingEvidence": ["nodics:gFramework/nDatabase/README.md", "nodics:gFramework/nDatabase/database/README.md", "nodics:gFramework/nDatabase/mongodb/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nDatabase/README.md",
+    "nodics:gFramework/nDatabase/database/README.md",
+    "nodics:gFramework/nDatabase/mongodb/README.md"
+  ],
   "sections": [
-    {"heading": "Implementation path", "items": ["Audit existing providers and extension slots first.", "Create an owned provider module at the reusable or customer-project layer.", "Declare databaseType, handlers, connection aliases, pooling, deadlines, capabilities, and provider options in layered properties.", "Implement connection, schema, model, interceptor, query, and transaction mappings behind the provider-neutral interfaces.", "Preserve tenant/module resolution, schema access policy, validation, middleware, diagnostics, cleanup, and normalized errors.", "Document configuration, limitations, migrations, operations, and supported versions."]},
-    {"heading": "Never place here", "items": ["Business schema ownership or business validation.", "Customer endpoints, database names, credentials, wallets, or certificates in source.", "Provider branches inside generic DAO services.", "A direct database client in a business module."]},
-    {"heading": "Proof", "items": ["Contract and invalid-configuration tests.", "Tenant and module isolation.", "CRUD, query, index, relationship, middleware, and transaction behavior.", "Outage, retry, reconnect, partial failure, cleanup, and shutdown.", "Live performance, backup, restore, failover, upgrade, and security qualification."]}
+    {
+      "heading": "Implementation path",
+      "items": [
+        "Audit existing providers and extension slots first.",
+        "Create an owned provider module at the reusable or customer-project layer.",
+        "Declare databaseType, handlers, connection aliases, pooling, deadlines, capabilities, and provider options in layered properties.",
+        "Implement connection, schema, model, interceptor, query, and transaction mappings behind the provider-neutral interfaces.",
+        "Preserve tenant/module resolution, schema access policy, validation, middleware, diagnostics, cleanup, and normalized errors.",
+        "Document configuration, limitations, migrations, operations, and supported versions."
+      ]
+    },
+    {
+      "heading": "Never place here",
+      "items": [
+        "Business schema ownership or business validation.",
+        "Customer endpoints, database names, credentials, wallets, or certificates in source.",
+        "Provider branches inside generic DAO services.",
+        "A direct database client in a business module."
+      ]
+    },
+    {
+      "heading": "Proof",
+      "items": [
+        "Contract and invalid-configuration tests.",
+        "Tenant and module isolation.",
+        "CRUD, query, index, relationship, middleware, and transaction behavior.",
+        "Outage, retry, reconnect, partial failure, cleanup, and shutdown.",
+        "Live performance, backup, restore, failover, upgrade, and security qualification."
+      ]
+    },
+    {
+      "heading": "Start from the neutral contract",
+      "paragraphs": [
+        "Inventory every connection, schema, model, query, index, middleware, transaction, lifecycle, error, and diagnostic operation the provider-neutral layer expects. Record which target-engine features map directly, require adaptation, or cannot be supported.",
+        "Do not design the neutral contract around one new vendor shortcut. Capability changes require separate cross-provider governance."
+      ]
+    },
+    {
+      "heading": "Provider registration and configuration",
+      "items": [
+        "Register a stable provider type and handler ownership.",
+        "Define connection aliases, endpoints, authentication references, TLS, pools, deadlines, and provider options in properties.",
+        "Publish capability flags for transactions, bulk behavior, migrations, indexes, and other optional features.",
+        "Validate configuration before opening connections.",
+        "Keep all credentials and machine-specific paths outside source."
+      ]
+    },
+    {
+      "heading": "Schema and model translation",
+      "items": [
+        "Map Nodics types and constraints without silently weakening them.",
+        "Create indexes through deterministic provider behavior.",
+        "Preserve stable identifiers, tenant scope, middleware, timestamps, and lifecycle fields.",
+        "Normalize query, pagination, sorting, relationship, and transaction results.",
+        "Reject unsupported behavior with a registered explicit status."
+      ]
+    },
+    {
+      "heading": "Lifecycle and resilience",
+      "paragraphs": [
+        "Open each required unique connection once, expose readiness only after qualification, apply bounded timeouts, and close owned resources on shutdown. Reconnect behavior distinguishes required from optional dependencies.",
+        "Retry only operations proven safe or idempotent. A provider must not repeat an uncertain write merely because the network response was lost."
+      ]
+    },
+    {
+      "heading": "Error and observability mapping",
+      "items": [
+        "Translate vendor errors to normalized categories while retaining safe causal context.",
+        "Never expose connection strings, credentials, raw records, or unrestricted vendor responses.",
+        "Emit connection, pool, latency, conflict, timeout, retry, and transaction signals.",
+        "Include safe provider type, operation, module, tenant dimension, and correlation.",
+        "Document diagnostic differences among provider versions."
+      ]
+    },
+    {
+      "heading": "Compatibility and rollout",
+      "items": [
+        "Declare supported Node.js, driver, server, topology, and feature versions.",
+        "Test existing schemas and generated CRUD without provider-specific changes.",
+        "Provide migration, coexistence, cutover, rollback, backup, and restore guidance.",
+        "Qualify performance with representative models and query shapes.",
+        "Keep the existing provider available until the new path proves equivalent for required behavior."
+      ]
+    },
+    {
+      "heading": "Completion gate",
+      "paragraphs": [
+        "A provider is complete only when business modules require no vendor branches, all applicable neutral contracts pass against a live target, unsupported behavior is explicit, and operators can secure, monitor, recover, and upgrade it.",
+        "Repository presence or successful connection alone is not production maturity."
+      ]
+    }
   ]
 }

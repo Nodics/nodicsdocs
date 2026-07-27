@@ -1,1 +1,83 @@
-{"code":"capability.commerce.technical-reference","title":"Commerce Technical Reference","route":"/docs/reference/commerce","section":"reference","family":"technical-reference","parent":"page:capability.commerce.overview","order":70,"audiences":["developer","architect","operator","framework-maintainer","ai-tool"],"readerIntent":"Audit the composed commerce contract without merging capability ownership.","priorKnowledge":"Read the commerce journey.","depth":"reference","status":"implemented","owner":"Storefront, Store, Product, Pricing, Inventory, Units, workflow, publishing, cache, and search owners","lastVerified":"2026-07-26","summary":"Commerce integration passes stable identities and verified context between modules; no module writes another capability's models directly.","supportingEvidence":["nodics:gExp/storefront/README.md","nodics:gComm/store/README.md","nodics:gComm/product/README.md","nodics:gComm/pricing/README.md","nodics:gComm/inventory/README.md","nodics:gCore/units/README.md"],"sections":[{"heading":"Contract checklist","items":["Tenant, enterprise, Site, Store, country, channel, locale, currency, catalog, customer/segment, product/variant, unit, and time context.","Stable cross-module references and audience-bound Storefront handle.","Independent authorization, validation, persistence, cache, search, version, workflow, and publishing authority.","Staged/Online topology, target transport, derived refresh, audit, reconciliation, rollback, and compensation.","Positive, negative, boundary, contract, integration, cross-tenant, performance, failure, security, and regression tests."]}]}
+{
+  "code": "capability.commerce.technical-reference",
+  "title": "Commerce Technical Reference",
+  "route": "/docs/reference/commerce",
+  "section": "reference",
+  "family": "technical-reference",
+  "parent": "page:capability.commerce.overview",
+  "order": 70,
+  "audiences": [
+    "developer",
+    "architect",
+    "operator",
+    "framework-maintainer",
+    "ai-tool"
+  ],
+  "readerIntent": "Audit the composed commerce contract without merging capability ownership.",
+  "priorKnowledge": "Read the commerce journey.",
+  "depth": "reference",
+  "status": "implemented",
+  "owner": "Storefront, Store, Product, Pricing, Inventory, Units, workflow, publishing, cache, and search owners",
+  "lastVerified": "2026-07-26",
+  "summary": "Commerce integration passes stable identities and verified context between modules; no module writes another capability's models directly.",
+  "supportingEvidence": [
+    "nodics:gExp/storefront/README.md",
+    "nodics:gComm/store/README.md",
+    "nodics:gComm/product/README.md",
+    "nodics:gComm/pricing/README.md",
+    "nodics:gComm/inventory/README.md",
+    "nodics:gCore/units/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Capability ownership",
+      "items": [
+        "Storefront owns hostname and website context, Store owns commercial touchpoints, Product owns identity and catalog data, Pricing owns monetary resolution, and Inventory owns stock.",
+        "Units owns reusable measurement semantics, CMS owns presentation content, Workflow owns approval, and nPublish owns staged-to-Online orchestration.",
+        "Composition happens through authenticated contracts; BackOffice and Storefront do not proxy every business operation or duplicate authoritative records."
+      ]
+    },
+    {
+      "heading": "Context and resolution",
+      "items": [
+        "Trusted context can include tenant, enterprise, site, Store, country, region, channel, locale, currency, customer, segment, catalog, and effective time.",
+        "A hostname narrows context through Storefront configuration. Browser values cannot broaden tenant, select another site's catalog, or claim customer-specific price eligibility.",
+        "Pricing and Inventory independently validate the context dimensions relevant to their decisions and return provenance-safe explanations."
+      ]
+    },
+    {
+      "heading": "Authoring and delivery",
+      "items": [
+        "Business users author versioned capabilities in staged catalogs where configured, associate exact changed items with workflows, and publish approved versions to separate Online targets.",
+        "Online services use database authority with bounded cache and search projections for traffic. Invalidation and indexing follow successful authoritative persistence.",
+        "Different sites under one enterprise can use separate content and product catalogs, Stores, prices, and warehouse sourcing while sharing selected capabilities deliberately."
+      ]
+    },
+    {
+      "heading": "Consistency and failure",
+      "items": [
+        "A product may exist without price or stock; missing optional content may degrade, while ambiguous price or uncertain stock commitment follows explicit failure policy.",
+        "Reservations, allocations, movements, transfers, and reconciliation use concurrency and idempotency. Prices use deterministic eligibility, priority, specificity, currency, unit, and date.",
+        "Derived cache or search outage never silently changes authoritative Product, Price, or Stock data and must be recoverable by rebuild or reconciliation."
+      ]
+    },
+    {
+      "heading": "Verification checklist",
+      "items": [
+        "Test multi-site, multi-store, multi-country, multi-zone, customer segment, unit, quantity tier, effective date, staged/Online, and cross-tenant scenarios.",
+        "Test context spoofing, missing and ambiguous data, duplicate commands, concurrent orders, provider outages, partial publishing, cache/search recovery, reconciliation, and rollback.",
+        "Measure customer latency, price and stock resolution, reservation contention, publication and projection lag, dependency health, and business correctness under load."
+      ]
+    },
+    {
+      "heading": "Contract checklist",
+      "items": [
+        "Tenant, enterprise, Site, Store, country, channel, locale, currency, catalog, customer/segment, product/variant, unit, and time context.",
+        "Stable cross-module references and audience-bound Storefront handle.",
+        "Independent authorization, validation, persistence, cache, search, version, workflow, and publishing authority.",
+        "Staged/Online topology, target transport, derived refresh, audit, reconciliation, rollback, and compensation.",
+        "Positive, negative, boundary, contract, integration, cross-tenant, performance, failure, security, and regression tests."
+      ]
+    }
+  ]
+}

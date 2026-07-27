@@ -1,1 +1,92 @@
-{"code":"capability.commerce.overview","title":"Modular Commerce","route":"/docs/capabilities/commerce","section":"capabilities","family":"overview-business-value","parent":"page:framework.architecture","order":210,"audiences":["evaluator","business-user","administrator","developer","architect","operator","ai-tool"],"readerIntent":"Understand how separate commerce authorities compose one customer experience.","priorKnowledge":"Understand tenants, enterprises, catalogs, publishing, cache, and search.","depth":"overview","status":"implemented","owner":"Storefront, Store, Product, Pricing, Inventory, Units, and publishing capability owners","lastVerified":"2026-07-26","summary":"Nodics composes website context, stores, products, prices, and stock at runtime while each capability retains its own schemas, services, policies, publishing, and operational authority.","supportingEvidence":["nodics:gExp/storefront/README.md","nodics:gComm/store/README.md","nodics:gComm/product/README.md","nodics:gComm/pricing/README.md","nodics:gComm/inventory/README.md","nodics:gCore/units/README.md"],"sections":[{"heading":"Why separate authorities matter","items":["A product can exist without a price or current stock.","Prices vary by enterprise, website, store, country, channel, segment, customer, quantity, currency, and time.","Stock belongs to warehouse/pool balances and sourcing policy, not the product record.","Storefront resolves trusted website context but does not own Store, CMS, Pricing, or Inventory data.","Units provide reusable measurement semantics without becoming a commerce business service."]},{"heading":"Commerce journey","items":["Resolve hostname to Storefront Site and trusted context.","Load the applicable content and product catalogs.","Resolve Product identity and merchandising data.","Resolve the best eligible Price from governed scopes and priority.","Source available Stock from eligible warehouses/pools and units.","Serve online projections from cache/search while authoritative modules remain recoverable."]},{"heading":"Continue","items":["[Storefront and Website Resolution](/docs/capabilities/commerce/storefront)","[Stores and Warehouses](/docs/capabilities/commerce/stores-warehouses)","[Product Catalog](/docs/capabilities/commerce/products)","[Pricing Resolution](/docs/capabilities/commerce/pricing)","[Stock and Units](/docs/capabilities/commerce/stock-units)","[End-to-End Commerce Publishing](/docs/capabilities/commerce/end-to-end)"]}]}
+{
+  "code": "capability.commerce.overview",
+  "title": "Modular Commerce",
+  "route": "/docs/capabilities/commerce",
+  "section": "capabilities",
+  "family": "overview",
+  "parent": "section:capabilities",
+  "order": 210,
+  "audiences": [
+    "evaluator",
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Understand how separate commerce authorities compose one customer experience.",
+  "priorKnowledge": "Understand tenants, enterprises, catalogs, publishing, cache, and search.",
+  "depth": "overview",
+  "status": "implemented",
+  "owner": "Storefront, Store, Product, Pricing, Inventory, Units, and publishing capability owners",
+  "lastVerified": "2026-07-26",
+  "summary": "Nodics composes website context, stores, products, prices, and stock at runtime while each capability retains its own schemas, services, policies, publishing, and operational authority.",
+  "supportingEvidence": [
+    "nodics:gExp/storefront/README.md",
+    "nodics:gComm/store/README.md",
+    "nodics:gComm/product/README.md",
+    "nodics:gComm/pricing/README.md",
+    "nodics:gComm/inventory/README.md",
+    "nodics:gCore/units/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "What is Modular Commerce?",
+      "paragraphs": [
+        "Commerce is the set of business capabilities used to describe what is sold, where it is offered, what it costs, whether it is available, and how a customer can obtain it. Electronic commerce, or eCommerce, performs those activities through websites, mobile experiences, marketplaces, APIs, and connected operational systems.",
+        "A shopper may see one product card, but the answer is composed from separate authorities: Product identifies the item, Pricing determines the applicable price, Inventory determines availability, Store and Storefront determine the selling context, and publishing moves approved staged data online."
+      ]
+    },
+    {
+      "heading": "Why separate authorities matter",
+      "items": [
+        "A product can exist without a price or current stock.",
+        "Prices vary by enterprise, website, store, country, channel, segment, customer, quantity, currency, and time.",
+        "Stock belongs to warehouse/pool balances and sourcing policy, not the product record.",
+        "Storefront resolves trusted website context but does not own Store, CMS, Pricing, or Inventory data.",
+        "Units provide reusable measurement semantics without becoming a commerce business service."
+      ]
+    },
+    {
+      "heading": "Authoring and online delivery",
+      "items": [
+        "Business users work in staged catalogs where versioned changes can be associated with workflows. Workflow actions may be manual or automatic and culminate in governed nPublish deployment.",
+        "The Online target is a separate runtime or schema designed for customer traffic. It receives the approved representation, then refreshes derived search and cache projections without making those projections authoritative.",
+        "This pattern applies independently to content, products, prices, stores, and versioned inventory configuration. Each capability owns its schema, validation, publication adapter, and recovery behavior.",
+        "A failure after authoritative Online persistence is reconciled differently from a failure before persistence. Operators need item/version identity, target, attempt, and derived-state evidence to recover safely."
+      ]
+    },
+    {
+      "heading": "Commerce journey",
+      "items": [
+        "Resolve hostname to Storefront Site and trusted context.",
+        "Load the applicable content and product catalogs.",
+        "Resolve Product identity and merchandising data.",
+        "Resolve the best eligible Price from governed scopes and priority.",
+        "Source available Stock from eligible warehouses/pools and units.",
+        "Serve online projections from cache/search while authoritative modules remain recoverable."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "items": [
+        "Storefront and Website Resolution",
+        "Stores and Warehouses",
+        "Product Catalog",
+        "Pricing Resolution",
+        "Stock and Units",
+        "End-to-End Commerce Publishing"
+      ]
+    },
+    {
+      "heading": "Multi-site example and governance",
+      "items": [
+        "One tenant and enterprise can operate apparel.nodics.com and electronics.nodics.com. Each hostname resolves to its own Storefront Site, content and product catalogs, Store, channel, language, and currency configuration.",
+        "The sites may share selected stores or services deliberately, but CMS ownership is not duplicated and one site cannot borrow another site's catalog merely because the browser supplied a different code.",
+        "Pricing can vary by site, Store, country, segment, or customer. Inventory can source different warehouse pools for each delivery zone. Product identity remains stable while these contextual decisions vary.",
+        "Enterprise acceptance covers correct context composition, cross-site and cross-tenant denial, missing prices or stock, partial dependency failure, cache/search recovery, performance under load, observability, and deterministic explanations."
+      ]
+    }
+  ]
+}

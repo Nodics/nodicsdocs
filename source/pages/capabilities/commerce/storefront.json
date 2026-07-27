@@ -1,1 +1,96 @@
-{"code":"capability.commerce.storefront","title":"Storefront and Website Resolution","route":"/docs/capabilities/commerce/storefront","section":"capabilities","family":"concepts-runtime","parent":"page:capability.commerce.overview","order":10,"audiences":["business-user","administrator","developer","architect","operator","ai-tool"],"readerIntent":"Configure several websites and stores for one tenant and enterprise.","priorKnowledge":"Understand Store, Site, CMS catalog, country, and channel concepts.","depth":"implementation","status":"implemented","owner":"Storefront owns hostname resolution and opaque trusted context; referenced modules retain their data","lastVerified":"2026-07-26","summary":"A hostname resolves to a configured Storefront Site, Store, enterprise, tenant, country, channel, locale, currency, and catalog context that downstream modules verify for their own audience.","supportingEvidence":["nodics:gExp/storefront/README.md","nodics:gComm/store/README.md"],"sections":[{"heading":"Two-website example","items":["apparel.nodics.com and electronics.nodics.com belong to the same tenant and enterprise.","Each hostname maps to its own Storefront Site and Store.","Each Site selects its intended CMS content catalog, product catalog, country, channel, locale, and currency.","The websites can have completely different templates and content while reusing platform modules.","One Site may intentionally serve several Stores without duplicating CMS ownership."]},{"heading":"Security and operations","items":["Clients receive an opaque context handle rather than choosing trusted tenant or sourcing rules.","Inventory, Pricing, Product, CMS, and other modules validate the handle for their own audience.","Hostname aliases, activation, cache TTL, invalidation, fallback, and ambiguity policy are configurable.","Unknown, duplicate, inactive, cross-tenant, spoofed, expired, and wrong-audience contexts fail safely."]}]}
+{
+  "code": "capability.commerce.storefront",
+  "title": "Storefront and Website Resolution",
+  "route": "/docs/capabilities/commerce/storefront",
+  "section": "capabilities",
+  "family": "runtime-behavior",
+  "parent": "page:capability.commerce.overview",
+  "order": 10,
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Configure several websites and stores for one tenant and enterprise.",
+  "priorKnowledge": "Understand Store, Site, CMS catalog, country, and channel concepts.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Storefront owns hostname resolution and opaque trusted context; referenced modules retain their data",
+  "lastVerified": "2026-07-26",
+  "summary": "A hostname resolves to a configured Storefront Site, Store, enterprise, tenant, country, channel, locale, currency, and catalog context that downstream modules verify for their own audience.",
+  "supportingEvidence": [
+    "nodics:gExp/storefront/README.md",
+    "nodics:gComm/store/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Two-website example",
+      "items": [
+        "apparel.nodics.com and electronics.nodics.com belong to the same tenant and enterprise.",
+        "Each hostname maps to its own Storefront Site and Store.",
+        "Each Site selects its intended CMS content catalog, product catalog, country, channel, locale, and currency.",
+        "The websites can have completely different templates and content while reusing platform modules.",
+        "One Site may intentionally serve several Stores without duplicating CMS ownership."
+      ]
+    },
+    {
+      "heading": "Security and operations",
+      "items": [
+        "Clients receive an opaque context handle rather than choosing trusted tenant or sourcing rules.",
+        "Inventory, Pricing, Product, CMS, and other modules validate the handle for their own audience.",
+        "Hostname aliases, activation, cache TTL, invalidation, fallback, and ambiguity policy are configurable.",
+        "Unknown, duplicate, inactive, cross-tenant, spoofed, expired, and wrong-audience contexts fail safely."
+      ]
+    },
+    {
+      "heading": "Resolution sequence",
+      "items": [
+        "Normalize the incoming host through approved proxy and host rules.",
+        "Find active alias and Site in the selected environment and tenant boundary.",
+        "Resolve Store and audience policy.",
+        "Validate enterprise, country, channel, locale, currency, and catalog relations.",
+        "Issue a bounded opaque context handle with expiry and audience.",
+        "Cache only under the complete resolution scope."
+      ]
+    },
+    {
+      "heading": "Downstream verification",
+      "paragraphs": [
+        "CMS, Product, Pricing, and Inventory verify the handle for their own audience and derive only the context they need. The browser cannot submit another Site's catalog or warehouse policy.",
+        "A handle valid for CMS presentation is not automatically valid for internal inventory administration."
+      ]
+    },
+    {
+      "heading": "Failure and fallback",
+      "items": [
+        "Unknown host fails with configured safe behavior.",
+        "Duplicate active aliases fail closed.",
+        "Inactive Site or Store is not resolved.",
+        "Missing required country, channel, currency, or catalog relation blocks activation or resolution.",
+        "Fallback Site or Store is used only through explicit bounded policy.",
+        "Expired or wrong-audience handle is rejected."
+      ]
+    },
+    {
+      "heading": "Cache and changes",
+      "paragraphs": [
+        "Alias, activation, relationship, country, channel, and policy changes invalidate affected resolution keys across nodes. TTL limits stale duration but does not replace invalidation.",
+        "During cache outage, Storefront resolves from its authority or fails according to policy; cached context never becomes configuration authority."
+      ]
+    },
+    {
+      "heading": "Operational evidence",
+      "items": [
+        "Resolution latency, hits, misses, ambiguity, inactive, and invalid context.",
+        "Host and audience security tests.",
+        "Cross-tenant, spoofed proxy, and cache-key isolation.",
+        "Alias update and distributed invalidation.",
+        "Downstream CMS, Product, Pricing, and Inventory acceptance.",
+        "Load, restart, provider outage, and regression."
+      ]
+    }
+  ]
+}

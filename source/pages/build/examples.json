@@ -6,7 +6,12 @@
   "family": "tutorial-example",
   "parent": "section:build",
   "order": 60,
-  "audiences": ["developer", "architect", "operator", "ai-tool"],
+  "audiences": [
+    "developer",
+    "architect",
+    "operator",
+    "ai-tool"
+  ],
   "readerIntent": "Choose the correct Nodics ownership and extension pattern for common changes.",
   "priorKnowledge": "Read application capability, API, customization, testing, and documentation guides.",
   "depth": "guided",
@@ -14,8 +19,32 @@
   "owner": "Nodics implementation guidance",
   "lastVerified": "2026-07-26",
   "summary": "Use these decision examples to place common changes in their existing authority instead of creating parallel implementations.",
-  "supportingEvidence": ["nodics:README.md", "nodics:gFramework/nConfig/README.md", "nodics:gFramework/nRouter/README.md", "nodics:gFramework/nDatabase/README.md"],
+  "supportingEvidence": [
+    "nodics:README.md",
+    "nodics:gFramework/nConfig/README.md",
+    "nodics:gFramework/nRouter/README.md",
+    "nodics:gFramework/nDatabase/README.md",
+    "nodics:gDocs/development/common-implementation-examples.md"
+  ],
   "sections": [
+    {
+      "heading": "Example: add a governed business field",
+      "items": [
+        "Define the business meaning, owner, data type, required and immutable behavior, visibility, write permissions, tenant scope, import/export representation, search need, and migration before editing a schema.",
+        "Add the field through the customer project's layered schema contribution and reuse generated item and search models. Put policy names in properties.js so another layer can customize them.",
+        "Exercise create, read, update, search, field masking, invalid input, unauthorized groups, legacy records, import, export, indexing, cache, API contract, and rollback.",
+        "Update the functional guide with a business example and the developer guide with configuration, extension, migration, testing, operations, and limitations."
+      ]
+    },
+    {
+      "heading": "Example: add an external provider",
+      "items": [
+        "Implement the provider-specific adapter behind the existing database, cache, search, event, or AI gateway and register capabilities without adding vendor branches to callers.",
+        "Configuration declares activation, connection secret references, limits, timeouts, retries, circuits, fallback, and provider-specific options; only one authoritative selection path resolves the active adapter.",
+        "Test normalized success, mapping, timeout, cancellation, partial failure, retry safety, outage, recovery, telemetry, security, compatibility, load, and cost where applicable.",
+        "Document local setup separately from production qualification and never commit machine paths, credentials, or insecure development switches."
+      ]
+    },
     {
       "heading": "Examples",
       "items": [
@@ -36,6 +65,288 @@
         "No duplicate loader, registry, persistence, workflow, API, or documentation authority exists.",
         "Positive, negative, boundary, contract, integration, resilience, and regression evidence is present.",
         "Canonical documentation and concise module README match the code."
+      ]
+    },
+    {
+      "heading": "Complete guide: Common Implementation Examples",
+      "migratedFrom": "nodics:gDocs/development/common-implementation-examples.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "This guide explains how to implement common Nodics changes without guessing where code belongs.",
+        "Use it when you need to create an API, create or change a schema, add a provider implementation, create a scheduled job, or change runtime configuration.",
+        "The same rule applies to every example:",
+        "```text\nCapabilities are sacred; implementations are negotiable.\n```",
+        "That means the capability contract must stay stable, while the implementation can come from framework modules, project modules, provider modules, environment modules, server modules, node modules, tenant configuration, or runtime governance."
+      ]
+    },
+    {
+      "heading": "How To Use These Examples",
+      "migratedFrom": "nodics:gDocs/development/common-implementation-examples.md",
+      "sourceAnchor": "how-to-use-these-examples",
+      "paragraphs": [
+        "Each example follows the same beginner-friendly pattern:",
+        "If an AI tool is helping, ask it to explain these ten points before it writes code. That makes the implementation easier to review and prevents new behavior from landing in a random helper file."
+      ],
+      "items": [
+        "Identify the business or platform capability.",
+        "Choose the owning module or later project layer.",
+        "Put each part of the change in the correct Nodics layer.",
+        "Keep configuration in `config/properties.js`.",
+        "Keep behavior in `src/service`.",
+        "Keep API request mapping in `src/controller`.",
+        "Keep orchestration in `src/facade`.",
+        "Keep route metadata in `src/router/routers.js`.",
+        "Keep data definitions in `src/schemas/schemas.js`.",
+        "Add tests and regenerate generated artifacts."
+      ]
+    },
+    {
+      "heading": "Quick Placement Map",
+      "migratedFrom": "nodics:gDocs/development/common-implementation-examples.md",
+      "sourceAnchor": "quick-placement-map",
+      "paragraphs": [
+        "| Change | Main files |\n| --- | --- |\n| New API | `src/router/routers.js`, `src/controller`, `src/facade`, `src/service`, tests |\n| New data model | `src/schemas/schemas.js`, `src/search/indexes.js` if searchable, tests |\n| New provider | Provider module `config/properties.js`, `src/service`, DAO/adapter files, tests |\n| New scheduled job | CronJob data/config, job service, optional pipeline/event hooks, tests |\n| New import rule | Import pipeline, interceptor, service, config, tests |\n| New cache behavior | Cache properties, route/schema/service cache metadata, invalidation tests |\n| New tenant-specific behavior | Tenant/runtime configuration plus tenant-aware service tests |\n| New documentation route or API contract behavior | Router metadata, OpenAPI generation, Swagger/docs tests |"
+      ]
+    },
+    {
+      "heading": "Before You Start",
+      "migratedFrom": "nodics:gDocs/development/common-implementation-examples.md",
+      "sourceAnchor": "before-you-start",
+      "paragraphs": [
+        "Describe the requirement in one sentence:",
+        "```text\nThis change allows <user or system> to <do something> so that <business outcome>.\n```",
+        "Then answer:",
+        "Do not write code until the owner and layer are clear."
+      ],
+      "items": [
+        "Which module owns this capability?",
+        "Is this framework behavior or project-specific behavior?",
+        "Is the change tenant-specific, environment-specific, server-specific, or node-specific?",
+        "Is this source behavior, generated behavior, configuration, data, documentation, or tests?",
+        "Which extension point lets a project change this later without editing framework files?"
+      ]
+    },
+    {
+      "heading": "Example Review Questions",
+      "migratedFrom": "nodics:gDocs/development/common-implementation-examples.md",
+      "sourceAnchor": "example-review-questions",
+      "paragraphs": [
+        "Before accepting a change from a human developer or AI tool, ask:"
+      ],
+      "items": [
+        "Did it name the owning module?",
+        "Did it avoid changing framework code for project-specific behavior?",
+        "Did it use standard folders and `module.exports`?",
+        "Did it keep permissions visible in route metadata?",
+        "Did it keep tenant-sensitive behavior tenant-aware?",
+        "Did it update generated artifacts when schemas or routes changed?",
+        "Did it include tests for success, failure, permission, tenant, and override behavior where relevant?",
+        "Did it update public docs, module README, and LLM context when behavior changed?"
+      ]
+    },
+    {
+      "heading": "Example 1: Create A New API",
+      "migratedFrom": "nodics:gDocs/development/common-implementation-examples.md",
+      "sourceAnchor": "example-1-create-a-new-api",
+      "paragraphs": [
+        "Use this when an external system, UI, service account, or user needs to call Nodics.",
+        "Typical files:",
+        "Implementation flow:",
+        "Verification:",
+        "```bash\nnpm run test:suite -- --suite=route-contracts\nnpm run test:generated\nnpm run llm:generate\nnpm run llm:validate\nnpm run quality:docs\n```",
+        "Beginner checklist:",
+        "and `apiExposure` when sensitive."
+      ],
+      "items": [
+        "`src/router/routers.js` for route metadata.",
+        "`src/controller` for request and response mapping.",
+        "`src/facade` when orchestration crosses service or module boundaries.",
+        "`src/service` for business behavior.",
+        "`config/properties.js` for permissions, policy defaults, limits, and feature flags.",
+        "`test` for route, controller, service, permission, and tenant tests.",
+        "Choose the owning module.",
+        "Define the route, method, permission, tenant behavior, and controller action.",
+        "Add controller mapping.",
+        "Add facade orchestration when needed.",
+        "Add service behavior using the standard `module.exports` function style.",
+        "Add or update schema definitions if the API stores new data.",
+        "Add tests for success, validation failure, permission failure, tenant behavior, and override behavior.",
+        "Regenerate documentation or generated artifacts when route/schema definitions change.",
+        "The route has a clear URL and HTTP method.",
+        "The route has `secured`, `accessGroups`, permission or `permissionConfig`,",
+        "The controller only maps request data into Nodics context.",
+        "The service owns the business behavior.",
+        "Swagger/OpenAPI reflects the route after `npm run docs:openapi`."
+      ]
+    },
+    {
+      "heading": "Example 2: Create Or Change A Schema",
+      "migratedFrom": "nodics:gDocs/development/common-implementation-examples.md",
+      "sourceAnchor": "example-2-create-or-change-a-schema",
+      "paragraphs": [
+        "Use this when a feature needs a new model, field, generated CRUD API, import/export target, or searchable data.",
+        "Typical files:",
+        "Implementation flow:",
+        "Verification:",
+        "```bash\nnpm run clean\nnpm run build\nnpm run test:generated\nnpm run test:basic\nnpm run docs:openapi\nnpm run llm:generate\nnpm run llm:validate\n```",
+        "Never edit generated model, API, or test files as the source of truth. Change the source schema and regenerate.",
+        "Beginner checklist:"
+      ],
+      "items": [
+        "`src/schemas/schemas.js` for schema definitions.",
+        "`src/search/indexes.js` for search index definitions.",
+        "`src/utils/enums.js` for controlled value lists.",
+        "`src/utils/statusDefinitions.js` for lifecycle states.",
+        "`src/interceptors` for lifecycle protection.",
+        "`src/service` for business rules.",
+        "`test` for generated and focused behavior.",
+        "Choose the module that owns the business meaning of the data.",
+        "Add or update the schema definition.",
+        "Add indexes, status definitions, enums, interceptors, services, import/export definitions, or access policy only when the schema needs them.",
+        "Rebuild generated artifacts.",
+        "Add tests for generated CRUD behavior, required fields, tenant isolation, access policy, import/export, search, and override behavior.",
+        "Update module README and public docs when the data model is user-facing.",
+        "The schema belongs to the module that owns the business meaning.",
+        "Required fields, defaults, enums, and validators are documented.",
+        "Generated CRUD APIs are enabled only when they should be exposed.",
+        "Import/export/search behavior is updated when the schema participates in those flows.",
+        "Project overrides have tests based on the effective schema, not only the framework default."
+      ]
+    },
+    {
+      "heading": "Example 3: Add A Provider Implementation",
+      "migratedFrom": "nodics:gDocs/development/common-implementation-examples.md",
+      "sourceAnchor": "example-3-add-a-provider-implementation",
+      "paragraphs": [
+        "Use this when a project needs a new database, cache engine, search engine, message broker, storage provider, email provider, payment gateway, or external adapter.",
+        "Typical files:",
+        "Implementation flow:",
+        "Verification:",
+        "```bash\nnpm run test:config\nnpm run test:basic\nnpm run llm:generate\nnpm run llm:validate\nnpm run quality:docs\n```",
+        "Do not make normal basic tests depend on live Redis, Kafka, Oracle, Elasticsearch, or any other external provider.",
+        "Beginner checklist:"
+      ],
+      "items": [
+        "provider module `package.json` and `nodics.js`;",
+        "provider module `config/properties.js`;",
+        "provider services under `src/service`;",
+        "provider-specific handlers, DAOs, exporters, indexers, or adapters;",
+        "provider tests under `test`;",
+        "provider README and LLM context.",
+        "Identify the provider-neutral capability module, such as database, search, cache, or messaging.",
+        "Put provider-specific behavior in a provider module or project module.",
+        "Add provider activation and connection defaults in `config/properties.js`.",
+        "Keep endpoints, credentials, database names, queue names, indexes, pools, retry policy, and secret paths out of source code.",
+        "Implement provider behavior through the existing capability contract.",
+        "Add deterministic tests that do not require live external infrastructure.",
+        "Add optional live-provider tests behind an explicit integration or release gate.",
+        "Document how projects activate and override the provider.",
+        "Generic business services do not call the provider library directly.",
+        "Provider credentials and endpoints are configuration, not hardcoded strings.",
+        "Provider-specific behavior is isolated behind a provider module or project provider module.",
+        "Deterministic tests run without live infrastructure.",
+        "Optional live tests are clearly gated."
+      ]
+    },
+    {
+      "heading": "Example 4: Create A Scheduled Job",
+      "migratedFrom": "nodics:gDocs/development/common-implementation-examples.md",
+      "sourceAnchor": "example-4-create-a-scheduled-job",
+      "paragraphs": [
+        "Use this when work must run periodically, such as cleanup, retries, notifications, imports, exports, synchronization, or batch processing.",
+        "Typical files:",
+        "Implementation flow:",
+        "Verification:",
+        "```bash\nnpm run test:cronjob\nnpm run test:basic\nnpm run llm:generate\nnpm run llm:validate\nnpm run quality:docs\n```",
+        "Run topology tests when the job must behave differently across multiple servers or nodes.",
+        "Beginner checklist:"
+      ],
+      "items": [
+        "`config/properties.js` for schedule defaults, enablement, retry, and node responsibility.",
+        "module-owned data for baseline CronJob records when needed.",
+        "`src/service` for job behavior.",
+        "`src/pipelines`, `src/interceptors`, or `src/event` when the job is part of a larger process.",
+        "`test` for schedule, service, tenant, topology, and failure behavior.",
+        "Choose the module that owns the scheduled business process.",
+        "Define schedule, enablement, retry, and node/server responsibility.",
+        "Add job behavior in a loader-visible service.",
+        "Call existing Nodics services for import/export/search/cache/events instead of direct provider libraries.",
+        "Add diagnostics and audit where the job changes data.",
+        "Add tests for disabled behavior, responsible-node behavior, success, failure, retry, tenant behavior, and override behavior.",
+        "The job has a clear owner and purpose.",
+        "The schedule and enablement are configurable.",
+        "Node responsibility is explicit when multiple nodes can run.",
+        "Job behavior uses services instead of direct provider calls.",
+        "Failure, retry, audit, and tenant behavior are tested."
+      ]
+    },
+    {
+      "heading": "Example 5: Change Runtime Configuration",
+      "migratedFrom": "nodics:gDocs/development/common-implementation-examples.md",
+      "sourceAnchor": "example-5-change-runtime-configuration",
+      "paragraphs": [
+        "Use this when behavior should change by project, environment, server, node, tenant, or runtime activation.",
+        "Typical files:",
+        "Implementation flow:",
+        "Verification:",
+        "```bash\nnpm run test:config\nnpm run test:dynamo\nnpm run llm:generate\nnpm run llm:validate\nnpm run quality:docs\n```",
+        "Do not create parallel configuration files when the value belongs in `config/properties.js`.",
+        "Beginner checklist:"
+      ],
+      "items": [
+        "`config/properties.js` for default property ownership.",
+        "runtime governance services when the value is mutable after deployment.",
+        "tests for property resolution and runtime activation.",
+        "module README and public docs when the setting affects users or operations.",
+        "Identify the owning module and property namespace.",
+        "Add or update the default value in `config/properties.js`.",
+        "Resolve the property through existing configuration or runtime governance services.",
+        "Add validation for shape, type, range, tenant scope, and secret safety.",
+        "Add preview, approval, activation, audit, and rollback when the setting is mutable in production.",
+        "Add tests for default resolution, project/environment/server/node override resolution, tenant override resolution, invalid values, and rollback.",
+        "The property namespace belongs to the module that owns the capability.",
+        "Defaults are source-controlled.",
+        "Mutable runtime changes use preview, approval, activation, audit, and rollback when required.",
+        "Secret values are not stored in source-controlled configuration.",
+        "Tests prove default, override, invalid, and rollback behavior."
+      ]
+    },
+    {
+      "heading": "Common Verification Checklist",
+      "migratedFrom": "nodics:gDocs/development/common-implementation-examples.md",
+      "sourceAnchor": "common-verification-checklist",
+      "paragraphs": [
+        "Before committing a functional change, run the smallest relevant test first and then the governance checks required by the change:",
+        "```bash\nnpm run ai:validate\nnpm run ai:principle-audit\nnpm run llm:generate\nnpm run llm:validate\nnpm run quality:docs\n```",
+        "Use broader suites such as `npm run test:basic`, `npm run test:full`, or release-grade integration gates when the change affects shared framework behavior, topology, external providers, generated artifacts, security, tenant isolation, or runtime governance."
+      ]
+    },
+    {
+      "heading": "What To Avoid",
+      "migratedFrom": "nodics:gDocs/development/common-implementation-examples.md",
+      "sourceAnchor": "what-to-avoid",
+      "paragraphs": [
+        "Avoid:"
+      ],
+      "items": [
+        "changing framework files for customer-specific behavior;",
+        "creating custom folders that Nodics loaders cannot see;",
+        "hardcoding permissions, provider choices, endpoints, credentials, schedules, or policy values;",
+        "bypassing services, facades, pipelines, interceptors, or runtime governance;",
+        "editing generated artifacts manually;",
+        "adding behavior without tests;",
+        "updating public behavior without updating documentation and generated LLM context."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/development/common-implementation-examples.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "Previous: [How To Customize And Extend Nodics](/docs/build/customization)",
+        "Next: [How To Create APIs](/docs/build/apis)",
+        "Terminology: [Nodics Glossary](/docs/reference/glossary)",
+        "Documentation home: [Nodics Documentation](/docs)"
       ]
     }
   ]

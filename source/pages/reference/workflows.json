@@ -1,1 +1,78 @@
-{"code":"capability.workflows.technical-reference","title":"Workflow Technical Reference","route":"/docs/reference/workflows","section":"reference","family":"technical-reference","parent":"page:capability.workflows.overview","order":20,"audiences":["developer","architect","operator","framework-maintainer","ai-tool"],"readerIntent":"Audit durable process definitions and execution evidence.","priorKnowledge":"Read the workflow journey.","depth":"reference","status":"implemented","owner":"Application workflow family and generic nbpm integration","lastVerified":"2026-07-26","summary":"Every process defines version, graph, actions, channels, actors, durable state, context, side effects, recovery, retention, and tests.","supportingEvidence":["nodics:gCore/workflow/README.md","nodics:gFramework/nbpm/README.md"],"sections":[{"heading":"Checklist","items":["Definition/version, carrier/items, head, allowed graph, actions, channels, splits, aggregation, and terminals.","Manual/automatic type, authorization, service identity, tenant context, input/output, timeout, retry, idempotency, and cost.","Events, target modules, external APIs/AI, compensation, reconciliation, cancellation, late events, retention, and audit.","Positive, negative, boundary, permission, tenant, transition, decision, event, concurrency, restart, performance, integration, and regression tests."]}]}
+{
+  "code": "capability.workflows.technical-reference",
+  "title": "Workflow Technical Reference",
+  "route": "/docs/reference/workflows",
+  "section": "reference",
+  "family": "technical-reference",
+  "parent": "page:capability.workflows.overview",
+  "order": 20,
+  "audiences": [
+    "developer",
+    "architect",
+    "operator",
+    "framework-maintainer",
+    "ai-tool"
+  ],
+  "readerIntent": "Audit durable process definitions and execution evidence.",
+  "priorKnowledge": "Read the workflow journey.",
+  "depth": "reference",
+  "status": "implemented",
+  "owner": "Application workflow family and generic nbpm integration",
+  "lastVerified": "2026-07-26",
+  "summary": "Every process defines version, graph, actions, channels, actors, durable state, context, side effects, recovery, retention, and tests.",
+  "supportingEvidence": [
+    "nodics:gCore/workflow/README.md",
+    "nodics:gFramework/nbpm/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Authority and core model",
+      "items": [
+        "Workflow owns durable process carriers, action sequence, state, assignments, decisions, retries, and recovery. Target modules own the business records affected by actions.",
+        "A definition describes allowed actions and transitions; an instance binds exact business references, context, version, initiator, and current state.",
+        "An action may be manual or automatic. Manual does not mean the whole workflow is human-driven, and automation never grants the process additional authority."
+      ]
+    },
+    {
+      "heading": "Lifecycle and transitions",
+      "items": [
+        "Create validates definition, tenant, actor, referenced item versions, initial state, and idempotency before persisting a carrier.",
+        "Claim or assignment uses durable ownership and optimistic revision; completion records outcome and advances only through a permitted transition.",
+        "Pause, resume, reject, cancel, retry, expire, and complete are explicit states or transitions with policy, actor, timestamp, reason, and audit."
+      ]
+    },
+    {
+      "heading": "Execution boundaries",
+      "items": [
+        "Automatic actions invoke owning services with bounded service identity and idempotency. Manual actions require an authenticated permitted principal and cannot be self-approved by AI.",
+        "Publishing workflows carry exact content or product item versions to nPublish; Workflow does not copy publication transport or target persistence logic.",
+        "Assistant may propose or initiate a carrier after confirmation, observe authorized progress, and summarize outcomes, but Workflow remains the durable process authority."
+      ]
+    },
+    {
+      "heading": "Failure and recovery",
+      "items": [
+        "Classify validation, authorization, transient dependency, permanent business, cancellation, and uncertain outcome. Retry only when the action contract makes it safe.",
+        "A process crash releases or expires leases for recovery; completed action identity prevents duplicated effects when another node resumes.",
+        "Compensation is a modeled business action with its own authorization and evidence, not an implicit cross-module database rollback."
+      ]
+    },
+    {
+      "heading": "Verification and operations",
+      "items": [
+        "Test manual and automatic combinations, assignments, separation of duties, stale revision, duplicate completion, timeout, crash, rejection, cancellation, retry, compensation, and finalization.",
+        "Verify tenant isolation, referenced-version integrity, target denial, service token audience, audit reconstruction, safe notifications, retention, migration, and backward compatibility.",
+        "Monitor active and aged carriers, action duration, retries, failures, unassigned work, lease age, and uncertain outcomes with runbooks and bounded telemetry."
+      ]
+    },
+    {
+      "heading": "Checklist",
+      "items": [
+        "Definition/version, carrier/items, head, allowed graph, actions, channels, splits, aggregation, and terminals.",
+        "Manual/automatic type, authorization, service identity, tenant context, input/output, timeout, retry, idempotency, and cost.",
+        "Events, target modules, external APIs/AI, compensation, reconciliation, cancellation, late events, retention, and audit.",
+        "Positive, negative, boundary, permission, tenant, transition, decision, event, concurrency, restart, performance, integration, and regression tests."
+      ]
+    }
+  ]
+}

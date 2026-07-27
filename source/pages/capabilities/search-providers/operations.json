@@ -6,7 +6,11 @@
   "family": "operations-security-troubleshooting",
   "parent": "page:capability.search-indexing.overview",
   "order": 50,
-  "audiences": ["administrator", "security-reviewer", "operator"],
+  "audiences": [
+    "administrator",
+    "security-reviewer",
+    "operator"
+  ],
   "readerIntent": "Qualify, monitor, recover, and tune a configured search provider.",
   "priorKnowledge": "Know the selected engine, topology, tenant routing, mappings, and consistency policy.",
   "depth": "implementation",
@@ -54,6 +58,44 @@
       "heading": "Local versus production",
       "paragraphs": [
         "A locally running Elasticsearch instance proves integration mechanics only. Production qualification must cover authentication, encryption, supported versions, capacity, high availability, backup, recovery, monitoring, and incident procedures."
+      ]
+    },
+    {
+      "heading": "Capacity and performance",
+      "items": [
+        "Measure representative text, filter, sort, aggregation, and pagination queries.",
+        "Bound result windows, query complexity, bulk size, and concurrency.",
+        "Size shards, replicas, storage, memory, and headroom from measured workload.",
+        "Observe indexing pressure, merges, refresh cost, and query cache.",
+        "Run load and soak tests with tenant routing and expected growth."
+      ]
+    },
+    {
+      "heading": "Incident examples",
+      "items": [
+        "Red cluster: protect writes and queries according to policy, restore allocation, and verify consistency.",
+        "Indexing lag: identify authority throughput, queue, rejects, provider pressure, and retry state.",
+        "Mapping conflict: stop incompatible documents, version the mapping, reindex, and cut over safely.",
+        "Wrong-tenant result: disable affected search, preserve evidence, repair routing, and assess exposure.",
+        "Slow query: capture safe shape, inspect plan, bound behavior, and regression-test changes."
+      ]
+    },
+    {
+      "heading": "Backup and recovery",
+      "paragraphs": [
+        "Because search is derived, rebuilding from authoritative data is the primary correctness path. Engine snapshots can reduce recovery time but do not replace reconciliation.",
+        "Test snapshot restore, full reindex, alias recovery, permission checks, and recovery objectives with production-representative volume."
+      ]
+    },
+    {
+      "heading": "Readiness evidence",
+      "items": [
+        "Supported-version and provider maturity record.",
+        "Security and tenant-isolation review.",
+        "Load, soak, outage, node-loss, and recovery tests.",
+        "Reindex, alias rollback, and snapshot restore.",
+        "Dashboards, alerts, runbooks, on-call ownership, and capacity headroom.",
+        "Current limitations and requalification schedule."
       ]
     }
   ]

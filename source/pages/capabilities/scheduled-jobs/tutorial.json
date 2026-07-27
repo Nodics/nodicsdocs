@@ -6,7 +6,14 @@
   "family": "tutorial-example",
   "parent": "page:capability.scheduled-jobs.overview",
   "order": 15,
-  "audiences": ["business-user", "administrator", "developer", "architect", "operator", "ai-tool"],
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "operator",
+    "ai-tool"
+  ],
   "readerIntent": "Create a safe tenant-owned scheduled job and operate it through restart, failure, and recovery.",
   "priorKnowledge": "Understand services, service identity, tenant context, and runtime topology.",
   "depth": "guided",
@@ -14,7 +21,12 @@
   "owner": "CronJob owns scheduling and lifecycle; the selected handler or target module owns business behavior",
   "lastVerified": "2026-07-26",
   "summary": "Define an approved persisted job, implement business work in its owning service, assign eligible node placement, secure lifecycle commands, and prove idempotency, overlap, retry, restart, and reconciliation.",
-  "supportingEvidence": ["nodics:gCore/cronjob/README.md", "nodics:gFramework/nConfig/docs/runtime-lifecycle-resilience-contract.md", "nodics:gFramework/nService/README.md"],
+  "supportingEvidence": [
+    "nodics:gCore/cronjob/README.md",
+    "nodics:gFramework/nConfig/docs/runtime-lifecycle-resilience-contract.md",
+    "nodics:gFramework/nService/README.md",
+    "nodics:gDocs/jobs/how-to-create-scheduled-jobs.md"
+  ],
   "sections": [
     {
       "heading": "Example: reconcile stock reservations",
@@ -65,6 +77,329 @@
         "Start/end and timezone boundaries; duplicate definition; concurrent trigger; overlap denial; timeout; safe and unsafe retry; pagination; rate/capacity limits.",
         "Restart, drain, hard termination, node loss/return, delayed failure detection, downstream outage/recovery, temporary ownership, idempotency, reconciliation, and compensation.",
         "Contract, integration, modular topology, observability/redaction, performance, upgrade, and regression evidence."
+      ]
+    },
+    {
+      "heading": "Complete guide: How To Create Scheduled Jobs",
+      "migratedFrom": "nodics:gDocs/jobs/how-to-create-scheduled-jobs.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "Scheduled jobs are automated tasks that run at configured times.",
+        "Examples:"
+      ],
+      "items": [
+        "Clean expired tokens.",
+        "Send queued messages.",
+        "Import files from a trusted location.",
+        "Rebuild indexes.",
+        "Publish pending content.",
+        "Reconcile failed workflow items."
+      ]
+    },
+    {
+      "heading": "Beginner Summary",
+      "migratedFrom": "nodics:gDocs/jobs/how-to-create-scheduled-jobs.md",
+      "sourceAnchor": "beginner-summary",
+      "paragraphs": [
+        "A scheduled job is used when Nodics must do work without a user clicking a button or calling an API at that moment.",
+        "Think of a job as three parts:",
+        "| Part | Meaning |\n| --- | --- |\n| Definition | What the job is called, when it runs, whether it is active, and which module owns it. |\n| Handler | The small runtime function that starts the job work and records lifecycle events. |\n| Service | The real business behavior, such as import files, rebuild indexes, or send messages. |",
+        "Keep the service testable without waiting for the clock. The schedule triggers the service, but the service owns the business work."
+      ]
+    },
+    {
+      "heading": "CronJobs",
+      "migratedFrom": "nodics:gDocs/jobs/how-to-create-scheduled-jobs.md",
+      "sourceAnchor": "cronjobs",
+      "paragraphs": [
+        "CronJobs are Nodics scheduled tasks with persisted definitions, lifecycle operations, handlers, logs, route/service ownership, node responsibility, and tests.",
+        "A CronJob should not be only a timer in memory. It should have a definition that explains what runs, when it runs, who owns it, how it is started or stopped, how failures are recorded, and which server/node may execute it."
+      ]
+    },
+    {
+      "heading": "When To Use A Scheduled Job",
+      "migratedFrom": "nodics:gDocs/jobs/how-to-create-scheduled-jobs.md",
+      "sourceAnchor": "when-to-use-a-scheduled-job",
+      "paragraphs": [
+        "Use a scheduled job when work runs automatically without a user request.",
+        "Do not use a scheduled job when:"
+      ],
+      "items": [
+        "The work must happen immediately inside an API transaction.",
+        "The work belongs on an event.",
+        "The work belongs to a workflow step.",
+        "The work requires manual approval before every run."
+      ]
+    },
+    {
+      "heading": "What A Job Needs",
+      "migratedFrom": "nodics:gDocs/jobs/how-to-create-scheduled-jobs.md",
+      "sourceAnchor": "what-a-job-needs",
+      "paragraphs": [
+        "A scheduled job usually needs:",
+        "In Nodics, a scheduled job is a persisted platform capability. The job definition, trigger information, handler/service behavior, logs, and lifecycle state are visible and testable.",
+        "![CronJob Process](../assets/images/cron-job-process.jpg)"
+      ],
+      "items": [
+        "A name.",
+        "A schedule.",
+        "An owner module.",
+        "A service function to execute.",
+        "Configuration.",
+        "Permission or runtime guard rules when applicable.",
+        "Logs.",
+        "Failure handling.",
+        "Tests."
+      ]
+    },
+    {
+      "heading": "Node Ownership",
+      "migratedFrom": "nodics:gDocs/jobs/how-to-create-scheduled-jobs.md",
+      "sourceAnchor": "node-ownership",
+      "paragraphs": [
+        "In a multi-node application, not every node runs every job.",
+        "Document:",
+        "This is important because duplicate scheduled work can create duplicate data, repeated messages, or conflicting updates."
+      ],
+      "items": [
+        "Which server or node owns the job.",
+        "Whether failover is allowed.",
+        "Whether only one node can run it at a time.",
+        "What happens if the node stops during execution."
+      ]
+    },
+    {
+      "heading": "Job Implementation Pattern",
+      "migratedFrom": "nodics:gDocs/jobs/how-to-create-scheduled-jobs.md",
+      "sourceAnchor": "job-implementation-pattern",
+      "paragraphs": [
+        "Keep the actual business behavior in a service.",
+        "The job triggers the service. The service is testable without waiting for the schedule.",
+        "Recommended shape:"
+      ],
+      "items": [
+        "Job definition identifies when and where the job runs.",
+        "Job handler receives execution context.",
+        "Handler calls the owning service.",
+        "Service validates input and tenant context.",
+        "Service performs work.",
+        "Result is logged.",
+        "Failure is captured with diagnostics."
+      ]
+    },
+    {
+      "heading": "Job Lifecycle",
+      "migratedFrom": "nodics:gDocs/jobs/how-to-create-scheduled-jobs.md",
+      "sourceAnchor": "job-lifecycle",
+      "paragraphs": [
+        "A scheduled job usually moves through lifecycle actions:",
+        "Each lifecycle action has permission checks, diagnostics, and tests. Repeated startup does not create duplicate jobs.",
+        "![CronJob Lifecycle](../assets/images/cron-job-lifecycle.png)",
+        "CronJob lifecycle APIs are command APIs. They should use command-safe HTTP methods:",
+        "Do not expose lifecycle mutations through `GET`. A `GET` route can be retried, prefetched, cached, or called by monitoring tools as if it were read-only, so it must not change scheduler state."
+      ],
+      "items": [
+        "create or register the job definition;",
+        "start scheduling;",
+        "pause or stop scheduling;",
+        "run on demand when allowed;",
+        "update the definition;",
+        "remove or deactivate the definition;",
+        "capture logs and result state.",
+        "`POST` to create/register, run, start, stop, pause, and resume jobs;",
+        "`PATCH` to update job scheduling/runtime definitions;",
+        "`DELETE` to remove jobs from the runtime scheduler pool."
+      ]
+    },
+    {
+      "heading": "Creating A New Job",
+      "migratedFrom": "nodics:gDocs/jobs/how-to-create-scheduled-jobs.md",
+      "sourceAnchor": "creating-a-new-job",
+      "paragraphs": [
+        "Steps:"
+      ],
+      "items": [
+        "Decide which capability owns the job.",
+        "Add the job definition in that module.",
+        "Add or update configuration for the schedule.",
+        "Implement the service behavior.",
+        "Add logs and failure behavior.",
+        "Add tests for lifecycle, handler behavior, and node responsibility.",
+        "Document how to run, update, and disable the job."
+      ]
+    },
+    {
+      "heading": "Where To Write Job Code",
+      "migratedFrom": "nodics:gDocs/jobs/how-to-create-scheduled-jobs.md",
+      "sourceAnchor": "where-to-write-job-code",
+      "paragraphs": [
+        "| Need | Write here |\n| --- | --- |\n| Job definition or startup seed data | Owning module data/config area used by CronJob initialization |\n| Schedule, enablement, retry, node responsibility | Owning module or server/node `config/properties.js` |\n| Business behavior | Owning module `src/service/**/*Service.js` |\n| Process hooks around job execution | `src/pipelines`, `src/interceptors`, or `src/event` when the process needs them |\n| API lifecycle route changes | CronJob router/controller/facade/service layer |\n| Status values or enums | Owning module `src/utils/statusDefinitions.js` or `src/utils/enums.js` |\n| Tests | Owning module `test/` plus cronjob route/service/topology tests |",
+        "If an AI tool creates a job, ask it to identify each row it touched. If it puts the job body directly in a timer callback, ask it to move the behavior into a service."
+      ]
+    },
+    {
+      "heading": "Triggers And Handlers",
+      "migratedFrom": "nodics:gDocs/jobs/how-to-create-scheduled-jobs.md",
+      "sourceAnchor": "triggers-and-handlers",
+      "paragraphs": [
+        "The trigger decides when the job runs. The handler decides what work is executed.",
+        "Keep handlers small. A handler resolves context, calls the owning service, and records the result. The service contains the business behavior so it can be tested without waiting for the scheduler.",
+        "If a project needs to change a handler, add the override in a later module through the standard service/handler path. Do not edit framework cronjob behavior for one customer requirement."
+      ]
+    },
+    {
+      "heading": "Generalizing CronJobService",
+      "migratedFrom": "nodics:gDocs/jobs/how-to-create-scheduled-jobs.md",
+      "sourceAnchor": "generalizing-cronjobservice",
+      "paragraphs": [
+        "Generalize `CronJobService` behavior when a project needs to change the way jobs are created, scheduled, executed, logged, paused, resumed, retried, or removed while preserving the scheduled-job contract.",
+        "When generalizing:"
+      ],
+      "items": [
+        "keep lifecycle state consistent;",
+        "preserve tenant and node responsibility;",
+        "keep logs and diagnostics;",
+        "avoid duplicate scheduling on repeated startup;",
+        "keep handlers small and service-driven;",
+        "add tests for default and override behavior."
+      ]
+    },
+    {
+      "heading": "CronJob Handlers",
+      "migratedFrom": "nodics:gDocs/jobs/how-to-create-scheduled-jobs.md",
+      "sourceAnchor": "cronjob-handlers",
+      "paragraphs": [
+        "CronJob handlers are lifecycle hooks around scheduled execution. They should resolve context, call the owning service, record results, and pass errors to diagnostics."
+      ]
+    },
+    {
+      "heading": "handleCronJobStart",
+      "migratedFrom": "nodics:gDocs/jobs/how-to-create-scheduled-jobs.md",
+      "sourceAnchor": "handlecronjobstart",
+      "paragraphs": [
+        "Runs when a CronJob starts scheduling or execution. Use it to record start state, prepare context, and confirm the job is allowed to run on the current node."
+      ]
+    },
+    {
+      "heading": "handleCronJobEnd",
+      "migratedFrom": "nodics:gDocs/jobs/how-to-create-scheduled-jobs.md",
+      "sourceAnchor": "handlecronjobend",
+      "paragraphs": [
+        "Runs when a CronJob ends. Use it to finalize state, release resources, and record completion diagnostics."
+      ]
+    },
+    {
+      "heading": "handleCronJobPaused",
+      "migratedFrom": "nodics:gDocs/jobs/how-to-create-scheduled-jobs.md",
+      "sourceAnchor": "handlecronjobpaused",
+      "paragraphs": [
+        "Runs when scheduling is paused. Use it to record paused state and prevent new trigger execution without deleting the job definition."
+      ]
+    },
+    {
+      "heading": "handleCronJobResumed",
+      "migratedFrom": "nodics:gDocs/jobs/how-to-create-scheduled-jobs.md",
+      "sourceAnchor": "handlecronjobresumed",
+      "paragraphs": [
+        "Runs when scheduling resumes. Use it to re-enable trigger evaluation and record the resume action."
+      ]
+    },
+    {
+      "heading": "handleJobTriggered",
+      "migratedFrom": "nodics:gDocs/jobs/how-to-create-scheduled-jobs.md",
+      "sourceAnchor": "handlejobtriggered",
+      "paragraphs": [
+        "Runs when the schedule or manual run action triggers the job. Use it to capture trigger time, run id, tenant context, and node ownership before business behavior starts."
+      ]
+    },
+    {
+      "heading": "handleJobCompleted",
+      "migratedFrom": "nodics:gDocs/jobs/how-to-create-scheduled-jobs.md",
+      "sourceAnchor": "handlejobcompleted",
+      "paragraphs": [
+        "Runs after the job work completes. Use it to record result state, duration, output summary, and follow-up actions such as events or retries."
+      ]
+    },
+    {
+      "heading": "handleSuccess",
+      "migratedFrom": "nodics:gDocs/jobs/how-to-create-scheduled-jobs.md",
+      "sourceAnchor": "handlesuccess",
+      "paragraphs": [
+        "Runs when the job succeeds. Use it to record success-specific diagnostics and cleanup. Do not hide partial failures inside success; if record-level failures occurred, the job result should make that visible."
+      ]
+    },
+    {
+      "heading": "Generalizing Handlers",
+      "migratedFrom": "nodics:gDocs/jobs/how-to-create-scheduled-jobs.md",
+      "sourceAnchor": "generalizing-handlers",
+      "paragraphs": [
+        "Projects may override handlers through later modules when lifecycle behavior needs to change. Handler overrides must preserve lifecycle state, diagnostics, tenant context, node ownership, and failure propagation."
+      ]
+    },
+    {
+      "heading": "Testing Scheduled Jobs",
+      "migratedFrom": "nodics:gDocs/jobs/how-to-create-scheduled-jobs.md",
+      "sourceAnchor": "testing-scheduled-jobs",
+      "paragraphs": [
+        "Run scheduled-job tests through:",
+        "```bash\nnpm run test:suite -- --suite=cronjob\n```",
+        "The main test gate also includes scheduled-job coverage:",
+        "```bash\nnpm run test:basic\n```"
+      ]
+    },
+    {
+      "heading": "Executing or Scheduling CronJobs",
+      "migratedFrom": "nodics:gDocs/jobs/how-to-create-scheduled-jobs.md",
+      "sourceAnchor": "executing-or-scheduling-cronjobs",
+      "paragraphs": [
+        "CronJobs may run through startup scheduling, API-controlled lifecycle operations, or explicit service-triggered execution when allowed.",
+        "Common operations include:",
+        "Each operation should be permissioned, tenant-aware where applicable, observable, and tested. Do not execute the same job from multiple nodes unless the job is explicitly designed for parallel execution."
+      ],
+      "items": [
+        "start scheduling;",
+        "stop scheduling;",
+        "pause scheduling;",
+        "resume scheduling;",
+        "run once on demand;",
+        "update definition;",
+        "remove or deactivate definition;",
+        "inspect logs."
+      ]
+    },
+    {
+      "heading": "What To Avoid",
+      "migratedFrom": "nodics:gDocs/jobs/how-to-create-scheduled-jobs.md",
+      "sourceAnchor": "what-to-avoid",
+      "paragraphs": [
+        "Avoid:"
+      ],
+      "items": [
+        "Running the same job on multiple nodes unintentionally.",
+        "Hiding job behavior inside configuration only.",
+        "Creating jobs with no logs.",
+        "Swallowing failures.",
+        "Using jobs for work that belongs on an event.",
+        "Putting customer-specific job behavior into framework code."
+      ]
+    },
+    {
+      "heading": "Beginner Troubleshooting",
+      "migratedFrom": "nodics:gDocs/jobs/how-to-create-scheduled-jobs.md",
+      "sourceAnchor": "beginner-troubleshooting",
+      "paragraphs": [
+        "| Problem | Likely cause | What to check |\n| --- | --- | --- |\n| Job runs twice | More than one node owns the same job | Node responsibility and scheduler container tests |\n| Job never runs | Job disabled, wrong schedule, wrong node, or scheduler not started | Job definition, config, lifecycle state, logs |\n| Startup creates duplicates | Initializer is not idempotent | Job code uniqueness and startup tests |\n| Job succeeds but data is wrong | Business logic is hidden in handler or lacks tenant context | Move behavior to service and test tenant behavior |\n| Failure is invisible | Error was swallowed | Logs, result state, diagnostics, failure propagation |"
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/jobs/how-to-create-scheduled-jobs.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "Platform behavior: [How Platform Capabilities Work](/docs/framework/architecture)",
+        "Owning modules: [Module Documentation Index](/docs/reference/modules)",
+        "Testing: [How To Test Nodics Changes](/docs/build/testing)",
+        "Documentation home: [Nodics Documentation](/docs)"
       ]
     }
   ]

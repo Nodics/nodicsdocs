@@ -6,7 +6,12 @@
   "family": "configuration-customization",
   "parent": "page:capability.caching.overview",
   "order": 20,
-  "audiences": ["developer", "architect", "framework-maintainer", "ai-tool"],
+  "audiences": [
+    "developer",
+    "architect",
+    "framework-maintainer",
+    "ai-tool"
+  ],
   "readerIntent": "Add a cache engine without changing feature callers.",
   "priorKnowledge": "Know the generic cache adapter and target engine.",
   "depth": "guided",
@@ -14,10 +19,71 @@
   "owner": "Reusable provider or customer-project adapter module",
   "lastVerified": "2026-07-26",
   "summary": "A provider declares truthful capabilities and implements cache operations behind channel configuration, tenant keying, invalidation, diagnostics, and lifecycle contracts.",
-  "supportingEvidence": ["nodics:gFramework/nCache/README.md", "nodics:gFramework/nCache/cache/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nCache/README.md",
+    "nodics:gFramework/nCache/cache/README.md"
+  ],
   "sections": [
-    {"heading": "Implementation path", "items": ["Audit existing adapters before creating a provider.", "Create an owned adapter module.", "Declare engine activation, handlers, channel mapping, TTL, serialization, namespace, and capability flags in layered properties.", "Implement get, put, consume, invalidate, key flush, prefix flush, diagnostics, readiness, and close as supported.", "Preserve tenant/principal partitioning and central invalidation transport.", "Normalize failures and define channel-specific fallback or fail-closed behavior."]},
-    {"heading": "Configuration", "paragraphs": ["URLs, credentials, cluster members, namespaces, TLS, pool limits, and timeouts belong in layered or secret-governed configuration. Business services select logical channels, not vendor clients."]},
-    {"heading": "Proof", "items": ["Capability-declaration and invalid-configuration tests.", "Hit, miss, expiration, non-expiring, consume, serialization, and limits.", "Tenant and principal isolation.", "Cross-node invalidation, outage, reconnect, cleanup, and shutdown.", "Live load, eviction, recovery, security, and upgrade qualification."]}
+    {
+      "heading": "Implementation path",
+      "items": [
+        "Audit existing adapters before creating a provider.",
+        "Create an owned adapter module.",
+        "Declare engine activation, handlers, channel mapping, TTL, serialization, namespace, and capability flags in layered properties.",
+        "Implement get, put, consume, invalidate, key flush, prefix flush, diagnostics, readiness, and close as supported.",
+        "Preserve tenant/principal partitioning and central invalidation transport.",
+        "Normalize failures and define channel-specific fallback or fail-closed behavior."
+      ]
+    },
+    {
+      "heading": "Configuration",
+      "paragraphs": [
+        "URLs, credentials, cluster members, namespaces, TLS, pool limits, and timeouts belong in layered or secret-governed configuration. Business services select logical channels, not vendor clients."
+      ]
+    },
+    {
+      "heading": "Proof",
+      "items": [
+        "Capability-declaration and invalid-configuration tests.",
+        "Hit, miss, expiration, non-expiring, consume, serialization, and limits.",
+        "Tenant and principal isolation.",
+        "Cross-node invalidation, outage, reconnect, cleanup, and shutdown.",
+        "Live load, eviction, recovery, security, and upgrade qualification."
+      ]
+    },
+    {
+      "heading": "Neutral contract mapping",
+      "items": [
+        "Map get, put, delete, consume, key flush, prefix flush, expiry, and diagnostics.",
+        "Declare atomicity, maximum key and value, serialization, and cluster behavior truthfully.",
+        "Reject unsupported operations explicitly.",
+        "Preserve logical-channel policy and tenant-safe namespace.",
+        "Keep business callers unchanged."
+      ]
+    },
+    {
+      "heading": "Lifecycle and resilience",
+      "paragraphs": [
+        "Validate configuration, connect within a bounded startup policy, report readiness, reconnect safely, and close owned resources during shutdown. Required security-sensitive channels fail closed when the provider cannot meet their contract.",
+        "Retries must not duplicate consume-once or other non-idempotent operations."
+      ]
+    },
+    {
+      "heading": "Invalidation transport",
+      "paragraphs": [
+        "Distributed providers implement the central invalidation contract so successful authoritative changes reach all relevant nodes. Delivery is observable, bounded, and safe under duplicate messages.",
+        "A provider that cannot assure required invalidation is unsuitable for that channel even if get and put work."
+      ]
+    },
+    {
+      "heading": "Operational qualification",
+      "items": [
+        "Supported client, server, cluster, and protocol versions.",
+        "TLS, authentication, authorization, and credential rotation.",
+        "Latency, throughput, memory, eviction, payload, and connection limits.",
+        "Node loss, partition, reconnect, rebalance, restart, and upgrade.",
+        "Dashboards, alerts, runbooks, cleanup, and rollback."
+      ]
+    }
   ]
 }

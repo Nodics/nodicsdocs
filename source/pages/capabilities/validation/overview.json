@@ -3,10 +3,18 @@
   "title": "Validation and Policy Enforcement",
   "route": "/docs/capabilities/validation",
   "section": "capabilities",
-  "family": "overview-business-value",
-  "parent": "page:framework.architecture",
+  "family": "overview",
+  "parent": "section:capabilities",
   "order": 40,
-  "audiences": ["evaluator", "business-user", "administrator", "developer", "architect", "security-reviewer", "ai-tool"],
+  "audiences": [
+    "evaluator",
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "security-reviewer",
+    "ai-tool"
+  ],
   "readerIntent": "Understand how Nodics prevents invalid or unauthorized changes across every entry path.",
   "priorKnowledge": "Read Schema and Item Modeling.",
   "depth": "overview",
@@ -14,8 +22,19 @@
   "owner": "Each capability owns its rules; Nodics validation, security, and pipeline layers enforce shared contracts",
   "lastVerified": "2026-07-26",
   "summary": "Validation protects data shape and business invariants, while policy enforcement decides whether an authenticated principal may perform an operation in the resolved context.",
-  "supportingEvidence": ["nodics:gFramework/nData/README.md", "nodics:gFramework/nRouter/README.md", "nodics:gFramework/nDynamo/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nData/README.md",
+    "nodics:gFramework/nRouter/README.md",
+    "nodics:gFramework/nDynamo/README.md"
+  ],
   "sections": [
+    {
+      "heading": "What is Validation and Policy Enforcement?",
+      "paragraphs": [
+        "Validation checks whether input, state, relationships, and requested changes satisfy the rules owned by a capability. It prevents malformed, unauthorized, inconsistent, or unsafe data from becoming accepted business state.",
+        "Think of an application form reviewed at several checkpoints: basic format, business eligibility, ownership, and cross-record rules are distinct checks and may produce different recovery guidance."
+      ]
+    },
     {
       "heading": "Business value",
       "items": [
@@ -33,12 +52,56 @@
       ]
     },
     {
+      "heading": "Validation responsibilities",
+      "items": [
+        "Transport validation checks request shape, headers, parameters, and representation.",
+        "Schema validation checks types, required values, formats, defaults, and declarative constraints.",
+        "Relationship validation checks that references exist and may be associated in the resolved scope.",
+        "Business validation protects lifecycle transitions and domain invariants.",
+        "Provider and runtime-governance validation protect infrastructure and activation contracts."
+      ]
+    },
+    {
+      "heading": "Policy responsibilities",
+      "items": [
+        "Authentication establishes a human, service, or scheduled principal.",
+        "Authorization decides whether the principal may perform the operation.",
+        "Tenant and ownership policy limits the available records and context.",
+        "Field and operation permissions restrict what can be read or changed.",
+        "Approval and audit policy controls sensitive changes beyond CRUD permission."
+      ]
+    },
+    {
+      "heading": "One rule, one authority",
+      "paragraphs": [
+        "A rule lives at the lowest authoritative boundary reached by every relevant mutation. A required string belongs in schema metadata; an allowed state transition belongs in the owning business service or interceptor; permission belongs in authorization.",
+        "Frontend validation improves usability but cannot replace backend enforcement. Import, job, event, workflow, API, and BackOffice paths converge on the same rules."
+      ]
+    },
+    {
+      "heading": "Example: activating an employee",
+      "paragraphs": [
+        "Transport checks the employee identifier. Schema validation ensures active is Boolean. Business validation rejects activation when mandatory profile data is incomplete. Authorization restricts activation to approved employee groups in the correct tenant.",
+        "Axis may disable the button or show guidance, but the Profile mutation enforces every rule for every caller."
+      ]
+    },
+    {
+      "heading": "Safe failure and evidence",
+      "items": [
+        "Return a stable registered status without leaking secrets or protected records.",
+        "Preserve authorized trace and diagnostic context and avoid partial state.",
+        "Test valid, missing, malformed, duplicate, and boundary values.",
+        "Test unauthorized, wrong-tenant, wrong-owner, and forbidden-field access.",
+        "Test invalid transitions and consistency across API, import, event, job, workflow, and BackOffice paths."
+      ]
+    },
+    {
       "heading": "Continue",
       "items": [
-        "[Validation Layers and Policy Boundaries](/docs/capabilities/validation/layers)",
-        "[Validation Runtime and Error Behavior](/docs/capabilities/validation/runtime)",
-        "[Add a Business Validation Rule](/docs/capabilities/validation/tutorial)",
-        "[Validation Technical Reference](/docs/reference/validation)"
+        "Validation Layers and Policy Boundaries",
+        "Validation Runtime and Error Behavior",
+        "Add a Business Validation Rule",
+        "Validation Technical Reference"
       ]
     }
   ]

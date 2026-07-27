@@ -6,7 +6,13 @@
   "family": "runtime-behavior",
   "parent": "page:capability.events-messaging.overview",
   "order": 30,
-  "audiences": ["administrator", "developer", "architect", "operator", "ai-tool"],
+  "audiences": [
+    "administrator",
+    "developer",
+    "architect",
+    "operator",
+    "ai-tool"
+  ],
   "readerIntent": "Follow registration, publication, distribution, retry, and import/export interactions.",
   "priorKnowledge": "Know the delivery model and event owner.",
   "depth": "implementation",
@@ -14,10 +20,70 @@
   "owner": "Publisher, event runtime, configured transport, NEMS, and consumer",
   "lastVerified": "2026-07-26",
   "summary": "Nodics loads listener contracts, publishes a context-rich fact, delivers locally or remotely, persists state where configured, and records safe outcomes and recovery state.",
-  "supportingEvidence": ["nodics:gFramework/nEvent/README.md", "nodics:gCore/nems/README.md", "nodics:gFramework/nData/nImport/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nEvent/README.md",
+    "nodics:gCore/nems/README.md",
+    "nodics:gFramework/nData/nImport/README.md"
+  ],
   "sections": [
-    {"heading": "Lifecycle", "items": ["Load and merge source-owned listener definitions.", "Resolve active module, tenant, and runtime context.", "Publish a stable event type and version after the authoritative state transition.", "Execute eligible local listeners and/or dispatch through the configured transport.", "Persist distribution and event-log state when NEMS delivery is selected.", "Acknowledge success or record bounded retry and manual-recovery evidence.", "Refresh listener state through governed update/removal behavior."]},
-    {"heading": "Import interaction", "paragraphs": ["A finalized import may publish completion or record-level facts after governed persistence succeeds. Consumers must be idempotent because retries or resumed imports can repeat delivery. Events must not create a direct persistence route that bypasses import validation and run history."]},
-    {"heading": "Export interaction", "paragraphs": ["An export may be triggered by an event or publish a completion fact, but the event carries a governed reference and outcome rather than unrestricted exported data. Delivery providers do not replace export access policy, retention, checksum, or destination governance."]}
+    {
+      "heading": "Lifecycle",
+      "items": [
+        "Load and merge source-owned listener definitions.",
+        "Resolve active module, tenant, and runtime context.",
+        "Publish a stable event type and version after the authoritative state transition.",
+        "Execute eligible local listeners and/or dispatch through the configured transport.",
+        "Persist distribution and event-log state when NEMS delivery is selected.",
+        "Acknowledge success or record bounded retry and manual-recovery evidence.",
+        "Refresh listener state through governed update/removal behavior."
+      ]
+    },
+    {
+      "heading": "Import interaction",
+      "paragraphs": [
+        "A finalized import may publish completion or record-level facts after governed persistence succeeds. Consumers must be idempotent because retries or resumed imports can repeat delivery. Events must not create a direct persistence route that bypasses import validation and run history."
+      ]
+    },
+    {
+      "heading": "Export interaction",
+      "paragraphs": [
+        "An export may be triggered by an event or publish a completion fact, but the event carries a governed reference and outcome rather than unrestricted exported data. Delivery providers do not replace export access policy, retention, checksum, or destination governance."
+      ]
+    },
+    {
+      "heading": "Publication boundary",
+      "paragraphs": [
+        "Publish after the authoritative transaction commits or through a qualified outbox or equivalent contract. Publishing before commit can announce state that never became true; publishing after commit without recovery can lose notification.",
+        "The chosen consistency strategy and reconciliation process are documented per event."
+      ]
+    },
+    {
+      "heading": "Consumer lifecycle",
+      "items": [
+        "Validate envelope, version, source, target, tenant, size, and authorization.",
+        "Resolve the owning consumer and idempotency identity.",
+        "Execute bounded behavior with deadline and safe trace context.",
+        "Acknowledge only at the declared completion boundary.",
+        "Record retryable, rejected, poison, and manual-recovery outcomes.",
+        "Handle shutdown without silently abandoning in-flight work."
+      ]
+    },
+    {
+      "heading": "Schema evolution",
+      "paragraphs": [
+        "Additive optional fields may remain compatible. Removed, renamed, required, or semantic changes require a new event version and consumer migration.",
+        "Publishers retain required old versions during the agreed transition; consumers reject unknown incompatible versions safely."
+      ]
+    },
+    {
+      "heading": "Reconciliation and cleanup",
+      "items": [
+        "Compare authoritative transitions with distribution and consumer outcomes.",
+        "Replay a bounded authorized range using idempotency.",
+        "Resolve poison messages through corrected data, consumer fix, or governed rejection.",
+        "Retain logs according to audit and privacy policy.",
+        "Remove deprecated listeners and destinations after migration."
+      ]
+    }
   ]
 }

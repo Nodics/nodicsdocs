@@ -1,1 +1,133 @@
-{"code":"commerce.stock.sourcing","title":"Source Stock","route":"/docs/capabilities/commerce/stock/sourcing","section":"capabilities","family":"runtime-behavior","parent":"page:capability.commerce.stock-units","order":60,"audiences":["business-user","administrator","developer","architect","ai-tool"],"readerIntent":"Choose eligible fulfillment sources for a request.","priorKnowledge":"Know Storefront context, requested product/unit/quantity, service area, and warehouse policy.","depth":"implementation","status":"implemented","owner":"Inventory sourcing policy","lastVerified":"2026-07-26","summary":"Sourcing filters eligibility before ranking candidate warehouses/pools; physical stock alone does not make an item sellable in a zone.","supportingEvidence":["nodics:gComm/inventory/README.md"],"sections":[{"heading":"Flow","items":["Verify context and requested quantity/unit.","Filter by tenant, enterprise, country, zone/area, Store, channel, segment, purpose, product sellability, warehouse state, and capacity.","Calculate available-to-sell per source.","Rank explicit priority, distance/cost/service policy, split policy, and fallback.","Return selected sources with bounded explanation or no-source outcome."]}]}
+{
+  "code": "commerce.stock.sourcing",
+  "title": "Source Stock",
+  "route": "/docs/capabilities/commerce/stock/sourcing",
+  "section": "capabilities",
+  "family": "runtime-behavior",
+  "parent": "page:capability.commerce.stock-units",
+  "order": 60,
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "ai-tool"
+  ],
+  "readerIntent": "Choose eligible fulfillment sources for a request.",
+  "priorKnowledge": "Know Storefront context, requested product/unit/quantity, service area, and warehouse policy.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Inventory sourcing policy",
+  "lastVerified": "2026-07-26",
+  "summary": "Sourcing filters eligibility before ranking candidate warehouses/pools; physical stock alone does not make an item sellable in a zone.",
+  "supportingEvidence": [
+    "nodics:gComm/inventory/README.md",
+    "nodics:gDocs/commerce/how-stock-sourcing-works.md"
+  ],
+  "sections": [
+    {
+      "heading": "Flow",
+      "items": [
+        "Verify context and requested quantity/unit.",
+        "Filter by tenant, enterprise, country, zone/area, Store, channel, segment, purpose, product sellability, warehouse state, and capacity.",
+        "Calculate available-to-sell per source.",
+        "Rank explicit priority, distance/cost/service policy, split policy, and fallback.",
+        "Return selected sources with bounded explanation or no-source outcome."
+      ]
+    },
+    {
+      "heading": "Eligibility before ranking",
+      "paragraphs": [
+        "A source with physical stock is not automatically sellable. Product, Store, country, zone, channel, segment, warehouse status, pool purpose, capacity, unit, safety stock, and delivery promise all participate.",
+        "Only eligible candidates enter ranking. This prevents a high-priority warehouse from bypassing a sellability restriction."
+      ]
+    },
+    {
+      "heading": "Ranking and split policy",
+      "items": [
+        "Explicit business priority.",
+        "Distance, delivery time, cost, carbon, or service level.",
+        "Stock rotation, lot expiry, or warehouse load.",
+        "Single-source preference versus allowed split.",
+        "Maximum sources and minimum contribution.",
+        "Fallback when preferred sources cannot satisfy demand."
+      ]
+    },
+    {
+      "heading": "Example: five delivery zones",
+      "paragraphs": [
+        "An enterprise operates five zones. A phone is physically present in three warehouses but sellable only in three approved zones. Sourcing first removes candidates whose warehouse or pool does not serve the request zone.",
+        "For an excluded zone, the result is no eligible source even when enterprise-wide stock exists. Business policy can provide another fulfillment promise but cannot expose restricted stock."
+      ]
+    },
+    {
+      "heading": "Explanation and privacy",
+      "paragraphs": [
+        "Internal callers may receive selected sources and bounded reason codes. Consumer responses normally expose availability or promise without revealing warehouse identities, capacity, or commercial ranking details.",
+        "Diagnostics preserve policy version and rejected reason categories for authorized operators."
+      ]
+    },
+    {
+      "heading": "Verification",
+      "items": [
+        "Country, zone, Store, channel, segment, and product restrictions.",
+        "Priority ties, split maximum, fallback, and no-source outcome.",
+        "Unit conversion, safety stock, capacity, and requested quantity.",
+        "Wrong tenant and inactive warehouse.",
+        "Concurrent availability change and reservation handoff.",
+        "Performance with many candidate sources and cache invalidation."
+      ]
+    },
+    {
+      "heading": "Policy version",
+      "paragraphs": [
+        "Record the effective sourcing-policy version with selection evidence so later investigation can explain why a source was eligible and ranked at that time."
+      ]
+    },
+    {
+      "heading": "Complete guide: How Stock Sourcing Works",
+      "migratedFrom": "nodics:gDocs/commerce/how-stock-sourcing-works.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "Stock Sourcing answers **which Stock Pools should this request check, and in what order?** It does not answer how much Stock is available."
+      ]
+    },
+    {
+      "heading": "Business Example",
+      "migratedFrom": "nodics:gDocs/commerce/how-stock-sourcing-works.md",
+      "sourceAnchor": "business-example",
+      "paragraphs": [
+        "For UAE web and mobile sales, create a Policy named `UAE_COMMERCE`. Add an INCLUDE Rule for country `AE` and channels `WEB` or `APP`, referencing the UAE fulfilment Pool. Add an EXCLUDE Rule for delivery requests if a pickup-only Pool must not participate.",
+        "Activate the referenced Pools, Policy, and Rules. An authorized Nodics module calls the internal sourcing endpoint and receives an ordered Pool list. A later Availability capability will inspect the Warehouses and calculate quantities."
+      ]
+    },
+    {
+      "heading": "Operating Safely",
+      "migratedFrom": "nodics:gDocs/commerce/how-stock-sourcing-works.md",
+      "sourceAnchor": "operating-safely",
+      "paragraphs": [
+        "If activation fails, verify the Policy and Pools are active. For an empty result, inspect effective dates, status, criteria spelling, configured context keys, and priority. Do not edit Stock balances or duplicate Warehouses to fix sourcing configuration.",
+        "The endpoint is for trusted module-to-module communication. Business users do not call it directly, and a human login token is intentionally rejected. A future BackOffice screen must use separately permissioned administration APIs rather than generated Policy or Rule CRUD.",
+        "For performance, Nodics caches the ordered Pool result using the configured `nCache` provider. Local cache suits one process or development; Redis and Hazelcast support shared distributed deployments. Hazelcast is implemented but remains disabled by default and must pass the guarded live-cluster test before production selection. Cache outages do not stop sourcing requests: Nodics evaluates directly. Policy, Rule, Pool, and membership changes invalidate affected tenant results automatically.",
+        "Read the [Stock Sourcing foundation contract](/docs/reference/commerce) for schemas, configuration, security, customization, recovery, and tests."
+      ],
+      "items": [
+        "Lower priority numbers run earlier.",
+        "`FIRST_MATCH` stops after the first matching Rule in that Policy.",
+        "`COLLECT_MATCHES` lets multiple Rules contribute Pools.",
+        "Suspend a Rule or Policy for temporary rollback.",
+        "Retire Rules before their Policy.",
+        "Never treat a returned Pool as a promise that Stock exists."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/commerce/how-stock-sourcing-works.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "[How To Manage Stock Pools](/docs/capabilities/commerce/stock/pools)",
+        "[How Stock Movements Work](/docs/capabilities/commerce/stock/movements)"
+      ]
+    }
+  ]
+}

@@ -6,7 +6,11 @@
   "family": "business-value",
   "parent": "section:evaluate",
   "order": 20,
-  "audiences": ["evaluator", "business-user", "architect"],
+  "audiences": [
+    "evaluator",
+    "business-user",
+    "architect"
+  ],
   "readerIntent": "Understand where Nodics can reduce delivery and customization effort.",
   "priorKnowledge": "Know the organization’s intended products and delivery constraints.",
   "depth": "overview",
@@ -14,16 +18,75 @@
   "owner": "Nodics platform",
   "lastVerified": "2026-07-26",
   "summary": "Organizations choose Nodics when they need reusable enterprise foundations and customer-specific flexibility in the same platform.",
-  "evidence": ["nodics:gDocs/business/why-businesses-choose-nodics.md"],
+  "evidence": [
+    "nodics:gDocs/business/why-businesses-choose-nodics.md"
+  ],
   "sections": [
     {
       "heading": "Potential value",
+      "paragraphs": [
+        "Organizations usually do not struggle because one API is difficult to write. They struggle because every new product repeats identity, permissions, tenancy, data modeling, integration, jobs, search, audit, deployment, and operational work. Those foundations then evolve differently across teams and become expensive to secure, support, and upgrade.",
+        "Nodics concentrates those repeatable concerns into governed capabilities. A product team can begin from an enterprise-ready structure while still retaining control of its customer-specific business behavior."
+      ],
       "items": [
         "Start with reusable capabilities instead of recreating common platform foundations.",
         "Keep customer implementations separate from reusable framework ownership.",
         "Use one architecture from local development through modular deployment.",
         "Make extension, security, testing, and documentation obligations explicit.",
         "Give partners and AI tools a discoverable implementation contract."
+      ]
+    },
+    {
+      "heading": "Value for business owners",
+      "items": [
+        "A shorter path from idea to a testable product because common platform foundations already have an ownership and implementation model.",
+        "More predictable change because customer rules are separated from reusable platform code.",
+        "A clearer partner model: multiple implementation partners can follow the same contracts rather than inventing incompatible project structures.",
+        "A gradual scale path from a consolidated local runtime to modular processes without replacing the application architecture.",
+        "Better due-diligence evidence because capabilities, security boundaries, tests, maturity, and limitations can be inspected separately."
+      ],
+      "paragraphs": [
+        "These benefits are not a promise of a fixed delivery date or cost. Their size depends on how closely the proposed product matches implemented Nodics capabilities and how disciplined the project remains about reuse and extension."
+      ]
+    },
+    {
+      "heading": "Value for product and delivery teams",
+      "items": [
+        "Teams start with consistent patterns for schemas, services, APIs, validation, configuration, events, jobs, imports, search, tests, and documentation.",
+        "Business features can be assigned to clear owners, reducing coordination and duplicated implementation.",
+        "Frontend teams consume governed APIs and content contracts without absorbing backend business logic.",
+        "AI-assisted implementation becomes safer because placement, authority, generated-file, testing, and documentation rules are explicit.",
+        "A project can replace a provider or extend a service without requiring all callers to understand the implementation change."
+      ]
+    },
+    {
+      "heading": "Value for technology and operations",
+      "items": [
+        "Runtime topology is configuration-driven, allowing different capability groupings for local, development, quality-assurance, pre-production, and production environments.",
+        "Provider-neutral capability contracts reduce vendor coupling for databases, caches, search, messaging, and AI integrations.",
+        "Health, diagnostics, error contracts, audit evidence, tests, and operational documentation are treated as part of the capability.",
+        "Tenant and enterprise context is modeled consistently across APIs, data, cache, search, imports, exports, and administrative operations.",
+        "Generated artifacts can be rebuilt from source contracts instead of becoming untraceable hand-maintained copies."
+      ]
+    },
+    {
+      "heading": "Where Nodics is a strong candidate",
+      "items": [
+        "Several products or customer projects need the same enterprise foundations but different business rules.",
+        "The solution must support tenants, enterprises, employees, customers, permissions, and governed data ownership.",
+        "The product combines APIs with background work, workflows, events, imports, search, content, commerce, or BackOffice operations.",
+        "The organization expects integrations or infrastructure providers to change over the product lifetime.",
+        "Partners or AI tools will customize the solution and need enforceable boundaries."
+      ]
+    },
+    {
+      "heading": "Where additional analysis is essential",
+      "items": [
+        "A very small, short-lived application may not benefit enough from a full platform operating model.",
+        "A requirement depending on an unimplemented capability needs project effort and must not be priced as ready-made behavior.",
+        "Strict latency, regulatory, regional, availability, or data-residency obligations require deployment-specific proof.",
+        "A team unwilling to follow ownership and extension rules can undermine upgradeability even when the platform supports it.",
+        "Existing enterprise systems may make integration and migration effort larger than greenfield development effort."
       ]
     },
     {
@@ -34,12 +97,121 @@
     },
     {
       "heading": "Recommended adoption",
+      "paragraphs": [
+        "Adopt Nodics through evidence, not a feature checklist. Select a slice that crosses enough boundaries to reveal the real delivery model—for example an employee-managed tenant-owned record with authorization, relationships, search, import, audit, and a separate frontend."
+      ],
       "items": [
         "Choose one representative business capability.",
         "Build it through the supported project hierarchy.",
         "Validate security, tenancy, customization, operations, and tests.",
-        "Measure the result before expanding adoption."
+        "Measure delivery effort, extension clarity, security evidence, runtime behavior, documentation usability, and operational support before expanding adoption."
+      ]
+    },
+    {
+      "heading": "Questions a decision-maker should answer",
+      "items": [
+        "Which proposed capabilities are implemented and verified today?",
+        "Which requirements can be configured, which require extension, and which require new project development?",
+        "Who owns framework maintenance, project customization, infrastructure, security operations, and production support?",
+        "How will upgrades preserve customer behavior without editing released framework source?",
+        "What proof demonstrates tenant isolation, authorization, performance, failure recovery, and operational readiness?",
+        "What measurable result will determine whether the pilot should expand?"
+      ]
+    },
+    {
+      "heading": "Complete guide: Why Businesses Choose Nodics",
+      "migratedFrom": "nodics:gDocs/business/why-businesses-choose-nodics.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "This page is for business owners, product leaders, technology decision makers, and delivery leaders. You do not need to understand the Nodics source code to use it."
+      ]
+    },
+    {
+      "heading": "The Business Problem",
+      "migratedFrom": "nodics:gDocs/business/why-businesses-choose-nodics.md",
+      "sourceAnchor": "the-business-problem",
+      "paragraphs": [
+        "Creating an early product has become faster. Keeping that product secure, reliable, adaptable, and affordable while customers and teams grow remains difficult.",
+        "The first version often proves that an idea can work. The next stage exposes questions that the first version did not need to answer:",
+        "product?",
+        "consistently?",
+        "capability?",
+        "different architecture every time?",
+        "Nodics is designed to make those questions part of the application model from the beginning."
+      ],
+      "items": [
+        "Can several teams add features without breaking each other?",
+        "Can one customer receive a safe customization without creating a separate",
+        "Can access rules, tenant separation, and audit evidence be enforced",
+        "Can the system grow from one process into several deployable services?",
+        "Can providers or implementations change without rebuilding the business",
+        "Can human developers and AI coding tools make changes without inventing a"
+      ]
+    },
+    {
+      "heading": "How Nodics Can Reduce Time To Market",
+      "migratedFrom": "nodics:gDocs/business/why-businesses-choose-nodics.md",
+      "sourceAnchor": "how-nodics-can-reduce-time-to-market",
+      "paragraphs": [
+        "Nodics does not make delivery instant. It reduces repeated platform work and gives new functionality a predictable place to live.",
+        "| Delivery concern | How Nodics helps |\n| --- | --- |\n| Starting a new capability | Reusable module, API, data, service, permission, event, job, and testing patterns reduce reinvention. |\n| Adding customer variation | Layered project, environment, server, node, tenant, and runtime configuration avoids copying the whole product. |\n| Preparing for enterprise customers | Identity, permissions, tenant awareness, audit, validation, diagnostics, and deployment topology are platform concerns. |\n| Using AI-assisted development | Human and AI contributors follow the same ownership, extension, testing, and documentation contracts. |\n| Changing technology choices | Provider and implementation modules can evolve while the business capability remains stable. |\n| Moving from pilot to scale | A modular application can begin in a simpler topology and later separate deployment responsibilities where justified. |",
+        "The practical benefit is less time rebuilding foundations after product-market fit. Actual delivery improvement depends on team experience, requirements, integration complexity, and the quality of implementation. Validate it through a representative proof of concept rather than relying on a generic percentage claim."
+      ]
+    },
+    {
+      "heading": "Where Nodics Is A Strong Fit",
+      "migratedFrom": "nodics:gDocs/business/why-businesses-choose-nodics.md",
+      "sourceAnchor": "where-nodics-is-a-strong-fit",
+      "paragraphs": [
+        "Nodics is worth evaluating when the planned product has several of these needs:",
+        "or workflows;"
+      ],
+      "items": [
+        "multiple business capabilities or delivery teams;",
+        "business-to-business or multi-tenant operation;",
+        "customer-specific rules or configurations;",
+        "APIs used by several applications or integration partners;",
+        "scheduled processing, events, messaging, imports, exports, search, content,",
+        "strong access control, audit, operational, or testing expectations;",
+        "a likely path from a consolidated deployment to a modular topology;",
+        "long product life and frequent change;",
+        "governed use of AI-assisted engineering."
+      ]
+    },
+    {
+      "heading": "When A Simpler Choice May Be Better",
+      "migratedFrom": "nodics:gDocs/business/why-businesses-choose-nodics.md",
+      "sourceAnchor": "when-a-simpler-choice-may-be-better",
+      "paragraphs": [
+        "Nodics may be more structure than you need for a short-lived prototype, a small static website, or a single-purpose application with little expected growth or customization. A smaller framework can be the better business choice when speed of the first demonstration is the only important outcome.",
+        "The decision should consider the full expected product lifetime, not only the first release."
+      ]
+    },
+    {
+      "heading": "A Fast Decision Path",
+      "migratedFrom": "nodics:gDocs/business/why-businesses-choose-nodics.md",
+      "sourceAnchor": "a-fast-decision-path",
+      "items": [
+        "Review [Business Capabilities And Outcomes](/docs/evaluate/business-capabilities).",
+        "Review [Why Businesses Can Trust Nodics](/docs/evaluate/security-and-trust) with risk and security stakeholders.",
+        "Compare the architectural approaches in [How Nodics Compares](/docs/evaluate/comparison).",
+        "Use the [Evaluation Checklist](/docs/evaluate/checklist) with business and technical stakeholders.",
+        "Ask the delivery team to build one representative capability using [Build Your First Nodics Capability](/docs/get-started/first-capability).",
+        "Verify security, customization, testing, operations, and deployment—not only the happy-path demonstration."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/business/why-businesses-choose-nodics.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "Next: [Why Businesses Can Trust Nodics](/docs/evaluate/security-and-trust)",
+        "Documentation home: [Nodics Documentation](/docs)",
+        "Technical introduction: [What Nodics Is](/docs/discover/what-is-nodics)"
       ]
     }
+  ],
+  "supportingEvidence": [
+    "nodics:gDocs/business/why-businesses-choose-nodics.md"
   ]
 }

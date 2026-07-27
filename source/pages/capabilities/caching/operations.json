@@ -6,7 +6,12 @@
   "family": "operations-security-troubleshooting",
   "parent": "page:capability.caching.overview",
   "order": 40,
-  "audiences": ["administrator", "security-reviewer", "operator", "architect"],
+  "audiences": [
+    "administrator",
+    "security-reviewer",
+    "operator",
+    "architect"
+  ],
   "readerIntent": "Tune, monitor, secure, recover, and qualify cache channels.",
   "priorKnowledge": "Know the provider, channels, key scopes, and fallback rules.",
   "depth": "implementation",
@@ -14,10 +19,75 @@
   "owner": "Deployment operators and configured cache provider",
   "lastVerified": "2026-07-26",
   "summary": "Cache operations balance latency and cost against staleness, memory, isolation, invalidation, and outage risk.",
-  "supportingEvidence": ["nodics:gFramework/nCache/README.md", "nodics:gFramework/nCache/redisCache/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nCache/README.md",
+    "nodics:gFramework/nCache/redisCache/README.md"
+  ],
   "sections": [
-    {"heading": "Monitor", "items": ["Hit, miss, bypass, load, and stale-result rates.", "Provider latency, errors, reconnects, pool state, and command saturation.", "Entry count, memory, payload size, eviction, expiration, and serialization cost.", "Invalidation latency and failure by safe channel and tenant scope."]},
-    {"heading": "Secure", "items": ["Authenticate and encrypt distributed connections.", "Use least-privilege credentials and isolated namespaces.", "Never put passwords, tokens, unrestricted personal data, or raw sensitive values in keys or telemetry.", "Require atomic distributed semantics for strict auth/session channels."]},
-    {"heading": "Troubleshoot and qualify", "items": ["Confirm effective channel-to-engine mapping and TTL.", "Distinguish expected misses from invalidation or provider failure.", "Test process restart, node loss, network partition, eviction pressure, reconnect, and stale-entry recovery.", "Qualify realistic concurrency and topology; one local provider test cannot prove distributed correctness."]}
+    {
+      "heading": "Monitor",
+      "items": [
+        "Hit, miss, bypass, load, and stale-result rates.",
+        "Provider latency, errors, reconnects, pool state, and command saturation.",
+        "Entry count, memory, payload size, eviction, expiration, and serialization cost.",
+        "Invalidation latency and failure by safe channel and tenant scope."
+      ]
+    },
+    {
+      "heading": "Secure",
+      "items": [
+        "Authenticate and encrypt distributed connections.",
+        "Use least-privilege credentials and isolated namespaces.",
+        "Never put passwords, tokens, unrestricted personal data, or raw sensitive values in keys or telemetry.",
+        "Require atomic distributed semantics for strict auth/session channels."
+      ]
+    },
+    {
+      "heading": "Troubleshoot and qualify",
+      "items": [
+        "Confirm effective channel-to-engine mapping and TTL.",
+        "Distinguish expected misses from invalidation or provider failure.",
+        "Test process restart, node loss, network partition, eviction pressure, reconnect, and stale-entry recovery.",
+        "Qualify realistic concurrency and topology; one local provider test cannot prove distributed correctness."
+      ]
+    },
+    {
+      "heading": "Capacity and tuning",
+      "items": [
+        "Size memory from entry count, payload, overhead, replication, and headroom.",
+        "Set maximum payload and reject unsuitable values.",
+        "Tune pools and concurrency against provider and process limits.",
+        "Use TTL jitter where synchronized expiry would overload the authority.",
+        "Measure serialization and network cost, not only hit ratio."
+      ]
+    },
+    {
+      "heading": "Invalidation incidents",
+      "paragraphs": [
+        "When stale results appear, identify the authority change, expected key scopes, emitted invalidation, distributed delivery, provider deletion, and subsequent repopulation. Do not merely flush everything before preserving evidence.",
+        "For security-sensitive leakage, bypass or disable the affected channel, rotate namespaces if necessary, assess exposure, and reconcile from the authority."
+      ]
+    },
+    {
+      "heading": "Provider outage",
+      "items": [
+        "Apply documented fail-open, bypass, stale, or fail-closed policy per channel.",
+        "Bound retries and protect the authoritative database from a sudden miss storm.",
+        "Change health or readiness when required channel semantics are unavailable.",
+        "Observe reconnect and invalidate uncertain entries.",
+        "Communicate degraded behavior and recovery."
+      ]
+    },
+    {
+      "heading": "Production evidence",
+      "items": [
+        "Current provider and version qualification.",
+        "Tenant and principal isolation under concurrency.",
+        "Cross-node invalidation and duplicate delivery.",
+        "Load, soak, eviction, stampede, partition, restart, and recovery.",
+        "Credential rotation and encrypted transport.",
+        "Dashboards, alerts, runbooks, rollback, and accountable ownership."
+      ]
+    }
   ]
 }

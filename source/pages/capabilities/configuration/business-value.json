@@ -6,7 +6,12 @@
   "family": "business-value",
   "parent": "page:capability.configuration.overview",
   "order": 10,
-  "audiences": ["evaluator", "business-user", "administrator", "architect"],
+  "audiences": [
+    "evaluator",
+    "business-user",
+    "administrator",
+    "architect"
+  ],
   "readerIntent": "Decide which differences belong in configuration and which require implementation.",
   "priorKnowledge": "Read Nodics Configuration Layer.",
   "depth": "overview",
@@ -14,7 +19,10 @@
   "owner": "Nodics configuration and runtime-governance capabilities",
   "lastVerified": "2026-07-26",
   "summary": "Configuration shortens customer delivery when a difference changes policy or operating choices but preserves the capability contract.",
-  "supportingEvidence": ["nodics:gFramework/nConfig/README.md", "nodics:gFramework/nDynamo/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nConfig/README.md",
+    "nodics:gFramework/nDynamo/README.md"
+  ],
   "sections": [
     {
       "heading": "Business outcomes",
@@ -33,6 +41,51 @@
       ]
     },
     {
+      "heading": "Who benefits",
+      "items": [
+        "Business owners gain reusable products that can serve different customers without maintaining framework forks.",
+        "Business users gain approved tenant or operational choices without waiting for a code release where runtime governance applies.",
+        "Developers gain discoverable defaults and extension boundaries instead of scattered constants.",
+        "Operators gain environment-specific control, validation, audit, and rollback.",
+        "Security reviewers gain explicit ownership for secrets, permissions, exposure, and sensitive changes."
+      ]
+    },
+    {
+      "heading": "Configuration examples",
+      "items": [
+        "Select a cache, database, search, messaging, or AI provider through the owning provider-neutral capability.",
+        "Choose active modules and remote module endpoints for a server topology.",
+        "Set bounded timeouts, retry policies, page sizes, cache lifetimes, token budgets, and operational thresholds.",
+        "Enable versioning or publishing only for modules whose data requires that lifecycle.",
+        "Configure employee idle-lock behavior or other BackOffice runtime policy through a persistent governed setting."
+      ]
+    },
+    {
+      "heading": "What is not configuration",
+      "items": [
+        "A new business algorithm requiring different code and tests.",
+        "Executable source embedded in stored configuration.",
+        "A credential committed to properties.js.",
+        "A package.json object containing normal application behavior.",
+        "A frontend flag intended to bypass backend authorization or validation.",
+        "A second loader or registry that competes with Nodics runtime authority."
+      ]
+    },
+    {
+      "heading": "Cost and risk trade-offs",
+      "paragraphs": [
+        "More configurable behavior can reduce customer-development effort, but every option increases validation, documentation, test, support, and upgrade responsibility. Expose a property only when variability is a real product requirement and a safe default exists.",
+        "Runtime configurability adds operational speed but also raises change risk. Sensitive values may need preview, approval, staged activation, observation, and rollback rather than immediate mutation."
+      ]
+    },
+    {
+      "heading": "Decision example",
+      "paragraphs": [
+        "If one retailer wants a 60-second stock cache lifetime and another wants 30 seconds, the cache contract can expose a bounded property. If a retailer wants a fundamentally different stock-allocation algorithm, that belongs in an inventory service extension, not a configuration expression.",
+        "If the difference applies only to local testing, place it at the local environment layer. If it is a governed tenant policy, use the supported tenant or runtime contract. Do not duplicate the property in several scopes without defined precedence."
+      ]
+    },
+    {
       "heading": "Governance questions",
       "items": [
         "Who owns the default and who may override it?",
@@ -40,6 +93,17 @@
         "At which application, environment, server, node, tenant, or customer scope should it differ?",
         "Can it change safely at runtime, or does it require a restart?",
         "What validation, approval, audit, monitoring, and rollback evidence is required?"
+      ]
+    },
+    {
+      "heading": "Evidence for an adoption decision",
+      "items": [
+        "The effective value can be explained from defaults and selected layers.",
+        "Invalid values fail safely before dependent behavior becomes ready.",
+        "One tenant, server, or environment cannot leak its override into another.",
+        "Secrets are absent from source, generated packs, logs, errors, and browser responses.",
+        "Runtime activation and rollback retain actor, scope, version, and result evidence.",
+        "The original reusable behavior remains unchanged when the override is absent."
       ]
     }
   ]

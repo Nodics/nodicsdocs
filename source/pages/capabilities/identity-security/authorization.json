@@ -1,1 +1,86 @@
-{"code":"capability.identity-security.authorization","title":"Authorization and Ownership","route":"/docs/capabilities/identity-security/authorization","section":"security","family":"concepts-policy","parent":"page:capability.identity-security.overview","order":20,"audiences":["administrator","developer","architect","security-reviewer","ai-tool"],"readerIntent":"Understand route, group, permission, schema, field, and record-ownership enforcement.","priorKnowledge":"Understand authenticated principal types.","depth":"implementation","status":"implemented","owner":"Each target module owns route and data authorization; identity governance owns principal/group integrity","lastVerified":"2026-07-26","summary":"Authentication evidence never grants universal access; each target operation enforces token class, permission, tenant, schema action, field visibility, ownership, and business policy.","supportingEvidence":["nodics:gCore/profile/README.md","nodics:gFramework/nAuth/README.md","nodics:gFramework/nRouter/README.md"],"sections":[{"heading":"Policy layers","items":["User groups compose catalogued permissions through active acyclic inheritance.","Routes enforce required token class, permissions, and API exposure.","Schemas define action/group access, field masking, and ownership policy.","Customer-owned records constrain ownerId; explicit administrative and trusted-service groups may bypass only according to layered policy.","Cross-tenant internal-token access requires a separate permission."]},{"heading":"Extension","items":["Reusable policy names and mappings belong in properties.js, not closure constants inside schemas.","Projects may add stricter layered policy but must not silently weaken framework security.","Axis discovers allowed contracts and renders controls; backend services remain authoritative.","Nested creation and related-record selection invoke each related schema's permissions and validation."]},{"heading":"Verification","items":["Allowed and denied action/group/permission combinations.","Field read/write masking and immutable values.","Own versus another principal's records.","Inactive, missing, cyclic, or inherited groups.","Human, customer, service, scheduled, same-tenant, and cross-tenant boundaries."]}]}
+{
+  "code": "capability.identity-security.authorization",
+  "title": "Authorization and Ownership",
+  "route": "/docs/capabilities/identity-security/authorization",
+  "section": "security",
+  "family": "concepts-architecture",
+  "parent": "page:capability.identity-security.overview",
+  "order": 20,
+  "audiences": [
+    "administrator",
+    "developer",
+    "architect",
+    "security-reviewer",
+    "ai-tool"
+  ],
+  "readerIntent": "Understand route, group, permission, schema, field, and record-ownership enforcement.",
+  "priorKnowledge": "Understand authenticated principal types.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Each target module owns route and data authorization; identity governance owns principal/group integrity",
+  "lastVerified": "2026-07-26",
+  "summary": "Authentication evidence never grants universal access; each target operation enforces token class, permission, tenant, schema action, field visibility, ownership, and business policy.",
+  "supportingEvidence": [
+    "nodics:gCore/profile/README.md",
+    "nodics:gFramework/nAuth/README.md",
+    "nodics:gFramework/nRouter/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Policy layers",
+      "items": [
+        "User groups compose catalogued permissions through active acyclic inheritance.",
+        "Routes enforce required token class, permissions, and API exposure.",
+        "Schemas define action/group access, field masking, and ownership policy.",
+        "Customer-owned records constrain ownerId; explicit administrative and trusted-service groups may bypass only according to layered policy.",
+        "Cross-tenant internal-token access requires a separate permission."
+      ]
+    },
+    {
+      "heading": "Extension",
+      "items": [
+        "Reusable policy names and mappings belong in properties.js, not closure constants inside schemas.",
+        "Projects may add stricter layered policy but must not silently weaken framework security.",
+        "Axis discovers allowed contracts and renders controls; backend services remain authoritative.",
+        "Nested creation and related-record selection invoke each related schema's permissions and validation."
+      ]
+    },
+    {
+      "heading": "How a policy decision is composed",
+      "items": [
+        "Route metadata first constrains API exposure, acceptable token class, and required permissions. Service logic then invokes the owning schema and business contracts rather than trusting a frontend control.",
+        "Group inheritance contributes catalogued permissions only through active, acyclic relationships. A permission name is reusable policy data, not a hard-coded closure hidden inside one schema file.",
+        "Schema action policy distinguishes create, read, update, delete, search, and special operations. Field rules can mask reads, deny writes, preserve immutable values, and vary by configured group.",
+        "Ownership narrows customer-visible records to the authenticated subject. Any bypass is explicit, layered, reviewable, and limited to administrative or service groups that genuinely require it."
+      ]
+    },
+    {
+      "heading": "Employee creation example",
+      "items": [
+        "An administrator creating an Employee through the Axis schema workbench may need a Tenant, Parent Enterprise, Enterprise, contacts, and addresses. The UI displays only operations and relationships discovered as allowed.",
+        "Selecting an existing related record invokes that model's searchable projection and authorization. Creating a missing Tenant or Address invokes the related model's create contract; it is not an embedded unrestricted database write.",
+        "Every candidate is displayed with a user-friendly code and description while opaque identifiers remain transport references. Cross-module relationships go through the target module API and retain tenant context.",
+        "If a nested step fails, the operation follows the declared transaction or compensation contract and presents actionable safe errors. The client cannot assume partial success is equivalent to a valid Employee."
+      ]
+    },
+    {
+      "heading": "Verification",
+      "items": [
+        "Allowed and denied action/group/permission combinations.",
+        "Field read/write masking and immutable values.",
+        "Own versus another principal's records.",
+        "Inactive, missing, cyclic, or inherited groups.",
+        "Human, customer, service, scheduled, same-tenant, and cross-tenant boundaries."
+      ]
+    },
+    {
+      "heading": "Customization and anti-patterns",
+      "items": [
+        "A customer project may add groups, permissions, ownership subjects, field masks, and stricter routes through layered properties and schema configuration. Framework defaults remain reusable and independently testable.",
+        "Do not copy policy objects into every schema, authorize only in React, infer permission from a menu, trust request-supplied ownerId, or give a service account an administrator group merely to make integration work.",
+        "Do not treat search permission as read, update as create, or parent-model permission as authority over every nested model. Each operation and related authority is evaluated explicitly.",
+        "Regression evidence includes inherited policy changes, custom-layer overrides, cache invalidation, active/inactive groups, ambiguous relationships, schema evolution, and denial after permission removal."
+      ]
+    }
+  ]
+}

@@ -6,7 +6,11 @@
   "family": "tutorial-example",
   "parent": "section:getting-started",
   "order": 20,
-  "audiences": ["developer", "architect", "ai-tool"],
+  "audiences": [
+    "developer",
+    "architect",
+    "ai-tool"
+  ],
   "readerIntent": "Understand the safe end-to-end path for adding one project-owned business capability.",
   "priorKnowledge": "Complete the local setup and understand basic APIs and data models.",
   "depth": "guided",
@@ -14,12 +18,43 @@
   "owner": "Nodics development guidance",
   "lastVerified": "2026-07-26",
   "summary": "Start with ownership and contracts, reuse existing capabilities, add only necessary layers, and prove positive and rejected behavior.",
-  "evidence": ["nodics:gDocs/getting-started/build-your-first-capability.md"],
+  "evidence": [
+    "nodics:gDocs/getting-started/build-your-first-capability.md"
+  ],
   "sections": [
+    {
+      "heading": "What this tutorial teaches",
+      "paragraphs": [
+        "This tutorial teaches the decision sequence for adding business behavior safely. It does not encourage creating every possible layer. A small capability may need only configuration, a schema, and an existing CRUD contract; a complex capability may also need services, facades, APIs, events, jobs, workflows, search, and import/export.",
+        "The example is a tenant-owned service request managed by authorized employees. Replace its business fields with your project requirement while preserving the ownership and verification process."
+      ]
+    },
+    {
+      "heading": "Prerequisites and starting state",
+      "items": [
+        "A verified local Nodics runtime and clean baseline tests.",
+        "A customer or application project layer separate from reusable Nodics framework source.",
+        "A tenant and authorized employee test identity.",
+        "A clear statement of the user outcome, data sensitivity, lifecycle, integrations, and expected scale.",
+        "Agreement about which existing capability owns related identity, tenant, workflow, search, or notification behavior."
+      ]
+    },
     {
       "heading": "Example outcome",
       "paragraphs": [
         "Imagine a project needs tenant-owned service requests that authorized employees can create, view, update, and close. Treat that outcome as one project capability rather than scattering it across framework modules."
+      ]
+    },
+    {
+      "heading": "Describe the contract before files",
+      "items": [
+        "Business identity: a stable request code and a human-readable description.",
+        "Scope: tenant ownership, optional enterprise relationship, and employee permissions.",
+        "Lifecycle: open, assigned, resolved, and closed states with allowed transitions.",
+        "Relationships: requester, assignee, contacts, attachments, or other owned models.",
+        "Operations: create, search, view, update, assign, resolve, close, and audit.",
+        "Failures: invalid fields, duplicate identity, missing relation, forbidden tenant, forbidden transition, unavailable dependency, and concurrency conflict.",
+        "Non-functional behavior: observability, performance, retention, privacy, import/export, and customization."
       ]
     },
     {
@@ -34,6 +69,47 @@
       ]
     },
     {
+      "heading": "Choose the owning project module",
+      "paragraphs": [
+        "The owning module must be loader-visible in the customer project and active in the intended runtime. It owns the service-request schema, business service, API contract, configuration namespace, tests, and implemented documentation.",
+        "Profile continues to own employees and tenants. Workflow continues to own workflow execution. Search providers continue to own search-engine integration. The new capability refers to those contracts instead of copying their schemas or connecting directly to their storage."
+      ]
+    },
+    {
+      "heading": "Model data and relationships",
+      "items": [
+        "Reuse the framework base behavior that is merged at runtime rather than repeating inherited metadata without need.",
+        "Define fields, types, required behavior, indexes, uniqueness, defaults, validation, permissions, and ownership in the owning schema contract.",
+        "Represent relationships through supported model references and decide whether related records may be selected, created, or only viewed.",
+        "Keep configurable permissions and ownership policy in the owning properties namespace when later project layers must customize them.",
+        "Allow database modules to generate and operate persistence models; do not add direct database-driver access to the business capability."
+      ]
+    },
+    {
+      "heading": "Add business behavior and API exposure",
+      "paragraphs": [
+        "Place reusable business rules in the service layer. Use a facade when an operation coordinates several services or capabilities. Controllers translate transport input and output; routers define versioned exposure and security metadata. Pipelines and interceptors handle reusable cross-cutting lifecycle behavior.",
+        "Do not place business rules in Axis, another frontend, package metadata, generated files, or a convenience utility that has no ownership."
+      ]
+    },
+    {
+      "heading": "Configuration and customization",
+      "items": [
+        "Put application behavior in properties.js under a capability-owned namespace, not in package.json.",
+        "Provide safe defaults and document which project, environment, server, node, tenant, or runtime layers may override them.",
+        "Validate configuration at startup or activation and fail with actionable status information.",
+        "Keep credentials external to committed properties.",
+        "Prove a later project layer can customize an intended rule without editing the original implementation."
+      ]
+    },
+    {
+      "heading": "Generated artifacts",
+      "paragraphs": [
+        "Schemas and route definitions may produce models, services, API descriptions, tests, reports, and AI context. The source definition remains authoritative. Regenerate after a contract change and inspect the result; do not fix generated output by hand.",
+        "A default sample file created by module scaffolding is not a required business-service name and must not be filled merely to satisfy a structural assumption."
+      ]
+    },
+    {
       "heading": "Verification",
       "items": [
         "Successful create, read, update, and close behavior.",
@@ -45,6 +121,29 @@
       ]
     },
     {
+      "heading": "Run an end-to-end example",
+      "items": [
+        "Authenticate an authorized employee in the default test tenant.",
+        "Create a request with a stable code, description, and valid requester relation.",
+        "Search for the request and verify its friendly display fields.",
+        "Assign and resolve it through allowed transitions.",
+        "Attempt the same operations as an unauthorized employee and with a wrong-tenant context.",
+        "Close the request and confirm repeated close is rejected or handled idempotently according to the contract.",
+        "Review logs, status codes, audit context, generated contracts, and database state."
+      ]
+    },
+    {
+      "heading": "Documentation required for completion",
+      "items": [
+        "A beginner overview explaining the capability and business outcome.",
+        "Business value, personas, concepts, lifecycle, and a recognizable example.",
+        "Developer configuration, schema, service, API, relationship, extension, and test guidance.",
+        "Operator health, diagnostics, failure, performance, backup, and recovery guidance.",
+        "Technical reference linked to current source evidence.",
+        "A concise module README that identifies ownership and points to canonical documentation instead of duplicating it."
+      ]
+    },
+    {
       "heading": "What not to do",
       "items": [
         "Do not modify reusable framework code for a customer-only rule.",
@@ -52,6 +151,142 @@
         "Do not edit generated artifacts as the long-term source.",
         "Do not declare completion while tests or documentation are stale."
       ]
+    },
+    {
+      "heading": "Expected result",
+      "paragraphs": [
+        "The project now owns one understandable capability that runs through normal Nodics loading, configuration, persistence, security, API, testing, and documentation contracts. It can be used by a separate frontend and customized through an approved later layer.",
+        "If achieving the result required a second loader, direct database connection, copied identity model, frontend business rule, or manual generated-file edit, revisit the ownership decision before building further."
+      ]
+    },
+    {
+      "heading": "Complete guide: Build Your First Nodics Capability",
+      "migratedFrom": "nodics:gDocs/getting-started/build-your-first-capability.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "This journey is for someone who understands basic programming but is new to Nodics. It explains the whole path before asking you to learn each internal detail."
+      ]
+    },
+    {
+      "heading": "What You Will Build",
+      "migratedFrom": "nodics:gDocs/getting-started/build-your-first-capability.md",
+      "sourceAnchor": "what-you-will-build",
+      "paragraphs": [
+        "Imagine that a business needs to keep a list of service requests. A user should be able to create a request, view it, update it, and close it. Different customers must not accidentally access each other's information.",
+        "In Nodics, this business idea becomes one owned **capability**. A capability is a coherent piece of business behavior with one clear home."
+      ]
+    },
+    {
+      "heading": "The Five Pieces In Plain Language",
+      "migratedFrom": "nodics:gDocs/getting-started/build-your-first-capability.md",
+      "sourceAnchor": "the-five-pieces-in-plain-language",
+      "paragraphs": [
+        "| Nodics term | Plain-language meaning |\n| --- | --- |\n| Module | The home that owns the capability. |\n| Schema | The agreed shape and rules for the information. |\n| Service | The business behavior performed on that information. |\n| Route/API | The controlled doorway used by another application. |\n| Test | Executable evidence that the behavior and its boundaries work. |",
+        "You may later use controllers, facades, pipelines, events, or providers. Do not add them merely because they exist. Add a layer when it owns a clear responsibility."
+      ]
+    },
+    {
+      "heading": "Step 1: Confirm The Capability Owner",
+      "migratedFrom": "nodics:gDocs/getting-started/build-your-first-capability.md",
+      "sourceAnchor": "step-1-confirm-the-capability-owner",
+      "paragraphs": [
+        "Search the [Module Documentation Index](/docs/reference/modules) and [Complete Module Catalog](/docs/reference/modules). Extend an existing capability when it already owns the behavior. Create a new project module only when the business capability is genuinely new.",
+        "Do not place customer behavior in a reusable framework module. Nodics framework modules supply defaults; project modules own project behavior and overrides."
+      ]
+    },
+    {
+      "heading": "Step 2: Describe The Contract Before Coding",
+      "migratedFrom": "nodics:gDocs/getting-started/build-your-first-capability.md",
+      "sourceAnchor": "step-2-describe-the-contract-before-coding",
+      "paragraphs": [
+        "Write down:",
+        "This short description prevents the API, data model, and permissions from becoming separate guesses."
+      ],
+      "items": [
+        "the information the service request contains;",
+        "who may create, read, update, or close it;",
+        "which tenant owns it;",
+        "valid and invalid states;",
+        "whether another module or external system is involved;",
+        "how success and failure will be observed;",
+        "which behavior a customer may customize."
+      ]
+    },
+    {
+      "heading": "Step 3: Put Each Concern In Its Owned Layer",
+      "migratedFrom": "nodics:gDocs/getting-started/build-your-first-capability.md",
+      "sourceAnchor": "step-3-put-each-concern-in-its-owned-layer",
+      "paragraphs": [
+        "Use [How To Create Application Functionality](/docs/build/application-capability) for the detailed workflow. In summary:",
+        "environments may change."
+      ],
+      "items": [
+        "Define data rules in the owning module's schema definitions.",
+        "Define business behavior in its service layer.",
+        "Expose only the required API operations through route definitions.",
+        "Configure permissions and tenant behavior explicitly.",
+        "Use layered `properties.js` configuration for policy that projects or",
+        "Keep generated files generated from their source definitions."
+      ]
+    },
+    {
+      "heading": "Step 4: Verify More Than The Happy Path",
+      "migratedFrom": "nodics:gDocs/getting-started/build-your-first-capability.md",
+      "sourceAnchor": "step-4-verify-more-than-the-happy-path",
+      "paragraphs": [
+        "Test:",
+        "Follow [How To Test Nodics Changes](/docs/build/testing) for the available test and generation commands."
+      ],
+      "items": [
+        "a valid service request;",
+        "missing or invalid information;",
+        "a user without permission;",
+        "access from the wrong tenant;",
+        "state boundaries, such as closing an already closed request;",
+        "project-level customization;",
+        "the API and generated contract;",
+        "integration with any module or provider involved."
+      ]
+    },
+    {
+      "heading": "Step 5: Make The Capability Discoverable",
+      "migratedFrom": "nodics:gDocs/getting-started/build-your-first-capability.md",
+      "sourceAnchor": "step-5-make-the-capability-discoverable",
+      "paragraphs": [
+        "Update the owning module README with purpose, ownership, configuration, extension points, security, and verification. Update `gDocs` when users need a new task guide. Update AI/developer contracts when the implementation rule or extension boundary changes."
+      ]
+    },
+    {
+      "heading": "What Success Looks Like",
+      "migratedFrom": "nodics:gDocs/getting-started/build-your-first-capability.md",
+      "sourceAnchor": "what-success-looks-like",
+      "paragraphs": [
+        "A new developer should be able to answer all of these without reading every source file:"
+      ],
+      "items": [
+        "What business problem does the capability solve?",
+        "Which module owns it?",
+        "Which API and data contract does it expose?",
+        "Who may use it?",
+        "How is tenant separation preserved?",
+        "How may a project customize it?",
+        "Which tests prove it?",
+        "What must be regenerated after a change?"
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/getting-started/build-your-first-capability.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "Previous: [How To Set Up Nodics](/docs/get-started/local-setup)",
+        "Next: [How To Create Application Functionality](/docs/build/application-capability)",
+        "Terminology: [Nodics Glossary](/docs/reference/glossary)",
+        "Documentation home: [Nodics Documentation](/docs)"
+      ]
     }
+  ],
+  "supportingEvidence": [
+    "nodics:gDocs/getting-started/build-your-first-capability.md"
   ]
 }

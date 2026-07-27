@@ -6,7 +6,13 @@
   "family": "technical-reference",
   "parent": "page:capability.persistence.overview",
   "order": 50,
-  "audiences": ["developer", "architect", "operator", "framework-maintainer", "ai-tool"],
+  "audiences": [
+    "developer",
+    "architect",
+    "operator",
+    "framework-maintainer",
+    "ai-tool"
+  ],
   "readerIntent": "Audit persistence ownership, provider capabilities, configuration, and verification.",
   "priorKnowledge": "Read the persistence journey.",
   "depth": "reference",
@@ -14,9 +20,65 @@
   "owner": "Nodics database contracts and selected provider",
   "lastVerified": "2026-07-26",
   "summary": "Technical changes must preserve schema authority, generated model behavior, tenant resolution, access policy, lifecycle, and provider abstraction.",
-  "supportingEvidence": ["nodics:gFramework/nDatabase/README.md", "nodics:gFramework/nDatabase/database/README.md", "nodics:gFramework/nDatabase/mongodb/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nDatabase/README.md",
+    "nodics:gFramework/nDatabase/database/README.md",
+    "nodics:gFramework/nDatabase/mongodb/README.md"
+  ],
   "sections": [
-    {"heading": "Contract checklist", "items": ["Provider identity and truthful capability declaration.", "Layered connection aliases, handlers, pool, timeout, retry, TLS, and secret references.", "Tenant/module database resolution and model isolation.", "Schema, index, CRUD, query, middleware, relationship, and transaction mappings.", "Normalized errors, diagnostics, readiness, reconnect, and shutdown.", "Import, export, cache, search, event, audit, and runtime-governance interactions."]},
-    {"heading": "Verification matrix", "items": ["Positive CRUD/query and transactions where supported.", "Negative configuration, authentication, authorization, validation, conflict, and provider failures.", "Boundary sizes, pagination, batching, timeouts, pool limits, and tenant counts.", "Provider-neutral contract and live integration.", "Backup, restore, failover, migration, performance, security, and regression."]}
+    {
+      "heading": "Authority and provider boundary",
+      "items": [
+        "Generated item models and model-handler services provide provider-neutral record interaction; nDatabase selects adapters; business modules own schemas and invariants.",
+        "Adapters own connections, pools, transactions, indexes, query mapping, vendor errors, readiness, reconnect, and shutdown without exporting vendor types to callers.",
+        "AI, frontend, imports, jobs, and other modules never open direct database connections around this boundary."
+      ]
+    },
+    {
+      "heading": "Resolution and configuration",
+      "items": [
+        "Layered properties resolve provider and connection aliases by environment, module, tenant, and supported scope with explicit defaults and provenance.",
+        "Endpoints, TLS, pool, timeout, retry, database names, and secret references are configuration; credentials and machine-local paths never enter committed defaults.",
+        "An adapter declares truthful capabilities so callers fail clearly when transactions, indexes, query operators, or data types are unsupported."
+      ]
+    },
+    {
+      "heading": "Data lifecycle",
+      "items": [
+        "Schema loading creates or validates models and indexes through existing framework services; ordinary create, read, update, delete, and search preserve tenant and authorization context.",
+        "Imports, migrations, and runtime changes use the same schema and service authorities, batching, idempotency, audit, and recovery rather than collection scripts.",
+        "Successful authoritative changes coordinate cache invalidation, search indexing, events, workflows, and publishing according to owned lifecycle contracts."
+      ]
+    },
+    {
+      "heading": "Operations and recovery",
+      "items": [
+        "Monitor connection, pool saturation, query latency, errors, conflicts, transaction abort, index build, migration, storage, replication, and backup with safe labels.",
+        "Test authentication failure, network partition, reconnect, primary change, timeout, pool exhaustion, duplicate key, transaction uncertainty, shutdown, backup/restore, and upgrade.",
+        "Document supported versions, capacity, consistency, backup objectives, encryption, credential rotation, migration, failover, restore verification, and provider removal."
+      ]
+    },
+    {
+      "heading": "Contract checklist",
+      "items": [
+        "Provider identity and truthful capability declaration.",
+        "Layered connection aliases, handlers, pool, timeout, retry, TLS, and secret references.",
+        "Tenant/module database resolution and model isolation.",
+        "Schema, index, CRUD, query, middleware, relationship, and transaction mappings.",
+        "Normalized errors, diagnostics, readiness, reconnect, and shutdown.",
+        "Import, export, cache, search, event, audit, and runtime-governance interactions."
+      ]
+    },
+    {
+      "heading": "Verification matrix",
+      "items": [
+        "Positive CRUD/query and transactions where supported.",
+        "Negative configuration, authentication, authorization, validation, conflict, and provider failures.",
+        "Boundary sizes, pagination, batching, timeouts, pool limits, and tenant counts.",
+        "Provider-neutral contract and live integration.",
+        "Backup, restore, failover, migration, performance, security, and regression.",
+        "Verify owning schema and service behavior across every production-qualified provider, not only connectivity."
+      ]
+    }
   ]
 }

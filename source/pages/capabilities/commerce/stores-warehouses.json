@@ -1,1 +1,73 @@
-{"code":"capability.commerce.stores-warehouses","title":"Stores and Warehouses","route":"/docs/capabilities/commerce/stores-warehouses","section":"capabilities","family":"concepts-architecture","parent":"page:capability.commerce.overview","order":20,"audiences":["business-user","administrator","developer","architect","operator","ai-tool"],"readerIntent":"Model sales channels and flexible fulfillment locations.","priorKnowledge":"Understand enterprise, country, channel, and Storefront context.","depth":"implementation","status":"implemented","owner":"Store owns selling-location/channel configuration; Inventory owns warehouses and sourcing eligibility","lastVerified":"2026-07-26","summary":"Stores represent commercial customer touchpoints; warehouses represent stock-holding or fulfillment locations that can serve configurable scopes.","supportingEvidence":["nodics:gComm/store/README.md","nodics:gComm/inventory/README.md"],"sections":[{"heading":"Store model","items":["A Store may represent physical retail, digital commerce, marketplace, service, or another configured sales context.","It relates to enterprise, countries, channels, websites, catalogs, currencies, languages, warehouses, and operational policy without taking ownership of those models.","A physical Store can also be a fulfillment or pickup location when Inventory configuration permits it."]},{"heading":"Warehouse flexibility","items":["Enterprise creates warehouses for countries, zones, areas, stores, delivery purposes, or customer segments.","One warehouse may serve several scopes; a scope may source from prioritized warehouses.","Sellability and service-area rules are separate from physical balance.","A product can be available in three delivery zones and intentionally unavailable or unsellable in two others."]},{"heading":"Governance","items":["Relationships preserve tenant and enterprise boundaries.","Activation, service scope, priority, capacity, pickup, delivery, exclusion, and fallback are configurable.","Source selection remains Inventory-owned; Storefront and Store do not calculate stock."]}]}
+{
+  "code": "capability.commerce.stores-warehouses",
+  "title": "Stores and Warehouses",
+  "route": "/docs/capabilities/commerce/stores-warehouses",
+  "section": "capabilities",
+  "family": "concepts-architecture",
+  "parent": "page:capability.commerce.overview",
+  "order": 20,
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Model sales channels and flexible fulfillment locations.",
+  "priorKnowledge": "Understand enterprise, country, channel, and Storefront context.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Store owns selling-location/channel configuration; Inventory owns warehouses and sourcing eligibility",
+  "lastVerified": "2026-07-26",
+  "summary": "Stores represent commercial customer touchpoints; warehouses represent stock-holding or fulfillment locations that can serve configurable scopes.",
+  "supportingEvidence": [
+    "nodics:gComm/store/README.md",
+    "nodics:gComm/inventory/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Store model",
+      "items": [
+        "A Store may represent physical retail, digital commerce, marketplace, service, or another configured sales context.",
+        "It relates to enterprise, countries, channels, websites, catalogs, currencies, languages, warehouses, and operational policy without taking ownership of those models.",
+        "A physical Store can also be a fulfillment or pickup location when Inventory configuration permits it."
+      ]
+    },
+    {
+      "heading": "Separate commercial and fulfillment concepts",
+      "items": [
+        "A Store answers where and under which commercial context an offer is presented. A Warehouse answers where stock is held or fulfilled. They may refer to the same physical building, but they remain different responsibilities.",
+        "Keeping them separate allows a digital Store to source several warehouses, a retail Store to support pickup, and one warehouse to serve multiple Stores without duplicating stock.",
+        "The relationship is configuration, not ownership transfer: Store may reference eligible warehouses while Inventory remains authoritative for balances, sourcing, reservations, and movements.",
+        "A Store should not be used as a website identity. Storefront Site resolves the hostname and customer-experience context, then relates that context to the appropriate Store."
+      ]
+    },
+    {
+      "heading": "Warehouse flexibility",
+      "items": [
+        "Enterprise creates warehouses for countries, zones, areas, stores, delivery purposes, or customer segments.",
+        "One warehouse may serve several scopes; a scope may source from prioritized warehouses.",
+        "Sellability and service-area rules are separate from physical balance.",
+        "A product can be available in three delivery zones and intentionally unavailable or unsellable in two others."
+      ]
+    },
+    {
+      "heading": "Governance",
+      "items": [
+        "Relationships preserve tenant and enterprise boundaries.",
+        "Activation, service scope, priority, capacity, pickup, delivery, exclusion, and fallback are configurable.",
+        "Source selection remains Inventory-owned; Storefront and Store do not calculate stock."
+      ]
+    },
+    {
+      "heading": "Physical retail example and verification",
+      "items": [
+        "An enterprise operates an Electronics web Store and three physical Stores. A central warehouse serves delivery zones one through five, while each physical Store may offer local pickup from its own eligible stock location.",
+        "The iPhone may be sellable only in zones one, two, and three even when units physically exist elsewhere. Sellability, delivery coverage, safety stock, and sourcing priority therefore participate separately.",
+        "Verify tenant and enterprise consistency, active dates, country/channel compatibility, warehouse service areas, pickup eligibility, exclusions, fallbacks, and the behavior when a preferred warehouse is unavailable.",
+        "Operational checks include orphan relationships, cyclic or contradictory priority, capacity exhaustion, stale online configuration, cross-tenant access, cache invalidation, and an explanation of why a source was selected or rejected."
+      ]
+    }
+  ]
+}

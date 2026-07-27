@@ -1,1 +1,87 @@
-{"code":"capability.identity-security.governance","title":"Security Governance and Production Evidence","route":"/docs/capabilities/identity-security/governance","section":"security","family":"operations-security-troubleshooting","parent":"page:capability.identity-security.overview","order":40,"audiences":["evaluator","administrator","architect","security-reviewer","operator","framework-maintainer","ai-tool"],"readerIntent":"Configure, operate, audit, recover, and qualify identity security.","priorKnowledge":"Read the identity-security journey.","depth":"implementation","status":"implemented","owner":"Security capability owners and deployment operators under the shared-responsibility model","lastVerified":"2026-07-26","summary":"Production security requires governed secrets, strict distributed session state, least privilege, exposure controls, hardened transport, audit, recovery, threat testing, and live deployment evidence.","supportingEvidence":["nodics:gFramework/nAuth/README.md","nodics:gCore/profile/README.md","nodics:gFramework/nRouter/README.md","nodics:gFramework/nDynamo/README.md"],"sections":[{"heading":"Govern","items":["Supply JWT secrets, API-key pepper, bootstrap identity, certificates, and provider credentials through secret-governed layers.","Preview, approve, activate, audit, and roll back eligible runtime policy with separation of duties.","Keep sensitive API categories disabled unless the topology requires them.","Apply exact CORS origins, secure cookies, TLS, headers, body limits, proxy policy, and provider-grade perimeter controls.","Mask credentials, tokens, keys, personal data, stacks, paths, payloads, and provider errors."]},{"heading":"Operate","items":["Use a shared strict auth cache with atomic consume and local fallback disabled across multiple processes/nodes.","Monitor safe login outcomes, lockout, replay, stamp mismatch, refresh/revocation, permission denial, migration, rotation, and bootstrap health.","Rotate compromised credentials and advance principal security stamps.","Use audited preview/apply/repeat/fail/rollback migration; rollback never restores plaintext credentials."]},{"heading":"Production evidence","items":["Threat-model credential theft, refresh replay, tenant confusion, stale authorization, privilege escalation, CSRF, origin abuse, cache failure, migration interruption, and insider misuse.","Run positive, negative, boundary, contract, integration, distributed-race, security, load, outage, recovery, upgrade, and regression tests.","Qualify live Redis/session infrastructure, TLS, secret management, gateway policy, backup/restore, monitoring, incident response, and supported versions."]}]}
+{
+  "code": "capability.identity-security.governance",
+  "title": "Security Governance and Production Evidence",
+  "route": "/docs/capabilities/identity-security/governance",
+  "section": "security",
+  "family": "operations-security-troubleshooting",
+  "parent": "page:capability.identity-security.overview",
+  "order": 40,
+  "audiences": [
+    "evaluator",
+    "administrator",
+    "architect",
+    "security-reviewer",
+    "operator",
+    "framework-maintainer",
+    "ai-tool"
+  ],
+  "readerIntent": "Configure, operate, audit, recover, and qualify identity security.",
+  "priorKnowledge": "Read the identity-security journey.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Security capability owners and deployment operators under the shared-responsibility model",
+  "lastVerified": "2026-07-26",
+  "summary": "Production security requires governed secrets, strict distributed session state, least privilege, exposure controls, hardened transport, audit, recovery, threat testing, and live deployment evidence.",
+  "supportingEvidence": [
+    "nodics:gFramework/nAuth/README.md",
+    "nodics:gCore/profile/README.md",
+    "nodics:gFramework/nRouter/README.md",
+    "nodics:gFramework/nDynamo/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Govern",
+      "items": [
+        "Supply JWT secrets, API-key pepper, bootstrap identity, certificates, and provider credentials through secret-governed layers.",
+        "Preview, approve, activate, audit, and roll back eligible runtime policy with separation of duties.",
+        "Keep sensitive API categories disabled unless the topology requires them.",
+        "Apply exact CORS origins, secure cookies, TLS, headers, body limits, proxy policy, and provider-grade perimeter controls.",
+        "Mask credentials, tokens, keys, personal data, stacks, paths, payloads, and provider errors."
+      ]
+    },
+    {
+      "heading": "Operate",
+      "items": [
+        "Use a shared strict auth cache with atomic consume and local fallback disabled across multiple processes/nodes.",
+        "Monitor safe login outcomes, lockout, replay, stamp mismatch, refresh/revocation, permission denial, migration, rotation, and bootstrap health.",
+        "Rotate compromised credentials and advance principal security stamps.",
+        "Use audited preview/apply/repeat/fail/rollback migration; rollback never restores plaintext credentials."
+      ]
+    },
+    {
+      "heading": "Responsibilities and change control",
+      "items": [
+        "Business owners approve risk appetite, sensitive capabilities, retention, and separation of duties. Security owners define credential, session, network, logging, and incident policy. Operators apply reviewed configuration and preserve evidence.",
+        "Developers expose security through shared framework contracts instead of custom token parsing, hard-coded groups, direct secret reads, or module-specific authentication shortcuts.",
+        "Runtime policy changes use preview, validation, approval, version identity, activation, audit, and rollback where the capability supports it. Emergency kill switches are scoped, observable, and followed by formal reconciliation.",
+        "Configuration reports show safe effective policy and provenance, not secret values. Differences across local, development, preproduction, and production are deliberate and reviewed."
+      ]
+    },
+    {
+      "heading": "Incident example",
+      "items": [
+        "If an employee refresh credential may be stolen, revoke the affected session family, advance the principal security stamp when broader invalidation is required, expire cookies, and preserve correlation evidence.",
+        "If a service API key is exposed, disable or rotate that principal's key, prevent further token issuance, inspect bounded usage and target audit, and avoid rotating unrelated identities without evidence.",
+        "If shared refresh or authorization state fails, enforce the documented fail-closed behavior, surface service health, restore the qualified store, and reconcile sessions rather than enabling unsafe local acceptance.",
+        "After containment, test revocation on every node, review tenant and permission impact, remove leaked material from logs or build artifacts, document cause and recovery, and add regression controls."
+      ]
+    },
+    {
+      "heading": "Production evidence",
+      "items": [
+        "Threat-model credential theft, refresh replay, tenant confusion, stale authorization, privilege escalation, CSRF, origin abuse, cache failure, migration interruption, and insider misuse.",
+        "Run positive, negative, boundary, contract, integration, distributed-race, security, load, outage, recovery, upgrade, and regression tests.",
+        "Qualify live Redis/session infrastructure, TLS, secret management, gateway policy, backup/restore, monitoring, incident response, and supported versions."
+      ]
+    },
+    {
+      "heading": "Release checklist",
+      "items": [
+        "Confirm secure secret injection, rotation ownership, minimum token lifetimes and audiences, exact CORS origins, CSRF, Secure and HttpOnly cookie attributes, TLS termination, trusted proxy policy, and disabled diagnostic exposure.",
+        "Confirm distributed atomic session state, revocation, security-stamp propagation, service-principal lifecycle, bootstrap retirement, lockout, rate limiting, body limits, dependency qualification, and backup/restore.",
+        "Run human employee, customer, service, scheduled, same-tenant, cross-tenant, ownership, field-mask, nested-model, replay, concurrent refresh, outage, recovery, load, upgrade, and rollback scenarios.",
+        "Publish beginner operator guidance, developer extension contracts, business security explanation, evidence locations, alert ownership, incident steps, and known limitations with the release."
+      ]
+    }
+  ]
+}

@@ -31,6 +31,31 @@ module.exports = {
         "active": true
     },
     "record1": {
+        "code": "docsPage1d8baf0be2ac5ba85ec1",
+        "name": "How the Nodics Framework Is Organized",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent1d8baf0be2ac5ba85ec1",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record2": {
         "code": "docsPageb694b311d9178eb237e5",
         "name": "Business Capabilities and Outcomes",
         "cmsSite": [
@@ -55,7 +80,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record2": {
+    "record3": {
         "code": "docsPagedb96110958c37477527d",
         "name": "Why Organizations Choose Nodics",
         "cmsSite": [
@@ -80,7 +105,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record3": {
+    "record4": {
         "code": "docsPagee7a866d8892b521a8494",
         "name": "Compare Nodics with Other Approaches",
         "cmsSite": [
@@ -105,7 +130,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record4": {
+    "record5": {
         "code": "docsPagebb12bc0000804466f71e",
         "name": "Security and Trust for Decision-Makers",
         "cmsSite": [
@@ -130,7 +155,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record5": {
+    "record6": {
         "code": "docsPage4757d8e3d6de36a3cd2d",
         "name": "Business and Technical Evaluation Checklist",
         "cmsSite": [
@@ -155,7 +180,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record6": {
+    "record7": {
         "code": "docsPage5650527b7de47c8a37d2",
         "name": "Set Up Nodics Locally",
         "cmsSite": [
@@ -180,7 +205,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record7": {
+    "record8": {
         "code": "docsPagede1fb275f0296bf9e9ab",
         "name": "Build Your First Nodics Capability",
         "cmsSite": [
@@ -198,31 +223,6 @@ module.exports = {
             },
             {
                 "target": "docsComponentde1fb275f0296bf9e9ab",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record8": {
-        "code": "docsPage1d8baf0be2ac5ba85ec1",
-        "name": "How the Nodics Framework Is Organized",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent1d8baf0be2ac5ba85ec1",
                 "slot": "article",
                 "index": 10,
                 "active": true
@@ -1256,1581 +1256,6 @@ module.exports = {
         "active": true
     },
     "record50": {
-        "code": "docsPagee0a6067d42d0f8cc6769",
-        "name": "Caching in Nodics",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponente0a6067d42d0f8cc6769",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record51": {
-        "code": "docsPaged36b7083d82c1bf5060d",
-        "name": "Prebuilt Cache Providers and Maturity",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponentd36b7083d82c1bf5060d",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record52": {
-        "code": "docsPage96b638f2f061e70600f9",
-        "name": "Build a Cache Provider",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent96b638f2f061e70600f9",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record53": {
-        "code": "docsPage833529a9e415c9dfea26",
-        "name": "Cache Lifecycle and Invalidation",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent833529a9e415c9dfea26",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record54": {
-        "code": "docsPage8e2d51599b2605b97c31",
-        "name": "Operate and Secure Cache",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent8e2d51599b2605b97c31",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record55": {
-        "code": "docsPage28e902c25d03aa59c0bc",
-        "name": "Caching Technical Reference",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent28e902c25d03aa59c0bc",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record56": {
-        "code": "docsPage9eeae4650c1dbfbdc1cd",
-        "name": "Events and Messaging",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent9eeae4650c1dbfbdc1cd",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record57": {
-        "code": "docsPagee20926d85a30ff9cec23",
-        "name": "Events and Messaging Architecture",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponente20926d85a30ff9cec23",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record58": {
-        "code": "docsPage0581cd760345b9e87324",
-        "name": "Event Delivery Models and Guarantees",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent0581cd760345b9e87324",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record59": {
-        "code": "docsPage1afe69b55bcfd45267f2",
-        "name": "Build a Messaging Provider",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent1afe69b55bcfd45267f2",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record60": {
-        "code": "docsPaged35f8b139b0d82422a1c",
-        "name": "Event Lifecycle and Data Exchange",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponentd35f8b139b0d82422a1c",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record61": {
-        "code": "docsPage7f7389066bc77c4e18e0",
-        "name": "Operate and Secure Events",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent7f7389066bc77c4e18e0",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record62": {
-        "code": "docsPageef63021a42ad97ae8b6e",
-        "name": "Events and Messaging Technical Reference",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponentef63021a42ad97ae8b6e",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record63": {
-        "code": "docsPage35d8b7ad58ef699af665",
-        "name": "Scheduled Jobs",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent35d8b7ad58ef699af665",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record64": {
-        "code": "docsPage8d591f4fd54c08137245",
-        "name": "Job Lifecycle, Resilience, and Operations",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent8d591f4fd54c08137245",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record65": {
-        "code": "docsPage4656165979f56748087d",
-        "name": "Create and Operate Scheduled Jobs",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent4656165979f56748087d",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record66": {
-        "code": "docsPage0c62b705832d1ad2e737",
-        "name": "Scheduled Jobs Technical Reference",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent0c62b705832d1ad2e737",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record67": {
-        "code": "docsPagedb1c7f607d29abf8bef9",
-        "name": "Workflows and Business Processes",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponentdb1c7f607d29abf8bef9",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record68": {
-        "code": "docsPage62cb0981b24f54dbd2f1",
-        "name": "Workflow Lifecycle, Extension, and Recovery",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent62cb0981b24f54dbd2f1",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record69": {
-        "code": "docsPage5efc103ebb3339aa41d8",
-        "name": "Workflow Technical Reference",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent5efc103ebb3339aa41d8",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record70": {
-        "code": "docsPage20770af90620432778f6",
-        "name": "Import and Export Data",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent20770af90620432778f6",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record71": {
-        "code": "docsPage514ef0536f93aa9ca46d",
-        "name": "Import Data Safely",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent514ef0536f93aa9ca46d",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record72": {
-        "code": "docsPage9d68d4b5cc99b813f7be",
-        "name": "Export Data Safely",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent9d68d4b5cc99b813f7be",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record73": {
-        "code": "docsPage1e2d162e520eb7dba3fa",
-        "name": "Build Data Source and Destination Providers",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent1e2d162e520eb7dba3fa",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record74": {
-        "code": "docsPage80d42a51d16cdeec371e",
-        "name": "Data Exchange Lifecycle and Integrations",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent80d42a51d16cdeec371e",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record75": {
-        "code": "docsPage8dba399f0cfb80124bc2",
-        "name": "Operate and Secure Data Exchange",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent8dba399f0cfb80124bc2",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record76": {
-        "code": "docsPage3b23e71714e9fa44a661",
-        "name": "Import and Export Technical Reference",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent3b23e71714e9fa44a661",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record77": {
-        "code": "docsPage92a6952190be6a3ccb33",
-        "name": "Content Management and Publishing",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent92a6952190be6a3ccb33",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record78": {
-        "code": "docsPage2478c51283737d8fc42c",
-        "name": "Publishing Lifecycle, Rollback, and Operations",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent2478c51283737d8fc42c",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record79": {
-        "code": "docsPage8d30697100ffb50a6831",
-        "name": "Approve and Publish Content",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent8d30697100ffb50a6831",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record80": {
-        "code": "docsPage7ea9988c56fe77b400b2",
-        "name": "Content and Publishing Technical Reference",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent7ea9988c56fe77b400b2",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record81": {
-        "code": "docsPageedd37289cc675efef8be",
-        "name": "Modular Commerce",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponentedd37289cc675efef8be",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record82": {
-        "code": "docsPagef7842b9b558a24235d23",
-        "name": "Storefront and Website Resolution",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponentf7842b9b558a24235d23",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record83": {
-        "code": "docsPage8506321ab98ed6087283",
-        "name": "Model Stores and Website Experiences",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent8506321ab98ed6087283",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record84": {
-        "code": "docsPage3b612eab0fdd813fd622",
-        "name": "Stores and Warehouses",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent3b612eab0fdd813fd622",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record85": {
-        "code": "docsPageae305fd5090176e7b156",
-        "name": "Manage Stores",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponentae305fd5090176e7b156",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record86": {
-        "code": "docsPagee962686ee9ae7ca7ae8e",
-        "name": "Manage Warehouses",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponente962686ee9ae7ca7ae8e",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record87": {
-        "code": "docsPage5cb757316c162567e6ff",
-        "name": "Product Catalog",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent5cb757316c162567e6ff",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record88": {
-        "code": "docsPage8745f865bd9219fcaa41",
-        "name": "Create and Identify Products",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent8745f865bd9219fcaa41",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record89": {
-        "code": "docsPage70def02defc1d96c7ffc",
-        "name": "Pricing Resolution",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent70def02defc1d96c7ffc",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record90": {
-        "code": "docsPage5f9db4cb092cb41eaa7e",
-        "name": "Configure and Operate Pricing",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent5f9db4cb092cb41eaa7e",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record91": {
-        "code": "docsPage176e234d573ad476f0ad",
-        "name": "Stock, Warehouses, and Units",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent176e234d573ad476f0ad",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record92": {
-        "code": "docsPage701479e7b30f29ea1969",
-        "name": "Use Units and Land Measurements",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent701479e7b30f29ea1969",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record93": {
-        "code": "docsPage08cf82c305457b8183eb",
-        "name": "Reconcile Stock",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent08cf82c305457b8183eb",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record94": {
-        "code": "docsPage61958e4ffe100a8e53ff",
-        "name": "Allocate Stock",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent61958e4ffe100a8e53ff",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record95": {
-        "code": "docsPageb827ffabe0ae9f3d32ad",
-        "name": "Calculate Stock Availability",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponentb827ffabe0ae9f3d32ad",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record96": {
-        "code": "docsPageb896e79bfcaaf448ee98",
-        "name": "Record Stock Movements",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponentb896e79bfcaaf448ee98",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record97": {
-        "code": "docsPaged97835feeb60413d1a36",
-        "name": "Source Stock",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponentd97835feeb60413d1a36",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record98": {
-        "code": "docsPagedb8ccf3f7d2f86b8a3af",
-        "name": "Transfer Stock",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponentdb8ccf3f7d2f86b8a3af",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record99": {
-        "code": "docsPageaf9d53b770143a14ecab",
-        "name": "Manage Stock Pools",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponentaf9d53b770143a14ecab",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record100": {
-        "code": "docsPage69ce814c9b95ac927953",
-        "name": "Operate and Integrate Inventory",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent69ce814c9b95ac927953",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record101": {
-        "code": "docsPage464a521c50be1f02f1c8",
-        "name": "Reserve Stock",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent464a521c50be1f02f1c8",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record102": {
-        "code": "docsPage37205e2a8419ea2b5f68",
-        "name": "Units Technical Reference",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent37205e2a8419ea2b5f68",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record103": {
-        "code": "docsPage7fb48ae1fc5179f345e5",
-        "name": "End-to-End Commerce Publishing and Runtime",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent7fb48ae1fc5179f345e5",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record104": {
-        "code": "docsPage3b8e67efd3bc7096e702",
-        "name": "Commerce Technical Reference",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent3b8e67efd3bc7096e702",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record105": {
-        "code": "docsPagebf0db14a8ac97f3b5a9c",
-        "name": "AI Providers, Knowledge, and Assistants",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponentbf0db14a8ac97f3b5a9c",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record106": {
-        "code": "docsPagee2d1da3e65aa0302695c",
-        "name": "AI Providers and Adapter Selection",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponente2d1da3e65aa0302695c",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record107": {
-        "code": "docsPagee2fa434590c24286c0ec",
-        "name": "AI Token and Cost Governance",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponente2fa434590c24286c0ec",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record108": {
-        "code": "docsPage5d8bfa3a75e66fa7c372",
-        "name": "AI Knowledge and Retrieval-Augmented Generation",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent5d8bfa3a75e66fa7c372",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record109": {
-        "code": "docsPage90fbd46886191084a951",
-        "name": "AI Assistant",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent90fbd46886191084a951",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record110": {
-        "code": "docsPage756e105aeb2b56bc1db9",
-        "name": "Agentic Business Processes",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent756e105aeb2b56bc1db9",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record111": {
-        "code": "docsPage4c4bde8868dd198eeeee",
-        "name": "Partner AI Customization",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent4c4bde8868dd198eeeee",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record112": {
-        "code": "docsPage7269022ff8f6ba5cd27c",
-        "name": "AI Technical Reference",
-        "cmsSite": [
-            "axisCmsSite"
-        ],
-        "typeCode": "nodicsDocumentationArticlePageType",
-        "template": "nodicsDocumentationArticleTemplate",
-        "renderer": "documentation.page.article",
-        "cmsComponents": [
-            {
-                "target": "nodicsDocumentationNavigation",
-                "slot": "navigation",
-                "index": 5,
-                "active": true
-            },
-            {
-                "target": "docsComponent7269022ff8f6ba5cd27c",
-                "slot": "article",
-                "index": 10,
-                "active": true
-            }
-        ],
-        "active": true
-    },
-    "record113": {
         "code": "docsPage99f64fff381990813b65",
         "name": "Search Models and Querying",
         "cmsSite": [
@@ -2855,7 +1280,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record114": {
+    "record51": {
         "code": "docsPage6a783637e102e60bee17",
         "name": "How Search Models and Queries Work",
         "cmsSite": [
@@ -2880,7 +1305,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record115": {
+    "record52": {
         "code": "docsPagef10ef0ba4ff75cde5805",
         "name": "Define and Query Searchable Business Data",
         "cmsSite": [
@@ -2905,7 +1330,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record116": {
+    "record53": {
         "code": "docsPage9e46173e969a403567bf",
         "name": "Search Model and Query Reference",
         "cmsSite": [
@@ -2930,7 +1355,157 @@ module.exports = {
         ],
         "active": true
     },
-    "record117": {
+    "record54": {
+        "code": "docsPagee0a6067d42d0f8cc6769",
+        "name": "Caching in Nodics",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponente0a6067d42d0f8cc6769",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record55": {
+        "code": "docsPaged36b7083d82c1bf5060d",
+        "name": "Prebuilt Cache Providers and Maturity",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponentd36b7083d82c1bf5060d",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record56": {
+        "code": "docsPage96b638f2f061e70600f9",
+        "name": "Build a Cache Provider",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent96b638f2f061e70600f9",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record57": {
+        "code": "docsPage833529a9e415c9dfea26",
+        "name": "Cache Lifecycle and Invalidation",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent833529a9e415c9dfea26",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record58": {
+        "code": "docsPage8e2d51599b2605b97c31",
+        "name": "Operate and Secure Cache",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent8e2d51599b2605b97c31",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record59": {
+        "code": "docsPage28e902c25d03aa59c0bc",
+        "name": "Caching Technical Reference",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent28e902c25d03aa59c0bc",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record60": {
         "code": "docsPage2ff083fbb0b0dc7559ff",
         "name": "Search and Indexing Providers",
         "cmsSite": [
@@ -2955,7 +1530,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record118": {
+    "record61": {
         "code": "docsPage33acdbd49c0f03fbcef9",
         "name": "Prebuilt Search Engines",
         "cmsSite": [
@@ -2980,7 +1555,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record119": {
+    "record62": {
         "code": "docsPage7f3eee19aed46c18635e",
         "name": "Build a New Search Provider",
         "cmsSite": [
@@ -3005,7 +1580,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record120": {
+    "record63": {
         "code": "docsPage6abba35631e16e0467f1",
         "name": "Search Index Lifecycle",
         "cmsSite": [
@@ -3030,7 +1605,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record121": {
+    "record64": {
         "code": "docsPagec14db61c6de5778e1eba",
         "name": "Search with Data Import and Export",
         "cmsSite": [
@@ -3055,7 +1630,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record122": {
+    "record65": {
         "code": "docsPageb85b33505d84e3fecd82",
         "name": "Operate and Troubleshoot Search",
         "cmsSite": [
@@ -3080,7 +1655,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record123": {
+    "record66": {
         "code": "docsPagebbb8253cee8163296e4a",
         "name": "Search and Indexing Implementation Reference",
         "cmsSite": [
@@ -3098,6 +1673,1431 @@ module.exports = {
             },
             {
                 "target": "docsComponentbbb8253cee8163296e4a",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record67": {
+        "code": "docsPage9eeae4650c1dbfbdc1cd",
+        "name": "Events and Messaging",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent9eeae4650c1dbfbdc1cd",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record68": {
+        "code": "docsPagee20926d85a30ff9cec23",
+        "name": "Events and Messaging Architecture",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponente20926d85a30ff9cec23",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record69": {
+        "code": "docsPage0581cd760345b9e87324",
+        "name": "Event Delivery Models and Guarantees",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent0581cd760345b9e87324",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record70": {
+        "code": "docsPage1afe69b55bcfd45267f2",
+        "name": "Build a Messaging Provider",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent1afe69b55bcfd45267f2",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record71": {
+        "code": "docsPaged35f8b139b0d82422a1c",
+        "name": "Event Lifecycle and Data Exchange",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponentd35f8b139b0d82422a1c",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record72": {
+        "code": "docsPage7f7389066bc77c4e18e0",
+        "name": "Operate and Secure Events",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent7f7389066bc77c4e18e0",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record73": {
+        "code": "docsPageef63021a42ad97ae8b6e",
+        "name": "Events and Messaging Technical Reference",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponentef63021a42ad97ae8b6e",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record74": {
+        "code": "docsPage35d8b7ad58ef699af665",
+        "name": "Scheduled Jobs",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent35d8b7ad58ef699af665",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record75": {
+        "code": "docsPage8d591f4fd54c08137245",
+        "name": "Job Lifecycle, Resilience, and Operations",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent8d591f4fd54c08137245",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record76": {
+        "code": "docsPage4656165979f56748087d",
+        "name": "Create and Operate Scheduled Jobs",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent4656165979f56748087d",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record77": {
+        "code": "docsPage0c62b705832d1ad2e737",
+        "name": "Scheduled Jobs Technical Reference",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent0c62b705832d1ad2e737",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record78": {
+        "code": "docsPagedb1c7f607d29abf8bef9",
+        "name": "Workflows and Business Processes",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponentdb1c7f607d29abf8bef9",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record79": {
+        "code": "docsPage62cb0981b24f54dbd2f1",
+        "name": "Workflow Lifecycle, Extension, and Recovery",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent62cb0981b24f54dbd2f1",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record80": {
+        "code": "docsPage5efc103ebb3339aa41d8",
+        "name": "Workflow Technical Reference",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent5efc103ebb3339aa41d8",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record81": {
+        "code": "docsPage20770af90620432778f6",
+        "name": "Import and Export Data",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent20770af90620432778f6",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record82": {
+        "code": "docsPage514ef0536f93aa9ca46d",
+        "name": "Import Data Safely",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent514ef0536f93aa9ca46d",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record83": {
+        "code": "docsPage9d68d4b5cc99b813f7be",
+        "name": "Export Data Safely",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent9d68d4b5cc99b813f7be",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record84": {
+        "code": "docsPage1e2d162e520eb7dba3fa",
+        "name": "Build Data Source and Destination Providers",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent1e2d162e520eb7dba3fa",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record85": {
+        "code": "docsPage80d42a51d16cdeec371e",
+        "name": "Data Exchange Lifecycle and Integrations",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent80d42a51d16cdeec371e",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record86": {
+        "code": "docsPage8dba399f0cfb80124bc2",
+        "name": "Operate and Secure Data Exchange",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent8dba399f0cfb80124bc2",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record87": {
+        "code": "docsPage3b23e71714e9fa44a661",
+        "name": "Import and Export Technical Reference",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent3b23e71714e9fa44a661",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record88": {
+        "code": "docsPage92a6952190be6a3ccb33",
+        "name": "Content Management and Publishing",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent92a6952190be6a3ccb33",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record89": {
+        "code": "docsPage2478c51283737d8fc42c",
+        "name": "Publishing Lifecycle, Rollback, and Operations",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent2478c51283737d8fc42c",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record90": {
+        "code": "docsPage8d30697100ffb50a6831",
+        "name": "Approve and Publish Content",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent8d30697100ffb50a6831",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record91": {
+        "code": "docsPage7ea9988c56fe77b400b2",
+        "name": "Content and Publishing Technical Reference",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent7ea9988c56fe77b400b2",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record92": {
+        "code": "docsPageedd37289cc675efef8be",
+        "name": "Modular Commerce",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponentedd37289cc675efef8be",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record93": {
+        "code": "docsPagef7842b9b558a24235d23",
+        "name": "Storefront and Website Resolution",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponentf7842b9b558a24235d23",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record94": {
+        "code": "docsPage8506321ab98ed6087283",
+        "name": "Model Stores and Website Experiences",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent8506321ab98ed6087283",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record95": {
+        "code": "docsPage3b612eab0fdd813fd622",
+        "name": "Stores and Warehouses",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent3b612eab0fdd813fd622",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record96": {
+        "code": "docsPageae305fd5090176e7b156",
+        "name": "Manage Stores",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponentae305fd5090176e7b156",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record97": {
+        "code": "docsPagee962686ee9ae7ca7ae8e",
+        "name": "Manage Warehouses",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponente962686ee9ae7ca7ae8e",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record98": {
+        "code": "docsPage5cb757316c162567e6ff",
+        "name": "Product Catalog",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent5cb757316c162567e6ff",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record99": {
+        "code": "docsPage8745f865bd9219fcaa41",
+        "name": "Create and Identify Products",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent8745f865bd9219fcaa41",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record100": {
+        "code": "docsPage70def02defc1d96c7ffc",
+        "name": "Pricing Resolution",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent70def02defc1d96c7ffc",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record101": {
+        "code": "docsPage5f9db4cb092cb41eaa7e",
+        "name": "Configure and Operate Pricing",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent5f9db4cb092cb41eaa7e",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record102": {
+        "code": "docsPage176e234d573ad476f0ad",
+        "name": "Stock, Warehouses, and Units",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent176e234d573ad476f0ad",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record103": {
+        "code": "docsPage701479e7b30f29ea1969",
+        "name": "Use Units and Land Measurements",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent701479e7b30f29ea1969",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record104": {
+        "code": "docsPage08cf82c305457b8183eb",
+        "name": "Reconcile Stock",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent08cf82c305457b8183eb",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record105": {
+        "code": "docsPage61958e4ffe100a8e53ff",
+        "name": "Allocate Stock",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent61958e4ffe100a8e53ff",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record106": {
+        "code": "docsPageb827ffabe0ae9f3d32ad",
+        "name": "Calculate Stock Availability",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponentb827ffabe0ae9f3d32ad",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record107": {
+        "code": "docsPageb896e79bfcaaf448ee98",
+        "name": "Record Stock Movements",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponentb896e79bfcaaf448ee98",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record108": {
+        "code": "docsPaged97835feeb60413d1a36",
+        "name": "Source Stock",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponentd97835feeb60413d1a36",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record109": {
+        "code": "docsPagedb8ccf3f7d2f86b8a3af",
+        "name": "Transfer Stock",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponentdb8ccf3f7d2f86b8a3af",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record110": {
+        "code": "docsPageaf9d53b770143a14ecab",
+        "name": "Manage Stock Pools",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponentaf9d53b770143a14ecab",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record111": {
+        "code": "docsPage69ce814c9b95ac927953",
+        "name": "Operate and Integrate Inventory",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent69ce814c9b95ac927953",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record112": {
+        "code": "docsPage464a521c50be1f02f1c8",
+        "name": "Reserve Stock",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent464a521c50be1f02f1c8",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record113": {
+        "code": "docsPage37205e2a8419ea2b5f68",
+        "name": "Units Technical Reference",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent37205e2a8419ea2b5f68",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record114": {
+        "code": "docsPage7fb48ae1fc5179f345e5",
+        "name": "End-to-End Commerce Publishing and Runtime",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent7fb48ae1fc5179f345e5",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record115": {
+        "code": "docsPage3b8e67efd3bc7096e702",
+        "name": "Commerce Technical Reference",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent3b8e67efd3bc7096e702",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record116": {
+        "code": "docsPagebf0db14a8ac97f3b5a9c",
+        "name": "AI Providers, Knowledge, and Assistants",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponentbf0db14a8ac97f3b5a9c",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record117": {
+        "code": "docsPagee2d1da3e65aa0302695c",
+        "name": "AI Providers and Adapter Selection",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponente2d1da3e65aa0302695c",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record118": {
+        "code": "docsPagee2fa434590c24286c0ec",
+        "name": "AI Token and Cost Governance",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponente2fa434590c24286c0ec",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record119": {
+        "code": "docsPage5d8bfa3a75e66fa7c372",
+        "name": "AI Knowledge and Retrieval-Augmented Generation",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent5d8bfa3a75e66fa7c372",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record120": {
+        "code": "docsPage90fbd46886191084a951",
+        "name": "AI Assistant",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent90fbd46886191084a951",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record121": {
+        "code": "docsPage756e105aeb2b56bc1db9",
+        "name": "Agentic Business Processes",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent756e105aeb2b56bc1db9",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record122": {
+        "code": "docsPage4c4bde8868dd198eeeee",
+        "name": "Partner AI Customization",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent4c4bde8868dd198eeeee",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record123": {
+        "code": "docsPage7269022ff8f6ba5cd27c",
+        "name": "AI Technical Reference",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent7269022ff8f6ba5cd27c",
                 "slot": "article",
                 "index": 10,
                 "active": true

@@ -1,1 +1,84 @@
-{"code":"capability.operational-governance.runtime","title":"Lifecycle, Signals, and Incident Recovery","route":"/docs/capabilities/operational-governance/runtime","section":"operations","family":"runtime-operations","parent":"page:capability.operational-governance.overview","order":10,"audiences":["administrator","developer","architect","security-reviewer","operator","ai-tool"],"readerIntent":"Operate startup, readiness, drain, shutdown, governed change, and incidents.","priorKnowledge":"Know the deployment topology and owned resources.","depth":"implementation","status":"implemented","owner":"Single lifecycle coordinator, module contributors, diagnostics, and nDynamo","lastVerified":"2026-07-26","summary":"The process moves through starting, started, degraded, draining, stopping, stopped, or failed; bounded contributors report readiness and release resources in deterministic order.","supportingEvidence":["nodics:gFramework/nConfig/docs/runtime-lifecycle-resilience-contract.md","nodics:gFramework/nDynamo/README.md"],"sections":[{"heading":"Lifecycle","items":["Required startup dependencies affect readiness; optional control-plane integrations recover asynchronously.","Liveness proves the process exists; readiness admits traffic only while started.","SIGTERM/SIGINT transitions to draining, rejects new work, waits boundedly, then closes resources.","Hard OOM/SIGKILL cannot run hooks; external supervision, replicas, durable ownership, and reconciliation are mandatory."]},{"heading":"Governed runtime change","items":["Preview is side-effect free and reports changes, impact, warnings, and destructive risk.","Approval records immutable intent and separation of duties.","Activation validates digest, revision, tenant, actor, and policy before using the owning service.","Audit correlates success/failure; rollback restores the prior snapshot through the same authority.","Secrets and prototype-mutating paths are rejected."]},{"heading":"Incident flow","items":["Correlate health, readiness, traces, safe logs/metrics, audit, provider state, queues, jobs, carriers, publications, and recent activations.","Contain traffic or work, preserve evidence, recover owned state, reconcile derived systems, and verify business outcome.","Never use sensitive values as telemetry labels or expose protected readiness details as public probes."]}]}
+{
+  "code": "capability.operational-governance.runtime",
+  "title": "Lifecycle, Signals, and Incident Recovery",
+  "route": "/docs/capabilities/operational-governance/runtime",
+  "section": "operations",
+  "family": "operations-security-troubleshooting",
+  "parent": "page:capability.operational-governance.overview",
+  "order": 10,
+  "audiences": [
+    "administrator",
+    "developer",
+    "architect",
+    "security-reviewer",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Operate startup, readiness, drain, shutdown, governed change, and incidents.",
+  "priorKnowledge": "Know the deployment topology and owned resources.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Single lifecycle coordinator, module contributors, diagnostics, and nDynamo",
+  "lastVerified": "2026-07-26",
+  "summary": "The process moves through starting, started, degraded, draining, stopping, stopped, or failed; bounded contributors report readiness and release resources in deterministic order.",
+  "supportingEvidence": [
+    "nodics:gFramework/nConfig/docs/runtime-lifecycle-resilience-contract.md",
+    "nodics:gFramework/nDynamo/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Lifecycle",
+      "items": [
+        "Required startup dependencies affect readiness; optional control-plane integrations recover asynchronously.",
+        "Liveness proves the process exists; readiness admits traffic only while started.",
+        "SIGTERM/SIGINT transitions to draining, rejects new work, waits boundedly, then closes resources.",
+        "Hard OOM/SIGKILL cannot run hooks; external supervision, replicas, durable ownership, and reconciliation are mandatory."
+      ]
+    },
+    {
+      "heading": "Governed runtime change",
+      "items": [
+        "Preview is side-effect free and reports changes, impact, warnings, and destructive risk.",
+        "Approval records immutable intent and separation of duties.",
+        "Activation validates digest, revision, tenant, actor, and policy before using the owning service.",
+        "Audit correlates success/failure; rollback restores the prior snapshot through the same authority.",
+        "Secrets and prototype-mutating paths are rejected."
+      ]
+    },
+    {
+      "heading": "Module-based startup and dependency classes",
+      "items": [
+        "Nodics composition is module-based even when several modules run in one monoServer process. Lifecycle state, readiness contributions, and diagnostics identify modules and providers rather than claiming that a fixed set of servers is the product boundary.",
+        "Required dependencies block readiness because the module cannot safely perform its contract. Optional integrations such as BackOffice registration retry asynchronously with bounded backoff and observable degraded state.",
+        "A node is started with its parent server identity; a server can be selected with an environment when names are ambiguous. Runtime canonical identity prevents same-named topology entries from crossing environments.",
+        "Startup hooks perform bounded initialization and registration. They must not add per-request latency, duplicate loaders, or make customer data paths depend on a control-plane service."
+      ]
+    },
+    {
+      "heading": "Incident flow",
+      "items": [
+        "Correlate health, readiness, traces, safe logs/metrics, audit, provider state, queues, jobs, carriers, publications, and recent activations.",
+        "Contain traffic or work, preserve evidence, recover owned state, reconcile derived systems, and verify business outcome.",
+        "Never use sensitive values as telemetry labels or expose protected readiness details as public probes."
+      ]
+    },
+    {
+      "heading": "Shutdown and recovery example",
+      "items": [
+        "On SIGTERM the process marks readiness false, stops accepting new HTTP and scheduled work, signals durable owners to stop claiming work, and waits only for the configured drain deadline.",
+        "Resources close in dependency-safe order. A hook failure is recorded and remaining hooks continue where safe; the process cannot wait indefinitely for an external provider.",
+        "After restart, durable leases, idempotency identities, workflow carriers, publication attempts, and reconciliation determine what needs resumption. Memory alone is never sufficient evidence.",
+        "Verify repeated signals, a stuck request, active SSE stream, scheduled job, event consumer, database and cache closure, optional registration outage, partial startup, and recovery on another node."
+      ]
+    },
+    {
+      "heading": "Operational measurements",
+      "items": [
+        "Track lifecycle state, readiness reason category, startup and drain duration, in-flight work, rejected work, hook outcomes, dependency health, lease age, retry backlog, and reconciliation lag with bounded labels.",
+        "Trace identifiers propagate across module calls and asynchronous carriers. Logs explain decisions safely; metrics show trends; traces show a request path; audit proves governed change and actor intent.",
+        "Alerts require an owner, threshold, evaluation window, runbook, and expected action. Avoid paging on optional registration retry when customer service remains healthy.",
+        "Production qualification includes load, rolling restart, process crash, dependency isolation, network partition, provider recovery, telemetry outage, configuration rollback, backup/restore, and version compatibility."
+      ]
+    }
+  ]
+}

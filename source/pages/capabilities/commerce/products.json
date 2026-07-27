@@ -1,1 +1,95 @@
-{"code":"capability.commerce.products","title":"Product Catalog","route":"/docs/capabilities/commerce/products","section":"capabilities","family":"concepts-runtime","parent":"page:capability.commerce.overview","order":30,"audiences":["business-user","administrator","developer","architect","operator","ai-tool"],"readerIntent":"Model and publish product information independently from price and stock.","priorKnowledge":"Understand catalogs, schemas, workflows, and publishing.","depth":"implementation","status":"implemented","owner":"Product capability","lastVerified":"2026-07-26","summary":"Product owns stable product identity, variants, categories, attributes, catalog relationships, merchandising data, and product-specific validation—not price balances or warehouse stock.","supportingEvidence":["nodics:gComm/product/README.md"],"sections":[{"heading":"Model","items":["Stable product and variant identity.","Categories, classifications, attributes, media references, units, relationships, bundles, and lifecycle.","Flexible types including physical goods, services, digital items, land, real-estate, and agricultural assets through extensible schemas.","Catalog and version context without duplicating CMS, Pricing, Inventory, or Units authority."]},{"heading":"Staged to Online","items":["Business users edit versioned staged products where enabled.","A workflow associates exact changed versions and performs manual/automatic validation and approval.","nPublish uses the Product-owned dependency, manifest, and target adapter contracts.","Online stores the approved deployed form without authoring/version behavior.","Search and cache refresh through existing contracts after successful publication."]}]}
+{
+  "code": "capability.commerce.products",
+  "title": "Product Catalog",
+  "route": "/docs/capabilities/commerce/products",
+  "section": "capabilities",
+  "family": "runtime-behavior",
+  "parent": "page:capability.commerce.overview",
+  "order": 30,
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Model and publish product information independently from price and stock.",
+  "priorKnowledge": "Understand catalogs, schemas, workflows, and publishing.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Product capability",
+  "lastVerified": "2026-07-26",
+  "summary": "Product owns stable product identity, variants, categories, attributes, catalog relationships, merchandising data, and product-specific validation—not price balances or warehouse stock.",
+  "supportingEvidence": [
+    "nodics:gComm/product/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Model",
+      "items": [
+        "Stable product and variant identity.",
+        "Categories, classifications, attributes, media references, units, relationships, bundles, and lifecycle.",
+        "Flexible types including physical goods, services, digital items, land, real-estate, and agricultural assets through extensible schemas.",
+        "Catalog and version context without duplicating CMS, Pricing, Inventory, or Units authority."
+      ]
+    },
+    {
+      "heading": "Staged to Online",
+      "items": [
+        "Business users edit versioned staged products where enabled.",
+        "A workflow associates exact changed versions and performs manual/automatic validation and approval.",
+        "nPublish uses the Product-owned dependency, manifest, and target adapter contracts.",
+        "Online stores the approved deployed form without authoring/version behavior.",
+        "Search and cache refresh through existing contracts after successful publication."
+      ]
+    },
+    {
+      "heading": "Product boundaries",
+      "paragraphs": [
+        "Product describes what is offered. It does not store the current contextual price, warehouse balance, page template, customer permission, or search-engine document as authority.",
+        "Those capabilities reference stable product and variant identity and resolve their own results."
+      ]
+    },
+    {
+      "heading": "Flexible product types",
+      "items": [
+        "Physical item with count, mass, volume, length, or area.",
+        "Service or digital item with no warehouse stock.",
+        "Land, property, or agricultural asset with spatial and area attributes.",
+        "Configurable or variant product.",
+        "Bundle or relationship-based offer.",
+        "Customer-project type extending approved schema contracts."
+      ]
+    },
+    {
+      "heading": "Dependencies",
+      "items": [
+        "Units and classifications.",
+        "Categories and catalog.",
+        "CMS or media references.",
+        "Variant and related-product identities.",
+        "Store/Site eligibility where configured.",
+        "Publishing target and search projection."
+      ]
+    },
+    {
+      "heading": "Example",
+      "paragraphs": [
+        "A phone product defines brand, model, descriptions, categories, media, and variants by storage and color. Product publishes these approved identities online.",
+        "Pricing attaches contextual prices and Inventory records variant stock. A missing price or unavailable zone does not corrupt Product; the composed customer result reports the missing capability outcome."
+      ]
+    },
+    {
+      "heading": "Operations and migration",
+      "items": [
+        "Monitor invalid, incomplete, duplicate, unpublished, and orphaned relationships.",
+        "Version classification and schema changes.",
+        "Migrate variant dimensions without losing external references.",
+        "Reconcile staged, online, search, and cache versions.",
+        "Archive discontinued products according to order and audit retention.",
+        "Load-test catalog import, publishing, and product discovery."
+      ]
+    }
+  ]
+}

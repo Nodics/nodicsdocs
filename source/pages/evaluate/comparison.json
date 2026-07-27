@@ -6,7 +6,10 @@
   "family": "business-value",
   "parent": "section:evaluate",
   "order": 30,
-  "audiences": ["evaluator", "architect"],
+  "audiences": [
+    "evaluator",
+    "architect"
+  ],
   "readerIntent": "Compare architectural approaches without relying on unsupported competitive claims.",
   "priorKnowledge": "Understand the difference between a library, framework, platform, and custom application.",
   "depth": "overview",
@@ -14,24 +17,70 @@
   "owner": "Nodics platform",
   "lastVerified": "2026-07-26",
   "summary": "Nodics should be compared by governed capabilities, extension model, and operating responsibilities rather than by feature-count marketing.",
-  "evidence": ["nodics:gDocs/business/how-nodics-compares.md"],
+  "evidence": [
+    "nodics:gDocs/business/how-nodics-compares.md"
+  ],
   "sections": [
+    {
+      "heading": "Begin with the problem being compared",
+      "paragraphs": [
+        "A fair comparison starts with the same product, users, data, integrations, security obligations, deployment scale, customization needs, and operating period. Comparing a Nodics business platform with a small demonstration application or comparing an implemented competitor suite with a planned Nodics capability produces a misleading result.",
+        "Separate three questions: how quickly the first useful release can be delivered, how safely customer-specific behavior can evolve, and how much the system costs to operate and upgrade over several years."
+      ]
+    },
     {
       "heading": "Compared with assembling libraries",
       "paragraphs": [
-        "Individual libraries can solve focused technical problems. Nodics adds ownership, layering, runtime topology, security, generated contracts, testing, and documentation rules that connect those concerns into an application platform."
+        "Individual libraries can solve focused technical problems and may be the simplest choice for a narrow application. The adopting team must design how those libraries share configuration, ownership, security, tenant context, error handling, tests, upgrades, and operations.",
+        "Nodics adds ownership, layering, runtime topology, security, generated contracts, testing, and documentation rules that connect those concerns into an application platform. The trade-off is that developers must learn and follow the platform contracts instead of using each library independently."
       ]
     },
     {
       "heading": "Compared with a custom application",
       "paragraphs": [
-        "A custom application can optimize one immediate use case. Nodics is valuable when several products, tenants, partners, or deployment models need reusable foundations and governed customization."
+        "A custom application can optimize one immediate use case and avoid platform concepts that the product does not need. It may be appropriate for a small, stable, short-lived, or highly specialized workload.",
+        "Nodics is valuable when several products, tenants, partners, or deployment models need reusable foundations and governed customization. Its advantage increases when identity, data, APIs, jobs, events, workflows, imports, search, content, commerce, and operational controls would otherwise be rebuilt repeatedly."
       ]
     },
     {
       "heading": "Compared with an all-in-one suite",
       "paragraphs": [
-        "Nodics favors modular capability ownership and replaceable implementations. An evaluator must confirm that the available modules, operational maturity, and implementation effort fit the project rather than assuming every suite feature is present."
+        "An all-in-one enterprise suite may offer a larger set of mature packaged business processes, administration screens, vendor support, and certified integrations. It may also introduce licensing cost, vendor-specific extension models, upgrade constraints, and more functionality than a product needs.",
+        "Nodics favors modular capability ownership and replaceable implementations. An evaluator must confirm that available capabilities, user experiences, operational maturity, partner support, and implementation effort fit the project rather than assuming every suite feature is present."
+      ]
+    },
+    {
+      "heading": "Compared with a low-code platform",
+      "paragraphs": [
+        "Low-code products can accelerate forms, workflows, and integrations for teams that prefer visual composition. Their limits normally appear around source ownership, complex customization, testing depth, provider portability, performance, or deployment control.",
+        "Nodics is code- and contract-driven. It can support schema-driven and visual experiences, including BackOffice and workflow builders, but backend authority remains in versioned capability contracts. Choose based on who will maintain the product and how much implementation control is required."
+      ]
+    },
+    {
+      "heading": "Compared with a headless CMS or commerce product",
+      "paragraphs": [
+        "A focused headless product may provide a polished authoring or commerce capability faster than a broader framework. Nodics covers a wider application-platform boundary and composes content, publishing, commerce, identity, workflow, data, operations, and AI capabilities.",
+        "If the requirement is only a standard CMS or storefront, evaluate the focused product carefully. If several domains require one extension, tenancy, integration, and runtime model, Nodics may reduce parallel platform work."
+      ]
+    },
+    {
+      "heading": "Dimensions to score",
+      "items": [
+        "Implemented functional fit and the project effort required for missing behavior.",
+        "Business-user experience, accessibility, responsive behavior, localization, and training.",
+        "Customization without modifying reusable source or creating duplicate authority paths.",
+        "Tenant isolation, authentication, authorization, validation, audit, secrets, and compliance evidence.",
+        "API, data, event, workflow, import/export, search, and frontend integration contracts.",
+        "Local development, automated testing, deployment, scaling, monitoring, recovery, and upgrade processes.",
+        "Provider and vendor dependence, licensing, support, skills availability, and long-term ownership.",
+        "Measured delivery time and total cost for a representative end-to-end scenario."
+      ]
+    },
+    {
+      "heading": "Proof-of-concept scenario",
+      "paragraphs": [
+        "Use a scenario that crosses meaningful boundaries. For example, create a tenant-owned employee-managed record with a related model, search it, approve it through a workflow, publish or export it, observe it, reject unauthorized access, and customize one rule in a project layer.",
+        "Record setup time, code and configuration changes, security evidence, test effort, runtime diagnostics, business-user usability, and upgrade impact. Repeat the same acceptance criteria for every approach."
       ]
     },
     {
@@ -42,6 +91,82 @@
         "Include customization, testing, security, deployment, and upgrade effort.",
         "Prototype one representative end-to-end capability before committing."
       ]
+    },
+    {
+      "heading": "Avoid misleading conclusions",
+      "items": [
+        "Do not compare marketing feature names without validating behavior and maturity.",
+        "Do not count generated CRUD as completion of business workflows, security, operations, or user experience.",
+        "Do not assume open extension automatically means low maintenance.",
+        "Do not ignore the cost of partner training, documentation, migration, data quality, and production support.",
+        "Do not present a planned Nodics capability as an implemented competitive advantage."
+      ]
+    },
+    {
+      "heading": "Complete guide: How Nodics Compares With Other Approaches",
+      "migratedFrom": "nodics:gDocs/business/how-nodics-compares.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "This comparison is intended to support a decision, not to declare one tool the winner in every situation. Products in each category vary, and their features change. Confirm current product capabilities with the relevant vendor or project before making a purchase or architecture decision."
+      ]
+    },
+    {
+      "heading": "Comparison By Approach",
+      "migratedFrom": "nodics:gDocs/business/how-nodics-compares.md",
+      "sourceAnchor": "comparison-by-approach",
+      "paragraphs": [
+        "| Decision area | Nodics | Minimal web/API framework | Low-code platform | Large opinionated enterprise platform | Independently built microservices |\n| --- | --- | --- | --- | --- | --- |\n| First prototype | More structure to learn | Often fastest for a small coded prototype | Often fastest for supported workflows | Setup can be substantial | Usually slower because platform decisions are repeated. |\n| Path beyond the prototype | Architecture, extension, testing, and topology contracts are built into the model | The team must select and govern many supporting patterns | Depends on platform limits and escape paths | Strong where the product model fits | Flexible, but consistency must be designed and operated. |\n| Business capability ownership | Explicit module ownership | Determined by each project | Often modeled through platform applications or flows | Usually defined by the platform's domain model | Determined service by service. |\n| Customer-specific behavior | Layered modules and configuration | Custom project design | Configuration can be strong inside supported boundaries | Usually strong inside the platform model | Custom design across services. |\n| Provider choice | Provider modules preserve capability boundaries | Broad ecosystem; integration is project-owned | Usually marketplace/vendor dependent | Usually vendor ecosystem dependent | Maximum choice with maximum integration ownership. |\n| Deployment evolution | Consolidated and modular topology are part of the application model | Possible, but designed by the project | Commonly platform-managed | Commonly product-defined | Native goal, with high operational overhead. |\n| AI-assisted engineering governance | Repository contracts, module ownership, generated context, and tests guide changes | Must be added by the project | Platform may constrain generated changes | Product tooling varies | Must be standardized across repositories and teams. |\n| Lock-in profile | Nodics conventions and Node.js implementation; providers can be replaced through contracts | Framework APIs plus project architecture | Often high platform and data-model dependence | Often high product-model dependence | Cloud, protocol, data, and service implementation choices can still create lock-in. |\n| Team responsibility | Learn and apply Nodics contracts | Design architecture and governance | Configure platform and manage exceptions | Learn product model and extension system | Design, secure, test, deploy, observe, and govern a distributed platform. |"
+      ]
+    },
+    {
+      "heading": "The Most Relevant Alternatives",
+      "migratedFrom": "nodics:gDocs/business/how-nodics-compares.md",
+      "sourceAnchor": "the-most-relevant-alternatives",
+      "paragraphs": [
+        "Nodics is not simply a replacement for one named framework. It combines concerns that are often assembled from several categories:",
+        "For a fair comparison, compare the complete solution needed to operate your product, not Nodics against the HTTP layer of another framework."
+      ],
+      "items": [
+        "a web/API framework for request handling;",
+        "application architecture conventions for services and data;",
+        "identity and tenant-aware behavior;",
+        "jobs, events, messaging, cache, search, import, and export;",
+        "runtime and deployment governance;",
+        "generated contracts, tests, and AI guidance."
+      ]
+    },
+    {
+      "heading": "How To Run A Fair Proof Of Concept",
+      "migratedFrom": "nodics:gDocs/business/how-nodics-compares.md",
+      "sourceAnchor": "how-to-run-a-fair-proof-of-concept",
+      "paragraphs": [
+        "Ask each candidate approach to implement the same representative scenario:",
+        "Measure delivery time, but also measure the amount of custom platform code, operational complexity, test evidence, customization safety, and expected maintenance cost."
+      ],
+      "items": [
+        "Create a tenant-aware business record and secured API.",
+        "Add a customer-specific rule without changing shared framework source.",
+        "Add a scheduled or event-driven process.",
+        "Replace or configure one infrastructure provider.",
+        "Generate or publish the API contract.",
+        "Test authorized, unauthorized, invalid, boundary, and tenant-isolation cases.",
+        "Explain how the application moves from one process to modular deployment.",
+        "Show how a new developer or AI tool discovers where the next change belongs."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/business/how-nodics-compares.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "Previous: [Business Capabilities And Outcomes](/docs/evaluate/business-capabilities)",
+        "Next: [Business And Technical Evaluation Checklist](/docs/evaluate/checklist)",
+        "Technical organization: [How Nodics Is Organized](/docs/framework/architecture)",
+        "Documentation home: [Nodics Documentation](/docs)"
+      ]
     }
+  ],
+  "supportingEvidence": [
+    "nodics:gDocs/business/how-nodics-compares.md"
   ]
 }

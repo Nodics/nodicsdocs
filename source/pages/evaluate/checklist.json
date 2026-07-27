@@ -6,7 +6,12 @@
   "family": "technical-reference",
   "parent": "section:evaluate",
   "order": 50,
-  "audiences": ["evaluator", "architect", "security-reviewer", "operator"],
+  "audiences": [
+    "evaluator",
+    "architect",
+    "security-reviewer",
+    "operator"
+  ],
   "readerIntent": "Evaluate whether Nodics fits a proposed product and operating model.",
   "priorKnowledge": "Know the product goals, expected users, integrations, and deployment constraints.",
   "depth": "reference",
@@ -14,8 +19,17 @@
   "owner": "Nodics platform",
   "lastVerified": "2026-07-26",
   "summary": "Use this checklist to turn a product evaluation into verifiable business, architecture, security, operations, and adoption decisions.",
-  "evidence": ["nodics:gDocs/business/evaluation-checklist.md"],
+  "evidence": [
+    "nodics:gDocs/business/evaluation-checklist.md"
+  ],
   "sections": [
+    {
+      "heading": "How to use this checklist",
+      "paragraphs": [
+        "Use the checklist during discovery, proof of concept, architecture review, security review, and production readiness. Record an owner, evidence link, decision, risk, and follow-up for every applicable question.",
+        "Answers such as supported or not supported are insufficient. Distinguish implemented out-of-the-box behavior, configuration, supported extension, project development, optional provider work, and planned behavior."
+      ]
+    },
     {
       "heading": "Business fit",
       "items": [
@@ -23,6 +37,26 @@
         "Which requirements are project-specific and belong in customer modules?",
         "Which claimed business solutions are already implemented?",
         "What skills and operating responsibilities remain with the adopting organization?"
+      ]
+    },
+    {
+      "heading": "Users and experience",
+      "items": [
+        "Which personas use the solution: customers, employees, administrators, operators, partners, developers, or automated systems?",
+        "Which experiences are supplied and which separate frontend applications must the project build?",
+        "Can labels, guidance, page composition, localization, and tenant-specific content be changed through governed backend content or configuration?",
+        "Are accessibility, responsive layout, mobile webview, localization, time zone, currency, and browser requirements defined?",
+        "Can business users complete representative workflows without learning technical module names?"
+      ]
+    },
+    {
+      "heading": "Capability and maturity fit",
+      "items": [
+        "Is each required capability implemented, optional, experimental, project-specific, or only planned?",
+        "Which prebuilt providers are available and what maturity evidence exists for each one?",
+        "Which business rules are configurable and which require code?",
+        "Do technical references identify APIs, schemas, services, configuration, events, jobs, errors, and extension points?",
+        "Are limitations and unsupported scenarios explicit?"
       ]
     },
     {
@@ -35,6 +69,27 @@
       ]
     },
     {
+      "heading": "Data and integration",
+      "items": [
+        "Which capability owns each data model and which systems remain external authorities?",
+        "How are relationships across models and modules created, validated, searched, imported, exported, and deleted?",
+        "What are the tenant, enterprise, catalog, site, store, country, channel, locale, and ownership scopes?",
+        "Which database, cache, search, messaging, storage, and AI providers are required?",
+        "How are schema evolution, migration, reconciliation, data quality, retention, and archival handled?",
+        "Which API, event, file, workflow, and scheduled integrations require idempotency, retry, ordering, or compensation?"
+      ]
+    },
+    {
+      "heading": "Performance and scale",
+      "items": [
+        "What are the expected request rate, concurrency, dataset size, index size, job volume, event volume, and growth assumptions?",
+        "Which operations have response-time or completion-time objectives?",
+        "Can hot reads use cache or search without creating a second source of truth?",
+        "How will modules be grouped into processes, scaled independently, and protected from resource exhaustion?",
+        "What load, soak, failover, restart, cache-provider, search-provider, and degraded-dependency tests are required?"
+      ]
+    },
+    {
       "heading": "Security and operations",
       "items": [
         "Are human, service, and scheduled access paths separated?",
@@ -42,6 +97,163 @@
         "Are health, logging, metrics, recovery, backup, and scaling responsibilities understood?",
         "Do positive, rejected, boundary, integration, and regression tests provide evidence?"
       ]
+    },
+    {
+      "heading": "Delivery and customization",
+      "items": [
+        "Can the team explain where framework code ends and customer-project code begins?",
+        "Will the project reuse, configure, or extend an existing implementation before adding a new one?",
+        "Are generated artifacts rebuilt from source definitions instead of edited manually?",
+        "Can two customer projects customize the same capability independently?",
+        "Are coding principles, documentation updates, ownership tests, and review gates part of delivery?"
+      ]
+    },
+    {
+      "heading": "Adoption and support",
+      "items": [
+        "Who will train developers, business users, operators, security reviewers, and support teams?",
+        "Is beginner-to-expert documentation available for every adopted capability?",
+        "Who owns framework upgrades, project compatibility, provider upgrades, incidents, and production support?",
+        "What licensing, third-party, cloud, model-token, infrastructure, and partner costs apply?",
+        "What pilot success criteria, exit criteria, timeline, and decision authority are agreed?"
+      ]
+    },
+    {
+      "heading": "Required proof before approval",
+      "items": [
+        "A representative end-to-end business scenario demonstrated against current source and configuration.",
+        "Successful, rejected, boundary, tenant-isolation, contract, integration, recovery, performance, and regression evidence.",
+        "A documented customization performed in a project layer without modifying reusable framework authority.",
+        "A deployment and operating model covering topology, secrets, monitoring, backup, restore, scaling, rollback, and incident response.",
+        "A gap register separating configuration, extension, new development, provider work, and unsupported requirements.",
+        "An accountable adoption plan with cost, skills, ownership, risks, and measurable outcomes."
+      ]
+    },
+    {
+      "heading": "Complete guide: Business And Technical Evaluation Checklist",
+      "migratedFrom": "nodics:gDocs/business/evaluation-checklist.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "Use this checklist before selecting Nodics for a product or customer program. Record evidence, owners, risks, and follow-up actions rather than answering only yes or no."
+      ]
+    },
+    {
+      "heading": "Business Fit",
+      "migratedFrom": "nodics:gDocs/business/evaluation-checklist.md",
+      "sourceAnchor": "business-fit",
+      "paragraphs": [
+        "delivery team?",
+        "architectural freedom?"
+      ],
+      "items": [
+        "What business capability will the first release prove?",
+        "How many customer or tenant variations are expected?",
+        "Which foundations would otherwise need to be designed and maintained by the",
+        "What is the expected product lifetime and team growth?",
+        "Does the organization accept a governed framework in exchange for less",
+        "What delivery-time and maintenance-cost measures will be compared?"
+      ]
+    },
+    {
+      "heading": "Product And Delivery Fit",
+      "migratedFrom": "nodics:gDocs/business/evaluation-checklist.md",
+      "sourceAnchor": "product-and-delivery-fit",
+      "paragraphs": [
+        "further implementation or provider qualification."
+      ],
+      "items": [
+        "Build one representative capability, not only a hello-world route.",
+        "Demonstrate API, data, permissions, configuration, tests, and documentation.",
+        "Demonstrate a project-level customization without editing framework source.",
+        "Identify which available modules are production-ready and which require",
+        "Estimate team learning, migration, and operational enablement effort."
+      ]
+    },
+    {
+      "heading": "Security And Compliance Fit",
+      "migratedFrom": "nodics:gDocs/business/evaluation-checklist.md",
+      "sourceAnchor": "security-and-compliance-fit",
+      "paragraphs": [
+        "[Security Shared-Responsibility Model](/docs/security/shared-responsibility), and validate claims with the [Security Evidence Guide](/docs/security/evidence).",
+        "access.",
+        "and sensitive-data treatment.",
+        "the intended deployment.",
+        "infrastructure-operated, and organization-owned.",
+        "evidence and the required independent assessment."
+      ],
+      "items": [
+        "Read [Why Businesses Can Trust Nodics](/docs/evaluate/security-and-trust), assign the",
+        "Verify human authentication separately from module-to-module and scheduled",
+        "Verify authorization, tenant isolation, validation, secrets handling, audit,",
+        "Confirm regulatory, retention, residency, encryption, and evidence needs for",
+        "Test failure and misuse cases, not only successful access.",
+        "Record which controls are framework-provided, project-configured,",
+        "Do not accept certification or compliance claims without solution-specific"
+      ]
+    },
+    {
+      "heading": "Architecture And Integration Fit",
+      "migratedFrom": "nodics:gDocs/business/evaluation-checklist.md",
+      "sourceAnchor": "architecture-and-integration-fit",
+      "paragraphs": [
+        "provider ownership.",
+        "registry, policy engine, or source of truth.",
+        "backend/API platform."
+      ],
+      "items": [
+        "Confirm which module owns every proposed capability.",
+        "Identify external systems, data contracts, failure behavior, retries, and",
+        "Check for existing Nodics capabilities before introducing a second loader,",
+        "Confirm how frontend applications consume APIs while Nodics remains the",
+        "Define the path from the initial topology to expected scale."
+      ]
+    },
+    {
+      "heading": "Operations And Commercial Fit",
+      "migratedFrom": "nodics:gDocs/business/evaluation-checklist.md",
+      "sourceAnchor": "operations-and-commercial-fit",
+      "paragraphs": [
+        "recovery, and capacity expectations.",
+        "and upgrade responsibility.",
+        "providers, delivery, operation, and training."
+      ],
+      "items": [
+        "Define service-level objectives, observability, incident response, backup,",
+        "Verify deployment automation and environment separation.",
+        "Determine internal ownership, support expectations, licensing obligations,",
+        "Estimate the total cost of the complete solution, including infrastructure,"
+      ]
+    },
+    {
+      "heading": "Decision Record",
+      "migratedFrom": "nodics:gDocs/business/evaluation-checklist.md",
+      "sourceAnchor": "decision-record",
+      "paragraphs": [
+        "The final decision should state:"
+      ],
+      "items": [
+        "the business outcomes Nodics is expected to improve;",
+        "proof-of-concept evidence;",
+        "known gaps and required investments;",
+        "selected providers and their maturity;",
+        "security and operational acceptance;",
+        "accountable business and technical owners;",
+        "exit or reassessment criteria."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/business/evaluation-checklist.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "Previous: [How Nodics Compares](/docs/evaluate/comparison)",
+        "Start a technical evaluation: [How To Set Up Nodics](/docs/get-started/local-setup)",
+        "Build a representative capability: [Build Your First Nodics Capability](/docs/get-started/first-capability)",
+        "Documentation home: [Nodics Documentation](/docs)"
+      ]
     }
+  ],
+  "supportingEvidence": [
+    "nodics:gDocs/business/evaluation-checklist.md"
   ]
 }

@@ -1,1 +1,82 @@
-{"code":"capability.libraries-utilities.runtime","title":"Design and Extend Shared Helpers","route":"/docs/capabilities/libraries-utilities/runtime","section":"build","family":"configuration-customization","parent":"page:capability.libraries-utilities.overview","order":10,"audiences":["developer","architect","framework-maintainer","ai-tool"],"readerIntent":"Create a stable helper without hiding dependencies or ownership.","priorKnowledge":"Know all current and intended consumers.","depth":"guided","status":"implemented","owner":"Specific capability or nCommon","lastVerified":"2026-07-26","summary":"A shared helper has explicit inputs, outputs, side effects, errors, performance, security, compatibility, consumers, and override rules.","supportingEvidence":["nodics:gFramework/nCommon/README.md"],"sections":[{"heading":"Implementation sequence","items":["Search for an existing helper and owning capability.","Prove several framework consumers and no clearer owner before using nCommon.","Prefer a pure deterministic function; pass required context explicitly.","Avoid network, filesystem, provider, database, secret, or mutable-global behavior in a general utility.","Document compatibility and layer overrides; never monkey-patch globals.","Test invalid input, boundaries, error cause propagation, concurrency where relevant, and all critical consumers."]},{"heading":"Security and performance","items":["Never add secret-bearing convenience serialization or logging.","Keep high-volume helpers bounded and allocation-aware.","Preserve original safe cause, correlation, module, tenant, and execution layer.","Measure widely used helpers before adding expensive abstraction."]}]}
+{
+  "code": "capability.libraries-utilities.runtime",
+  "title": "Design and Extend Shared Helpers",
+  "route": "/docs/capabilities/libraries-utilities/runtime",
+  "section": "build",
+  "family": "configuration-customization",
+  "parent": "page:capability.libraries-utilities.overview",
+  "order": 10,
+  "audiences": [
+    "developer",
+    "architect",
+    "framework-maintainer",
+    "ai-tool"
+  ],
+  "readerIntent": "Create a stable helper without hiding dependencies or ownership.",
+  "priorKnowledge": "Know all current and intended consumers.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "Specific capability or nCommon",
+  "lastVerified": "2026-07-26",
+  "summary": "A shared helper has explicit inputs, outputs, side effects, errors, performance, security, compatibility, consumers, and override rules.",
+  "supportingEvidence": [
+    "nodics:gFramework/nCommon/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Implementation sequence",
+      "items": [
+        "Search for an existing helper and owning capability.",
+        "Prove several framework consumers and no clearer owner before using nCommon.",
+        "Prefer a pure deterministic function; pass required context explicitly.",
+        "Avoid network, filesystem, provider, database, secret, or mutable-global behavior in a general utility.",
+        "Document compatibility and layer overrides; never monkey-patch globals.",
+        "Test invalid input, boundaries, error cause propagation, concurrency where relevant, and all critical consumers."
+      ]
+    },
+    {
+      "heading": "Design the contract",
+      "items": [
+        "Name the owning capability and consumers.",
+        "Define accepted types, output, mutation, null behavior, and errors.",
+        "Document time and space complexity and input bounds.",
+        "Make locale, time zone, encoding, and comparison choices explicit.",
+        "Decide whether extension is supported or a breaking change requires a new helper."
+      ]
+    },
+    {
+      "heading": "Example: friendly description",
+      "paragraphs": [
+        "A presentation helper can truncate a description to five words and preserve the full text for a tooltip. It receives text and a word limit and returns deterministic display data.",
+        "The helper does not search records, authorize visibility, or choose which description field is safe; those decisions remain with schema metadata and backend contracts."
+      ]
+    },
+    {
+      "heading": "Security and performance",
+      "items": [
+        "Never add secret-bearing convenience serialization or logging.",
+        "Keep high-volume helpers bounded and allocation-aware.",
+        "Preserve original safe cause, correlation, module, tenant, and execution layer.",
+        "Measure widely used helpers before adding expensive abstraction."
+      ]
+    },
+    {
+      "heading": "Failure and compatibility tests",
+      "items": [
+        "Undefined, null, empty, wrong-type, Unicode, and very large input.",
+        "Minimum, maximum, truncation, ordering, and immutability boundaries.",
+        "Malicious object keys, unsafe formats, and log injection.",
+        "Concurrent use with no shared mutable state.",
+        "Performance under expected high-volume use.",
+        "All critical current consumers before and after the change."
+      ]
+    },
+    {
+      "heading": "When to refactor into a service",
+      "paragraphs": [
+        "Move behavior out of a utility when it needs injected configuration, cache, database, filesystem, network, provider choice, authorization, tenant context, metrics lifecycle, or customer-specific override.",
+        "Preserve a small pure helper inside the service only when it still has independent mechanical value."
+      ]
+    }
+  ]
+}

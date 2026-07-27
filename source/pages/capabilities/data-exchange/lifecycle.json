@@ -6,7 +6,13 @@
   "family": "runtime-behavior",
   "parent": "page:capability.data-exchange.guide",
   "order": 40,
-  "audiences": ["administrator", "developer", "architect", "operator", "ai-tool"],
+  "audiences": [
+    "administrator",
+    "developer",
+    "architect",
+    "operator",
+    "ai-tool"
+  ],
   "readerIntent": "Understand interaction with persistence, search, cache, events, jobs, workflows, and publishing.",
   "priorKnowledge": "Understand the import or export definition.",
   "depth": "implementation",
@@ -14,10 +20,76 @@
   "owner": "Data exchange orchestration and each integrated capability owner",
   "lastVerified": "2026-07-26",
   "summary": "Data exchange coordinates existing authorities; it does not create alternate database, search, cache, event, workflow, or publishing paths.",
-  "supportingEvidence": ["nodics:gFramework/nData/nImport/README.md", "nodics:gFramework/nData/nExport/README.md", "nodics:gFramework/nSearch/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nData/nImport/README.md",
+    "nodics:gFramework/nData/nExport/README.md",
+    "nodics:gFramework/nSearch/README.md"
+  ],
   "sections": [
-    {"heading": "Cross-capability behavior", "items": ["Persistence: imports save and exports query through schema services.", "Search: import headers may target authorized index services; normal record imports may trigger configured indexing.", "Cache: successful changes invalidate or refresh through the owning capability.", "Events: finalization may publish bounded facts after authoritative success.", "Scheduled jobs: trigger named recurring imports or exports, not arbitrary code or destinations.", "Workflows and publishing: stage business changes for approval and publish through their existing contracts."]},
-    {"heading": "Consistency", "paragraphs": ["A run defines transaction or batch boundaries, partial-failure policy, retry and idempotency, derived-system lag, reconciliation, and rollback evidence. Search and cache remain derived views; export correctness is based on authorized authoritative contracts."]},
-    {"heading": "No parallel authority", "items": ["No direct database driver calls from a reader or writer.", "No raw search-engine bulk path outside the search contract.", "No request-selected remote code, URL, credential, processor, topic, or destination.", "No separate documentation-content import engine; documentation uses the Nodics content-pack import contract."]}
+    {
+      "heading": "Cross-capability behavior",
+      "items": [
+        "Persistence: imports save and exports query through schema services.",
+        "Search: import headers may target authorized index services; normal record imports may trigger configured indexing.",
+        "Cache: successful changes invalidate or refresh through the owning capability.",
+        "Events: finalization may publish bounded facts after authoritative success.",
+        "Scheduled jobs: trigger named recurring imports or exports, not arbitrary code or destinations.",
+        "Workflows and publishing: stage business changes for approval and publish through their existing contracts."
+      ]
+    },
+    {
+      "heading": "Consistency",
+      "paragraphs": [
+        "A run defines transaction or batch boundaries, partial-failure policy, retry and idempotency, derived-system lag, reconciliation, and rollback evidence. Search and cache remain derived views; export correctness is based on authorized authoritative contracts."
+      ]
+    },
+    {
+      "heading": "End-to-end import lifecycle",
+      "items": [
+        "Receive and authenticate source.",
+        "Validate metadata, format, checksum, and scope.",
+        "Preview or stage normalized records.",
+        "Persist through owning services in bounded batches.",
+        "Finalize search, cache, events, workflow, and publishing.",
+        "Complete with reconciliation and auditable summary."
+      ]
+    },
+    {
+      "heading": "End-to-end export lifecycle",
+      "items": [
+        "Authorize request and field policy.",
+        "Resolve snapshot and query through owners.",
+        "Render through the selected format provider.",
+        "Deliver through a governed destination.",
+        "Record checksum, counts, expiry, and access.",
+        "Clean partial or expired artifacts."
+      ]
+    },
+    {
+      "heading": "Restart and compensation",
+      "paragraphs": [
+        "Runs persist enough identity and progress to distinguish completed, retryable, failed, uncertain, and compensated work. Restart does not assume an in-memory batch is authoritative.",
+        "Side effects that cannot join one transaction use idempotency, finalization, reconciliation, and explicit compensation."
+      ]
+    },
+    {
+      "heading": "No parallel authority",
+      "items": [
+        "No direct database driver calls from a reader or writer.",
+        "No raw search-engine bulk path outside the search contract.",
+        "No request-selected remote code, URL, credential, processor, topic, or destination.",
+        "No separate documentation-content import engine; documentation uses the Nodics content-pack import contract."
+      ]
+    },
+    {
+      "heading": "Lifecycle evidence",
+      "items": [
+        "Source and destination identity and authorization.",
+        "Validated, accepted, rejected, skipped, updated, and created counts.",
+        "Batch, transaction, retry, resume, and compensation results.",
+        "Index, cache, event, workflow, and publishing finalization.",
+        "Checksum, audit, retention, cleanup, and reconciliation."
+      ]
+    }
   ]
 }

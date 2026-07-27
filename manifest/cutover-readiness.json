@@ -1,6 +1,6 @@
 {
   "contractVersion": 1,
-  "generatedAt": "2026-07-26T12:01:32.541Z",
+  "generatedAt": "2026-07-27T14:53:05.881Z",
   "decision": "NO_GO",
   "blockers": [
     "gdocs-link-retirement"
@@ -25,7 +25,7 @@
       "status": "PASS",
       "evidence": {
         "routes": 159,
-        "canonicalLinks": 87,
+        "canonicalLinks": 638,
         "brokenLinks": [],
         "sectionCounts": {
           "discover": 1,
@@ -92,7 +92,7 @@
         "legacyArticles": 424,
         "generatedArticles": 159,
         "generatedPages": 159,
-        "generatedRoutes": 159,
+        "generatedRoutes": 160,
         "sites": [
           "axisCmsSite"
         ],

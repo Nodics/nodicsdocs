@@ -6,7 +6,14 @@
   "family": "tutorial-example",
   "parent": "section:build",
   "order": 10,
-  "audiences": ["developer", "architect", "business-user", "security-reviewer", "operator", "ai-tool"],
+  "audiences": [
+    "developer",
+    "architect",
+    "business-user",
+    "security-reviewer",
+    "operator",
+    "ai-tool"
+  ],
   "readerIntent": "Turn a business outcome into a project-owned, testable Nodics capability.",
   "priorKnowledge": "Complete local setup and understand the layered architecture.",
   "depth": "guided",
@@ -14,8 +21,22 @@
   "owner": "Customer project module with reusable Nodics framework contracts",
   "lastVerified": "2026-07-26",
   "summary": "Build customer functionality in project modules by reusing existing authorities first, extending them second, and adding new contracts only when no governed capability already owns the responsibility.",
-  "supportingEvidence": ["nodics:README.md", "nodics:gFramework/nConfig/README.md", "nodics:gFramework/nDefault/README.md"],
+  "supportingEvidence": [
+    "nodics:README.md",
+    "nodics:gFramework/nConfig/README.md",
+    "nodics:gFramework/nDefault/README.md",
+    "nodics:gDocs/development/how-to-create-application-functionality.md"
+  ],
   "sections": [
+    {
+      "heading": "Prepare ownership and placement",
+      "items": [
+        "Name the business capability, authoritative data, actors, workflows, APIs, events, dependencies, service objectives, security classification, and operational owner before creating a module.",
+        "Search existing schemas, services, routers, providers, loaders, and governance contracts. Prefer reuse, configuration, and layered extension before introducing a new implementation or authority path.",
+        "Choose the module group by broad responsibility and independent usefulness, not merely the first use case. A reusable framework capability and a customer-project business module have different ownership.",
+        "Keep package.json limited to standard package and module metadata; place application behavior in properties.js and schemas in their owning module conventions."
+      ]
+    },
     {
       "heading": "Example",
       "paragraphs": [
@@ -40,6 +61,192 @@
         "Positive, negative, boundary, contract, integration, resilience, security, performance, and regression behavior pass.",
         "Canonical end-user/developer documentation, concise module README, generated context, and API contracts match implementation.",
         "MonoServer and relevant modular topology behavior are verified before production qualification."
+      ]
+    },
+    {
+      "heading": "Complete guide: How To Create Application Functionality",
+      "migratedFrom": "nodics:gDocs/development/how-to-create-application-functionality.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "This guide explains how to decide where new code belongs.",
+        "Before writing code, identify the capability you are building.",
+        "Examples:",
+        "For practical task-by-task examples, read [Common Implementation Examples](/docs/build/examples). It shows how to create APIs, schemas, providers, scheduled jobs, and runtime configuration changes using the same ownership and verification rules."
+      ],
+      "items": [
+        "User registration belongs near identity/profile behavior.",
+        "A new scheduled cleanup belongs near scheduled-job behavior.",
+        "A new import type belongs near import behavior.",
+        "A new data provider belongs near database behavior.",
+        "A customer-specific order rule belongs in the customer project module, not in framework order code."
+      ]
+    },
+    {
+      "heading": "Beginner Summary",
+      "migratedFrom": "nodics:gDocs/development/how-to-create-application-functionality.md",
+      "sourceAnchor": "beginner-summary",
+      "paragraphs": [
+        "In Nodics, you do not start by asking \"which file can I edit?\" You start by asking \"which capability owns this behavior?\"",
+        "A capability is a business or platform area such as profile, order, cache, import, search, workflow, scheduled jobs, or runtime configuration. Once the capability is clear, the layer becomes easier:",
+        "The safest beginner workflow is:",
+        "```text\nDescribe feature -> choose owner -> choose layer -> write small code -> add tests -> regenerate artifacts -> update docs\n```"
+      ],
+      "items": [
+        "route exposes an API;",
+        "controller reads the HTTP request and prepares the Nodics request context;",
+        "facade coordinates one use case;",
+        "service implements business behavior;",
+        "schema defines data shape and generated CRUD behavior;",
+        "DAO/provider talks to a database or external provider;",
+        "pipeline defines ordered processing steps;",
+        "interceptor validates or hooks into lifecycle behavior;",
+        "config stores policy, provider choice, limits, and topology;",
+        "data folders store initial, core, sample, or importable records;",
+        "tests prove the behavior and the override path."
+      ]
+    },
+    {
+      "heading": "Step 1: Describe The Feature",
+      "migratedFrom": "nodics:gDocs/development/how-to-create-application-functionality.md",
+      "sourceAnchor": "step-1-describe-the-feature",
+      "paragraphs": [
+        "Write one sentence:",
+        "```text\nThis feature allows <user or system> to <do something> so that <business outcome>.\n```",
+        "If the sentence names a user-facing action, you probably need API, service, data, and test changes.",
+        "If the sentence names system automation, you may need configuration, scheduled jobs, events, or pipelines.",
+        "Examples:",
+        "| Requirement | Likely owner | Likely layers |\n| --- | --- | --- |\n| Customer can save a delivery preference | Customer project or profile module | schema, route, controller, facade, service, tests |\n| Product catalog must be exported nightly | Catalog/data project module | cronjob, export service, pipeline, config, tests |\n| One tenant uses a private database | Tenant/runtime configuration plus database provider | config, tenant record, DAO/provider tests |\n| Admin can flush a cache channel | Cache/system capability | router, permission, service, audit, tests |\n| Import must reject invalid CSV rows but continue valid rows | Import capability or project import module | import pipeline, interceptor, config, tests |"
+      ]
+    },
+    {
+      "heading": "Step 2: Choose The Owner",
+      "migratedFrom": "nodics:gDocs/development/how-to-create-application-functionality.md",
+      "sourceAnchor": "step-2-choose-the-owner",
+      "paragraphs": [
+        "Ask:",
+        "Do not add code to a shared framework module just because it is convenient. Use a project module when the behavior is customer-specific."
+      ],
+      "items": [
+        "Is this framework behavior?",
+        "Is this project-specific behavior?",
+        "Is this environment-specific behavior?",
+        "Is this tenant-specific behavior?",
+        "Is this a provider implementation?"
+      ]
+    },
+    {
+      "heading": "Step 3: Choose The Right Layer",
+      "migratedFrom": "nodics:gDocs/development/how-to-create-application-functionality.md",
+      "sourceAnchor": "step-3-choose-the-right-layer",
+      "paragraphs": [
+        "Use services for business behavior.",
+        "Use controllers for request handling.",
+        "Use facades for orchestration across services or capability boundaries.",
+        "Use schemas for data shape.",
+        "Use routes for API exposure.",
+        "Use pipelines and interceptors for extension points around a process.",
+        "Use configuration for policy and environment-dependent values.",
+        "Use data folders for initial or sample data.",
+        "Use tests to prove default behavior and override behavior."
+      ]
+    },
+    {
+      "heading": "Layer Decision Table",
+      "migratedFrom": "nodics:gDocs/development/how-to-create-application-functionality.md",
+      "sourceAnchor": "layer-decision-table",
+      "paragraphs": [
+        "Use this table when you are unsure where code belongs:",
+        "| Question | If yes, write here |\n| --- | --- |\n| Does this expose an HTTP endpoint? | `src/router/routers.js` plus controller/facade/service |\n| Does this read path, query, header, or body values? | `src/controller/**/*Controller.js` |\n| Does this coordinate multiple services or modules? | `src/facade/**/*Facade.js` |\n| Does this implement business logic? | `src/service/**/*Service.js` |\n| Does this define a data model or generated CRUD API? | `src/schemas/schemas.js` |\n| Does this change database provider behavior? | Provider module DAO/service layer |\n| Does this add a step to an ordered process? | `src/pipelines/pipelines.js` and service method |\n| Does this validate or hook before/after lifecycle behavior? | `src/interceptors/interceptors.js` or pipeline node |\n| Does this define a setting or policy? | `config/properties.js` |\n| Does this load default records at startup? | Module `data/initial` or appropriate data folder |\n| Does this provide examples users can import manually? | Module `data/sample` or documented import path |\n| Does this prove behavior? | Module `test/` |",
+        "Do not place business behavior in `config/`, routers, generated files, or one-off helper folders."
+      ]
+    },
+    {
+      "heading": "Step 4: Follow Standard Service Style",
+      "migratedFrom": "nodics:gDocs/development/how-to-create-application-functionality.md",
+      "sourceAnchor": "step-4-follow-standard-service-style",
+      "paragraphs": [
+        "Nodics services should export functions from `module.exports`.",
+        "Example:",
+        "```js\nmodule.exports = {\n    createPlan: function (options) {\n        return {\n            executableByDefault: false,\n            requiresExplicitApproval: true\n        };\n    }\n};\n```",
+        "This style allows later modules to override or merge behavior through the standard Nodics service loading pattern.",
+        "Avoid creating custom folders or export styles that the Nodics loader cannot see."
+      ]
+    },
+    {
+      "heading": "Step 5: Add Tests",
+      "migratedFrom": "nodics:gDocs/development/how-to-create-application-functionality.md",
+      "sourceAnchor": "step-5-add-tests",
+      "paragraphs": [
+        "At minimum, test:",
+        "For a beginner, think of tests as the proof that your code is in the right place. If you cannot write a focused test for the owner and layer, the behavior may be in the wrong place."
+      ],
+      "items": [
+        "The default behavior.",
+        "The project override behavior if the feature is meant to be customized.",
+        "Permission behavior if the feature is exposed through APIs.",
+        "Validation behavior for invalid input.",
+        "Tenant behavior if data or configuration can vary by tenant."
+      ]
+    },
+    {
+      "heading": "Step 6: Update Documentation",
+      "migratedFrom": "nodics:gDocs/development/how-to-create-application-functionality.md",
+      "sourceAnchor": "step-6-update-documentation",
+      "paragraphs": [
+        "Update:",
+        "Run:",
+        "```bash\nnpm run llm:generate\nnpm run llm:validate\n```"
+      ],
+      "items": [
+        "The module README if the module behavior changed.",
+        "Public documentation if users need to learn the feature.",
+        "AI/developer contracts if the extension rule changed.",
+        "Generated context if source behavior changed."
+      ]
+    },
+    {
+      "heading": "What To Avoid",
+      "migratedFrom": "nodics:gDocs/development/how-to-create-application-functionality.md",
+      "sourceAnchor": "what-to-avoid",
+      "paragraphs": [
+        "Avoid:"
+      ],
+      "items": [
+        "Editing framework files for customer-specific behavior.",
+        "Creating helper code outside the loader-visible folders.",
+        "Hiding policy in controller code.",
+        "Duplicating configuration rules.",
+        "Manually editing generated files.",
+        "Adding behavior without tests."
+      ]
+    },
+    {
+      "heading": "Before You Finish",
+      "migratedFrom": "nodics:gDocs/development/how-to-create-application-functionality.md",
+      "sourceAnchor": "before-you-finish",
+      "paragraphs": [
+        "Use this checklist:"
+      ],
+      "items": [
+        "The owning module is clear.",
+        "The code is in a loader-visible Nodics folder.",
+        "Service/controller/facade files use `module.exports`.",
+        "Configuration values live in `config/properties.js`.",
+        "Security and permissions are visible in route metadata.",
+        "Tenant behavior is explicit when data, cache, search, files, jobs, or events are involved.",
+        "Generated artifacts were regenerated when schemas, routes, OpenAPI, tests, or LLM context changed.",
+        "Documentation explains where future developers or AI tools should customize the behavior."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/development/how-to-create-application-functionality.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "Beginner journey: [Build Your First Nodics Capability](/docs/get-started/first-capability)",
+        "Next: [How To Customize And Extend Nodics](/docs/build/customization)",
+        "Testing: [How To Test Nodics Changes](/docs/build/testing)",
+        "Documentation home: [Nodics Documentation](/docs)"
       ]
     }
   ]

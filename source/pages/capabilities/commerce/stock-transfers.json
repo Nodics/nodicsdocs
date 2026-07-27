@@ -1,1 +1,117 @@
-{"code":"commerce.stock.transfers","title":"Transfer Stock","route":"/docs/capabilities/commerce/stock/transfers","section":"capabilities","family":"runtime-behavior","parent":"page:capability.commerce.stock-units","order":70,"audiences":["business-user","administrator","developer","operator","ai-tool"],"readerIntent":"Move stock between governed locations with in-transit state and recovery.","priorKnowledge":"Know source/destination, quantity/unit, permissions, and logistics references.","depth":"implementation","status":"implemented","owner":"Inventory capability","lastVerified":"2026-07-26","summary":"A transfer coordinates paired movements and durable in-transit state rather than directly rewriting two balances.","supportingEvidence":["nodics:gComm/inventory/README.md"],"sections":[{"heading":"Lifecycle","items":["Request and validate source/destination eligibility.","Reserve or deduct source according to policy and create in-transit state.","Dispatch, receive partially or fully, reject, cancel, or mark exception.","Create destination receipt and close only after reconciliation.","Use idempotency, revisions, audit, timeout, loss/damage compensation, and cache invalidation."]}]}
+{
+  "code": "commerce.stock.transfers",
+  "title": "Transfer Stock",
+  "route": "/docs/capabilities/commerce/stock/transfers",
+  "section": "capabilities",
+  "family": "runtime-behavior",
+  "parent": "page:capability.commerce.stock-units",
+  "order": 70,
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Move stock between governed locations with in-transit state and recovery.",
+  "priorKnowledge": "Know source/destination, quantity/unit, permissions, and logistics references.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Inventory capability",
+  "lastVerified": "2026-07-26",
+  "summary": "A transfer coordinates paired movements and durable in-transit state rather than directly rewriting two balances.",
+  "supportingEvidence": [
+    "nodics:gComm/inventory/README.md",
+    "nodics:gDocs/commerce/how-stock-transfers-work.md"
+  ],
+  "sections": [
+    {
+      "heading": "Lifecycle",
+      "items": [
+        "Request and validate source/destination eligibility.",
+        "Reserve or deduct source according to policy and create in-transit state.",
+        "Dispatch, receive partially or fully, reject, cancel, or mark exception.",
+        "Create destination receipt and close only after reconciliation.",
+        "Use idempotency, revisions, audit, timeout, loss/damage compensation, and cache invalidation."
+      ]
+    },
+    {
+      "heading": "Transfer identity",
+      "items": [
+        "Stable transfer, tenant, enterprise, source, destination, and business reference.",
+        "Product or variant, quantity, unit, and optional lots or serials.",
+        "Requested, approved, dispatched, in-transit, received, exception, cancelled, and closed revisions.",
+        "Actor, time, carrier, expected arrival, reason, and evidence."
+      ]
+    },
+    {
+      "heading": "Paired movement model",
+      "paragraphs": [
+        "Dispatch creates an authoritative source movement and durable in-transit quantity. Receipt creates a destination movement for the accepted amount. The transfer links the pair and remaining quantity.",
+        "Directly decrementing one balance and incrementing another hides transit, partial receipt, loss, and audit."
+      ]
+    },
+    {
+      "heading": "Example",
+      "paragraphs": [
+        "A country warehouse sends ten phones to a Store pickup location. The source dispatches ten. The Store receives nine and records one damaged in transit. Policy routes the exception for carrier review.",
+        "The transfer closes only when nine receipts and the one-unit loss adjustment reconcile the dispatched quantity."
+      ]
+    },
+    {
+      "heading": "Concurrency and idempotency",
+      "items": [
+        "Approve and dispatch only from the current revision.",
+        "Prevent dispatch beyond eligible source availability.",
+        "Deduplicate carrier and receipt messages.",
+        "Reject receipt beyond remaining in-transit quantity.",
+        "Reconcile uncertain dispatch or receipt before retry."
+      ]
+    },
+    {
+      "heading": "Operations and tests",
+      "items": [
+        "Full, partial, repeated, and rejected receipt.",
+        "Cancellation before and after dispatch.",
+        "Loss, damage, late, and wrong-destination exception.",
+        "Unit, tenant, location, product, and capacity boundaries.",
+        "Transfer age, in-transit value, exception backlog, and reconciliation.",
+        "Cache, availability, event, workflow, and audit integration."
+      ]
+    },
+    {
+      "heading": "Security",
+      "paragraphs": [
+        "Request, approval, dispatch, receipt, exception, and cancellation require role-appropriate authorization and compatible tenant, enterprise, location, and product scope."
+      ]
+    },
+    {
+      "heading": "Business sign-off",
+      "items": [
+        "Transfer policy defines permitted source and destination scopes, units, reasons, approvers, in-transit ownership, cancellation, receipt variance, and timeout escalation.",
+        "Neither warehouse balance is edited outside paired governed movements; partial transport or receipt remains visible until resolved.",
+        "Verify authorization at both locations, duplicate request, concurrent allocation, unit mismatch, lost shipment, partial receipt, reversal, and reconciliation."
+      ]
+    },
+    {
+      "heading": "Complete guide: How Stock Transfers Work",
+      "migratedFrom": "nodics:gDocs/commerce/how-stock-transfers-work.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "A Stock Transfer moves Inventory between Warehouses using two governed movements: `TRANSFER_OUT` removes dispatched quantity from the source and `TRANSFER_IN` records accepted quantity at the destination. The transfer record connects both sides and supports partial dispatch and receipt.",
+        "Warehouse operators can record damaged, lost, or rejected quantities. Reconciliation verifies that received plus damaged plus lost equals dispatched quantity. A return never rewrites history; it creates a new reverse transfer.",
+        "Only authenticated modules use the internal create, dispatch, receive, cancel, discrepancy, reconcile, and return commands. Exact quantities, operation idempotency, and revisions make retries safe. Cache is not transfer or Stock authority."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/commerce/how-stock-transfers-work.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "[How Stock Movements Work](/docs/capabilities/commerce/stock/movements)",
+        "[How Stock Allocation Works](/docs/capabilities/commerce/stock/allocation)",
+        "[Nodics Documentation](/docs)"
+      ]
+    }
+  ]
+}

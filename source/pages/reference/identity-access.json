@@ -6,7 +6,14 @@
   "family": "technical-reference",
   "parent": "page:capability.identity-security.overview",
   "order": 100,
-  "audiences": ["developer", "architect", "security-reviewer", "operator", "framework-maintainer", "ai-tool"],
+  "audiences": [
+    "developer",
+    "architect",
+    "security-reviewer",
+    "operator",
+    "framework-maintainer",
+    "ai-tool"
+  ],
   "readerIntent": "Locate identity, authentication, authorization, browser-session, migration, and extension responsibilities precisely.",
   "priorKnowledge": "Read the identity-security journey.",
   "depth": "reference",
@@ -14,8 +21,23 @@
   "owner": "Profile, nAuth, nToken, nRouter, nCache, and each target module according to responsibility",
   "lastVerified": "2026-07-26",
   "summary": "Profile owns persisted identity and tenancy; nAuth owns reusable authentication security; nToken owns generic token mechanics; nRouter applies route policy; nCache supplies strict shared state; target modules own operation and data authorization.",
-  "supportingEvidence": ["nodics:gCore/profile/README.md", "nodics:gFramework/nAuth/README.md", "nodics:gFramework/nToken/README.md", "nodics:gFramework/nRouter/README.md", "nodics:gFramework/nCache/README.md"],
+  "supportingEvidence": [
+    "nodics:gCore/profile/README.md",
+    "nodics:gFramework/nAuth/README.md",
+    "nodics:gFramework/nToken/README.md",
+    "nodics:gFramework/nRouter/README.md",
+    "nodics:gFramework/nCache/README.md"
+  ],
   "sections": [
+    {
+      "heading": "Quick decision matrix",
+      "items": [
+        "Use employee username/password only for human BackOffice authentication, customer credentials only for consumer login, and service principals for module or scheduled access.",
+        "A route declares accepted token class and permissions; schema and ownership policy further narrow records and fields.",
+        "Tenant context is mandatory and cannot be broadened by request values. Cross-tenant service work requires explicit separate authority.",
+        "Frontend visibility is guidance only. The target backend route and owning service always make the final decision."
+      ]
+    },
     {
       "heading": "Authority map",
       "items": [

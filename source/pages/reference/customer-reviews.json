@@ -1,1 +1,78 @@
-{"code":"solution.customer-reviews.technical-reference","title":"Customer Reviews Technical Reference","route":"/docs/reference/customer-reviews","section":"reference","family":"technical-reference","parent":"section:reference","order":220,"audiences":["business-user","developer","architect","security-reviewer","operator","ai-tool"],"readerIntent":"Understand customer-review ownership, lifecycle, moderation, and integration.","priorKnowledge":"Understand customer identity, products/content, workflows, and publishing.","depth":"reference","status":"implemented","owner":"Customer Review System capability","lastVerified":"2026-07-26","summary":"Customer reviews use owned schemas and services for submission, rating, moderation, publication, and integration; they do not write Product or customer identity records directly.","supportingEvidence":["nodics:gMrkty/cres/README.md"],"sections":[{"heading":"Contract","items":["Tenant, customer/owner, subject type/reference, rating scale, title/body/media references, locale, status, timestamps, and version.","Eligibility, duplicate policy, verified relationship, moderation workflow, abuse/spam controls, masking, retention, and appeal.","Published aggregate projections remain derived; Product/content modules retain subject ownership.","Test unauthorized/cross-tenant, invalid rating, duplicate, moderation, publication, removal, aggregation, privacy, abuse, performance, and regression."]}]}
+{
+  "code": "solution.customer-reviews.technical-reference",
+  "title": "Customer Reviews Technical Reference",
+  "route": "/docs/reference/customer-reviews",
+  "section": "reference",
+  "family": "technical-reference",
+  "parent": "section:reference",
+  "order": 220,
+  "audiences": [
+    "business-user",
+    "developer",
+    "architect",
+    "security-reviewer",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Understand customer-review ownership, lifecycle, moderation, and integration.",
+  "priorKnowledge": "Understand customer identity, products/content, workflows, and publishing.",
+  "depth": "reference",
+  "status": "implemented",
+  "owner": "Customer Review System capability",
+  "lastVerified": "2026-07-26",
+  "summary": "Customer reviews use owned schemas and services for submission, rating, moderation, publication, and integration; they do not write Product or customer identity records directly.",
+  "supportingEvidence": [
+    "nodics:gMrkty/cres/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Capability ownership",
+      "items": [
+        "A review capability owns review submissions, rating, moderation state, eligibility evidence, abuse decisions, publication, removal, and aggregate projections.",
+        "Product, content, service, order, or partner modules retain ownership of the reviewed subject and expose stable references through authenticated contracts.",
+        "Profile remains customer identity authority; review data stores only governed references and display projections rather than copied credentials."
+      ]
+    },
+    {
+      "heading": "Submission and moderation lifecycle",
+      "items": [
+        "Submission validates tenant, authenticated customer, subject, rating scale, required content, locale, verified relationship policy, duplicate rule, limits, and consent.",
+        "The review enters configured pending, approved, rejected, flagged, published, withdrawn, or removed states through explicit manual and automatic moderation actions.",
+        "Workflow may coordinate human and automated moderation, while the review service owns state transitions and the subject module never edits review persistence directly."
+      ]
+    },
+    {
+      "heading": "Privacy, abuse, and presentation",
+      "items": [
+        "Mask customer identity according to policy, strip unsafe markup and metadata, scan governed media references, limit size and frequency, and preserve appeal and audit evidence.",
+        "Spam, fraud, harassment, prohibited content, coordinated rating, and provider classifications are signals; final automated or manual action follows documented policy.",
+        "Published display and aggregates are derived, locale-aware projections. Cache and search can be rebuilt and never override moderation or deletion authority."
+      ]
+    },
+    {
+      "heading": "Operations and verification",
+      "items": [
+        "Test eligible and ineligible customers, wrong tenant, duplicate, invalid rating, boundary text/media, malicious markup, rate limits, moderation, appeal, withdrawal, and deletion.",
+        "Test subject deletion, identity masking, aggregate rebuild, cache/search failure, workflow retry, concurrent moderation, provider outage, retention, privacy request, and regression.",
+        "Monitor submissions, moderation age, rejection and abuse categories, appeal, publication lag, aggregate drift, provider health, and reviewer workload with bounded labels."
+      ]
+    },
+    {
+      "heading": "Partner implementation guidance",
+      "items": [
+        "Configure rating scale, eligible subjects, verified relationship, duplicate window, moderation actions, languages, display identity, retention, media, and abuse providers.",
+        "Extend through owned schemas, services, workflows, and adapters; do not embed moderation authority in frontend widgets or Product records.",
+        "Document customer submission, moderator operation, business policy, developer extension, privacy, incident handling, accessibility, and known limitations."
+      ]
+    },
+    {
+      "heading": "Contract",
+      "items": [
+        "Tenant, customer/owner, subject type/reference, rating scale, title/body/media references, locale, status, timestamps, and version.",
+        "Eligibility, duplicate policy, verified relationship, moderation workflow, abuse/spam controls, masking, retention, and appeal.",
+        "Published aggregate projections remain derived; Product/content modules retain subject ownership.",
+        "Test unauthorized/cross-tenant, invalid rating, duplicate, moderation, publication, removal, aggregation, privacy, abuse, performance, and regression."
+      ]
+    }
+  ]
+}

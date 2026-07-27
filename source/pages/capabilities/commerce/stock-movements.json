@@ -1,1 +1,159 @@
-{"code":"commerce.stock.movements","title":"Record Stock Movements","route":"/docs/capabilities/commerce/stock/movements","section":"capabilities","family":"runtime-behavior","parent":"page:capability.commerce.stock-units","order":50,"audiences":["business-user","developer","operator","ai-tool"],"readerIntent":"Record auditable increases, decreases, releases, receipts, and corrections.","priorKnowledge":"Know balance, unit, reason, source document, and idempotency.","depth":"implementation","status":"implemented","owner":"Inventory capability","lastVerified":"2026-07-26","summary":"Movements are immutable business evidence that change balances through governed services and concurrency controls.","supportingEvidence":["nodics:gComm/inventory/README.md"],"sections":[{"heading":"Rules","items":["Use stable movement type, reason, tenant, product/variant, warehouse/pool, quantity/unit, reference, actor, time, revision, and idempotency key.","Never edit history to hide a correction; create a compensating movement.","Reject incompatible units, negative results where prohibited, duplicates, unauthorized sources, and stale balances.","Update derived availability/cache/events only after the authoritative movement commits."]}]}
+{
+  "code": "commerce.stock.movements",
+  "title": "Record Stock Movements",
+  "route": "/docs/capabilities/commerce/stock/movements",
+  "section": "capabilities",
+  "family": "runtime-behavior",
+  "parent": "page:capability.commerce.stock-units",
+  "order": 50,
+  "audiences": [
+    "business-user",
+    "developer",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Record auditable increases, decreases, releases, receipts, and corrections.",
+  "priorKnowledge": "Know balance, unit, reason, source document, and idempotency.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Inventory capability",
+  "lastVerified": "2026-07-26",
+  "summary": "Movements are immutable business evidence that change balances through governed services and concurrency controls.",
+  "supportingEvidence": [
+    "nodics:gComm/inventory/README.md",
+    "nodics:gDocs/commerce/how-stock-movements-work.md"
+  ],
+  "sections": [
+    {
+      "heading": "Rules",
+      "items": [
+        "Use stable movement type, reason, tenant, product/variant, warehouse/pool, quantity/unit, reference, actor, time, revision, and idempotency key.",
+        "Never edit history to hide a correction; create a compensating movement.",
+        "Reject incompatible units, negative results where prohibited, duplicates, unauthorized sources, and stale balances.",
+        "Update derived availability/cache/events only after the authoritative movement commits."
+      ]
+    },
+    {
+      "heading": "Movement types",
+      "items": [
+        "Receipt and issue.",
+        "Reservation, release, allocation, and deallocation effects where represented.",
+        "Transfer dispatch and receipt.",
+        "Return, damage, quarantine, release, loss, and adjustment.",
+        "Project-defined types added through Inventory extension contracts."
+      ]
+    },
+    {
+      "heading": "Immutable ledger principle",
+      "paragraphs": [
+        "A movement records what occurred and why. Corrections create a linked compensating movement; editing history destroys reconciliation and audit evidence.",
+        "Derived balances can be rebuilt from movements and governed opening evidence according to the model contract."
+      ]
+    },
+    {
+      "heading": "Example",
+      "paragraphs": [
+        "A warehouse receives 25.5 kilograms of produce. Later 0.5 kilograms are damaged. Inventory records a receipt movement followed by a damage movement using compatible Units definitions.",
+        "Availability reflects the resulting eligible balance; the damage record is not erased or silently subtracted."
+      ]
+    },
+    {
+      "heading": "Concurrency and unknown outcomes",
+      "items": [
+        "Use balance revision or qualified atomic operation.",
+        "Use stable external reference and idempotency key.",
+        "Reject prohibited negative balance.",
+        "On timeout, reconcile by identity before retry.",
+        "Publish derived effects only after commit."
+      ]
+    },
+    {
+      "heading": "Verification and observability",
+      "items": [
+        "Every movement type and compatible unit.",
+        "Duplicate, stale revision, unauthorized source, and wrong tenant.",
+        "High-contention updates without lost movement.",
+        "Compensation and reconciliation.",
+        "Balance, availability, cache, event, publishing, and audit integration.",
+        "Throughput, conflict, failure, reason, and unknown-outcome metrics."
+      ]
+    },
+    {
+      "heading": "Retention and export",
+      "paragraphs": [
+        "Movement evidence follows business retention and authorized export policy. Bulk extracts use Inventory services and never dump provider storage or cache as the ledger."
+      ]
+    },
+    {
+      "heading": "Operator decision",
+      "items": [
+        "When balance and movement evidence disagree, stop unsafe adjustment, preserve correlation and idempotency identity, and use reconciliation rather than editing the balance directly.",
+        "A timed-out command remains uncertain until queried or reconciled; repeating it without the same idempotency key can duplicate stock.",
+        "Alert on failed movements, negative-balance prevention, unexplained adjustment volume, and projection lag with warehouse-safe bounded dimensions."
+      ]
+    },
+    {
+      "heading": "Complete guide: How Stock Movements Work",
+      "migratedFrom": "nodics:gDocs/commerce/how-stock-movements-work.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "Use Stock Movements when a business event changes the on-hand quantity of an item in a Warehouse or Warehouse Location. Examples include receiving goods, issuing goods, correcting a count, recording damage, or completing one leg of a transfer."
+      ]
+    },
+    {
+      "heading": "What A Business User Needs To Know",
+      "migratedFrom": "nodics:gDocs/commerce/how-stock-movements-work.md",
+      "sourceAnchor": "what-a-business-user-needs-to-know",
+      "paragraphs": [
+        "Every change needs:",
+        "Nodics records both the new balance and evidence of the attempted change. A repeated request with the same key does not change stock twice. Concurrent changes cannot silently overwrite one another because only the request holding the expected revision may update the balance."
+      ],
+      "items": [
+        "the enterprise and Warehouse context;",
+        "the item being changed;",
+        "an exact quantity and Unit;",
+        "a movement type and business reason;",
+        "an idempotency key supplied by the calling process; and",
+        "the Stock Balance revision previously read by that process."
+      ]
+    },
+    {
+      "heading": "Quantity And Unit Rules",
+      "migratedFrom": "nodics:gDocs/commerce/how-stock-movements-work.md",
+      "sourceAnchor": "quantity-and-unit-rules",
+      "paragraphs": [
+        "Quantities are stored and calculated as exact decimal strings, supporting pieces, weight, liquid volume, land area, and other Units dimensions without floating-point drift. A movement may use another compatible Unit: for example, `1000 G` can be normalized into a `KG` balance. Units selects an active direct or inverse exact factor, applies geography and enterprise scope, and rejects incompatible, ambiguous, unavailable, or forbidden-rounding cases before Inventory changes stock."
+      ]
+    },
+    {
+      "heading": "Operational Recovery",
+      "migratedFrom": "nodics:gDocs/commerce/how-stock-movements-work.md",
+      "sourceAnchor": "operational-recovery",
+      "paragraphs": [
+        "If a node stops after changing a balance but before finalizing its movement record, retry the same request with the same idempotency key. Nodics recognizes the balance evidence and finishes the movement without applying it again.",
+        "Do not manually edit Stock Balance records. Corrections must be new movements with a reason so the audit history remains explainable."
+      ]
+    },
+    {
+      "heading": "Current Scope",
+      "migratedFrom": "nodics:gDocs/commerce/how-stock-movements-work.md",
+      "sourceAnchor": "current-scope",
+      "paragraphs": [
+        "The implemented capability is the exact on-hand ledger with modular exact Unit conversion. Reservations, allocations, available-to-sell, sourcing, coordinated transfers, BackOffice screens, and public Stock APIs are not part of this slice.",
+        "Developers and operators should read the Inventory module's [Stock Core contract](/docs/reference/commerce) for configuration, extension rules, failure codes, and verification."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/commerce/how-stock-movements-work.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "Inventory: [How Warehouse Management Works](/docs/capabilities/commerce/stock/warehouses)",
+        "Units: [How Units And Land Measurements Work](/docs/capabilities/commerce/units)",
+        "Security: [How Users, Tenants, And Permissions Work](/docs/security/users-tenants-permissions)",
+        "Testing: [How To Test Nodics Changes](/docs/build/testing)",
+        "Documentation home: [Nodics Documentation](/docs)"
+      ]
+    }
+  ]
+}

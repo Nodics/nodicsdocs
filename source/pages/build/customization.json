@@ -6,7 +6,12 @@
   "family": "configuration-customization",
   "parent": "section:build",
   "order": 30,
-  "audiences": ["developer", "architect", "framework-maintainer", "ai-tool"],
+  "audiences": [
+    "developer",
+    "architect",
+    "framework-maintainer",
+    "ai-tool"
+  ],
   "readerIntent": "Customize a customer project without forking or creating a competing authority.",
   "priorKnowledge": "Understand modules, active load order, configuration, schemas, services, and runtime governance.",
   "depth": "guided",
@@ -14,8 +19,23 @@
   "owner": "Project modules loaded after reusable framework/domain modules",
   "lastVerified": "2026-07-26",
   "summary": "Nodics customization uses layered project modules and governed runtime configuration so different customer projects can change the same reusable capability independently.",
-  "supportingEvidence": ["nodics:README.md", "nodics:gFramework/nConfig/README.md", "nodics:gFramework/nDefault/README.md", "nodics:gFramework/nDynamo/README.md"],
+  "supportingEvidence": [
+    "nodics:README.md",
+    "nodics:gFramework/nConfig/README.md",
+    "nodics:gFramework/nDefault/README.md",
+    "nodics:gFramework/nDynamo/README.md",
+    "nodics:gDocs/development/how-to-customize-and-extend-nodics.md"
+  ],
   "sections": [
+    {
+      "heading": "Layered example",
+      "items": [
+        "A partner that needs an additional Employee field first extends schema configuration in its customer module, adds validation and permissions through supported layers, and reuses generated models and CRUD services.",
+        "If behavior differs, it overrides the smallest service contract and delegates unchanged behavior to the framework. It does not copy the entire Profile module or edit provider internals.",
+        "Runtime values belong in properties.js or governed runtime configuration according to mutability; secrets use secret references. Frontend labels and help remain backend-content driven.",
+        "The partner proves framework defaults, its override, another project without the override, upgrades, rollback, authorization, import/export, search/cache effects, and documentation."
+      ]
+    },
     {
       "heading": "Choose the smallest extension",
       "items": [
@@ -42,6 +62,406 @@
         "Verify the base project remains unchanged, the custom project receives only its intended override, and another project can apply a different override.",
         "Test load order, absent/invalid configuration, runtime activation, audit/rollback where supported, topology boundaries, upgrade compatibility, and regression.",
         "Update the canonical customization guide and owning module README with the supported extension point."
+      ]
+    },
+    {
+      "heading": "Complete guide: How To Customize And Extend Nodics",
+      "migratedFrom": "nodics:gDocs/development/how-to-customize-and-extend-nodics.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "Nodics is designed so projects can customize behavior without changing released framework code.",
+        "Customization means a later project, environment, server, node, tenant, provider, or runtime layer contributes behavior through the same Nodics contracts that the framework uses. The goal is not to work around the framework. The goal is to provide a better implementation for the same capability."
+      ]
+    },
+    {
+      "heading": "Beginner Summary",
+      "migratedFrom": "nodics:gDocs/development/how-to-customize-and-extend-nodics.md",
+      "sourceAnchor": "beginner-summary",
+      "paragraphs": [
+        "Customization is how a project changes behavior safely.",
+        "The wrong way is to edit a framework file for one customer. That makes future framework updates harder and hides the customer rule inside out-of-box code.",
+        "The Nodics way is to add the change in a later active layer:",
+        "payment, or infrastructure behavior.",
+        "The framework capability remains stable. The implementation changes through the active module hierarchy."
+      ],
+      "items": [
+        "project module for customer-specific behavior;",
+        "environment module for deployment-specific behavior;",
+        "server module for process-specific behavior;",
+        "node module for instance-specific behavior;",
+        "tenant/runtime configuration for governed tenant-specific behavior;",
+        "provider module for database, cache, search, messaging, storage, email,"
+      ]
+    },
+    {
+      "heading": "Customization Decision Table",
+      "migratedFrom": "nodics:gDocs/development/how-to-customize-and-extend-nodics.md",
+      "sourceAnchor": "customization-decision-table",
+      "paragraphs": [
+        "| Need | Customize here | Example |\n| --- | --- | --- |\n| Change business rule for one customer | Project module | Customer-specific order approval rule |\n| Change a value by environment | Environment `config/properties.js` | QA uses a different search endpoint |\n| Change active modules or ports for one process | Server `config/properties.js` | Local runs all modules together |\n| Assign scheduled work to one instance | Node configuration | Only node 1 runs a publishing job |\n| Change data placement for one business | Tenant/runtime configuration | Dedicated tenant uses private database/search/cache |\n| Add Oracle database support | Database provider module or project provider module | Implement provider contract without changing generic database services |\n| Change route permission by project | Route override or `permissionConfig` property | Internal token permission differs by deployment |\n| Change import validation for a customer | Project import service/interceptor/pipeline | Reject or transform customer-specific data |",
+        "When a user or AI tool asks for a customization, first identify the row in this table. If no row fits, inspect the owning module docs before inventing a new extension path."
+      ]
+    },
+    {
+      "heading": "Customizing Or Generalizing Services",
+      "migratedFrom": "nodics:gDocs/development/how-to-customize-and-extend-nodics.md",
+      "sourceAnchor": "customizing-or-generalizing-services",
+      "paragraphs": [
+        "Use this pattern when a project needs to change service behavior, add a new service operation, or replace a default implementation.",
+        "The standard service rule is:",
+        "```text\nKeep functions inside module.exports and keep the file under a loader-visible service path.\n```",
+        "Example:",
+        "```js\nmodule.exports = {\n    createPlan: function (options) {\n        return {\n            executableByDefault: false,\n            requiresExplicitApproval: true\n        };\n    }\n};\n```",
+        "This style lets Nodics load services through active module hierarchy and lets later modules override functions without editing the original module."
+      ]
+    },
+    {
+      "heading": "Business And Service Extendibility",
+      "migratedFrom": "nodics:gDocs/development/how-to-customize-and-extend-nodics.md",
+      "sourceAnchor": "business-and-service-extendibility",
+      "paragraphs": [
+        "Business behavior should live in the smallest module that owns the business capability.",
+        "Use:",
+        "Do not place project-specific behavior into framework modules because it works for one customer. Put it in a later active module and prove the override with tests."
+      ],
+      "items": [
+        "a project module for customer-specific business rules;",
+        "a provider module for database, cache, search, messaging, storage, email, payment, or infrastructure adapters;",
+        "an environment, server, or node module for deployment-specific behavior;",
+        "tenant or runtime configuration for governed runtime differences;",
+        "a framework module only when the shared framework capability itself must change."
+      ]
+    },
+    {
+      "heading": "Extend Existing Or Create New Service",
+      "migratedFrom": "nodics:gDocs/development/how-to-customize-and-extend-nodics.md",
+      "sourceAnchor": "extend-existing-or-create-new-service",
+      "paragraphs": [
+        "Create a new service function when the capability needs a new behavior.",
+        "Override an existing service function when the capability contract stays the same but the implementation changes.",
+        "Before adding or overriding a service, document:"
+      ],
+      "items": [
+        "owning module;",
+        "function name;",
+        "input contract;",
+        "output contract;",
+        "tenant behavior;",
+        "security behavior;",
+        "side effects;",
+        "failure behavior;",
+        "tests proving framework default and project override behavior."
+      ]
+    },
+    {
+      "heading": "Minimal Service Override Example",
+      "migratedFrom": "nodics:gDocs/development/how-to-customize-and-extend-nodics.md",
+      "sourceAnchor": "minimal-service-override-example",
+      "paragraphs": [
+        "If a framework module has:",
+        "```js\nmodule.exports = {\n    createPlan: function (options) {\n        return {\n            executableByDefault: false,\n            requiresExplicitApproval: true\n        };\n    }\n};\n```",
+        "A later project module can provide the same service artifact and same function name when it intentionally changes that behavior:",
+        "```js\nmodule.exports = {\n    createPlan: function (options) {\n        return {\n            executableByDefault: false,\n            requiresExplicitApproval: true,\n            customerPolicy: 'project-owned-policy'\n        };\n    }\n};\n```",
+        "The exact file path depends on the service name and owning module, but it must remain under `src/service` so the Nodics loader can discover and merge it. Always add tests proving the effective project behavior."
+      ]
+    },
+    {
+      "heading": "Overriding Existing Services",
+      "migratedFrom": "nodics:gDocs/development/how-to-customize-and-extend-nodics.md",
+      "sourceAnchor": "overriding-existing-services",
+      "paragraphs": [
+        "A later module can override service behavior by contributing the same loader-visible service name and function contract. The override must preserve the public capability contract unless the project intentionally owns a breaking project-specific contract.",
+        "When overriding:"
+      ],
+      "items": [
+        "keep the same function name unless the caller is also intentionally changed;",
+        "preserve required input and output shape;",
+        "call existing framework services when only part of the behavior changes;",
+        "avoid direct provider access when a Nodics service contract already exists;",
+        "update tests so both the framework default and the effective project behavior are clear."
+      ]
+    },
+    {
+      "heading": "Common.js - Generalizing Common Processes",
+      "migratedFrom": "nodics:gDocs/development/how-to-customize-and-extend-nodics.md",
+      "sourceAnchor": "common-js-generalizing-common-processes",
+      "paragraphs": [
+        "Shared utilities belong in loader-visible module paths such as `src/utils` or `src/service`, not in random helper folders.",
+        "Use common utilities only for behavior that is genuinely reusable across a module or module family. If a utility is customer-specific, keep it in the customer project module. If it is provider-specific, keep it in the provider module."
+      ]
+    },
+    {
+      "heading": "Utility Middlewares",
+      "migratedFrom": "nodics:gDocs/development/how-to-customize-and-extend-nodics.md",
+      "sourceAnchor": "utility-middlewares",
+      "paragraphs": [
+        "Utility middleware is reusable supporting behavior used by services, routers, pipelines, interceptors, tests, or generators.",
+        "Examples include:",
+        "Utility middleware must not become a hidden source of architecture. Capability behavior still belongs to schemas, services, routers, pipelines, providers, and configuration."
+      ],
+      "items": [
+        "value normalization;",
+        "status and enum lookup;",
+        "file/path handling;",
+        "error wrapping;",
+        "tenant-safe helper logic;",
+        "traceability helpers;",
+        "request or response shaping helpers."
+      ]
+    },
+    {
+      "heading": "OOTB Provided Middleware",
+      "migratedFrom": "nodics:gDocs/development/how-to-customize-and-extend-nodics.md",
+      "sourceAnchor": "ootb-provided-middleware",
+      "paragraphs": [
+        "Out-of-the-box Nodics utilities provide framework-level behavior that many modules can use.",
+        "Use out-of-the-box utilities when they already express the contract. Do not duplicate utility behavior in a project just because it is shorter to copy a function. If the existing utility is not sufficient, add an override or extension in the right owner module and test it."
+      ]
+    },
+    {
+      "heading": "Utils Generalization",
+      "migratedFrom": "nodics:gDocs/development/how-to-customize-and-extend-nodics.md",
+      "sourceAnchor": "utils-generalization",
+      "paragraphs": [
+        "Generalize utility behavior by adding or overriding utility functions through the active module hierarchy.",
+        "When a utility is generalized, check:"
+      ],
+      "items": [
+        "whether every caller can safely accept the new behavior;",
+        "whether the utility is tenant-aware;",
+        "whether it logs or exposes sensitive data;",
+        "whether provider-specific behavior has leaked into a generic utility;",
+        "whether tests cover both the default and generalized behavior."
+      ]
+    },
+    {
+      "heading": "Define Enumerations",
+      "migratedFrom": "nodics:gDocs/development/how-to-customize-and-extend-nodics.md",
+      "sourceAnchor": "define-enumerations",
+      "paragraphs": [
+        "Use enums when a field or behavior accepts a controlled list of values.",
+        "Enums belong in the module that owns the meaning of the values. For example, order status values belong near order behavior. CronJob state values belong near scheduled-job behavior.",
+        "Document:"
+      ],
+      "items": [
+        "enum name;",
+        "allowed values;",
+        "default value;",
+        "where the enum is used;",
+        "how projects may add or restrict values;",
+        "tests that prove invalid values are rejected."
+      ]
+    },
+    {
+      "heading": "Enum Generalization",
+      "migratedFrom": "nodics:gDocs/development/how-to-customize-and-extend-nodics.md",
+      "sourceAnchor": "enum-generalization",
+      "paragraphs": [
+        "Projects can generalize enums when a later layer needs additional values.",
+        "Do not remove or rename framework enum values without checking generated APIs, schemas, tests, import/export mappings, search indexes, runtime configuration, and existing data. If a project removes a value, the effective project tests must prove that the generated behavior no longer depends on it."
+      ]
+    },
+    {
+      "heading": "Classes Generalization",
+      "migratedFrom": "nodics:gDocs/development/how-to-customize-and-extend-nodics.md",
+      "sourceAnchor": "classes-generalization",
+      "paragraphs": [
+        "Classes and data/process holder objects should be generalized only when they are designed as extension points.",
+        "Before generalizing a class:",
+        "Do not create a class-based extension when a standard service function override is enough. Service overrides are usually easier for human developers and AI tools to follow."
+      ],
+      "items": [
+        "identify the owning module;",
+        "confirm which code instantiates it;",
+        "confirm whether generated artifacts reference it;",
+        "preserve constructor and method contracts;",
+        "add tests for default and project-specific class behavior."
+      ]
+    },
+    {
+      "heading": "Generalizing Service Layer",
+      "migratedFrom": "nodics:gDocs/development/how-to-customize-and-extend-nodics.md",
+      "sourceAnchor": "generalizing-service-layer",
+      "paragraphs": [
+        "The service layer owns business behavior. Generalize the service layer when a project needs a different implementation of the same business capability.",
+        "Good service-layer customization examples:",
+        "Keep controllers thin. Keep provider calls behind provider modules. Keep cross-module orchestration in facades."
+      ],
+      "items": [
+        "project-specific pricing rules;",
+        "customer-specific approval logic;",
+        "different data import validation behavior;",
+        "provider-specific integration behavior behind a stable contract;",
+        "tenant-specific policy resolution through configuration."
+      ]
+    },
+    {
+      "heading": "Generalizing Facade Layer",
+      "migratedFrom": "nodics:gDocs/development/how-to-customize-and-extend-nodics.md",
+      "sourceAnchor": "generalizing-facade-layer",
+      "paragraphs": [
+        "The facade layer coordinates behavior across services or module boundaries.",
+        "Generalize a facade when the orchestration changes but the lower-level service capabilities remain valid. For example, a project may add approval, audit, event publication, or integration calls around a default operation.",
+        "Facade overrides must preserve:"
+      ],
+      "items": [
+        "route/controller input expectations;",
+        "service call order where required by the business contract;",
+        "tenant context;",
+        "permission and access policy behavior;",
+        "diagnostics and failure behavior."
+      ]
+    },
+    {
+      "heading": "Generalizing Controller Layer",
+      "migratedFrom": "nodics:gDocs/development/how-to-customize-and-extend-nodics.md",
+      "sourceAnchor": "generalizing-controller-layer",
+      "paragraphs": [
+        "Controllers map request and response concerns. Generalize a controller only when request mapping, response shape, request validation, or route-specific behavior changes.",
+        "Do not put business logic in controllers. If the business rule changes, override the service or facade. If request handling changes, document the route, controller, security, tenant, validation, and response impact."
+      ]
+    },
+    {
+      "heading": "Generalizing Router Registration",
+      "migratedFrom": "nodics:gDocs/development/how-to-customize-and-extend-nodics.md",
+      "sourceAnchor": "generalizing-router-registration",
+      "paragraphs": [
+        "Router registration is how modules expose APIs.",
+        "A project may add a route, override route metadata, change permissions through configurable permission keys, or move a route behind a different controller action when the owning capability allows it.",
+        "When generalizing routers:",
+        "For a beginner: the router is only the front door. Put the URL, method, permission, `apiExposure`, help text, controller, and operation in the router. Put request mapping in the controller. Put orchestration in the facade. Put business behavior in the service."
+      ],
+      "items": [
+        "define the route in `src/router/routers.js`;",
+        "keep route permission and authentication behavior explicit;",
+        "keep login/pre-authentication routes separate from secured routes;",
+        "update OpenAPI/docs when public APIs change;",
+        "add tests for route registration, permissions, tenant behavior, response success, and response failure."
+      ]
+    },
+    {
+      "heading": "Data Access Layer - DAO",
+      "migratedFrom": "nodics:gDocs/development/how-to-customize-and-extend-nodics.md",
+      "sourceAnchor": "data-access-layer-dao",
+      "paragraphs": [
+        "The DAO/data access layer protects the rest of the application from provider-specific persistence behavior.",
+        "Use a DAO/provider implementation when the project needs a different database provider, query strategy, persistence optimization, or provider-specific capability. Business services should not call MongoDB, Cassandra, Oracle, Redis, or search providers directly when a Nodics service/DAO contract exists."
+      ]
+    },
+    {
+      "heading": "Define New DAO",
+      "migratedFrom": "nodics:gDocs/development/how-to-customize-and-extend-nodics.md",
+      "sourceAnchor": "define-new-dao",
+      "paragraphs": [
+        "A new DAO function should define:",
+        "Put provider-specific DAO behavior in a provider module or project provider module, not in generic database code."
+      ],
+      "items": [
+        "target schema;",
+        "provider;",
+        "query/input contract;",
+        "output contract;",
+        "tenant behavior;",
+        "transaction or consistency expectations;",
+        "error and retry behavior;",
+        "tests for default, provider, and failure behavior."
+      ]
+    },
+    {
+      "heading": "Generalizing Data Access Layer",
+      "migratedFrom": "nodics:gDocs/development/how-to-customize-and-extend-nodics.md",
+      "sourceAnchor": "generalizing-data-access-layer",
+      "paragraphs": [
+        "Generalize data access when a project needs to change persistence behavior while preserving the capability contract.",
+        "Examples:",
+        "The generic data capability remains the contract. The provider module implements the behavior."
+      ],
+      "items": [
+        "use Oracle for a customer project;",
+        "use Cassandra for a high-volume read/write area;",
+        "change query strategy for one schema;",
+        "add provider-native bulk behavior behind the same service contract;",
+        "add tenant-specific database routing."
+      ]
+    },
+    {
+      "heading": "Platform Generated Functions",
+      "migratedFrom": "nodics:gDocs/development/how-to-customize-and-extend-nodics.md",
+      "sourceAnchor": "platform-generated-functions",
+      "paragraphs": [
+        "Generated functions are conveniences produced from source definitions. They are not the source of truth.",
+        "If generated behavior is wrong:",
+        "Do not hand-edit generated files as a permanent fix."
+      ],
+      "items": [
+        "Find the owning schema, route, configuration, or generator contract.",
+        "Change the source definition.",
+        "Regenerate.",
+        "Run generated and focused tests.",
+        "Update documentation and LLM context."
+      ]
+    },
+    {
+      "heading": "Common Customization Mistakes",
+      "migratedFrom": "nodics:gDocs/development/how-to-customize-and-extend-nodics.md",
+      "sourceAnchor": "common-customization-mistakes",
+      "paragraphs": [
+        "| Mistake | Why it is risky | Correct approach |\n| --- | --- | --- |\n| Editing framework service for one customer | Breaks upgrade path and hides customer ownership | Add project module override |\n| Adding files outside `src/service`, `src/controller`, `src/facade`, or other standard folders | Nodics loader may not see or merge the behavior | Use standard module structure |\n| Changing generated code directly | Regeneration will overwrite it | Change schema, route, config, or generator source |\n| Hardcoding tenant, provider, endpoint, or permission | Blocks reuse and runtime governance | Use layered configuration or tenant/runtime records |\n| Putting business logic in routers/controllers | Makes behavior hard to reuse and test | Move logic to facade/service |\n| Bypassing permissions because route is internal | Internal routes still need governed access | Use internal-token permissions and route metadata |"
+      ]
+    },
+    {
+      "heading": "Define Callback",
+      "migratedFrom": "nodics:gDocs/development/how-to-customize-and-extend-nodics.md",
+      "sourceAnchor": "define-callback",
+      "paragraphs": [
+        "Callbacks and hooks must have explicit input, output, and error behavior.",
+        "Prefer promise-based service functions or pipeline nodes when the behavior participates in a Nodics lifecycle. A callback should not hide tenant context, security behavior, diagnostics, or persistence side effects."
+      ]
+    },
+    {
+      "heading": "Managing Distributed Systems",
+      "migratedFrom": "nodics:gDocs/development/how-to-customize-and-extend-nodics.md",
+      "sourceAnchor": "managing-distributed-systems",
+      "paragraphs": [
+        "Nodics supports distributed systems through active modules, environment/server/node topology, remote module communication, secured internal tokens, messaging, cache providers, scheduled-job node responsibility, and diagnostics.",
+        "When a capability crosses process boundaries:"
+      ],
+      "items": [
+        "define which server owns it;",
+        "define how other servers call it;",
+        "secure module-to-module access;",
+        "keep tenant context in every request/message/job;",
+        "decide whether cache, events, or retries are needed;",
+        "add topology tests for consolidated and modular modes."
+      ]
+    },
+    {
+      "heading": "Reduce Deployment Effort",
+      "migratedFrom": "nodics:gDocs/development/how-to-customize-and-extend-nodics.md",
+      "sourceAnchor": "reduce-deployment-effort",
+      "paragraphs": [
+        "Deployment becomes easier when the same source definitions describe local, modular, and production behavior.",
+        "Nodics reduces deployment effort by keeping:"
+      ],
+      "items": [
+        "configuration in layered `properties.js`;",
+        "active modules in server/environment definitions;",
+        "generated artifacts reproducible from source;",
+        "startup data idempotent;",
+        "tests aligned with module ownership;",
+        "runtime changes governed with audit and rollback;",
+        "provider choices behind configuration and provider modules."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/development/how-to-customize-and-extend-nodics.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "Previous: [How To Create Application Functionality](/docs/build/application-capability)",
+        "Next: [Common Implementation Examples](/docs/build/examples)",
+        "Owning modules: [Module Documentation Index](/docs/reference/modules)",
+        "Documentation home: [Nodics Documentation](/docs)"
       ]
     }
   ]

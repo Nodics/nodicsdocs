@@ -3,10 +3,16 @@
   "title": "Configuration Resolution and Runtime Behavior",
   "route": "/docs/capabilities/configuration/runtime",
   "section": "capabilities",
-  "family": "concepts-runtime",
+  "family": "runtime-behavior",
   "parent": "page:capability.configuration.overview",
   "order": 20,
-  "audiences": ["administrator", "developer", "architect", "operator", "ai-tool"],
+  "audiences": [
+    "administrator",
+    "developer",
+    "architect",
+    "operator",
+    "ai-tool"
+  ],
   "readerIntent": "Understand how configuration becomes effective and how runtime changes remain governed.",
   "priorKnowledge": "Read Nodics Configuration Layer.",
   "depth": "implementation",
@@ -38,6 +44,30 @@
       ]
     },
     {
+      "heading": "Canonical identity and topology selection",
+      "paragraphs": [
+        "A server name may appear in several environments. Runtime resolution combines the chosen environment and server; node resolution additionally uses its server. Short names remain usable without losing unambiguous runtime identity.",
+        "An interactive terminal may ask for an environment when the server name is ambiguous. Automation must provide explicit coordinates and must never select the first match silently."
+      ]
+    },
+    {
+      "heading": "Merge behavior",
+      "items": [
+        "Defaults load before more specific eligible layers.",
+        "Owned object namespaces merge only according to the framework configuration contract.",
+        "Arrays, primitives, maps, and nested objects retain their documented merge or replacement semantics.",
+        "An override cannot change the ownership or type of a contract merely because it loads later.",
+        "The effective configuration remains inspectable for authorized diagnostics."
+      ]
+    },
+    {
+      "heading": "Startup readiness and resilience",
+      "paragraphs": [
+        "Required configuration and dependencies complete before the capability reports ready. Optional coordination, such as registering a running module with BackOffice, may retry asynchronously when it does not determine local correctness.",
+        "This keeps latency-sensitive startup and recovery paths bounded while ensuring optional discovery eventually converges. Retry, backoff, idempotency, health, and shutdown behavior are part of the lifecycle contract."
+      ]
+    },
+    {
       "heading": "Governed runtime changes",
       "items": [
         "Preview validates shape, policy, dependencies, and impact without activation.",
@@ -45,6 +75,34 @@
         "Activation applies only a supported runtime configuration contract.",
         "Audit retains previous and next snapshots and actor context.",
         "Rollback restores a known prior state through the same governed boundary."
+      ]
+    },
+    {
+      "heading": "Runtime-change failure behavior",
+      "items": [
+        "Preview rejection leaves the current configuration untouched.",
+        "Approval does not activate a change by itself unless the contract explicitly combines those actions.",
+        "Activation failure preserves or restores the last known valid state.",
+        "Partially applied provider changes require rollback or a clearly reported degraded state.",
+        "Concurrent updates use version or conflict controls instead of last-writer ambiguity.",
+        "Audit records safe before-and-after evidence without exposing secrets."
+      ]
+    },
+    {
+      "heading": "Example resolution",
+      "paragraphs": [
+        "The cache capability defines a default lifetime. A project retains that default, startioLocal shortens it for development, and monoServer adds no further override. The effective value is therefore explained by the environment layer.",
+        "If an approved runtime contract later changes an eligible tenant lifetime, that value applies only in its resolved tenant scope. Restarting or rolling back follows the cache contract; another tenant and another environment remain unchanged."
+      ]
+    },
+    {
+      "heading": "Operational evidence",
+      "items": [
+        "Selected project, environment, server, node, and active modules.",
+        "Configuration source and effective value without secret disclosure.",
+        "Validation, readiness, retry, activation, rollback, and conflict signals.",
+        "Correlation between a governed request, approval, actor, version, and runtime result.",
+        "Focused tests for restart, dependency loss, repeated registration, invalid configuration, and recovery."
       ]
     }
   ]

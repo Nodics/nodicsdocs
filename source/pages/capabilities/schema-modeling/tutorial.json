@@ -6,7 +6,11 @@
   "family": "tutorial-example",
   "parent": "page:capability.schema-modeling.overview",
   "order": 30,
-  "audiences": ["developer", "architect", "ai-tool"],
+  "audiences": [
+    "developer",
+    "architect",
+    "ai-tool"
+  ],
   "readerIntent": "Add or extend a business entity using the supported schema framework.",
   "priorKnowledge": "Know the owning capability, users, lifecycle, and relationships.",
   "depth": "guided",
@@ -14,7 +18,11 @@
   "owner": "The business module that owns the entity",
   "lastVerified": "2026-07-26",
   "summary": "Model business meaning first, declare only owned differences, and let Nodics create the runtime model and provider interaction.",
-  "supportingEvidence": ["nodics:gFramework/nData/README.md", "nodics:gFramework/nDatabase/README.md", "nodics:gCore/profile/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nData/README.md",
+    "nodics:gFramework/nDatabase/README.md",
+    "nodics:gCore/profile/README.md"
+  ],
   "sections": [
     {
       "heading": "Example: employee contact information",
@@ -41,6 +49,74 @@
         "Invalid, missing, cross-tenant, cross-enterprise, and cyclic relationships.",
         "Provider-neutral contracts plus enabled cache, search, event, versioning, publishing, and workflow integration.",
         "Regression of normal schema update and unrelated schemas."
+      ]
+    },
+    {
+      "heading": "Define business meaning first",
+      "items": [
+        "Identify the owner and users.",
+        "Choose stable identity and safe description.",
+        "Decide whether Contact and Address are reusable associations or composed children.",
+        "Classify personal fields and retention.",
+        "List operations, search, import, export, and audit needs.",
+        "Describe tenant, enterprise, and employee ownership."
+      ]
+    },
+    {
+      "heading": "Design relationships",
+      "paragraphs": [
+        "Decide whether contacts can be shared, whether one is primary, whether users may create them inline, and what occurs when an employee is deactivated or deleted.",
+        "Use supported relationship metadata. Do not store an unvalidated foreign identifier just to complete the first form."
+      ]
+    },
+    {
+      "heading": "Access and presentation metadata",
+      "items": [
+        "Grant operations through configurable Profile-owned permission groups.",
+        "Define ownership for customer-owned and employee-administered records.",
+        "Expose only fields appropriate for list, detail, search, import, and export.",
+        "Provide friendly labels and display identity for BackOffice.",
+        "Keep localized presentation content in governed content or metadata."
+      ]
+    },
+    {
+      "heading": "Build through framework contracts",
+      "paragraphs": [
+        "Let Nodics compose the schema and item model. Database services operate the selected provider; Profile never imports a database client directly.",
+        "If contact discovery needs external indexing, define the search model and use Search. The item model remains authoritative."
+      ]
+    },
+    {
+      "heading": "Run the example",
+      "items": [
+        "Create an Employee with a valid Contact and Address.",
+        "Search and display it using friendly identity.",
+        "Add a second contact and choose a primary contact.",
+        "Update an address and verify audit and ownership.",
+        "Export and re-import representative data.",
+        "Use Schema Workbench to select or create permitted related records."
+      ]
+    },
+    {
+      "heading": "Negative and boundary tests",
+      "items": [
+        "Missing, malformed, excessive-length, and duplicate values.",
+        "Nonexistent, unauthorized, or wrong-tenant relation.",
+        "Collection minimum, maximum, and duplicate entry.",
+        "Forbidden fields and operations.",
+        "Provider or index failure and partial nested creation.",
+        "Project extension absent and present."
+      ]
+    },
+    {
+      "heading": "Completion checklist",
+      "items": [
+        "One owner and no parallel data authority.",
+        "Schema, models, persistence, search, API, and UI metadata agree.",
+        "Backend enforces security and tenant boundaries.",
+        "Migration, lifecycle, retention, and deletion are documented.",
+        "Beginner, business, developer, and operator guidance is current.",
+        "Generated artifacts and regression evidence pass."
       ]
     }
   ]

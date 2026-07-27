@@ -6,7 +6,13 @@
   "family": "operations-security-troubleshooting",
   "parent": "section:operations",
   "order": 20,
-  "audiences": ["developer", "administrator", "operator", "architect", "ai-tool"],
+  "audiences": [
+    "developer",
+    "administrator",
+    "operator",
+    "architect",
+    "ai-tool"
+  ],
   "readerIntent": "Start the intended local topology, understand what loaded, and diagnose startup or runtime failures safely.",
   "priorKnowledge": "Complete local setup and understand modules and environments.",
   "depth": "guided",
@@ -14,7 +20,12 @@
   "owner": "nConfig startup and lifecycle contracts plus the selected project environment, server, and node modules",
   "lastVerified": "2026-07-26",
   "summary": "Use MonoServer for fast local integration and modular servers for boundary validation; select topology through metadata-driven environment, server, and node inputs rather than long encoded names.",
-  "supportingEvidence": ["nodics:gFramework/nConfig/README.md", "nodics:gFramework/nConfig/docs/runtime-lifecycle-resilience-contract.md", "nodics:gFramework/nNms/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nConfig/README.md",
+    "nodics:gFramework/nConfig/docs/runtime-lifecycle-resilience-contract.md",
+    "nodics:gFramework/nNms/README.md",
+    "nodics:gDocs/operations/how-to-run-and-debug-nodics.md"
+  ],
   "sections": [
     {
       "heading": "Choose a topology",
@@ -53,6 +64,166 @@
         "Use correlation identifiers and redacted logs; never print passwords, API keys, bearer/refresh tokens, cookies, private keys, or connection credentials.",
         "Stop processes through the lifecycle coordinator so draining and provider cleanup run; hard termination cannot guarantee hooks.",
         "Record exact topology, command, effective non-secret configuration, failure, and focused test evidence when reporting a defect."
+      ]
+    },
+    {
+      "heading": "Complete guide: How To Run And Debug Nodics",
+      "migratedFrom": "nodics:gDocs/operations/how-to-run-and-debug-nodics.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "This guide explains the common ways to start Nodics and debug startup or runtime behavior."
+      ]
+    },
+    {
+      "heading": "Beginner Summary",
+      "migratedFrom": "nodics:gDocs/operations/how-to-run-and-debug-nodics.md",
+      "sourceAnchor": "beginner-summary",
+      "paragraphs": [
+        "Running Nodics means starting a selected project, environment, server, and optional node. Debugging means slowing that startup or request execution enough to see which configuration, module, route, service, provider, tenant, or generated artifact is being used.",
+        "Before debugging, write down:",
+        "Most runtime confusion comes from starting a different server or module set than the one you expected."
+      ],
+      "items": [
+        "command used to start;",
+        "selected project;",
+        "selected environment;",
+        "selected server;",
+        "selected node, if any;",
+        "port;",
+        "API path or job/import/event being tested."
+      ]
+    },
+    {
+      "heading": "Start Normally",
+      "migratedFrom": "nodics:gDocs/operations/how-to-run-and-debug-nodics.md",
+      "sourceAnchor": "start-normally",
+      "paragraphs": [
+        "Run:",
+        "```bash\nnpm run start\n```",
+        "Use normal startup when you want to run the application without attaching a debugger."
+      ]
+    },
+    {
+      "heading": "Start And Pause For Debugging",
+      "migratedFrom": "nodics:gDocs/operations/how-to-run-and-debug-nodics.md",
+      "sourceAnchor": "start-and-pause-for-debugging",
+      "paragraphs": [
+        "Run:",
+        "```bash\nnpm run start:debug\n```",
+        "This starts Node with the inspector and pauses before startup code executes.",
+        "Use this when:",
+        "Visual Studio Code can attach to port `9229` by default."
+      ],
+      "items": [
+        "You need to debug startup configuration.",
+        "You need a breakpoint before modules load.",
+        "You want to inspect how configuration, schemas, routes, or services are registered."
+      ]
+    },
+    {
+      "heading": "Start And Attach Later",
+      "migratedFrom": "nodics:gDocs/operations/how-to-run-and-debug-nodics.md",
+      "sourceAnchor": "start-and-attach-later",
+      "paragraphs": [
+        "Run:",
+        "```bash\nnpm run start:inspect\n```",
+        "This starts the application immediately and exposes the inspector.",
+        "Use this when:"
+      ],
+      "items": [
+        "The issue happens after startup.",
+        "You want the server running before attaching.",
+        "You are debugging an API call, scheduled job, event, or import process."
+      ]
+    },
+    {
+      "heading": "Using A Different Debug Port",
+      "migratedFrom": "nodics:gDocs/operations/how-to-run-and-debug-nodics.md",
+      "sourceAnchor": "using-a-different-debug-port",
+      "paragraphs": [
+        "Use a different port when running multiple processes:",
+        "```bash\nnpm run start:debug -- --port=9230\n```",
+        "Each Node process must use its own inspector port."
+      ]
+    },
+    {
+      "heading": "Visual Studio Code Attach",
+      "migratedFrom": "nodics:gDocs/operations/how-to-run-and-debug-nodics.md",
+      "sourceAnchor": "visual-studio-code-attach",
+      "paragraphs": [
+        "Use the attach configuration in `.vscode/launch.json`.",
+        "Default values:",
+        "Steps:"
+      ],
+      "items": [
+        "Address: `localhost`",
+        "Port: `9229`",
+        "Request type: `attach`",
+        "Add breakpoints.",
+        "Run `npm run start:debug`.",
+        "Start the VS Code attach configuration.",
+        "Continue execution after the debugger attaches."
+      ]
+    },
+    {
+      "heading": "Debugging Tips",
+      "migratedFrom": "nodics:gDocs/operations/how-to-run-and-debug-nodics.md",
+      "sourceAnchor": "debugging-tips",
+      "paragraphs": [
+        "For startup problems, place breakpoints near:",
+        "For request problems, place breakpoints near:",
+        "For scheduled jobs, place breakpoints near:"
+      ],
+      "items": [
+        "Configuration loading.",
+        "Module initialization.",
+        "Schema loading.",
+        "Route loading.",
+        "Service loading.",
+        "Initial data loading.",
+        "Route controller.",
+        "Authorization checks.",
+        "Service method.",
+        "Data access method.",
+        "Response resolution.",
+        "Job handler.",
+        "Owning service method.",
+        "Event or log writer."
+      ]
+    },
+    {
+      "heading": "Where To Put Breakpoints",
+      "migratedFrom": "nodics:gDocs/operations/how-to-run-and-debug-nodics.md",
+      "sourceAnchor": "where-to-put-breakpoints",
+      "paragraphs": [
+        "| Problem | Good breakpoint area |\n| --- | --- |\n| Wrong configuration value | Configuration loading and `CONFIG.get` caller |\n| Module not active | Module initializer and selected server `activeModules` |\n| Route not found | Router loading, router registration, generated route output |\n| Unauthorized API | Header normalization, token validation, route authorization |\n| Wrong tenant data | Tenant resolution, DAO/provider resolution, cache/search key creation |\n| Controller receives wrong body | Controller request mapping |\n| Business rule wrong | Owning service function |\n| Generated API wrong | Source schema/router plus generator output |\n| Import fails | Import initializer, file/header processing, target dispatch |\n| Job does not run | CronJob container, node responsibility, job handler |\n| Cache result wrong | Cache key creation, cache policy, invalidation service |"
+      ]
+    },
+    {
+      "heading": "Stop The Application",
+      "migratedFrom": "nodics:gDocs/operations/how-to-run-and-debug-nodics.md",
+      "sourceAnchor": "stop-the-application",
+      "paragraphs": [
+        "Use `Ctrl+C` in the terminal.",
+        "If a process does not stop, check for remaining Node processes and occupied ports before starting again."
+      ]
+    },
+    {
+      "heading": "Beginner Troubleshooting",
+      "migratedFrom": "nodics:gDocs/operations/how-to-run-and-debug-nodics.md",
+      "sourceAnchor": "beginner-troubleshooting",
+      "paragraphs": [
+        "| Symptom | What to check first |\n| --- | --- |\n| Breakpoint never hits | Confirm the file is loader-visible and the selected module is active. |\n| API returns 404 | Confirm context root, module name, API version, and route registration. |\n| API returns 401 or 403 | Confirm token, tenant, route permission, and user group. |\n| Data looks stale | Confirm cache and generated artifacts were refreshed. |\n| Local server behaves differently than test | Confirm selected environment/server/node and runtime configuration. |\n| Debugger cannot attach | Confirm inspector port is unique and the process is running with debug/inspect. |"
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/operations/how-to-run-and-debug-nodics.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "Next: [How To Prepare For Deployment](/docs/operations/deployment)",
+        "Testing: [How To Test Nodics Changes](/docs/build/testing)",
+        "Documentation home: [Nodics Documentation](/docs)"
       ]
     }
   ]

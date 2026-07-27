@@ -6,7 +6,12 @@
   "family": "operations-security-troubleshooting",
   "parent": "page:capability.persistence.overview",
   "order": 40,
-  "audiences": ["administrator", "security-reviewer", "operator", "architect"],
+  "audiences": [
+    "administrator",
+    "security-reviewer",
+    "operator",
+    "architect"
+  ],
   "readerIntent": "Secure, monitor, tune, recover, and qualify persistence.",
   "priorKnowledge": "Know the data topology and selected provider.",
   "depth": "implementation",
@@ -14,10 +19,98 @@
   "owner": "Deployment operators and selected database provider",
   "lastVerified": "2026-07-26",
   "summary": "Production persistence needs provider-qualified encryption, credentials, capacity, indexing, backup, recovery, failover, and tenant isolation.",
-  "supportingEvidence": ["nodics:gFramework/nDatabase/README.md", "nodics:gFramework/nDatabase/mongodb/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nDatabase/README.md",
+    "nodics:gFramework/nDatabase/mongodb/README.md"
+  ],
   "sections": [
-    {"heading": "Secure", "items": ["Use authenticated encrypted connections and least-privilege credentials.", "Keep secrets in governed secret layers and rotate them safely.", "Enforce schema read/write and field policy before provider calls.", "Prevent cross-tenant connection, model, cache, log, and backup leakage."]},
-    {"heading": "Monitor", "items": ["Connection and pool health, saturation, wait time, and reconnects.", "Operation latency, throughput, conflicts, timeouts, and errors.", "Slow queries, scans, index use, storage growth, and transaction outcomes.", "Tenant-safe dimensions, backup freshness, replication lag, and restore evidence."]},
-    {"heading": "Recover and qualify", "items": ["Test startup without the provider and mid-operation outage.", "Prove reconnect, retry limits, idempotency, transaction rollback, and cleanup.", "Exercise backup, point-in-time or supported restore, failover, schema migration, rollback, and version upgrade.", "Load-test realistic query shapes and isolation; a local happy-path test is insufficient."]}
+    {
+      "heading": "Secure",
+      "items": [
+        "Use authenticated encrypted connections and least-privilege credentials.",
+        "Keep secrets in governed secret layers and rotate them safely.",
+        "Enforce schema read/write and field policy before provider calls.",
+        "Prevent cross-tenant connection, model, cache, log, and backup leakage."
+      ]
+    },
+    {
+      "heading": "Monitor",
+      "items": [
+        "Connection and pool health, saturation, wait time, and reconnects.",
+        "Operation latency, throughput, conflicts, timeouts, and errors.",
+        "Slow queries, scans, index use, storage growth, and transaction outcomes.",
+        "Tenant-safe dimensions, backup freshness, replication lag, and restore evidence."
+      ]
+    },
+    {
+      "heading": "Recover and qualify",
+      "items": [
+        "Test startup without the provider and mid-operation outage.",
+        "Prove reconnect, retry limits, idempotency, transaction rollback, and cleanup.",
+        "Exercise backup, point-in-time or supported restore, failover, schema migration, rollback, and version upgrade.",
+        "Load-test realistic query shapes and isolation; a local happy-path test is insufficient."
+      ]
+    },
+    {
+      "heading": "Security baseline",
+      "items": [
+        "Use separate least-privilege identities for applications, migrations, backup, and administration.",
+        "Require encrypted transport and provider-appropriate encryption at rest.",
+        "Restrict network reachability to approved runtime and operator paths.",
+        "Rotate secrets without committing or logging them.",
+        "Audit administrative and sensitive data operations.",
+        "Apply retention, deletion, privacy, and regulatory controls to data and backups."
+      ]
+    },
+    {
+      "heading": "Capacity and performance",
+      "items": [
+        "Measure representative read, write, update, relationship, bulk, and transaction workloads.",
+        "Size connection pools against process count and provider limits.",
+        "Inspect query plans and indexes before scaling hardware.",
+        "Set operation deadlines and bound result sizes.",
+        "Monitor storage, memory, CPU, I/O, replication, and growth.",
+        "Run load and soak tests with tenant isolation and expected concurrency."
+      ]
+    },
+    {
+      "heading": "Backup and restore",
+      "paragraphs": [
+        "A completed backup job is not recovery evidence. Define recovery-point and recovery-time objectives, retention, encryption, access, off-site or regional placement, and restore ownership.",
+        "Restore into an isolated environment regularly, validate schemas, indexes, tenants, record counts, application reads, search/cache rebuilds, and audit the exercise."
+      ]
+    },
+    {
+      "heading": "Migration and upgrade",
+      "items": [
+        "Inventory provider, driver, server, schema, index, and topology compatibility.",
+        "Back up and prove rollback before destructive changes.",
+        "Test migrations using production-representative volume.",
+        "Coordinate staged and online systems plus import/export and search projections.",
+        "Observe error, latency, conflict, and replication signals after rollout.",
+        "Keep a time-bounded rollback decision and accountable owner."
+      ]
+    },
+    {
+      "heading": "Incident examples",
+      "items": [
+        "Pool exhaustion: reject or queue within bounds, identify leaks or slow queries, and avoid unlimited pool growth.",
+        "Provider outage: change readiness, stop unsafe retries, preserve idempotency, and communicate degraded behavior.",
+        "Slow query: capture safe shape and plan, add or adjust an owned index, then regression-test writes.",
+        "Tenant-routing error: stop affected operations, preserve evidence, assess exposure, correct mapping, and reconcile.",
+        "Restore required: follow the verified runbook and rebuild derived cache/search state."
+      ]
+    },
+    {
+      "heading": "Production readiness evidence",
+      "items": [
+        "Current supported-version matrix and provider maturity.",
+        "Threat model, network, credential, encryption, and audit review.",
+        "Load, soak, outage, reconnect, failover, and recovery tests.",
+        "Recent successful restore and migration rollback exercise.",
+        "Dashboards, alerts, runbooks, on-call ownership, and escalation.",
+        "Known limits, capacity headroom, and scheduled requalification."
+      ]
+    }
   ]
 }

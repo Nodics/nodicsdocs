@@ -1,1 +1,123 @@
-{"code":"capability.services-facades.runtime","title":"Service Runtime, Communication, and Extension","route":"/docs/capabilities/services-facades/runtime","section":"build","family":"runtime-customization","parent":"page:capability.services-facades.overview","order":10,"audiences":["developer","architect","operator","ai-tool"],"readerIntent":"Implement or override behavior while preserving context, contracts, and resilience.","priorKnowledge":"Know the owning use case and dependencies.","depth":"implementation","status":"implemented","owner":"Owning service or facade module","lastVerified":"2026-07-26","summary":"A service receives explicit tenant and request context, invokes owned models or providers, and returns stable results; cross-module calls use the governed transport service.","supportingEvidence":["nodics:gFramework/nService/README.md","nodics:gFramework/nService/docs/module-transport-resilience-contract.md"],"sections":[{"heading":"Runtime contract","items":["Validate normalized input and resolved tenant, enterprise, principal, and trace context.","Apply owned business rules and call schema models, pipelines, providers, or other services.","For remote modules, resolve servers configuration and use DefaultModuleService.","Use bounded deadlines, pooled connections, circuit breaking, and retries only for safe reads or idempotent writes.","Return normalized results and stable failures without leaking credentials or response bodies."]},{"heading":"Extension","items":["Configure existing behavior first.","Override the smallest same-name service in a later project module when behavior changes.","Preserve the published contract or version every affected route, facade, test, and document.","Keep human login separate from service identity and scheduled access.","Test default and override behavior in monoServer and relevant distributed topology."]}]}
+{
+  "code": "capability.services-facades.runtime",
+  "title": "Service Runtime, Communication, and Extension",
+  "route": "/docs/capabilities/services-facades/runtime",
+  "section": "build",
+  "family": "configuration-customization",
+  "parent": "page:capability.services-facades.overview",
+  "order": 10,
+  "audiences": [
+    "developer",
+    "architect",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Implement or override behavior while preserving context, contracts, and resilience.",
+  "priorKnowledge": "Know the owning use case and dependencies.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Owning service or facade module",
+  "lastVerified": "2026-07-26",
+  "summary": "A service receives explicit tenant and request context, invokes owned models or providers, and returns stable results; cross-module calls use the governed transport service.",
+  "supportingEvidence": [
+    "nodics:gFramework/nService/README.md",
+    "nodics:gFramework/nService/docs/module-transport-resilience-contract.md"
+  ],
+  "sections": [
+    {
+      "heading": "Runtime contract",
+      "items": [
+        "Validate normalized input and resolved tenant, enterprise, principal, and trace context.",
+        "Apply owned business rules and call schema models, pipelines, providers, or other services.",
+        "For remote modules, resolve servers configuration and use DefaultModuleService.",
+        "Use bounded deadlines, pooled connections, circuit breaking, and retries only for safe reads or idempotent writes.",
+        "Return normalized results and stable failures without leaking credentials or response bodies."
+      ]
+    },
+    {
+      "heading": "Context propagation",
+      "paragraphs": [
+        "Tenant, enterprise, principal, locale, correlation, deadline, and operation context are explicit inputs or trusted runtime context. A downstream service cannot broaden authority from a caller-supplied label.",
+        "Only the minimum necessary context crosses module boundaries. Credentials and sensitive records do not enter logs, metrics, cache keys, or error messages."
+      ]
+    },
+    {
+      "heading": "Local resolution",
+      "paragraphs": [
+        "When a target capability runs locally, the caller resolves its public service contract through the Nodics service registry and module hierarchy. Later project implementations can replace supported service names without changing callers.",
+        "Local calls still enforce the target contract. Sharing a process does not grant direct access to another module's database or private implementation."
+      ]
+    },
+    {
+      "heading": "Remote resolution",
+      "paragraphs": [
+        "When the capability is remote, the module transport uses the configured servers map, normalized paths, connection pools, deadlines, internal identity, and response contracts. BackOffice registration can help discovery but is not the authority for server configuration or target business data.",
+        "The transport validates response status and shape and maps network or remote failures without exposing raw response bodies."
+      ]
+    },
+    {
+      "heading": "Resilience decisions",
+      "items": [
+        "Set an end-to-end deadline and allocate bounded dependency time.",
+        "Retry safe reads or explicitly idempotent writes only.",
+        "Use idempotency keys for retryable mutations.",
+        "Open circuit behavior after qualified repeated failures and probe recovery safely.",
+        "Bound queues, connections, concurrency, and response size.",
+        "Expose degraded readiness when a required dependency is unavailable."
+      ]
+    },
+    {
+      "heading": "Example: retrieve CMS page content",
+      "paragraphs": [
+        "Axis calls CMS directly for page content after BackOffice discovery and authorization context. CMS owns the page contract and returns presentation data. BackOffice is not a proxy for every module operation.",
+        "If CMS is remote, the configured API and resilience boundary applies. A retry can be safe for a read, while a content mutation requires idempotency and conflict handling."
+      ]
+    },
+    {
+      "heading": "Facade coordination and partial failure",
+      "paragraphs": [
+        "A facade calling several modules must define sequencing and failure semantics. Independent reads may run in parallel within limits; mutations normally require ordered ownership, idempotency, compensation, or workflow state.",
+        "The facade must report whether no state changed, work is pending reconciliation, or compensation failed. It must not return success merely because one dependency succeeded."
+      ]
+    },
+    {
+      "heading": "Extension",
+      "items": [
+        "Configure existing behavior first.",
+        "Override the smallest same-name service in a later project module when behavior changes.",
+        "Preserve the published contract or version every affected route, facade, test, and document.",
+        "Keep human login separate from service identity and scheduled access.",
+        "Test default and override behavior in monoServer and relevant distributed topology."
+      ]
+    },
+    {
+      "heading": "Extension example",
+      "paragraphs": [
+        "A logistics project extends Profile employee validation for drivers. The later service or interceptor retains the same activation contract and invokes Profile models. Ecommerce, which does not activate the project module, keeps default behavior.",
+        "The extension never imports a database client or asks Axis to enforce the only rule."
+      ]
+    },
+    {
+      "heading": "Observability and safe errors",
+      "items": [
+        "Measure service and dependency latency, outcomes, retries, circuit state, pool saturation, and timeouts.",
+        "Preserve correlation across local and remote calls.",
+        "Use registered stable statuses for business and transport failures.",
+        "Retain safe causal chains for operators.",
+        "Redact credentials, tokens, personal data, and unrestricted remote content."
+      ]
+    },
+    {
+      "heading": "Verification matrix",
+      "items": [
+        "Successful local and remote calls.",
+        "Missing context, unauthorized principal, and wrong tenant.",
+        "Timeout before dispatch and during response.",
+        "Safe read retry, idempotent write retry, and uncertain write rejection.",
+        "Circuit opening, recovery probe, pool saturation, and shutdown.",
+        "Partial facade failure, compensation, and reconciliation.",
+        "Default and project override plus monoServer and distributed regression."
+      ]
+    }
+  ]
+}

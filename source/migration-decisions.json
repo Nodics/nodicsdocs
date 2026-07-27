@@ -1,6 +1,7 @@
 {
   "contractVersion": 1,
   "decisions": [
+    {"evidenceId":"nodics:README.md","disposition":"merge","destinationCode":"discover.overview","notes":"Preserve the complete repository introduction, platform strengths, MVP-to-scale guidance, architecture orientation, commands, and adoption paths in the canonical Nodics introduction."},
     {"evidenceId":"nodics:gFramework/nSearch/README.md","disposition":"rewrite","destinationCode":"capability.search-indexing.overview","notes":"Promote provider-family ownership and maturity into the Search and Indexing hub."},
     {"evidenceId":"nodics:gFramework/nSearch/search/README.md","disposition":"rewrite","destinationCode":"capability.query-modeling.overview","notes":"Promote the provider-neutral query and search-model contract into its capability hub."},
     {"evidenceId":"nodics:gFramework/nSearch/elastic/README.md","disposition":"rewrite","destinationCode":"capability.search-indexing.prebuilt-engines","notes":"Document Elasticsearch as the current guarded engine provider and distinguish it from provider-neutral search."},

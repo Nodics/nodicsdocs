@@ -1,1 +1,79 @@
-{"code":"capability.ai.knowledge","title":"AI Knowledge and Retrieval-Augmented Generation","route":"/docs/capabilities/ai/knowledge","section":"capabilities","family":"concepts-runtime","parent":"page:capability.ai.overview","order":30,"audiences":["business-user","administrator","developer","architect","security-reviewer","operator","ai-tool"],"readerIntent":"Build permission-safe knowledge corpora from documentation and Nodics-owned data.","priorKnowledge":"Understand schemas, search models, publishing, and permissions.","depth":"implementation","status":"implemented","owner":"aiKnowledge owns corpus/retrieval evidence; source modules, nSearch, and aiProviders retain their authorities","lastVerified":"2026-07-26","summary":"Explicit sources become deterministic documents and chunks, optional embeddings come through aiProviders, nSearch indexes derived chunks, and retrieval returns bounded evidence with citations.","supportingEvidence":["nodics:gAi/aiKnowledge/README.md"],"sections":[{"heading":"Sources","items":["Published Nodics documentation content packs.","Partner application guides and support knowledge.","Explicit Content Catalog, Product Catalog, or other module-owned schema/service projections.","Approved external sources contributed by provider/project modules.","Temporary root docs/, generic schema crawling, direct database reads, and retrieval-driven writes are prohibited."]},{"heading":"Ingestion","items":["Resolve corpus, source, tenant, enterprise, project, audience, locale, classification, and version.","Read through source-owned services/models and authorization.","Normalize, hash, chunk, and persist through generated schema services.","Obtain embeddings only through aiProviders when vector mode is configured.","Index KnowledgeChunk through nSearch and refresh once per completed batch.","Activate candidate version optimistically; retain history and rollback."]},{"heading":"Retrieval and freshness","items":["INDEXED, LIVE, or HYBRID retrieval is separate from LEXICAL, VECTOR, or HYBRID search mode.","Vector/hybrid fails closed without dimensions, mapping, embedding profile, and provider capability.","Filter tenant, audience, classification, locale, active version, and permissions before evidence.","Return citations or explicit insufficient-evidence refusal.","Reingest on source publication/change; deactivate, delete, or reindex under source lifecycle and retention policy."]}]}
+{
+  "code": "capability.ai.knowledge",
+  "title": "AI Knowledge and Retrieval-Augmented Generation",
+  "route": "/docs/capabilities/ai/knowledge",
+  "section": "capabilities",
+  "family": "runtime-behavior",
+  "parent": "page:capability.ai.overview",
+  "order": 30,
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "security-reviewer",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Build permission-safe knowledge corpora from documentation and Nodics-owned data.",
+  "priorKnowledge": "Understand schemas, search models, publishing, and permissions.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "aiKnowledge owns corpus/retrieval evidence; source modules, nSearch, and aiProviders retain their authorities",
+  "lastVerified": "2026-07-26",
+  "summary": "Explicit sources become deterministic documents and chunks, optional embeddings come through aiProviders, nSearch indexes derived chunks, and retrieval returns bounded evidence with citations.",
+  "supportingEvidence": [
+    "nodics:gAi/aiKnowledge/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Sources",
+      "items": [
+        "Published Nodics documentation content packs.",
+        "Partner application guides and support knowledge.",
+        "Explicit Content Catalog, Product Catalog, or other module-owned schema/service projections.",
+        "Approved external sources contributed by provider/project modules.",
+        "Temporary root docs/, generic schema crawling, direct database reads, and retrieval-driven writes are prohibited."
+      ]
+    },
+    {
+      "heading": "Ingestion",
+      "items": [
+        "Resolve corpus, source, tenant, enterprise, project, audience, locale, classification, and version.",
+        "Read through source-owned services/models and authorization.",
+        "Normalize, hash, chunk, and persist through generated schema services.",
+        "Obtain embeddings only through aiProviders when vector mode is configured.",
+        "Index KnowledgeChunk through nSearch and refresh once per completed batch.",
+        "Activate candidate version optimistically; retain history and rollback."
+      ]
+    },
+    {
+      "heading": "Source ownership and configuration",
+      "items": [
+        "Each source definition names an owning module or content pack, permitted projection service, classification, audiences, locales, refresh trigger, chunking profile, retrieval mode, retention, and failure policy.",
+        "For Nodics documentation, nodicsdocs remains authored content authority and governed import publishes the content catalog. AI Knowledge consumes the approved projection rather than scanning repositories or temporary files.",
+        "For Product, Content, Inventory, or partner schemas, the owning module exposes a safe read projection. AI Knowledge does not install a database client or bypass schema services.",
+        "Partners customize source definitions and adapters through layered configuration and modules. Core ingestion, hashing, versioning, authorization, and citation contracts remain stable."
+      ]
+    },
+    {
+      "heading": "Retrieval and freshness",
+      "items": [
+        "INDEXED, LIVE, or HYBRID retrieval is separate from LEXICAL, VECTOR, or HYBRID search mode.",
+        "Vector/hybrid fails closed without dimensions, mapping, embedding profile, and provider capability.",
+        "Filter tenant, audience, classification, locale, active version, and permissions before evidence.",
+        "Return citations or explicit insufficient-evidence refusal.",
+        "Reingest on source publication/change; deactivate, delete, or reindex under source lifecycle and retention policy."
+      ]
+    },
+    {
+      "heading": "Grounded-answer example and tests",
+      "items": [
+        "A developer asks how to add a search provider. Retrieval filters the active Nodics documentation corpus for the user's audience and locale, returns relevant sections with page/version citations, and the assistant answers only from that evidence.",
+        "If the corpus is absent, stale beyond policy, unauthorized, or insufficient, the safe result identifies the limitation and offers a governed import or navigation path instead of inventing instructions.",
+        "Test malicious instructions inside documents, cross-tenant and audience leakage, locale fallback, duplicate chunks, changed and deleted pages, stale embeddings, incompatible vector dimensions, lexical fallback, citation accuracy, and rollback.",
+        "Measure retrieval relevance, groundedness, refusal precision, freshness lag, ingestion throughput, index failure, provider cost, and the ability to reproduce which source version supported an answer."
+      ]
+    }
+  ]
+}

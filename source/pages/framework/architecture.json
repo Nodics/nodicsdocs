@@ -2,11 +2,16 @@
   "code": "framework.architecture",
   "title": "How the Nodics Framework Is Organized",
   "route": "/docs/framework/architecture",
-  "section": "framework",
+  "section": "discover",
   "family": "concepts-architecture",
-  "parent": "section:framework",
-  "order": 10,
-  "audiences": ["developer", "architect", "operator", "ai-tool"],
+  "parent": "section:discover",
+  "order": 20,
+  "audiences": [
+    "developer",
+    "architect",
+    "operator",
+    "ai-tool"
+  ],
   "readerIntent": "Build a mental model of ownership, layering, runtime topology, and implementation layers.",
   "priorKnowledge": "Read What Is Nodics first.",
   "depth": "implementation",
@@ -22,6 +27,13 @@
   ],
   "sections": [
     {
+      "heading": "The architecture in plain language",
+      "paragraphs": [
+        "Nodics organizes a large application around capabilities with clear owners. A capability owns its business behavior and contracts; runtime topology decides where that capability runs; project layers decide how an adopting application customizes it.",
+        "This separates three questions that are often mixed together: what the system can do, how the capability is implemented, and which process currently hosts it. Keeping them separate allows implementations and deployments to evolve without creating a second business authority."
+      ]
+    },
+    {
       "heading": "Read Nodics from the outside in",
       "items": [
         "A project defines one customer or product application boundary.",
@@ -33,9 +45,76 @@
       ]
     },
     {
+      "heading": "Repository groups and capability ownership",
+      "paragraphs": [
+        "Framework groups provide reusable technical foundations. Core and domain groups provide business capabilities. Experience-related backend modules support governed experiences but remain backend APIs. A customer project adds application-specific modules and topology beside the reusable framework rather than modifying it for one deployment.",
+        "Group placement expresses reuse and ownership, not a requirement that every module run in its own process. A small shared capability may be independently runnable even when practical deployments normally activate it with related business modules."
+      ]
+    },
+    {
+      "heading": "Modules are not servers",
+      "paragraphs": [
+        "A module is a capability and implementation boundary. A server is a runtime composition that activates one or more modules. A node is an instance beneath a server. Describing the system as modular servers hides the more important fact that capability ownership remains module-based.",
+        "The same module can run in a consolidated local server or in a dedicated production process. Remote callers use configured contracts; they do not take ownership because the deployment changed."
+      ]
+    },
+    {
+      "heading": "Canonical runtime identity",
+      "paragraphs": [
+        "Runtime identity is resolved from short names and hierarchy. Server names may repeat across environments, so the environment and server together form an unambiguous coordinate. Node startup additionally resolves its parent server.",
+        "Interactive startup can request an environment when a server name is ambiguous. Automation supplies explicit coordinates. Runtime resolution avoids forcing long environment prefixes into every server and node name."
+      ]
+    },
+    {
       "heading": "Choose ownership before files",
       "paragraphs": [
         "First decide whether behavior belongs to the reusable framework, a business capability, a customer project, deployment topology, tenant configuration, or governed runtime state. Only then choose a schema, service, facade, controller, router, pipeline, interceptor, event, search, utility, data, or test file."
+      ]
+    },
+    {
+      "heading": "Implementation layers",
+      "items": [
+        "Properties define configurable behavior owned by a capability.",
+        "Schemas describe business data, relationships, validation, permissions, indexes, and model behavior.",
+        "Services own reusable business and data operations.",
+        "Facades coordinate use cases spanning multiple services or capabilities.",
+        "Controllers adapt transport requests and responses without becoming the business authority.",
+        "Routers expose versioned operations and route-security metadata.",
+        "Pipelines, interceptors, processors, events, and jobs handle reusable lifecycle and asynchronous behavior.",
+        "Libraries and utilities provide narrow stateless support and must not become hidden service layers.",
+        "Status definitions provide stable success and failure contracts.",
+        "Tests and canonical documentation prove and explain the implemented contract."
+      ]
+    },
+    {
+      "heading": "Configuration hierarchy",
+      "paragraphs": [
+        "Framework defaults establish reusable behavior. Project, environment, server, node, tenant, and governed runtime layers may refine values when the owning capability permits it. Merge and precedence behavior is part of the configuration contract.",
+        "Application configuration belongs in properties.js under an owned namespace. package.json carries minimal module metadata. Hardcoded constants that partners need to change create an accidental non-extensible authority and should be extracted to the correct configuration owner."
+      ]
+    },
+    {
+      "heading": "Data and provider boundaries",
+      "paragraphs": [
+        "Business modules define their schemas and use Nodics model and service contracts. Database provider modules translate those contracts to supported databases. The same pattern applies to cache, search, messaging, storage, and AI providers.",
+        "A business capability must not install or call a database driver directly. A search index, cache entry, frontend state, generated file, or MCP tool is a projection or bridge over the owning Nodics contract, never a second source of truth."
+      ]
+    },
+    {
+      "heading": "Request and process flow",
+      "items": [
+        "A request enters a versioned route and the request pipeline establishes context, exposure, authentication, authorization, validation, and diagnostics.",
+        "The controller translates the request and delegates to a facade or service.",
+        "The owning service applies business rules and uses framework models, providers, events, workflows, or jobs through their contracts.",
+        "The response handler maps a registered success or error status to a stable external response.",
+        "Long-running or asynchronous work leaves the request path through owned jobs, events, workflows, or processors rather than blocking the caller."
+      ]
+    },
+    {
+      "heading": "Frontend and tooling boundaries",
+      "paragraphs": [
+        "Frontend applications such as Axis run separately. Their renderers may be driven by backend content and schema metadata, but authorization, validation, workflows, persistence, and business decisions remain in backend modules.",
+        "MCP servers, command-line tools, generated clients, and AI assistants bridge to Nodics contracts. They may improve discovery and interaction but cannot become alternate loaders, registries, or data authorities."
       ]
     },
     {
@@ -45,9 +124,37 @@
       ]
     },
     {
+      "heading": "Startup, readiness, and resilience",
+      "paragraphs": [
+        "Modules participate in a standard lifecycle. Optional external registration and discovery work must not add avoidable latency to critical startup or request paths. A module can become locally ready, then perform retryable coordination such as BackOffice registration asynchronously when the contract allows it.",
+        "Readiness must describe usable capability state rather than merely an open port. Shutdown should release owned resources. Restart, dependency failure, provider recovery, and repeated registration must be idempotent and observable."
+      ]
+    },
+    {
       "heading": "Generated artifacts",
       "paragraphs": [
         "Models, services, APIs, tests, OpenAPI output, reports, and AI context may be generated. Change the owning source definition and regenerate; do not treat generated output as an independent authority."
+      ]
+    },
+    {
+      "heading": "Example: employee creates an enterprise",
+      "paragraphs": [
+        "Axis renders a schema-driven form using metadata and backend content. The employee selects or creates related tenant and address records only when authorized. Axis sends the operation to the Profile-owned API.",
+        "The Profile request pipeline authenticates the employee, resolves tenant context, evaluates permissions, validates the schema and relationships, and delegates to the owning service. Database services persist the data through the configured provider. Axis displays the registered response; it does not reproduce Profile validation or write to storage directly.",
+        "A customer project can refine permitted fields or behavior through supported configuration and service layers. It does not edit Axis to bypass a backend rule or create a separate enterprise store."
+      ]
+    },
+    {
+      "heading": "Common architectural mistakes",
+      "items": [
+        "Putting application configuration or large behavioral objects in package.json.",
+        "Embedding customizable access maps as closed constants inside schema files.",
+        "Creating direct database, cache, search, or provider access from a business module.",
+        "Treating a scaffold sample file as a required business implementation.",
+        "Creating another loader, registry, workflow, publishing path, or governance layer before checking existing capabilities.",
+        "Placing backend business logic in a frontend or tool bridge.",
+        "Editing generated artifacts instead of their owning source definitions.",
+        "Publishing planned designs as implemented user documentation."
       ]
     },
     {
@@ -60,6 +167,748 @@
         "Which generated artifacts and tests prove the result?",
         "Which canonical documentation must change?"
       ]
+    },
+    {
+      "heading": "Continue learning",
+      "links": [
+        {
+          "label": "Learn the configuration layer",
+          "target": "/docs/capabilities/configuration"
+        },
+        {
+          "label": "Learn modular and layered architecture",
+          "target": "/docs/capabilities/layered-architecture"
+        },
+        {
+          "label": "Learn schema and item modeling",
+          "target": "/docs/capabilities/schema-modeling"
+        },
+        {
+          "label": "Review runtime topology",
+          "target": "/docs/reference/runtime-topology"
+        }
+      ]
+    },
+    {
+      "heading": "Complete guide: How Nodics Is Organized",
+      "migratedFrom": "nodics:gDocs/architecture/how-nodics-is-organized.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "Nodics is organized around capabilities.",
+        "A capability is something the application can do, such as manage users, expose APIs, connect to a database, run scheduled jobs, process imports, publish events, or apply runtime configuration.",
+        "Each capability has a clear owner."
+      ]
+    },
+    {
+      "heading": "Beginner Summary",
+      "migratedFrom": "nodics:gDocs/architecture/how-nodics-is-organized.md",
+      "sourceAnchor": "beginner-summary",
+      "paragraphs": [
+        "Nodics is not organized like a small script where all code goes in one folder. It is organized like an enterprise platform:",
+        "```text\nProject -> Environment -> Server -> Node -> Module Group -> Module -> Layer -> File\n```",
+        "When you add behavior, move through that chain from left to right:",
+        "This is why Nodics can support both fast MVP development and long-term enterprise scaling. The same feature can start in a local consolidated server and later move into modular servers or tenant-specific deployment without rewriting the whole application."
+      ],
+      "items": [
+        "Which project or customer owns the behavior?",
+        "Does it vary by environment, server, node, or tenant?",
+        "Which module owns the capability?",
+        "Which layer owns the code?",
+        "Which file should be changed?",
+        "Which tests and generated artifacts prove it?"
+      ]
+    },
+    {
+      "heading": "The Big Picture",
+      "migratedFrom": "nodics:gDocs/architecture/how-nodics-is-organized.md",
+      "sourceAnchor": "the-big-picture",
+      "paragraphs": [
+        "A Nodics application usually contains:",
+        "This structure lets a project customize behavior without modifying framework files.",
+        "![Nodics Structure](../assets/images/nodics-structure.png)"
+      ],
+      "items": [
+        "Framework capabilities supplied by Nodics.",
+        "Core business capabilities supplied by Nodics or a project.",
+        "Customer project capabilities.",
+        "Environment definitions.",
+        "Server definitions.",
+        "Node definitions.",
+        "Runtime and tenant configuration."
+      ]
+    },
+    {
+      "heading": "Framework Walkthrough",
+      "migratedFrom": "nodics:gDocs/architecture/how-nodics-is-organized.md",
+      "sourceAnchor": "framework-walkthrough",
+      "paragraphs": [
+        "Read Nodics from the outside in:",
+        "This walkthrough matters because a Nodics change is usually not made in one global application folder. It belongs to the layer and module that owns the capability."
+      ],
+      "items": [
+        "The project defines the application boundary.",
+        "Environments define deployment contexts such as local, development, QA, pre-production, and production.",
+        "Servers define runnable process compositions and active modules.",
+        "Nodes define instance-level responsibilities below a server.",
+        "Module groups organize related modules.",
+        "Capability modules own configuration, schemas, routes, controllers, facades, services, pipelines, interceptors, events, search indexes, data, tests, and documentation.",
+        "Generated artifacts are produced from source definitions.",
+        "Runtime governance can preview, approve, activate, audit, and roll back selected mutable behavior."
+      ]
+    },
+    {
+      "heading": "The Ownership Rule",
+      "migratedFrom": "nodics:gDocs/architecture/how-nodics-is-organized.md",
+      "sourceAnchor": "the-ownership-rule",
+      "paragraphs": [
+        "Before adding code, configuration, data, or tests, ask:",
+        "```text\nWho owns this capability?\n```",
+        "The owner is the smallest boundary that can explain, configure, test, document, and override the behavior safely.",
+        "Use this order when deciding ownership:",
+        "This rule helps both human developers and AI tools avoid the most common mistake: putting new behavior in the first file that looks convenient instead of the module that owns the capability."
+      ],
+      "items": [
+        "Customer or project module for customer-specific behavior.",
+        "Environment, server, or node module for deployment or runtime topology behavior.",
+        "Tenant or runtime configuration for governed runtime differences.",
+        "Domain or core capability module for reusable business behavior.",
+        "Framework module only when the framework capability itself must change."
+      ]
+    },
+    {
+      "heading": "Application Project",
+      "migratedFrom": "nodics:gDocs/architecture/how-nodics-is-organized.md",
+      "sourceAnchor": "application-project",
+      "paragraphs": [
+        "An application project represents the product or customer application built on top of Nodics.",
+        "It usually contains:",
+        "Use the project area for customer-specific behavior, application-specific modules, and environment setup."
+      ],
+      "items": [
+        "Project metadata.",
+        "Project modules.",
+        "Environment definitions.",
+        "Server definitions.",
+        "Node definitions.",
+        "Project documentation."
+      ]
+    },
+    {
+      "heading": "Module Groups",
+      "migratedFrom": "nodics:gDocs/architecture/how-nodics-is-organized.md",
+      "sourceAnchor": "module-groups",
+      "paragraphs": [
+        "A module group is a folder that groups related modules.",
+        "For example, one group may contain content modules, another may contain commerce modules, and another may contain data-processing modules.",
+        "Use a group when capabilities belong together but still need separate ownership.",
+        "A group may own shared documentation, shared defaults, and child module ordering. A pure group does not own concrete business behavior unless it intentionally has source, tests, and documentation for that behavior."
+      ]
+    },
+    {
+      "heading": "Capability Modules",
+      "migratedFrom": "nodics:gDocs/architecture/how-nodics-is-organized.md",
+      "sourceAnchor": "capability-modules",
+      "paragraphs": [
+        "A capability module owns one feature area.",
+        "A module can include:",
+        "When adding behavior, first ask:",
+        "```text\nWhich capability owns this?\n```",
+        "If the answer is unclear, do not create a random folder. Decide the owner first."
+      ],
+      "items": [
+        "Configuration.",
+        "Schemas.",
+        "Routes.",
+        "Services.",
+        "Controllers.",
+        "Facades.",
+        "Pipelines.",
+        "Interceptors.",
+        "Events.",
+        "Utility definitions.",
+        "Initial data.",
+        "Sample data.",
+        "Tests.",
+        "Documentation."
+      ]
+    },
+    {
+      "heading": "Standard Module Layers",
+      "migratedFrom": "nodics:gDocs/architecture/how-nodics-is-organized.md",
+      "sourceAnchor": "standard-module-layers",
+      "paragraphs": [
+        "Many capability modules use the same layered shape:",
+        "Nodics modules use Router, Controller, Facade, Service, DAO, and Schema layers. Current Nodics also makes configuration, search, pipelines, interceptors, generated artifacts, LLM context, and runtime governance part of the module contract."
+      ],
+      "items": [
+        "`config/` for configurable values and startup hooks.",
+        "`src/schemas/` for data and generation definitions.",
+        "`src/router/` for API route definitions.",
+        "`src/controller/` for request-level behavior.",
+        "`src/facade/` for orchestration across services or module boundaries.",
+        "`src/service/` for business behavior and replaceable service logic.",
+        "`src/pipelines/` for process pipelines.",
+        "`src/interceptors/` for lifecycle and validation hooks.",
+        "`src/event/` for event listeners.",
+        "`src/search/` for index definitions.",
+        "`src/utils/` for utilities, enums, and status definitions.",
+        "`data/` for module-owned init, core, or sample records.",
+        "`test/` for default behavior and override behavior."
+      ]
+    },
+    {
+      "heading": "Environments",
+      "migratedFrom": "nodics:gDocs/architecture/how-nodics-is-organized.md",
+      "sourceAnchor": "environments",
+      "paragraphs": [
+        "An environment represents where the application runs, such as local, development, UAT, pre-production, or production.",
+        "Environment configuration describes environment-level behavior. It does not become a place for unrelated business logic.",
+        "An environment is treated as a group module because it contains server modules. It may own deployment-wide defaults, environment-owned data, documentation, and the server catalog for that environment."
+      ]
+    },
+    {
+      "heading": "Servers",
+      "migratedFrom": "nodics:gDocs/architecture/how-nodics-is-organized.md",
+      "sourceAnchor": "servers",
+      "paragraphs": [
+        "A server defines a runnable application process or group of active modules.",
+        "For example, one server may run all capabilities together for local development. Another setup may split profile, workflow, events, and scheduled jobs into separate servers.",
+        "Use servers to define runtime boundaries.",
+        "A server owns process-level active module selection, ports, runtime configuration, server-specific data, server tests, and generated runtime reports. Server configuration decides which modules run in that process."
+      ]
+    },
+    {
+      "heading": "Nodes",
+      "migratedFrom": "nodics:gDocs/architecture/how-nodics-is-organized.md",
+      "sourceAnchor": "nodes",
+      "paragraphs": [
+        "A node is a more specific runtime unit below a server.",
+        "Node configuration is useful when multiple processes of the same server type need different responsibilities, ports, ownership rules, or scheduled-job behavior.",
+        "A node owns instance-specific overrides below a selected server. It does not replace server-wide process composition or environment-wide configuration."
+      ]
+    },
+    {
+      "heading": "Enterprise And Tenant Structure",
+      "migratedFrom": "nodics:gDocs/architecture/how-nodics-is-organized.md",
+      "sourceAnchor": "enterprise-and-tenant-structure",
+      "paragraphs": [
+        "Nodics can model more than one business inside the same platform. An enterprise can represent a company, group, or business owner. Sub-enterprises can represent business units, brands, regions, or operating divisions. Tenants isolate users, data, configuration, permissions, imports, jobs, runtime behavior, and integration contracts for a selected business context.",
+        "A tenant is also the data-placement decision. One business can run inside the shared `default` tenant when shared infrastructure is acceptable. Another business can use a dedicated tenant when its data must remain inside its own database, search cluster, cache namespace, storage location, audit boundary, or operational environment. The application capability stays the same; tenant configuration decides where the data and runtime state are handled.",
+        "![Enterprise Tenant Design](../assets/images/enterprise-tenant-design.jpg)",
+        "Use tenant structure when one platform must support multiple customers, companies, brands, catalogs, business units, or deployment contexts without mixing their data or permissions. Keep tenant behavior explicit in schemas, services, routes, imports, events, jobs, cache keys, and tests.",
+        "When designing a module, ask whether the behavior is tenant-neutral or tenant-specific. Tenant-specific behavior must not use hardcoded storage, search, cache, file, event, or configuration paths. Resolve the active tenant through the Nodics tenant context and let layered configuration or governed runtime configuration decide the concrete provider details."
+      ]
+    },
+    {
+      "heading": "Layered Customization",
+      "migratedFrom": "nodics:gDocs/architecture/how-nodics-is-organized.md",
+      "sourceAnchor": "layered-customization",
+      "paragraphs": [
+        "Nodics loads behavior in a defined order. Later layers can override earlier behavior when the contract allows it.",
+        "This is the most important customization rule:",
+        "```text\nDo not change framework code for a customer-specific need when a later project layer can provide the behavior.\n```",
+        "Examples:",
+        "Keep local activation and remote communication separate. `activeModules` decides what runs inside the current process. Server endpoint coordinates describe how one process talks to another. Tenant or customer context may refine behavior after startup, but it must not secretly activate modules."
+      ],
+      "items": [
+        "Add a project service with the same service function to override behavior.",
+        "Add project configuration to override default configuration.",
+        "Add project schemas or route configuration through the supported hierarchy.",
+        "Add project data rather than changing framework seed data.",
+        "Add provider modules for new adapters such as a database, cache engine, or search engine."
+      ]
+    },
+    {
+      "heading": "Generated Artifacts",
+      "migratedFrom": "nodics:gDocs/architecture/how-nodics-is-organized.md",
+      "sourceAnchor": "generated-artifacts",
+      "paragraphs": [
+        "Many Nodics artifacts are generated from source definitions. Generated output can include models, services, facades, controllers, routers, OpenAPI contracts, generated tests, governance reports, and generated LLM context.",
+        "The rule is simple:",
+        "```text\nChange the source definition, then regenerate.\n```",
+        "Do not hand-edit generated output as the long-term fix. If generated behavior is wrong, fix the schema, route, configuration, generator, or source contract that owns it."
+      ]
+    },
+    {
+      "heading": "How AI Tools Should Use This Structure",
+      "migratedFrom": "nodics:gDocs/architecture/how-nodics-is-organized.md",
+      "sourceAnchor": "how-ai-tools-should-use-this-structure",
+      "paragraphs": [
+        "AI tools do not invent a new folder, export style, configuration file, or runtime path.",
+        "When an AI tool helps implement a feature, it names:"
+      ],
+      "items": [
+        "the owning capability;",
+        "the project, environment, server, node, tenant, or framework layer that should own the change;",
+        "the source definition or loader-visible file to modify;",
+        "the configuration keys involved;",
+        "the generated artifacts affected;",
+        "the tests that prove default and override behavior;",
+        "the documentation that must be updated."
+      ]
+    },
+    {
+      "heading": "Where Documentation Belongs",
+      "migratedFrom": "nodics:gDocs/architecture/how-nodics-is-organized.md",
+      "sourceAnchor": "where-documentation-belongs",
+      "paragraphs": [
+        "Use this public documentation for user guides and task-based explanations.",
+        "Use module README files for module-specific behavior.",
+        "Use AI/developer contracts only for implementation rules. Do not make public users read AI governance material just to understand how to build a feature."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/architecture/how-nodics-is-organized.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "Previous: [What Nodics Is](/docs/discover/what-is-nodics)",
+        "Next: [How Configuration Works](/docs/capabilities/configuration)",
+        "Terminology: [Nodics Glossary](/docs/reference/glossary)",
+        "Documentation home: [Nodics Documentation](/docs)"
+      ]
+    },
+    {
+      "heading": "Complete guide: How Platform Capabilities Work",
+      "migratedFrom": "nodics:gDocs/platform/how-platform-capabilities-work.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "Nodics is built as a platform, not as a single API application. Platform capabilities provide reusable behavior that many business modules can use: request handling, processes, cache, messaging, logging, import/export, testing, runtime governance, and deployment topology.",
+        "Nodics implements platform capabilities through active modules, source definitions, layered configuration, runtime governance, generated artifacts, and tests."
+      ]
+    },
+    {
+      "heading": "Beginner Summary",
+      "migratedFrom": "nodics:gDocs/platform/how-platform-capabilities-work.md",
+      "sourceAnchor": "beginner-summary",
+      "paragraphs": [
+        "A platform capability is reusable framework behavior that many business modules can depend on. Examples include routing, cache, import/export, messaging, scheduled jobs, workflow, search, configuration, testing, and runtime governance.",
+        "Business modules should use these capabilities instead of building private copies. For example, a feature that needs cache should use the cache capability. A feature that needs a process should use a pipeline or workflow capability. A feature that needs an API should use router/controller/facade/service layers.",
+        "The simple rule is:",
+        "```text\nUse the platform capability before inventing a private implementation.\n```"
+      ]
+    },
+    {
+      "heading": "Platform Capability Rule",
+      "migratedFrom": "nodics:gDocs/platform/how-platform-capabilities-work.md",
+      "sourceAnchor": "platform-capability-rule",
+      "paragraphs": [
+        "A platform capability is reusable, configurable, tenant-aware where required, and replaceable through a later module.",
+        "Before adding or changing a platform feature, ask:",
+        "Do not add platform behavior as one-off helper code. Platform behavior has an owner, a contract, a configuration path, and a test boundary."
+      ],
+      "items": [
+        "Which module owns the capability?",
+        "Which source definition controls the behavior?",
+        "Which configuration values can change by project, environment, server, node, tenant, or runtime governance?",
+        "Which services, pipelines, events, or routers execute the behavior?",
+        "Which tests prove default behavior and override behavior?",
+        "Which documentation and generated LLM context must be updated?"
+      ]
+    },
+    {
+      "heading": "Capability Placement Map",
+      "migratedFrom": "nodics:gDocs/platform/how-platform-capabilities-work.md",
+      "sourceAnchor": "capability-placement-map",
+      "paragraphs": [
+        "| Need | Capability/docs to use |\n| --- | --- |\n| Expose an API | Router, controller, facade, service docs |\n| Validate and process ordered steps | Pipeline framework docs |\n| Run stateful business lifecycle | Workflow/nbpm docs |\n| React to something that happened | Event/NEMS docs |\n| Run timed work | CronJob docs |\n| Speed repeatable reads | Cache docs |\n| Import/export records | Data/import/export docs |\n| Make data searchable | Search docs |\n| Change behavior safely at runtime | Runtime configuration/dynamo docs |\n| Run across multiple servers/nodes | Topology and service communication docs |\n| Prove behavior | Testing docs |",
+        "When an AI tool proposes a custom helper, compare the helper to this table. If a platform capability already exists, use the capability contract."
+      ]
+    },
+    {
+      "heading": "Request Handling",
+      "migratedFrom": "nodics:gDocs/platform/how-platform-capabilities-work.md",
+      "sourceAnchor": "request-handling",
+      "paragraphs": [
+        "Request handling is the path from an incoming API call to secured business behavior.",
+        "![Request Process Design](../assets/images/request-process-design.jpg)",
+        "A request normally passes through:",
+        "The route definition makes the API contract visible. Permission behavior, pre-authentication behavior, cache policy, help metadata, and OpenAPI generation come from route/source metadata, not from hidden controller assumptions.",
+        "Related module documentation:",
+        "![Request Process Flow](../assets/images/request-process-flow.jpg)"
+      ],
+      "items": [
+        "Route registration.",
+        "Request metadata and header normalization.",
+        "Tenant and context resolution.",
+        "Authentication and authorization.",
+        "Controller execution.",
+        "Facade or service orchestration.",
+        "Data access, search, cache, event, or workflow behavior.",
+        "Response and diagnostics handling.",
+        "[nRouter](/docs/reference/apis-routing) and [Router Framework](/docs/reference/apis-routing) for API route registration, request pipeline behavior, security, and controller dispatch.",
+        "[nController](/docs/reference/apis-routing) for controller request mapping.",
+        "[nService](/docs/reference/services-facades) for service contracts after controller handoff."
+      ]
+    },
+    {
+      "heading": "SecuredRequestProcessService",
+      "migratedFrom": "nodics:gDocs/platform/how-platform-capabilities-work.md",
+      "sourceAnchor": "securedrequestprocessservice",
+      "paragraphs": [
+        "The secured request process handles APIs that require identity, tenant context, and permission checks before controller execution.",
+        "Secured request handling normally includes:",
+        "Do not mark a route unsecured just to avoid token or permission errors. Fix the route permission, caller identity, token, tenant, or service account configuration."
+      ],
+      "items": [
+        "parsing and normalizing headers;",
+        "resolving tenant and request context;",
+        "validating auth token, API key, or internal service token;",
+        "authorizing the caller against route permission metadata;",
+        "applying route, cache, and security policy;",
+        "dispatching to the controller;",
+        "returning a consistent success or error response."
+      ]
+    },
+    {
+      "heading": "NonSecuredRequestProcessService",
+      "migratedFrom": "nodics:gDocs/platform/how-platform-capabilities-work.md",
+      "sourceAnchor": "nonsecuredrequestprocessservice",
+      "paragraphs": [
+        "The non-secured request process is for routes that intentionally run before authentication, such as true login or credential-initiation routes.",
+        "Non-secured does not mean ungoverned. It still needs route ownership, validation, tenant or enterprise context when required, diagnostics, abuse protection where applicable, and clear tests."
+      ]
+    },
+    {
+      "heading": "Handle Secured Request Process",
+      "migratedFrom": "nodics:gDocs/platform/how-platform-capabilities-work.md",
+      "sourceAnchor": "handle-secured-request-process",
+      "paragraphs": [
+        "A secured request must validate the caller before business behavior runs.",
+        "Important secured steps include:"
+      ],
+      "items": [
+        "`Validate AuthToken`: confirm the token or credential is present, valid, current, and not invalidated;",
+        "`Authorize AuthToken`: confirm the authenticated principal has the permission required by the route;",
+        "tenant resolution: ensure the token/request tenant is allowed for the route and data operation;",
+        "controller dispatch: call the registered controller only after security succeeds."
+      ]
+    },
+    {
+      "heading": "Handle Non-Secured Request Process",
+      "migratedFrom": "nodics:gDocs/platform/how-platform-capabilities-work.md",
+      "sourceAnchor": "handle-non-secured-request-process",
+      "paragraphs": [
+        "Non-secured request handling is reserved for explicitly declared pre-authentication routes."
+      ]
+    },
+    {
+      "heading": "Validate EnterpriseCode",
+      "migratedFrom": "nodics:gDocs/platform/how-platform-capabilities-work.md",
+      "sourceAnchor": "validate-enterprisecode",
+      "paragraphs": [
+        "When a route needs enterprise context before login, validate the enterprise code from the approved request/header location. Do not trust arbitrary enterprise codes to broaden tenant or customer scope."
+      ]
+    },
+    {
+      "heading": "Load EnterpriseCode",
+      "migratedFrom": "nodics:gDocs/platform/how-platform-capabilities-work.md",
+      "sourceAnchor": "load-enterprisecode",
+      "paragraphs": [
+        "After validation, load enterprise context through the owning profile/tenant capability. The loaded enterprise context may guide login or signup behavior, but it must not bypass later authentication or authorization for protected APIs."
+      ]
+    },
+    {
+      "heading": "Generalizing Process",
+      "migratedFrom": "nodics:gDocs/platform/how-platform-capabilities-work.md",
+      "sourceAnchor": "generalizing-process",
+      "paragraphs": [
+        "Generalize request processes through route metadata, pipeline definitions, services, interceptors, and configuration. A project can add validation or change a handler in a later module, but it must preserve security, tenant context, diagnostics, and response shape."
+      ]
+    },
+    {
+      "heading": "Generalizing Services",
+      "migratedFrom": "nodics:gDocs/platform/how-platform-capabilities-work.md",
+      "sourceAnchor": "generalizing-services",
+      "paragraphs": [
+        "Request process services are normal Nodics services. Override them through the active module hierarchy only when the request-process contract remains clear and tested. Do not create parallel Express middleware that bypasses Nodics route metadata or security policy."
+      ]
+    },
+    {
+      "heading": "Processes And Workflows",
+      "migratedFrom": "nodics:gDocs/platform/how-platform-capabilities-work.md",
+      "sourceAnchor": "processes-and-workflows",
+      "paragraphs": [
+        "Model process-style behavior through the owning module's pipeline, workflow, event, job, or service contract.",
+        "Use process or workflow behavior when:",
+        "Keep the process definition separate from the implementation. The definition explains the intended process. Services, handlers, interceptors, pipelines, and workflow actions perform the work.",
+        "Related module documentation:"
+      ],
+      "items": [
+        "work has multiple steps;",
+        "steps may pause, resume, retry, split, or continue through events;",
+        "a business operation needs lifecycle state;",
+        "multiple services or modules must participate in a governed order.",
+        "[nPipeline](/docs/reference/execution-processes) and [Pipeline Framework](/docs/reference/execution-processes) for ordered process execution and customization.",
+        "[nbpm](/docs/reference/workflows) for stateful workflow lifecycle behavior.",
+        "[nEvent](/docs/reference/events-messaging) for event-driven extension behavior."
+      ]
+    },
+    {
+      "heading": "Generalizing Default Process",
+      "migratedFrom": "nodics:gDocs/platform/how-platform-capabilities-work.md",
+      "sourceAnchor": "generalizing-default-process",
+      "paragraphs": [
+        "Default processes are framework-provided execution paths such as request handling, model save/update/remove/get, import finalization, search indexing, scheduled-job lifecycle, event distribution, or message processing.",
+        "Generalize a default process only through its defined extension points:",
+        "Do not duplicate a default process because one node needs different behavior. Override or extend the node/service through the owning module layer."
+      ],
+      "items": [
+        "pipeline definitions;",
+        "pipeline nodes;",
+        "processors;",
+        "interceptors;",
+        "services;",
+        "events;",
+        "configuration;",
+        "tests."
+      ]
+    },
+    {
+      "heading": "Generalizing Predefined Process",
+      "migratedFrom": "nodics:gDocs/platform/how-platform-capabilities-work.md",
+      "sourceAnchor": "generalizing-predefined-process",
+      "paragraphs": [
+        "Predefined processes can be changed by later modules when the capability contract allows it.",
+        "Before changing a predefined process, document:"
+      ],
+      "items": [
+        "process name;",
+        "owning module;",
+        "node being changed;",
+        "reason for the change;",
+        "inputs and outputs;",
+        "error behavior;",
+        "tenant and security impact;",
+        "tests for default and effective behavior."
+      ]
+    },
+    {
+      "heading": "Change A Node In An Existing Process",
+      "migratedFrom": "nodics:gDocs/platform/how-platform-capabilities-work.md",
+      "sourceAnchor": "change-a-node-in-an-existing-process",
+      "paragraphs": [
+        "Changing a node means replacing the handler or behavior of one step in an existing process.",
+        "Use this when the process sequence is still correct, but one step needs project-specific logic. The replacement node must accept the same request/response/process context and must call success or error consistently."
+      ]
+    },
+    {
+      "heading": "Add A Node In An Existing Process",
+      "migratedFrom": "nodics:gDocs/platform/how-platform-capabilities-work.md",
+      "sourceAnchor": "add-a-node-in-an-existing-process",
+      "paragraphs": [
+        "Adding a node means introducing a new step before, after, or between existing steps.",
+        "Use this when a project needs additional validation, enrichment, diagnostics, event publication, approval, or provider interaction. Do not add a node that bypasses a later security, validation, persistence, or diagnostics step."
+      ]
+    },
+    {
+      "heading": "Cache Management",
+      "migratedFrom": "nodics:gDocs/platform/how-platform-capabilities-work.md",
+      "sourceAnchor": "cache-management",
+      "paragraphs": [
+        "Cache exists to improve performance without becoming a second source of truth.",
+        "![API Cache Flow](../assets/images/api-cache-flow.jpg)",
+        "Use cache for repeatable reads, computed values, remote lookup results, auth/session acceleration, or expensive data that can be safely refreshed.",
+        "When adding cache behavior, document:",
+        "Provider-specific behavior belongs in provider modules such as Node cache, Redis, or Hazelcast support. Generic modules should depend on the cache capability contract, not on one provider's implementation.",
+        "Nodics cache behavior can appear at different layers:",
+        "![Item Cache Flow](../assets/images/item-cache-flow.jpg)",
+        "![Search Cache Flow](../assets/images/search-cache-flow.jpg)",
+        "Related module documentation:"
+      ],
+      "items": [
+        "what is cached;",
+        "who owns the cached value;",
+        "cache key structure;",
+        "tenant/customer isolation;",
+        "expiry and invalidation behavior;",
+        "provider selection;",
+        "failure behavior when the cache is unavailable;",
+        "diagnostics and tests.",
+        "API cache stores safe route responses when route metadata and tenant/security context allow it.",
+        "Item cache stores reusable object or lookup results behind the owning service contract.",
+        "Search cache stores repeatable search results when the search contract allows it.",
+        "[nCache](/docs/reference/caching), [cache](/docs/reference/caching), [redisCache](/docs/reference/caching), [nodeCache](/docs/reference/caching), and [hazelcastCache](/docs/reference/caching).",
+        "For detailed cache configuration, invalidation, diagnostics, and troubleshooting, read [How Cache Works](/docs/capabilities/caching)."
+      ]
+    },
+    {
+      "heading": "Invoking Engine",
+      "migratedFrom": "nodics:gDocs/platform/how-platform-capabilities-work.md",
+      "sourceAnchor": "invoking-engine",
+      "paragraphs": [
+        "Cache engine invocation should go through the Nodics cache capability, not directly through provider clients.",
+        "The effective cache configuration selects the engine, channel, TTL behavior, key strategy, serialization, tenant partitioning, and invalidation behavior. Business code asks the cache capability to get, put, consume, flush, or invalidate data. The selected engine implements the provider-specific behavior.",
+        "This keeps API cache, item cache, search cache, and auth/runtime caches replaceable across local, Redis, and future provider engines.",
+        "Cache also has secured operational controls for flushes and scoped API/item cache configuration changes. These controls are useful when operations needs to adjust cache behavior in a running system, but they are immediate cache events, not a substitute for the governed runtime configuration lifecycle. Use `nDynamo` when a cache-related decision must be previewed, approved, audited, rolled back, or retained as a tenant/business runtime contract."
+      ]
+    },
+    {
+      "heading": "Invalidating Cache",
+      "migratedFrom": "nodics:gDocs/platform/how-platform-capabilities-work.md",
+      "sourceAnchor": "invalidating-cache",
+      "paragraphs": [
+        "Cache invalidation is part of the data/security contract.",
+        "Invalidate cache when:",
+        "Invalidation must preserve tenant, principal, route, schema, and provider boundaries. A broad flush may be acceptable for operations or development, but production invalidation should be targeted where practical and must be observable."
+      ],
+      "items": [
+        "a model changes and cached reads may be stale;",
+        "permissions, user groups, or access policy changes;",
+        "auth/session state changes;",
+        "runtime configuration changes;",
+        "search index data changes;",
+        "a provider reports stale or unsafe state."
+      ]
+    },
+    {
+      "heading": "Messaging And Events",
+      "migratedFrom": "nodics:gDocs/platform/how-platform-capabilities-work.md",
+      "sourceAnchor": "messaging-and-events",
+      "paragraphs": [
+        "Messaging lets modules communicate without forcing every operation into a direct API call.",
+        "![Event Handler Process](../assets/images/event-handler-process.jpg)",
+        "Use events or messages when:",
+        "Messaging contracts define event names, payload shape, tenant context, retry behavior, error handling, and diagnostics. Provider configuration, broker endpoints, credentials, queue names, and topic names must be layered configuration or governed secrets, never hardcoded in source.",
+        "Related module documentation:",
+        "![EMS Producer Flow](../assets/images/ems-producer-flow.jpg)",
+        "![EMS Consumer Flow](../assets/images/ems-consumer-flow.jpg)"
+      ],
+      "items": [
+        "another module should react after a business change;",
+        "work can be asynchronous;",
+        "the producer does not own the consumer's implementation;",
+        "a provider such as Kafka or ActiveMQ may be used behind the same capability.",
+        "[nEms](/docs/reference/events-messaging), [emsClient](/docs/reference/events-messaging), [kafka](/docs/reference/events-messaging), and [activemq](/docs/reference/events-messaging)."
+      ]
+    },
+    {
+      "heading": "EventLog",
+      "migratedFrom": "nodics:gDocs/platform/how-platform-capabilities-work.md",
+      "sourceAnchor": "eventlog",
+      "paragraphs": [
+        "EventLog records event execution evidence where the event capability requires persistence or diagnostics. An event log entry should help answer what event was raised, which tenant/context owned it, which handler processed it, whether it succeeded, and why it failed.",
+        "Event logs must be sanitized. They must not expose secrets, full tokens, credentials, or sensitive payloads."
+      ]
+    },
+    {
+      "heading": "Listening An Event",
+      "migratedFrom": "nodics:gDocs/platform/how-platform-capabilities-work.md",
+      "sourceAnchor": "listening-an-event",
+      "paragraphs": [
+        "Listening to an event means registering module-owned behavior that reacts when an event is published.",
+        "To listen to an event:",
+        "Do not make an event listener update unrelated data without a clear owner, idempotency rule, diagnostics, and tests."
+      ],
+      "items": [
+        "Decide which module owns the reaction.",
+        "Create a loader-visible service function that performs the reaction.",
+        "Register the listener in the module event/listener definition.",
+        "Preserve tenant and request context.",
+        "Handle duplicate, missing, or invalid payloads.",
+        "Add tests for successful handling and failure behavior."
+      ]
+    },
+    {
+      "heading": "Logging And Diagnostics",
+      "migratedFrom": "nodics:gDocs/platform/how-platform-capabilities-work.md",
+      "sourceAnchor": "logging-and-diagnostics",
+      "paragraphs": [
+        "Logs and diagnostics are part of platform governance.",
+        "![Logger Process Flow](../assets/images/logger-process-flow.jpg)",
+        "Good diagnostics identify:",
+        "Logs must not expose credentials, tokens, secrets, or sensitive payloads. The central logger redacts configured sensitive fields before supported transports serialize log output, but developers should still log safe metadata instead of raw secrets.",
+        "Use logs to capture:",
+        "Do not log generated tokens, caller-submitted tokens, passwords, API keys, cookies, authorization headers, private keys, connection-string credentials, or full sensitive payloads. Configure extra redaction keys under `log.redaction.sensitiveKeys` in layered `properties.js` when a project adds a new credential field.",
+        "When a failure affects runtime governance, imports, jobs, messaging, or security, diagnostics support audit and rollback decisions without exposing usable credential material."
+      ],
+      "items": [
+        "module;",
+        "operation;",
+        "tenant or customer context where safe;",
+        "correlation id;",
+        "result;",
+        "reason code for failure;",
+        "sanitized error detail.",
+        "capability owner;",
+        "operation name;",
+        "tenant or customer context when safe;",
+        "correlation id or run id;",
+        "reason code;",
+        "status;",
+        "safe counts and timing."
+      ]
+    },
+    {
+      "heading": "Data Import And Export",
+      "migratedFrom": "nodics:gDocs/platform/how-platform-capabilities-work.md",
+      "sourceAnchor": "data-import-and-export",
+      "paragraphs": [
+        "Import/export is a platform capability because many modules need controlled data movement.",
+        "The import/export contract defines file format, headers, target schema, tenant, validation, duplicate handling, diagnostics, run history, retry behavior, and rollback impact.",
+        "Format-specific support such as JavaScript, JSON, CSV, and Excel belongs in provider modules. New formats should follow the same provider pattern instead of changing the generic import/export engine directly."
+      ]
+    },
+    {
+      "heading": "Runtime Governance",
+      "migratedFrom": "nodics:gDocs/platform/how-platform-capabilities-work.md",
+      "sourceAnchor": "runtime-governance",
+      "paragraphs": [
+        "Runtime governance allows controlled changes after deployment.",
+        "Use runtime governance for changes that need preview, request, approval, activation, audit, diagnostics, and rollback. Runtime governance must not become a hidden source of architecture. Source definitions, module metadata, layered configuration, and tests remain the authority for platform contracts."
+      ]
+    },
+    {
+      "heading": "Testing Platform Capabilities",
+      "migratedFrom": "nodics:gDocs/platform/how-platform-capabilities-work.md",
+      "sourceAnchor": "testing-platform-capabilities",
+      "paragraphs": [
+        "Platform capabilities need more than happy-path tests.",
+        "Test:",
+        "Use generated tests when schema or route definitions change, and add focused tests for provider, process, cache, messaging, and runtime-governance behavior."
+      ],
+      "items": [
+        "default behavior;",
+        "later-module override behavior;",
+        "tenant isolation;",
+        "permission and access failure;",
+        "provider selection;",
+        "diagnostics and sanitized failure output;",
+        "consolidated runtime behavior;",
+        "modular server-to-server behavior where applicable."
+      ]
+    },
+    {
+      "heading": "What To Avoid",
+      "migratedFrom": "nodics:gDocs/platform/how-platform-capabilities-work.md",
+      "sourceAnchor": "what-to-avoid",
+      "paragraphs": [
+        "Avoid:"
+      ],
+      "items": [
+        "using cache as the only source of truth;",
+        "hardcoding provider endpoints or credentials;",
+        "bypassing tenant context in events, logs, imports, or cache keys;",
+        "hiding permissions inside controllers;",
+        "creating background processes with no owner or diagnostics;",
+        "adding platform helpers outside loader-visible module paths;",
+        "changing framework code when a provider or project module can own the customization."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/platform/how-platform-capabilities-work.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "Cache detail: [How Cache Works](/docs/capabilities/caching)",
+        "Owning modules: [Module Documentation Index](/docs/reference/modules)",
+        "Maturity: [Provider And Capability Maturity Matrix](/docs/reference/maturity)",
+        "Documentation home: [Nodics Documentation](/docs)"
+      ]
     }
+  ],
+  "supportingEvidence": [
+    "nodics:gDocs/architecture/how-nodics-is-organized.md",
+    "nodics:gDocs/platform/how-platform-capabilities-work.md"
   ]
 }

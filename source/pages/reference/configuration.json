@@ -6,7 +6,13 @@
   "family": "technical-reference",
   "parent": "page:capability.configuration.overview",
   "order": 40,
-  "audiences": ["developer", "architect", "operator", "framework-maintainer", "ai-tool"],
+  "audiences": [
+    "developer",
+    "architect",
+    "operator",
+    "framework-maintainer",
+    "ai-tool"
+  ],
   "readerIntent": "Locate authoritative configuration contracts and extension boundaries.",
   "priorKnowledge": "Read the configuration overview and runtime pages.",
   "depth": "reference",
@@ -14,8 +20,43 @@
   "owner": "Nodics configuration and runtime-governance capabilities",
   "lastVerified": "2026-07-26",
   "summary": "Technical ownership is distributed across startup configuration, module configuration, topology, tenant properties, and explicitly governed runtime contracts.",
-  "supportingEvidence": ["nodics:gFramework/nConfig/README.md", "nodics:gFramework/nDynamo/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nConfig/README.md",
+    "nodics:gFramework/nDynamo/README.md"
+  ],
   "sections": [
+    {
+      "heading": "Layer resolution",
+      "items": [
+        "Configuration loads through one authoritative layered process from framework and module defaults through project, environment, server, node, tenant, and supported runtime scopes.",
+        "Later eligible layers override earlier values while provenance records where an effective value came from. Missing required configuration fails with a clear safe diagnostic.",
+        "Environment and topology selection use canonical runtime identity so same-named servers or nodes cannot cross local, development, preproduction, or production."
+      ]
+    },
+    {
+      "heading": "Properties and metadata",
+      "items": [
+        "properties.js holds application and module behavior such as timeouts, TTLs, policy mappings, feature activation, endpoints, and provider selection.",
+        "package.json remains standard package metadata plus limited module metadata; it does not hold BackOffice, publishing, cache, security, or other runtime behavior.",
+        "Secrets are opaque references resolved by governed process or vault integration and never committed, logged, returned to browsers, or persisted in snapshots."
+      ]
+    },
+    {
+      "heading": "Customization and runtime governance",
+      "items": [
+        "Partners reuse defaults, override properties in customer layers, extend existing definitions, and add a new loader only after a duplication and authority audit.",
+        "Runtime change applies only to declared contracts with validation, authorization, preview, immutable approval, activation, audit, concurrency, and rollback.",
+        "Changing source configuration and changing a governed runtime snapshot are distinct lifecycles with explicit precedence and restart behavior."
+      ]
+    },
+    {
+      "heading": "Verification and operations",
+      "items": [
+        "Test default, override, missing, invalid, duplicate, ambiguous topology, tenant isolation, secret failure, restart, runtime activation, stale revision, and rollback.",
+        "Provide safe effective-configuration reports with provenance and masking; never expose credentials or protected security internals through public health endpoints.",
+        "Document each property purpose, type, default, scope, mutability, security, example, dependency, operational impact, and deprecation."
+      ]
+    },
     {
       "heading": "Authoritative locations",
       "items": [

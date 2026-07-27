@@ -1,1 +1,141 @@
-{"code":"commerce.stock.pools","title":"Manage Stock Pools","route":"/docs/capabilities/commerce/stock/pools","section":"capabilities","family":"configuration-customization","parent":"page:capability.commerce.stock-units","order":80,"audiences":["business-user","administrator","developer","ai-tool"],"readerIntent":"Group balances for business purposes without creating another authority.","priorKnowledge":"Understand warehouses, balances, scopes, and sourcing.","depth":"guided","status":"implemented","owner":"Inventory capability","lastVerified":"2026-07-26","summary":"StockPool is an Inventory-owned grouping used for availability and sourcing policies, not a separate module or duplicated balance.","supportingEvidence":["nodics:gComm/inventory/README.md"],"sections":[{"heading":"Configure","items":["Stable code, tenant/enterprise, purpose, active state, eligible balances/warehouses, product restrictions, service scopes, priority, safety policy, and fallback.","Use pools for sellable, reserved-purpose, campaign, channel, zone, segment, damaged/quarantine, or project-defined purposes.","Prevent cycles, duplicate balance ownership assumptions, cross-tenant references, and ambiguous priorities."]}]}
+{
+  "code": "commerce.stock.pools",
+  "title": "Manage Stock Pools",
+  "route": "/docs/capabilities/commerce/stock/pools",
+  "section": "capabilities",
+  "family": "configuration-customization",
+  "parent": "page:capability.commerce.stock-units",
+  "order": 80,
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "ai-tool"
+  ],
+  "readerIntent": "Group balances for business purposes without creating another authority.",
+  "priorKnowledge": "Understand warehouses, balances, scopes, and sourcing.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "Inventory capability",
+  "lastVerified": "2026-07-26",
+  "summary": "StockPool is an Inventory-owned grouping used for availability and sourcing policies, not a separate module or duplicated balance.",
+  "supportingEvidence": [
+    "nodics:gComm/inventory/README.md",
+    "nodics:gDocs/commerce/how-to-manage-stock-pools.md"
+  ],
+  "sections": [
+    {
+      "heading": "Configure",
+      "items": [
+        "Stable code, tenant/enterprise, purpose, active state, eligible balances/warehouses, product restrictions, service scopes, priority, safety policy, and fallback.",
+        "Use pools for sellable, reserved-purpose, campaign, channel, zone, segment, damaged/quarantine, or project-defined purposes.",
+        "Prevent cycles, duplicate balance ownership assumptions, cross-tenant references, and ambiguous priorities."
+      ]
+    },
+    {
+      "heading": "Purpose and ownership",
+      "paragraphs": [
+        "A StockPool groups eligible balances or warehouses for a policy purpose. It does not own a second quantity; movements and balances remain Inventory-owned records.",
+        "Pools let projects express sellable, campaign, channel, zone, segment, quarantine, damaged, or other scopes without creating another module."
+      ]
+    },
+    {
+      "heading": "Membership choices",
+      "items": [
+        "Explicit warehouses or balances.",
+        "Rules based on location, purpose, product, Store, channel, or segment.",
+        "Inclusion and exclusion precedence.",
+        "Active dates, priority, safety policy, and fallback.",
+        "Whether membership is evaluated dynamically or materialized and reconciled."
+      ]
+    },
+    {
+      "heading": "Example",
+      "paragraphs": [
+        "A campaign pool contains stock eligible for an Electronics website promotion in three zones. A quarantine pool references damaged or inspection-pending balances and is never sellable.",
+        "The same physical warehouse can participate through different eligible balances without duplicating its authoritative stock."
+      ]
+    },
+    {
+      "heading": "Customization and governance",
+      "paragraphs": [
+        "Pool types, priorities, and selection policy belong to Inventory properties and services where projects can extend them. A frontend cannot create arbitrary query rules that bypass backend validation.",
+        "Configuration prevents cycles, conflicting exclusive membership, ambiguous priority, and cross-tenant references."
+      ]
+    },
+    {
+      "heading": "Verification and operations",
+      "items": [
+        "Explicit and rule-based membership.",
+        "Inclusion, exclusion, priority, and fallback.",
+        "Active dates and product or service restrictions.",
+        "Cross-tenant, cycle, duplicate, and ambiguous policy rejection.",
+        "Membership change invalidation and availability recalculation.",
+        "Pool size, evaluation latency, misses, and reconciliation."
+      ]
+    },
+    {
+      "heading": "Complete guide: How To Manage Stock Pools",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-manage-stock-pools.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "A Stock Pool gives business operators a reusable group of Warehouses without creating another copy of Stock. For example, an enterprise can create a `UAE_FULFILLMENT` Pool containing Dubai and Abu Dhabi Warehouses."
+      ]
+    },
+    {
+      "heading": "Before You Begin",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-manage-stock-pools.md",
+      "sourceAnchor": "before-you-begin",
+      "items": [
+        "Create the Warehouses in the same enterprise.",
+        "Decide the Pool purpose and stable code.",
+        "Decide membership priority. Lower numbers are considered earlier by Stock Sourcing behavior.",
+        "Remember that a Pool does not make Stock available by itself."
+      ]
+    },
+    {
+      "heading": "Create And Activate A Pool",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-manage-stock-pools.md",
+      "sourceAnchor": "create-and-activate-a-pool",
+      "paragraphs": [
+        "The same Warehouse may participate in several Pools, but it cannot be added twice to one Pool. A membership never moves or reserves quantity."
+      ],
+      "items": [
+        "Create the Pool in `DRAFT` with its code, name, type, and optional effective dates.",
+        "Add each Warehouse as a `DRAFT` membership.",
+        "Set membership priority and review the ordering.",
+        "Make sure the Pool and Warehouses are `ACTIVE`.",
+        "Activate each membership."
+      ]
+    },
+    {
+      "heading": "Suspend Or Retire",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-manage-stock-pools.md",
+      "sourceAnchor": "suspend-or-retire",
+      "paragraphs": [
+        "Suspend a Pool or membership for a temporary stop. To retire a Pool, retire all of its memberships first. Never delete Pool or membership database records; retirement preserves operational history."
+      ]
+    },
+    {
+      "heading": "What Comes Later",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-manage-stock-pools.md",
+      "sourceAnchor": "what-comes-later",
+      "paragraphs": [
+        "Sourcing rules will decide when an application, country, delivery zone, channel, Store, customer segment, or item may use a Pool. Availability will then calculate eligible Stock from the member Warehouses. Neither behavior is part of the current Pool foundation.",
+        "For configuration, extension, security, recovery, and test details, read the [Stock Pool foundation contract](/docs/reference/commerce)."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-manage-stock-pools.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "Warehouses: [How Warehouse Management Works](/docs/capabilities/commerce/stock/warehouses)",
+        "Stock: [How Stock Movements Work](/docs/capabilities/commerce/stock/movements)",
+        "Security: [How Users, Tenants, And Permissions Work](/docs/security/users-tenants-permissions)",
+        "Testing: [How To Test Nodics Changes](/docs/build/testing)",
+        "Documentation home: [Nodics Documentation](/docs)"
+      ]
+    }
+  ]
+}

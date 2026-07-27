@@ -1,1 +1,84 @@
-{"code":"capability.identity-security.tenancy","title":"Tenants, Enterprises, and Identity Models","route":"/docs/capabilities/identity-security/tenancy","section":"security","family":"concepts-architecture","parent":"page:capability.identity-security.overview","order":30,"audiences":["business-user","administrator","developer","architect","ai-tool"],"readerIntent":"Model organizational context and identity relationships safely.","priorKnowledge":"Understand schema relationships and authorization.","depth":"implementation","status":"implemented","owner":"Profile identity and tenancy system of record","lastVerified":"2026-07-26","summary":"Profile owns tenants, enterprises, people, employees, customers, service principals, groups, credentials, contacts, addresses, and authentication state; other modules reference these contracts without duplicating them.","supportingEvidence":["nodics:gCore/profile/README.md"],"sections":[{"heading":"Context model","items":["Tenant is the isolation and configuration scope selected before identity and business operations.","Enterprise represents the governed business organization within the supported tenant model.","Parent enterprise relationships express hierarchy but must use user-friendly labels such as Parent Enterprise and Enterprise.","Employee and customer are distinct human roles; service principals represent non-human callers.","Contacts and addresses have independent governed relationships and may be selected or created when policy allows."]},{"heading":"Propagation","items":["APIs resolve enterprise and tenant before target authorization.","Jobs, imports, events, workflows, assistant tools, cache keys, database models, search models, and audit preserve the same context.","A caller may narrow but never broaden trusted tenant scope.","Cross-module relationships invoke the target module contract; no direct collection writes."]},{"heading":"Isolation proof","items":["Same codes in different tenants.","Cross-tenant token, query, relationship, cache, event, import, and export denial.","Parent/child enterprise cycles and inactive relationships.","Nested related creation authorization and rollback.","Tenant-safe diagnostics, backups, indexes, and operational dimensions."]}]}
+{
+  "code": "capability.identity-security.tenancy",
+  "title": "Tenants, Enterprises, and Identity Models",
+  "route": "/docs/capabilities/identity-security/tenancy",
+  "section": "security",
+  "family": "concepts-architecture",
+  "parent": "page:capability.identity-security.overview",
+  "order": 30,
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "ai-tool"
+  ],
+  "readerIntent": "Model organizational context and identity relationships safely.",
+  "priorKnowledge": "Understand schema relationships and authorization.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Profile identity and tenancy system of record",
+  "lastVerified": "2026-07-26",
+  "summary": "Profile owns tenants, enterprises, people, employees, customers, service principals, groups, credentials, contacts, addresses, and authentication state; other modules reference these contracts without duplicating them.",
+  "supportingEvidence": [
+    "nodics:gCore/profile/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Context model",
+      "items": [
+        "Tenant is the isolation and configuration scope selected before identity and business operations.",
+        "Enterprise represents the governed business organization within the supported tenant model.",
+        "Parent enterprise relationships express hierarchy but must use user-friendly labels such as Parent Enterprise and Enterprise.",
+        "Employee and customer are distinct human roles; service principals represent non-human callers.",
+        "Contacts and addresses have independent governed relationships and may be selected or created when policy allows."
+      ]
+    },
+    {
+      "heading": "Propagation",
+      "items": [
+        "APIs resolve enterprise and tenant before target authorization.",
+        "Jobs, imports, events, workflows, assistant tools, cache keys, database models, search models, and audit preserve the same context.",
+        "A caller may narrow but never broaden trusted tenant scope.",
+        "Cross-module relationships invoke the target module contract; no direct collection writes."
+      ]
+    },
+    {
+      "heading": "Tenant, enterprise, and application example",
+      "items": [
+        "A tenant is the trusted isolation and effective-configuration boundary. Within it, an enterprise represents a business organization and may participate in a governed parent-child hierarchy.",
+        "One enterprise can operate Apparel and Electronics applications with different Storefront Sites, Stores, catalogs, prices, and warehouse scopes while sharing selected identity or operational services deliberately.",
+        "The hostname resolves to a trusted application context; it does not let the browser choose another enterprise. Tokens, routes, services, models, and related-module calls validate the resulting tenant and enterprise boundaries.",
+        "Human-facing selectors show code and description and use labels such as Parent Enterprise and Enterprise. Database identifiers are insufficient business labels and should appear only when needed for diagnosis."
+      ]
+    },
+    {
+      "heading": "Context across asynchronous work",
+      "items": [
+        "A workflow, job, event, import, publication, assistant turn, or retry carries explicit tenant and enterprise context captured from an authorized source. Workers do not substitute their process-wide default silently.",
+        "Cache and search keys include every isolation dimension that changes a result. Events and indexes contain safe routing context, and consumers re-authorize rather than trusting a message merely because it came from the platform.",
+        "Backups, exports, diagnostics, metrics, and audit records preserve tenant-safe partitioning and access. Operational tooling must not combine customer data into an unrestricted convenience view.",
+        "Cross-tenant service operations require an explicit permission and use case; they are never inferred from an internal token or shared infrastructure."
+      ]
+    },
+    {
+      "heading": "Isolation proof",
+      "items": [
+        "Same codes in different tenants.",
+        "Cross-tenant token, query, relationship, cache, event, import, and export denial.",
+        "Parent/child enterprise cycles and inactive relationships.",
+        "Nested related creation authorization and rollback.",
+        "Tenant-safe diagnostics, backups, indexes, and operational dimensions."
+      ]
+    },
+    {
+      "heading": "Lifecycle and failure handling",
+      "items": [
+        "Creation validates unique business codes in the correct scope, active relationships, hierarchy cycles, defaults, and required bootstrap ownership. Deactivation must define effects on login, jobs, publications, caches, and dependent records.",
+        "A missing or ambiguous tenant fails before business access. The system must not guess from a duplicate server name, username, hostname, or record code when more than one environment or scope matches.",
+        "Relationship changes invalidate authorization and derived projections safely. Long-running work checks whether captured context remains valid before committing a material result.",
+        "Acceptance includes same-code multi-tenant data, parent hierarchy boundaries, inactive relationships, nested creation rollback, cross-module references, distributed cache/search behavior, import/export, restore, and migration."
+      ]
+    }
+  ]
+}

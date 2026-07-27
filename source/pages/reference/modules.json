@@ -6,7 +6,13 @@
   "family": "technical-reference",
   "parent": "section:reference",
   "order": 920,
-  "audiences": ["developer", "architect", "operator", "framework-maintainer", "ai-tool"],
+  "audiences": [
+    "developer",
+    "architect",
+    "operator",
+    "framework-maintainer",
+    "ai-tool"
+  ],
   "readerIntent": "Create, inspect, extend, and validate a Nodics module using the standard ownership and loader contracts.",
   "priorKnowledge": "Understand layered architecture, configuration, schemas, services, APIs, testing, and documentation.",
   "depth": "reference",
@@ -14,8 +20,22 @@
   "owner": "nConfig module metadata/loading and the concrete module that owns each contribution",
   "lastVerified": "2026-07-26",
   "summary": "A Nodics module is a package-defined ownership boundary with canonical metadata, layered configuration, loader-visible source contributions, owned data/tests/docs, and later-layer customization—not merely a folder or server.",
-  "supportingEvidence": ["nodics:gFramework/nConfig/README.md", "nodics:gFramework/nDefault/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nConfig/README.md",
+    "nodics:gFramework/nDefault/README.md",
+    "nodics:gDocs/reference/module-catalog.md",
+    "nodics:gDocs/reference/module-documentation-index.md"
+  ],
   "sections": [
+    {
+      "heading": "Placement checklist",
+      "items": [
+        "Identify reusable framework responsibility versus customer-project business responsibility and choose the group accordingly.",
+        "Confirm the module can own its schemas, services, routes, properties, lifecycle, tests, and documentation without duplicating another authority.",
+        "Keep package metadata minimal, behavior in properties.js, and provider integrations behind existing gateways.",
+        "Validate monoServer composition and independent modular execution where the module contract supports both."
+      ]
+    },
     {
       "heading": "Required root contract",
       "items": [
@@ -69,6 +89,355 @@
         "Canonical user/developer documentation and concise module README match implementation; AGENTS and generated context express the same ownership rules.",
         "Package and application dependencies remain synchronized with the root dependency-governance contract.",
         "Structure, metadata, copyright, documentation, LLM/context, focused, baseline, and release gates report exact evidence and limitations."
+      ]
+    },
+    {
+      "heading": "Complete guide: Complete Module Catalog",
+      "migratedFrom": "nodics:gDocs/reference/module-catalog.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "This catalog makes every package-defined Nodics module reachable from the public documentation. It is an inventory and navigation aid, not a second source of module identity or behavior. The module package metadata and its README remain authoritative.",
+        "Use the [Module Documentation Index](/docs/reference/modules) when you know the business or platform task. Use this catalog when you know a module, group, environment, server, or node name."
+      ]
+    },
+    {
+      "heading": "gAi",
+      "migratedFrom": "nodics:gDocs/reference/module-catalog.md",
+      "sourceAnchor": "gai",
+      "items": [
+        "[gAi](/docs/reference/ai) — `group`; `gAi`",
+        "[aiAssistant](/docs/reference/ai) — `capability`; `gAi/aiAssistant`",
+        "[aiKnowledge](/docs/reference/ai) — `capability`; `gAi/aiKnowledge`",
+        "[aiProviders](/docs/reference/ai) — `group`; `gAi/aiProviders`",
+        "[openAiProvider](/docs/reference/ai) — `capability`; `gAi/aiProviders/openAiProvider`",
+        "[anthropicProvider](/docs/reference/ai) — `capability`; `gAi/aiProviders/anthropicProvider`",
+        "[geminiProvider](/docs/reference/ai) — `capability`; `gAi/aiProviders/geminiProvider`"
+      ]
+    },
+    {
+      "heading": "gComm",
+      "migratedFrom": "nodics:gDocs/reference/module-catalog.md",
+      "sourceAnchor": "gcomm",
+      "items": [
+        "[gComm](/docs/reference/commerce) — `group`; `gComm`",
+        "[cart](/docs/reference/commerce) — `capability`; `gComm/cart`",
+        "[inventory](/docs/reference/commerce) — `capability`; `gComm/inventory`",
+        "[order](/docs/reference/commerce) — `capability`; `gComm/order`",
+        "[pricing](/docs/reference/commerce) — `capability`; `gComm/pricing`",
+        "[product](/docs/reference/commerce) — `capability`; `gComm/product`",
+        "[store](/docs/reference/commerce) — `capability`; `gComm/store`"
+      ]
+    },
+    {
+      "heading": "gContent",
+      "migratedFrom": "nodics:gDocs/reference/module-catalog.md",
+      "sourceAnchor": "gcontent",
+      "items": [
+        "[gContent](/docs/reference/content-publishing) — `group`; `gContent`",
+        "[cms](/docs/reference/content-publishing) — `capability`; `gContent/cms`",
+        "[wcms](/docs/reference/content-publishing) — `capability`; `gContent/wcms`"
+      ]
+    },
+    {
+      "heading": "gCore",
+      "migratedFrom": "nodics:gDocs/reference/module-catalog.md",
+      "sourceAnchor": "gcore",
+      "items": [
+        "[gCore](/docs/reference/modules) — `group`; `gCore`",
+        "[cronjob](/docs/reference/scheduled-jobs) — `capability`; `gCore/cronjob`",
+        "[units](/docs/reference/units) — `capability`; `gCore/units`",
+        "[nems](/docs/reference/events-messaging) — `capability`; `gCore/nems`",
+        "[profile](/docs/reference/identity-access) — `capability`; `gCore/profile`",
+        "[quizer](/docs/reference/learning-assessment) — `group`; `gCore/quizer`",
+        "[quiz](/docs/reference/learning-assessment) — `capability`; `gCore/quizer/quiz`",
+        "[vquiz](/docs/reference/learning-assessment) — `publish`; `gCore/quizer/vquiz`",
+        "[wquiz](/docs/reference/learning-assessment) — `capability`; `gCore/quizer/wquiz`",
+        "[workflow](/docs/reference/workflows) — `capability`; `gCore/workflow`",
+        "[flowApi](/docs/reference/workflows) — `capability`; `gCore/workflow/flowApi`",
+        "[flowCore](/docs/reference/workflows) — `capability`; `gCore/workflow/flowCore`",
+        "[flowSchema](/docs/reference/workflows) — `capability`; `gCore/workflow/flowSchema`"
+      ]
+    },
+    {
+      "heading": "gDeap",
+      "migratedFrom": "nodics:gDocs/reference/module-catalog.md",
+      "sourceAnchor": "gdeap",
+      "items": [
+        "[gDeap](/docs/reference/events-messaging) — `group`; `gDeap`",
+        "[dataConsumer](/docs/reference/events-messaging) — `capability`; `gDeap/dataConsumer`",
+        "[dataProcessor](/docs/reference/events-messaging) — `capability`; `gDeap/dataProcessor`",
+        "[dataPublisher](/docs/reference/events-messaging) — `capability`; `gDeap/dataPublisher`"
+      ]
+    },
+    {
+      "heading": "gExp",
+      "migratedFrom": "nodics:gDocs/reference/module-catalog.md",
+      "sourceAnchor": "gexp",
+      "items": [
+        "[gExp](/docs/reference/modules) — `group`; `gExp`",
+        "[storefront](/docs/reference/commerce) — `capability`; `gExp/storefront`",
+        "[backoffice](/docs/reference/backoffice) — `capability`; `gExp/backoffice`"
+      ]
+    },
+    {
+      "heading": "gFramework",
+      "migratedFrom": "nodics:gDocs/reference/module-catalog.md",
+      "sourceAnchor": "gframework",
+      "items": [
+        "[gFramework](/docs/reference/modules) — `group`; `gFramework`",
+        "[auth](/docs/reference/identity-access) — `capability`; `gFramework/nAuth`",
+        "[nCache](/docs/reference/caching) — `group`; `gFramework/nCache`",
+        "[cache](/docs/reference/caching) — `capability`; `gFramework/nCache/cache`",
+        "[hazelcastCache](/docs/reference/caching) — `capability`; `gFramework/nCache/hazelcastCache`",
+        "[nodeCache](/docs/reference/caching) — `capability`; `gFramework/nCache/nodeCache`",
+        "[redisCache](/docs/reference/caching) — `capability`; `gFramework/nCache/redisCache`",
+        "[catalog](/docs/reference/content-publishing) — `capability`; `gFramework/nCatalog`",
+        "[nCommon](/docs/reference/libraries-utilities) — `capability`; `gFramework/nCommon`",
+        "[config](/docs/reference/configuration) — `capability`; `gFramework/nConfig`",
+        "[nController](/docs/reference/apis-routing) — `capability`; `gFramework/nController`",
+        "[nData](/docs/reference/data-exchange) — `group`; `gFramework/nData`",
+        "[dataCore](/docs/reference/data-exchange) — `capability`; `gFramework/nData/dataCore`",
+        "[nExport](/docs/reference/data-exchange) — `group`; `gFramework/nData/nExport`",
+        "[csvExport](/docs/reference/data-exchange) — `capability`; `gFramework/nData/nExport/csvExport`",
+        "[excelExport](/docs/reference/data-exchange) — `capability`; `gFramework/nData/nExport/excelExport`",
+        "[export](/docs/reference/data-exchange) — `capability`; `gFramework/nData/nExport/export`",
+        "[jsExport](/docs/reference/data-exchange) — `capability`; `gFramework/nData/nExport/jsExport`",
+        "[jsonExport](/docs/reference/data-exchange) — `capability`; `gFramework/nData/nExport/jsonExport`",
+        "[nImport](/docs/reference/data-exchange) — `group`; `gFramework/nData/nImport`",
+        "[csvImport](/docs/reference/data-exchange) — `capability`; `gFramework/nData/nImport/csvImport`",
+        "[excelImport](/docs/reference/data-exchange) — `capability`; `gFramework/nData/nImport/excelImport`",
+        "[import](/docs/reference/data-exchange) — `capability`; `gFramework/nData/nImport/import`",
+        "[jsImport](/docs/reference/data-exchange) — `capability`; `gFramework/nData/nImport/jsImport`",
+        "[jsonImport](/docs/reference/data-exchange) — `capability`; `gFramework/nData/nImport/jsonImport`",
+        "[nDatabase](/docs/reference/persistence) — `group`; `gFramework/nDatabase`",
+        "[cassandradb](/docs/reference/persistence) — `capability`; `gFramework/nDatabase/cassandradb`",
+        "[database](/docs/reference/persistence) — `group`; `gFramework/nDatabase/database`",
+        "[vDatabase](/docs/reference/persistence) — `publish`; `gFramework/nDatabase/database/vDatabase`",
+        "[elasticdb](/docs/reference/persistence) — `capability`; `gFramework/nDatabase/elasticdb`",
+        "[mongodb](/docs/reference/persistence) — `group`; `gFramework/nDatabase/mongodb`",
+        "[vMongodb](/docs/reference/persistence) — `publish`; `gFramework/nDatabase/mongodb/vMongodb`",
+        "[default](/docs/reference/layered-architecture) — `capability`; `gFramework/nDefault`",
+        "[dynamo](/docs/reference/runtime-governance) — `capability`; `gFramework/nDynamo`",
+        "[nEms](/docs/reference/events-messaging) — `group`; `gFramework/nEms`",
+        "[activemq](/docs/reference/events-messaging) — `capability`; `gFramework/nEms/activemq`",
+        "[emsClient](/docs/reference/events-messaging) — `capability`; `gFramework/nEms/emsClient`",
+        "[kafka](/docs/reference/events-messaging) — `capability`; `gFramework/nEms/kafka`",
+        "[event](/docs/reference/events-messaging) — `capability`; `gFramework/nEvent`",
+        "[nFacade](/docs/reference/services-facades) — `capability`; `gFramework/nFacade`",
+        "[nms](/docs/reference/runtime-governance) — `capability`; `gFramework/nNms`",
+        "[otp](/docs/reference/identity-access) — `capability`; `gFramework/nOtp`",
+        "[pipeline](/docs/reference/execution-processes) — `capability`; `gFramework/nPipeline`",
+        "[publish](/docs/reference/content-publishing) — `publish`; `gFramework/nPublish`",
+        "[router](/docs/reference/apis-routing) — `capability`; `gFramework/nRouter`",
+        "[nSearch](/docs/capabilities/search-providers) — `group`; `gFramework/nSearch`",
+        "[elastic](/docs/capabilities/search-providers/prebuilt) — `capability`; `gFramework/nSearch/elastic`",
+        "[search](/docs/capabilities/search-models) — `capability`; `gFramework/nSearch/search`",
+        "[nService](/docs/reference/services-facades) — `group`; `gFramework/nService`",
+        "[vService](/docs/reference/services-facades) — `publish`; `gFramework/nService/vService`",
+        "[system](/docs/reference/runtime-governance) — `capability`; `gFramework/nSystem`",
+        "[nTest](/docs/build/testing) — `capability`; `gFramework/nTest`",
+        "[token](/docs/reference/identity-access) — `capability`; `gFramework/nToken`",
+        "[nTooling](/docs/build/documentation) — `tooling`; `gFramework/nTooling`",
+        "[validator](/docs/reference/validation) — `capability`; `gFramework/nValidator`",
+        "[bpm](/docs/reference/workflows) — `capability`; `gFramework/nbpm`"
+      ]
+    },
+    {
+      "heading": "gMrkty",
+      "migratedFrom": "nodics:gDocs/reference/module-catalog.md",
+      "sourceAnchor": "gmrkty",
+      "items": [
+        "[gMrkty](/docs/reference/modules) — `group`; `gMrkty`",
+        "[cres](/docs/reference/customer-reviews) — `capability`; `gMrkty/cres`"
+      ]
+    },
+    {
+      "heading": "gOptional",
+      "migratedFrom": "nodics:gDocs/reference/module-catalog.md",
+      "sourceAnchor": "goptional",
+      "items": [
+        "[gOptional](/docs/reference/modules) — `group`; `gOptional`",
+        "[kyc](/docs/reference/kyc) — `group`; `gOptional/kyc`",
+        "[kycApi](/docs/reference/kyc) — `capability`; `gOptional/kyc/kycApi`",
+        "[kycCore](/docs/reference/kyc) — `capability`; `gOptional/kyc/kycCore`",
+        "[kycSchema](/docs/reference/kyc) — `capability`; `gOptional/kyc/kycSchema`"
+      ]
+    },
+    {
+      "heading": "gSetup",
+      "migratedFrom": "nodics:gDocs/reference/module-catalog.md",
+      "sourceAnchor": "gsetup",
+      "items": [
+        "[gSetup](/docs/build/documentation) — `setup`; `gSetup`"
+      ]
+    },
+    {
+      "heading": "startio",
+      "migratedFrom": "nodics:gDocs/reference/module-catalog.md",
+      "sourceAnchor": "startio",
+      "items": [
+        "[startio](/docs/reference/runtime-topology) — `project`; `startio`",
+        "[envs](/docs/reference/runtime-topology) — `group`; `startio/envs`",
+        "[startioDev](/docs/reference/runtime-topology) — `group`; `startio/envs/startioDev`",
+        "[cronServer](/docs/reference/runtime-topology) — `server`; `startio/envs/startioDev/cronServer`",
+        "[deapServer](/docs/reference/runtime-topology) — `server`; `startio/envs/startioDev/deapServer`",
+        "[nemsServer](/docs/reference/runtime-topology) — `server`; `startio/envs/startioDev/nemsServer`",
+        "[profileServer](/docs/reference/runtime-topology) — `server`; `startio/envs/startioDev/profileServer`",
+        "[monoServer](/docs/reference/runtime-topology) — `server`; `startio/envs/startioDev/monoServer`",
+        "[startioLocal](/docs/reference/runtime-topology) — `group`; `startio/envs/startioLocal`",
+        "[backofficeServer](/docs/reference/runtime-topology) — `server`; `startio/envs/startioLocal/backofficeServer`",
+        "[cmsOnlineServer](/docs/reference/runtime-topology) — `server`; `startio/envs/startioLocal/cmsOnlineServer`",
+        "[cmsStagedServer](/docs/reference/runtime-topology) — `server`; `startio/envs/startioLocal/cmsStagedServer`",
+        "[cronServer](/docs/reference/runtime-topology) — `server`; `startio/envs/startioLocal/cronServer`",
+        "[cronNode0](/docs/reference/runtime-topology) — `node`; `startio/envs/startioLocal/cronServer/cronNode0`",
+        "[cronNode1](/docs/reference/runtime-topology) — `node`; `startio/envs/startioLocal/cronServer/cronNode1`",
+        "[cronNode2](/docs/reference/runtime-topology) — `node`; `startio/envs/startioLocal/cronServer/cronNode2`",
+        "[cronNode3](/docs/reference/runtime-topology) — `node`; `startio/envs/startioLocal/cronServer/cronNode3`",
+        "[deapServer](/docs/reference/runtime-topology) — `server`; `startio/envs/startioLocal/deapServer`",
+        "[deapNode0](/docs/reference/runtime-topology) — `node`; `startio/envs/startioLocal/deapServer/deapNode0`",
+        "[deapNode1](/docs/reference/runtime-topology) — `node`; `startio/envs/startioLocal/deapServer/deapNode1`",
+        "[deapNode2](/docs/reference/runtime-topology) — `node`; `startio/envs/startioLocal/deapServer/deapNode2`",
+        "[nemsServer](/docs/reference/runtime-topology) — `server`; `startio/envs/startioLocal/nemsServer`",
+        "[profileServer](/docs/reference/runtime-topology) — `server`; `startio/envs/startioLocal/profileServer`",
+        "[monoServer](/docs/reference/runtime-topology) — `server`; `startio/envs/startioLocal/monoServer`",
+        "[monoNode0](/docs/reference/runtime-topology) — `node`; `startio/envs/startioLocal/monoServer/monoNode0`",
+        "[monoNode1](/docs/reference/runtime-topology) — `node`; `startio/envs/startioLocal/monoServer/monoNode1`",
+        "[monoNode2](/docs/reference/runtime-topology) — `node`; `startio/envs/startioLocal/monoServer/monoNode2`",
+        "[workflowServer](/docs/reference/runtime-topology) — `server`; `startio/envs/startioLocal/workflowServer`",
+        "[startioPreProd](/docs/reference/runtime-topology) — `group`; `startio/envs/startioPreProd`",
+        "[monoServer](/docs/reference/runtime-topology) — `server`; `startio/envs/startioPreProd/monoServer`",
+        "[startioProd](/docs/reference/runtime-topology) — `group`; `startio/envs/startioProd`",
+        "[monoServer](/docs/reference/runtime-topology) — `server`; `startio/envs/startioProd/monoServer`",
+        "[startioQA](/docs/reference/runtime-topology) — `group`; `startio/envs/startioQA`",
+        "[monoServer](/docs/reference/runtime-topology) — `server`; `startio/envs/startioQA/monoServer`",
+        "[modules](/docs/reference/runtime-topology) — `group`; `startio/modules`",
+        "[startioApi](/docs/reference/runtime-topology) — `capability`; `startio/modules/startioApi`",
+        "[startioCore](/docs/reference/runtime-topology) — `capability`; `startio/modules/startioCore`",
+        "[startioInt](/docs/reference/runtime-topology) — `capability`; `startio/modules/startioInt`"
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/reference/module-catalog.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "Task-oriented ownership: [Module Documentation Index](/docs/reference/modules)",
+        "Terminology: [Nodics Glossary](/docs/reference/glossary)",
+        "Documentation home: [Nodics Documentation](/docs)"
+      ]
+    },
+    {
+      "heading": "Complete guide: Module Documentation Index",
+      "migratedFrom": "nodics:gDocs/reference/module-documentation-index.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "This page helps you move from task-based documentation in `gDocs` to the capability-specific documentation owned by each Nodics module.",
+        "Use `gDocs` when you want to understand a feature from the user or application developer perspective. Use module `README.md` files when you need exact source definitions, extension points, services, routers, schemas, pipelines, configuration, tests, and module-owned behavior.",
+        "Use the [Provider And Capability Maturity Matrix](/docs/reference/maturity) before selecting a provider or external adapter. It shows whether a capability is production-ready, guarded, sample/reference, scaffolded, or parked for later work.",
+        "This page is a task-oriented capability map. Use the [Complete Module Catalog](/docs/reference/modules) when you need to find every package-defined module, including application, environment, server, and node composition modules that are not appropriate in a short capability map."
+      ]
+    },
+    {
+      "heading": "How To Use This Index",
+      "migratedFrom": "nodics:gDocs/reference/module-documentation-index.md",
+      "sourceAnchor": "how-to-use-this-index",
+      "paragraphs": [
+        "guides.",
+        "AI/developer implementation contracts."
+      ],
+      "items": [
+        "Start with the task guide that matches what you want to do.",
+        "Use this index to find the owning capability module.",
+        "Read the module `README.md` for the exact implementation contract.",
+        "Read the module `docs/` pages when the capability has deeper framework",
+        "Use `gSetup/llm` and `AGENTS.md` when you are changing code and need"
+      ]
+    },
+    {
+      "heading": "How To Read A Module README",
+      "migratedFrom": "nodics:gDocs/reference/module-documentation-index.md",
+      "sourceAnchor": "how-to-read-a-module-readme",
+      "paragraphs": [
+        "Module documentation is more detailed than public task guides because it tells you exactly how one capability works. When reading a module README, look for answers to these beginner questions:",
+        "| Question | Why it matters |\n| --- | --- |\n| What capability does this module own? | Prevents code from being added to the wrong module. |\n| Which schemas, routes, services, facades, controllers, pipelines, interceptors, events, data, and tests does it own? | Shows which layer should receive the change. |\n| Which configuration values belong to this module? | Keeps policy and provider choices out of hardcoded services. |\n| How can a project override or extend the behavior? | Protects framework immutability and customer customization. |\n| Which generated artifacts depend on this module? | Shows when to run build, generated tests, OpenAPI, or LLM generation. |\n| Which tests prove the default and override behavior? | Gives developers and AI tools a verification path. |",
+        "If a module README does not answer these questions clearly enough, update the module README as part of the change. Do not make a beginner or AI tool infer the extension path from source code alone."
+      ]
+    },
+    {
+      "heading": "Core Platform And Startup",
+      "migratedFrom": "nodics:gDocs/reference/module-documentation-index.md",
+      "sourceAnchor": "core-platform-and-startup",
+      "paragraphs": [
+        "| Capability | Module Documentation | Use When |\n| --- | --- | --- |\n| Framework organization | [gFramework](/docs/reference/modules) | You need the framework-level capability map. |\n| Startup, module loading, generation, configuration build | [nConfig](/docs/reference/configuration) | You need to understand bootstrap, loaders, generated artifacts, clean/build, or configuration assembly. |\n| Shared utilities, errors, processors, traceability | [nCommon](/docs/reference/libraries-utilities) | You need shared error handling, utility behavior, processor execution, or common contracts. |\n| Default module scaffold and baseline contracts | [nDefault](/docs/reference/layered-architecture) | You need the baseline module shape used by generated or default modules. |\n| Tooling, quality gates, generated context | [nTooling](/docs/build/documentation) | You need commands, governance reports, documentation coverage, or LLM context generation. |\n| Test execution and generated test contracts | [nTest](/docs/build/testing) | You need testing conventions, generated tests, or effective-contract validation. |"
+      ]
+    },
+    {
+      "heading": "API, Request, And Service Layer",
+      "migratedFrom": "nodics:gDocs/reference/module-documentation-index.md",
+      "sourceAnchor": "api-request-and-service-layer",
+      "paragraphs": [
+        "| Capability | Module Documentation | Use When |\n| --- | --- | --- |\n| API routes, Express binding, request pipeline, security, OpenAPI, Swagger UI | [nRouter](/docs/reference/apis-routing), [Router Framework](/docs/reference/apis-routing), and [nSystem](/docs/reference/runtime-governance) | You need to create, secure, expose, customize, document, or debug APIs. |\n| Controller boundary and request mapping | [nController](/docs/reference/apis-routing) | You need to map HTTP params, query, body, or headers into Nodics request context. |\n| Facade orchestration boundary | [nFacade](/docs/reference/services-facades) | You need to coordinate services or capability calls without putting orchestration in controllers. |\n| Service behavior and generated service contracts | [nService](/docs/reference/services-facades) | You need business behavior, generated CRUD service flow, or service override rules. |\n| Version-aware service routing | [vService](/docs/reference/services-facades) | You need versioned data/service behavior or publish-ready lifecycle behavior. |"
+      ]
+    },
+    {
+      "heading": "Data, Persistence, Import, And Export",
+      "migratedFrom": "nodics:gDocs/reference/module-documentation-index.md",
+      "sourceAnchor": "data-persistence-import-and-export",
+      "paragraphs": [
+        "| Capability | Module Documentation | Use When |\n| --- | --- | --- |\n| Database capability group | [nDatabase](/docs/reference/persistence) | You need database provider contracts and data access ownership. |\n| Generic database lifecycle | [database](/docs/reference/persistence) | You need generated model get/save/update/remove pipelines, schema access policy, DAO cache, or CRUD behavior. |\n| MongoDB provider | [mongodb](/docs/reference/persistence) | You need MongoDB connection, model, or provider behavior. |\n| Cassandra provider | [cassandradb](/docs/reference/persistence) | You need Cassandra-specific provider behavior. |\n| Import/export capability group | [nData](/docs/reference/data-exchange) | You need platform data movement, import/export ownership, or DaaS patterns. |\n| Shared data processing | [dataCore](/docs/reference/data-exchange) | You need schema data handling, processors, validators, or data processing flow. |\n| Import capability | [nImport](/docs/reference/data-exchange) | You need file/API import behavior, import definitions, import diagnostics, or format processors. |\n| Export capability | [nExport](/docs/reference/data-exchange) | You need outbound feed/export contracts or target-system delivery. |"
+      ]
+    },
+    {
+      "heading": "Pipelines, Events, Messaging, And Jobs",
+      "migratedFrom": "nodics:gDocs/reference/module-documentation-index.md",
+      "sourceAnchor": "pipelines-events-messaging-and-jobs",
+      "paragraphs": [
+        "| Capability | Module Documentation | Use When |\n| --- | --- | --- |\n| Pipeline framework | [nPipeline](/docs/reference/execution-processes) and [Pipeline Framework](/docs/reference/execution-processes) | You need ordered lifecycle execution, custom pipeline nodes, processors vs pipeline nodes, or pipeline overrides. |\n| Events | [nEvent](/docs/reference/events-messaging) | You need module event definitions, listeners, or internal event behavior. |\n| Enterprise messaging | [nEms](/docs/reference/events-messaging) | You need messaging abstractions, producer/consumer behavior, or provider-neutral messaging. |\n| ActiveMQ provider | [activemq](/docs/reference/events-messaging) | You need ActiveMQ-specific messaging behavior. |\n| Kafka provider | [kafka](/docs/reference/events-messaging) | You need Kafka-specific messaging behavior. |\n| EMS client | [emsClient](/docs/reference/events-messaging) | You need consumed message processing or client-side messaging behavior. |\n| Workflow/BPM | [nbpm](/docs/reference/workflows) | You need workflow lifecycle pipelines, carriers, actions, channels, and stateful business process behavior. |"
+      ]
+    },
+    {
+      "heading": "Cache, Search, Runtime Governance, And Security",
+      "migratedFrom": "nodics:gDocs/reference/module-documentation-index.md",
+      "sourceAnchor": "cache-search-runtime-governance-and-security",
+      "paragraphs": [
+        "| Capability | Module Documentation | Use When |\n| --- | --- | --- |\n| Cache capability group | [nCache](/docs/reference/caching) | You need cache contracts, isolation, provider selection, or invalidation behavior. |\n| Generic cache behavior | [cache](/docs/reference/caching) | You need framework cache services and policy behavior. |\n| Redis cache provider | [redisCache](/docs/reference/caching) | You need Redis-backed cache behavior. |\n| Node cache provider | [nodeCache](/docs/reference/caching) | You need local in-memory cache behavior. |\n| Hazelcast cache provider | [hazelcastCache](/docs/reference/caching) | You need Hazelcast-backed distributed cache behavior. |\n| Search capability group | [nSearch](/docs/capabilities/search-providers) | You need search capability ownership, provider contracts, indexing, or search API behavior. |\n| Generic search behavior | [search](/docs/capabilities/search-models) | You need search pipelines, index definitions, query behavior, indexing, cache, or search tests. |\n| Elasticsearch provider | [elastic](/docs/capabilities/search-providers/prebuilt) | You need Elasticsearch-specific connection and provider behavior. |\n| Runtime governance | [nDynamo](/docs/reference/runtime-governance) | You need runtime configuration, schema/router/class/pipeline governance, preview, activation, audit, or rollback. |\n| Authentication | [nAuth](/docs/reference/identity-access) | You need authentication contracts or auth module behavior. |\n| Token lifecycle | [nToken](/docs/reference/identity-access) | You need generic token generation, validation, or token lifecycle behavior. |\n| One-time password | [nOtp](/docs/reference/identity-access) | You need OTP behavior built on token capability. |\n| Validation | [nValidator](/docs/reference/validation) | You need validator definitions, runtime validator loading, or validator update pipelines. |"
+      ]
+    },
+    {
+      "heading": "Business And Domain Capabilities",
+      "migratedFrom": "nodics:gDocs/reference/module-documentation-index.md",
+      "sourceAnchor": "business-and-domain-capabilities",
+      "paragraphs": [
+        "| Capability | Module Documentation | Use When |\n| --- | --- | --- |\n| AI provider governance and token ledger | [aiProviders](/docs/reference/ai) and [Persistent AI Token Ledger Guide](/docs/reference/ai) | You need provider-neutral AI selection, exact token/cost planning, persistent budgets, reservations, usage evidence, or AI ledger administration. |\n| AI Assistant read-only backend | [aiAssistant](/docs/reference/ai) | You need employee-owned conversations, approved prompts, redaction, read-only provider orchestration, or replay events. |\n| AI Knowledge documentation slice | [aiKnowledge](/docs/reference/ai) | You need explicit documentation ingestion, derived chunks, nSearch retrieval, evidence, and citations. |\n| Catalogs | [nCatalog](/docs/reference/content-publishing) | You need catalog modeling, catalog hierarchy, or product/content catalog behavior. |\n| Publishing | [nPublish](/docs/reference/content-publishing) | You need publish lifecycle support. |\n| System capability | [nSystem](/docs/reference/runtime-governance) | You need system-level schemas, utilities, or platform records. |\n| Network/module management | [nNms](/docs/reference/runtime-governance) | You need node/module/network management behavior. |"
+      ]
+    },
+    {
+      "heading": "How Guides Link To Modules",
+      "migratedFrom": "nodics:gDocs/reference/module-documentation-index.md",
+      "sourceAnchor": "how-guides-link-to-modules",
+      "paragraphs": [
+        "Use this quick map from common `gDocs` pages to module references.",
+        "| User Guide | Related Modules |\n| --- | --- |\n| [How To Create APIs](/docs/build/apis) | [nRouter](/docs/reference/apis-routing), [Router Framework](/docs/reference/apis-routing), [nController](/docs/reference/apis-routing), [nFacade](/docs/reference/services-facades), [nService](/docs/reference/services-facades) |\n| [How To Work With Data](/docs/capabilities/data-exchange) | [nDatabase](/docs/reference/persistence), [database](/docs/reference/persistence), [nData](/docs/reference/data-exchange), [nImport](/docs/reference/data-exchange), [nExport](/docs/reference/data-exchange), [nSearch](/docs/capabilities/search-providers) |\n| [How Platform Capabilities Work](/docs/framework/architecture) | [nPipeline](/docs/reference/execution-processes), [Pipeline Framework](/docs/reference/execution-processes), [nCache](/docs/reference/caching), [nEms](/docs/reference/events-messaging), [nEvent](/docs/reference/events-messaging), [nDynamo](/docs/reference/runtime-governance) |\n| [How Cache Works](/docs/capabilities/caching) | [nCache](/docs/reference/caching), [cache](/docs/reference/caching), [redisCache](/docs/reference/caching), [nodeCache](/docs/reference/caching), [hazelcastCache](/docs/reference/caching), [nRouter](/docs/reference/apis-routing), [database](/docs/reference/persistence), [search](/docs/capabilities/search-models) |\n| [How Users, Tenants, And Permissions Work](/docs/security/users-tenants-permissions) | [nAuth](/docs/reference/identity-access), [nToken](/docs/reference/identity-access), [nOtp](/docs/reference/identity-access), [nRouter](/docs/reference/apis-routing), [nDynamo](/docs/reference/runtime-governance) |\n| [How To Test Nodics Changes](/docs/build/testing) | [nTest](/docs/build/testing), [nTooling](/docs/build/documentation), module-specific test sections |\n| [How Configuration Works](/docs/capabilities/configuration) | [nConfig](/docs/reference/configuration), [nDynamo](/docs/reference/runtime-governance), [nTooling](/docs/build/documentation) |\n| [How AI Cost Governance Works](/docs/capabilities/ai/token-governance) | [aiProviders](/docs/reference/ai), [AI Token Economics](/docs/reference/ai), [Persistent AI Token Ledger](/docs/reference/ai) |\n| [Assistant, AI Providers, and Knowledge Guide](/docs/capabilities/ai) | [aiAssistant](/docs/reference/ai), [aiKnowledge](/docs/reference/ai), and [aiProviders](/docs/reference/ai) |"
+      ]
+    },
+    {
+      "heading": "Documentation Ownership Rule",
+      "migratedFrom": "nodics:gDocs/reference/module-documentation-index.md",
+      "sourceAnchor": "documentation-ownership-rule",
+      "paragraphs": [
+        "If a page explains how a user performs a task, it belongs in `gDocs`.",
+        "If a page explains the exact behavior owned by one module, it belongs in that module's `README.md` or `docs/` folder.",
+        "If a page defines rules that AI tools and developers must follow while changing code, it belongs in `AGENTS.md` or `gSetup/llm`."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/reference/module-documentation-index.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "Complete inventory: [Complete Module Catalog](/docs/reference/modules)",
+        "Terminology: [Nodics Glossary](/docs/reference/glossary)",
+        "Documentation home: [Nodics Documentation](/docs)"
       ]
     }
   ]

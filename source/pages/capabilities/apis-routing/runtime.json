@@ -1,1 +1,92 @@
-{"code":"capability.apis-routing.runtime","title":"Route Runtime, Security, and Extension","route":"/docs/capabilities/apis-routing/runtime","section":"security","family":"runtime-customization","parent":"page:capability.apis-routing.overview","order":10,"audiences":["developer","architect","security-reviewer","operator","ai-tool"],"readerIntent":"Define and operate a route through the governed request pipeline.","priorKnowledge":"Know the controller/service operation and caller types.","depth":"implementation","status":"implemented","owner":"Owning route module and Nodics request pipeline","lastVerified":"2026-07-26","summary":"The runtime checks API exposure, context, credential class, permissions, limits, and request shape before controller dispatch, then maps stable outcomes through response handlers.","supportingEvidence":["nodics:gFramework/nRouter/README.md","nodics:gFramework/nRouter/docs/router-framework.md"],"sections":[{"heading":"Request flow","items":["Match method and route and confirm its API-exposure category is enabled.","Apply HTTP headers, CORS, proxy, body-size, and rate guardrails.","Resolve enterprise, tenant, correlation, and module context.","Authenticate the permitted token class; authTokenTypes may restrict a route to service or other supported credentials before authorization.","Authorize group and permission policy.","Normalize request parameters, query, headers, and body.","Dispatch a thin controller to facade/service behavior.","Map success or error through the registered status and safe response contract."]},{"heading":"Extension","items":["Add business routes in the owning module under router definitions.","Use layered permissionConfig and apiExposure when values vary.","Version breaking API changes and regenerate OpenAPI.","Do not add hidden Express middleware, database calls, or business policy in routers/controllers.","Test public, human-authenticated, service-only, unauthorized, disabled-exposure, malformed, boundary, and regression behavior."]}]}
+{
+  "code": "capability.apis-routing.runtime",
+  "title": "Route Runtime, Security, and Extension",
+  "route": "/docs/capabilities/apis-routing/runtime",
+  "section": "security",
+  "family": "configuration-customization",
+  "parent": "page:capability.apis-routing.overview",
+  "order": 10,
+  "audiences": [
+    "developer",
+    "architect",
+    "security-reviewer",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Define and operate a route through the governed request pipeline.",
+  "priorKnowledge": "Know the controller/service operation and caller types.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Owning route module and Nodics request pipeline",
+  "lastVerified": "2026-07-26",
+  "summary": "The runtime checks API exposure, context, credential class, permissions, limits, and request shape before controller dispatch, then maps stable outcomes through response handlers.",
+  "supportingEvidence": [
+    "nodics:gFramework/nRouter/README.md",
+    "nodics:gFramework/nRouter/docs/router-framework.md"
+  ],
+  "sections": [
+    {
+      "heading": "Request flow",
+      "items": [
+        "Match method and route and confirm its API-exposure category is enabled.",
+        "Apply HTTP headers, CORS, proxy, body-size, and rate guardrails.",
+        "Resolve enterprise, tenant, correlation, and module context.",
+        "Authenticate the permitted token class; authTokenTypes may restrict a route to service or other supported credentials before authorization.",
+        "Authorize group and permission policy.",
+        "Normalize request parameters, query, headers, and body.",
+        "Dispatch a thin controller to facade/service behavior.",
+        "Map success or error through the registered status and safe response contract."
+      ]
+    },
+    {
+      "heading": "Context and credential resolution",
+      "paragraphs": [
+        "The pipeline creates trusted context from route metadata, authentication, topology, and validated headers. Client tenant or enterprise values may narrow an operation but cannot broaden authenticated scope.",
+        "authTokenTypes rejects a valid credential of the wrong class before business authorization."
+      ],
+      "items": [
+        "Public access only for deliberately unsecured operations.",
+        "Employee and customer credentials for their respective journeys.",
+        "Internal credentials for module communication.",
+        "Scheduled credentials for approved non-interactive work."
+      ]
+    },
+    {
+      "heading": "Hardening and limits",
+      "items": [
+        "Deployment-specific CORS, proxy trust, TLS, headers, and allowed methods.",
+        "Bounded body, upload, query, nesting, pagination, and response size.",
+        "Rate, concurrency, request deadline, and downstream deadline controls.",
+        "Safe caching and redaction."
+      ]
+    },
+    {
+      "heading": "Failure mapping",
+      "items": [
+        "Missing route or disabled exposure.",
+        "Malformed or oversized request.",
+        "Missing or wrong credential class.",
+        "Authenticated but unauthorized operation.",
+        "Validation, conflict, dependency, timeout, and internal failure.",
+        "Registered status lookup and safe public response."
+      ]
+    },
+    {
+      "heading": "Extension",
+      "items": [
+        "Add business routes in the owning module under router definitions.",
+        "Use layered permissionConfig and apiExposure when values vary.",
+        "Version breaking API changes and regenerate OpenAPI.",
+        "Do not add hidden Express middleware, database calls, or business policy in routers/controllers.",
+        "Test public, human-authenticated, service-only, unauthorized, disabled-exposure, malformed, boundary, and regression behavior."
+      ]
+    },
+    {
+      "heading": "Compatibility and operations",
+      "paragraphs": [
+        "Required inputs, removed fields, changed meaning, statuses, or security behavior require version review. Generated OpenAPI is derived from source and must not be edited independently.",
+        "Monitor inventory and exposure by topology, denials, latency, payloads, timeouts, rates, saturation, and trace continuity. Qualify CORS, proxy, TLS, penetration, and load behavior in the real deployment."
+      ]
+    }
+  ]
+}

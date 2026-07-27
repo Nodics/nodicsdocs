@@ -25,6 +25,14 @@ Every discovered page or meaningful section receives one recorded decision:
 
 No source disappears without a recorded disposition and destination or reason.
 
+A `merge`, `rewrite`, or `retain` decision preserves all unique verified
+instructional knowledge. The destination may reorganize the source into
+capability-first language, split it into clearer sections, replace obsolete
+links, and add stronger explanation. It may not discard substantive headings,
+examples, tables, configuration choices, extension guidance, security,
+operations, failure behavior, troubleshooting, or verification merely because
+the new page already meets a size benchmark.
+
 `source/migration-decisions.json` is the individual reviewed decision
 authority. `source/migration-rules.json` contains reviewed ownership mappings
 for unambiguous package families; explicit decisions override those rules.
@@ -44,6 +52,18 @@ Before a canonical article is approved:
 5. verify business, beginner, developer, security, and operator coverage where
    applicable;
 6. record ownership and last verification evidence.
+7. run deterministic evidence synchronization when applicable;
+8. normalize legacy links to canonical routes;
+9. pass source citation, heading, and detailed-content coverage;
+10. pass page-family depth validation without treating that lower bound as a
+    substitute for editorial review.
+
+`npm run sync:gdocs-detail` replaces only sections attributed to the same
+`migratedFrom` evidence identifier and therefore remains idempotent.
+`npm run normalize:links` translates reviewed legacy documentation routes into
+canonical routes. `npm run audit:coverage` rejects mapped instructional sources
+whose citation, headings, or detailed content were lost. `npm run audit:depth`
+rejects pages below the page-family lower bound.
 
 ## `gDocs` retirement
 
@@ -87,3 +107,17 @@ Every implementation change declares documentation impact:
 
 Implementation is incomplete while affected documentation, examples,
 contracts, generated content, or verification evidence is stale.
+
+The documentation impact review must also identify whether the change affects:
+
+- business capability or decision guidance;
+- beginner or business-user workflows;
+- schema, API, event, import/export, or other data contracts;
+- configuration, defaults, precedence, or runtime activation;
+- authentication, authorization, tenancy, ownership, privacy, or audit;
+- customization and provider-extension guidance;
+- performance, capacity, observability, deployment, recovery, or rollback;
+- examples, troubleshooting, compatibility, maturity, or limitations.
+
+Update every affected canonical destination. Do not create a new page when an
+existing authority can be extended safely.

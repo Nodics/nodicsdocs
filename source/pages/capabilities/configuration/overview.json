@@ -4,9 +4,16 @@
   "route": "/docs/capabilities/configuration",
   "section": "capabilities",
   "family": "overview",
-  "parent": "page:framework.architecture",
+  "parent": "section:capabilities",
   "order": 10,
-  "audiences": ["evaluator", "business-user", "administrator", "developer", "architect", "ai-tool"],
+  "audiences": [
+    "evaluator",
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "ai-tool"
+  ],
   "readerIntent": "Understand how Nodics changes behavior safely without copying framework code.",
   "priorKnowledge": "No technical knowledge is required.",
   "depth": "overview",
@@ -17,9 +24,17 @@
   "supportingEvidence": [
     "nodics:gFramework/nConfig/README.md",
     "nodics:gFramework/nDynamo/README.md",
-    "nodics:gFramework/nConfig/docs/runtime-lifecycle-resilience-contract.md"
+    "nodics:gFramework/nConfig/docs/runtime-lifecycle-resilience-contract.md",
+    "nodics:gDocs/configuration/how-configuration-works.md"
   ],
   "sections": [
+    {
+      "heading": "What is Nodics Configuration Layer?",
+      "paragraphs": [
+        "Configuration is information that changes how software behaves without rewriting the capability itself. Nodics configuration supplies layered defaults and overrides for projects, environments, servers, nodes, tenants, and runtime decisions.",
+        "It is similar to setting policies for different branches of one company: the shared operating model stays consistent, while an authorized branch can apply a narrower local choice."
+      ]
+    },
     {
       "heading": "Why configuration is a platform capability",
       "paragraphs": [
@@ -36,12 +51,319 @@
       ]
     },
     {
+      "heading": "The configuration hierarchy",
+      "items": [
+        "Framework modules provide reusable defaults owned by the capability.",
+        "Customer project modules define product-wide choices without modifying the framework.",
+        "Environment modules refine local, development, quality-assurance, pre-production, and production behavior.",
+        "Server configuration selects process composition, active modules, ports, and remote connections.",
+        "Node configuration refines instance responsibilities such as scheduling or capacity.",
+        "Tenant configuration supports approved business variation.",
+        "Governed runtime configuration changes eligible values through validation, approval, activation, audit, and rollback."
+      ],
+      "paragraphs": [
+        "A later layer may refine an earlier default only through the owning capability's supported contract. Layering does not mean every value is safe to override at every scope."
+      ]
+    },
+    {
+      "heading": "Ownership and file placement",
+      "paragraphs": [
+        "Application behavior belongs in properties.js under a namespace owned by the capability. package.json contains concise module metadata; it is not an application-property store.",
+        "Credentials and machine-specific secrets do not belong in committed properties. They enter through approved environment or secret-management mechanisms and are validated by the owning capability."
+      ]
+    },
+    {
+      "heading": "Configuration versus customization",
+      "items": [
+        "Use configuration when a supported policy, provider, threshold, timeout, or operating choice varies without changing the capability contract.",
+        "Use a documented service, schema, pipeline, provider, or other extension point when behavior changes but the capability remains authoritative.",
+        "Create a new capability only when the existing owner and contracts cannot express the requirement.",
+        "Never create a second loader or parallel properties authority for one project."
+      ]
+    },
+    {
+      "heading": "Example: cache time to live",
+      "paragraphs": [
+        "A cache capability may define a default time to live. A project can choose a different approved default, an environment can shorten it for local testing, and a tenant setting may refine it only when the capability supports tenant variation.",
+        "Business services continue to use the cache contract. They do not embed Redis expiry constants or inspect which provider is active."
+      ]
+    },
+    {
+      "heading": "Safety and failure behavior",
+      "items": [
+        "Configuration is validated before dependent services become ready.",
+        "Unknown values fail with actionable diagnostics instead of silently selecting unsafe defaults.",
+        "Ambiguous runtime coordinates require an explicit environment in non-interactive execution.",
+        "Runtime changes preserve the last valid state when preview, approval, or activation fails.",
+        "Audit and diagnostics never expose secrets or credential material."
+      ]
+    },
+    {
+      "heading": "Questions before adding a property",
+      "items": [
+        "Which capability owns the decision and what is the safe default?",
+        "Which layers may override it and why?",
+        "Does changing it require restart, reload, approval, invalidation, reindexing, or migration?",
+        "How is it validated and protected?",
+        "How will expected, fallback, invalid, boundary, tenant, and regression behavior be tested?",
+        "Does an equivalent property or loader already exist?"
+      ]
+    },
+    {
       "heading": "Continue",
       "items": [
-        "[Business Value and Configuration Decisions](/docs/capabilities/configuration/business-value)",
-        "[Configuration Resolution and Runtime Behavior](/docs/capabilities/configuration/runtime)",
-        "[Configure and Customize an Application](/docs/capabilities/configuration/customization)",
-        "[Configuration Technical Reference](/docs/reference/configuration)"
+        "Business Value and Configuration Decisions",
+        "Configuration Resolution and Runtime Behavior",
+        "Configure and Customize an Application",
+        "Configuration Technical Reference"
+      ]
+    },
+    {
+      "heading": "Complete guide: How Configuration Works",
+      "migratedFrom": "nodics:gDocs/configuration/how-configuration-works.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "Configuration tells Nodics how to run.",
+        "It controls active modules, ports, database connections, cache settings, security rules, import behavior, runtime governance, and many other platform features.",
+        "If you are new to Nodics, think of configuration as the place where you answer \"how should this capability behave in this project, environment, server, node, or tenant?\" Configuration should not contain business logic. It should contain values, switches, provider choices, limits, permissions, paths, topology, and policy defaults that code can read."
+      ]
+    },
+    {
+      "heading": "Beginner Summary",
+      "migratedFrom": "nodics:gDocs/configuration/how-configuration-works.md",
+      "sourceAnchor": "beginner-summary",
+      "paragraphs": [
+        "Use configuration when the answer may change without rewriting business code.",
+        "Good configuration examples:",
+        "Poor configuration examples:",
+        "The simple rule is:",
+        "```text\nConfiguration decides policy and placement. Services execute behavior.\n```"
+      ],
+      "items": [
+        "enable or disable a feature;",
+        "choose MongoDB, Cassandra, Redis, Elasticsearch, Kafka, or another provider;",
+        "define a server port;",
+        "define which modules are active in a server;",
+        "define a route permission that may differ by project;",
+        "define import paths, batch sizes, cache TTL, or retry counts;",
+        "define tenant-specific data placement.",
+        "\"calculate discount\" business logic;",
+        "a hardcoded customer rule that belongs in a project service;",
+        "a database query that belongs in a DAO/provider service;",
+        "a one-time script hidden in a property file."
+      ]
+    },
+    {
+      "heading": "Why Configuration Is Layered",
+      "migratedFrom": "nodics:gDocs/configuration/how-configuration-works.md",
+      "sourceAnchor": "why-configuration-is-layered",
+      "paragraphs": [
+        "Different projects and environments need different behavior.",
+        "For example:",
+        "Nodics supports this through layered configuration instead of hard-coded values."
+      ],
+      "items": [
+        "Local development may use a local database.",
+        "UAT may use shared test infrastructure.",
+        "Production may use stricter security and separate servers.",
+        "One tenant may need a feature enabled.",
+        "Another tenant may need the same feature disabled."
+      ]
+    },
+    {
+      "heading": "Common Configuration Layers",
+      "migratedFrom": "nodics:gDocs/configuration/how-configuration-works.md",
+      "sourceAnchor": "common-configuration-layers",
+      "paragraphs": [
+        "Configuration can come from:",
+        "Later layers can refine earlier defaults when the contract allows it."
+      ],
+      "items": [
+        "Framework defaults.",
+        "Active modules.",
+        "Project modules.",
+        "Environment configuration.",
+        "Server configuration.",
+        "Node configuration.",
+        "Tenant configuration.",
+        "Runtime persisted configuration."
+      ]
+    },
+    {
+      "heading": "How To Add Configuration",
+      "migratedFrom": "nodics:gDocs/configuration/how-configuration-works.md",
+      "sourceAnchor": "how-to-add-configuration",
+      "paragraphs": [
+        "Use module or project configuration when a value belongs to source-controlled behavior.",
+        "Use environment, server, or node configuration when the value depends on where the application runs.",
+        "Use tenant or runtime configuration when the value must change per tenant or through governed runtime operations.",
+        "Do not hide configuration inside service code when it is a policy, endpoint, permission, or environment-specific value."
+      ]
+    },
+    {
+      "heading": "Where To Put Configuration",
+      "migratedFrom": "nodics:gDocs/configuration/how-configuration-works.md",
+      "sourceAnchor": "where-to-put-configuration",
+      "paragraphs": [
+        "Use this table before creating or changing a value:",
+        "| Need | Put it here | Why |\n| --- | --- | --- |\n| Framework default behavior | Owning framework module `config/properties.js` | The framework owns the default contract. |\n| Project-wide behavior | Project or project module `config/properties.js` | The customer application owns the value. |\n| Local, dev, QA, UAT, pre-prod, prod differences | Environment module `config/properties.js` | The value changes by deployment environment. |\n| Process-specific ports or active modules | Server module `config/properties.js` | The runnable process owns its composition. |\n| Instance-specific behavior | Node module `config/properties.js` | One node can have a different responsibility. |\n| Tenant data placement or tenant policy | Tenant records or governed runtime configuration | The tenant decides data and runtime isolation. |\n| Values changed after deployment with approval | Runtime configuration | The value needs preview, approval, audit, and rollback. |\n| Secret values | External secret manager or environment-specific secure source | Secrets should not live in source-controlled files. |",
+        "If you are unsure, start with the module that owns the capability and then move later in the hierarchy only when the value must vary by project, environment, server, node, or tenant."
+      ]
+    },
+    {
+      "heading": "Configuration Files",
+      "migratedFrom": "nodics:gDocs/configuration/how-configuration-works.md",
+      "sourceAnchor": "configuration-files",
+      "paragraphs": [
+        "Every module boundary uses the same configuration entrypoints:",
+        "Keep configuration in `properties.js` unless a separate artifact has a real loader, schema, generator, or external-source contract. Do not create one-off configuration files just because a property section is large."
+      ],
+      "items": [
+        "`config/properties.js` for configurable values, policy defaults, command declarations, discovery rules, provider defaults, and governance data.",
+        "`config/prescripts.js` for pre-startup extension declarations.",
+        "`config/postscripts.js` for post-startup extension declarations."
+      ]
+    },
+    {
+      "heading": "Package Metadata Is Not Runtime Configuration",
+      "migratedFrom": "nodics:gDocs/configuration/how-configuration-works.md",
+      "sourceAnchor": "package-metadata-is-not-runtime-configuration",
+      "paragraphs": [
+        "`package.json` identifies the module. It describes name, version, load order, dependencies, ownership, runtime flags, and Nodics metadata.",
+        "Do not put environment-specific values, secrets, server ports, credentials, or active module lists into `package.json`.",
+        "Use `package.json.nodics` to classify the boundary:",
+        "Use layered `properties.js` for values that can change by project, environment, server, node, tenant, or runtime governance."
+      ],
+      "items": [
+        "project;",
+        "group;",
+        "capability;",
+        "server;",
+        "node;",
+        "provider or specialized module kind where already defined."
+      ]
+    },
+    {
+      "heading": "Configuration Loading",
+      "migratedFrom": "nodics:gDocs/configuration/how-configuration-works.md",
+      "sourceAnchor": "configuration-loading",
+      "paragraphs": [
+        "Nodics builds effective configuration from active modules and selected topology.",
+        "The general flow is:",
+        "Later layers can override earlier values only through the supported contract. If a value must be overrideable, keep it in configuration or a replaceable service, not as a hardcoded constant."
+      ],
+      "items": [
+        "Read module metadata.",
+        "Resolve the selected project, environment, server, and node.",
+        "Resolve active module groups and modules.",
+        "Load framework defaults.",
+        "Merge later module and project properties.",
+        "Apply environment, server, and node refinements.",
+        "Apply tenant or governed runtime configuration where applicable."
+      ]
+    },
+    {
+      "heading": "Example: Adding A Feature Flag",
+      "migratedFrom": "nodics:gDocs/configuration/how-configuration-works.md",
+      "sourceAnchor": "example-adding-a-feature-flag",
+      "paragraphs": [
+        "Use a clear property name:",
+        "```js\nmodule.exports = {\n    feature: {\n        sampleFeature: {\n            enabled: true\n        }\n    }\n};\n```",
+        "Then read the property through the configuration service used by the owning module.",
+        "Also document:",
+        "Example service usage:",
+        "```js\nmodule.exports = {\n    isSampleFeatureEnabled: function () {\n        return CONFIG.get('feature.sampleFeature.enabled') === true;\n    }\n};\n```",
+        "Keep the service readable. The service asks configuration for the value, but the business behavior still lives in the service or facade that owns the feature."
+      ],
+      "items": [
+        "What the flag does.",
+        "Default value.",
+        "Who can change it.",
+        "Whether it can vary by tenant.",
+        "Which tests prove both enabled and disabled behavior."
+      ]
+    },
+    {
+      "heading": "Example: Route Permission Configuration",
+      "migratedFrom": "nodics:gDocs/configuration/how-configuration-works.md",
+      "sourceAnchor": "example-route-permission-configuration",
+      "paragraphs": [
+        "Routes do not rely on hidden controller checks only.",
+        "When a route needs permission, define route permission behavior through the route configuration contract. This makes the behavior visible to developers, tests, OpenAPI generation, and security review.",
+        "Document:"
+      ],
+      "items": [
+        "Which route is protected.",
+        "Which permission is required.",
+        "Whether the route is pre-authentication.",
+        "Whether service-to-service access is allowed.",
+        "Which tests cover the route."
+      ]
+    },
+    {
+      "heading": "Runtime Configuration",
+      "migratedFrom": "nodics:gDocs/configuration/how-configuration-works.md",
+      "sourceAnchor": "runtime-configuration",
+      "paragraphs": [
+        "Runtime configuration is configuration that can be previewed, requested, approved, activated, audited, and rolled back without editing source files.",
+        "Use runtime configuration when business or operations teams need controlled changes after deployment.",
+        "Some platform capabilities also expose operational controls. For example, cache flush and cache configuration routes can apply scoped, secured cache changes to active nodes through cache events. Those operational controls are not the same as governed persisted runtime configuration. Use `nDynamo` runtime configuration when the change needs preview, approval, audit, rollback, or durable business ownership.",
+        "Runtime configuration never bypasses:",
+        "Runtime configuration is not a replacement for source-controlled architecture. Use it for governed operational or tenant-specific changes. Use source definitions and module configuration for behavior that must be versioned, tested, and released with code."
+      ],
+      "items": [
+        "Validation.",
+        "Approval rules.",
+        "Permission checks.",
+        "Audit.",
+        "Rollback.",
+        "Diagnostics."
+      ]
+    },
+    {
+      "heading": "What To Avoid",
+      "migratedFrom": "nodics:gDocs/configuration/how-configuration-works.md",
+      "sourceAnchor": "what-to-avoid",
+      "paragraphs": [
+        "Avoid:"
+      ],
+      "items": [
+        "Copying the same configuration into many places.",
+        "Creating new configuration files outside the standard configuration path.",
+        "Hard-coding environment values in services.",
+        "Putting secrets in source-controlled files.",
+        "Changing framework defaults for one customer.",
+        "Using runtime configuration for behavior that belongs in source-controlled and tested definitions."
+      ]
+    },
+    {
+      "heading": "Beginner Troubleshooting",
+      "migratedFrom": "nodics:gDocs/configuration/how-configuration-works.md",
+      "sourceAnchor": "beginner-troubleshooting",
+      "paragraphs": [
+        "| Problem | Likely cause | What to check |\n| --- | --- | --- |\n| Value does not change | A later layer overrides it | Check project, environment, server, node, tenant, and runtime values. |\n| Local works but another environment fails | Environment or server configuration differs | Compare selected environment/server `properties.js`. |\n| Route permission is not respected | Route uses another permission or `permissionConfig` path | Check route metadata and auth permission catalog. |\n| Provider connects to wrong endpoint | Provider config was hardcoded or overridden | Check provider module and environment/server properties. |\n| AI tool added a new config file | File is outside the standard loader path | Move values to `config/properties.js` unless a real loader contract exists. |"
+      ]
+    },
+    {
+      "heading": "How To Verify Configuration Changes",
+      "migratedFrom": "nodics:gDocs/configuration/how-configuration-works.md",
+      "sourceAnchor": "how-to-verify-configuration-changes",
+      "paragraphs": [
+        "Run focused tests where available.",
+        "Useful checks include:",
+        "```bash\nnpm run test:config\nnpm run test:runtime-overrides\nnpm run test:basic\n```",
+        "For runtime or tenant-sensitive changes, also verify behavior in the target environment or topology."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/configuration/how-configuration-works.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "Previous: [How Nodics Is Organized](/docs/framework/architecture)",
+        "Next: [Build Your First Nodics Capability](/docs/get-started/first-capability)",
+        "Owning modules: [Module Documentation Index](/docs/reference/modules)",
+        "Documentation home: [Nodics Documentation](/docs)"
       ]
     }
   ]

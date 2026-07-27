@@ -63,6 +63,20 @@ evidence. Rewrite approved content into capability-first records under
 `source/pages`. After cutover, maintain `source/pages`; do not edit legacy
 Markdown or the transitional flat article snapshot as a second authority.
 
+Migration must preserve verified instructional detail. Before release
+generation, synchronize reviewed source detail and canonicalize its links:
+
+```bash
+npm run sync:gdocs-detail
+npm run normalize:links
+npm run audit:coverage
+npm run audit:depth
+```
+
+These gates prevent a capability-first rewrite from silently reducing a
+complete guide to a thin summary. Minimum page depth is only a lower bound;
+source coverage and factual review remain mandatory.
+
 ### Generate a release
 
 CMS pages are associated with Sites. A maintainer generates the committed
@@ -84,7 +98,8 @@ npm run verify
 
 Validation is offline and checks source structure, stable identities, unsafe
 content, media references, generated relationships, target Sites, and
-compatibility metadata.
+compatibility metadata. It also rejects mapped source-detail loss and canonical
+pages below their page-family depth contract.
 
 Release verification is a maintainer gate. Consumers receive the already
 verified, directly importable `data/core` artifact.

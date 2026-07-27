@@ -1,1 +1,77 @@
-{"code":"capability.libraries-utilities.technical-reference","title":"Libraries and Utilities Technical Reference","route":"/docs/reference/libraries-utilities","section":"reference","family":"technical-reference","parent":"page:capability.libraries-utilities.overview","order":20,"audiences":["developer","architect","framework-maintainer","ai-tool"],"readerIntent":"Audit helper ownership and compatibility.","priorKnowledge":"Read the libraries journey.","depth":"reference","status":"implemented","owner":"Owning capability or nCommon","lastVerified":"2026-07-26","summary":"Shared-code review is stricter because a small change can affect startup, requests, pipelines, imports, jobs, events, and tests.","supportingEvidence":["nodics:gFramework/nCommon/README.md"],"sections":[{"heading":"Checklist","items":["Owner, consumers, purpose, input/output, determinism, side effects, and complexity.","Explicit context, dependencies, errors, trace propagation, security, and performance.","Capability-specific versus framework-wide placement justification.","Extension, compatibility, deprecation, and migration policy.","Positive, invalid-input, boundary, error-propagation, concurrency, performance, and consumer-regression tests."]}]}
+{
+  "code": "capability.libraries-utilities.technical-reference",
+  "title": "Libraries and Utilities Technical Reference",
+  "route": "/docs/reference/libraries-utilities",
+  "section": "reference",
+  "family": "technical-reference",
+  "parent": "page:capability.libraries-utilities.overview",
+  "order": 20,
+  "audiences": [
+    "developer",
+    "architect",
+    "framework-maintainer",
+    "ai-tool"
+  ],
+  "readerIntent": "Audit helper ownership and compatibility.",
+  "priorKnowledge": "Read the libraries journey.",
+  "depth": "reference",
+  "status": "implemented",
+  "owner": "Owning capability or nCommon",
+  "lastVerified": "2026-07-26",
+  "summary": "Shared-code review is stricter because a small change can affect startup, requests, pipelines, imports, jobs, events, and tests.",
+  "supportingEvidence": [
+    "nodics:gFramework/nCommon/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Purpose and ownership",
+      "items": [
+        "Libraries and utilities provide small reusable technical behavior with no independent business authority. They support modules but do not own schemas, routes, persistence, permissions, or workflow decisions.",
+        "A library encapsulates a cohesive reusable contract; a utility is a narrow stateless helper. If behavior needs lifecycle, configuration, provider selection, audit, or domain ownership, use an appropriate service instead.",
+        "Place shared code at the lowest layer that owns the abstraction and avoid circular dependencies or a generic dumping ground."
+      ]
+    },
+    {
+      "heading": "Design rules",
+      "items": [
+        "Functions use explicit inputs and outputs, deterministic behavior where possible, stable error contracts, null and boundary handling, and no hidden global mutation.",
+        "Do not read process environment, database, cache, request context, or secrets inside a generic helper unless that access is the declared owned abstraction.",
+        "Avoid prototype mutation, unsafe object-path writes, uncontrolled recursion, dynamic evaluation, and logging of caller payloads."
+      ]
+    },
+    {
+      "heading": "Customization",
+      "items": [
+        "Prefer configuration or service extension over copying a utility. A customer override must preserve callers' contract or use a new explicitly versioned function.",
+        "Keep module-private helpers inside the owning module until multiple real consumers establish a stable shared abstraction.",
+        "Document parameters, return values, errors, mutability, complexity, security assumptions, examples, and unsupported input next to the implementation."
+      ]
+    },
+    {
+      "heading": "Runtime and performance",
+      "items": [
+        "Hot-path utilities avoid repeated allocation, serialization, regular-expression compilation, and unbounded traversal, but correctness and clarity precede speculative optimization.",
+        "Asynchronous helpers propagate cancellation, timeout, correlation, and errors instead of swallowing them or creating detached work.",
+        "Caching inside a helper requires explicit ownership, complete keys, bounded memory, invalidation, and testability; otherwise use the framework cache contract."
+      ]
+    },
+    {
+      "heading": "Verification",
+      "items": [
+        "Test normal, empty, null, malformed, boundary, large, malicious, concurrent, and immutable-input behavior with focused unit tests.",
+        "Add integration tests when a helper shapes router, schema, security, import, provider, or lifecycle behavior, and regression tests for every fixed defect.",
+        "Review dependency direction, duplicate implementations, dead exports, compatibility, documentation, licensing, and generated-context visibility before release."
+      ]
+    },
+    {
+      "heading": "Checklist",
+      "items": [
+        "Owner, consumers, purpose, input/output, determinism, side effects, and complexity.",
+        "Explicit context, dependencies, errors, trace propagation, security, and performance.",
+        "Capability-specific versus framework-wide placement justification.",
+        "Extension, compatibility, deprecation, and migration policy.",
+        "Positive, invalid-input, boundary, error-propagation, concurrency, performance, and consumer-regression tests."
+      ]
+    }
+  ]
+}

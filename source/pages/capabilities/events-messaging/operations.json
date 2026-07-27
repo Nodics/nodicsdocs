@@ -6,7 +6,12 @@
   "family": "operations-security-troubleshooting",
   "parent": "page:capability.events-messaging.overview",
   "order": 40,
-  "audiences": ["administrator", "security-reviewer", "operator", "architect"],
+  "audiences": [
+    "administrator",
+    "security-reviewer",
+    "operator",
+    "architect"
+  ],
   "readerIntent": "Monitor delivery, control backlogs, recover failures, and qualify providers.",
   "priorKnowledge": "Know event types, destinations, guarantees, retry, and recovery ownership.",
   "depth": "implementation",
@@ -14,10 +19,76 @@
   "owner": "Event owners, NEMS operators, and configured transport provider",
   "lastVerified": "2026-07-26",
   "summary": "Operations must expose safe delivery outcomes, lag, retries, duplicates, poison messages, provider health, and manual recovery without leaking event payloads.",
-  "supportingEvidence": ["nodics:gFramework/nEvent/README.md", "nodics:gFramework/nEms/README.md", "nodics:gCore/nems/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nEvent/README.md",
+    "nodics:gFramework/nEms/README.md",
+    "nodics:gCore/nems/README.md"
+  ],
   "sections": [
-    {"heading": "Monitor", "items": ["Publish, consume, success, failure, retry, replay, and duplicate rates.", "End-to-end delivery latency, backlog, oldest age, and consumer lag.", "Provider connection, acknowledgement, rejection, throttle, and reconnect state.", "Failed definitions, event logs, manual recovery, and cleanup outcomes."]},
-    {"heading": "Secure", "items": ["Authorize publish and consume by governed event and destination contracts.", "Encrypt transport and use least-privilege identities.", "Validate tenant, source, target, version, size, and payload schema.", "Redact payloads, credentials, personal data, and internal provider errors."]},
-    {"heading": "Recover and qualify", "items": ["Pause or isolate poison messages without blocking unrelated partitions.", "Replay only with authorization, idempotency, audit, and bounded scope.", "Test broker loss, consumer crash, redelivery, duplicate, out-of-order delivery, network partition, backlog recovery, and shutdown.", "Prove claimed guarantees with the live provider and production-like topology."]}
+    {
+      "heading": "Monitor",
+      "items": [
+        "Publish, consume, success, failure, retry, replay, and duplicate rates.",
+        "End-to-end delivery latency, backlog, oldest age, and consumer lag.",
+        "Provider connection, acknowledgement, rejection, throttle, and reconnect state.",
+        "Failed definitions, event logs, manual recovery, and cleanup outcomes."
+      ]
+    },
+    {
+      "heading": "Secure",
+      "items": [
+        "Authorize publish and consume by governed event and destination contracts.",
+        "Encrypt transport and use least-privilege identities.",
+        "Validate tenant, source, target, version, size, and payload schema.",
+        "Redact payloads, credentials, personal data, and internal provider errors."
+      ]
+    },
+    {
+      "heading": "Recover and qualify",
+      "items": [
+        "Pause or isolate poison messages without blocking unrelated partitions.",
+        "Replay only with authorization, idempotency, audit, and bounded scope.",
+        "Test broker loss, consumer crash, redelivery, duplicate, out-of-order delivery, network partition, backlog recovery, and shutdown.",
+        "Prove claimed guarantees with the live provider and production-like topology."
+      ]
+    },
+    {
+      "heading": "Backpressure and capacity",
+      "items": [
+        "Bound publisher rate, payload size, consumer concurrency, prefetch, retry, and backlog.",
+        "Scale consumers by partition and idempotency constraints.",
+        "Protect databases and remote services from backlog replay bursts.",
+        "Alert on oldest-message age and recovery-time risk.",
+        "Load and soak test representative payloads and failure rates."
+      ]
+    },
+    {
+      "heading": "Incident workflow",
+      "paragraphs": [
+        "For growing backlog, preserve evidence, identify provider, consumer, dependency, or poison-message cause, then pause or isolate affected partitions if needed. Restore bounded consumption and observe authoritative side effects.",
+        "For suspected cross-tenant delivery, stop the affected path, preserve audit evidence, assess exposure, correct routing and authorization, and reconcile all impacted events."
+      ]
+    },
+    {
+      "heading": "Replay governance",
+      "items": [
+        "Authorized requester and approved reason.",
+        "Bounded event types, tenants, identities, and time range.",
+        "Consumer idempotency and side-effect assessment.",
+        "Rate limits and dependency capacity.",
+        "Dry-run or preview where supported.",
+        "Audit, outcome reconciliation, and rollback or compensation."
+      ]
+    },
+    {
+      "heading": "Production readiness",
+      "items": [
+        "Qualified provider versions, TLS, credentials, destinations, and topology.",
+        "Delivery, acknowledgement, ordering, redelivery, and retention evidence.",
+        "Load, outage, partition, failover, restart, replay, and upgrade tests.",
+        "Dashboards, alerts, runbooks, dead-letter or failed-state ownership.",
+        "Backup or persisted-state recovery and scheduled cleanup."
+      ]
+    }
   ]
 }

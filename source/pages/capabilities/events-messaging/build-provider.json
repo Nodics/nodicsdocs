@@ -6,7 +6,12 @@
   "family": "configuration-customization",
   "parent": "page:capability.events-messaging.overview",
   "order": 20,
-  "audiences": ["developer", "architect", "framework-maintainer", "ai-tool"],
+  "audiences": [
+    "developer",
+    "architect",
+    "framework-maintainer",
+    "ai-tool"
+  ],
   "readerIntent": "Integrate a broker without moving transport logic into publishers or listeners.",
   "priorKnowledge": "Know the provider-neutral EMS contract and target broker.",
   "depth": "guided",
@@ -14,10 +19,78 @@
   "owner": "Reusable messaging-provider or customer-project adapter module",
   "lastVerified": "2026-07-26",
   "summary": "A provider maps normalized publish, subscribe, acknowledgement, error, retry, and lifecycle behavior to a broker while preserving Nodics event context.",
-  "supportingEvidence": ["nodics:gFramework/nEms/README.md", "nodics:gFramework/nEvent/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nEms/README.md",
+    "nodics:gFramework/nEvent/README.md"
+  ],
   "sections": [
-    {"heading": "Implementation path", "items": ["Audit existing EMS adapters and delivery contracts.", "Create an owned provider module.", "Declare connection aliases, handlers, destinations, serializers, acknowledgement, retry, timeout, and capability flags in layered configuration.", "Implement connect, publish, subscribe, consume, acknowledge or reject, diagnostics, readiness, reconnect, and close as supported.", "Preserve tenant, source, target, node, trace, event type, version, headers, and sanitized failures.", "Keep listener business logic and NEMS persistence outside the broker adapter."]},
-    {"heading": "Security", "items": ["Use governed destination aliases rather than request-supplied topics or queues.", "Keep credentials, certificates, endpoints, and broker topology in secret/deployment configuration.", "Validate payload type, size, schema/version, tenant, and allowed source/target.", "Do not log unrestricted payloads or use sensitive fields as telemetry labels."]},
-    {"heading": "Proof", "items": ["Contract, configuration, serialization, and compatibility tests.", "Tenant isolation, authorization, idempotency, ordering, redelivery, retry, and poison-message behavior.", "Broker outage, reconnect, backpressure, partial failure, shutdown, and replay.", "Live security, capacity, recovery, failover, and upgrade qualification."]}
+    {
+      "heading": "Implementation path",
+      "items": [
+        "Audit existing EMS adapters and delivery contracts.",
+        "Create an owned provider module.",
+        "Declare connection aliases, handlers, destinations, serializers, acknowledgement, retry, timeout, and capability flags in layered configuration.",
+        "Implement connect, publish, subscribe, consume, acknowledge or reject, diagnostics, readiness, reconnect, and close as supported.",
+        "Preserve tenant, source, target, node, trace, event type, version, headers, and sanitized failures.",
+        "Keep listener business logic and NEMS persistence outside the broker adapter."
+      ]
+    },
+    {
+      "heading": "Security",
+      "items": [
+        "Use governed destination aliases rather than request-supplied topics or queues.",
+        "Keep credentials, certificates, endpoints, and broker topology in secret/deployment configuration.",
+        "Validate payload type, size, schema/version, tenant, and allowed source/target.",
+        "Do not log unrestricted payloads or use sensitive fields as telemetry labels."
+      ]
+    },
+    {
+      "heading": "Proof",
+      "items": [
+        "Contract, configuration, serialization, and compatibility tests.",
+        "Tenant isolation, authorization, idempotency, ordering, redelivery, retry, and poison-message behavior.",
+        "Broker outage, reconnect, backpressure, partial failure, shutdown, and replay.",
+        "Live security, capacity, recovery, failover, and upgrade qualification."
+      ]
+    },
+    {
+      "heading": "Neutral capability mapping",
+      "items": [
+        "Connection and destination resolution.",
+        "Publish, subscribe, consume, acknowledge, reject, and close.",
+        "Headers, serialization, maximum payload, and version mapping.",
+        "Ordering, partition, redelivery, retry, and backpressure capabilities.",
+        "Health, metrics, errors, reconnect, and shutdown.",
+        "Explicit rejection of unsupported guarantees."
+      ]
+    },
+    {
+      "heading": "Idempotency and transactions",
+      "paragraphs": [
+        "The adapter carries stable event identity but does not implement business idempotency for consumers. Broker transactions, if supported, do not create a distributed transaction with business databases.",
+        "Document the publication consistency pattern and recovery from uncertain publish or acknowledgement."
+      ]
+    },
+    {
+      "heading": "Provider lifecycle",
+      "items": [
+        "Validate configuration before connection.",
+        "Bound startup and readiness.",
+        "Reconnect without duplicate subscriptions or uncontrolled replay.",
+        "Apply flow control under pressure.",
+        "Drain or reject in-flight work safely during shutdown.",
+        "Expose sanitized provider diagnostics."
+      ]
+    },
+    {
+      "heading": "Compatibility and rollout",
+      "items": [
+        "Supported broker, protocol, client, and topology versions.",
+        "Destination provisioning and migration.",
+        "Coexistence with the prior provider during controlled cutover.",
+        "Security, load, failure, recovery, and upgrade qualification.",
+        "Rollback and cleanup of unused destinations and credentials."
+      ]
+    }
   ]
 }

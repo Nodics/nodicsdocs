@@ -6,7 +6,14 @@
   "family": "tutorial-example",
   "parent": "section:operations",
   "order": 30,
-  "audiences": ["administrator", "developer", "architect", "security-reviewer", "operator", "ai-tool"],
+  "audiences": [
+    "administrator",
+    "developer",
+    "architect",
+    "security-reviewer",
+    "operator",
+    "ai-tool"
+  ],
   "readerIntent": "Turn a validated project composition into a repeatable deployment candidate without changing module contracts.",
   "priorKnowledge": "Understand configuration, topology, providers, security, data exchange, and testing.",
   "depth": "guided",
@@ -14,7 +21,13 @@
   "owner": "Customer project deployment modules and operators using reusable Nodics runtime contracts",
   "lastVerified": "2026-07-26",
   "summary": "Deployment packages the chosen module-based topology, supplies governed configuration and secrets, validates providers and data changes, and proves rollout, health, drain, rollback, and recovery before traffic.",
-  "supportingEvidence": ["nodics:README.md", "nodics:gFramework/nConfig/README.md", "nodics:gFramework/nConfig/docs/runtime-lifecycle-resilience-contract.md", "nodics:gFramework/nAuth/README.md"],
+  "supportingEvidence": [
+    "nodics:README.md",
+    "nodics:gFramework/nConfig/README.md",
+    "nodics:gFramework/nConfig/docs/runtime-lifecycle-resilience-contract.md",
+    "nodics:gFramework/nAuth/README.md",
+    "nodics:gDocs/operations/how-to-prepare-for-deployment.md"
+  ],
   "sections": [
     {
       "heading": "Define the candidate",
@@ -50,6 +63,219 @@
         "Qualify real production-like providers and distributed behavior; local placeholders and MonoServer results are not production evidence.",
         "Verify liveness, readiness, protected diagnostics, safe telemetry, graceful drain, bounded shutdown, resource cleanup, restart/reconciliation, and rollback.",
         "Use a staged rollout with explicit go/no-go criteria, monitoring, owners, rollback trigger, credential-rotation plan, and post-release verification."
+      ]
+    },
+    {
+      "heading": "Complete guide: How To Prepare For Deployment",
+      "migratedFrom": "nodics:gDocs/operations/how-to-prepare-for-deployment.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "Deployment means preparing Nodics to run safely in a target environment.",
+        "Deployment is not only copying files to a server. It includes configuration, generated artifacts, tests, data, security, and operational checks.",
+        "![Cloud Deployment Process](../assets/images/cloud-deployment-process.jpg)"
+      ]
+    },
+    {
+      "heading": "Beginner Summary",
+      "migratedFrom": "nodics:gDocs/operations/how-to-prepare-for-deployment.md",
+      "sourceAnchor": "beginner-summary",
+      "paragraphs": [
+        "Deployment is the point where a Nodics runtime must be predictable.",
+        "Before deploying, a team should know:",
+        "The simple rule is:",
+        "```text\nDo not deploy behavior that cannot be rebuilt, tested, explained, and rolled back.\n```"
+      ],
+      "items": [
+        "which project is being deployed;",
+        "which environment is targeted;",
+        "which servers and nodes will run;",
+        "which modules are active in each process;",
+        "which tenants are allowed;",
+        "which database, cache, search, messaging, import/export, and storage providers are configured;",
+        "which APIs are exposed;",
+        "which tests prove the release."
+      ]
+    },
+    {
+      "heading": "Before Deployment",
+      "migratedFrom": "nodics:gDocs/operations/how-to-prepare-for-deployment.md",
+      "sourceAnchor": "before-deployment",
+      "paragraphs": [
+        "Confirm:"
+      ],
+      "items": [
+        "Target environment.",
+        "Node.js and npm versions match the repository runtime contract.",
+        "Dependencies are installed from `package-lock.json` with `npm ci`.",
+        "Active modules.",
+        "Server and node topology.",
+        "Database connection values.",
+        "Cache provider.",
+        "Messaging provider.",
+        "Security secrets.",
+        "Tenant configuration.",
+        "Runtime configuration policy.",
+        "Import and initial data requirements.",
+        "Release tests."
+      ]
+    },
+    {
+      "heading": "Build Before Release",
+      "migratedFrom": "nodics:gDocs/operations/how-to-prepare-for-deployment.md",
+      "sourceAnchor": "build-before-release",
+      "paragraphs": [
+        "Install dependencies from the lockfile:",
+        "```bash\nnpm ci\n```",
+        "Run:",
+        "```bash\nnpm run build\n```",
+        "The build command validates governance, documentation, generated artifacts, OpenAPI output, LLM context, and generated documentation coverage.",
+        "Dependency release validation must include:",
+        "`package-lock.json`."
+      ],
+      "items": [
+        "Node.js 24 as the preferred release line;",
+        "Node.js 22 while it remains in the supported validation matrix;",
+        "Node.js 26 as a forward validation line before adopting it;",
+        "`npm run test:full` before a release candidate;",
+        "dependency updates committed with both `package.json` and"
+      ]
+    },
+    {
+      "heading": "Clean-Checkout Release Gate",
+      "migratedFrom": "nodics:gDocs/operations/how-to-prepare-for-deployment.md",
+      "sourceAnchor": "clean-checkout-release-gate",
+      "paragraphs": [
+        "Use the governed release gate to prove the repository can be installed, cleaned, built, regenerated, documented, and tested from a clean checkout.",
+        "Print the gate without running it:",
+        "```bash\nnpm run release:check\n```",
+        "Execute the standard gate:",
+        "```bash\nnpm run release:check -- --execute\n```",
+        "Execute the release-candidate gate with full validation:",
+        "```bash\nnpm run release:check -- --execute --full\n```",
+        "The standard gate runs `npm ci`, `npm run clean`, `npm run build`, `npm run llm:validate`, `npm run quality:docs`, and `npm run test:basic`. The full gate also runs `npm run test:full`."
+      ]
+    },
+    {
+      "heading": "Run Tests",
+      "migratedFrom": "nodics:gDocs/operations/how-to-prepare-for-deployment.md",
+      "sourceAnchor": "run-tests",
+      "paragraphs": [
+        "At minimum:",
+        "```bash\nnpm run test:basic\n```",
+        "For release:",
+        "```bash\nnpm run test:full\n```",
+        "Run live release tests only against isolated approved infrastructure."
+      ]
+    },
+    {
+      "heading": "Verify Topology",
+      "migratedFrom": "nodics:gDocs/operations/how-to-prepare-for-deployment.md",
+      "sourceAnchor": "verify-topology",
+      "paragraphs": [
+        "Consolidated mode means one server runs many capabilities together.",
+        "Modular mode means capabilities run in separate server processes.",
+        "Nodics supports both styles because different deployments need different runtime boundaries. Local development may prefer one process. Enterprise deployments may split identity, CMS, workflow, events, scheduled jobs, import/export, and data processing into separate processes.",
+        "Before deployment, confirm:",
+        "Verify modular topology:",
+        "```bash\nnpm run test:topology:modular\n```"
+      ],
+      "items": [
+        "which server owns each active module;",
+        "which modules run locally in each process;",
+        "which modules are reached through remote server coordinates;",
+        "which nodes are allowed to run scheduled jobs;",
+        "which providers are active for database, cache, search, and messaging;",
+        "where generated reports and diagnostics are written."
+      ]
+    },
+    {
+      "heading": "Verify Health And Readiness",
+      "migratedFrom": "nodics:gDocs/operations/how-to-prepare-for-deployment.md",
+      "sourceAnchor": "verify-health-and-readiness",
+      "paragraphs": [
+        "Use liveness to confirm the process can answer HTTP:",
+        "```bash\nGET /nodics/system/v0/health/live\n```",
+        "Use readiness to decide whether the process should receive traffic:",
+        "```bash\nGET /nodics/system/v0/health/ready\n```",
+        "Liveness is intentionally low-disclosure and does not require authentication. Readiness is secured with `system.health.readiness.view` and gated by `apiExposure.categories.operationalHealth`.",
+        "For production, each server/node process should have its own readiness contract. Provider-specific projects may extend readiness through later modules to check database, cache, search, messaging, storage, import/export locations, required secrets, and scheduled-job ownership.",
+        "Read the [Production Operating Model](/docs/operations/production) before using these endpoints as deployment gates."
+      ]
+    },
+    {
+      "heading": "Verify Data",
+      "migratedFrom": "nodics:gDocs/operations/how-to-prepare-for-deployment.md",
+      "sourceAnchor": "verify-data",
+      "paragraphs": [
+        "Check:",
+        "Also confirm that versioned or publishable business data has a rollback path when the business process requires it. Published content, catalog data, workflow definitions, runtime configuration, and import runs do not depend on manual database repair as the normal recovery strategy."
+      ],
+      "items": [
+        "Initial data is idempotent.",
+        "Sample data is not required in production.",
+        "Tenant data is correctly isolated.",
+        "Imports target the correct tenant.",
+        "Runtime configuration can be audited and rolled back."
+      ]
+    },
+    {
+      "heading": "Verify Security",
+      "migratedFrom": "nodics:gDocs/operations/how-to-prepare-for-deployment.md",
+      "sourceAnchor": "verify-security",
+      "paragraphs": [
+        "Check:"
+      ],
+      "items": [
+        "Login routes are intentionally pre-authentication.",
+        "Internal module routes remain secured.",
+        "Permissions are assigned to the right groups.",
+        "Service accounts have least privilege.",
+        "Secrets are not stored in source-controlled files.",
+        "Audit logs do not expose credentials."
+      ]
+    },
+    {
+      "heading": "Verify Documentation",
+      "migratedFrom": "nodics:gDocs/operations/how-to-prepare-for-deployment.md",
+      "sourceAnchor": "verify-documentation",
+      "paragraphs": [
+        "Documentation should match the deployed behavior.",
+        "Run:",
+        "```bash\nnpm run docs:coverage:source -- --limit=20\nnpm run docs:coverage:contracts -- --limit=20\n```",
+        "Also regenerate and inspect API documentation when routes or schemas changed:",
+        "```bash\nnpm run docs:openapi\n```",
+        "For developer/support environments with contract exposure enabled, verify:",
+        "```text\nGET /nodics/system/v0/contract/openapi\nGET /nodics/system/v0/contract/swagger\n```",
+        "Keep Swagger/OpenAPI secured in shared and production-like topologies."
+      ]
+    },
+    {
+      "heading": "What To Avoid",
+      "migratedFrom": "nodics:gDocs/operations/how-to-prepare-for-deployment.md",
+      "sourceAnchor": "what-to-avoid",
+      "paragraphs": [
+        "Avoid:"
+      ],
+      "items": [
+        "Deploying unbuilt generated artifacts.",
+        "Changing generated files directly on the server.",
+        "Using local sample data in production.",
+        "Sharing test infrastructure with production.",
+        "Disabling security to make deployment easier.",
+        "Making environment-specific changes in framework source.",
+        "Deploying with unclear active module ownership.",
+        "Mixing sample data with production initialization data."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/operations/how-to-prepare-for-deployment.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "Previous: [How To Run And Debug Nodics](/docs/operations/local-runtime)",
+        "Next: [Production Operating Model](/docs/operations/production)",
+        "Security: [How Users, Tenants, And Permissions Work](/docs/security/users-tenants-permissions)",
+        "Documentation home: [Nodics Documentation](/docs)"
       ]
     }
   ]

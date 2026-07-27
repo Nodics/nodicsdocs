@@ -6,7 +6,11 @@
   "family": "runtime-behavior",
   "parent": "page:capability.search-indexing.overview",
   "order": 40,
-  "audiences": ["developer", "architect", "operator"],
+  "audiences": [
+    "developer",
+    "architect",
+    "operator"
+  ],
   "readerIntent": "Integrate indexing and search-assisted selection with governed data import and export.",
   "priorKnowledge": "Understand nImport, nExport, authoritative models, and derived indexes.",
   "depth": "implementation",
@@ -20,6 +24,14 @@
     "nodics:gFramework/nSearch/README.md"
   ],
   "sections": [
+    {
+      "heading": "Recovery boundary",
+      "items": [
+        "If authoritative import succeeds but indexing fails, record the derived-state failure and rebuild or reconcile from imported data. Do not repeat business writes merely to trigger indexing.",
+        "Exports state whether results come from authoritative models or a search projection and reject stale or incomplete projection use when the export contract requires current authority.",
+        "Verify checkpoint resume, duplicate batch, deleted records, mapping change, alias activation, tenant isolation, provider outage, and a full rebuild while ordinary schema updates continue."
+      ]
+    },
     {
       "heading": "Import and indexing",
       "items": [

@@ -3,10 +3,16 @@
   "title": "Relationships, Ownership, and Record Lifecycle",
   "route": "/docs/capabilities/schema-modeling/relationships",
   "section": "capabilities",
-  "family": "concepts-policy",
+  "family": "concepts-architecture",
   "parent": "page:capability.schema-modeling.overview",
   "order": 20,
-  "audiences": ["business-user", "administrator", "developer", "architect", "ai-tool"],
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "ai-tool"
+  ],
   "readerIntent": "Design relationships without losing module ownership or tenant safety.",
   "priorKnowledge": "Understand schemas and runtime models.",
   "depth": "implementation",
@@ -14,7 +20,11 @@
   "owner": "Each module owns its schemas; references preserve the target module authority",
   "lastVerified": "2026-07-26",
   "summary": "Relationships may connect schemas in the same or different modules, but creation, validation, access, and lifecycle remain governed by each owning capability.",
-  "supportingEvidence": ["nodics:gFramework/nData/README.md", "nodics:gCore/profile/README.md", "nodics:gExp/backoffice/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nData/README.md",
+    "nodics:gCore/profile/README.md",
+    "nodics:gExp/backoffice/README.md"
+  ],
   "sections": [
     {
       "heading": "Relationship choices",
@@ -39,6 +49,71 @@
         "What happens when a parent is deactivated or removed?",
         "Are tenant, enterprise, catalog, version, and ownership boundaries compatible?",
         "Must changes publish, index, invalidate cache, emit an event, or begin a workflow?"
+      ]
+    },
+    {
+      "heading": "Relationship types and meaning",
+      "items": [
+        "Required and optional single references express whether one target is necessary.",
+        "Collection references require duplicate, ordering, minimum, and maximum behavior.",
+        "Composition means the child lifecycle is normally controlled by the parent.",
+        "Association means each side retains an independent lifecycle.",
+        "Hierarchy needs distinct parent and child labels plus cycle protection."
+      ],
+      "paragraphs": [
+        "The schema records business meaning, not merely a database identifier. Cardinality, ownership, selection, nested creation, unlinking, and deletion are explicit contract decisions."
+      ]
+    },
+    {
+      "heading": "Friendly identity and discovery",
+      "paragraphs": [
+        "Related-record selectors show safe identity such as code and description, not only an opaque key. Axis displays code plus a short description and makes the complete description available as a tooltip.",
+        "Search remains authorized and tenant-scoped. Friendly display fields improve usability but cannot expose inaccessible records."
+      ]
+    },
+    {
+      "heading": "Select existing or create related",
+      "paragraphs": [
+        "A schema-driven form can offer Select existing and Create new. Create new appears only when the target model exposes creation and the employee has permission. The rule applies to same-module and cross-module relationships.",
+        "Nested creation calls the target capability's normal API and validation. After success, the identifier joins the parent draft. Failure must not leave a partially saved parent."
+      ]
+    },
+    {
+      "heading": "Example: Enterprise relationships",
+      "paragraphs": [
+        "An Enterprise belongs to a Tenant, may have a Parent enterprise, and may relate to addresses and contacts. Role-specific labels prevent two unrelated fields from both appearing simply as Enterprise.",
+        "When the required Tenant is absent, an authorized employee can create it through Profile's Tenant contract. Tenant permissions, uniqueness, and validation remain Profile-owned."
+      ]
+    },
+    {
+      "heading": "Cross-module authority",
+      "items": [
+        "The source model validates whether the association is allowed.",
+        "The target capability validates existence and visibility.",
+        "Creation, update, and deletion use the target public contract.",
+        "A stored foreign identifier does not grant authorization.",
+        "Cache, search, import, export, and event projections preserve both scopes."
+      ]
+    },
+    {
+      "heading": "Deletion and lifecycle behavior",
+      "items": [
+        "Restrict deletion while required dependents exist.",
+        "Detach optional associations only through an authorized mutation.",
+        "Cascade only for genuine composition and document recovery.",
+        "Use deactivation or archival when audit, publishing, or retention prevents deletion.",
+        "Reconcile search, cache, exports, events, and online projections."
+      ]
+    },
+    {
+      "heading": "Verification matrix",
+      "items": [
+        "Valid existing selection and permitted nested creation.",
+        "Missing, duplicate, wrong-type, and nonexistent references.",
+        "Unauthorized visibility and wrong-tenant association.",
+        "Parent cycles and collection cardinality boundaries.",
+        "Child failure, parent failure, retry, and partial-state recovery.",
+        "Delete, detach, deactivate, archive, import, export, and search behavior."
       ]
     }
   ]

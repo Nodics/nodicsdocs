@@ -18,6 +18,9 @@ environment URLs, Git operations, or another import engine here.
 - `assets/images` owns reviewed documentation media originals.
 - `data/core` is deterministic, committed Nodics import data and the directly
   consumable release artifact.
+- Project and application documentation packs standardize their release
+  manifest as `manifest/docs-content-pack.json`; do not introduce the longer
+  `documentation-content-pack.json` name or a project-specific alternative.
 - The CMS database is a runtime projection, never the only content source.
 - Never manually maintain the same article in Markdown and structured source.
 - Keep concise repository setup guidance in this README only.
@@ -48,6 +51,19 @@ environment URLs, Git operations, or another import engine here.
   lifecycle, import/export and cross-capability interaction, operations, and
   verification. Record why an inapplicable section does not apply.
 
+## Platform-contract conformance
+
+The platform-wide documentation-impact, detail-preservation, audience,
+use-case, and generation principles are owned by Nodics at
+`gSetup/llm/contracts/documentation-impact-contract.md`. This repository does
+not redefine those developer and AI-tool rules.
+
+This repository applies the Nodics contract to canonical structured content.
+`docs/content-contract.md` owns content-pack metadata, safe blocks, stable
+identity, generation, release, and CMS projection. Page structure is governed
+by `docs/information-architecture.md`; source synchronization and retirement are
+governed by `docs/migration-and-retirement-policy.md`.
+
 ## Safety and compatibility
 
 - Content is declarative and non-executable.
@@ -68,3 +84,9 @@ Contributors run `npm run verify` after content, generator, media, or contract
 changes. Consumer installation requires no repository command.
 Validate duplicate codes, routes, unsupported blocks, broken source links,
 missing assets, compatibility metadata, and deterministic generation.
+
+Before generating a release from reconciled legacy evidence, run
+`npm run sync:gdocs-detail` and `npm run normalize:links`. `npm run verify`
+enforces both `audit:coverage` and `audit:depth`. Passing a word-count benchmark
+does not waive source coverage, factual verification, audience coverage, or
+editorial review.

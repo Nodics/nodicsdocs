@@ -6,7 +6,11 @@
   "family": "technical-reference",
   "parent": "page:capability.search-indexing.overview",
   "order": 10,
-  "audiences": ["developer", "architect", "operator"],
+  "audiences": [
+    "developer",
+    "architect",
+    "operator"
+  ],
   "readerIntent": "Select and qualify an available Nodics search implementation.",
   "priorKnowledge": "Understand the provider-neutral search contract.",
   "depth": "reference",
@@ -14,7 +18,9 @@
   "owner": "gFramework/nSearch",
   "lastVerified": "2026-07-26",
   "summary": "The generic search module is the caller contract; Elasticsearch is the current engine-specific adapter.",
-  "evidence": ["nodics:gFramework/nSearch/elastic/README.md"],
+  "evidence": [
+    "nodics:gFramework/nSearch/elastic/README.md"
+  ],
   "sections": [
     {
       "heading": "Provider-neutral search",
@@ -37,6 +43,50 @@
       "heading": "Configuration boundary",
       "paragraphs": [
         "Endpoints, credentials, index names, aliases, tenant routing, timeouts, retries, refresh, mappings, and engine topology belong to layered configuration or approved secret/runtime governance—not provider-neutral business source."
+      ]
+    },
+    {
+      "heading": "Elasticsearch maturity",
+      "paragraphs": [
+        "The adapter provides implemented mapping for the normalized operations, but production approval is specific to the selected Elasticsearch and client versions, security configuration, topology, mappings, and workload.",
+        "A local single-node instance with security disabled is suitable only for local integration testing and must never define committed production defaults."
+      ]
+    },
+    {
+      "heading": "Capability comparison",
+      "items": [
+        "Confirm every required normalized operation.",
+        "Confirm mapping, analyzer, aggregation, pagination, bulk, alias, and refresh semantics.",
+        "Confirm partial bulk failure and conflict behavior.",
+        "Confirm tenant routing and permission filters cannot be bypassed.",
+        "Confirm retry and timeout behavior is safe.",
+        "Record unsupported engine features explicitly."
+      ]
+    },
+    {
+      "heading": "Adding another engine",
+      "paragraphs": [
+        "OpenSearch, Solr, or another engine requires its own provider module implementing the same normalized boundary. The adapter owns vendor translation; business models and generic search services remain unchanged.",
+        "Completion requires live provider tests, supported-version documentation, security, performance, failure, migration, backup, and recovery evidence."
+      ]
+    },
+    {
+      "heading": "Production evidence",
+      "items": [
+        "Authenticated encrypted connection and secret rotation.",
+        "Representative query and indexing load.",
+        "Cluster, shard, replica, and capacity behavior.",
+        "Node loss, partition, reconnect, and partial bulk failure.",
+        "Snapshot restore, reindex, alias rollback, and upgrade.",
+        "Dashboards, alerts, runbooks, and known limitations."
+      ]
+    },
+    {
+      "heading": "Selection reminder",
+      "items": [
+        "Choose an engine only after matching query, scale, consistency, tenancy, operations, cost, recovery, and supported-version needs.",
+        "A locally installed Elasticsearch instance proves development integration, not production security, clustering, backup, upgrade, or capacity.",
+        "Keep selection configurable and qualify every enabled provider against the same normalized nSearch contract."
       ]
     }
   ]

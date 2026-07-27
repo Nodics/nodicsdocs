@@ -1,1 +1,88 @@
-{"code":"solution.kyc.technical-reference","title":"Know Your Customer Technical Reference","route":"/docs/reference/kyc","section":"reference","family":"technical-reference","parent":"section:reference","order":230,"audiences":["business-user","administrator","developer","architect","security-reviewer","operator","ai-tool"],"readerIntent":"Understand the optional KYC capability and its high-sensitivity governance requirements.","priorKnowledge":"Understand customer identity, workflows, providers, security, audit, and retention.","depth":"reference","status":"implemented","owner":"Optional KYC capability; Profile retains customer identity ownership","lastVerified":"2026-07-26","summary":"KYC coordinates verification cases, evidence references, checks, decisions, provider interactions, and audit without duplicating customer identity or exposing sensitive evidence broadly.","supportingEvidence":["nodics:gOptional/kyc/README.md","nodics:gOptional/kyc/kycCore/README.md","nodics:gOptional/kyc/kycSchema/README.md","nodics:gOptional/kyc/kycApi/README.md"],"sections":[{"heading":"Contract","items":["Tenant/customer reference, case, requirement, check, provider reference, evidence metadata, consent, decision, expiry, reviewer, status, reason, and audit.","Provider adapters receive minimum required data through governed secrets and endpoints; raw evidence storage and access follow project legal/security policy.","Manual and automatic actions use Workflow where configured; target KYC services own decisions.","Profile remains identity authority and references KYC status through governed contracts rather than copied credentials/evidence."]},{"heading":"Production evidence","items":["Data minimization, encryption, field masking, purpose/consent, residency, retention/deletion, access review, provider outage, duplicate/replay, manual override, audit integrity, incident response, legal review, performance, and regression tests."]}]}
+{
+  "code": "solution.kyc.technical-reference",
+  "title": "Know Your Customer Technical Reference",
+  "route": "/docs/reference/kyc",
+  "section": "reference",
+  "family": "technical-reference",
+  "parent": "section:reference",
+  "order": 230,
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "security-reviewer",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Understand the optional KYC capability and its high-sensitivity governance requirements.",
+  "priorKnowledge": "Understand customer identity, workflows, providers, security, audit, and retention.",
+  "depth": "reference",
+  "status": "implemented",
+  "owner": "Optional KYC capability; Profile retains customer identity ownership",
+  "lastVerified": "2026-07-26",
+  "summary": "KYC coordinates verification cases, evidence references, checks, decisions, provider interactions, and audit without duplicating customer identity or exposing sensitive evidence broadly.",
+  "supportingEvidence": [
+    "nodics:gOptional/kyc/README.md",
+    "nodics:gOptional/kyc/kycCore/README.md",
+    "nodics:gOptional/kyc/kycSchema/README.md",
+    "nodics:gOptional/kyc/kycApi/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Authority and case model",
+      "items": [
+        "The KYC capability owns cases, requirements, checks, evidence metadata, consent references, decisions, expiry, review, and audit; Profile owns customer identity.",
+        "A case binds tenant, customer, purpose, jurisdiction, policy/version, required checks, status, owner, dates, and safe provider references.",
+        "Raw documents and biometrics use approved secure storage and access policy; ordinary models, logs, search, events, and frontend state contain only necessary metadata."
+      ]
+    },
+    {
+      "heading": "Verification lifecycle",
+      "items": [
+        "Open validates identity reference, purpose, consent, jurisdiction, duplicate/active cases, policy, retention, and required checks.",
+        "Automatic provider checks and manual reviewer actions may coexist in Workflow, but the KYC service owns final state and target authorization.",
+        "Pending, information-required, under-review, approved, rejected, expired, revoked, appealed, and closed transitions carry reason, actor, evidence, revision, and audit."
+      ]
+    },
+    {
+      "heading": "Provider boundary",
+      "items": [
+        "Adapters receive minimum required data through configured endpoints and secret references, normalize provider status and errors, and never expose vendor SDKs to Profile or clients.",
+        "Timeout after submission creates an uncertain check reconciled by provider reference; blind replay may duplicate cost or verification.",
+        "Provider selection, residency, supported document types, rate, timeout, retry, circuit, fallback, webhook verification, and data deletion are explicit configuration."
+      ]
+    },
+    {
+      "heading": "Privacy and security",
+      "items": [
+        "Enforce purpose limitation, consent, encryption, field masking, least privilege, separation of duties, residency, retention, deletion, legal hold, access review, and incident response.",
+        "Public responses do not reveal detailed fraud signals, document data, provider payloads, credentials, reviewer notes, or whether another customer's case exists.",
+        "Service callbacks authenticate source, bind tenant and case, validate replay and signature, and cannot directly update Profile credentials."
+      ]
+    },
+    {
+      "heading": "Verification and operations",
+      "items": [
+        "Test valid and invalid identity, wrong tenant, missing consent, duplicate case, document boundaries, provider timeout, webhook replay, manual override, appeal, expiry, and revocation.",
+        "Test cross-role access, masking, retention/deletion, provider outage, uncertain reconciliation, workflow recovery, audit integrity, migration, load, and regression.",
+        "Monitor case age, check latency, provider error, manual backlog, expiry, unresolved uncertainty, access, deletion, and incidents with legal and operational ownership."
+      ]
+    },
+    {
+      "heading": "Contract",
+      "items": [
+        "Tenant/customer reference, case, requirement, check, provider reference, evidence metadata, consent, decision, expiry, reviewer, status, reason, and audit.",
+        "Provider adapters receive minimum required data through governed secrets and endpoints; raw evidence storage and access follow project legal/security policy.",
+        "Manual and automatic actions use Workflow where configured; target KYC services own decisions.",
+        "Profile remains identity authority and references KYC status through governed contracts rather than copied credentials/evidence."
+      ]
+    },
+    {
+      "heading": "Production evidence",
+      "items": [
+        "Data minimization, encryption, field masking, purpose/consent, residency, retention/deletion, access review, provider outage, duplicate/replay, manual override, audit integrity, incident response, legal review, performance, and regression tests."
+      ]
+    }
+  ]
+}

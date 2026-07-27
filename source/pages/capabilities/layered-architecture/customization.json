@@ -6,7 +6,12 @@
   "family": "configuration-customization",
   "parent": "page:capability.layered-architecture.overview",
   "order": 30,
-  "audiences": ["developer", "architect", "framework-maintainer", "ai-tool"],
+  "audiences": [
+    "developer",
+    "architect",
+    "framework-maintainer",
+    "ai-tool"
+  ],
   "readerIntent": "Customize an existing capability in a customer project while preserving upgrades.",
   "priorKnowledge": "Know the owning capability and layer.",
   "depth": "guided",
@@ -14,7 +19,10 @@
   "owner": "Customer project module layered over an owning Nodics capability",
   "lastVerified": "2026-07-26",
   "summary": "Prefer configuration, then a documented extension or override, and create new behavior only when the existing contracts cannot express the requirement.",
-  "supportingEvidence": ["nodics:gFramework/nService/README.md", "nodics:gFramework/nConfig/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nService/README.md",
+    "nodics:gFramework/nConfig/README.md"
+  ],
   "sections": [
     {
       "heading": "Extension sequence",
@@ -27,9 +35,56 @@
       ]
     },
     {
+      "heading": "Choose the smallest supported change",
+      "items": [
+        "Data or policy value: use the owned configuration contract.",
+        "Additional declarative field or relationship metadata: use schema extension.",
+        "Business algorithm: extend or override the owning service.",
+        "Cross-service use case: extend the facade rather than duplicating services.",
+        "Lifecycle behavior: use a declared interceptor, pipeline, event, job, or workflow extension.",
+        "External technology: implement the provider interface behind the neutral capability.",
+        "New public behavior: add a versioned route only when no existing operation expresses it."
+      ]
+    },
+    {
+      "heading": "Project isolation",
+      "paragraphs": [
+        "Customer customizations live in that customer's project repository and loader-visible module hierarchy. Two projects can provide different later implementations without either one modifying Nodics or affecting the other.",
+        "A reusable frontend such as Axis is deployed per customer project but remains presentation-only. Customer business customization belongs in the customer's backend project modules."
+      ]
+    },
+    {
       "heading": "Example",
       "paragraphs": [
         "If a project needs additional employee validation, extend the profile-owned validation or save-interceptor contract in the project layer. Do not copy the employee schema, create a direct database write, or validate only in Axis."
+      ]
+    },
+    {
+      "heading": "Detailed example",
+      "paragraphs": [
+        "A logistics project requires a government identifier before activating a driver employee. Profile already owns Employee and activation. The project extends Employee through the supported schema layer and adds an owned validation interceptor reached by every activation mutation.",
+        "Imports, API calls, workflows, jobs, and Axis all encounter the same rule. The ecommerce project, which does not activate the logistics module, retains default Profile behavior."
+      ]
+    },
+    {
+      "heading": "Compatibility and upgrades",
+      "items": [
+        "Preserve the public capability contract unless the change is intentionally versioned.",
+        "Call documented extension points rather than importing internal implementation files.",
+        "Record assumptions about schema fields, service methods, events, statuses, and configuration.",
+        "Regenerate derived artifacts after source-contract changes.",
+        "Run default behavior and project behavior tests during framework upgrades.",
+        "Document migration or deprecation when an extension point changes."
+      ]
+    },
+    {
+      "heading": "Duplication and authority review",
+      "items": [
+        "Search existing services, facades, interceptors, pipelines, loaders, registries, workflows, events, providers, and configuration.",
+        "Confirm the proposed implementation does not create another data owner.",
+        "Confirm every mutation path reaches the same rule.",
+        "Confirm tooling and frontend code remain bridges rather than authorities.",
+        "Record why a new mechanism is required when extension is insufficient."
       ]
     },
     {
@@ -39,6 +94,13 @@
         "Customized behavior activates only in the intended project and scope.",
         "Positive, negative, boundary, contract, integration, and regression tests pass.",
         "Documentation explains the extension point, configuration, limitations, operations, and upgrade considerations."
+      ]
+    },
+    {
+      "heading": "Rollback and removal",
+      "paragraphs": [
+        "A customization should be removable by deactivating its project module or governed configuration while default framework behavior remains intact. Data migrations and externally visible contract changes require a separate rollback or compatibility plan.",
+        "Unused experimental paths should be deprecated and removed once callers migrate; keeping both indefinitely increases ambiguity and test cost."
       ]
     }
   ]

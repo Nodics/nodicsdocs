@@ -1,1 +1,77 @@
-{"code":"capability.scheduled-jobs.technical-reference","title":"Scheduled Jobs Technical Reference","route":"/docs/reference/scheduled-jobs","section":"reference","family":"technical-reference","parent":"page:capability.scheduled-jobs.overview","order":20,"audiences":["developer","architect","operator","framework-maintainer","ai-tool"],"readerIntent":"Audit definitions, placement, commands, security, resilience, and tests.","priorKnowledge":"Read the scheduled-jobs journey.","depth":"reference","status":"implemented","owner":"CronJob module and project job owners","lastVerified":"2026-07-26","summary":"Every job documents trigger, durable definition, execution owner, placement, identity, concurrency, failure semantics, observability, and recovery.","supportingEvidence":["nodics:gCore/cronjob/README.md"],"sections":[{"heading":"Checklist","items":["Code, tenant, schedule/trigger, handler, active/start/end, node placement, and priority.","Manual permissions, service identity, target permissions, timeout, retry, idempotency, overlap, and cancellation.","State, logs, events, safe trace, retention, quarantine, reconciliation, replay, and compensation.","Readiness, drain, restart, failover, capacity, positive, negative, boundary, contract, integration, topology, and regression evidence."]}]}
+{
+  "code": "capability.scheduled-jobs.technical-reference",
+  "title": "Scheduled Jobs Technical Reference",
+  "route": "/docs/reference/scheduled-jobs",
+  "section": "reference",
+  "family": "technical-reference",
+  "parent": "page:capability.scheduled-jobs.overview",
+  "order": 20,
+  "audiences": [
+    "developer",
+    "architect",
+    "operator",
+    "framework-maintainer",
+    "ai-tool"
+  ],
+  "readerIntent": "Audit definitions, placement, commands, security, resilience, and tests.",
+  "priorKnowledge": "Read the scheduled-jobs journey.",
+  "depth": "reference",
+  "status": "implemented",
+  "owner": "CronJob module and project job owners",
+  "lastVerified": "2026-07-26",
+  "summary": "Every job documents trigger, durable definition, execution owner, placement, identity, concurrency, failure semantics, observability, and recovery.",
+  "supportingEvidence": [
+    "nodics:gCore/cronjob/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Authority and identity",
+      "items": [
+        "Cron owns schedules and triggering; the target service owns business execution. A scheduled job is not a place to duplicate domain logic or bypass a module API.",
+        "Jobs execute with a service principal and bounded internal token, never an employee password or reusable human session.",
+        "Tenant, enterprise, job definition, trigger, attempt, and correlation identity are explicit and preserved through downstream work."
+      ]
+    },
+    {
+      "heading": "Definition and configuration",
+      "items": [
+        "A definition declares code, schedule, timezone, target operation, input projection, activation, concurrency policy, timeout, retries, misfire behavior, ownership, and observability.",
+        "Properties configure runtime defaults while persistent job models hold governed operational definitions where implemented. Secrets remain references, not schedule payloads.",
+        "Validate expressions, timezone boundaries, duplicate codes, disabled targets, maximum frequency, and permission before activation."
+      ]
+    },
+    {
+      "heading": "Execution lifecycle",
+      "items": [
+        "The scheduler claims due work using durable ownership, records an attempt, invokes the target idempotently, heartbeats long work, and records success, failure, cancellation, or uncertain outcome.",
+        "Multi-node execution must prevent duplicate ownership without relying on process memory. A lease expiry is reconciled before blind replay.",
+        "Shutdown stops new claims, drains bounded active work, and leaves recoverable durable state for another node."
+      ]
+    },
+    {
+      "heading": "Failure and recovery",
+      "items": [
+        "Retry only classified transient failures and preserve the same business idempotency identity. Validation, authorization, and permanent business denial do not become successful through repetition.",
+        "Misfire policy explicitly skips, runs once, or catches up within bounds; it never creates an uncontrolled burst after downtime.",
+        "Operators can pause, resume, trigger where permitted, inspect attempts, cancel cooperative work, and reconcile uncertain results under audit."
+      ]
+    },
+    {
+      "heading": "Verification and observability",
+      "items": [
+        "Test timezone and daylight-saving boundaries, duplicate nodes, overlapping runs, lease loss, crash, timeout, cancellation, disabled job, target denial, retry, and recovery.",
+        "Measure due-to-start delay, duration, result category, retry, lease age, backlog, and misfire with bounded labels; payloads and secrets remain out of telemetry.",
+        "Document business purpose, owner, schedule, impact, safe manual procedure, dependency, failure policy, alerts, and runbook."
+      ]
+    },
+    {
+      "heading": "Checklist",
+      "items": [
+        "Code, tenant, schedule/trigger, handler, active/start/end, node placement, and priority.",
+        "Manual permissions, service identity, target permissions, timeout, retry, idempotency, overlap, and cancellation.",
+        "State, logs, events, safe trace, retention, quarantine, reconciliation, replay, and compensation.",
+        "Readiness, drain, restart, failover, capacity, positive, negative, boundary, contract, integration, topology, and regression evidence."
+      ]
+    }
+  ]
+}

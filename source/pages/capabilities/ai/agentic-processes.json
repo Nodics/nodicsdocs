@@ -1,1 +1,77 @@
-{"code":"capability.ai.agentic-processes","title":"Agentic Business Processes","route":"/docs/capabilities/ai/agentic-processes","section":"capabilities","family":"concepts-architecture","parent":"page:capability.ai.overview","order":50,"audiences":["business-user","administrator","developer","architect","security-reviewer","operator","ai-tool"],"readerIntent":"Design controlled AI planning and execution over Nodics capabilities.","priorKnowledge":"Understand Assistant tools, target APIs, confirmations, and workflows.","depth":"implementation","status":"implemented","owner":"Assistant plans; target modules execute; Workflow owns durable multi-step process state","lastVerified":"2026-07-26","summary":"Agentic behavior discovers allowlisted contracts, proposes bounded actions, obtains required approval, and delegates execution without self-authorizing or bypassing business workflows.","supportingEvidence":["nodics:gAi/aiAssistant/README.md","nodics:gCore/workflow/README.md"],"sections":[{"heading":"Controlled loop","items":["Interpret user intent within an approved Assistant definition.","Discover current allowed operation metadata, never arbitrary URLs or code.","Retrieve permission-safe evidence and propose a structured plan.","Separate read-only tools from material mutations.","Bind mutation arguments to an immutable digest and request explicit employee confirmation.","Execute directly only when policy permits a bounded idempotent operation; otherwise create a Workflow carrier.","Target module independently authorizes, validates, persists, audits, and returns safe outcome.","Assistant summarizes outcome and citations without becoming the source of business truth."]},{"heading":"Risk controls","items":["No model self-approval, provider-native tools, browser credentials, inline secrets, or hidden permissions.","Idempotency keys, optimistic revisions, timeouts, quotas, cancellation, retries only when safe, uncertain-outcome state, compensation, and reconciliation.","Human approval for destructive, financial, identity, publishing, external communication, high-cost, or otherwise material actions.","Workflow manages manual and automatic steps, pause/resume, rejection, retry, and durable recovery."]},{"heading":"Evidence","items":["Prompt injection, malicious retrieved content, tool confusion, argument substitution, approval replay/expiry, target denial, partial failure, duplicate execution, provider outage, workflow handoff, compensation, audit, and regression."]}]}
+{
+  "code": "capability.ai.agentic-processes",
+  "title": "Agentic Business Processes",
+  "route": "/docs/capabilities/ai/agentic-processes",
+  "section": "capabilities",
+  "family": "concepts-architecture",
+  "parent": "page:capability.ai.overview",
+  "order": 50,
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "security-reviewer",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Design controlled AI planning and execution over Nodics capabilities.",
+  "priorKnowledge": "Understand Assistant tools, target APIs, confirmations, and workflows.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Assistant plans; target modules execute; Workflow owns durable multi-step process state",
+  "lastVerified": "2026-07-26",
+  "summary": "Agentic behavior discovers allowlisted contracts, proposes bounded actions, obtains required approval, and delegates execution without self-authorizing or bypassing business workflows.",
+  "supportingEvidence": [
+    "nodics:gAi/aiAssistant/README.md",
+    "nodics:gCore/workflow/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Controlled loop",
+      "items": [
+        "Interpret user intent within an approved Assistant definition.",
+        "Discover current allowed operation metadata, never arbitrary URLs or code.",
+        "Retrieve permission-safe evidence and propose a structured plan.",
+        "Separate read-only tools from material mutations.",
+        "Bind mutation arguments to an immutable digest and request explicit employee confirmation.",
+        "Execute directly only when policy permits a bounded idempotent operation; otherwise create a Workflow carrier.",
+        "Target module independently authorizes, validates, persists, audits, and returns safe outcome.",
+        "Assistant summarizes outcome and citations without becoming the source of business truth."
+      ]
+    },
+    {
+      "heading": "Risk controls",
+      "items": [
+        "No model self-approval, provider-native tools, browser credentials, inline secrets, or hidden permissions.",
+        "Idempotency keys, optimistic revisions, timeouts, quotas, cancellation, retries only when safe, uncertain-outcome state, compensation, and reconciliation.",
+        "Human approval for destructive, financial, identity, publishing, external communication, high-cost, or otherwise material actions.",
+        "Workflow manages manual and automatic steps, pause/resume, rejection, retry, and durable recovery."
+      ]
+    },
+    {
+      "heading": "Example business process",
+      "items": [
+        "A merchandiser asks to publish a changed product. Assistant retrieves the product and publication status, proposes the exact catalog item and version, and explains missing validation or approvals.",
+        "Publishing is material and multi-step, so the assistant does not impersonate the workflow engine. After confirmation it creates or advances the governed Workflow carrier with immutable item references.",
+        "Manual approval and automatic validation actions can coexist. Workflow records assignee, decision, retry, rejection, and recovery while nPublish owns deployment to the Online target.",
+        "Assistant observes authorized progress and summarizes it. Product, Workflow, and nPublish remain authoritative for their respective data and decisions."
+      ]
+    },
+    {
+      "heading": "Evidence",
+      "items": [
+        "Prompt injection, malicious retrieved content, tool confusion, argument substitution, approval replay/expiry, target denial, partial failure, duplicate execution, provider outage, workflow handoff, compensation, audit, and regression."
+      ]
+    },
+    {
+      "heading": "Design and acceptance guidance",
+      "items": [
+        "Define every tool from current backend contracts: purpose, risk, required permission, input schema, output projection, idempotency, timeout, confirmation, and workflow policy. Never let the model invent endpoints.",
+        "Keep planning bounded by maximum steps, elapsed time, calls, tokens, and cost. Re-plan only with explicit evidence and never use repeated model calls when deterministic Nodics logic can decide.",
+        "Represent uncertain outcomes explicitly. A timeout after a mutation request cannot be retried blindly; query by idempotency identity or reconcile with the target before deciding.",
+        "Production tests include harmless reads, denied reads, confirmed and rejected mutations, stale confirmation, changed arguments, duplicate delivery, partial completion, compensation, cancellation, tenant isolation, audit reconstruction, and safe human escalation."
+      ]
+    }
+  ]
+}

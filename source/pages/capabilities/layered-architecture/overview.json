@@ -3,10 +3,16 @@
   "title": "Modular and Layered Architecture",
   "route": "/docs/capabilities/layered-architecture",
   "section": "capabilities",
-  "family": "overview-business-value",
-  "parent": "page:framework.architecture",
+  "family": "overview",
+  "parent": "section:capabilities",
   "order": 20,
-  "audiences": ["evaluator", "business-user", "developer", "architect", "ai-tool"],
+  "audiences": [
+    "evaluator",
+    "business-user",
+    "developer",
+    "architect",
+    "ai-tool"
+  ],
   "readerIntent": "Understand how Nodics separates reusable framework behavior, business capabilities, and customer-specific extensions.",
   "priorKnowledge": "Read the framework architecture and configuration overview.",
   "depth": "overview",
@@ -14,8 +20,19 @@
   "owner": "Nodics modular runtime and all capability owners",
   "lastVerified": "2026-07-26",
   "summary": "Nodics organizes capabilities into independently composable modules and uses consistent source layers so teams can find, extend, test, and operate behavior without losing ownership.",
-  "supportingEvidence": ["nodics:README.md", "nodics:gFramework/nConfig/README.md", "nodics:gFramework/nService/README.md"],
+  "supportingEvidence": [
+    "nodics:README.md",
+    "nodics:gFramework/nConfig/README.md",
+    "nodics:gFramework/nService/README.md"
+  ],
   "sections": [
+    {
+      "heading": "What is Modular and Layered Architecture?",
+      "paragraphs": [
+        "Modular architecture divides a platform into capabilities with clear ownership. Layered architecture lets a project, environment, tenant, or customer customize a default implementation at the appropriate level without modifying the reusable framework source.",
+        "It is comparable to a standard building design with governed extension points: the foundation remains shared, while authorized occupants can replace finishes or equipment without rebuilding the structure."
+      ]
+    },
     {
       "heading": "Business value",
       "items": [
@@ -33,12 +50,65 @@
       ]
     },
     {
+      "heading": "What a module owns",
+      "items": [
+        "A recognizable technical or business capability and its public contracts.",
+        "Default configuration and supported override points.",
+        "Schemas, services, APIs, events, jobs, workflows, providers, or processors required by the capability.",
+        "Lifecycle, readiness, shutdown, diagnostics, status contracts, and tests.",
+        "Canonical implemented documentation and concise repository ownership guidance."
+      ]
+    },
+    {
+      "heading": "What layering solves",
+      "paragraphs": [
+        "A reusable framework must serve many projects without combining their customer-specific changes. Nodics loads behavior in controlled order so a later customer or environment layer can refine an approved contract while the original capability remains reusable.",
+        "An ecommerce project and a logistics project can customize the same service differently because each supplies its own later layer. Neither customization is written into shared Nodics source."
+      ]
+    },
+    {
+      "heading": "Standard implementation responsibilities",
+      "items": [
+        "Schemas define data meaning and declarative constraints.",
+        "Services own reusable business operations; facades coordinate broader use cases.",
+        "Controllers adapt transport input and output; routers expose versioned operations and security metadata.",
+        "Pipelines, interceptors, events, jobs, and processors handle reusable lifecycle work.",
+        "Properties define configurable policy and provider choices.",
+        "Tests and documentation prove and explain the contract."
+      ]
+    },
+    {
+      "heading": "Dependency and communication boundaries",
+      "paragraphs": [
+        "A module may depend on another capability's public contract. It must not reach into that module's storage or copy its authority. When capabilities run in different processes, configured connections carry the API interaction; ownership remains unchanged.",
+        "BackOffice registration, service discovery, MCP tooling, and generated clients are bridges over contracts, not alternate business authorities."
+      ]
+    },
+    {
+      "heading": "Example: changing a pricing rule",
+      "paragraphs": [
+        "Pricing owns price selection. A retailer project may configure eligible price-group priority or extend the pricing service through a supported later layer. Storefront, Product, and Axis callers continue to ask Pricing for the result.",
+        "The retailer does not place the rule in Axis, copy price data into Storefront, or modify reusable Pricing solely for that customer."
+      ]
+    },
+    {
+      "heading": "Architectural warning signs",
+      "items": [
+        "The same rule appears in several controllers or frontends.",
+        "A business module imports a database or provider client directly.",
+        "A customer change edits released framework source.",
+        "Configuration is hidden in package metadata, constants, or generated files.",
+        "A new loader, registry, workflow, or governance path duplicates an existing authority.",
+        "A runtime process name is treated as the capability owner."
+      ]
+    },
+    {
       "heading": "Continue",
       "items": [
-        "[Layers, Ownership, and Responsibilities](/docs/capabilities/layered-architecture/ownership)",
-        "[From API Request to Business Result](/docs/capabilities/layered-architecture/runtime)",
-        "[Extend a Capability Without Forking Nodics](/docs/capabilities/layered-architecture/customization)",
-        "[Layered Architecture Technical Reference](/docs/reference/layered-architecture)"
+        "Layers, Ownership, and Responsibilities",
+        "From API Request to Business Result",
+        "Extend a Capability Without Forking Nodics",
+        "Layered Architecture Technical Reference"
       ]
     }
   ]

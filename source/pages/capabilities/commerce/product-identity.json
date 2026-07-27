@@ -1,1 +1,294 @@
-{"code":"commerce.product.identity","title":"Create and Identify Products","route":"/docs/capabilities/commerce/products/create","section":"capabilities","family":"tutorial-example","parent":"page:capability.commerce.products","order":10,"audiences":["business-user","administrator","developer","ai-tool"],"readerIntent":"Create a product and variants with stable identity.","priorKnowledge":"Know catalog, type, attributes, units, categories, and lifecycle.","depth":"guided","status":"implemented","owner":"Product capability","lastVerified":"2026-07-26","summary":"Create stable product identity first, then variants and relationships; prices and stock reference that identity but remain separately owned.","supportingEvidence":["nodics:gComm/product/README.md"],"sections":[{"heading":"Steps","items":["Select tenant, enterprise, staged catalog, product type, and stable code.","Add names, descriptions, categories, classifications, attributes, units, media references, and lifecycle.","Define variant dimensions and stable variant codes without embedding price or balance.","Validate required data and relationships, start approval workflow, and publish the approved version.","Verify Online product, search projection, cache refresh, and unresolved Price/Stock behavior."]}]}
+{
+  "code": "commerce.product.identity",
+  "title": "Create and Identify Products",
+  "route": "/docs/capabilities/commerce/products/create",
+  "section": "capabilities",
+  "family": "tutorial-example",
+  "parent": "page:capability.commerce.products",
+  "order": 10,
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "ai-tool"
+  ],
+  "readerIntent": "Create a product and variants with stable identity.",
+  "priorKnowledge": "Know catalog, type, attributes, units, categories, and lifecycle.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "Product capability",
+  "lastVerified": "2026-07-26",
+  "summary": "Create stable product identity first, then variants and relationships; prices and stock reference that identity but remain separately owned.",
+  "supportingEvidence": [
+    "nodics:gComm/product/README.md",
+    "nodics:gDocs/commerce/how-to-create-and-identify-products.md"
+  ],
+  "sections": [
+    {
+      "heading": "Steps",
+      "items": [
+        "Select tenant, enterprise, staged catalog, product type, and stable code.",
+        "Add names, descriptions, categories, classifications, attributes, units, media references, and lifecycle.",
+        "Define variant dimensions and stable variant codes without embedding price or balance.",
+        "Validate required data and relationships, start approval workflow, and publish the approved version.",
+        "Verify Online product, search projection, cache refresh, and unresolved Price/Stock behavior."
+      ]
+    },
+    {
+      "heading": "Product and variant identity",
+      "paragraphs": [
+        "A Product represents a sellable concept or family; a Variant represents a stable choice such as size, color, storage, packaging, or another dimension. Codes remain stable across staged and online systems.",
+        "Price and stock reference product or variant identity but remain owned by Pricing and Inventory."
+      ]
+    },
+    {
+      "heading": "Product type flexibility",
+      "items": [
+        "Physical goods measured by pieces, mass, volume, or area.",
+        "Digital or service products with no physical stock.",
+        "Real-estate land using area and location attributes.",
+        "Agricultural land, crops, or bulk produce using appropriate Units.",
+        "Bundles, configurable products, and project-defined classifications.",
+        "Each type enables only relevant attributes and lifecycle behavior."
+      ]
+    },
+    {
+      "heading": "Catalog and relationships",
+      "paragraphs": [
+        "Products belong to a staged product catalog when governed authoring and publishing are enabled. Categories, classifications, media, Units, Sites, Stores, and related products use their owning contracts.",
+        "A relationship never copies a price, balance, content page, or provider record into Product authority."
+      ]
+    },
+    {
+      "heading": "Example: phone variants",
+      "paragraphs": [
+        "Create iPhone 17 Pro Max as a product family with stable variants for storage and color. Pricing assigns eligible price rows by enterprise, Store, Site, country, currency, segment, and group. Inventory records stock by variant and source.",
+        "Publishing deploys the approved online product. A zone can remain unsellable even when another zone has stock."
+      ]
+    },
+    {
+      "heading": "Validation and lifecycle",
+      "items": [
+        "Unique stable code and valid variant dimensions.",
+        "Required type-specific attributes and compatible Units.",
+        "No cyclic or incompatible relationships.",
+        "Draft, review, approved, published, discontinued, and archived behavior.",
+        "Dependency validation before publish.",
+        "Migration when identity or variant structure changes."
+      ]
+    },
+    {
+      "heading": "Verification",
+      "items": [
+        "Simple, variant, service, land, and bulk-measured examples.",
+        "Duplicate, missing, incompatible, and wrong-tenant relations.",
+        "Workflow approval and exact-version publishing.",
+        "Online search and cache projection.",
+        "Price and stock unresolved and resolved states.",
+        "Staged/online, import/export, and regression behavior."
+      ]
+    },
+    {
+      "heading": "Complete guide: How To Create And Identify Products",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-create-and-identify-products.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "Product gives an enterprise a dependable identity for anything it offers or manages. The same foundation can represent a product family, a sellable SKU, a service, a unique asset such as a land parcel, or a future bundle."
+      ]
+    },
+    {
+      "heading": "What you need first",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-create-and-identify-products.md",
+      "sourceAnchor": "what-you-need-first",
+      "paragraphs": [
+        "Ask an administrator to confirm:"
+      ],
+      "items": [
+        "Your user has Product read or maintenance permission.",
+        "You are working in the correct enterprise.",
+        "The required Product Catalog exists and is active.",
+        "Any base Unit you plan to use exists in Units."
+      ]
+    },
+    {
+      "heading": "Create a Product Item",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-create-and-identify-products.md",
+      "sourceAnchor": "create-a-product-item",
+      "paragraphs": [
+        "Do not enter prices or stock quantities in Product. Pricing and Inventory own those values and use the Product Item code as a reference."
+      ],
+      "items": [
+        "Choose the owning Catalog.",
+        "Choose the appropriate Item type.",
+        "Enter a permanent Item code and a clear business name.",
+        "Optionally add a description and base Unit.",
+        "Select sellable or stock-managed only when allowed for that Item type.",
+        "Submit the Item through the Product management operation.",
+        "Review the returned Item. Nodics creates its internal identity automatically."
+      ]
+    },
+    {
+      "heading": "Add another recognized identifier",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-create-and-identify-products.md",
+      "sourceAnchor": "add-another-recognized-identifier",
+      "paragraphs": [
+        "Use an Identifier when partners, scanners, legal records, or external systems know the Item by another value such as GTIN, EAN, UPC, manufacturer code, parcel number, or title reference."
+      ],
+      "items": [
+        "Confirm the Item exists and is not retired.",
+        "Choose the Identifier type.",
+        "Enter a stable Identifier record code and external value.",
+        "Submit it through the Identifier management operation."
+      ]
+    },
+    {
+      "heading": "Organize Items into Categories",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-create-and-identify-products.md",
+      "sourceAnchor": "organize-items-into-categories",
+      "paragraphs": [
+        "Product Categories organize Items within a Product Catalog. They do not create or replace Catalogs.",
+        "Nodics rejects missing or retired parents, hierarchy cycles, excessive depth, invalid Item references, and assignments across Catalog boundaries."
+      ],
+      "items": [
+        "Create a root Category with a stable code and name.",
+        "Create child Categories by selecting a parent in the same Catalog.",
+        "Use order and effective dates to control deterministic presentation data.",
+        "Assign an Item to one or more Categories and choose its position.",
+        "Retire assignments and child Categories before retiring their parent."
+      ]
+    },
+    {
+      "heading": "Describe different Product types without changing the core model",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-create-and-identify-products.md",
+      "sourceAnchor": "describe-different-product-types-without-changing-the-core-model",
+      "paragraphs": [
+        "Classification Classes let a business describe phones, property, farmland, equipment, services, and other domains using governed Attribute Definitions.",
+        "volume, or another exact measurement.",
+        "values are complete.",
+        "Nodics stores integer and decimal values as exact strings. It rejects scientific notation, excess precision, wrong storage fields, unknown enumeration values, invalid locales, missing Units, excessive cardinality, and incomplete required classifications."
+      ],
+      "items": [
+        "Define each Attribute and select its value type.",
+        "Mark it localized when each language needs a separate value.",
+        "Mark it multi-valued and set cardinality when several values are permitted.",
+        "Provide allowed choices for enumeration Attributes.",
+        "Use a measured Attribute with a Units-owned Unit for area, weight, length,",
+        "Group Attributes into a Classification Class.",
+        "Add values to an Item and activate its Class assignment after required"
+      ]
+    },
+    {
+      "heading": "Create sellable variants",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-create-and-identify-products.md",
+      "sourceAnchor": "create-sellable-variants",
+      "paragraphs": [
+        "Use variants when customers choose a specific combination such as colour and size:",
+        "`shirt-red-medium`.",
+        "required.",
+        "Nodics rejects missing required values, values belonging to another Item, duplicate variants, duplicate business combinations, excessive graph depth, and cycles. Inventory remains responsible for the sellable variant's stock; Pricing remains responsible for its price."
+      ],
+      "items": [
+        "Create the base Product Item, such as `shirt`.",
+        "Create a sellable Item for each offered combination, such as",
+        "Define non-localized, single-valued Attributes for colour and size.",
+        "Add the matching Attribute Values to each sellable Item.",
+        "Add ordered Variant Axes to the base Product and mark mandatory axes as",
+        "Assign each sellable Item to the base and select its values."
+      ]
+    },
+    {
+      "heading": "Add related products, bundles, packaging, and media",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-create-and-identify-products.md",
+      "sourceAnchor": "add-related-products-bundles-packaging-and-media",
+      "paragraphs": [
+        "cross-sells, up-sells, and related Items.",
+        "Units-owned Units. Product does not reserve component stock or calculate a bundle price.",
+        "decimal strings and select existing Units.",
+        "text. Upload and binary storage remain outside Product.",
+        "Nodics rejects self-links, duplicates, configured graph cycles, unsafe media URIs, incomplete measurements, and unknown Units or Items."
+      ],
+      "items": [
+        "Use Relations for accessories, compatibility, replacements, substitutes,",
+        "Use Bundle Entries to add ordered components with exact quantities and",
+        "Use Packaging for contained quantity, dimensions, and weight. Enter exact",
+        "Use Media References for ordered HTTPS links, type, role, locale, and alt"
+      ]
+    },
+    {
+      "heading": "Publish approved Product changes",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-create-and-identify-products.md",
+      "sourceAnchor": "publish-approved-product-changes",
+      "paragraphs": [
+        "Product authoring happens in a versioned Staged runtime. Online is a different, non-versioned runtime and database.",
+        "automatic approval flow.",
+        "person when configured.",
+        "module authentication, and atomically activates it Online.",
+        "Rejection or pre-activation failure leaves the previous Online release active. Operators retry or roll back through the governed publication lifecycle; they must never copy Staged records directly into the Online database."
+      ],
+      "items": [
+        "Select the changed Product records and their exact versions.",
+        "Submit them with a root Product Item and choose the configured manual or",
+        "Complete any manual Workflow actions. Automatic actions continue without a",
+        "After approval, the terminal action delegates to `nPublish`.",
+        "Nodics validates and hashes the Product Catalog snapshot, delivers it using"
+      ]
+    },
+    {
+      "heading": "Read Products Online",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-create-and-identify-products.md",
+      "sourceAnchor": "read-products-online",
+      "paragraphs": [
+        "An authenticated customer application supplies Catalog, Item type, Item code, optional locale, and only the expansions it needs. Product reads the active Online release and can include identifiers, categories, attributes, classifications, variants, relations, bundles, packaging, and media.",
+        "The response includes the active release version. If that pointer changes, the next cache key changes automatically. Product uses the configured nCache channel, so an operator may select NodeCache, Redis, or Hazelcast without changing Product code. Only one provider should serve the logical channel at a time.",
+        "Product search documents are sent through nSearch after activation. Search and cache are projections: if either fails, the verified Product release remains authoritative and Online. A durable projection job records the failure so an operator can retry incomplete work."
+      ]
+    },
+    {
+      "heading": "Diagnose Online publication",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-create-and-identify-products.md",
+      "sourceAnchor": "diagnose-online-publication",
+      "paragraphs": [
+        "An authorized operator can view the active and previous release, pointer revision, manifest hash and record count, deployment receipts, correlation ID, and cache/search projection status. When a projection is incomplete, the operator can run bounded reconciliation. Do not republish, edit Online records, or change the active pointer merely to repair search or cache."
+      ]
+    },
+    {
+      "heading": "Correct or retire information",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-create-and-identify-products.md",
+      "sourceAnchor": "correct-or-retire-information",
+      "paragraphs": [
+        "Names, descriptions, flags, and other permitted fields can be corrected through the update intent. Enterprise, Catalog ownership, Item type, Item code, and Identifier identity cannot be changed through an ordinary update.",
+        "Retire obsolete records instead of deleting them. This preserves historical references from Pricing, Inventory, orders, and integrations."
+      ]
+    },
+    {
+      "heading": "Common problems",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-create-and-identify-products.md",
+      "sourceAnchor": "common-problems",
+      "paragraphs": [
+        "sellable or stock-managed behavior.",
+        "Product lookup; that operation requires a service identity.",
+        "Dedicated large-Catalog migration utilities and deployment-specific capacity certification are outside the implemented Product scope. Product data, the active release pointer, and accepted manifest remain authoritative over cache and search. Operators should validate representative production volume using their selected database, network, cache, and search providers.",
+        "Developers and operators can find the complete implemented contract in the [Product module guide](/docs/reference/commerce)."
+      ],
+      "items": [
+        "**Catalog rejected:** select an existing active Catalog.",
+        "**Unit rejected:** select a Unit defined by the Units capability.",
+        "**Type/flag rejected:** the selected type does not permit the requested",
+        "**Enterprise rejected:** sign in under the enterprise that owns the record.",
+        "**Internal reference rejected:** human sessions cannot call module-to-module"
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-create-and-identify-products.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "[How To Configure And Operate Pricing](/docs/capabilities/commerce/pricing/operations)",
+        "[How To Operate And Integrate Inventory](/docs/capabilities/commerce/stock/operations)",
+        "[How Store Management Works](/docs/capabilities/commerce/stores/manage)",
+        "[How To Customize And Extend Nodics](/docs/build/customization)",
+        "[Nodics Documentation](/docs)"
+      ]
+    }
+  ]
+}

@@ -1,1 +1,104 @@
-{"code":"capability.apis-routing.overview","title":"APIs, Routing, and Controllers","route":"/docs/capabilities/apis-routing","section":"capabilities","family":"overview-business-value","parent":"page:capability.layered-architecture.overview","order":60,"audiences":["business-user","administrator","developer","architect","security-reviewer","ai-tool"],"readerIntent":"Understand how Nodics exposes governed HTTP contracts.","priorKnowledge":"Know the owning service capability.","depth":"overview","status":"implemented","owner":"Business modules own routes; Nodics Router owns loading, request security, exposure, hardening, OpenAPI, and response contracts","lastVerified":"2026-07-26","summary":"Routers declare URL, method, security, permissions, exposure, controller, and contract metadata; controllers translate transport data and delegate behavior.","supportingEvidence":["nodics:gFramework/nRouter/README.md","nodics:gFramework/nRouter/docs/router-framework.md"],"sections":[{"heading":"Business value","items":["Expose consistent secure APIs from independently deployable modules.","Generate discoverable OpenAPI contracts from effective routes and schemas.","Disable sensitive API categories by runtime topology.","Apply tenant context, authentication, authorization, hardening, limits, and safe responses consistently."]},{"heading":"Public does not mean context-free","paragraphs":["A public route may still validate supplied enterprise and tenant context. Only explicitly tenant-independent probes or documentation routes omit it. Human username/password endpoints remain distinct from service-only routes."]},{"heading":"Continue","items":["[Route Runtime, Security, and Extension](/docs/capabilities/apis-routing/runtime)","[API and Routing Technical Reference](/docs/reference/apis-routing)"]}]}
+{
+  "code": "capability.apis-routing.overview",
+  "title": "APIs, Routing, and Controllers",
+  "route": "/docs/capabilities/apis-routing",
+  "section": "capabilities",
+  "family": "overview",
+  "parent": "page:capability.layered-architecture.overview",
+  "order": 60,
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "security-reviewer",
+    "ai-tool"
+  ],
+  "readerIntent": "Understand how Nodics exposes governed HTTP contracts.",
+  "priorKnowledge": "Know the owning service capability.",
+  "depth": "overview",
+  "status": "implemented",
+  "owner": "Business modules own routes; Nodics Router owns loading, request security, exposure, hardening, OpenAPI, and response contracts",
+  "lastVerified": "2026-07-26",
+  "summary": "Routers declare URL, method, security, permissions, exposure, controller, and contract metadata; controllers translate transport data and delegate behavior.",
+  "supportingEvidence": [
+    "nodics:gFramework/nRouter/README.md",
+    "nodics:gFramework/nRouter/docs/router-framework.md"
+  ],
+  "sections": [
+    {
+      "heading": "What is APIs, Routing, and Controllers?",
+      "paragraphs": [
+        "An application programming interface (API) is a documented doorway through which one application asks another application to read data or perform work. Routing matches an incoming HTTP request to the correct controller, while the controller translates transport input into a call to the owning Nodics facade or service.",
+        "A familiar analogy is a company reception desk: the route identifies the department, the controller checks and packages the request, and the owning business team performs the actual work."
+      ]
+    },
+    {
+      "heading": "Business value",
+      "items": [
+        "Expose consistent secure APIs from independently deployable modules.",
+        "Generate discoverable OpenAPI contracts from effective routes and schemas.",
+        "Disable sensitive API categories by runtime topology.",
+        "Apply tenant context, authentication, authorization, hardening, limits, and safe responses consistently."
+      ]
+    },
+    {
+      "heading": "Public does not mean context-free",
+      "paragraphs": [
+        "A public route may still validate supplied enterprise and tenant context. Only explicitly tenant-independent probes or documentation routes omit it. Human username/password endpoints remain distinct from service-only routes."
+      ]
+    },
+    {
+      "heading": "Route contract",
+      "items": [
+        "Versioned method and path plus API exposure category.",
+        "Accepted employee, customer, service, scheduled, or public credential class.",
+        "Permission, group, tenant, enterprise, locale, correlation, and deadline context.",
+        "Parameters, query, headers, body, limits, response schema, and stable statuses.",
+        "Thin owning controller and delegated service or facade."
+      ]
+    },
+    {
+      "heading": "Controller responsibility",
+      "paragraphs": [
+        "A controller translates normalized transport input and delegates. It does not own persistence, provider selection, authorization rules, or the business algorithm.",
+        "Thin controllers let jobs, imports, workflows, events, and assistants reuse the same service behavior."
+      ]
+    },
+    {
+      "heading": "Security boundaries",
+      "items": [
+        "Public routes are explicit and minimized.",
+        "Human, internal-service, and scheduled credentials remain separate.",
+        "Target modules enforce authorization for every caller.",
+        "Tenant context comes from trusted identity and contracts.",
+        "Body, query, rate, timeout, and response limits protect resources."
+      ]
+    },
+    {
+      "heading": "Examples",
+      "paragraphs": [
+        "Profile authentication is reachable before an employee bearer exists, but it validates tenant, credentials, account state, and policy and does not issue an internal service identity.",
+        "Axis Schema Workbench calls the target CRUD route. The target validates identity, permission, tenant, schema, fields, and relationships; Axis does not duplicate those rules."
+      ]
+    },
+    {
+      "heading": "API lifecycle",
+      "items": [
+        "Change the authoritative route definition.",
+        "Regenerate effective routes and OpenAPI.",
+        "Validate exposure, security, schema, statuses, and compatibility.",
+        "Test consolidated and distributed topology.",
+        "Publish migration and deprecation guidance.",
+        "Monitor usage, failure, latency, and abuse."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "items": [
+        "Route Runtime, Security, and Extension",
+        "API and Routing Technical Reference"
+      ]
+    }
+  ]
+}

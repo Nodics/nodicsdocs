@@ -6,7 +6,10 @@
   "family": "tutorial-example",
   "parent": "page:capability.query-modeling.overview",
   "order": 20,
-  "audiences": ["developer", "ai-tool"],
+  "audiences": [
+    "developer",
+    "ai-tool"
+  ],
   "readerIntent": "Add searchable behavior to an existing business schema through the supported source contracts.",
   "priorKnowledge": "Know the owning module, schema, permissions, and expected query use cases.",
   "depth": "guided",
@@ -47,6 +50,71 @@
         "Create, update, delete, and bulk index synchronization.",
         "Provider outage, stale data, cache interaction, and recovery.",
         "Normal schema save and update regression behavior."
+      ]
+    },
+    {
+      "heading": "Example goal",
+      "paragraphs": [
+        "Make Enterprise searchable by code, description, active state, Tenant, and approved hierarchy fields. Employees see only Enterprises permitted by their resolved tenant and groups.",
+        "Search supports friendly BackOffice selection while Profile remains the record authority."
+      ]
+    },
+    {
+      "heading": "Define the search contract",
+      "items": [
+        "Stable document identity and source schema version.",
+        "Indexed and stored fields with safe display rules.",
+        "Text analyzers, exact filters, sorting, pagination, and aggregation requirements.",
+        "Mandatory tenant and permission filters.",
+        "Index trigger, expected lag, delete behavior, and rebuild plan.",
+        "Fallback and outage behavior."
+      ]
+    },
+    {
+      "heading": "Configure the provider",
+      "paragraphs": [
+        "Select the provider through the search capability. Endpoints, credentials, TLS, aliases, analyzers, and engine tuning belong in provider configuration and secret management.",
+        "Do not embed local Elasticsearch paths or credentials in reusable source. A new engine implements the normalized provider contract."
+      ]
+    },
+    {
+      "heading": "Index representative records",
+      "items": [
+        "Create Enterprises in two tenants.",
+        "Index through normal authoritative lifecycle hooks.",
+        "Update code or description and observe consistency behavior.",
+        "Deactivate or delete a record and verify removal policy.",
+        "Run a bulk import and finalization or reconciliation.",
+        "Rebuild the index from authoritative records."
+      ]
+    },
+    {
+      "heading": "Query from BackOffice",
+      "paragraphs": [
+        "Authenticate an employee, discover the Enterprise model, and search by friendly terms. Confirm code and bounded description display while the full description remains accessible.",
+        "Select a result and retrieve it through Profile. Search does not supply edit permission."
+      ]
+    },
+    {
+      "heading": "Negative and resilience tests",
+      "items": [
+        "Unknown field, unsupported operator, excessive page size, and malformed query.",
+        "Wrong-tenant, unauthorized field, and protected aggregation.",
+        "Stale mapping, unavailable provider, timeout, and partial bulk failure.",
+        "Duplicate delivery, retry, delete, and reconciliation.",
+        "Cache isolation and invalidation.",
+        "Normal schema update with search disabled."
+      ]
+    },
+    {
+      "heading": "Operational handoff",
+      "items": [
+        "Document index ownership, mappings, aliases, provider configuration, and secrets.",
+        "Define latency, freshness, capacity, and availability objectives.",
+        "Monitor health, lag, rejection, retry, and resource use.",
+        "Provide reindex, restore, rollback, and incident procedures.",
+        "Record limitations and provider maturity.",
+        "Keep tutorial, technical reference, and generated contracts current."
       ]
     }
   ]

@@ -6,7 +6,11 @@
   "family": "tutorial-example",
   "parent": "page:capability.validation.overview",
   "order": 30,
-  "audiences": ["developer", "architect", "ai-tool"],
+  "audiences": [
+    "developer",
+    "architect",
+    "ai-tool"
+  ],
   "readerIntent": "Implement a reusable validation rule in the correct owner and extension layer.",
   "priorKnowledge": "Know the schema, operation, lifecycle, and caller types.",
   "depth": "guided",
@@ -14,7 +18,11 @@
   "owner": "The capability that owns the protected business invariant",
   "lastVerified": "2026-07-26",
   "summary": "Express declarative constraints in schema metadata and behavioral invariants in an owned validator or interceptor reached by every mutation path.",
-  "supportingEvidence": ["nodics:gFramework/nData/README.md", "nodics:gFramework/nDynamo/README.md", "nodics:gFramework/nService/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nData/README.md",
+    "nodics:gFramework/nDynamo/README.md",
+    "nodics:gFramework/nService/README.md"
+  ],
   "sections": [
     {
       "heading": "Example: employee activation",
@@ -42,6 +50,73 @@
         "Human, service-to-service, and scheduled-process authentication boundaries where applicable.",
         "API, import, workflow, event, job, and direct service contract integration.",
         "Regression for existing records, normal schema updates, and unaffected capabilities."
+      ]
+    },
+    {
+      "heading": "Specify the invariant",
+      "items": [
+        "An Employee cannot become active without required identity data.",
+        "The Employee must belong to an accessible Tenant and eligible Enterprise.",
+        "Only authorized employee groups may activate it.",
+        "Already active records follow the documented idempotent or conflict behavior.",
+        "The rule applies to every mutation path."
+      ]
+    },
+    {
+      "heading": "Separate rule components",
+      "paragraphs": [
+        "Required field types remain declarative schema constraints. Cross-record completeness and lifecycle transition belong in a Profile-owned validator or save interceptor. Group mappings and enablement belong in Profile properties when projects may refine them.",
+        "Axis supplies guidance and disables obviously invalid actions for usability, but the backend remains authoritative."
+      ]
+    },
+    {
+      "heading": "Register the failure contract",
+      "items": [
+        "Choose a stable Profile-owned error code.",
+        "Map it to the correct response classification.",
+        "Provide safe context such as missing field names only when allowed.",
+        "Supply user-facing localized text through content or presentation contracts.",
+        "Add monitoring guidance without exposing identity data."
+      ]
+    },
+    {
+      "heading": "Exercise every caller",
+      "items": [
+        "Employee API and Axis Schema Workbench.",
+        "Core or project data import.",
+        "Workflow automatic action.",
+        "Scheduled cleanup or activation job.",
+        "Internal service call and governed AI tool.",
+        "Any administrative bulk operation."
+      ]
+    },
+    {
+      "heading": "Failure and rollback tests",
+      "items": [
+        "Missing identity and invalid Enterprise relation.",
+        "Unauthorized actor and wrong tenant.",
+        "Concurrent change and already active state.",
+        "Database or relationship-service outage.",
+        "No event, cache change, or search update after rejection.",
+        "Transaction rollback or compensation for partial work."
+      ]
+    },
+    {
+      "heading": "Customization proof",
+      "paragraphs": [
+        "Create a project-layer configuration that adds a permitted group or enables an additional completeness rule. Prove default Profile behavior without the project and refined behavior with it.",
+        "Do not copy Employee schema, duplicate activation service, or place the only validation in Axis."
+      ]
+    },
+    {
+      "heading": "Completion evidence",
+      "items": [
+        "Source owner and extension point documented.",
+        "Stable status registered and rendered safely.",
+        "Positive, negative, boundary, integration, and regression tests passing.",
+        "Metrics and safe trace context verified.",
+        "Beginner and developer documentation updated.",
+        "Generated API, test, and AI context refreshed."
       ]
     }
   ]

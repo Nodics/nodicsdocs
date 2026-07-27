@@ -1,1 +1,76 @@
-{"code":"capability.commerce.stock-units","title":"Stock, Warehouses, and Units","route":"/docs/capabilities/commerce/stock-units","section":"capabilities","family":"concepts-runtime","parent":"page:capability.commerce.overview","order":50,"audiences":["business-user","administrator","developer","architect","operator","ai-tool"],"readerIntent":"Understand balances, availability, sourcing, movement, and measurement.","priorKnowledge":"Understand products, warehouses, service areas, and trusted context.","depth":"implementation","status":"implemented","owner":"Inventory owns stock; Units owns reusable measurement definitions","lastVerified":"2026-07-26","summary":"Inventory manages pools, warehouse balances, reservations, allocations, movements, transfers, reconciliation, sourcing, and availability using normalized Units contracts.","supportingEvidence":["nodics:gComm/inventory/README.md","nodics:gCore/units/README.md"],"sections":[{"heading":"Inventory model","items":["StockPool groups balances for a business purpose without becoming a separate module.","Warehouse balance records on-hand quantity in a normalized unit.","Reservations hold stock; allocations commit fulfillment intent; movements and transfers provide traceable changes.","Availability-to-sell derives from on-hand, reserved, allocated, safety, sellability, scope, and policy.","Reconciliation compares authoritative physical/external evidence with recorded movements and balances."]},{"heading":"Measurement","items":["Quantity/count, mass such as kilogram and gram, volume such as litre and millilitre, length, area, and other configured dimensions.","Land and agricultural inventory can use area units and parcel-specific attributes.","Conversions require compatible dimensions, precision, rounding, canonical units, and audit-friendly original values.","Units is reusable framework data; Inventory owns how measurement affects stock."]},{"heading":"Online flow","items":["Approved staged Inventory publishes to Online where configured.","Online loads bounded availability projections into NodeCache, Redis, or a qualified provider.","Reads may use cache; successful movements, reservations, releases, transfers, reconciliation, and publication invalidate affected keys.","Cache outage falls back or fails according to channel policy; it never changes authoritative balance."]}]}
+{
+  "code": "capability.commerce.stock-units",
+  "title": "Stock, Warehouses, and Units",
+  "route": "/docs/capabilities/commerce/stock-units",
+  "section": "capabilities",
+  "family": "runtime-behavior",
+  "parent": "page:capability.commerce.overview",
+  "order": 50,
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Understand balances, availability, sourcing, movement, and measurement.",
+  "priorKnowledge": "Understand products, warehouses, service areas, and trusted context.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Inventory owns stock; Units owns reusable measurement definitions",
+  "lastVerified": "2026-07-26",
+  "summary": "Inventory manages pools, warehouse balances, reservations, allocations, movements, transfers, reconciliation, sourcing, and availability using normalized Units contracts.",
+  "supportingEvidence": [
+    "nodics:gComm/inventory/README.md",
+    "nodics:gCore/units/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Inventory model",
+      "items": [
+        "StockPool groups balances for a business purpose without becoming a separate module.",
+        "Warehouse balance records on-hand quantity in a normalized unit.",
+        "Reservations hold stock; allocations commit fulfillment intent; movements and transfers provide traceable changes.",
+        "Availability-to-sell derives from on-hand, reserved, allocated, safety, sellability, scope, and policy.",
+        "Reconciliation compares authoritative physical/external evidence with recorded movements and balances."
+      ]
+    },
+    {
+      "heading": "Ledger, balance, and availability",
+      "items": [
+        "A movement is auditable business evidence that quantity changed; a balance is the current authoritative state derived or maintained under controlled concurrency; availability is a contextual projection for selling.",
+        "A reservation temporarily protects quantity for a demand. Allocation records stronger fulfillment intent. Release, expiry, cancellation, shipment, receipt, adjustment, and transfer must use explicit reasons and idempotent commands.",
+        "Availability-to-sell must never be treated as a stored universal number when warehouse eligibility, Store, delivery zone, segment, safety stock, or unit conversion can alter the answer.",
+        "Optimistic concurrency, idempotency keys, non-negative policies, precision rules, and transaction boundaries prevent retries or parallel orders from silently overselling."
+      ]
+    },
+    {
+      "heading": "Measurement",
+      "items": [
+        "Quantity/count, mass such as kilogram and gram, volume such as litre and millilitre, length, area, and other configured dimensions.",
+        "Land and agricultural inventory can use area units and parcel-specific attributes.",
+        "Conversions require compatible dimensions, precision, rounding, canonical units, and audit-friendly original values.",
+        "Units is reusable framework data; Inventory owns how measurement affects stock."
+      ]
+    },
+    {
+      "heading": "Online flow",
+      "items": [
+        "Approved staged Inventory publishes to Online where configured.",
+        "Online loads bounded availability projections into NodeCache, Redis, or a qualified provider.",
+        "Reads may use cache; successful movements, reservations, releases, transfers, reconciliation, and publication invalidate affected keys.",
+        "Cache outage falls back or fails according to channel policy; it never changes authoritative balance."
+      ]
+    },
+    {
+      "heading": "Measured stock example and operations",
+      "items": [
+        "A grocery warehouse receives 125 kilograms of produce, sells in kilograms and grams, and reserves 750 grams for an order. Units validates dimensional compatibility and conversion precision; Inventory records the original and normalized quantities.",
+        "A land or agriculture implementation may use hectares, square metres, parcels, or harvest attributes. The unit definition is reusable, while domain-specific eligibility and stock meaning remain in the owning application capability.",
+        "Verify fractional quantities, rounding boundaries, incompatible dimensions, duplicate reservation, concurrent decrement, expiry, transfer in transit, reconciliation variance, staged publication, and cache/search refresh.",
+        "Operators monitor negative-balance prevention, aged reservations, failed movements, reconciliation drift, hot warehouse contention, projection lag, provider availability, and correlation identifiers from command through derived reads."
+      ]
+    }
+  ]
+}

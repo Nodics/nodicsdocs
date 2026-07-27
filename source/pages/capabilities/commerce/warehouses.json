@@ -1,1 +1,204 @@
-{"code":"commerce.stock.warehouses","title":"Manage Warehouses","route":"/docs/capabilities/commerce/stock/warehouses","section":"capabilities","family":"configuration-customization","parent":"page:capability.commerce.stores-warehouses","order":20,"audiences":["business-user","administrator","developer","operator","ai-tool"],"readerIntent":"Configure stock-holding and fulfillment locations with flexible service scopes.","priorKnowledge":"Know enterprise locations, zones, Stores, segments, purposes, and sourcing policy.","depth":"guided","status":"implemented","owner":"Inventory capability","lastVerified":"2026-07-26","summary":"Warehouses hold balances and serve configurable scopes; they are not limited to one country/zone hierarchy.","supportingEvidence":["nodics:gComm/inventory/README.md"],"sections":[{"heading":"Configure","items":["Stable code, tenant, enterprise, location, timezone, active state, type, capacity, purposes, and operational calendar.","Countries, zones, areas, postal ranges, Stores, channels, customer segments, pickup/delivery roles, priority, exclusions, and fallback.","Validate overlap/ambiguity, cross-tenant links, inactive locations, unsupported units, and source capacity.","A physical Store may be linked as pickup/fulfillment while Store and Inventory retain separate ownership."]}]}
+{
+  "code": "commerce.stock.warehouses",
+  "title": "Manage Warehouses",
+  "route": "/docs/capabilities/commerce/stock/warehouses",
+  "section": "capabilities",
+  "family": "configuration-customization",
+  "parent": "page:capability.commerce.stores-warehouses",
+  "order": 20,
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Configure stock-holding and fulfillment locations with flexible service scopes.",
+  "priorKnowledge": "Know enterprise locations, zones, Stores, segments, purposes, and sourcing policy.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "Inventory capability",
+  "lastVerified": "2026-07-26",
+  "summary": "Warehouses hold balances and serve configurable scopes; they are not limited to one country/zone hierarchy.",
+  "supportingEvidence": [
+    "nodics:gComm/inventory/README.md",
+    "nodics:gDocs/commerce/how-to-manage-warehouses.md"
+  ],
+  "sections": [
+    {
+      "heading": "Configure",
+      "items": [
+        "Stable code, tenant, enterprise, location, timezone, active state, type, capacity, purposes, and operational calendar.",
+        "Countries, zones, areas, postal ranges, Stores, channels, customer segments, pickup/delivery roles, priority, exclusions, and fallback.",
+        "Validate overlap/ambiguity, cross-tenant links, inactive locations, unsupported units, and source capacity.",
+        "A physical Store may be linked as pickup/fulfillment while Store and Inventory retain separate ownership."
+      ]
+    },
+    {
+      "heading": "Flexible service scope",
+      "paragraphs": [
+        "A Warehouse is not restricted to one fixed country hierarchy. It can serve country, zone, area, postal range, Store, channel, customer segment, campaign, pickup, delivery, or project-defined purposes.",
+        "Eligibility and priority are configured through Inventory policy rather than encoded into Warehouse identity."
+      ]
+    },
+    {
+      "heading": "Warehouse and physical Store",
+      "paragraphs": [
+        "A physical Store may link to a warehouse or pickup location. Store owns the commercial touchpoint; Inventory owns balances, capacity, sourcing, reservations, and movements.",
+        "The same location can support pickup, ship-from-store, returns, or display stock through explicit roles."
+      ]
+    },
+    {
+      "heading": "Example",
+      "paragraphs": [
+        "An enterprise has a national distribution center, three zonal warehouses, and several retail pickup locations. The phone product is sellable only in three zones.",
+        "Sourcing filters warehouse service scopes and product sellability before ranking stock. A warehouse outside the allowed zones is not eligible even when on-hand quantity exists."
+      ]
+    },
+    {
+      "heading": "Capacity and calendar",
+      "items": [
+        "Storage and handling capacity.",
+        "Supported Units, product types, temperature, or hazardous restrictions.",
+        "Operating calendar, cutoff, lead time, and time zone.",
+        "Inbound, outbound, pickup, return, and transfer capabilities.",
+        "Temporary closure, maintenance, and degraded capacity."
+      ]
+    },
+    {
+      "heading": "Validation and operations",
+      "items": [
+        "Cross-tenant, inactive, overlapping, and ambiguous scope.",
+        "Location, calendar, unit, product, and capacity compatibility.",
+        "Priority and fallback determinism.",
+        "Deactivation with balances, reservations, allocations, or transfers.",
+        "Sourcing miss, capacity saturation, and operational health.",
+        "Store, StockPool, publishing, cache, and audit integration."
+      ]
+    },
+    {
+      "heading": "Complete guide: How Warehouse Management Works",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-manage-warehouses.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "This guide explains the implemented Nodics warehouse foundation for business owners, warehouse administrators, operators, and developers who customize the out-of-the-box capability."
+      ]
+    },
+    {
+      "heading": "Current Capability",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-manage-warehouses.md",
+      "sourceAnchor": "current-capability",
+      "paragraphs": [
+        "Nodics can now persist enterprise-owned warehouses and optional recursive warehouse locations with protected identity, hierarchy, lifecycle, and enterprise isolation. This foundation does not yet include stock quantities, units of measure, stores, sourcing, reservations, transfers, public APIs, or a BackOffice page. Those capabilities must not be assumed from this guide."
+      ]
+    },
+    {
+      "heading": "Business Terms",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-manage-warehouses.md",
+      "sourceAnchor": "business-terms",
+      "paragraphs": [
+        "receiving, storage, aisle, rack, bin, pickup, returns, or quarantine.",
+        "internal identity so two enterprises can use the same business code safely.",
+        "records are not deleted."
+      ],
+      "items": [
+        "A **warehouse** is the logical facility that will later own stock.",
+        "A **warehouse location** is an optional place inside a warehouse, such as",
+        "A **business code** is the code employees recognize. Nodics creates a separate",
+        "**Retire** means preserve the record and history but stop using it. Warehouse"
+      ]
+    },
+    {
+      "heading": "Plan A Warehouse",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-manage-warehouses.md",
+      "sourceAnchor": "plan-a-warehouse",
+      "paragraphs": [
+        "Before creating a warehouse, decide:",
+        "center, supplier, dropship, returns, or transit facility.",
+        "locations.",
+        "Codes cannot be renamed later. Choose stable codes that do not include spaces or transient organizational labels."
+      ],
+      "items": [
+        "Which enterprise owns it.",
+        "Its stable `warehouseCode` and business name.",
+        "Whether it is physical, virtual, a store stockroom, dark store, distribution",
+        "Its purposes and supported capabilities.",
+        "Country, timezone, and approved address reference where applicable.",
+        "Whether stock will be tracked only at warehouse level or at internal"
+      ]
+    },
+    {
+      "heading": "Plan Locations",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-manage-warehouses.md",
+      "sourceAnchor": "plan-locations",
+      "paragraphs": [
+        "Start with the smallest hierarchy the business needs. A small organization may use no locations. A larger facility might use:",
+        "```text\nReceiving\nStorage\n└── Zone A\n    └── Aisle 01\n        └── Rack 01\n            └── Bin 01\nPickup\nReturns\nQuarantine\n```",
+        "Create parents before children. A location cannot reference itself, another warehouse, another enterprise, a missing parent, or a retired parent."
+      ]
+    },
+    {
+      "heading": "Activate, Suspend, And Retire",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-manage-warehouses.md",
+      "sourceAnchor": "activate-suspend-and-retire",
+      "paragraphs": [
+        "Retirement is permanent under the OOTB policy. A retired identity is historical evidence and is not reused for a different facility."
+      ],
+      "items": [
+        "Create the warehouse and locations as `DRAFT`.",
+        "Verify business identity, hierarchy, country, timezone, and capabilities.",
+        "Activate parents before children.",
+        "Use `SUSPENDED` for temporary operational unavailability.",
+        "To retire, retire child locations from the deepest level upward.",
+        "Retire root locations and then the warehouse."
+      ]
+    },
+    {
+      "heading": "Expected Validation Messages",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-manage-warehouses.md",
+      "sourceAnchor": "expected-validation-messages",
+      "paragraphs": [
+        "Nodics rejects missing authentication, cross-enterprise access, invalid codes, unknown classifications, invalid transitions, missing/cyclic/deep parents, identity changes, hard deletion, and unsafe retirement order. Correct the request or approved layered configuration; do not bypass validation."
+      ]
+    },
+    {
+      "heading": "Administrator And Developer Configuration",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-manage-warehouses.md",
+      "sourceAnchor": "administrator-and-developer-configuration",
+      "paragraphs": [
+        "Warehouse/location classifications, transitions, identity format, and maximum depth come from `inventory` properties. Customize them in a later project, environment, server, node, tenant, or customer layer. Do not edit OOTB inventory.",
+        "Generated schema services are private in this release. Developers integrate through generated services and persistence interceptors; they must not call the database provider directly. Public or BackOffice administration requires a later intent-API slice with human permissions and negative security tests.",
+        "See the module-level [Warehouse Foundation contract](/docs/reference/commerce) for exact fields, properties, services, interceptors, errors, customization, recovery, and test commands."
+      ]
+    },
+    {
+      "heading": "Verify The Foundation",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-manage-warehouses.md",
+      "sourceAnchor": "verify-the-foundation",
+      "paragraphs": [
+        "```bash\nnode gComm/inventory/test/inventoryWarehouseSchemaContract.test.js\nnode gComm/inventory/test/inventoryWarehouseFoundationService.test.js\n```",
+        "The tests prove successful configuration and hierarchy behavior as well as missing enterprise, enterprise mismatch, invalid identity, invalid transition, immutable identity, missing/self parent, depth, retirement, deletion, and OOTB classification-extension boundaries."
+      ]
+    },
+    {
+      "heading": "What Comes Later",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-manage-warehouses.md",
+      "sourceAnchor": "what-comes-later",
+      "paragraphs": [
+        "The separately governed Units authority and Store foundation are now implemented. Stock balance, immutable movement evidence, and Stock Pools are also implemented, together with declarative Stock Sourcing. Remaining approved slices add sourcing APIs/caching, availability, reservations, allocations, transfers, reconciliation, and external WMS/POS providers. Permanent documentation will expand only when each behavior is implemented and verified."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-manage-warehouses.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "Architecture: [How Nodics Is Organized](/docs/framework/architecture)",
+        "Security: [How Users, Tenants, And Permissions Work](/docs/security/users-tenants-permissions)",
+        "Development: [How To Customize And Extend Nodics](/docs/build/customization)",
+        "Testing: [How To Test Nodics Changes](/docs/build/testing)",
+        "Documentation home: [Nodics Documentation](/docs)"
+      ]
+    }
+  ]
+}

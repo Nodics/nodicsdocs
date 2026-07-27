@@ -6,50 +6,1056 @@
   "family": "overview",
   "parent": "section:discover",
   "order": 10,
-  "audiences": ["evaluator", "business-user", "developer", "architect"],
-  "readerIntent": "Understand what Nodics is, which problems it solves, and where to continue.",
+  "audiences": [
+    "evaluator",
+    "business-user",
+    "developer",
+    "architect"
+  ],
+  "readerIntent": "Understand what Nodics is, why an organization would use it, how its main parts work together, and where to continue.",
   "priorKnowledge": "No Nodics or enterprise-framework knowledge is required.",
   "depth": "overview",
   "status": "implemented",
   "owner": "Nodics platform",
   "lastVerified": "2026-07-26",
-  "summary": "Nodics is a modular enterprise application platform and application factory for building secure, governed, API-driven, and multi-tenant business products.",
+  "summary": "Nodics is a modular enterprise application platform and application factory for building secure, governed, API-driven, multi-tenant business products without forcing every project to recreate common enterprise capabilities.",
   "evidence": [
+    "nodics:README.md",
     "nodics:gDocs/README.md",
     "nodics:gDocs/overview/what-is-nodics.md"
   ],
   "sections": [
     {
+      "heading": "What is What Is Nodics?",
+      "paragraphs": [
+        "Nodics is an enterprise application platform and application factory for building modular, governed, API-driven business systems. It supplies reusable framework capabilities while allowing projects and partners to customize implementations through explicit layers.",
+        "Instead of beginning every application with unrelated infrastructure choices, a team starts from shared contracts for configuration, data, security, APIs, operations, extension, and testing, then composes the business capabilities the project actually needs."
+      ]
+    },
+    {
+      "heading": "The problem Nodics is designed to solve",
+      "paragraphs": [
+        "Building an MVP is faster than ever, but scaling that MVP into a secure, governed, multi-team, multi-tenant product is still painfully hard. AI-assisted coding and rapid prototyping can create impressive demonstrations quickly. The problem starts when the demonstration becomes the real product and the team discovers that the codebase has no strong module boundaries, no layered architecture, no governance model, no safe customization path, weak security rules, limited test coverage, and no reliable way to evolve customer-specific behavior.",
+        "Many early applications were built only to prove an idea. As features accumulate, business logic is placed wherever a developer or AI tool first finds space; APIs, services, data access, and permissions become coupled; environment configuration is copied; customer behavior is added directly to core code; generated files are edited manually; tenant isolation and security are added late; and the application cannot be divided safely across runtime processes.",
+        "Nodics turns those recurring scaling problems into an explicit application model. It lets teams move with the speed of AI-assisted product development while keeping the architecture, governance, security, testing, operations, documentation, and extension discipline expected from an enterprise platform."
+      ]
+    },
+    {
+      "heading": "The MVP-to-scale bridge",
+      "paragraphs": [
+        "Nodics lets a team start quickly without accepting a throwaway architecture. A feature created during an MVP still lands inside an owned capability, a supported layer, an authenticated API, a governed schema, an explicit configuration scope, and a verification contract.",
+        "The bridge is broader than moving from one process to several servers. It includes modular capability ownership instead of scattered code; layered customization instead of framework edits; tenant-aware behavior instead of hard-coded customers; preview, audit, and rollback for eligible runtime changes; built-in identity, permission, validation, and diagnostic patterns; generated contracts and tests; provider-neutral integrations; and documentation that keeps people and AI tools aligned.",
+        "A local monoServer can compose many modules for convenient development. Later, deployment can separate modules for scale, resilience, security, or team ownership without changing which capability owns the behavior. The result is a faster MVP path with a controlled route to production scale."
+      ],
+      "items": [
+        "Build fast without scattering ownership.",
+        "Customize customer projects without forking released framework authority.",
+        "Start consolidated and evolve toward distributed runtime topology.",
+        "Introduce governance, security, testing, and operations from the first implementation.",
+        "Allow implementation technologies to evolve while preserving stable capability contracts."
+      ]
+    },
+    {
+      "heading": "What makes Nodics strong",
+      "paragraphs": [
+        "Nodics is not only a runtime. It is a complete application model that defines how enterprise software is organized, extended, tested, operated, and explained. Modules are not merely folders: they establish responsibility, extension boundaries, runtime composition, and the evidence required before behavior is considered complete."
+      ],
+      "items": [
+        "Automated layered architecture across framework, project, module, environment, server, node, tenant, and governed runtime scopes.",
+        "Generated schemas, models, routes, API contracts, tests, OpenAPI output, governance reports, and AI context derived from authoritative source definitions.",
+        "Provider-neutral database, cache, search, enterprise messaging, import, export, storage, and AI integration points that keep vendor SDKs out of business callers.",
+        "Catalog, CMS, web-content, page, component, renderer, storefront, product, pricing, store, stock, warehouse, and unit foundations for composed business solutions.",
+        "Enterprise identity foundations covering tenants, enterprises, employees, customers, groups, permissions, API keys, authentication, ownership, and separate service access.",
+        "First-class pipelines, events, scheduled jobs, workflow carriers, publishing, retry, pause, resume, archive, reconciliation, and long-running process behavior.",
+        "Runtime governance for eligible schema, router, pipeline, property, access-policy, activation, preview, approval, audit, cleanup, and rollback contracts.",
+        "Testing as architecture evidence through positive, negative, boundary, contract, integration, distributed, security, performance, recovery, and regression behavior.",
+        "AI-ready implementation guidance that teaches coding tools the same ownership, placement, security, extension, testing, and documentation rules expected from developers."
+      ]
+    },
+    {
       "heading": "Nodics in plain language",
       "paragraphs": [
-        "Nodics gives a team a governed starting point for APIs, data models, users, permissions, configuration, jobs, events, workflows, imports, exports, caching, search, content, commerce, testing, and runtime operations.",
-        "A beginner does not need to memorize the repository. Start with the business capability, learn its contract, and use the documented extension path."
+        "Nodics is a foundation for building business applications. It gives a team working implementations and defined extension points for capabilities that enterprise applications repeatedly need: APIs, data models, users, permissions, configuration, scheduled work, events, workflows, imports, exports, caching, search, content, commerce, testing, and runtime operations.",
+        "Think of it as an application factory rather than a finished business application. A factory provides an organized production system, reusable equipment, safety rules, and quality checks. The product team still decides which business product to build. In the same way, Nodics provides the structure and reusable capabilities, while a customer or partner project supplies its own business rules, data, integrations, and user experiences.",
+        "A beginner does not need to memorize repository folders or internal module names. Start with the business outcome, identify the capability that owns it, understand its public contract, and use the documented configuration or extension path."
       ]
     },
     {
-      "heading": "The problem it solves",
+      "heading": "Why enterprise applications need a platform",
+      "paragraphs": [
+        "A small application can begin with a few routes and database calls. As it grows, it normally needs authentication, authorization, tenant isolation, configuration, caching, search, background processing, data import, observability, audit evidence, deployment controls, and safe customer customization. If every project invents these concerns independently, delivery slows down and the application becomes difficult to secure or change.",
+        "Nodics provides common contracts for these concerns before they become emergencies. Product teams can spend more time on business differentiation, while architects and operators retain clear ownership, predictable runtime behavior, and evidence that important boundaries were tested."
+      ],
       "items": [
-        "Keeps business behavior with a clear capability owner.",
-        "Prevents customer customization from being mixed into reusable framework code.",
-        "Makes security, tenant isolation, testing, observability, and documentation part of implementation.",
-        "Lets consolidated local execution evolve into modular runtime deployment.",
-        "Gives human developers and AI tools the same ownership and verification rules."
+        "Business behavior remains with a clear capability owner instead of being scattered across controllers, scripts, and deployment files.",
+        "Customer customization stays in customer or project layers instead of being mixed into reusable framework source.",
+        "Security, tenant isolation, validation, testing, observability, and documentation become part of implementation rather than late production fixes.",
+        "A simple consolidated local runtime can evolve into multiple independently deployed backend processes without changing the ownership model.",
+        "Human developers and AI coding tools follow the same placement, extension, testing, and documentation rules."
       ]
     },
     {
-      "heading": "The core principle",
+      "heading": "What an application factory provides",
+      "paragraphs": [
+        "Nodics combines several platform capabilities under one governed model. A project activates only what it needs and can extend an existing implementation before considering a new parallel mechanism."
+      ],
+      "items": [
+        "A modular backend and API runtime with explicit capability ownership and lifecycle behavior.",
+        "Schema-driven models, persistence services, standard CRUD routes, validation, search models, import and export behavior, and generated contracts.",
+        "Employee and customer identity capabilities, authentication, authorization, permissions, tenant awareness, and separate service-to-service access.",
+        "Layered configuration for framework defaults, projects, environments, servers, nodes, tenants, and governed runtime changes.",
+        "Provider abstractions for databases, caches, search engines, enterprise messaging, storage, and AI services, so business callers do not depend directly on a vendor implementation.",
+        "Scheduled jobs, events, pipelines, workflows, publishing, and data-processing capabilities for work that extends beyond a single request.",
+        "Content, catalog, storefront, stock, pricing, product, and BackOffice capabilities that can be composed into larger business solutions.",
+        "Generated tests, OpenAPI contracts, developer and AI context, documentation checks, operational diagnostics, and governance evidence."
+      ]
+    },
+    {
+      "heading": "The core design principle",
       "paragraphs": [
         "Capabilities are sacred; implementations are negotiable.",
-        "Nodics preserves what an application can do while allowing a project to replace or extend how the capability is implemented through governed layers and providers."
+        "This means the business promise of a capability should remain stable even when its implementation evolves. For example, an application depends on a cache capability rather than embedding Redis-specific code throughout business services. A project can choose an available provider or introduce a compliant provider without changing every caller.",
+        "The same rule applies to customer customization. A partner should first reuse an existing capability, then configure or extend it through a later layer, and create a new implementation only when the existing contract genuinely cannot satisfy the requirement. This avoids duplicate authority paths and keeps framework upgrades manageable."
+      ]
+    },
+    {
+      "heading": "How Nodics is organized",
+      "paragraphs": [
+        "Every capability has an owner. Its configuration, schemas, services, APIs, tests, operational behavior, and implementation documentation belong with that owner. Other capabilities interact through the owner's public contracts instead of directly taking control of its data or runtime responsibility.",
+        "Nodics loads behavior through an ordered hierarchy. Reusable framework capabilities establish defaults. Business capability groups add domain behavior. A customer project and its environment, server, node, tenant, and runtime layers can refine those defaults. Later layers may customize an approved extension point, but they do not silently create a second framework.",
+        "This organization supports both people and tools. A developer can locate the correct place for a change, a reviewer can identify its authority, an operator can understand its runtime scope, and an AI tool can be told exactly which contracts it must preserve."
+      ]
+    },
+    {
+      "heading": "Backend, frontend, and business-logic boundaries",
+      "paragraphs": [
+        "Nodics core is a backend and API platform. It owns business capabilities, data contracts, authentication and authorization, validation, workflows, integrations, runtime configuration, and operational behavior.",
+        "A frontend application is a separate process and repository. It renders pages and components, collects user input, and calls authorized backend APIs; it must not become a second home for business rules. Nodics Axis follows this model for employee BackOffice experiences. Customer storefronts and corporate sites follow the same separation.",
+        "This boundary lets several user experiences consume the same governed backend capability without copying its authority. It also allows frontend technology and presentation to evolve independently from backend deployment and data ownership."
+      ]
+    },
+    {
+      "heading": "From a local application to modular runtime",
+      "paragraphs": [
+        "During early development, a team can run many active capabilities together in a consolidated local process. This reduces setup time and makes end-to-end development practical.",
+        "As scale, resilience, security, or team ownership requires separation, capabilities can run in different backend processes. Environment configuration determines which modules are local, which are remote, and how remote APIs are reached. The unit of ownership remains the module capability; a server is only a runtime grouping.",
+        "This makes the MVP-to-scale path evolutionary. The team does not need to rewrite the application merely because it moves from one local process to a distributed topology."
+      ]
+    },
+    {
+      "heading": "Security and governance are built into the model",
+      "paragraphs": [
+        "Nodics treats security as a system contract. Human username-and-password authentication remains separate from module-to-module and scheduled-process access. Authorization is evaluated by the capability that owns the requested operation, and tenant context must not become a client-controlled shortcut around isolation.",
+        "Sensitive runtime changes can use preview, request, approval, activation, audit, diagnostics, and rollback behavior. Import, publishing, workflow, scheduled execution, and administration operations are expected to expose both positive and negative evidence.",
+        "The framework supplies mechanisms, but a deployed solution still has shared responsibilities. Project teams must configure credentials safely, grant least privilege, protect infrastructure, monitor the application, test their extensions, and keep supported versions current."
+      ]
+    },
+    {
+      "heading": "What teams can build",
+      "items": [
+        "Multi-tenant business APIs and data-as-a-service products.",
+        "Content management and website experiences driven by reusable pages, templates, and components.",
+        "Product information, stock, pricing, stores, storefronts, and other commerce capabilities.",
+        "Employee BackOffice applications that discover and call authorized module APIs.",
+        "Scheduled, event-driven, approval, publishing, and long-running business processes.",
+        "Search-backed knowledge and operational experiences.",
+        "AI-assisted applications that use configurable provider adapters, governed tools, knowledge retrieval, and token controls.",
+        "Customer-specific enterprise platforms that extend the framework without forking its authority."
+      ],
+      "paragraphs": [
+        "These examples are compositions of platform capabilities, not promises that every possible industry workflow is ready without configuration or project work. Each solution page identifies what is implemented, which capabilities it combines, and which responsibilities remain with the adopting team."
+      ]
+    },
+    {
+      "heading": "A concrete example",
+      "paragraphs": [
+        "Suppose a retailer needs an employee application for managing two websites: Apparel and Electronics. Both websites belong to one enterprise and tenant but use different content catalogs, storefront settings, stock availability, and prices.",
+        "The content capability owns pages and components. Storefront owns hostname and site context. Stock owns availability. Pricing owns price selection. Profile owns employees and permissions. Workflow and publishing coordinate reviewed changes from staged systems to online systems. Axis renders the employee interface and calls each owning backend capability directly after authorization.",
+        "A partner can customize the retailer's rules in its project modules and configuration. It does not copy these capabilities into the frontend or modify reusable Nodics source for one customer. The result is a solution tailored to the retailer while the platform contracts remain reusable."
+      ]
+    },
+    {
+      "heading": "Who should read which documentation",
+      "items": [
+        "Business owners and evaluators should begin with business value, supported solutions, security and trust, delivery speed, limitations, and the evaluation checklist.",
+        "Business users should read capability overviews, concepts, tutorials, and BackOffice operating guides without needing repository knowledge.",
+        "Developers should continue into architecture, local setup, configuration, schemas, services, APIs, testing, extension examples, and technical reference.",
+        "Architects and security reviewers should study ownership, runtime topology, provider boundaries, tenant isolation, governance, observability, and shared responsibility.",
+        "Operators should focus on configuration, deployment, health, diagnostics, backup and recovery, performance, runtime change governance, and incident procedures.",
+        "AI coding tools and framework maintainers must follow the same ownership, extension, source-authority, verification, and documentation contracts."
+      ]
+    },
+    {
+      "heading": "What Nodics is not",
+      "items": [
+        "It is not a frontend design system or a place to embed browser presentation code.",
+        "It is not a single finished product that removes the need for project-specific business analysis.",
+        "It is not permission to bypass owning-module APIs and access another capability's database directly.",
+        "It is not a collection of interchangeable folders where code can be placed wherever it first works.",
+        "It does not make production operations automatic; deployment architecture, capacity, monitoring, credentials, recovery, and compliance still require governed decisions."
+      ]
+    },
+    {
+      "heading": "A beginner's first mental model",
+      "items": [
+        "Start with the outcome: describe the business behavior and the people who use it.",
+        "Find the owner: identify the existing Nodics capability responsible for that behavior or data.",
+        "Use the contract: call its API, service, schema, event, workflow, or configuration extension point.",
+        "Customize through layers: prefer existing behavior, then configuration, then extension, and only then a new implementation.",
+        "Verify the boundaries: test success, failure, limits, authorization, tenant isolation, contracts, integrations, and regressions.",
+        "Update canonical documentation: explain the implemented behavior for beginners, business users, developers, and operators."
       ]
     },
     {
       "heading": "Choose your next path",
       "links": [
-        {"label": "Evaluate Nodics for an organization", "target": "/docs/evaluate/business-capabilities"},
-        {"label": "Set up Nodics locally", "target": "/docs/get-started/local-setup"},
-        {"label": "Learn how the framework is organized", "target": "/docs/framework/architecture"}
+        {
+          "label": "Evaluate Nodics for an organization",
+          "target": "/docs/evaluate/business-capabilities"
+        },
+        {
+          "label": "Understand why teams choose Nodics",
+          "target": "/docs/evaluate/why-nodics"
+        },
+        {
+          "label": "Review security and trust",
+          "target": "/docs/evaluate/security-and-trust"
+        },
+        {
+          "label": "Set up Nodics locally",
+          "target": "/docs/get-started/local-setup"
+        },
+        {
+          "label": "Learn how the framework is organized",
+          "target": "/docs/framework/architecture"
+        },
+        {
+          "label": "Explore Nodics as Data as a Service",
+          "target": "/docs/solutions/data-as-service"
+        }
+      ]
+    },
+    {
+      "heading": "Complete guide: Nodics",
+      "migratedFrom": "nodics:README.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "Nodics is an enterprise application factory for building serious, modular, API-driven business platforms.",
+        "It is designed for the biggest gap many startups and product teams face today: building an MVP is faster than ever, but scaling that MVP into a secure, governed, multi-team, multi-tenant product is still painfully hard.",
+        "AI-assisted coding and rapid prototyping can create impressive demos quickly. That speed is valuable. The problem starts when the MVP becomes the real product and the team discovers that the codebase has no strong module boundaries, no layered architecture, no governance model, no safe customization path, weak security rules, limited test coverage, and no reliable way to evolve customer-specific behavior.",
+        "Nodics bridges that gap. It lets teams move with the speed of AI-assisted product development while keeping the architecture, governance, security, testing, and extension model expected from an enterprise platform.",
+        "It helps teams build fast like an MVP, but with the architecture discipline of an enterprise platform from day one. The framework provides a ready project model with APIs, data models, services, permissions, tenants, scheduled jobs, events, imports, exports, search indexing, catalog and content capabilities, runtime configuration, testing, deployment topology, documentation, and extension contracts already built into the way the application is organized.",
+        "Each capability has a clear owner, a clear extension path, and a clear verification contract.",
+        "Nodics is designed for the new way software is built: human developers and AI tools working together. A developer can use a CLI-based AI assistant, an IDE assistant, or a conversational coding tool to ask for new functionality in natural language, while Nodics guides that implementation into the right module, configuration layer, service, route, schema, test, and documentation area.",
+        "In short:",
+        "```text\nDescribe the business capability. Nodics gives it a governed place to live.\n```"
+      ]
+    },
+    {
+      "heading": "Why Nodics",
+      "migratedFrom": "nodics:README.md",
+      "sourceAnchor": "why-nodics",
+      "paragraphs": [
+        "Many products fail after the MVP stage because the early application was built only to prove the idea, not to become the long-term platform.",
+        "Common scaling problems include:",
+        "Nodics turns that complexity into a controlled application structure. It helps teams build quickly without losing architectural discipline.",
+        "The main rule is:",
+        "```text\nCapabilities are stable. Implementations can change.\n```",
+        "That means a project can customize behavior through project modules, environment configuration, server configuration, node configuration, tenant context, runtime configuration, data, or provider modules without changing released framework code for every customer need.",
+        "This is especially powerful with AI-assisted development. Instead of asking an AI tool to invent a structure, the developer can ask for a capability and Nodics provides the rules that keep the implementation aligned with the platform."
+      ],
+      "items": [
+        "Features are added wherever the first developer or AI tool finds space.",
+        "Business logic has no clear owner.",
+        "APIs, services, data access, and permissions are tightly coupled.",
+        "Configuration is copied across environments.",
+        "Customer-specific behavior is added directly into core code.",
+        "Security and tenant isolation are added late.",
+        "Generated code becomes manually edited code.",
+        "Tests do not cover real extension and deployment behavior.",
+        "The team cannot safely split the application into multiple services or nodes."
+      ]
+    },
+    {
+      "heading": "The MVP-To-Scale Bridge",
+      "migratedFrom": "nodics:README.md",
+      "sourceAnchor": "the-mvp-to-scale-bridge",
+      "paragraphs": [
+        "Nodics lets teams start fast without accepting a throwaway architecture.",
+        "You can use AI tools and rapid development workflows to create features quickly, but those features still land inside a scalable application model:",
+        "The result is a faster MVP path with a cleaner route to production scale."
+      ],
+      "items": [
+        "Modular capabilities instead of scattered code.",
+        "Layered customization instead of framework edits.",
+        "Tenant-aware behavior instead of hard-coded customer assumptions.",
+        "Runtime configuration with audit and rollback instead of risky production edits.",
+        "Built-in security, permission, validation, and diagnostics patterns.",
+        "Generated APIs and tests from source definitions.",
+        "Environment, server, and node topology for growth beyond one process.",
+        "Documentation and AI guidance that keep humans and tools aligned."
+      ]
+    },
+    {
+      "heading": "What Makes Nodics Strong",
+      "migratedFrom": "nodics:README.md",
+      "sourceAnchor": "what-makes-nodics-strong",
+      "paragraphs": [
+        "Nodics is not only a runtime. It is a complete application model that knows how enterprise software should be organized, extended, tested, operated, and explained.",
+        "The current framework and sample project structure includes more than one hundred package-defined modules and submodules across framework capabilities, core business capabilities, content, commerce, data processing, optional features, environments, servers, and nodes. Those modules are not just folders. They define where behavior belongs and how it can be replaced safely by a project without modifying released framework code.",
+        "Nodics provides:",
+        "The repository produces governance reports, generated API contracts, generated tests, and API examples from the active application definition. Use those generated outputs when you need current counts; this README intentionally avoids copying numbers that become stale as capabilities evolve."
+      ],
+      "items": [
+        "**Automated layered architecture:** projects, modules, environments, servers, nodes, tenants, and runtime configuration each have a defined role.",
+        "**Generated application artifacts:** schemas, routes, tests, OpenAPI contracts, governance reports, and AI context are generated from source definitions.",
+        "**Inbuilt search indexing and retrieval:** search modules define indexes, indexers, indexer logs, search routes, and provider extension points.",
+        "**Catalog and content capabilities:** catalog, CMS, and web CMS modules provide product/content modeling, page/component structures, renderer mappings, and content templating foundations.",
+        "**Import and export engines:** JavaScript, JSON, CSV, and Excel provider modules demonstrate the pattern for moving data in and out through governed import/export flows.",
+        "**Enterprise identity foundations:** enterprises, tenants, users, customers, employees, groups, permissions, API keys, and authentication behavior are modeled as platform capabilities.",
+        "**Runtime governance:** schema, router, class, pipeline, tenant property, access-policy, activation, preview, audit, cleanup, and rollback capabilities are part of the runtime control plane.",
+        "**Messaging, events, jobs, and workflows:** event handling, message clients, cron jobs, workflow carriers, actions, lifecycle operations, retries, pause/resume, and archive behavior are represented as first-class capabilities.",
+        "**Cache and provider extensibility:** cache, database, search, messaging, and data providers are modeled as replaceable modules.",
+        "**Testing as architecture evidence:** generated schema, CRUD, API contract, and API scenario tests make framework behavior verifiable instead of implied.",
+        "**AI-ready learning context:** generated LLM context and implementation contracts teach AI tools the same module, service, configuration, and extension rules expected from human developers."
+      ]
+    },
+    {
+      "heading": "What You Can Build",
+      "migratedFrom": "nodics:README.md",
+      "sourceAnchor": "what-you-can-build",
+      "paragraphs": [
+        "With Nodics you can build:",
+        "You can also use AI tools more safely because Nodics gives them explicit contracts: where to code, how to extend, what to test, what to document, and what must never become a hidden source of truth."
+      ],
+      "items": [
+        "REST APIs and generated API contracts.",
+        "Business services and application modules.",
+        "Tenant-aware applications.",
+        "Runtime configuration with audit and rollback.",
+        "Scheduled jobs.",
+        "Data import and export flows.",
+        "Search indexing and retrieval flows.",
+        "Catalog, CMS, and content-template driven experiences.",
+        "Event and messaging integrations.",
+        "Cache-backed services.",
+        "Database provider integrations.",
+        "Workflow-driven business processes.",
+        "Generated tests, OpenAPI output, LLM context, and governance reports."
+      ]
+    },
+    {
+      "heading": "Start Here",
+      "migratedFrom": "nodics:README.md",
+      "sourceAnchor": "start-here",
+      "paragraphs": [
+        "Choose the route that best matches why you are here."
+      ]
+    },
+    {
+      "heading": "I Am Evaluating Nodics For A Business",
+      "migratedFrom": "nodics:README.md",
+      "sourceAnchor": "i-am-evaluating-nodics-for-a-business",
+      "paragraphs": [
+        "These pages explain business value, delivery speed, long-term operating risk, fit, trade-offs, and the questions to validate before adopting Nodics. They do not require detailed software-framework knowledge.",
+        "For security evaluation, continue with the [Security Shared-Responsibility Model](/docs/security/shared-responsibility) and the expert [Security Evidence Guide](/docs/security/evidence)."
+      ],
+      "items": [
+        "[Why Businesses Choose Nodics](/docs/evaluate/why-nodics)",
+        "[Why Businesses Can Trust Nodics](/docs/evaluate/security-and-trust)",
+        "[Business Capabilities And Outcomes](/docs/evaluate/business-capabilities)",
+        "[How Nodics Compares With Other Approaches](/docs/evaluate/comparison)",
+        "[Business And Technical Evaluation Checklist](/docs/evaluate/checklist)"
+      ]
+    },
+    {
+      "heading": "I Am New To Nodics",
+      "migratedFrom": "nodics:README.md",
+      "sourceAnchor": "i-am-new-to-nodics",
+      "items": [
+        "[Nodics Documentation](/docs)",
+        "[What Nodics Is](/docs/discover/what-is-nodics)",
+        "[How To Set Up Nodics](/docs/get-started/local-setup)",
+        "[Build Your First Nodics Capability](/docs/get-started/first-capability)"
+      ]
+    },
+    {
+      "heading": "I Am Designing, Building, Or Operating An Application",
+      "migratedFrom": "nodics:README.md",
+      "sourceAnchor": "i-am-designing-building-or-operating-an-application",
+      "items": [
+        "[How Nodics Is Organized](/docs/framework/architecture)",
+        "[How Configuration Works](/docs/capabilities/configuration)",
+        "[How To Create Application Functionality](/docs/build/application-capability)",
+        "[How To Test Nodics Changes](/docs/build/testing)",
+        "[How To Run And Debug Nodics](/docs/operations/local-runtime)"
+      ]
+    },
+    {
+      "heading": "I Need Exact Capability Details",
+      "migratedFrom": "nodics:README.md",
+      "sourceAnchor": "i-need-exact-capability-details",
+      "items": [
+        "[Module Documentation Index](/docs/reference/modules)",
+        "[Complete Module Catalog](/docs/reference/modules)",
+        "[Nodics Glossary](/docs/reference/glossary)",
+        "[Provider And Capability Maturity Matrix](/docs/reference/maturity)"
+      ]
+    },
+    {
+      "heading": "Common Commands",
+      "migratedFrom": "nodics:README.md",
+      "sourceAnchor": "common-commands",
+      "paragraphs": [
+        "Use the repository runtime contract before installing dependencies. The preferred release line is Node.js 24 with npm 11. Node.js 22 remains in the supported validation matrix, and Node.js 26 is for forward validation as it moves toward LTS. Do not use Node.js 25 as a release target.",
+        "Install dependencies:",
+        "```bash\nnpm ci\n```",
+        "Use `npm install` only when intentionally changing dependencies, and commit `package.json` and `package-lock.json` together.",
+        "Build generated artifacts and documentation outputs:",
+        "```bash\nnpm run build\n```",
+        "Start Nodics:",
+        "```bash\nnpm run start\n```",
+        "Start with debugger support:",
+        "```bash\nnpm run start:debug\n```",
+        "Run the main test gate:",
+        "```bash\nnpm run test:basic\n```",
+        "Run the full test gate:",
+        "```bash\nnpm run test:full\n```",
+        "Print the clean-checkout release gate:",
+        "```bash\nnpm run release:check\n```",
+        "Execute it when preparing a release candidate:",
+        "```bash\nnpm run release:check -- --execute --full\n```"
+      ]
+    },
+    {
+      "heading": "Documentation Map",
+      "migratedFrom": "nodics:README.md",
+      "sourceAnchor": "documentation-map",
+      "items": [
+        "Public business, user, and developer guides: [gDocs](/docs)",
+        "Module-specific guides: [Module Documentation Index](/docs/reference/modules) and each module `README.md`",
+        "AI and implementation rules: [AGENTS.md](AGENTS.md) and [gSetup/llm](gSetup/llm/README.md)",
+        "Generated API documentation: generated during build",
+        "Generated AI context: generated with `npm run llm:generate`"
+      ]
+    },
+    {
+      "heading": "For Developers",
+      "migratedFrom": "nodics:README.md",
+      "sourceAnchor": "for-developers",
+      "paragraphs": [
+        "When adding or changing functionality:",
+        "Use [How To Create Application Functionality](/docs/build/application-capability) for the recommended development flow."
+      ],
+      "items": [
+        "Find the capability that owns the behavior.",
+        "Make the change in the owning module or project layer.",
+        "Keep generated files generated from source definitions.",
+        "Add or update tests.",
+        "Update public and module documentation when behavior changes."
+      ]
+    },
+    {
+      "heading": "Complete guide: Nodics Documentation",
+      "migratedFrom": "nodics:gDocs/README.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "Welcome to the Nodics documentation.",
+        "Nodics is an enterprise application factory for building modular, governed, API-driven business platforms. It is designed for teams that need MVP speed, AI-assisted development, customization, tenant-aware behavior, runtime control, and long-term maintainability in the same framework.",
+        "This documentation is written for several kinds of readers:",
+        "Nodics gives you a framework, runtime structure, generated APIs, layered configuration, tenant-aware behavior, scheduled jobs, import/export, search indexing, catalog and content capabilities, messaging, caching, testing, and deployment patterns that can be extended by projects without changing framework source code.",
+        "It is also built for AI-assisted development. A developer can work through a command-line AI tool, an IDE assistant, or a conversational coding assistant and ask for business functionality in plain language. Nodics documentation and contracts then guide that work into the correct module, service, route, schema, configuration, test, and documentation path."
+      ],
+      "items": [
+        "Business owners and decision makers evaluating value, fit, risk, and time to market.",
+        "People who are new to Nodics or enterprise application frameworks and need plain-language, step-by-step guidance.",
+        "Application developers who need task-based implementation guidance.",
+        "Experienced developers and architects who need exact extension points, configuration rules, and verification commands.",
+        "Operators and security reviewers who need deployment, runtime, access, and evidence guidance."
+      ]
+    },
+    {
+      "heading": "How To Read This Documentation",
+      "migratedFrom": "nodics:gDocs/README.md",
+      "sourceAnchor": "how-to-read-this-documentation",
+      "paragraphs": [
+        "You do not need to read every page in order. Choose the journey that matches your goal."
+      ]
+    },
+    {
+      "heading": "Business Owner Or Decision Maker",
+      "migratedFrom": "nodics:gDocs/README.md",
+      "sourceAnchor": "business-owner-or-decision-maker",
+      "items": [
+        "[Why Businesses Choose Nodics](/docs/evaluate/why-nodics)",
+        "[Why Businesses Can Trust Nodics](/docs/evaluate/security-and-trust)",
+        "[Business Capabilities And Outcomes](/docs/evaluate/business-capabilities)",
+        "[How Nodics Compares With Other Approaches](/docs/evaluate/comparison)",
+        "[Business And Technical Evaluation Checklist](/docs/evaluate/checklist)"
+      ]
+    },
+    {
+      "heading": "Beginner Or First-Time Evaluator",
+      "migratedFrom": "nodics:gDocs/README.md",
+      "sourceAnchor": "beginner-or-first-time-evaluator",
+      "items": [
+        "[What Nodics Is](/docs/discover/what-is-nodics)",
+        "[How To Set Up Nodics](/docs/get-started/local-setup)",
+        "[How Nodics Is Organized](/docs/framework/architecture)",
+        "[How Configuration Works](/docs/capabilities/configuration)",
+        "[Build Your First Nodics Capability](/docs/get-started/first-capability)"
+      ]
+    },
+    {
+      "heading": "Application Developer",
+      "migratedFrom": "nodics:gDocs/README.md",
+      "sourceAnchor": "application-developer",
+      "items": [
+        "[How To Create Application Functionality](/docs/build/application-capability)",
+        "[How To Customize And Extend Nodics](/docs/build/customization)",
+        "[Common Implementation Examples](/docs/build/examples)",
+        "[How To Create APIs](/docs/build/apis)",
+        "[How To Work With Data](/docs/capabilities/data-exchange)",
+        "[How To Create Scheduled Jobs](/docs/capabilities/scheduled-jobs/tutorial)",
+        "[How To Test Nodics Changes](/docs/build/testing)",
+        "[How To Approve And Publish Content](/docs/capabilities/content-publishing/tutorial)",
+        "[How Warehouse Management Works](/docs/capabilities/commerce/stock/warehouses)",
+        "[How Store Management Works](/docs/capabilities/commerce/stores/manage)",
+        "[How To Model Stores And Website Experiences](/docs/capabilities/commerce/storefront/modeling)",
+        "[How Units And Land Measurements Work](/docs/capabilities/commerce/units)",
+        "[How Stock Movements Work](/docs/capabilities/commerce/stock/movements)",
+        "[How Stock Pools Work](/docs/capabilities/commerce/stock/pools)",
+        "[How Stock Sourcing Works](/docs/capabilities/commerce/stock/sourcing)",
+        "[How Stock ON_HAND Availability Works](/docs/capabilities/commerce/stock/availability)",
+        "[How to Reserve Stock](/docs/capabilities/commerce/stock/reservations)",
+        "[How Stock Allocation Works](/docs/capabilities/commerce/stock/allocation)",
+        "[How Stock Transfers Work](/docs/capabilities/commerce/stock/transfers)",
+        "[How Inventory Reconciliation Works](/docs/capabilities/commerce/stock/reconciliation)",
+        "[How To Operate And Integrate Inventory](/docs/capabilities/commerce/stock/operations)",
+        "[How To Configure And Operate Pricing](/docs/capabilities/commerce/pricing/operations)",
+        "[How To Create And Identify Products](/docs/capabilities/commerce/products/create)",
+        "[How AI Cost Governance Works](/docs/capabilities/ai/token-governance)",
+        "[Assistant, AI Providers, and Knowledge Guide](/docs/capabilities/ai)",
+        "[How To Read The Nodics Axis Workspace Context](/docs/solutions/backoffice/workspace-context)",
+        "[How Schema Workbench Works](/docs/solutions/backoffice/schema-workbench)"
+      ]
+    },
+    {
+      "heading": "Architect, Security Reviewer, Or Operator",
+      "migratedFrom": "nodics:gDocs/README.md",
+      "sourceAnchor": "architect-security-reviewer-or-operator",
+      "items": [
+        "[Why Businesses Can Trust Nodics](/docs/evaluate/security-and-trust)",
+        "[Security Shared-Responsibility Model](/docs/security/shared-responsibility)",
+        "[Security Evidence Guide](/docs/security/evidence)",
+        "[BackOffice Browser Security](/docs/security/backoffice-browser-sessions)",
+        "[How Platform Capabilities Work](/docs/framework/architecture)",
+        "[How Users, Tenants, And Permissions Work](/docs/security/users-tenants-permissions)",
+        "[How Cache Works](/docs/capabilities/caching)",
+        "[How To Run And Debug Nodics](/docs/operations/local-runtime)",
+        "[How To Prepare For Deployment](/docs/operations/deployment)",
+        "[Production Operating Model](/docs/operations/production)",
+        "[How AI Cost Governance Works](/docs/capabilities/ai/token-governance)",
+        "[Assistant, AI Providers, and Knowledge Guide](/docs/capabilities/ai)",
+        "[How To Read The Nodics Axis Workspace Context](/docs/solutions/backoffice/workspace-context)",
+        "[How Schema Workbench Works](/docs/solutions/backoffice/schema-workbench)"
+      ]
+    },
+    {
+      "heading": "Reference And Documentation Contributors",
+      "migratedFrom": "nodics:gDocs/README.md",
+      "sourceAnchor": "reference-and-documentation-contributors",
+      "items": [
+        "[Module Documentation Index](/docs/reference/modules)",
+        "[Complete Module Catalog](/docs/reference/modules)",
+        "[Nodics Glossary](/docs/reference/glossary)",
+        "[Provider And Capability Maturity Matrix](/docs/reference/maturity)",
+        "[Licensing And Header Contract](/docs/reference/licensing)",
+        "[Documentation Maintenance Guide](/docs/build/documentation)",
+        "[How To Publish Documentation On GitHub](/docs/build/documentation)"
+      ]
+    },
+    {
+      "heading": "Documentation Principles",
+      "migratedFrom": "nodics:gDocs/README.md",
+      "sourceAnchor": "documentation-principles",
+      "paragraphs": [
+        "Nodics documentation must be useful before it is clever.",
+        "Every guide should answer:",
+        "Avoid internal folder names in page titles unless the folder name is the thing the user must open. Prefer task names such as \"How to create a scheduled job\" instead of implementation names such as \"cronjob module\"."
+      ],
+      "items": [
+        "What problem does this feature solve?",
+        "When should I use it?",
+        "Where should I make the change?",
+        "What files or configuration are involved?",
+        "What should I avoid?",
+        "How do I verify that it works?",
+        "How can a project customize this without changing Nodics framework code?"
+      ]
+    },
+    {
+      "heading": "Relationship With Module Documentation",
+      "migratedFrom": "nodics:gDocs/README.md",
+      "sourceAnchor": "relationship-with-module-documentation",
+      "paragraphs": [
+        "This folder explains Nodics from the user and application-developer point of view.",
+        "Module `README.md` files explain the details of one specific capability. For example, this documentation may say how scheduled jobs work in Nodics, while the scheduled-job module README explains the exact schemas, services, routes, and extension contracts owned by that module.",
+        "Use the [Module Documentation Index](/docs/reference/modules) to move from task-based guides to the module that owns the exact capability details.",
+        "AI-only and implementation-governance rules belong in `AGENTS.md` and `gSetup/llm`, not in public user documentation."
+      ]
+    },
+    {
+      "heading": "Where To Find The Right Guidance",
+      "migratedFrom": "nodics:gDocs/README.md",
+      "sourceAnchor": "where-to-find-the-right-guidance",
+      "paragraphs": [
+        "Use this map when you are not sure where to start.",
+        "| Need | Read |\n| --- | --- |\n| Understand what Nodics is and why it exists | [What Nodics Is](/docs/discover/what-is-nodics) |\n| Decide whether Nodics fits a business or product | [Why Businesses Choose Nodics](/docs/evaluate/why-nodics), [Why Businesses Can Trust Nodics](/docs/evaluate/security-and-trust), [How Nodics Compares](/docs/evaluate/comparison), and [Evaluation Checklist](/docs/evaluate/checklist) |\n| Install, build, and start the framework | [How To Set Up Nodics](/docs/get-started/local-setup) |\n| Follow one complete beginner journey | [Build Your First Nodics Capability](/docs/get-started/first-capability) |\n| Understand projects, modules, environments, servers, and nodes | [How Nodics Is Organized](/docs/framework/architecture) |\n| Add new application behavior | [How To Create Application Functionality](/docs/build/application-capability) |\n| Customize or generalize framework behavior safely | [How To Customize And Extend Nodics](/docs/build/customization) |\n| Follow examples for APIs, schemas, providers, scheduled jobs, and runtime configuration | [Common Implementation Examples](/docs/build/examples) |\n| Add or change APIs | [How To Create APIs](/docs/build/apis) |\n| Work with schemas, import, export, and data providers | [How To Work With Data](/docs/capabilities/data-exchange) |\n| Use exact quantities, compound units, and regional land-area conversions | [How Units And Land Measurements Work](/docs/capabilities/commerce/units) |\n| Approve Staged content and publish it safely to Online | [How To Approve And Publish Content](/docs/capabilities/content-publishing/tutorial) |\n| Understand or customize enterprise warehouses and warehouse locations | [How Warehouse Management Works](/docs/capabilities/commerce/stock/warehouses) |\n| Create stores and associate Inventory warehouses | [How Store Management Works](/docs/capabilities/commerce/stores/manage) |\n| Model different websites, brands, countries, or shared Sites against Stores | [How To Model Stores And Website Experiences](/docs/capabilities/commerce/storefront/modeling) |\n| Record exact, idempotent on-hand Stock changes | [How Stock Movements Work](/docs/capabilities/commerce/stock/movements) |\n| Group Warehouses for future sourcing without copying Stock | [How Stock Pools Work](/docs/capabilities/commerce/stock/pools) |\n| Select ordered Stock Pools from declarative business context | [How Stock Sourcing Works](/docs/capabilities/commerce/stock/sourcing) |\n| Calculate exact read-only ON_HAND Stock with Warehouse evidence | [How Stock ON_HAND Availability Works](/docs/capabilities/commerce/stock/availability) |\n| Hold Stock for checkout and fulfillment | [How to Reserve Stock](/docs/capabilities/commerce/stock/reservations) |\n| Allocate Order demand across Warehouses | [How Stock Allocation Works](/docs/capabilities/commerce/stock/allocation) |\n| Transfer Stock safely between Warehouses | [How Stock Transfers Work](/docs/capabilities/commerce/stock/transfers) |\n| Detect and repair Inventory inconsistencies | [How Inventory Reconciliation Works](/docs/capabilities/commerce/stock/reconciliation) |\n| Operate Inventory, reconstruct Stock, or connect WMS/POS | [How To Operate And Integrate Inventory](/docs/capabilities/commerce/stock/operations) |\n| Configure scoped Price Lists, Price Groups, exact Prices, and Staged-to-Online releases | [How To Configure And Operate Pricing](/docs/capabilities/commerce/pricing/operations) |\n| Understand tenant-scoped AI token and exact-cost controls | [How AI Cost Governance Works](/docs/capabilities/ai/token-governance) |\n| Configure the read-only Assistant, providers, and documentation Knowledge flow | [Assistant, AI Providers, and Knowledge Guide](/docs/capabilities/ai) |\n| Understand Axis Environment, Tenant, Enterprise, Site, and Catalog context | [How To Read The Nodics Axis Workspace Context](/docs/solutions/backoffice/workspace-context) |\n| Discover and manage explicitly enabled schemas in Axis | [How Schema Workbench Works](/docs/solutions/backoffice/schema-workbench) |\n| Create enterprise Product Items and alternate identifiers | [How To Create And Identify Products](/docs/capabilities/commerce/products/create) |\n| Use Nodics as a governed data lake or data hub | [How To Use Nodics As Data As A Service](/docs/solutions/data-as-service) |\n| Add scheduled jobs | [How To Create Scheduled Jobs](/docs/capabilities/scheduled-jobs/tutorial) |\n| Understand processes, messaging, logging, and request handling | [How Platform Capabilities Work](/docs/framework/architecture) |\n| Configure, troubleshoot, or customize cache | [How Cache Works](/docs/capabilities/caching) |\n| Understand users, tenants, permissions, and runtime isolation | [How Users, Tenants, And Permissions Work](/docs/security/users-tenants-permissions) |\n| Evaluate security value, responsibilities, limitations, and evidence | [Why Businesses Can Trust Nodics](/docs/evaluate/security-and-trust), [Security Shared-Responsibility Model](/docs/security/shared-responsibility), and [Security Evidence Guide](/docs/security/evidence) |\n| Verify a change | [How To Test Nodics Changes](/docs/build/testing) |\n| Run, debug, deploy, or operate Nodics | [How To Run And Debug Nodics](/docs/operations/local-runtime), [How To Prepare For Deployment](/docs/operations/deployment), and [Production Operating Model](/docs/operations/production) |\n| Maintain public and module documentation | [Documentation Maintenance Guide](/docs/build/documentation) |\n| Find module-specific capability documentation | [Module Documentation Index](/docs/reference/modules) |\n| Browse every package-defined module | [Complete Module Catalog](/docs/reference/modules) |\n| Understand Nodics terminology | [Nodics Glossary](/docs/reference/glossary) |\n| Check whether a provider or capability is production-ready, guarded, sample, scaffolded, or parked | [Provider And Capability Maturity Matrix](/docs/reference/maturity) |\n| Understand which files require the Nodics source header and how the copyright year is enforced | [Licensing And Header Contract](/docs/reference/licensing) |",
+        "For module-specific details, read the owning module `README.md`. For implementation contracts used by AI tools and developers, read root [AGENTS.md](../AGENTS.md) and [gSetup/llm](../gSetup/llm/README.md)."
+      ]
+    },
+    {
+      "heading": "Complete guide: What Nodics Is",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "Nodics is an enterprise application factory for building modular, governed, API-driven business platforms.",
+        "It is more than a web framework and more than a collection of utilities. Nodics gives an application a complete operating structure: modules, APIs, schemas, services, permissions, tenants, runtime configuration, scheduled jobs, events, imports, exports, search indexing, catalog and content capabilities, tests, generated artifacts, deployment topology, and documentation.",
+        "![Nodics Architecture](../assets/images/nodics-architecture.jpg)"
+      ]
+    },
+    {
+      "heading": "Beginner Summary",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "beginner-summary",
+      "paragraphs": [
+        "Nodics helps you build serious applications without starting from a blank folder. It gives you ready places for common enterprise needs: APIs, users, permissions, data models, import/export, cache, search, jobs, events, workflow, tests, configuration, deployment topology, and documentation.",
+        "The most important beginner idea is:",
+        "```text\nEvery feature must have an owner and a correct layer.\n```",
+        "For example:",
+        "| If you need | You usually work in |\n| --- | --- |\n| A new API | router, controller, facade, service |\n| A new data model | schema and generated tests |\n| A business rule | service or facade |\n| A database provider | database provider module |\n| A cache rule | cache configuration/service |\n| A scheduled task | cronjob definition and service |\n| A tenant-specific difference | tenant/runtime configuration or later project module |\n| A customer-specific behavior | customer/project module |",
+        "This structure is useful for humans and AI tools because it reduces guessing. Instead of putting code anywhere, the framework tells you where the code should live and how to verify it.",
+        "Instead of putting all code in one application folder, Nodics organizes behavior into active capabilities. A capability can provide data models, APIs, services, scheduled jobs, events, import/export behavior, permissions, tests, and documentation. A project can then extend or replace behavior through later-loaded project modules without editing framework files.",
+        "Nodics is also built for AI-assisted development. Developers can use CLI-based AI tools, IDE assistants, or conversational coding tools to describe what they want to build. Nodics gives those tools a governed structure to follow so generated or assisted code lands in the right place and respects the same rules as human-written code."
+      ]
+    },
+    {
+      "heading": "What Problem Nodics Solves",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "what-problem-nodics-solves",
+      "paragraphs": [
+        "Many enterprise applications start simple and then become hard to maintain:",
+        "Nodics solves this by giving every capability a clear place to live, a clear way to be extended, and a clear way to be verified.",
+        "That is the main reason Nodics is valuable for AI-assisted MVP development. A team can move quickly with command-line AI tools, IDE assistants, or conversational coding tools, but the generated work still lands inside a governed platform model instead of becoming scattered prototype code that is painful to scale later.",
+        "The core rule is:",
+        "```text\nCapabilities are stable. Implementations can change.\n```",
+        "For example, Nodics can provide a default database capability. A project can add a new database provider or change data access behavior through the module hierarchy, but it does not edit the original framework source just to serve one customer.",
+        "This makes Nodics especially strong for customer-specific enterprise work. The framework provides stable capabilities, while projects negotiate the implementation through approved extension layers."
+      ],
+      "items": [
+        "API behavior is spread across many files with no clear owner.",
+        "Configuration is copied into environments and becomes inconsistent.",
+        "Data access rules are duplicated.",
+        "Security decisions are hidden inside controllers.",
+        "Generated files are edited manually.",
+        "Customer-specific changes are made directly inside framework code.",
+        "Testing is added after the behavior already exists."
+      ]
+    },
+    {
+      "heading": "Technology Stack",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "technology-stack",
+      "paragraphs": [
+        "Nodics uses Node.js and JavaScript as the runtime foundation for modular API development. It builds on common enterprise application concerns such as Express-style request handling, schema-driven data behavior, database providers, cache providers, search providers, messaging providers, scheduled execution, import/export processing, generated artifacts, and automated tests.",
+        "![Nodics Technology Stack](../assets/images/technology-stack.jpg)",
+        "The stack is intentionally layered. Application developers should depend on Nodics capability contracts such as schemas, services, routers, pipelines, events, cache, search, import/export, and configuration. Provider-specific behavior belongs behind provider modules so a project can change MongoDB, Cassandra, Redis, search, messaging, file, or integration behavior without rewriting business capabilities."
+      ]
+    },
+    {
+      "heading": "Why Nodics Is Different",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "why-nodics-is-different",
+      "paragraphs": [
+        "Nodics is designed for teams that need speed without losing architecture. A startup can build an MVP quickly, including APIs, data models, users, jobs, imports, search, and tests, while still keeping the codebase ready for enterprise scale after funding, customer growth, and product expansion."
+      ]
+    },
+    {
+      "heading": "Provided Solutions",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "provided-solutions",
+      "paragraphs": [
+        "Nodics provides a ready platform foundation for common enterprise application needs:",
+        "Nodics provides:",
+        "![Microservices Architecture](../assets/images/microservices-architecture.jpg)"
+      ],
+      "items": [
+        "modular API and microservice-style application development;",
+        "tenant-aware identity, profile, authentication, authorization, and permissions;",
+        "schema-driven database behavior and generated CRUD APIs;",
+        "cache layers for API, item, search, auth, and runtime acceleration;",
+        "search indexing and retrieval;",
+        "scheduled jobs and long-running system tasks;",
+        "event and enterprise messaging integration;",
+        "import/export and data hub capabilities;",
+        "catalog, content, and workflow-ready application patterns;",
+        "generated tests, OpenAPI output, documentation context, and AI/developer contracts;",
+        "cloud-ready project, environment, server, and node topology.",
+        "**Fast MVP delivery** through ready platform capabilities, generated APIs, module scaffolding, layered configuration, and AI-assisted implementation contracts.",
+        "**Business and service extensibility** through overrideable services, facades, controllers, routers, schemas, processors, interceptors, providers, and data definitions.",
+        "**Distributed system readiness** through environment, server, node, active-module, remote-module, messaging, cache, and scheduled-job boundaries.",
+        "**Testing-oriented development** through generated schema/API tests, module-owned tests, topology tests, import/export tests, security tests, and documentation quality gates.",
+        "**Lower deployment effort** because the same platform model describes local consolidated execution, modular multi-server execution, and cloud-ready process separation."
+      ]
+    },
+    {
+      "heading": "Who Uses Nodics",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "who-uses-nodics",
+      "paragraphs": [
+        "Nodics documentation is written for:"
+      ],
+      "items": [
+        "Application developers building customer projects on top of Nodics.",
+        "Framework developers extending Nodics itself.",
+        "Test engineers validating generated APIs, permissions, imports, jobs, and runtime behavior.",
+        "Technical leads defining project structure, environments, servers, and modules.",
+        "AI coding tools that must follow the same implementation rules as human developers."
+      ]
+    },
+    {
+      "heading": "Why Nodics Works Well With AI Tools",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "why-nodics-works-well-with-ai-tools",
+      "paragraphs": [
+        "AI tools are powerful, but without structure they can create code in the wrong place, duplicate existing behavior, bypass security, or invent a second configuration path.",
+        "Nodics reduces that risk by making the application architecture explicit.",
+        "An AI tool can be asked to:",
+        "Nodics then provides the rules for where that work belongs:",
+        "This lets developers interact with AI tools conversationally while still keeping the platform disciplined."
+      ],
+      "items": [
+        "Create a new API.",
+        "Add a scheduled job.",
+        "Add a configuration value.",
+        "Create a new data model.",
+        "Add a database provider.",
+        "Add tests for a feature.",
+        "Update documentation.",
+        "The owning module.",
+        "The correct source folder.",
+        "The configuration layer.",
+        "The service, controller, route, schema, pipeline, or interceptor contract.",
+        "The generated artifact boundary.",
+        "The tests that must pass.",
+        "The documentation that must be updated."
+      ]
+    },
+    {
+      "heading": "Main Ideas",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "main-ideas",
+      "paragraphs": [
+        "Nodics is based on a few simple ideas.",
+        "**Modules own capabilities.** A module owns the behavior, configuration, schemas, tests, and documentation for the feature it provides.",
+        "**Projects extend through layers.** A customer project adds or overrides behavior through project modules, environment modules, server modules, node modules, tenant configuration, runtime configuration, or data. It does not modify released framework code unless the work is explicitly framework maintenance.",
+        "**Configuration is layered.** Defaults come from the framework. Projects, environments, servers, nodes, tenants, and runtime configuration can refine behavior later in the hierarchy.",
+        "**Generated files come from source definitions.** Regenerate generated APIs, schemas, tests, OpenAPI output, and LLM context from the owning source. Do not hand-maintain generated output as the source of truth.",
+        "**Security is part of the contract.** Authentication, authorization, access control, validation, audit, rollback, diagnostics, and tests are not optional extras."
+      ]
+    },
+    {
+      "heading": "What You Can Build",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "what-you-can-build",
+      "paragraphs": [
+        "With Nodics, you can build:",
+        "placement, runtime isolation, and governance."
+      ],
+      "items": [
+        "REST APIs backed by schema definitions.",
+        "Business services and reusable facades.",
+        "Scheduled jobs.",
+        "Import and export flows.",
+        "Search indexing and retrieval flows.",
+        "Catalog, CMS, and content-template driven experiences.",
+        "Tenant-aware applications where shared or dedicated tenants decide data",
+        "Event-driven workflows.",
+        "Cache-backed services.",
+        "Runtime configuration tools.",
+        "Generated tests and API contracts.",
+        "Modular customer applications that extend framework behavior safely."
+      ]
+    },
+    {
+      "heading": "Framework Functionality At A Glance",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "framework-functionality-at-a-glance",
+      "paragraphs": [
+        "Nodics provides the following platform capabilities. This list avoids internal folder-structure detail and focuses on what the framework gives to application teams, framework developers, and AI-assisted implementation tools."
+      ]
+    },
+    {
+      "heading": "Platform Foundation",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "platform-foundation",
+      "paragraphs": [
+        "| Functionality | What It Provides |\n| --- | --- |\n| Enterprise application factory | A governed foundation for building business applications from reusable platform capabilities. |\n| Modular application architecture | A way to divide behavior into clear capability boundaries instead of one large application body. |\n| Capability ownership | A rule that every behavior, configuration, data model, test, and document has a responsible owner. |\n| Layered module hierarchy | A controlled order where later project, environment, server, node, tenant, or customer layers refine earlier behavior. |\n| Project extension layers | A project can customize behavior without editing released framework code. |\n| Environment extension layers | Environment-specific defaults can differ for local, development, QA, pre-production, and production deployments. |\n| Server extension layers | Each runnable process can select its active modules, ports, endpoints, and process-level responsibilities. |\n| Node extension layers | Individual nodes can own instance-specific responsibilities such as scheduling, diagnostics, or capacity. |\n| Tenant-aware behavior | Runtime behavior can resolve the active tenant and protect tenant-specific data, configuration, cache, search, imports, exports, audit, and diagnostics. |\n| Shared and dedicated tenant placement | A business can use shared platform infrastructure or a dedicated tenant with private database, search, cache, storage, and governance configuration. |\n| Customer-aware behavior | Customer-specific rules can live in customer or project layers instead of framework modules. |\n| Runtime governance | Runtime changes can use preview, request, approval, activation, audit, diagnostics, and rollback. |\n| Generated artifacts | Models, APIs, tests, OpenAPI output, and LLM context can be regenerated from source definitions. |\n| Source-definition driven behavior | Behavior starts from schemas, routes, configuration, services, pipelines, events, and tests. |\n| Framework immutability for customer projects | Customer projects extend the framework through approved layers instead of changing out-of-the-box code. |\n| AI-assisted development contracts | AI tools receive explicit rules for where to add code, configuration, tests, and documentation. |\n| Human developer implementation contracts | Human developers follow the same implementation rules as AI tools. |\n| Loader-visible implementation structure | Runtime behavior lives where the Nodics loader can discover, merge, and override it. |\n| Module metadata governance | Package metadata identifies ownership, type, order, and dependency expectations. |\n| Module lifecycle startup | Modules can participate in startup through the standard Nodics lifecycle. |\n| Module lifecycle shutdown | Runtime boundaries can support controlled cleanup and shutdown behavior. |\n| Pre-startup scripts | Modules can declare controlled work that runs before normal startup. |\n| Post-startup scripts | Modules can declare controlled work that runs after normal startup. |\n| Clean process | Generated artifacts and temporary outputs can be removed through governed clean commands. |\n| Build process | Source definitions can produce generated runtime artifacts and validation evidence. |\n| Generated context | LLM-facing module context is regenerated from source and documentation. |\n| Documentation governance | Documentation coverage and quality checks protect developer and AI understanding. |"
+      ]
+    },
+    {
+      "heading": "Configuration",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "configuration",
+      "paragraphs": [
+        "| Functionality | What It Provides |\n| --- | --- |\n| Configuration loading | Active modules contribute configuration during startup. |\n| Configuration merging | Later layers refine earlier defaults through controlled merge behavior. |\n| Layered properties | Values live in owned property namespaces instead of scattered constants. |\n| Framework default properties | Framework modules provide default behavior that projects can override safely. |\n| Project properties | Customer or application projects can define project-wide behavior. |\n| Environment properties | Deployment environments can define environment-level settings. |\n| Server properties | Runnable processes can define ports, active modules, and remote endpoints. |\n| Node properties | Individual process instances can define node-local overrides. |\n| Tenant runtime properties | Tenant-specific configuration can refine behavior after startup. |\n| Runtime configuration activation | Approved runtime configuration can become active without editing source files. |\n| Runtime configuration preview | Runtime changes can be evaluated before activation. |\n| Runtime configuration approval | Sensitive runtime changes can require an approval step. |\n| Runtime configuration rollback | Activated runtime changes can return to a previous governed version. |\n| Runtime configuration audit | Runtime changes can be recorded with traceable governance evidence. |\n| Property namespace ownership | Each configurable value belongs to the module that owns the capability. |\n| Startup configuration | Startup uses selected project, environment, server, node, and active modules. |\n| Module hierarchy resolution | Nodics resolves load order and effective behavior from module metadata. |\n| Active module resolution | Each process knows which modules run locally. |\n| Remote module endpoint configuration | Processes can call capabilities hosted by other servers. |\n| Server coordinate configuration | Server identity, host, port, and context can come from configuration. |\n| Node coordinate configuration | Node identity and instance-level behavior can come from configuration. |\n| Configurable route permissions | Route permissions can be resolved from configuration when they vary by layer. |\n| Configurable auth security | Auth and internal-token rules can be adjusted through governed configuration. |\n| Configurable tooling commands | Development and governance commands can be declared through properties. |\n| Configurable documentation governance | Documentation gates can be owned and changed through tooling configuration. |\n| Configurable provider selection | Database, cache, search, messaging, and other providers can be selected by configuration. |"
+      ]
+    },
+    {
+      "heading": "Runtime Topology",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "runtime-topology",
+      "paragraphs": [
+        "| Functionality | What It Provides |\n| --- | --- |\n| Project topology | The project defines the application, modules, environments, servers, and nodes. |\n| Environment topology | Each environment groups the servers that run in that deployment context. |\n| Server topology | Each server defines one runnable process composition. |\n| Node topology | Nodes provide instance-specific behavior under a server. |\n| Modular server execution | Capabilities can run in separate server processes. |\n| Consolidated server execution | Multiple capabilities can run together for local or simple deployments. |\n| Multi-node execution | Multiple nodes can share a server role while owning different responsibilities. |\n| Node responsibility | Jobs, publishers, consumers, or diagnostics can be assigned to selected nodes. |\n| Remote module communication | A process can call modules that are active on another server. |\n| Internal module communication | Modules can communicate through secured internal service paths. |\n| Server-to-server communication | Distributed deployments can coordinate across configured server endpoints. |\n| Local active modules | Each server decides which modules execute inside the current process. |\n| Remote module endpoints | Configuration describes where remote capabilities are available. |\n| Topology validation | Tests and audits verify environment, server, node, and active-module consistency. |\n| Topology tests | Automated tests prove consolidated and modular runtime behavior. |\n| Runtime report generation | Startup and test runs can produce runtime evidence reports. |\n| Runtime diagnostics | Runtime topology can expose enough information to debug process composition. |"
+      ]
+    },
+    {
+      "heading": "Request And API Layer",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "request-and-api-layer",
+      "paragraphs": [
+        "| Functionality | What It Provides |\n| --- | --- |\n| Route registration | Modules expose APIs through owned route definitions. |\n| Route metadata | Routes declare method, URL, controller, request type, permissions, and help data. |\n| Route permission configuration | Routes can use fixed permissions or configurable permission keys. |\n| Route authentication configuration | Routes declare whether authentication is required. |\n| Pre-authentication routes | True login or credential-initiation routes can run before a user has a token. |\n| Secured routes | Protected APIs validate authentication, tenant context, and permission rules. |\n| Internal-token routes | Service-to-service routes remain secured through internal-token permissions. |\n| Request normalization | Incoming requests are normalized before business behavior runs. |\n| Header normalization | Header values can be standardized for tenant, auth, and traceability behavior. |\n| Tenant context resolution | API execution can resolve the active tenant for access and data decisions. |\n| Controller execution | Controllers map request and response concerns. |\n| Facade orchestration | Facades coordinate service calls and cross-module behavior. |\n| Service execution | Services own business logic and replaceable implementation behavior. |\n| API response handling | API results can be shaped consistently through the request pipeline. |\n| API error handling | Failures can produce consistent, diagnosable responses. |\n| API diagnostics | API execution can capture correlation, module, tenant, and failure evidence. |\n| Generated CRUD APIs | Schema and route definitions can produce standard create, retrieve, update, and remove APIs. |\n| Generated route output | Generated route artifacts come from source definitions and regeneration. |\n| OpenAPI generation | Route metadata can generate API documentation. |\n| Postman API examples | API examples can support manual exploration and documentation review. |\n| API contract tests | Tests prove route behavior, permissions, responses, and generated API contracts. |"
+      ]
+    },
+    {
+      "heading": "Security And Access Control",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "security-and-access-control",
+      "paragraphs": [
+        "| Functionality | What It Provides |\n| --- | --- |\n| Authentication | Nodics verifies caller identity before protected work runs. |\n| Authorization | Nodics checks whether the authenticated caller has the required permission. |\n| Permission catalog | Permissions are explicit platform records instead of hidden strings. |\n| User groups | Groups organize users, permissions, and access behavior. |\n| Parent group inheritance | Groups can inherit permissions through validated parent relationships. |\n| Access groups | Schemas and records can declare which groups may access behavior. |\n| Schema access policy | Data models can define access expectations at schema level. |\n| Route access policy | APIs can define access expectations at route level. |\n| Internal service tokens | Module-to-module work can use secured service credentials. |\n| API keys | Service principals can use governed API keys. |\n| Service principals | Non-human callers can receive scoped identity and permissions. |\n| Human login | User login remains separate from internal module access. |\n| Employee login | Employee authentication can resolve tenant and credential context. |\n| Customer login | Customer authentication can enforce customer-scoped behavior. |\n| Pre-authentication boundary | Only true credential-initiation routes run before authentication. |\n| Module-to-module security | Internal calls remain secured and permissioned. |\n| Tenant isolation | Tenant context protects data, configuration, tokens, and permissions. |\n| Customer isolation | Customer-scoped users and records remain constrained to their ownership boundary. |\n| Auth cache | Authentication state can be cached for performance. |\n| Strict auth cache activation | Unsafe local-only cache behavior can be rejected for production-style deployments. |\n| Auth invalidation | User, password, group, or permission changes can invalidate active sessions. |\n| Auth version stamping | Tokens can carry version stamps so stale sessions are rejected. |\n| Password handling | Password behavior stays inside identity and auth contracts. |\n| Credential rotation | Service credentials can be rotated through governed operations. |\n| Secret handling | Secrets stay out of source-controlled configuration and logs. |\n| Sanitized observability | Security logs avoid exposing credentials, tokens, and sensitive payloads. |\n| Security diagnostics | Security failures can produce traceable but safe evidence. |\n| Security audit | Sensitive changes can be recorded for review and rollback decisions. |"
+      ]
+    },
+    {
+      "heading": "Identity And Profile",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "identity-and-profile",
+      "paragraphs": [
+        "| Functionality | What It Provides |\n| --- | --- |\n| Enterprise model | Enterprise records organize business-level ownership. |\n| Tenant model | Tenants isolate runtime behavior, users, data, configuration, and data-placement decisions. |\n| Customer model | Customer records support customer-specific identity and ownership. |\n| Employee model | Employee records support internal user identity. |\n| Principal model | Principals represent authenticated actors. |\n| User group model | Groups define inheritance, permissions, and access behavior. |\n| Permission model | Permissions define allowed operations. |\n| Address model | Address records support profile and customer data. |\n| Contact model | Contact records support profile and communication data. |\n| Service account model | Service accounts represent non-human callers. |\n| API key model | API key records support secured service access. |\n| Authentication state | Profile and auth layers manage login, token, and session state. |\n| Identity bootstrap | Required identity records can be created during startup. |\n| Mandatory identity reconciliation | Startup can create only missing mandatory non-secret groups. |\n| Identity governance migration | Identity changes can use preview, apply, rollback, and audit. |\n| Identity preview | Identity migration impact can be inspected before mutation. |\n| Identity apply | Approved identity changes can be applied idempotently. |\n| Identity rollback | Audited identity changes can be rolled back where safe. |\n| Identity audit snapshot | Governance records can capture structural identity changes. |\n| Ownership policy | Profile records can enforce owner-based access. |\n| Customer registration | Registration can force safe customer groups and remove privileged caller input. |\n| Profile access control | Profile schemas and routes enforce identity access rules. |\n| Tenant model and runtime isolation | Tenant context separates users, tokens, data, permissions, runtime behavior, and private or shared infrastructure placement. |"
+      ]
+    },
+    {
+      "heading": "Database And Persistence",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "database-and-persistence",
+      "paragraphs": [
+        "| Functionality | What It Provides |\n| --- | --- |\n| Schema definitions | Schemas define stored data, validation, access, and generated behavior. |\n| Schema loading | Active modules contribute schema definitions during startup/build. |\n| Schema merging | Later layers can extend or override schema behavior through the hierarchy. |\n| Schema extension | Projects can add fields or behavior without editing framework schemas. |\n| Nested schemas | Embedded structures can model data owned by a parent aggregate. |\n| Referenced schemas | Independent records can be linked through references. |\n| Model generation | Schemas can produce runtime model artifacts. |\n| Generated models | Generated models provide persistence behavior derived from schemas. |\n| Generated services | Generated services expose standard behavior for schema-backed data. |\n| Generated facades | Generated facades provide orchestration over generated services. |\n| Generated controllers | Generated controllers map API requests to generated behavior. |\n| Generated routers | Generated routers expose schema behavior over APIs. |\n| Generic DAO | Shared DAO behavior supports common persistence operations. |\n| Generated CRUD | Standard create, retrieve, update, and remove behavior comes from source definitions. |\n| Model middleware | Middleware extends persistence behavior without rewriting generated code. |\n| Validators | Validators protect data shape, rules, and lifecycle behavior. |\n| Interceptors | Interceptors add lifecycle behavior around persistence changes. |\n| Database connection management | Provider modules own database connection lifecycle. |\n| Tenant-aware database resolution | Tenant context can influence database selection. |\n| MongoDB provider | MongoDB support lives behind provider contracts. |\n| Cassandra provider | Cassandra support lives behind provider contracts. |\n| Elastic database provider | Elastic database support lives behind provider contracts. |\n| Versioned database module | Versioned persistence can support draft, online, and rollback patterns. |\n| New database provider extension | New databases are added as provider or project modules. |\n| Oracle provider extension path | Oracle support can be added through an owned provider implementation. |\n| Persistence diagnostics | Data operations can emit failure and traceability evidence. |\n| Persistence tests | Tests prove default, provider, tenant, and override behavior. |"
+      ]
+    },
+    {
+      "heading": "Validation And Interceptors",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "validation-and-interceptors",
+      "paragraphs": [
+        "| Functionality | What It Provides |\n| --- | --- |\n| Validation capability | Nodics centralizes validation as a platform capability. |\n| Generated validators | Validators can be generated from source definitions. |\n| Schema validators | Schema-specific validation protects model data. |\n| Request validators | API input validation protects request boundaries. |\n| Persistence validators | Persistence validation protects saved data. |\n| Save interceptors | Save operations can trigger governed lifecycle checks. |\n| Update interceptors | Update operations can validate merged state and policy. |\n| Remove interceptors | Remove operations can protect delete behavior. |\n| Lifecycle interceptors | Interceptors can run at important model lifecycle points. |\n| Access policy interceptors | Access rules can be enforced before persistence changes. |\n| Identity interceptors | Identity records can enforce group, principal, and permission rules. |\n| Data validation | Import, export, and persistence flows validate records before mutation. |\n| Error validation | Failures can be normalized and checked for safe output. |\n| Interceptor ordering | Interceptor execution can follow predictable ownership and merge rules. |\n| Interceptor extension | Later modules can add or replace interceptor behavior. |\n| Validator extension | Later modules can add or replace validation behavior. |"
+      ]
+    },
+    {
+      "heading": "Services, Facades, And Controllers",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "services-facades-and-controllers",
+      "paragraphs": [
+        "| Functionality | What It Provides |\n| --- | --- |\n| Service layer | Services own business behavior and replaceable implementation logic. |\n| Default service scaffolding | New modules can start with standard `init` and `postInit` service hooks. |\n| Service override | Later modules can replace specific service functions. |\n| Service merge behavior | Service exports can merge through the module hierarchy. |\n| Versioned services | Version-aware behavior can support draft, online, and publish flows. |\n| Facade layer | Facades coordinate work across services or module boundaries. |\n| Facade generation | Source definitions can generate standard facade artifacts. |\n| Facade orchestration | Facades handle orchestration without owning low-level persistence. |\n| Controller layer | Controllers handle request and response mapping. |\n| Controller generation | Source definitions can generate standard controller artifacts. |\n| Controller request mapping | Controllers convert HTTP input into Nodics request context. |\n| Controller response mapping | Controllers convert service results into API responses. |\n| Loader-visible services | Services live where Nodics can discover and override them. |\n| Loader-visible facades | Facades live where Nodics can discover and override them. |\n| Loader-visible controllers | Controllers live where Nodics can discover and override them. |\n| Export-style implementation | Runtime files export mergeable object members for extension. |\n| Project service overrides | Projects can change behavior by adding later-loaded services. |\n| Customer service overrides | Customer-specific behavior can live in customer/project layers. |"
+      ]
+    },
+    {
+      "heading": "Pipelines And Processes",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "pipelines-and-processes",
+      "paragraphs": [
+        "| Functionality | What It Provides |\n| --- | --- |\n| Pipeline definitions | Modules can define ordered execution flows. |\n| Pipeline execution | Pipelines execute defined steps in governed order. |\n| Pipeline interceptors | Interceptors can hook into process execution. |\n| Pipeline services | Services can provide pipeline step behavior. |\n| Pipeline extension | Later modules can extend or replace pipeline behavior. |\n| Process modeling | Multi-step business behavior can be modeled separately from implementation. |\n| Workflow integration | Pipelines can support workflow execution and continuation. |\n| Event continuation | Processes can continue from events. |\n| Split processing | Work can split across multiple branches where required. |\n| Retry processing | Failed process steps can be retried with diagnostics. |\n| Lifecycle process state | Long-running behavior can track state. |\n| Runtime process diagnostics | Process execution can produce troubleshooting evidence. |"
+      ]
+    },
+    {
+      "heading": "Events And Messaging",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "events-and-messaging",
+      "paragraphs": [
+        "| Functionality | What It Provides |\n| --- | --- |\n| Event publishing | Modules can publish events after meaningful changes. |\n| Event listeners | Modules can react to events through listener definitions. |\n| Listener registration | Active modules contribute listeners at startup. |\n| Event execution | Event handlers run through framework-managed execution paths. |\n| Enterprise messaging | Messaging connects modules and external systems asynchronously. |\n| EMS client | The EMS client hides provider-specific messaging details. |\n| Message producers | Producers define messages, payloads, and target channels. |\n| Message consumers | Consumers define subscriptions, handlers, retries, and failure behavior. |\n| Failed-message persistence | Failed messages can be recorded for recovery. |\n| Tenant-aware message routing | Message handling can preserve tenant context. |\n| ActiveMQ provider | ActiveMQ support lives behind the EMS provider contract. |\n| Kafka provider | Kafka support lives behind the EMS provider contract. |\n| New messaging provider extension | New brokers are added as provider or project modules. |\n| Message retry | Messaging can define retry behavior. |\n| Message dead-letter handling | Failed messages can move to controlled failure paths. |\n| Message diagnostics | Messaging failures can produce traceable diagnostics. |"
+      ]
+    },
+    {
+      "heading": "Cache",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "cache",
+      "paragraphs": [
+        "| Functionality | What It Provides |\n| --- | --- |\n| Cache capability | Nodics provides cache behavior through a provider-neutral contract. |\n| Cache keys | Cache entries use explicit key structures. |\n| Cache channels | Cache behavior can be grouped by channel. |\n| Cache invalidation | Cached values can be removed when source data changes. |\n| Cache flushing | Cache areas can be cleared when needed. |\n| Cache TTL | Cache values can expire through configured time-to-live rules. |\n| Cache serialization | Cache providers can serialize values consistently. |\n| Tenant-scoped cache | Cache keys and channels can preserve tenant separation. |\n| Local node cache | Node-local cache can support development or local behavior. |\n| Redis cache | Redis support can provide shared distributed cache behavior. |\n| Hazelcast cache | Hazelcast support can provide clustered cache behavior. |\n| New cache provider extension | New cache engines are added as adapter modules. |\n| Cache diagnostics | Cache operations can report failure and provider behavior. |\n| Distributed cache behavior | Shared deployments can use cache providers that propagate across nodes. |"
+      ]
+    },
+    {
+      "heading": "Search",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "search",
+      "paragraphs": [
+        "| Functionality | What It Provides |\n| --- | --- |\n| Search capability | Nodics provides provider-neutral search indexing and retrieval. |\n| Search index definitions | Modules define required indexes in source definitions. |\n| Indexing pipeline | Data changes can feed indexing behavior. |\n| Search queries | Search services normalize query behavior. |\n| Search fallback | Search can fall back to database behavior when configured. |\n| Search cache policy | Search results can use cache behavior where safe. |\n| Search provider selection | Search engines are selected through configuration and provider modules. |\n| Elasticsearch provider | Elasticsearch support lives behind the search provider contract. |\n| New search provider extension | New engines are added through provider or project modules. |\n| Solr provider extension path | Solr support can be implemented behind the search contract. |\n| OpenSearch provider extension path | OpenSearch support can be implemented behind the search contract. |\n| Search diagnostics | Search operations can emit indexing and query diagnostics. |\n| Search tests | Tests prove indexing, retrieval, provider, and fallback behavior. |"
+      ]
+    },
+    {
+      "heading": "Import And Export",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "import-and-export",
+      "paragraphs": [
+        "| Functionality | What It Provides |\n| --- | --- |\n| Data import | Nodics imports structured data into owned schemas and modules. |\n| Data export | Nodics exports structured data from owned schemas and modules. |\n| Import definitions | Import behavior declares target schema, format, headers, and validation. |\n| Export definitions | Export behavior declares source schema, format, fields, and output rules. |\n| Header mapping | File headers can map to schema fields. |\n| Field mapping | Input and output fields can be transformed through owned definitions. |\n| Duplicate handling | Imports can define idempotency and duplicate behavior. |\n| Checksum handling | Imports can detect repeated or changed payloads. |\n| Import run history | Import executions can be recorded for diagnostics. |\n| Export run history | Export executions can be recorded for diagnostics. |\n| Import diagnostics | Import failures can report counts, reasons, and affected records. |\n| Export diagnostics | Export failures can report counts, reasons, and affected records. |\n| Import retry | Failed imports can use controlled retry behavior. |\n| Export retry | Failed exports can use controlled retry behavior. |\n| Import rollback | Imports can define rollback or recovery behavior. |\n| Export rollback | Exports can define recovery behavior when output generation fails. |\n| Init data loading | Required startup records can load idempotently. |\n| Core data loading | Reference data can be imported intentionally. |\n| Sample data import | Demo, local, or test data can be imported separately from production data. |\n| JavaScript import | JavaScript import support handles scripted data definitions. |\n| JSON import | JSON import support handles JSON data files. |\n| CSV import | CSV import support handles comma-separated data files. |\n| Excel import | Excel import support handles spreadsheet data files. |\n| JavaScript export | JavaScript export support can produce scripted output. |\n| JSON export | JSON export support can produce JSON files. |\n| CSV export | CSV export support can produce CSV files. |\n| Excel export | Excel export support can produce spreadsheet files. |\n| New format provider extension | New formats are added through provider or project modules. |"
+      ]
+    },
+    {
+      "heading": "Scheduled Jobs",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "scheduled-jobs",
+      "paragraphs": [
+        "| Functionality | What It Provides |\n| --- | --- |\n| Cron job definitions | Jobs define schedule, handler, owner, context, and permissions. |\n| Cron job lifecycle | Jobs can be registered, started, paused, resumed, run, updated, and removed. |\n| Cron job registration | Startup can register required scheduled jobs idempotently. |\n| Cron job scheduling | Configured triggers decide when jobs run. |\n| Cron job start | Jobs can begin scheduled execution. |\n| Cron job pause | Jobs can pause without losing the definition. |\n| Cron job resume | Paused jobs can return to scheduled execution. |\n| Cron job run on demand | Authorized callers can trigger jobs manually when allowed. |\n| Cron job logs | Job runs can create execution evidence. |\n| Cron job failure state | Failed runs can record status and diagnostics. |\n| Cron job node ownership | Nodes can control which process runs which job. |\n| Cron job failover ownership | Job ownership can support controlled failover behavior. |\n| Cron job handler services | Handlers call services that own real business behavior. |\n| Cron job permissions | Lifecycle and run operations require permission checks. |\n| Cron job startup idempotency | Starting the server repeatedly does not create duplicate jobs. |\n| Cron job tests | Tests prove lifecycle, handler, scheduling, and node responsibility behavior. |"
+      ]
+    },
+    {
+      "heading": "Workflow",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "workflow",
+      "paragraphs": [
+        "| Functionality | What It Provides |\n| --- | --- |\n| Workflow capability | Nodics models governed multi-step business processes. |\n| Workflow schema | Workflow records define process structure and state. |\n| Workflow core engine | Core workflow behavior executes actions and lifecycle transitions. |\n| Workflow API | APIs expose workflow operations where allowed. |\n| Flow carriers | Carriers hold workflow context as it moves through the process. |\n| Flow actions | Actions define units of workflow work. |\n| Flow channels | Channels organize workflow communication paths. |\n| Flow lifecycle | Workflows can track create, continue, retry, and complete states. |\n| Event continuation | Workflows can continue when events arrive. |\n| Split workflow behavior | Workflows can branch into multiple paths. |\n| Retry workflow behavior | Workflows can retry failed steps. |\n| Workflow diagnostics | Workflow execution can emit traceable process evidence. |\n| Workflow tests | Tests prove workflow schemas, actions, APIs, and lifecycle behavior. |"
+      ]
+    },
+    {
+      "heading": "Publishing And Versioning",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "publishing-and-versioning",
+      "paragraphs": [
+        "| Functionality | What It Provides |\n| --- | --- |\n| Publish capability | Publish behavior supports controlled movement from draft to active state. |\n| Versioned services | Services can understand versioned business data. |\n| Versioned database behavior | Persistence can support draft, online, and previous states. |\n| Versioned MongoDB behavior | MongoDB-backed versioning can support publishable records. |\n| Versioned quiz behavior | Quiz data can use version-aware publish behavior. |\n| Draft data | Business users can prepare data before publishing. |\n| Online data | Published data becomes the active runtime version. |\n| Publish lifecycle | Publish flows define prepare, validate, activate, and audit behavior. |\n| Version activation | Approved versions can become active. |\n| Version rollback | Active versions can return to a previous version. |\n| Business data rollback | Business-critical data can keep recoverable versions. |\n| Published content rollback | Published content can return to a previous approved state. |\n| Catalog versioning | Catalog data can support draft, publish, and rollback expectations. |\n| Content versioning | CMS content can support controlled activation and recovery. |"
+      ]
+    },
+    {
+      "heading": "Content And Catalog",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "content-and-catalog",
+      "paragraphs": [
+        "| Functionality | What It Provides |\n| --- | --- |\n| Catalog capability | Catalogs organize product, content, or domain records. |\n| Catalog schemas | Catalog models define structure, hierarchy, and generated behavior. |\n| Catalog hierarchy | Catalogs can organize records into nested structures. |\n| Sub-catalog resolution | Sub-catalog behavior can resolve child catalog areas. |\n| Catalog search integration | Catalog data can participate in search indexing and retrieval. |\n| Catalog import | Catalog data can be imported through controlled data flows. |\n| Catalog export | Catalog data can be exported through controlled data flows. |\n| Catalog publish expectations | Catalog behavior can align with publish/versioning rules. |\n| CMS capability | CMS provides reusable content management behavior. |\n| CMS schemas | CMS records define sites, pages, components, and related content. |\n| CMS routes | CMS APIs expose content behavior where allowed. |\n| CMS services | CMS services own content business behavior. |\n| CMS content records | Content lives as data, not hardcoded views. |\n| CMS component types | Component types define reusable content building blocks. |\n| CMS renderer mappings | Renderer mappings connect content types to presentation behavior. |\n| CMS page composition | Pages can be composed from content records and components. |\n| CMS sample content | Sample content supports demonstrations and local development. |\n| CMS tenant visibility | Content visibility can respect tenant or site context. |\n| WCMS workflow content | Workflow content extends CMS with process-aware behavior. |\n| Content workflow | Content can move through approval or publish processes. |\n| Content publishing | Content can be activated through controlled publish behavior. |\n| Content templating | Content templates let projects define reusable page and component structures. |"
+      ]
+    },
+    {
+      "heading": "Commerce",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "commerce",
+      "paragraphs": [
+        "| Functionality | What It Provides |\n| --- | --- |\n| Commerce group | Commerce modules group reusable shopping and order behavior. |\n| Cart capability | Cart behavior manages shopping-cart records and operations. |\n| Cart schemas | Cart data models define cart structure. |\n| Cart routes | Cart APIs expose cart behavior. |\n| Cart services | Cart services own cart business behavior. |\n| Cart interceptors | Cart interceptors protect lifecycle and validation behavior. |\n| Cart data | Cart modules can own initializer, core, or sample data. |\n| Order capability | Order behavior manages order records and operations. |\n| Order schemas | Order data models define order structure. |\n| Order routes | Order APIs expose order behavior. |\n| Order services | Order services own order business behavior. |\n| Order interceptors | Order interceptors protect lifecycle and validation behavior. |\n| Order initializer data | Order modules can load required startup data idempotently. |\n| Commerce tests | Commerce tests prove cart, order, data, and override behavior. |"
+      ]
+    },
+    {
+      "heading": "Data Exchange And Processing",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "data-exchange-and-processing",
+      "paragraphs": [
+        "| Functionality | What It Provides |\n| --- | --- |\n| DEAP capability group | DEAP groups data exchange, processing, publishing, and consumption behavior. |\n| Data processor | Data processors transform or validate incoming data. |\n| Data publisher | Data publishers send processed data to target channels. |\n| Data consumer | Data consumers receive and handle data from external or internal sources. |\n| Data processing pipeline | Processing flows execute ordered transformation steps. |\n| Data publishing pipeline | Publishing flows execute outbound data movement. |\n| Data consumption pipeline | Consumption flows execute inbound data handling. |\n| Data exchange diagnostics | DEAP flows can emit traceable processing and failure evidence. |\n| Data exchange tests | Tests prove processor, publisher, consumer, and pipeline behavior. |"
+      ]
+    },
+    {
+      "heading": "Notification And Communication",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "notification-and-communication",
+      "paragraphs": [
+        "| Functionality | What It Provides |\n| --- | --- |\n| NMS capability | Notification management can organize notification behavior. |\n| NEMS capability | Event management and exchange can coordinate module events. |\n| Event management | Events can be managed as first-class platform behavior. |\n| Event exchange | Modules can exchange events through controlled contracts. |\n| Notification routing | Notifications can route through owned communication rules. |\n| Communication diagnostics | Communication failures can produce traceable diagnostics. |"
+      ]
+    },
+    {
+      "heading": "Tokens And OTP",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "tokens-and-otp",
+      "paragraphs": [
+        "| Functionality | What It Provides |\n| --- | --- |\n| Token capability | Token behavior supports secure token generation and validation. |\n| Token generation | Tokens can be created through owned security contracts. |\n| Token validation | Tokens can be checked before protected operations. |\n| Token security | Token behavior preserves secret handling and access rules. |\n| OTP capability | One-time password behavior supports temporary credential flows. |\n| OTP generation | OTP values can be created for controlled verification flows. |\n| OTP validation | OTP values can be validated before the protected action continues. |\n| OTP expiry | OTP values expire to reduce credential risk. |\n| OTP diagnostics | OTP failures can produce safe troubleshooting evidence. |"
+      ]
+    },
+    {
+      "heading": "Optional And Domain Modules",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "optional-and-domain-modules",
+      "paragraphs": [
+        "| Functionality | What It Provides |\n| --- | --- |\n| KYC capability | KYC modules support customer verification behavior. |\n| KYC schema | KYC schemas define verification data. |\n| KYC core | KYC core behavior owns verification logic. |\n| KYC API | KYC APIs expose verification operations. |\n| Customer review system | Review-system modules support customer feedback behavior. |\n| Quiz capability | Quiz modules support quiz data and behavior. |\n| Quiz workflow | Quiz workflow behavior supports process-aware quizzes. |\n| Quiz versioning | Quiz data can support publish/versioning behavior. |\n| Quiz API | Quiz APIs expose quiz operations. |"
+      ]
+    },
+    {
+      "heading": "Testing And Quality",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "testing-and-quality",
+      "paragraphs": [
+        "| Functionality | What It Provides |\n| --- | --- |\n| Test discovery | Nodics discovers tests across active modules and owned test folders. |\n| Layered test execution | Tests can prove behavior across framework, project, environment, server, and node layers. |\n| Generated schema tests | Schema definitions can produce validation tests. |\n| Generated API tests | Route definitions can produce API tests. |\n| Generated CRUD tests | Generated CRUD behavior can be tested automatically. |\n| Generated scenario tests | Scenario tests can validate end-to-end generated behavior. |\n| Runtime override tests | Tests prove later modules can override default behavior. |\n| Topology tests | Tests prove project, environment, server, and node topology. |\n| Modular topology tests | Tests prove distributed server behavior. |\n| Consolidated topology tests | Tests prove single-process behavior. |\n| Live test guards | Live tests require explicit activation and avoid unsafe shared data. |\n| Test reports | Test execution can produce reports for review. |\n| Documentation coverage | Documentation gates verify file and method documentation. |\n| Contract coverage | Contract gates verify AI/developer implementation documentation. |\n| Structure audit | Structure audits verify module metadata and folder compliance. |\n| LLM context validation | Generated AI context can be validated for completeness. |\n| Documentation quality governance | Documentation quality checks protect public and implementation docs. |\n| Error traceability tests | Tests can prove errors contain useful traceability. |\n| Governance reports | Governance commands can report structure, documentation, and runtime evidence. |"
+      ]
+    },
+    {
+      "heading": "Tooling And AI Enablement",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "tooling-and-ai-enablement",
+      "paragraphs": [
+        "| Functionality | What It Provides |\n| --- | --- |\n| Nodics tooling CLI | A CLI exposes build, clean, validation, documentation, and governance commands. |\n| Command registry | Tooling commands are declared in governed configuration. |\n| Tooling command discovery | Tooling discovers commands from active configuration. |\n| Tooling command overrides | Projects can override tooling behavior through approved extension paths. |\n| Module metadata audit | Metadata audits verify ownership, kind, and dependency correctness. |\n| Module generation | Generators can create compliant module scaffolds. |\n| Project generation | Generators can create compliant project structure. |\n| Environment generation | Generators can create compliant environment modules. |\n| Server generation | Generators can create compliant server modules. |\n| Node generation | Generators can create compliant node modules. |\n| Provider generation | Generators can create provider-module scaffolds for integrations. |\n| LLM context generation | Source and docs can produce AI-readable module context. |\n| LLM context validation | Generated AI context can be checked before use. |\n| AI contracts | Contracts tell AI tools how to implement safely. |\n| AI examples | Examples show correct extension and customization patterns. |\n| AI prompts | Prompts guide repeatable AI-assisted workflows. |\n| Module catalog | Catalogs summarize module responsibilities. |\n| Module standards | Standards define compliant module and project structure. |\n| Structure matrix | Matrix guidance explains project, group, module, environment, server, and node ownership. |\n| Developer implementation contract | Implementation rules apply to both human and AI developers. |\n| Human maintainability contract | Maintainability rules keep code readable, reviewable, and traceable. |\n| MCP bridge planning | MCP integration is planned as a bridge over Nodics-owned contracts. |\n| Guarded mutation planning | Mutation tooling is planned around explicit approval and governance. |"
+      ]
+    },
+    {
+      "heading": "Setup And Documentation",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "setup-and-documentation",
+      "paragraphs": [
+        "| Functionality | What It Provides |\n| --- | --- |\n| Setup guidance | Setup docs explain how to install, build, and run Nodics. |\n| Onboarding guidance | Onboarding docs guide new users through the framework. |\n| Public documentation | `gDocs` provides user and developer-facing guidance. |\n| Module documentation | Module README files explain capability ownership and extension paths. |\n| Product documentation | Product docs explain current Nodics behavior directly. |\n| GitHub documentation publishing | Documentation can be published from repository-controlled sources. |\n| GitHub Pages documentation | GitHub Pages can host readable public documentation. |\n| GitHub Wiki indexing | GitHub Wiki can index or mirror official documentation links. |\n| README documentation | The root README introduces Nodics and routes users to deeper docs. |\n| AGENTS behavior contracts | AGENTS files guide AI and developer behavior in code areas. |\n| Generated documentation | Generated docs come from source definitions and regeneration. |\n| Documentation source map | Docs have clear ownership by audience and purpose. |\n| Documentation writing style | Docs use task-based, direct, user-readable language. |\n| Documentation verification | Documentation checks validate links, coverage, and governance. |"
+      ]
+    },
+    {
+      "heading": "Sample Project And Deployment",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "sample-project-and-deployment",
+      "paragraphs": [
+        "| Functionality | What It Provides |\n| --- | --- |\n| Startio project | Startio validates Nodics end-to-end as a compliant sample project. |\n| Project module group | Project modules group application-owned capabilities. |\n| Project API module | API modules expose project-specific routes and behavior. |\n| Project core module | Core modules own project business behavior. |\n| Project integration module | Integration modules own external or cross-system behavior. |\n| Local environment | Local environment supports developer execution. |\n| Development environment | Development environment supports shared development validation. |\n| QA environment | QA environment supports quality assurance validation. |\n| Pre-production environment | Pre-production environment supports release readiness validation. |\n| Production environment | Production environment supports live deployment configuration. |\n| Consolidated local server | Local execution can run many capabilities in one process. |\n| Profile server | Profile capabilities can run as a dedicated server. |\n| Cron server | Scheduled jobs can run as a dedicated server. |\n| NEMS server | Event management can run as a dedicated server. |\n| CMS server | Content capabilities can run as a dedicated server. |\n| Workflow server | Workflow capabilities can run as a dedicated server. |\n| DEAP server | Data exchange and processing can run as a dedicated server. |\n| Server nodes | Nodes can divide responsibilities under a server. |\n| Multi-node startup | Multiple nodes can start and coordinate responsibilities. |\n| Debug startup | Startup can support debugging modes for developers. |\n| VS Code inspect startup | Nodics can run with inspector support for breakpoint debugging. |\n| Deployment preparation | Deployment docs guide validation before release. |\n| Dependency governance | Dependencies can be reviewed, upgraded, and tested as part of platform maintenance. |\n| Dependabot review | GitHub vulnerability reports can guide dependency upgrade work. |"
+      ]
+    },
+    {
+      "heading": "What Makes Nodics Different",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "what-makes-nodics-different",
+      "paragraphs": [
+        "Nodics is designed around enterprise extension, not one-off application code.",
+        "It combines:",
+        "That combination allows teams to move fast without giving up control."
+      ],
+      "items": [
+        "Modular capability ownership.",
+        "Layered project customization.",
+        "Tenant-aware runtime behavior.",
+        "Source-defined generated artifacts.",
+        "Security and permission contracts.",
+        "Runtime configuration governance.",
+        "Test and documentation gates.",
+        "AI-readable implementation guidance."
+      ]
+    },
+    {
+      "heading": "What To Read Next",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "what-to-read-next",
+      "paragraphs": [
+        "If you are new, continue with [How To Set Up Nodics](/docs/get-started/local-setup).",
+        "If you already have Nodics running, read [How Nodics Is Organized](/docs/framework/architecture)."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/overview/what-is-nodics.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "Business view: [Why Businesses Choose Nodics](/docs/evaluate/why-nodics)",
+        "Next: [How To Set Up Nodics](/docs/get-started/local-setup)",
+        "Terminology: [Nodics Glossary](/docs/reference/glossary)",
+        "Documentation home: [Nodics Documentation](/docs)"
       ]
     }
+  ],
+  "supportingEvidence": [
+    "nodics:gDocs/README.md",
+    "nodics:gDocs/overview/what-is-nodics.md",
+    "nodics:README.md"
   ]
 }

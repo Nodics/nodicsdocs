@@ -1,1 +1,135 @@
-{"code":"commerce.stock.reconciliation","title":"Reconcile Stock","route":"/docs/capabilities/commerce/stock/reconciliation","section":"capabilities","family":"runtime-behavior","parent":"page:capability.commerce.stock-units","order":20,"audiences":["business-user","administrator","developer","operator","ai-tool"],"readerIntent":"Compare recorded balances with authoritative physical or external evidence.","priorKnowledge":"Know warehouses, pools, balances, movements, and units.","depth":"implementation","status":"implemented","owner":"Inventory capability","lastVerified":"2026-07-26","summary":"Reconciliation records evidence and explicit adjustments; it never silently overwrites unexplained differences.","supportingEvidence":["nodics:gComm/inventory/README.md"],"sections":[{"heading":"Flow","items":["Select tenant, warehouse/pool, product/variant, unit, source, and reconciliation window.","Normalize compatible units and calculate expected movement-derived balance.","Compare counted/external evidence and classify variance.","Authorize adjustment or investigation workflow.","Persist traceable movement/adjustment, refresh availability/cache, and audit outcome."]}]}
+{
+  "code": "commerce.stock.reconciliation",
+  "title": "Reconcile Stock",
+  "route": "/docs/capabilities/commerce/stock/reconciliation",
+  "section": "capabilities",
+  "family": "runtime-behavior",
+  "parent": "page:capability.commerce.stock-units",
+  "order": 20,
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Compare recorded balances with authoritative physical or external evidence.",
+  "priorKnowledge": "Know warehouses, pools, balances, movements, and units.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Inventory capability",
+  "lastVerified": "2026-07-26",
+  "summary": "Reconciliation records evidence and explicit adjustments; it never silently overwrites unexplained differences.",
+  "supportingEvidence": [
+    "nodics:gComm/inventory/README.md",
+    "nodics:gDocs/commerce/how-inventory-reconciliation-works.md"
+  ],
+  "sections": [
+    {
+      "heading": "Flow",
+      "items": [
+        "Select tenant, warehouse/pool, product/variant, unit, source, and reconciliation window.",
+        "Normalize compatible units and calculate expected movement-derived balance.",
+        "Compare counted/external evidence and classify variance.",
+        "Authorize adjustment or investigation workflow.",
+        "Persist traceable movement/adjustment, refresh availability/cache, and audit outcome."
+      ]
+    },
+    {
+      "heading": "Sources of evidence",
+      "items": [
+        "Physical count or cycle count.",
+        "Warehouse-management or enterprise-resource-planning snapshot.",
+        "Movement ledger and reservation/allocation state.",
+        "Transfer dispatch and receipt.",
+        "Damaged, quarantined, returned, or lost evidence.",
+        "Published staged and online comparison where applicable."
+      ]
+    },
+    {
+      "heading": "Variance policy",
+      "paragraphs": [
+        "A variance is classified by amount, unit, reason, source confidence, age, and business impact. Small approved variances may create an automatic adjustment; larger or sensitive variances start an investigation or approval workflow.",
+        "The original count and calculated balance remain auditable. Reconciliation never edits movement history."
+      ]
+    },
+    {
+      "heading": "Example",
+      "paragraphs": [
+        "The movement-derived balance says 100 kilograms, but a verified warehouse count reports 98.5 kilograms. Units normalizes the comparison. Policy requires approval for the 1.5-kilogram shortage.",
+        "After approval, Inventory records an adjustment movement with reason and evidence, recalculates availability, invalidates cache, and retains the reconciliation run."
+      ]
+    },
+    {
+      "heading": "Idempotency and recovery",
+      "items": [
+        "Stable source, window, item, location, and run identity.",
+        "Reject duplicate evidence or return prior result.",
+        "Resume bounded batches after restart.",
+        "Do not repeat an uncertain adjustment without reconciliation.",
+        "Separate unresolved variance from completed adjustment."
+      ]
+    },
+    {
+      "heading": "Operational evidence",
+      "items": [
+        "Items compared, matched, varied, approved, adjusted, and unresolved.",
+        "Variance value, age, reason, location, and safe business scope.",
+        "Run duration, source freshness, failures, retries, and backlog.",
+        "Wrong-tenant, unit mismatch, duplicate, and stale-source tests.",
+        "Adjustment, availability, cache, search, event, and audit integration."
+      ]
+    },
+    {
+      "heading": "Scheduling",
+      "paragraphs": [
+        "Reconciliation may run manually, on a schedule, or after an integration event. CronJob owns timing, while Inventory owns comparison, adjustment, and investigation behavior."
+      ]
+    },
+    {
+      "heading": "Business sign-off",
+      "items": [
+        "Define acceptable variance by stock type, unit precision, warehouse purpose, value, age, and regulatory need before automating correction.",
+        "Large or unusual variance creates review work instead of a silent adjustment. Approved correction produces normal auditable movements.",
+        "Reports distinguish source evidence, calculated variance, decision, actor, correction, unresolved exception, and downstream projection refresh."
+      ]
+    },
+    {
+      "heading": "Complete guide: How Inventory Reconciliation Works",
+      "migratedFrom": "nodics:gDocs/commerce/how-inventory-reconciliation-works.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "Reconciliation checks operational Inventory for inconsistencies and produces findings before changing anything. Scheduled module processes can scan; a human operator must review and approve a repair; an internal process applies the approved correction through normal Stock Movement rules.",
+        "The checks compare held quantities with Reservation evidence, validate Allocation and Transfer arithmetic, identify pending Movement and stale Reservation transitions, and detect forbidden negative balances. Scans are bounded and can continue from a persisted cursor by replaying the same idempotency key. Dry-run is the default. Every run, finding, approval, and corrective movement remains auditable."
+      ]
+    },
+    {
+      "heading": "Operator workflow",
+      "migratedFrom": "nodics:gDocs/commerce/how-inventory-reconciliation-works.md",
+      "sourceAnchor": "operator-workflow",
+      "paragraphs": [
+        "Configure `batchSize`, `maximumFindings`, `pendingAgeSeconds`, and `dryRunDefault` in the Inventory module's `properties.js`. Override these by environment layering; do not place operational configuration in `package.json`.",
+        "Under `stockReconciliation.workflow`, configure `defaultMode` and optional `findingModes` entries as `MANUAL` or `AUTOMATIC`. Automatic approval should be enabled only for deterministic, low-risk policies accepted by the business. Critical findings default to manual review. Workflow definitions, retries, rejection, errors, and terminal transitions remain owned by Nodics Workflow.",
+        "On-hand reconstruction from historical Movements is intentionally unavailable until an opening-balance checkpoint and retention contract exists. Operators must not infer a full balance from an incomplete history window."
+      ],
+      "items": [
+        "Schedule the internal scan through the existing CronJob capability, using a service identity and a stable idempotency key.",
+        "Repeat the same request while the run state is `PARTIAL`; stop when it is `COMPLETED`.",
+        "Repairable findings start a configured Nodics workflow. Every action in that workflow can independently be manual or automatic.",
+        "In the OOTB manual flow, a signed-in operator reviews the finding and the following automatic action performs the repair. In the OOTB automatic flow, policy permits both approval and repair to run automatically.",
+        "Investigate non-repairable Allocation, Transfer, pending Movement, stale Reservation, and reserved-quantity findings through their owning lifecycle.",
+        "The internal repair action creates an idempotent `CORRECTION` Stock Movement. It never edits a balance directly."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/commerce/how-inventory-reconciliation-works.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "[How Stock Movements Work](/docs/capabilities/commerce/stock/movements)",
+        "[How Stock Transfers Work](/docs/capabilities/commerce/stock/transfers)",
+        "[Nodics Documentation](/docs)"
+      ]
+    }
+  ]
+}

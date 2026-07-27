@@ -13,7 +13,7 @@ const pages = walkFiles(
     filePath => filePath.endsWith('.json')
 ).map(filePath => JSON.parse(fs.readFileSync(filePath, 'utf8')));
 
-test('first canonical journey covers discovery through framework learning', () => {
+test('first canonical journey covers discovery and framework orientation', () => {
     const codes = new Set(pages.map(page => page.code));
     [
         'discover.overview',
@@ -26,6 +26,16 @@ test('first canonical journey covers discovery through framework learning', () =
         'getting-started.first-capability',
         'framework.architecture'
     ].forEach(code => assert.equal(codes.has(code), true, code));
+});
+
+test('framework orientation belongs to Discover without owning capability hubs', () => {
+    const byCode = new Map(pages.map(page => [page.code, page]));
+    const architecture = byCode.get('framework.architecture');
+
+    assert.equal(architecture.section, 'discover');
+    assert.equal(architecture.parent, 'section:discover');
+    pages.filter(page => page.section === 'capabilities')
+        .forEach(page => assert.notEqual(page.parent, 'page:framework.architecture', page.code));
 });
 
 test('canonical pages use capability names and explicit ordered navigation', () => {

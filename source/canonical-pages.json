@@ -1,164 +1,1085 @@
 {
   "contractVersion": 1,
   "pages": [
-    {"code":"discover.overview","section":"discover","family":"overview","title":"What Is Nodics?"},
-    {"code":"evaluate.capabilities","section":"evaluate","family":"overview","title":"Business Capabilities and Outcomes"},
-    {"code":"evaluate.checklist","section":"evaluate","family":"technical-reference","title":"Business and Technical Evaluation Checklist"},
-    {"code":"evaluate.comparison","section":"evaluate","family":"business-value","title":"Compare Nodics with Other Approaches"},
-    {"code":"evaluate.security-trust","section":"evaluate","family":"business-value","title":"Security and Trust for Decision-Makers"},
-    {"code":"evaluate.value","section":"evaluate","family":"business-value","title":"Why Organizations Choose Nodics"},
-    {"code":"getting-started.setup","section":"getting-started","family":"tutorial-example","title":"Set Up Nodics Locally"},
-    {"code":"getting-started.first-capability","section":"getting-started","family":"tutorial-example","title":"Build Your First Nodics Capability"},
-    {"code":"framework.architecture","section":"framework","family":"concepts-architecture","title":"How the Nodics Framework Is Organized"},
-    {"code":"capability.configuration.overview","section":"capabilities","capability":"configuration","family":"overview","title":"Nodics Configuration Layer"},
-    {"code":"capability.configuration.business-value","section":"capabilities","capability":"configuration","family":"business-value","title":"Business Value and Configuration Decisions"},
-    {"code":"capability.configuration.runtime","section":"capabilities","capability":"configuration","family":"concepts-runtime","title":"Configuration Resolution and Runtime Behavior"},
-    {"code":"capability.configuration.customization","section":"capabilities","capability":"configuration","family":"configuration-tutorial","title":"Configure and Customize a Nodics Application"},
-    {"code":"capability.configuration.technical-reference","section":"reference","capability":"configuration","family":"technical-reference","title":"Configuration Implementation Reference"},
-    {"code":"capability.caching.overview","section":"capabilities","capability":"caching","family":"overview","title":"Caching in Nodics"},
-    {"code":"capability.caching.prebuilt-providers","section":"capabilities","capability":"caching","family":"provider-maturity","title":"Prebuilt Cache Providers and Maturity"},
-    {"code":"capability.caching.provider-development","section":"build","capability":"caching","family":"configuration-customization","title":"Build a Cache Provider"},
-    {"code":"capability.caching.lifecycle","section":"capabilities","capability":"caching","family":"runtime-behavior","title":"Cache Lifecycle and Invalidation"},
-    {"code":"capability.caching.operations","section":"operations","capability":"caching","family":"operations-security-troubleshooting","title":"Operate and Secure Cache"},
-    {"code":"capability.caching.technical-reference","section":"reference","capability":"caching","family":"technical-reference","title":"Caching Implementation Reference"},
-    {"code":"capability.scheduled-jobs.tutorial","section":"capabilities","capability":"scheduled-jobs","family":"tutorial-example","title":"Create and Operate Scheduled Jobs"},
-    {"code":"capability.scheduled-jobs.overview","section":"capabilities","capability":"scheduled-jobs","family":"overview-business-value","title":"Scheduled Jobs"},
-    {"code":"capability.scheduled-jobs.runtime","section":"operations","capability":"scheduled-jobs","family":"runtime-operations","title":"Job Lifecycle, Resilience, and Operations"},
-    {"code":"capability.scheduled-jobs.technical-reference","section":"reference","capability":"scheduled-jobs","family":"technical-reference","title":"Scheduled Jobs Implementation Reference"},
-    {"code":"capability.events-messaging.architecture","section":"capabilities","capability":"events-messaging","family":"concepts-architecture","title":"Events and Messaging Architecture"},
-    {"code":"capability.events-messaging.overview","section":"capabilities","capability":"events-messaging","family":"overview-business-value","title":"Events and Messaging"},
-    {"code":"capability.events-messaging.delivery","section":"capabilities","capability":"events-messaging","family":"concepts-architecture","title":"Event Delivery Models and Guarantees"},
-    {"code":"capability.events-messaging.provider-development","section":"build","capability":"events-messaging","family":"configuration-customization","title":"Build a Messaging Provider"},
-    {"code":"capability.events-messaging.lifecycle","section":"capabilities","capability":"events-messaging","family":"runtime-behavior","title":"Event Lifecycle and Data Exchange"},
-    {"code":"capability.events-messaging.operations","section":"operations","capability":"events-messaging","family":"operations-security-troubleshooting","title":"Operate and Secure Events"},
-    {"code":"capability.events-messaging.technical-reference","section":"reference","capability":"events-messaging","family":"technical-reference","title":"Events and Messaging Implementation Reference"},
-    {"code":"capability.content-publishing.tutorial","section":"capabilities","capability":"content-publishing","family":"tutorial-example","title":"Approve and Publish Content"},
-    {"code":"capability.content-publishing.overview","section":"capabilities","capability":"content-publishing","family":"overview-business-value","title":"Content Management and Publishing"},
-    {"code":"capability.content-publishing.runtime","section":"operations","capability":"content-publishing","family":"runtime-operations","title":"Publishing Lifecycle, Rollback, and Operations"},
-    {"code":"capability.content-publishing.technical-reference","section":"reference","capability":"content-publishing","family":"technical-reference","title":"Content and Publishing Implementation Reference"},
-    {"code":"capability.data-exchange.guide","section":"capabilities","capability":"data-exchange","family":"runtime-behavior","title":"Work with Nodics Data"},
-    {"code":"capability.data-exchange.import","section":"capabilities","capability":"data-exchange","family":"tutorial-example","title":"Import Data Safely"},
-    {"code":"capability.data-exchange.export","section":"capabilities","capability":"data-exchange","family":"concepts-runtime","title":"Export Data Safely"},
-    {"code":"capability.data-exchange.provider-development","section":"build","capability":"data-exchange","family":"configuration-customization","title":"Build Data Source and Destination Providers"},
-    {"code":"capability.data-exchange.lifecycle","section":"capabilities","capability":"data-exchange","family":"runtime-behavior","title":"Data Exchange Lifecycle and Integrations"},
-    {"code":"capability.data-exchange.operations","section":"operations","capability":"data-exchange","family":"operations-security-troubleshooting","title":"Operate and Secure Data Exchange"},
-    {"code":"capability.data-exchange.technical-reference","section":"reference","capability":"data-exchange","family":"technical-reference","title":"Import and Export Implementation Reference"},
-    {"code":"capability.units.tutorial","section":"capabilities","capability":"commerce","family":"tutorial-example","title":"Use Units and Land Measurements"},
-    {"code":"capability.units.technical-reference","section":"reference","capability":"commerce","family":"technical-reference","title":"Units Implementation Reference"},
-    {"code":"capability.ai.overview","section":"capabilities","capability":"ai","family":"overview","title":"AI Providers, Knowledge, and Assistants"},
-    {"code":"capability.ai.providers","section":"capabilities","capability":"ai","family":"provider-maturity","title":"AI Providers and Adapter Selection"},
-    {"code":"capability.ai.cost-governance","section":"capabilities","capability":"ai","family":"operations-security-troubleshooting","title":"Control AI Token Usage and Cost"},
-    {"code":"capability.ai.knowledge","section":"capabilities","capability":"ai","family":"concepts-runtime","title":"AI Knowledge and Retrieval-Augmented Generation"},
-    {"code":"capability.ai.assistant","section":"capabilities","capability":"ai","family":"runtime-operations","title":"AI Assistant"},
-    {"code":"capability.ai.agentic-processes","section":"capabilities","capability":"ai","family":"concepts-architecture","title":"Agentic Business Processes"},
-    {"code":"capability.ai.partner-customization","section":"build","capability":"ai","family":"configuration-customization","title":"Partner AI Customization"},
-    {"code":"capability.ai.technical-reference","section":"reference","capability":"ai","family":"technical-reference","title":"AI Implementation Reference"},
-    {"code":"capability.layered-architecture.overview","section":"capabilities","capability":"layered-architecture","family":"overview-business-value","title":"Modular and Layered Architecture"},
-    {"code":"capability.layered-architecture.ownership","section":"capabilities","capability":"layered-architecture","family":"concepts-architecture","title":"Layers, Ownership, and Responsibilities"},
-    {"code":"capability.layered-architecture.runtime","section":"capabilities","capability":"layered-architecture","family":"runtime-example","title":"From API Request to Business Result"},
-    {"code":"capability.layered-architecture.customization","section":"build","capability":"layered-architecture","family":"configuration-customization","title":"Extend a Capability Without Forking Nodics"},
-    {"code":"capability.layered-architecture.technical-reference","section":"reference","capability":"layered-architecture","family":"technical-reference","title":"Layered Architecture Implementation Reference"},
-    {"code":"capability.schema-modeling.overview","section":"capabilities","capability":"schema-modeling","family":"overview-business-value","title":"Schema and Item Modeling"},
-    {"code":"capability.schema-modeling.runtime","section":"capabilities","capability":"schema-modeling","family":"concepts-runtime","title":"Schema Composition and Runtime Models"},
-    {"code":"capability.schema-modeling.relationships","section":"capabilities","capability":"schema-modeling","family":"concepts-policy","title":"Relationships, Ownership, and Record Lifecycle"},
-    {"code":"capability.schema-modeling.tutorial","section":"build","capability":"schema-modeling","family":"tutorial-example","title":"Model a Business Entity"},
-    {"code":"capability.schema-modeling.technical-reference","section":"reference","capability":"schema-modeling","family":"technical-reference","title":"Schema Modeling Implementation Reference"},
-    {"code":"capability.validation.overview","section":"capabilities","capability":"validation","family":"overview-business-value","title":"Validation and Policy Enforcement"},
-    {"code":"capability.validation.layers","section":"security","capability":"validation","family":"concepts-architecture","title":"Validation Layers and Policy Boundaries"},
-    {"code":"capability.validation.runtime","section":"capabilities","capability":"validation","family":"runtime-operations","title":"Validation Runtime and Error Behavior"},
-    {"code":"capability.validation.tutorial","section":"build","capability":"validation","family":"tutorial-example","title":"Add a Business Validation Rule"},
-    {"code":"capability.validation.technical-reference","section":"reference","capability":"validation","family":"technical-reference","title":"Validation Implementation Reference"},
-    {"code":"capability.libraries-utilities.technical-reference","section":"reference","capability":"libraries-utilities","family":"technical-reference","title":"Libraries and Utilities Implementation Reference"},
-    {"code":"capability.query-modeling.overview","section":"capabilities","capability":"query-modeling","family":"overview","title":"Search Models and Querying"},
-    {"code":"capability.query-modeling.concepts","section":"capabilities","capability":"query-modeling","family":"concepts-architecture","title":"How Search Models and Queries Work"},
-    {"code":"capability.query-modeling.tutorial","section":"capabilities","capability":"query-modeling","family":"tutorial-example","title":"Define and Query Searchable Business Data"},
-    {"code":"capability.query-modeling.technical-reference","section":"reference","capability":"query-modeling","family":"technical-reference","title":"Search Model and Query Reference"},
-    {"code":"capability.persistence.overview","section":"capabilities","capability":"persistence","family":"overview-business-value","title":"Database and Persistence"},
-    {"code":"capability.persistence.prebuilt-providers","section":"capabilities","capability":"persistence","family":"provider-maturity","title":"Prebuilt Database Providers and Maturity"},
-    {"code":"capability.persistence.provider-development","section":"build","capability":"persistence","family":"configuration-customization","title":"Build a Database Provider"},
-    {"code":"capability.persistence.lifecycle","section":"capabilities","capability":"persistence","family":"runtime-behavior","title":"Persistence Lifecycle and Data Exchange"},
-    {"code":"capability.persistence.operations","section":"operations","capability":"persistence","family":"operations-security-troubleshooting","title":"Operate and Secure Persistence"},
-    {"code":"capability.persistence.technical-reference","section":"reference","capability":"persistence","family":"technical-reference","title":"Persistence Implementation Reference"},
-    {"code":"capability.services-facades.overview","section":"capabilities","capability":"services-facades","family":"overview-business-value","title":"Services and Facades"},
-    {"code":"capability.services-facades.runtime","section":"build","capability":"services-facades","family":"runtime-customization","title":"Service Runtime, Communication, and Extension"},
-    {"code":"capability.services-facades.technical-reference","section":"reference","capability":"services-facades","family":"technical-reference","title":"Services and Facades Implementation Reference"},
-    {"code":"capability.apis-routing.overview","section":"capabilities","capability":"apis-routing","family":"overview-business-value","title":"APIs, Routing, and Controllers"},
-    {"code":"capability.apis-routing.runtime","section":"security","capability":"apis-routing","family":"runtime-customization","title":"Route Runtime, Security, and Extension"},
-    {"code":"capability.apis-routing.technical-reference","section":"reference","capability":"apis-routing","family":"technical-reference","title":"API and Routing Implementation Reference"},
-    {"code":"capability.execution-processes.overview","section":"capabilities","capability":"execution-processes","family":"overview-business-value","title":"Pipelines and Interceptors"},
-    {"code":"capability.execution-processes.runtime","section":"build","capability":"execution-processes","family":"runtime-customization","title":"Pipeline Runtime and Safe Extension"},
-    {"code":"capability.execution-processes.technical-reference","section":"reference","capability":"execution-processes","family":"technical-reference","title":"Pipeline and Process Implementation Reference"},
-    {"code":"capability.libraries-utilities.overview","section":"capabilities","capability":"libraries-utilities","family":"overview-business-value","title":"Libraries and Utilities"},
-    {"code":"capability.libraries-utilities.runtime","section":"build","capability":"libraries-utilities","family":"configuration-customization","title":"Design and Extend Shared Helpers"},
-    {"code":"capability.identity-access.technical-reference","section":"reference","capability":"identity-access","family":"technical-reference","title":"Identity and Access Implementation Reference"},
-    {"code":"capability.identity-security.overview","section":"security","capability":"identity-access","family":"overview-business-value","title":"Identity and Security Boundaries"},
-    {"code":"capability.identity-security.authentication","section":"security","capability":"identity-access","family":"concepts-runtime","title":"Authentication and Session Lifecycle"},
-    {"code":"capability.identity-security.authorization","section":"security","capability":"identity-access","family":"concepts-policy","title":"Authorization and Ownership"},
-    {"code":"capability.identity-security.tenancy","section":"security","capability":"identity-access","family":"concepts-architecture","title":"Tenants, Enterprises, and Identity Models"},
-    {"code":"capability.identity-security.governance","section":"security","capability":"identity-access","family":"operations-security-troubleshooting","title":"Security Governance and Production Evidence"},
-    {"code":"capability.status-errors.overview","section":"capabilities","capability":"status-errors","family":"overview-business-value","title":"Status Codes and Error Handling"},
-    {"code":"capability.status-errors.runtime","section":"security","capability":"status-errors","family":"runtime-customization","title":"Error Runtime, Security, and Extension"},
-    {"code":"capability.status-errors.technical-reference","section":"reference","capability":"status-errors","family":"technical-reference","title":"Status and Error Technical Reference"},
-    {"code":"capability.search-indexing.technical-reference","section":"reference","capability":"search-indexing","family":"technical-reference","title":"Search and Indexing Implementation Reference"},
-    {"code":"capability.search-indexing.overview","section":"capabilities","capability":"search-indexing","family":"overview","title":"Search and Indexing Providers"},
-    {"code":"capability.search-indexing.prebuilt-engines","section":"capabilities","capability":"search-indexing","family":"technical-reference","title":"Prebuilt Search Engines"},
-    {"code":"capability.search-indexing.provider-development","section":"capabilities","capability":"search-indexing","family":"configuration-customization","title":"Build a New Search Provider"},
-    {"code":"capability.search-indexing.lifecycle","section":"capabilities","capability":"search-indexing","family":"runtime-behavior","title":"Search Index Lifecycle"},
-    {"code":"capability.search-indexing.import-export","section":"capabilities","capability":"search-indexing","family":"runtime-behavior","title":"Search with Data Import and Export"},
-    {"code":"capability.search-indexing.operations","section":"capabilities","capability":"search-indexing","family":"operations-security-troubleshooting","title":"Operate and Troubleshoot Search"},
-    {"code":"capability.workflows.technical-reference","section":"reference","capability":"workflows","family":"technical-reference","title":"Workflow Implementation Reference"},
-    {"code":"capability.workflows.overview","section":"capabilities","capability":"workflows","family":"overview-business-value","title":"Workflows and Business Processes"},
-    {"code":"capability.workflows.runtime","section":"capabilities","capability":"workflows","family":"runtime-operations","title":"Workflow Lifecycle, Extension, and Recovery"},
-    {"code":"capability.commerce.technical-reference","section":"reference","capability":"commerce","family":"technical-reference","title":"Commerce Implementation Reference"},
-    {"code":"capability.commerce.overview","section":"capabilities","capability":"commerce","family":"overview-business-value","title":"Modular Commerce"},
-    {"code":"capability.commerce.storefront","section":"capabilities","capability":"commerce","family":"concepts-runtime","title":"Storefront and Website Resolution"},
-    {"code":"capability.commerce.stores-warehouses","section":"capabilities","capability":"commerce","family":"concepts-architecture","title":"Stores and Warehouses"},
-    {"code":"capability.commerce.products","section":"capabilities","capability":"commerce","family":"concepts-runtime","title":"Product Catalog"},
-    {"code":"capability.commerce.pricing","section":"capabilities","capability":"commerce","family":"concepts-runtime","title":"Pricing Resolution"},
-    {"code":"capability.commerce.stock-units","section":"capabilities","capability":"commerce","family":"concepts-runtime","title":"Stock, Warehouses, and Units"},
-    {"code":"capability.commerce.end-to-end","section":"capabilities","capability":"commerce","family":"tutorial-example","title":"End-to-End Commerce Publishing and Runtime"},
-    {"code":"capability.observability-governance.technical-reference","section":"reference","capability":"observability-governance","family":"technical-reference","title":"Runtime Governance Implementation Reference"},
-    {"code":"capability.operational-governance.overview","section":"operations","capability":"observability-governance","family":"overview-business-value","title":"Observability and Operational Governance"},
-    {"code":"capability.operational-governance.runtime","section":"operations","capability":"observability-governance","family":"runtime-operations","title":"Lifecycle, Signals, and Incident Recovery"},
-    {"code":"capability.operational-governance.technical-reference","section":"reference","capability":"observability-governance","family":"technical-reference","title":"Operational Governance Technical Reference"},
-    {"code":"solution.data-as-service.overview","section":"solutions","family":"overview","title":"Nodics as Data as a Service"},
-    {"code":"solution.backoffice.schema-workbench","section":"solutions","family":"tutorial-example","title":"Manage Business Data with Schema Workbench"},
-    {"code":"solution.backoffice.workspace-context","section":"solutions","family":"runtime-behavior","title":"Understand the Nodics Axis Workspace Context"},
-    {"code":"solution.backoffice.technical-reference","section":"reference","family":"technical-reference","title":"BackOffice Implementation Reference"},
-    {"code":"solution.learning-assessment.technical-reference","section":"reference","family":"technical-reference","title":"Learning and Assessment Implementation Reference"},
-    {"code":"solution.customer-reviews.technical-reference","section":"reference","family":"technical-reference","title":"Customer Reviews Implementation Reference"},
-    {"code":"solution.kyc.technical-reference","section":"reference","family":"technical-reference","title":"Know Your Customer Implementation Reference"},
-    {"code":"commerce.stock.reconciliation","section":"capabilities","capability":"commerce","family":"runtime-behavior","title":"Reconcile Stock"},
-    {"code":"commerce.stock.allocation","section":"capabilities","capability":"commerce","family":"runtime-behavior","title":"Allocate Stock"},
-    {"code":"commerce.stock.availability","section":"capabilities","capability":"commerce","family":"runtime-behavior","title":"Calculate Stock Availability"},
-    {"code":"commerce.stock.movements","section":"capabilities","capability":"commerce","family":"runtime-behavior","title":"Record Stock Movements"},
-    {"code":"commerce.stock.sourcing","section":"capabilities","capability":"commerce","family":"runtime-behavior","title":"Source Stock"},
-    {"code":"commerce.stock.transfers","section":"capabilities","capability":"commerce","family":"runtime-behavior","title":"Transfer Stock"},
-    {"code":"commerce.stock.pools","section":"capabilities","capability":"commerce","family":"configuration-customization","title":"Manage Stock Pools"},
-    {"code":"commerce.stock.warehouses","section":"capabilities","capability":"commerce","family":"configuration-customization","title":"Manage Warehouses"},
-    {"code":"commerce.stock.operations","section":"capabilities","capability":"commerce","family":"operations-security-troubleshooting","title":"Operate and Integrate Inventory"},
-    {"code":"commerce.stock.reservations","section":"capabilities","capability":"commerce","family":"tutorial-example","title":"Reserve Stock"},
-    {"code":"commerce.pricing.operations","section":"capabilities","capability":"commerce","family":"operations-security-troubleshooting","title":"Configure and Operate Pricing"},
-    {"code":"commerce.product.identity","section":"capabilities","capability":"commerce","family":"tutorial-example","title":"Create and Identify Products"},
-    {"code":"commerce.store.management","section":"capabilities","capability":"commerce","family":"tutorial-example","title":"Manage Stores"},
-    {"code":"commerce.storefront.modeling","section":"capabilities","capability":"commerce","family":"concepts-architecture","title":"Model Stores and Website Experiences"},
-    {"code":"build.examples","section":"build","family":"tutorial-example","title":"Common Nodics Implementation Examples"},
-    {"code":"build.apis","section":"build","family":"tutorial-example","title":"Create Nodics APIs"},
-    {"code":"build.application-capability","section":"build","family":"tutorial-example","title":"Create Application Functionality"},
-    {"code":"build.customization","section":"build","family":"configuration-customization","title":"Customize and Extend Nodics"},
-    {"code":"build.documentation","section":"build","family":"technical-reference","title":"Maintain Nodics Documentation"},
-    {"code":"build.testing","section":"build","family":"technical-reference","title":"Test Nodics Changes"},
-    {"code":"security.browser","section":"security","family":"operations-security-troubleshooting","title":"Secure BackOffice Browser Sessions"},
-    {"code":"security.identity-access","section":"security","capability":"identity-access","family":"concepts-architecture","title":"Users, Tenants, and Permissions"},
-    {"code":"security.evidence","section":"security","family":"technical-reference","title":"Security Evidence Guide"},
-    {"code":"security.shared-responsibility","section":"security","family":"business-value","title":"Security Shared-Responsibility Model"},
-    {"code":"operations.deployment","section":"operations","family":"tutorial-example","title":"Prepare Nodics for Deployment"},
-    {"code":"operations.local-runtime","section":"operations","family":"operations-security-troubleshooting","title":"Run and Debug Nodics"},
-    {"code":"operations.runtime-topology-reference","section":"reference","family":"technical-reference","title":"Runtime Topology Reference"},
-    {"code":"operations.production","section":"operations","family":"operations-security-troubleshooting","title":"Production Operating Model"},
-    {"code":"reference.glossary","section":"reference","family":"technical-reference","title":"Nodics Glossary"},
-    {"code":"reference.licensing","section":"reference","family":"technical-reference","title":"Licensing and Source Header Contract"},
-    {"code":"reference.modules","section":"reference","family":"technical-reference","title":"Module Implementation Reference"},
-    {"code":"reference.maturity","section":"reference","family":"technical-reference","title":"Provider and Capability Maturity"}
+    {
+      "code": "discover.overview",
+      "section": "discover",
+      "family": "overview",
+      "title": "What Is Nodics?"
+    },
+    {
+      "code": "evaluate.capabilities",
+      "section": "evaluate",
+      "family": "overview",
+      "title": "Business Capabilities and Outcomes"
+    },
+    {
+      "code": "evaluate.checklist",
+      "section": "evaluate",
+      "family": "technical-reference",
+      "title": "Business and Technical Evaluation Checklist"
+    },
+    {
+      "code": "evaluate.comparison",
+      "section": "evaluate",
+      "family": "business-value",
+      "title": "Compare Nodics with Other Approaches"
+    },
+    {
+      "code": "evaluate.security-trust",
+      "section": "evaluate",
+      "family": "business-value",
+      "title": "Security and Trust for Decision-Makers"
+    },
+    {
+      "code": "evaluate.value",
+      "section": "evaluate",
+      "family": "business-value",
+      "title": "Why Organizations Choose Nodics"
+    },
+    {
+      "code": "getting-started.setup",
+      "section": "getting-started",
+      "family": "tutorial-example",
+      "title": "Set Up Nodics Locally"
+    },
+    {
+      "code": "getting-started.first-capability",
+      "section": "getting-started",
+      "family": "tutorial-example",
+      "title": "Build Your First Nodics Capability"
+    },
+    {
+      "code": "framework.architecture",
+      "section": "discover",
+      "family": "concepts-architecture",
+      "title": "How the Nodics Framework Is Organized"
+    },
+    {
+      "code": "capability.configuration.overview",
+      "section": "capabilities",
+      "capability": "configuration",
+      "family": "overview",
+      "title": "Nodics Configuration Layer"
+    },
+    {
+      "code": "capability.configuration.business-value",
+      "section": "capabilities",
+      "capability": "configuration",
+      "family": "business-value",
+      "title": "Business Value and Configuration Decisions"
+    },
+    {
+      "code": "capability.configuration.runtime",
+      "section": "capabilities",
+      "capability": "configuration",
+      "family": "runtime-behavior",
+      "title": "Configuration Resolution and Runtime Behavior"
+    },
+    {
+      "code": "capability.configuration.customization",
+      "section": "capabilities",
+      "capability": "configuration",
+      "family": "tutorial-example",
+      "title": "Configure and Customize a Nodics Application"
+    },
+    {
+      "code": "capability.configuration.technical-reference",
+      "section": "reference",
+      "capability": "configuration",
+      "family": "technical-reference",
+      "title": "Configuration Implementation Reference"
+    },
+    {
+      "code": "capability.caching.overview",
+      "section": "capabilities",
+      "capability": "caching",
+      "family": "overview",
+      "title": "Caching in Nodics"
+    },
+    {
+      "code": "capability.caching.prebuilt-providers",
+      "section": "capabilities",
+      "capability": "caching",
+      "family": "technical-reference",
+      "title": "Prebuilt Cache Providers and Maturity"
+    },
+    {
+      "code": "capability.caching.provider-development",
+      "section": "build",
+      "capability": "caching",
+      "family": "configuration-customization",
+      "title": "Build a Cache Provider"
+    },
+    {
+      "code": "capability.caching.lifecycle",
+      "section": "capabilities",
+      "capability": "caching",
+      "family": "runtime-behavior",
+      "title": "Cache Lifecycle and Invalidation"
+    },
+    {
+      "code": "capability.caching.operations",
+      "section": "operations",
+      "capability": "caching",
+      "family": "operations-security-troubleshooting",
+      "title": "Operate and Secure Cache"
+    },
+    {
+      "code": "capability.caching.technical-reference",
+      "section": "reference",
+      "capability": "caching",
+      "family": "technical-reference",
+      "title": "Caching Implementation Reference"
+    },
+    {
+      "code": "capability.scheduled-jobs.tutorial",
+      "section": "capabilities",
+      "capability": "scheduled-jobs",
+      "family": "tutorial-example",
+      "title": "Create and Operate Scheduled Jobs"
+    },
+    {
+      "code": "capability.scheduled-jobs.overview",
+      "section": "capabilities",
+      "capability": "scheduled-jobs",
+      "family": "overview",
+      "title": "Scheduled Jobs"
+    },
+    {
+      "code": "capability.scheduled-jobs.runtime",
+      "section": "operations",
+      "capability": "scheduled-jobs",
+      "family": "operations-security-troubleshooting",
+      "title": "Job Lifecycle, Resilience, and Operations"
+    },
+    {
+      "code": "capability.scheduled-jobs.technical-reference",
+      "section": "reference",
+      "capability": "scheduled-jobs",
+      "family": "technical-reference",
+      "title": "Scheduled Jobs Implementation Reference"
+    },
+    {
+      "code": "capability.events-messaging.architecture",
+      "section": "capabilities",
+      "capability": "events-messaging",
+      "family": "concepts-architecture",
+      "title": "Events and Messaging Architecture"
+    },
+    {
+      "code": "capability.events-messaging.overview",
+      "section": "capabilities",
+      "capability": "events-messaging",
+      "family": "overview",
+      "title": "Events and Messaging"
+    },
+    {
+      "code": "capability.events-messaging.delivery",
+      "section": "capabilities",
+      "capability": "events-messaging",
+      "family": "concepts-architecture",
+      "title": "Event Delivery Models and Guarantees"
+    },
+    {
+      "code": "capability.events-messaging.provider-development",
+      "section": "build",
+      "capability": "events-messaging",
+      "family": "configuration-customization",
+      "title": "Build a Messaging Provider"
+    },
+    {
+      "code": "capability.events-messaging.lifecycle",
+      "section": "capabilities",
+      "capability": "events-messaging",
+      "family": "runtime-behavior",
+      "title": "Event Lifecycle and Data Exchange"
+    },
+    {
+      "code": "capability.events-messaging.operations",
+      "section": "operations",
+      "capability": "events-messaging",
+      "family": "operations-security-troubleshooting",
+      "title": "Operate and Secure Events"
+    },
+    {
+      "code": "capability.events-messaging.technical-reference",
+      "section": "reference",
+      "capability": "events-messaging",
+      "family": "technical-reference",
+      "title": "Events and Messaging Implementation Reference"
+    },
+    {
+      "code": "capability.content-publishing.tutorial",
+      "section": "capabilities",
+      "capability": "content-publishing",
+      "family": "tutorial-example",
+      "title": "Approve and Publish Content"
+    },
+    {
+      "code": "capability.content-publishing.overview",
+      "section": "capabilities",
+      "capability": "content-publishing",
+      "family": "overview",
+      "title": "Content Management and Publishing"
+    },
+    {
+      "code": "capability.content-publishing.runtime",
+      "section": "operations",
+      "capability": "content-publishing",
+      "family": "operations-security-troubleshooting",
+      "title": "Publishing Lifecycle, Rollback, and Operations"
+    },
+    {
+      "code": "capability.content-publishing.technical-reference",
+      "section": "reference",
+      "capability": "content-publishing",
+      "family": "technical-reference",
+      "title": "Content and Publishing Implementation Reference"
+    },
+    {
+      "code": "capability.data-exchange.guide",
+      "section": "capabilities",
+      "capability": "data-exchange",
+      "family": "runtime-behavior",
+      "title": "Work with Nodics Data"
+    },
+    {
+      "code": "capability.data-exchange.import",
+      "section": "capabilities",
+      "capability": "data-exchange",
+      "family": "tutorial-example",
+      "title": "Import Data Safely"
+    },
+    {
+      "code": "capability.data-exchange.export",
+      "section": "capabilities",
+      "capability": "data-exchange",
+      "family": "runtime-behavior",
+      "title": "Export Data Safely"
+    },
+    {
+      "code": "capability.data-exchange.provider-development",
+      "section": "build",
+      "capability": "data-exchange",
+      "family": "configuration-customization",
+      "title": "Build Data Source and Destination Providers"
+    },
+    {
+      "code": "capability.data-exchange.lifecycle",
+      "section": "capabilities",
+      "capability": "data-exchange",
+      "family": "runtime-behavior",
+      "title": "Data Exchange Lifecycle and Integrations"
+    },
+    {
+      "code": "capability.data-exchange.operations",
+      "section": "operations",
+      "capability": "data-exchange",
+      "family": "operations-security-troubleshooting",
+      "title": "Operate and Secure Data Exchange"
+    },
+    {
+      "code": "capability.data-exchange.technical-reference",
+      "section": "reference",
+      "capability": "data-exchange",
+      "family": "technical-reference",
+      "title": "Import and Export Implementation Reference"
+    },
+    {
+      "code": "capability.units.tutorial",
+      "section": "capabilities",
+      "capability": "commerce",
+      "family": "tutorial-example",
+      "title": "Use Units and Land Measurements"
+    },
+    {
+      "code": "capability.units.technical-reference",
+      "section": "reference",
+      "capability": "commerce",
+      "family": "technical-reference",
+      "title": "Units Implementation Reference"
+    },
+    {
+      "code": "capability.ai.overview",
+      "section": "capabilities",
+      "capability": "ai",
+      "family": "overview",
+      "title": "AI Providers, Knowledge, and Assistants"
+    },
+    {
+      "code": "capability.ai.providers",
+      "section": "capabilities",
+      "capability": "ai",
+      "family": "technical-reference",
+      "title": "AI Providers and Adapter Selection"
+    },
+    {
+      "code": "capability.ai.cost-governance",
+      "section": "capabilities",
+      "capability": "ai",
+      "family": "operations-security-troubleshooting",
+      "title": "Control AI Token Usage and Cost"
+    },
+    {
+      "code": "capability.ai.knowledge",
+      "section": "capabilities",
+      "capability": "ai",
+      "family": "runtime-behavior",
+      "title": "AI Knowledge and Retrieval-Augmented Generation"
+    },
+    {
+      "code": "capability.ai.assistant",
+      "section": "capabilities",
+      "capability": "ai",
+      "family": "operations-security-troubleshooting",
+      "title": "AI Assistant"
+    },
+    {
+      "code": "capability.ai.agentic-processes",
+      "section": "capabilities",
+      "capability": "ai",
+      "family": "concepts-architecture",
+      "title": "Agentic Business Processes"
+    },
+    {
+      "code": "capability.ai.partner-customization",
+      "section": "build",
+      "capability": "ai",
+      "family": "configuration-customization",
+      "title": "Partner AI Customization"
+    },
+    {
+      "code": "capability.ai.technical-reference",
+      "section": "reference",
+      "capability": "ai",
+      "family": "technical-reference",
+      "title": "AI Implementation Reference"
+    },
+    {
+      "code": "capability.layered-architecture.overview",
+      "section": "capabilities",
+      "capability": "layered-architecture",
+      "family": "overview",
+      "title": "Modular and Layered Architecture"
+    },
+    {
+      "code": "capability.layered-architecture.ownership",
+      "section": "capabilities",
+      "capability": "layered-architecture",
+      "family": "concepts-architecture",
+      "title": "Layers, Ownership, and Responsibilities"
+    },
+    {
+      "code": "capability.layered-architecture.runtime",
+      "section": "capabilities",
+      "capability": "layered-architecture",
+      "family": "tutorial-example",
+      "title": "From API Request to Business Result"
+    },
+    {
+      "code": "capability.layered-architecture.customization",
+      "section": "build",
+      "capability": "layered-architecture",
+      "family": "configuration-customization",
+      "title": "Extend a Capability Without Forking Nodics"
+    },
+    {
+      "code": "capability.layered-architecture.technical-reference",
+      "section": "reference",
+      "capability": "layered-architecture",
+      "family": "technical-reference",
+      "title": "Layered Architecture Implementation Reference"
+    },
+    {
+      "code": "capability.schema-modeling.overview",
+      "section": "capabilities",
+      "capability": "schema-modeling",
+      "family": "overview",
+      "title": "Schema and Item Modeling"
+    },
+    {
+      "code": "capability.schema-modeling.runtime",
+      "section": "capabilities",
+      "capability": "schema-modeling",
+      "family": "runtime-behavior",
+      "title": "Schema Composition and Runtime Models"
+    },
+    {
+      "code": "capability.schema-modeling.relationships",
+      "section": "capabilities",
+      "capability": "schema-modeling",
+      "family": "concepts-architecture",
+      "title": "Relationships, Ownership, and Record Lifecycle"
+    },
+    {
+      "code": "capability.schema-modeling.tutorial",
+      "section": "build",
+      "capability": "schema-modeling",
+      "family": "tutorial-example",
+      "title": "Model a Business Entity"
+    },
+    {
+      "code": "capability.schema-modeling.technical-reference",
+      "section": "reference",
+      "capability": "schema-modeling",
+      "family": "technical-reference",
+      "title": "Schema Modeling Implementation Reference"
+    },
+    {
+      "code": "capability.validation.overview",
+      "section": "capabilities",
+      "capability": "validation",
+      "family": "overview",
+      "title": "Validation and Policy Enforcement"
+    },
+    {
+      "code": "capability.validation.layers",
+      "section": "security",
+      "capability": "validation",
+      "family": "concepts-architecture",
+      "title": "Validation Layers and Policy Boundaries"
+    },
+    {
+      "code": "capability.validation.runtime",
+      "section": "capabilities",
+      "capability": "validation",
+      "family": "operations-security-troubleshooting",
+      "title": "Validation Runtime and Error Behavior"
+    },
+    {
+      "code": "capability.validation.tutorial",
+      "section": "build",
+      "capability": "validation",
+      "family": "tutorial-example",
+      "title": "Add a Business Validation Rule"
+    },
+    {
+      "code": "capability.validation.technical-reference",
+      "section": "reference",
+      "capability": "validation",
+      "family": "technical-reference",
+      "title": "Validation Implementation Reference"
+    },
+    {
+      "code": "capability.libraries-utilities.technical-reference",
+      "section": "reference",
+      "capability": "libraries-utilities",
+      "family": "technical-reference",
+      "title": "Libraries and Utilities Implementation Reference"
+    },
+    {
+      "code": "capability.query-modeling.overview",
+      "section": "capabilities",
+      "capability": "query-modeling",
+      "family": "overview",
+      "title": "Search Models and Querying"
+    },
+    {
+      "code": "capability.query-modeling.concepts",
+      "section": "capabilities",
+      "capability": "query-modeling",
+      "family": "concepts-architecture",
+      "title": "How Search Models and Queries Work"
+    },
+    {
+      "code": "capability.query-modeling.tutorial",
+      "section": "capabilities",
+      "capability": "query-modeling",
+      "family": "tutorial-example",
+      "title": "Define and Query Searchable Business Data"
+    },
+    {
+      "code": "capability.query-modeling.technical-reference",
+      "section": "reference",
+      "capability": "query-modeling",
+      "family": "technical-reference",
+      "title": "Search Model and Query Reference"
+    },
+    {
+      "code": "capability.persistence.overview",
+      "section": "capabilities",
+      "capability": "persistence",
+      "family": "overview",
+      "title": "Database and Persistence"
+    },
+    {
+      "code": "capability.persistence.prebuilt-providers",
+      "section": "capabilities",
+      "capability": "persistence",
+      "family": "technical-reference",
+      "title": "Prebuilt Database Providers and Maturity"
+    },
+    {
+      "code": "capability.persistence.provider-development",
+      "section": "build",
+      "capability": "persistence",
+      "family": "configuration-customization",
+      "title": "Build a Database Provider"
+    },
+    {
+      "code": "capability.persistence.lifecycle",
+      "section": "capabilities",
+      "capability": "persistence",
+      "family": "runtime-behavior",
+      "title": "Persistence Lifecycle and Data Exchange"
+    },
+    {
+      "code": "capability.persistence.operations",
+      "section": "operations",
+      "capability": "persistence",
+      "family": "operations-security-troubleshooting",
+      "title": "Operate and Secure Persistence"
+    },
+    {
+      "code": "capability.persistence.technical-reference",
+      "section": "reference",
+      "capability": "persistence",
+      "family": "technical-reference",
+      "title": "Persistence Implementation Reference"
+    },
+    {
+      "code": "capability.services-facades.overview",
+      "section": "capabilities",
+      "capability": "services-facades",
+      "family": "overview",
+      "title": "Services and Facades"
+    },
+    {
+      "code": "capability.services-facades.runtime",
+      "section": "build",
+      "capability": "services-facades",
+      "family": "configuration-customization",
+      "title": "Service Runtime, Communication, and Extension"
+    },
+    {
+      "code": "capability.services-facades.technical-reference",
+      "section": "reference",
+      "capability": "services-facades",
+      "family": "technical-reference",
+      "title": "Services and Facades Implementation Reference"
+    },
+    {
+      "code": "capability.apis-routing.overview",
+      "section": "capabilities",
+      "capability": "apis-routing",
+      "family": "overview",
+      "title": "APIs, Routing, and Controllers"
+    },
+    {
+      "code": "capability.apis-routing.runtime",
+      "section": "security",
+      "capability": "apis-routing",
+      "family": "configuration-customization",
+      "title": "Route Runtime, Security, and Extension"
+    },
+    {
+      "code": "capability.apis-routing.technical-reference",
+      "section": "reference",
+      "capability": "apis-routing",
+      "family": "technical-reference",
+      "title": "API and Routing Implementation Reference"
+    },
+    {
+      "code": "capability.execution-processes.overview",
+      "section": "capabilities",
+      "capability": "execution-processes",
+      "family": "overview",
+      "title": "Pipelines and Interceptors"
+    },
+    {
+      "code": "capability.execution-processes.runtime",
+      "section": "build",
+      "capability": "execution-processes",
+      "family": "configuration-customization",
+      "title": "Pipeline Runtime and Safe Extension"
+    },
+    {
+      "code": "capability.execution-processes.technical-reference",
+      "section": "reference",
+      "capability": "execution-processes",
+      "family": "technical-reference",
+      "title": "Pipeline and Process Implementation Reference"
+    },
+    {
+      "code": "capability.libraries-utilities.overview",
+      "section": "capabilities",
+      "capability": "libraries-utilities",
+      "family": "overview",
+      "title": "Libraries and Utilities"
+    },
+    {
+      "code": "capability.libraries-utilities.runtime",
+      "section": "build",
+      "capability": "libraries-utilities",
+      "family": "configuration-customization",
+      "title": "Design and Extend Shared Helpers"
+    },
+    {
+      "code": "capability.identity-access.technical-reference",
+      "section": "reference",
+      "capability": "identity-access",
+      "family": "technical-reference",
+      "title": "Identity and Access Implementation Reference"
+    },
+    {
+      "code": "capability.identity-security.overview",
+      "section": "security",
+      "capability": "identity-access",
+      "family": "overview",
+      "title": "Identity and Security Boundaries"
+    },
+    {
+      "code": "capability.identity-security.authentication",
+      "section": "security",
+      "capability": "identity-access",
+      "family": "runtime-behavior",
+      "title": "Authentication and Session Lifecycle"
+    },
+    {
+      "code": "capability.identity-security.authorization",
+      "section": "security",
+      "capability": "identity-access",
+      "family": "concepts-architecture",
+      "title": "Authorization and Ownership"
+    },
+    {
+      "code": "capability.identity-security.tenancy",
+      "section": "security",
+      "capability": "identity-access",
+      "family": "concepts-architecture",
+      "title": "Tenants, Enterprises, and Identity Models"
+    },
+    {
+      "code": "capability.identity-security.governance",
+      "section": "security",
+      "capability": "identity-access",
+      "family": "operations-security-troubleshooting",
+      "title": "Security Governance and Production Evidence"
+    },
+    {
+      "code": "capability.status-errors.overview",
+      "section": "capabilities",
+      "capability": "errors-status",
+      "family": "overview",
+      "title": "Status Codes and Error Handling"
+    },
+    {
+      "code": "capability.status-errors.runtime",
+      "section": "security",
+      "capability": "errors-status",
+      "family": "configuration-customization",
+      "title": "Error Runtime, Security, and Extension"
+    },
+    {
+      "code": "capability.status-errors.technical-reference",
+      "section": "reference",
+      "capability": "errors-status",
+      "family": "technical-reference",
+      "title": "Status and Error Technical Reference"
+    },
+    {
+      "code": "capability.search-indexing.technical-reference",
+      "section": "reference",
+      "capability": "search-indexing",
+      "family": "technical-reference",
+      "title": "Search and Indexing Implementation Reference"
+    },
+    {
+      "code": "capability.search-indexing.overview",
+      "section": "capabilities",
+      "capability": "search-indexing",
+      "family": "overview",
+      "title": "Search and Indexing Providers"
+    },
+    {
+      "code": "capability.search-indexing.prebuilt-engines",
+      "section": "capabilities",
+      "capability": "search-indexing",
+      "family": "technical-reference",
+      "title": "Prebuilt Search Engines"
+    },
+    {
+      "code": "capability.search-indexing.provider-development",
+      "section": "capabilities",
+      "capability": "search-indexing",
+      "family": "configuration-customization",
+      "title": "Build a New Search Provider"
+    },
+    {
+      "code": "capability.search-indexing.lifecycle",
+      "section": "capabilities",
+      "capability": "search-indexing",
+      "family": "runtime-behavior",
+      "title": "Search Index Lifecycle"
+    },
+    {
+      "code": "capability.search-indexing.import-export",
+      "section": "capabilities",
+      "capability": "search-indexing",
+      "family": "runtime-behavior",
+      "title": "Search with Data Import and Export"
+    },
+    {
+      "code": "capability.search-indexing.operations",
+      "section": "capabilities",
+      "capability": "search-indexing",
+      "family": "operations-security-troubleshooting",
+      "title": "Operate and Troubleshoot Search"
+    },
+    {
+      "code": "capability.workflows.technical-reference",
+      "section": "reference",
+      "capability": "workflows",
+      "family": "technical-reference",
+      "title": "Workflow Implementation Reference"
+    },
+    {
+      "code": "capability.workflows.overview",
+      "section": "capabilities",
+      "capability": "workflows",
+      "family": "overview",
+      "title": "Workflows and Business Processes"
+    },
+    {
+      "code": "capability.workflows.runtime",
+      "section": "capabilities",
+      "capability": "workflows",
+      "family": "operations-security-troubleshooting",
+      "title": "Workflow Lifecycle, Extension, and Recovery"
+    },
+    {
+      "code": "capability.commerce.technical-reference",
+      "section": "reference",
+      "capability": "commerce",
+      "family": "technical-reference",
+      "title": "Commerce Implementation Reference"
+    },
+    {
+      "code": "capability.commerce.overview",
+      "section": "capabilities",
+      "capability": "commerce",
+      "family": "overview",
+      "title": "Modular Commerce"
+    },
+    {
+      "code": "capability.commerce.storefront",
+      "section": "capabilities",
+      "capability": "commerce",
+      "family": "runtime-behavior",
+      "title": "Storefront and Website Resolution"
+    },
+    {
+      "code": "capability.commerce.stores-warehouses",
+      "section": "capabilities",
+      "capability": "commerce",
+      "family": "concepts-architecture",
+      "title": "Stores and Warehouses"
+    },
+    {
+      "code": "capability.commerce.products",
+      "section": "capabilities",
+      "capability": "commerce",
+      "family": "runtime-behavior",
+      "title": "Product Catalog"
+    },
+    {
+      "code": "capability.commerce.pricing",
+      "section": "capabilities",
+      "capability": "commerce",
+      "family": "runtime-behavior",
+      "title": "Pricing Resolution"
+    },
+    {
+      "code": "capability.commerce.stock-units",
+      "section": "capabilities",
+      "capability": "commerce",
+      "family": "runtime-behavior",
+      "title": "Stock, Warehouses, and Units"
+    },
+    {
+      "code": "capability.commerce.end-to-end",
+      "section": "capabilities",
+      "capability": "commerce",
+      "family": "tutorial-example",
+      "title": "End-to-End Commerce Publishing and Runtime"
+    },
+    {
+      "code": "capability.observability-governance.technical-reference",
+      "section": "reference",
+      "capability": "observability-governance",
+      "family": "technical-reference",
+      "title": "Runtime Governance Implementation Reference"
+    },
+    {
+      "code": "capability.operational-governance.overview",
+      "section": "operations",
+      "capability": "observability-governance",
+      "family": "overview",
+      "title": "Observability and Operational Governance"
+    },
+    {
+      "code": "capability.operational-governance.runtime",
+      "section": "operations",
+      "capability": "observability-governance",
+      "family": "operations-security-troubleshooting",
+      "title": "Lifecycle, Signals, and Incident Recovery"
+    },
+    {
+      "code": "capability.operational-governance.technical-reference",
+      "section": "reference",
+      "capability": "observability-governance",
+      "family": "technical-reference",
+      "title": "Operational Governance Technical Reference"
+    },
+    {
+      "code": "solution.data-as-service.overview",
+      "section": "solutions",
+      "family": "overview",
+      "title": "Nodics as Data as a Service"
+    },
+    {
+      "code": "solution.backoffice.schema-workbench",
+      "section": "solutions",
+      "family": "tutorial-example",
+      "title": "Manage Business Data with Schema Workbench"
+    },
+    {
+      "code": "solution.backoffice.workspace-context",
+      "section": "solutions",
+      "family": "runtime-behavior",
+      "title": "Understand the Nodics Axis Workspace Context"
+    },
+    {
+      "code": "solution.backoffice.technical-reference",
+      "section": "reference",
+      "family": "technical-reference",
+      "title": "BackOffice Implementation Reference"
+    },
+    {
+      "code": "solution.learning-assessment.technical-reference",
+      "section": "reference",
+      "family": "technical-reference",
+      "title": "Learning and Assessment Implementation Reference"
+    },
+    {
+      "code": "solution.customer-reviews.technical-reference",
+      "section": "reference",
+      "family": "technical-reference",
+      "title": "Customer Reviews Implementation Reference"
+    },
+    {
+      "code": "solution.kyc.technical-reference",
+      "section": "reference",
+      "family": "technical-reference",
+      "title": "Know Your Customer Implementation Reference"
+    },
+    {
+      "code": "commerce.stock.reconciliation",
+      "section": "capabilities",
+      "capability": "commerce",
+      "family": "runtime-behavior",
+      "title": "Reconcile Stock"
+    },
+    {
+      "code": "commerce.stock.allocation",
+      "section": "capabilities",
+      "capability": "commerce",
+      "family": "runtime-behavior",
+      "title": "Allocate Stock"
+    },
+    {
+      "code": "commerce.stock.availability",
+      "section": "capabilities",
+      "capability": "commerce",
+      "family": "runtime-behavior",
+      "title": "Calculate Stock Availability"
+    },
+    {
+      "code": "commerce.stock.movements",
+      "section": "capabilities",
+      "capability": "commerce",
+      "family": "runtime-behavior",
+      "title": "Record Stock Movements"
+    },
+    {
+      "code": "commerce.stock.sourcing",
+      "section": "capabilities",
+      "capability": "commerce",
+      "family": "runtime-behavior",
+      "title": "Source Stock"
+    },
+    {
+      "code": "commerce.stock.transfers",
+      "section": "capabilities",
+      "capability": "commerce",
+      "family": "runtime-behavior",
+      "title": "Transfer Stock"
+    },
+    {
+      "code": "commerce.stock.pools",
+      "section": "capabilities",
+      "capability": "commerce",
+      "family": "configuration-customization",
+      "title": "Manage Stock Pools"
+    },
+    {
+      "code": "commerce.stock.warehouses",
+      "section": "capabilities",
+      "capability": "commerce",
+      "family": "configuration-customization",
+      "title": "Manage Warehouses"
+    },
+    {
+      "code": "commerce.stock.operations",
+      "section": "capabilities",
+      "capability": "commerce",
+      "family": "operations-security-troubleshooting",
+      "title": "Operate and Integrate Inventory"
+    },
+    {
+      "code": "commerce.stock.reservations",
+      "section": "capabilities",
+      "capability": "commerce",
+      "family": "tutorial-example",
+      "title": "Reserve Stock"
+    },
+    {
+      "code": "commerce.pricing.operations",
+      "section": "capabilities",
+      "capability": "commerce",
+      "family": "operations-security-troubleshooting",
+      "title": "Configure and Operate Pricing"
+    },
+    {
+      "code": "commerce.product.identity",
+      "section": "capabilities",
+      "capability": "commerce",
+      "family": "tutorial-example",
+      "title": "Create and Identify Products"
+    },
+    {
+      "code": "commerce.store.management",
+      "section": "capabilities",
+      "capability": "commerce",
+      "family": "tutorial-example",
+      "title": "Manage Stores"
+    },
+    {
+      "code": "commerce.storefront.modeling",
+      "section": "capabilities",
+      "capability": "commerce",
+      "family": "concepts-architecture",
+      "title": "Model Stores and Website Experiences"
+    },
+    {
+      "code": "build.examples",
+      "section": "build",
+      "family": "tutorial-example",
+      "title": "Common Nodics Implementation Examples"
+    },
+    {
+      "code": "build.apis",
+      "section": "build",
+      "family": "tutorial-example",
+      "title": "Create Nodics APIs"
+    },
+    {
+      "code": "build.application-capability",
+      "section": "build",
+      "family": "tutorial-example",
+      "title": "Create Application Functionality"
+    },
+    {
+      "code": "build.customization",
+      "section": "build",
+      "family": "configuration-customization",
+      "title": "Customize and Extend Nodics"
+    },
+    {
+      "code": "build.documentation",
+      "section": "build",
+      "family": "technical-reference",
+      "title": "Maintain Nodics Documentation"
+    },
+    {
+      "code": "build.testing",
+      "section": "build",
+      "family": "technical-reference",
+      "title": "Test Nodics Changes"
+    },
+    {
+      "code": "security.browser",
+      "section": "security",
+      "family": "operations-security-troubleshooting",
+      "title": "Secure BackOffice Browser Sessions"
+    },
+    {
+      "code": "security.identity-access",
+      "section": "security",
+      "capability": "identity-access",
+      "family": "concepts-architecture",
+      "title": "Users, Tenants, and Permissions"
+    },
+    {
+      "code": "security.evidence",
+      "section": "security",
+      "family": "technical-reference",
+      "title": "Security Evidence Guide"
+    },
+    {
+      "code": "security.shared-responsibility",
+      "section": "security",
+      "family": "business-value",
+      "title": "Security Shared-Responsibility Model"
+    },
+    {
+      "code": "operations.deployment",
+      "section": "operations",
+      "family": "tutorial-example",
+      "title": "Prepare Nodics for Deployment"
+    },
+    {
+      "code": "operations.local-runtime",
+      "section": "operations",
+      "family": "operations-security-troubleshooting",
+      "title": "Run and Debug Nodics"
+    },
+    {
+      "code": "operations.runtime-topology-reference",
+      "section": "reference",
+      "family": "technical-reference",
+      "title": "Runtime Topology Reference"
+    },
+    {
+      "code": "operations.production",
+      "section": "operations",
+      "family": "operations-security-troubleshooting",
+      "title": "Production Operating Model"
+    },
+    {
+      "code": "reference.glossary",
+      "section": "reference",
+      "family": "technical-reference",
+      "title": "Nodics Glossary"
+    },
+    {
+      "code": "reference.licensing",
+      "section": "reference",
+      "family": "technical-reference",
+      "title": "Licensing and Source Header Contract"
+    },
+    {
+      "code": "reference.modules",
+      "section": "reference",
+      "family": "technical-reference",
+      "title": "Module Implementation Reference"
+    },
+    {
+      "code": "reference.maturity",
+      "section": "reference",
+      "family": "technical-reference",
+      "title": "Provider and Capability Maturity"
+    }
   ]
 }

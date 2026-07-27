@@ -1,1 +1,80 @@
-{"code":"capability.ai.partner-customization","title":"Partner AI Customization","route":"/docs/capabilities/ai/partner-customization","section":"build","family":"configuration-customization","parent":"page:capability.ai.overview","order":60,"audiences":["business-user","administrator","developer","architect","operator","ai-tool"],"readerIntent":"Configure AI for a customer application without modifying Nodics core.","priorKnowledge":"Know the application, users, data, tools, risk, providers, and budget.","depth":"guided","status":"implemented","owner":"Customer project modules and configuration layered over reusable AI contracts","lastVerified":"2026-07-26","summary":"Partners customize provider profiles, prompts, corpora, tools, policies, budgets, workflows, content, and branding through explicit modules and configuration.","supportingEvidence":["nodics:gAi/README.md","nodics:gAi/aiProviders/README.md","nodics:gAi/aiKnowledge/README.md","nodics:gAi/aiAssistant/README.md"],"sections":[{"heading":"Configuration-first choices","items":["Enable only required AI modules and provider adapters.","Define usage profiles, allowed models, pricing, secret references, budgets, rate limits, fallback, and kill switches.","Contribute application-owned knowledge sources and classification/locale/audience policy.","Create versioned approved prompts and Assistant definitions.","Allowlist read tools and confirmation/workflow-governed mutations.","Configure retention, redaction, citations, observability, and business-facing content."]},{"heading":"Application examples","items":["Axis operational assistant for employee business data and actions.","Nodics documentation assistant using published documentation corpus.","Logistics assistant using that project's schemas, APIs, workflows, and guides.","Commerce support assistant using permission-safe Product, Price, Stock, order, and content contracts.","Customer support chatbot in a separate deployment and audience from an employee BackOffice assistant."]},{"heading":"Deployment and extension","items":["Each customer project has its own Axis/assistant deployment and effective configuration.","Tenant and project data never mix through shared conversations, corpora, ledgers, caches, or search records.","Add providers and source adapters behind provider-neutral contracts; never import vendor SDKs into callers.","Frontend owns responsive rendering and localized labels; backend owns content definitions, orchestration, security, usage, tools, and business rules."]}]}
+{
+  "code": "capability.ai.partner-customization",
+  "title": "Partner AI Customization",
+  "route": "/docs/capabilities/ai/partner-customization",
+  "section": "build",
+  "family": "configuration-customization",
+  "parent": "page:capability.ai.overview",
+  "order": 60,
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Configure AI for a customer application without modifying Nodics core.",
+  "priorKnowledge": "Know the application, users, data, tools, risk, providers, and budget.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "Customer project modules and configuration layered over reusable AI contracts",
+  "lastVerified": "2026-07-26",
+  "summary": "Partners customize provider profiles, prompts, corpora, tools, policies, budgets, workflows, content, and branding through explicit modules and configuration.",
+  "supportingEvidence": [
+    "nodics:gAi/README.md",
+    "nodics:gAi/aiProviders/README.md",
+    "nodics:gAi/aiKnowledge/README.md",
+    "nodics:gAi/aiAssistant/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Configuration-first choices",
+      "items": [
+        "Enable only required AI modules and provider adapters.",
+        "Define usage profiles, allowed models, pricing, secret references, budgets, rate limits, fallback, and kill switches.",
+        "Contribute application-owned knowledge sources and classification/locale/audience policy.",
+        "Create versioned approved prompts and Assistant definitions.",
+        "Allowlist read tools and confirmation/workflow-governed mutations.",
+        "Configure retention, redaction, citations, observability, and business-facing content."
+      ]
+    },
+    {
+      "heading": "Application examples",
+      "items": [
+        "Axis operational assistant for employee business data and actions.",
+        "Nodics documentation assistant using published documentation corpus.",
+        "Logistics assistant using that project's schemas, APIs, workflows, and guides.",
+        "Commerce support assistant using permission-safe Product, Price, Stock, order, and content contracts.",
+        "Customer support chatbot in a separate deployment and audience from an employee BackOffice assistant."
+      ]
+    },
+    {
+      "heading": "Layered customization procedure",
+      "items": [
+        "First reuse an existing Assistant, source, tool, provider, prompt, and policy. Next override configuration in the customer project. Extend an existing adapter or service only when configuration cannot express the requirement, and implement a new authority only as the final option.",
+        "Place provider credentials and environment endpoints in governed runtime secret or configuration sources. Put application schemas and business services in their owning backend modules, and keep responsive renderers in the frontend repository.",
+        "Register contributed adapters through existing registry contracts. Do not add direct imports, parallel loaders, generic database access, or a second list of modules and tools.",
+        "Keep user-facing labels, help, errors, and localized fragments backend-content driven while frontend component renderers remain small, individually navigable, testable, and free of business decisions."
+      ]
+    },
+    {
+      "heading": "Deployment and extension",
+      "items": [
+        "Each customer project has its own Axis/assistant deployment and effective configuration.",
+        "Tenant and project data never mix through shared conversations, corpora, ledgers, caches, or search records.",
+        "Add providers and source adapters behind provider-neutral contracts; never import vendor SDKs into callers.",
+        "Frontend owns responsive rendering and localized labels; backend owns content definitions, orchestration, security, usage, tools, and business rules."
+      ]
+    },
+    {
+      "heading": "Partner acceptance checklist",
+      "items": [
+        "Document the purpose, audiences, data classifications, permitted corpora, operations, provider profiles, budgets, retention, regions, human escalation, and owner before enabling a deployment.",
+        "Validate positive, negative, boundary, contract, integration, recovery, security, privacy, accessibility, localization, performance, cost, and regression behavior.",
+        "Prove tenant and project isolation across conversations, retrieval indexes, caches, usage ledgers, workflow carriers, logs, metrics, and provider requests.",
+        "Provide beginner setup, business operation, developer extension, provider qualification, troubleshooting, rollback, and evidence guidance alongside the implementation."
+      ]
+    }
+  ]
+}

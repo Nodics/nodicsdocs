@@ -6,7 +6,12 @@
   "family": "technical-reference",
   "parent": "page:capability.schema-modeling.overview",
   "order": 40,
-  "audiences": ["developer", "architect", "framework-maintainer", "ai-tool"],
+  "audiences": [
+    "developer",
+    "architect",
+    "framework-maintainer",
+    "ai-tool"
+  ],
   "readerIntent": "Review schema metadata, extension boundaries, and integration obligations.",
   "priorKnowledge": "Read the schema-modeling journey.",
   "depth": "reference",
@@ -14,8 +19,44 @@
   "owner": "Nodics data-model framework and owning business modules",
   "lastVerified": "2026-07-26",
   "summary": "Schema definitions are business contracts; generated runtime models and configured providers implement them without transferring ownership.",
-  "supportingEvidence": ["nodics:gFramework/nData/README.md", "nodics:gFramework/nDatabase/README.md", "nodics:gFramework/nDynamo/README.md"],
+  "supportingEvidence": [
+    "nodics:gFramework/nData/README.md",
+    "nodics:gFramework/nDatabase/README.md",
+    "nodics:gFramework/nDynamo/README.md"
+  ],
   "sections": [
+    {
+      "heading": "Definition and inheritance",
+      "items": [
+        "A schema declares only its owned differences while framework loading merges supported base composition at runtime; do not repeat base inheritance unless the contract requires it explicitly.",
+        "Properties define type, cardinality, required, default, constraints, mutability, visibility, masking, ownership, catalog/version behavior, and relationships.",
+        "Use stable business codes and descriptions for human identity while provider-generated identifiers remain persistence references."
+      ]
+    },
+    {
+      "heading": "Relationships and nested work",
+      "items": [
+        "Declare target schema, owning module, cardinality, required behavior, delete semantics, search projection, select-existing, and nested-create policy.",
+        "Cross-module relations invoke the target module's model and service APIs with tenant and authorization; they never write another collection directly.",
+        "Axis may render generic selection and nested forms, but each target action enforces its own create, read, search, update, field, and ownership rules."
+      ]
+    },
+    {
+      "heading": "Persistence, search, and publishing",
+      "items": [
+        "Generated item models use database-handler services for authoritative persistence; corresponding search models define provider-neutral query and index projections.",
+        "Indexes, uniqueness, transactions, cache invalidation, events, import/export, audit, and search refresh follow owned lifecycle contracts.",
+        "Versioning and nPublish are enabled per module/schema configuration; staged and Online remain separate authorities rather than a generic status flag."
+      ]
+    },
+    {
+      "heading": "Evolution and verification",
+      "items": [
+        "Schema changes assess existing data, defaults, compatibility, indexes, relations, APIs, imports, search mappings, caches, workflows, publication, migration, and rollback.",
+        "Test create, read, update, delete, search, required and boundary values, inheritance, field masks, ownership, nested relations, cycles, tenant isolation, concurrency, and provider behavior.",
+        "Keep customizable policy in properties.js, remove unused definitions safely, regenerate derived context, and update business and developer documentation with examples."
+      ]
+    },
     {
       "heading": "Review checklist",
       "items": [

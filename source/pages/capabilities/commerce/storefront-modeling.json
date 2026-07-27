@@ -1,1 +1,147 @@
-{"code":"commerce.storefront.modeling","title":"Model Stores and Website Experiences","route":"/docs/capabilities/commerce/storefront/modeling","section":"capabilities","family":"concepts-architecture","parent":"page:capability.commerce.storefront","order":10,"audiences":["business-user","administrator","developer","architect","ai-tool"],"readerIntent":"Model websites, Stores, and catalogs for several customer experiences.","priorKnowledge":"Understand Storefront Site, Store, CMS, Product, and trusted context.","depth":"guided","status":"implemented","owner":"Storefront resolution plus referenced capability owners","lastVerified":"2026-07-26","summary":"Sites define hostname experience context; Stores define commercial context; CMS and Product own their catalogs.","supportingEvidence":["nodics:gExp/storefront/README.md","nodics:gComm/store/README.md"],"sections":[{"heading":"Patterns","items":["One enterprise, two Sites, two Stores, and separate Apparel/Electronics content and product catalogs.","One Site serving several Stores under explicit routing/context policy.","Several host aliases resolving to one Site.","Physical Store related to a digital Site and optional pickup warehouses."]},{"heading":"Rules","items":["Hostname ambiguity fails closed.","A Site references catalogs but does not duplicate their ownership.","Context handles are opaque, bounded, audience-specific, and tenant-safe.","Test aliases, inactive records, wrong audience, cross-tenant references, cache invalidation, and resizing/localization only in clients."]}]}
+{
+  "code": "commerce.storefront.modeling",
+  "title": "Model Stores and Website Experiences",
+  "route": "/docs/capabilities/commerce/storefront/modeling",
+  "section": "capabilities",
+  "family": "concepts-architecture",
+  "parent": "page:capability.commerce.storefront",
+  "order": 10,
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "ai-tool"
+  ],
+  "readerIntent": "Model websites, Stores, and catalogs for several customer experiences.",
+  "priorKnowledge": "Understand Storefront Site, Store, CMS, Product, and trusted context.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "Storefront resolution plus referenced capability owners",
+  "lastVerified": "2026-07-26",
+  "summary": "Sites define hostname experience context; Stores define commercial context; CMS and Product own their catalogs.",
+  "supportingEvidence": [
+    "nodics:gExp/storefront/README.md",
+    "nodics:gComm/store/README.md",
+    "nodics:gDocs/commerce/how-to-model-stores-and-websites.md"
+  ],
+  "sections": [
+    {
+      "heading": "Patterns",
+      "items": [
+        "One enterprise, two Sites, two Stores, and separate Apparel/Electronics content and product catalogs.",
+        "One Site serving several Stores under explicit routing/context policy.",
+        "Several host aliases resolving to one Site.",
+        "Physical Store related to a digital Site and optional pickup warehouses."
+      ]
+    },
+    {
+      "heading": "Rules",
+      "items": [
+        "Hostname ambiguity fails closed.",
+        "A Site references catalogs but does not duplicate their ownership.",
+        "Context handles are opaque, bounded, audience-specific, and tenant-safe.",
+        "Test aliases, inactive records, wrong audience, cross-tenant references, cache invalidation, and resizing/localization only in clients."
+      ]
+    },
+    {
+      "heading": "Model responsibilities",
+      "items": [
+        "Storefront Site owns hostname aliases and digital experience context.",
+        "Store owns commercial touchpoint and operating relationships.",
+        "CMS owns content catalogs, pages, templates, and components.",
+        "Product owns product catalogs and product identity.",
+        "Pricing and Inventory own contextual price and stock.",
+        "Storefront creates a trusted context handle but owns none of those records."
+      ]
+    },
+    {
+      "heading": "Two-brand example",
+      "paragraphs": [
+        "Apparel and Electronics belong to one tenant and enterprise. Each has a Site, Store, hostname, content catalog, product catalog, locale, currency, and allowed countries.",
+        "Their visual templates and content can differ completely while identity, workflow, publishing, search, cache, and runtime capabilities remain shared."
+      ]
+    },
+    {
+      "heading": "Shared-Site example",
+      "paragraphs": [
+        "A regional Site can intentionally serve several Stores when routing policy determines Store from country, channel, path, or another approved context. The Site references one CMS catalog without copying it per Store.",
+        "Ambiguous or incompatible Store resolution fails rather than selecting the first match."
+      ]
+    },
+    {
+      "heading": "Lifecycle and invalidation",
+      "items": [
+        "Create and validate referenced records through their owners.",
+        "Activate only when required Site, Store, catalog, country, and channel relations are valid.",
+        "Invalidate host-resolution cache after alias or activation change.",
+        "Prevent deactivation while unresolved dependencies would break an active experience or follow governed fallback.",
+        "Publish versioned experience configuration where required."
+      ]
+    },
+    {
+      "heading": "Acceptance matrix",
+      "items": [
+        "Two brands with separate Sites, Stores, and catalogs.",
+        "One Site serving several Stores.",
+        "Several aliases for one Site.",
+        "Physical pickup Store linked to warehouse.",
+        "Unknown, duplicate, inactive, spoofed, wrong-audience, and cross-tenant request.",
+        "Cache invalidation, localization, publishing, and load."
+      ]
+    },
+    {
+      "heading": "The beginner rule",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-model-stores-and-websites.md",
+      "sourceAnchor": "the-beginner-rule",
+      "paragraphs": [
+        "These are separate records because their business owners and lifecycles differ. Storefront references the other records; it does not copy or take ownership of them."
+      ],
+      "items": [
+        "A Store answers: “Which commercial or physical operation serves the customer?”",
+        "A CMS Site answers: “Which managed pages and content catalog should the customer see?”",
+        "A Storefront answers: “For this hostname, which CMS Site, Stores, catalogs, countries, languages, currencies, and channels form the customer experience?”"
+      ]
+    },
+    {
+      "heading": "Common choices",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-model-stores-and-websites.md",
+      "sourceAnchor": "common-choices",
+      "paragraphs": [
+        "| Requirement | Recommended setup |\n| --- | --- |\n| Electronics and Apparel have different sites | Two CMS Sites, two Storefronts, and two endpoint hostnames |\n| One marketplace uses several Stores | One Storefront with several `storeCodes` and one `defaultStoreCode` |\n| One experience has several host aliases | Several endpoint records pointing to one Storefront |\n| Country content has a separate lifecycle | A CMS Site and Storefront per independently governed country experience |\n| Only visual theme differs | Prefer one CMS Site when content ownership/lifecycle is shared; the separate frontend applies approved presentation |"
+      ]
+    },
+    {
+      "heading": "Electronics and Apparel example",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-model-stores-and-websites.md",
+      "sourceAnchor": "electronics-and-apparel-example",
+      "paragraphs": [
+        "One enterprise and tenant can configure:",
+        "```text\napparel.nodics.com\n  -> apparelWeb Storefront\n  -> apparelSite CMS Site / apparelContent catalog\n  -> apparel Store\n\nelectronics.nodics.com\n  -> electronicsWeb Storefront\n  -> electronicsSite CMS Site / electronicsContent catalog\n  -> electronicsDubai and electronicsAbuDhabi Stores\n```",
+        "Create CMS Sites and Stores first. Then create Storefront records and exact-hostname endpoints. Review in `DRAFT`, activate the Storefront, then activate its endpoint. Customer `GET /context/resolve` calls derive context from the HTTP hostname; browser query/body input cannot select another hostname, tenant, or enterprise.",
+        "One Storefront may have several hostname endpoints, but only one non-retired endpoint can be canonical. Additional aliases are non-canonical. Operators retire endpoints before retiring the Storefront so a live customer hostname never targets a retired experience.",
+        "For performance, Nodics caches the resolved client-safe context by exact normalized hostname through its existing cache framework. The database remains authoritative: Storefront or endpoint changes invalidate cached contexts, provider failures fall back to live resolution, and deployments can select NodeCache, Redis, or Hazelcast through configuration. Business users do not maintain cache entries manually.",
+        "Operations teams can use secured Storefront diagnostics to see resolution success and failure rates, latency, cache behavior, and observed CMS/Store reference health. These diagnostics intentionally hide customer hostnames, tenants, enterprise identity, tokens, URLs, and payloads. Business administrators should report the correlation ID and alert code rather than copying request headers or credentials into support tickets.",
+        "During sudden traffic or dependency failure, identical requests share one bounded resolution, unknown hostnames receive a short-lived negative result, excess distinct-host work is rejected safely, and remote CMS/Store communication uses Nodics timeout, retry, and circuit-breaker controls. Operations teams can adjust approved runtime properties through the standard Nodics configuration-governance workflow; no Storefront-specific restart or configuration store is required.",
+        "The resolved `downstream` section provides the explicit parameter names used for direct CMS, Product, Pricing, and Inventory requests. Each target module remains responsible for authorization and validation; the browser response never becomes enterprise or tenant authority.",
+        "Customer applications may send `x-nodics-client-contract-version` to declare the Storefront contract they understand. Storefront returns its contract version and the request correlation ID in response headers. It also supports ETag-based conditional reads, so an unchanged context returns HTTP 304 without retransmitting the payload. An obsolete client receives HTTP 426 and must be upgraded; an overloaded or rate-limited call supplies `Retry-After`. These are delivery safeguards, not new ownership paths: the response still contains routing hints only, while each target module validates trusted identity and business scope itself.",
+        "For direct customer Product reads, an HTTP 200 Storefront response also supplies a short-lived opaque context handle. The application sends the handle—not tenant, enterprise, Catalog, permission, or internal-token values—to Product. Product asks Storefront whether the handle is active for the `product` audience and then applies the returned Catalog and locale. If Storefront or its security-state cache cannot prove the handle active, Product denies the request. This makes failure safe and prevents one website from selecting another website's Product Catalog.",
+        "The same implemented pattern now covers CMS, Pricing, and Inventory. The repository journey contract proves Apparel and Electronics in one tenant and enterprise remain isolated across Site, Product Catalog, Store, currency, country, and channel in both co-hosted and modular communication. Treat the opaque value as a short-lived bearer reference: send it only over TLS, do not log it, and refresh it after expiry. Caller payload values cannot mix one website handle with another website's scope.",
+        "The same handle can be sent to the CMS Storefront delivery endpoint with only a page path. CMS introspects the separate `cms` audience and derives Site, locale, and channel. Consequently, `/home` on Apparel and `/home` on Electronics can resolve different Online CMS publications even though both businesses share the same tenant. Browser-supplied Site, tenant, enterprise, locale, or channel values cannot switch that selection.",
+        "For complete payloads, permissions, lifecycle, security, operations, customization, and tests, use [Storefront Foundation](/docs/reference/commerce)."
+      ]
+    },
+    {
+      "heading": "Continue",
+      "migratedFrom": "nodics:gDocs/commerce/how-to-model-stores-and-websites.md",
+      "sourceAnchor": "continue",
+      "items": [
+        "Store operations: [How To Manage Stores](/docs/capabilities/commerce/stores/manage)",
+        "Content: [How To Approve And Publish Content](/docs/capabilities/content-publishing/tutorial)",
+        "Architecture: [How Nodics Is Organized](/docs/framework/architecture)",
+        "Security: [How Users, Tenants, And Permissions Work](/docs/security/users-tenants-permissions)",
+        "Documentation home: [Nodics Documentation](/docs)"
+      ]
+    }
+  ]
+}

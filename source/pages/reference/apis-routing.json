@@ -1,1 +1,77 @@
-{"code":"capability.apis-routing.technical-reference","title":"API and Routing Technical Reference","route":"/docs/reference/apis-routing","section":"reference","family":"technical-reference","parent":"page:capability.apis-routing.overview","order":20,"audiences":["developer","architect","security-reviewer","framework-maintainer","ai-tool"],"readerIntent":"Audit route contracts and generated API evidence.","priorKnowledge":"Read the API journey.","depth":"reference","status":"implemented","owner":"Owning route module and Nodics Router","lastVerified":"2026-07-26","summary":"A route contract includes transport, exposure, context, security, controller, response, OpenAPI, operational, and testing metadata.","supportingEvidence":["nodics:gFramework/nRouter/README.md"],"sections":[{"heading":"Checklist","items":["Versioned URL, method, operation, controller, request type, and owning module.","secured, authTokenTypes, permission or permissionConfig, and apiExposure.","Tenant/enterprise requirements, headers, query/body limits, cache policy, and idempotency.","Stable success/error codes, public response fields, trace behavior, and OpenAPI.","Positive, negative, boundary, contract, integration, security, load, and regression tests."]},{"heading":"Generated routes","paragraphs":["Generated CRUD routes are real contracts traced to schema and route source. Fix the source metadata or generator; never patch generated output as authority."]}]}
+{
+  "code": "capability.apis-routing.technical-reference",
+  "title": "API and Routing Technical Reference",
+  "route": "/docs/reference/apis-routing",
+  "section": "reference",
+  "family": "technical-reference",
+  "parent": "page:capability.apis-routing.overview",
+  "order": 20,
+  "audiences": [
+    "developer",
+    "architect",
+    "security-reviewer",
+    "framework-maintainer",
+    "ai-tool"
+  ],
+  "readerIntent": "Audit route contracts and generated API evidence.",
+  "priorKnowledge": "Read the API journey.",
+  "depth": "reference",
+  "status": "implemented",
+  "owner": "Owning route module and Nodics Router",
+  "lastVerified": "2026-07-26",
+  "summary": "A route contract includes transport, exposure, context, security, controller, response, OpenAPI, operational, and testing metadata.",
+  "supportingEvidence": [
+    "nodics:gFramework/nRouter/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Ownership and request path",
+      "items": [
+        "The router exposes a versioned transport contract; controllers adapt HTTP; pipelines apply shared processing; owning services authorize, validate, and execute business behavior.",
+        "A route declares method, path, operation, input source, API exposure, token classes, permissions, tenant requirements, limits, response handler, and stable status codes.",
+        "Do not place business logic in controllers or create direct provider/database calls that bypass generated models and services."
+      ]
+    },
+    {
+      "heading": "Security and context",
+      "items": [
+        "Only human login routes accept username and password before authentication. Employee, customer, internal service, and scheduled routes retain distinct token and audience contracts.",
+        "Resolve trusted tenant and enterprise context, enforce exact route permissions, schema/field/ownership policy, body and query limits, CORS, CSRF, and safe headers.",
+        "Public errors omit secrets, stacks, paths, personal data, and policy detail while correlation supports protected diagnosis."
+      ]
+    },
+    {
+      "heading": "Mutation and compatibility",
+      "items": [
+        "Mutations define idempotency, optimistic revision, validation, uncertain timeout behavior, compensation, and durable workflow handoff where required.",
+        "Version response fields and semantics deliberately; compatible additions, deprecation periods, consumer evidence, migration, and removal are documented.",
+        "Generated OpenAPI and clients consume the backend route authority and never become a competing contract."
+      ]
+    },
+    {
+      "heading": "Verification and operations",
+      "items": [
+        "Test success, malformed input, missing and wrong token, denied permission, wrong tenant, field masking, ownership, duplicate mutation, conflict, timeout, and provider failure.",
+        "Verify pagination, maximum sizes, rate and body limits, direct-module communication, mono and distributed topology, load, cancellation, observability, and regression.",
+        "Measure request rate, latency, status category, saturation, timeout, and dependency outcome with bounded labels; document service objectives and runbooks."
+      ]
+    },
+    {
+      "heading": "Checklist",
+      "items": [
+        "Versioned URL, method, operation, controller, request type, and owning module.",
+        "secured, authTokenTypes, permission or permissionConfig, and apiExposure.",
+        "Tenant/enterprise requirements, headers, query/body limits, cache policy, and idempotency.",
+        "Stable success/error codes, public response fields, trace behavior, and OpenAPI.",
+        "Positive, negative, boundary, contract, integration, security, load, and regression tests."
+      ]
+    },
+    {
+      "heading": "Generated routes",
+      "paragraphs": [
+        "Generated CRUD routes are real contracts traced to schema and route source. Fix the source metadata or generator; never patch generated output as authority.",
+        "Regenerate, validate, contract-test, security-test, and independently review derived routes whenever authoritative schema or route metadata changes."
+      ]
+    }
+  ]
+}
