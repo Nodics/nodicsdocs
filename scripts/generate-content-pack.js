@@ -227,6 +227,7 @@ function main() {
         throw new Error('--access must be PUBLIC or AUTHENTICATED');
     }
     const compatibility = readJson('compatibility.json');
+    const packageMetadata = readJson('package.json');
     const taxonomy = readJson('source/navigation-taxonomy.json');
     const registry = readJson('source/canonical-pages.json');
     const retired = readJson('source/retired-pages.json');
@@ -468,7 +469,7 @@ function main() {
             emptyMessage: 'No documentation matches your search.',
             sections: taxonomy.sections,
             items: navigationItems,
-            packVersion: compatibility.version
+            packVersion: packageMetadata.version
         },
         active: true
     }, ...canonicalRecords.map((record, index) => ({
@@ -505,7 +506,7 @@ function main() {
             },
             sourceHash: record.sourceHash,
             searchText: record.searchText,
-            packVersion: compatibility.version,
+            packVersion: packageMetadata.version,
             previous: index > 0 ? navigationItems[index - 1] : undefined,
             next: index < navigationItems.length - 1 ? navigationItems[index + 1] : undefined
         },
@@ -623,7 +624,7 @@ function main() {
     ).length;
     writeJson(path.join(root, 'manifest', 'generated-content-pack.json'), {
         pack: compatibility.pack,
-        version: compatibility.version,
+        version: packageMetadata.version,
         contractVersion: compatibility.contentContractVersion,
         sourceMode: 'canonical',
         sourceAuthority: 'source/pages',

@@ -59,13 +59,14 @@
       ]
     },
     {
-      "heading": "Extension",
+      "heading": "Customize and extend safely",
       "items": [
         "Add capability-specific codes in the owning module, not a global catch-all file.",
         "Keep codes stable; version or deprecate semantic changes.",
         "Separate developer diagnostics from user-facing content and localization.",
         "Never convert unknown codes to invented success responses.",
-        "Test known/unknown code lookup, nested causes, cross-module propagation, public redaction, trace correlation, and regression."
+        "Test known/unknown code lookup, nested causes, cross-module propagation, public redaction, trace correlation, and regression.",
+        "Rollback restores the prior owning-module definition while keeping stable codes resolvable for compatible callers and historical audit records."
       ]
     },
     {

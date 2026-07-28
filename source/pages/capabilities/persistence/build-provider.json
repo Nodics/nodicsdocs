@@ -63,7 +63,7 @@
       ]
     },
     {
-      "heading": "Provider registration and configuration",
+      "heading": "Customize and extend safely",
       "items": [
         "Register a stable provider type and handler ownership.",
         "Define connection aliases, endpoints, authentication references, TLS, pools, deadlines, and provider options in properties.",

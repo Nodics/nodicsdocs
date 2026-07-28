@@ -1,6 +1,6 @@
 {
   "pack": "nodicsdocs",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "contractVersion": 1,
   "sourceMode": "canonical",
   "sourceAuthority": "source/pages",
@@ -14,10 +14,10 @@
   "pages": 159,
   "routes": 160,
   "legacySnapshotArticles": 424,
-  "releaseChecksum": "93039f04450d71c0417e5c12913c4c9d624d948d78195f37b466f830865680f9",
+  "releaseChecksum": "66a48c0fee241c147730ca7041f1fbff29162c03bf9fc695ae68989b8b70f55d",
   "generatedHashes": {
     "data/core/data/documentation/nodicsDocumentationCatalogData.js": "7da11a34f00e037cc2f65e7f20d74ce50f2e685c7b82307f99ee02d49aabe24f",
-    "data/core/data/documentation/nodicsDocumentationComponentData.js": "05956affad4dde1f9a680aa32eb2b3f3d5d8999168841655757c698351e469e4",
+    "data/core/data/documentation/nodicsDocumentationComponentData.js": "fe19b880f49386f0695c1c352eee840f4add9f8183a1e886014f1163e0f6246c",
     "data/core/data/documentation/nodicsDocumentationPageData.js": "aeb405e1c6da6f80c40ab9931692ee51d03c52cc080cd781f929c0f8887ac8bd",
     "data/core/data/documentation/nodicsDocumentationRendererData.js": "100d0856506dd5ee825f742495f867b5fc89abe535d02050a9d4224aefc2969a",
     "data/core/data/documentation/nodicsDocumentationRouteData.js": "f60b86506dfa26737b5035252166217f56b115a4dd13377ee83268521e6eed50",

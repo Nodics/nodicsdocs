@@ -72,13 +72,14 @@
       ]
     },
     {
-      "heading": "Extension",
+      "heading": "Customize and extend safely",
       "items": [
         "Add business routes in the owning module under router definitions.",
         "Use layered permissionConfig and apiExposure when values vary.",
         "Version breaking API changes and regenerate OpenAPI.",
         "Do not add hidden Express middleware, database calls, or business policy in routers/controllers.",
-        "Test public, human-authenticated, service-only, unauthorized, disabled-exposure, malformed, boundary, and regression behavior."
+        "Test public, human-authenticated, service-only, unauthorized, disabled-exposure, malformed, boundary, and regression behavior.",
+        "Rollback removes the later project route or restores its prior version while leaving the reusable router, authentication pipeline, and existing callers unchanged."
       ]
     },
     {

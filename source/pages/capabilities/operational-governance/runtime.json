@@ -36,7 +36,7 @@
       ]
     },
     {
-      "heading": "Governed runtime change",
+      "heading": "Customize and extend safely",
       "items": [
         "Preview is side-effect free and reports changes, impact, warnings, and destructive risk.",
         "Approval records immutable intent and separation of duties.",

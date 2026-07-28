@@ -24,14 +24,15 @@
   ],
   "sections": [
     {
-      "heading": "Implementation sequence",
+      "heading": "Customize and extend safely",
       "items": [
         "Search for an existing helper and owning capability.",
         "Prove several framework consumers and no clearer owner before using nCommon.",
         "Prefer a pure deterministic function; pass required context explicitly.",
         "Avoid network, filesystem, provider, database, secret, or mutable-global behavior in a general utility.",
         "Document compatibility and layer overrides; never monkey-patch globals.",
-        "Test invalid input, boundaries, error cause propagation, concurrency where relevant, and all critical consumers."
+        "Test invalid input, boundaries, error cause propagation, concurrency where relevant, and all critical consumers.",
+        "Rollback removes the later project helper or restores its prior contract version; reusable framework callers remain unchanged."
       ]
     },
     {

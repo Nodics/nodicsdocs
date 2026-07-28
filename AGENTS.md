@@ -50,6 +50,12 @@ environment URLs, Git operations, or another import engine here.
   ownership, prebuilt adapters and maturity, selection, how to add a provider,
   lifecycle, import/export and cross-capability interaction, operations, and
   verification. Record why an inapplicable section does not apply.
+- Every implemented capability family must contain one canonical
+  **Customize and extend safely** section. It identifies the supported
+  project-owned later layer, prohibited framework edits or parallel
+  authorities, focused verification, and rollback or removal behavior.
+  Related overview and reference pages link to that family authority instead
+  of duplicating customization instructions.
 
 ## Platform-contract conformance
 
@@ -73,6 +79,9 @@ governed by `docs/migration-and-retirement-policy.md`.
   environment identities into reusable source content.
 - Stable codes derive from stable source identities, not mutable headings.
 - Every generated record carries a source hash and pack version.
+- `package.json` is the single content-pack release-version authority. The
+  generator projects it into records and the generated manifest; never add a
+  second release-version setting to compatibility or runtime configuration.
 - Import remains explicit and must use Nodics-owned import contracts.
 - Consumers must not install dependencies, run generation, create `.work`
   staging, or call the path-based local-import API. Nodics validates the
@@ -84,6 +93,9 @@ Contributors run `npm run verify` after content, generator, media, or contract
 changes. Consumer installation requires no repository command.
 Validate duplicate codes, routes, unsupported blocks, broken source links,
 missing assets, compatibility metadata, and deterministic generation.
+`npm run audit:customization` also rejects any implemented capability family
+that has no safe customization authority, prohibited-path guidance,
+verification evidence, or rollback behavior.
 
 Before generating a release from reconciled legacy evidence, run
 `npm run sync:gdocs-detail` and `npm run normalize:links`. `npm run verify`

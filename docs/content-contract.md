@@ -70,6 +70,13 @@ Provider-capable documentation must conform to
 `docs/provider-documentation-standard.md`. Provider maturity is evidence-based;
 deterministic tests alone cannot establish production qualification.
 
+Every implemented capability family contains one canonical
+`Customize and extend safely` section. That family authority must identify the
+supported project-owned later layer, preserve the owning runtime contract,
+reject framework edits and parallel authorities, name focused verification,
+and explain rollback or removal. Overview and reference pages may link to this
+authority rather than repeat instructions that could drift.
+
 During migration, resolvable relative Markdown links are converted to canonical
 `/docs/...` routes. Verification rejects missing target routes, missing heading
 anchors, relative links that escaped canonicalization, and unsafe schemes.
@@ -112,6 +119,12 @@ content contract version, per-file SHA-256 hashes and one aggregate release
 checksum. A release version must change whenever any generated file changes.
 Nodics rejects same-version content mutation and, by default, version
 downgrades.
+
+The standard `package.json` version is the single source for the content-pack
+release version. Contributor generation projects that value into every
+generated record and `manifest/generated-content-pack.json`;
+`compatibility.json` owns only Nodics and content-contract compatibility. Do
+not introduce another manually maintained release-version field.
 
 The committed `data/core` directory is the release artifact. Consumers clone or
 download a pinned release and import it directly through Nodics'

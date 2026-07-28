@@ -83,7 +83,7 @@
       ]
     },
     {
-      "heading": "How a project extends execution safely",
+      "heading": "Customize and extend safely",
       "paragraphs": [
         "A project first identifies the existing pipeline or interceptor lifecycle that owns the behavior. It contributes the smallest ordered node or interceptor through the supported module layer, declares its inputs, outputs, ordering, side effects, and failure contract, and leaves the base definition authoritative.",
         "Positive, negative, boundary, ordering, timeout, duplicate-delivery, rollback, and regression tests prove that the extension changes only its intended project. Creating a second execution engine or invoking internal nodes directly would bypass governance and is not a supported customization."

@@ -57,7 +57,7 @@
       ]
     },
     {
-      "heading": "Customization and governance",
+      "heading": "Customize and extend safely",
       "paragraphs": [
         "Pool types, priorities, and selection policy belong to Inventory properties and services where projects can extend them. A frontend cannot create arbitrary query rules that bypass backend validation.",
         "Configuration prevents cycles, conflicting exclusive membership, ambiguous priority, and cross-tenant references."

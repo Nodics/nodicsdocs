@@ -71,7 +71,7 @@
       ]
     },
     {
-      "heading": "Configure the provider",
+      "heading": "Customize and extend safely",
       "paragraphs": [
         "Select the provider through the search capability. Endpoints, credentials, TLS, aliases, analyzers, and engine tuning belong in provider configuration and secret management.",
         "Do not embed local Elasticsearch paths or credentials in reusable source. A new engine implements the normalized provider contract."

@@ -37,11 +37,12 @@
       ]
     },
     {
-      "heading": "Extension",
+      "heading": "Customize and extend safely",
       "items": [
         "Project modules add definitions, mappings, actions, channels, handlers, interceptors, pipelines, events, validation, and access policy.",
         "Runtime workflow-builder data must use the same governed definitions and cannot accept arbitrary executable code.",
-        "External API and AI actions use adapters, secrets, token/cost policy, timeouts, idempotency, audit, and human approval where risk requires."
+        "External API and AI actions use adapters, secrets, token/cost policy, timeouts, idempotency, audit, and human approval where risk requires.",
+        "Do not edit reusable workflow framework source, add an executable-code path, or create a second workflow runtime. Verify manual and automatic actions, rejection, timeout, retry, duplicate delivery, authorization, recovery, rollback, and regression against the effective later-layer definition."
       ]
     },
     {

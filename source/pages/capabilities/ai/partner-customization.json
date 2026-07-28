@@ -51,7 +51,7 @@
       ]
     },
     {
-      "heading": "Layered customization procedure",
+      "heading": "Customize and extend safely",
       "items": [
         "First reuse an existing Assistant, source, tool, provider, prompt, and policy. Next override configuration in the customer project. Extend an existing adapter or service only when configuration cannot express the requirement, and implement a new authority only as the final option.",
         "Keep credential values in governed runtime secret systems and reference them only through opaque secret references. Put vendor defaults in the vendor adapter, reusable business policy in the customer project module, and only real deployment differences in the environment module.",

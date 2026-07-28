@@ -25,7 +25,7 @@
   ],
   "sections": [
     {
-      "heading": "Extension sequence",
+      "heading": "Customize and extend safely",
       "items": [
         "Search for an existing implementation, property, service, interceptor, pipeline node, event, schema extension, or route contract.",
         "Configure existing behavior when only a supported choice or value changes.",

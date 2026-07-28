@@ -74,7 +74,7 @@
       ]
     },
     {
-      "heading": "Customization and anti-patterns",
+      "heading": "Customize and extend safely",
       "items": [
         "A customer project may add groups, permissions, ownership subjects, field masks, and stricter routes through layered properties and schema configuration. Framework defaults remain reusable and independently testable.",
         "Do not copy policy objects into every schema, authorize only in React, infer permission from a menu, trust request-supplied ownerId, or give a service account an administrator group merely to make integration work.",

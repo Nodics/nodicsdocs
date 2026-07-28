@@ -58,7 +58,7 @@
       ]
     },
     {
-      "heading": "Layered schema extension",
+      "heading": "Customize and extend safely",
       "items": [
         "The reusable capability defines the original schema meaning.",
         "A later project layer may refine supported fields, metadata, validation, permissions, indexes, or relationships.",

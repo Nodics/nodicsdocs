@@ -24,6 +24,7 @@ function duplicates(values) {
 }
 
 const compatibility = readJson('compatibility.json');
+const packageMetadata = readJson('package.json');
 const registry = readJson('source/canonical-pages.json');
 const retired = readJson('source/retired-pages.json');
 const sourcePages = walkFiles(
@@ -53,7 +54,9 @@ if (generated.sourceMode !== 'canonical') errors.push('Generated sourceMode must
 if (generated.sourceAuthority !== 'source/pages') {
     errors.push('Generated sourceAuthority must be source/pages');
 }
-if (generated.version !== compatibility.version) errors.push('Generated version does not match compatibility');
+if (generated.version !== packageMetadata.version) {
+    errors.push('Generated content-pack version does not match package.json');
+}
 if (generated.articles !== sourcePages.length) errors.push('Generated canonical article count mismatch');
 if (generated.articles !== registry.pages.length) errors.push('Canonical registry projection mismatch');
 if (generated.legacySnapshotArticles !== legacyArticleCount) {

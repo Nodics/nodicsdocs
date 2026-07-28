@@ -64,7 +64,7 @@
       ]
     },
     {
-      "heading": "Adding another engine",
+      "heading": "Customize and extend safely",
       "paragraphs": [
         "OpenSearch, Solr, or another engine requires its own provider module implementing the same normalized boundary. The adapter owns vendor translation; business models and generic search services remain unchanged.",
         "Completion requires live provider tests, supported-version documentation, security, performance, failure, migration, backup, and recovery evidence."

@@ -348,6 +348,17 @@
       ]
     },
     {
+      "heading": "Customize and extend safely",
+      "paragraphs": [
+        "Use a later project properties layer for channel, provider, TTL, cacheability, and invalidation choices. Add a provider only through the normalized cache adapter and registry so business callers remain unchanged."
+      ],
+      "items": [
+        "Do not edit reusable cache framework source or call NodeCache, Redis, or Hazelcast clients from business services.",
+        "Verify default and overridden policy, tenant isolation, hit and miss, expiry, invalidation, provider outage, reconnect, rollback, and regression.",
+        "Rollback removes the project override or provider registration and restores the inherited channel policy without changing authoritative business data."
+      ]
+    },
+    {
       "heading": "Customizing Cache",
       "migratedFrom": "nodics:gDocs/platform/how-cache-works.md",
       "sourceAnchor": "customizing-cache",

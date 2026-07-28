@@ -25,7 +25,7 @@
   ],
   "sections": [
     {
-      "heading": "Implementation path",
+      "heading": "Customize and extend safely",
       "items": [
         "Audit existing EMS adapters and delivery contracts.",
         "Create an owned provider module.",

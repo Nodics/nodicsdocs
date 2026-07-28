@@ -53,7 +53,7 @@
       ]
     },
     {
-      "heading": "Provider-neutral boundaries",
+      "heading": "Customize and extend safely",
       "paragraphs": [
         "An import provider parses and normalizes; it does not own business validation or persistence. An export provider renders or delivers already authorized data; it does not choose unrestricted fields.",
         "Business modules and generic data-exchange services remain unchanged when a provider is added."

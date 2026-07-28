@@ -44,7 +44,7 @@
       ]
     },
     {
-      "heading": "2. Implement in the owning project module",
+      "heading": "Customize and extend safely",
       "items": [
         "Contribute the job definition and configuration through a later project module so framework CronJob remains reusable.",
         "Implement reservation discovery and release in Inventory services using its schema models, validation, authorization, and persistence contracts.",

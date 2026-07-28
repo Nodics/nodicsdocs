@@ -73,7 +73,7 @@
       ]
     },
     {
-      "heading": "Configuration versus customization",
+      "heading": "Customize and extend safely",
       "items": [
         "Use configuration when a supported policy, provider, threshold, timeout, or operating choice varies without changing the capability contract.",
         "Use a documented service, schema, pipeline, provider, or other extension point when behavior changes but the capability remains authoritative.",

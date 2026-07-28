@@ -86,10 +86,11 @@
       ]
     },
     {
-      "heading": "Customization",
+      "heading": "Customize and extend safely",
       "paragraphs": [
         "A customer project first configures supported behavior. When the algorithm changes, a later module extends or overrides the smallest owning service or facade while preserving its public contract.",
-        "Two customer projects can customize independently. Neither edits reusable Nodics source or moves the rule into Axis."
+        "Two customer projects can customize independently. Neither edits reusable Nodics source or moves the rule into Axis.",
+        "Verify default and later-layer behavior, authorization, invalid and boundary inputs, integration callers, rollback, and regression. Rollback removes the project override and restores the inherited service or facade without changing its callers."
       ]
     },
     {
