@@ -33,6 +33,7 @@
     {"sourcePrefix":"gFramework/nEms/","disposition":"merge","destinationCode":"capability.events-messaging.technical-reference","notes":"Use messaging gateways and providers as event evidence."},
     {"sourcePrefix":"gFramework/nEvent/","disposition":"merge","destinationCode":"capability.events-messaging.technical-reference","notes":"Use event contracts as implementation evidence."},
     {"sourcePrefix":"gFramework/nFacade/","disposition":"merge","destinationCode":"capability.services-facades.technical-reference","notes":"Use facade contracts as implementation evidence."},
+    {"sourcePrefix":"gFramework/nMedia/","disposition":"merge","destinationCode":"capability.media-management.reference","notes":"Use media lifecycle, provider, storage, schema, and route contracts as Media Management evidence."},
     {"sourcePrefix":"gFramework/nOtp/","disposition":"merge","destinationCode":"capability.identity-access.technical-reference","notes":"Use one-time-password contracts as identity evidence."},
     {"sourcePrefix":"gFramework/nPipeline/","disposition":"merge","destinationCode":"capability.execution-processes.technical-reference","notes":"Use pipeline contracts as execution-process evidence."},
     {"sourcePrefix":"gFramework/nPublish/","disposition":"merge","destinationCode":"capability.content-publishing.technical-reference","notes":"Use publishing contracts as implementation evidence."},

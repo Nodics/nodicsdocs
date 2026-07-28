@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "gDocs/data/how-to-work-with-data.md",
     "type": "gdocs",
-    "contentHash": "c7a605b32054a84b626f88b8b332f25255020e5b1f50428713eb542c797d98cd"
+    "contentHash": "a6100c0b7e7c649cb2ea891b816f1a83cfe49828d2f201347690e3a5f173bc9b"
   },
   "headings": [
     {
@@ -211,7 +211,7 @@
         ],
         [
           "Add searchable fields",
-          "`src/search/indexes.js` and search module docs"
+          "`src/search/indexes.js` and canonical Search documentation"
         ],
         [
           "Add validation before save/update/remove",

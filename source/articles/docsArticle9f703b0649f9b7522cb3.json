@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "gDocs/commerce/how-stock-availability-works.md",
     "type": "gdocs",
-    "contentHash": "d195e9f2699cfecb9e1a35328c65045fafc6fe686bf8386221ca2671ff6d75ba"
+    "contentHash": "0c357c3ef10059c0e709bffb7082d55cfb3057ec93606df545b8fe9052a9153f"
   },
   "headings": [
     {
@@ -87,7 +87,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "Read the [technical Availability contract](/docs/modules/gcomm/inventory/docs/stock-availability-foundation) for configuration, security, evidence, customization, deployment, and tests."
+      "text": "Read the technical Availability contract (canonical documentation: `capability.commerce.technical-reference`) for configuration, security, evidence, customization, deployment, and tests."
     },
     {
       "kind": "heading",
@@ -104,13 +104,6 @@
     }
   ],
   "links": [
-    {
-      "label": "technical Availability contract",
-      "target": "../../gComm/inventory/docs/stock-availability-foundation.md",
-      "kind": "internal",
-      "route": "/docs/modules/gcomm/inventory/docs/stock-availability-foundation",
-      "anchor": ""
-    },
     {
       "label": "How Stock Sourcing Works",
       "target": "how-stock-sourcing-works.md",

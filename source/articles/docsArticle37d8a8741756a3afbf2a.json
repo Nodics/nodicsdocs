@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "gComm/pricing/README.md",
     "type": "module-readme",
-    "contentHash": "126c10f7d6cd282abc6ffd68ea7b52f0e193dcea3aac3e77922204ad4124f2e2"
+    "contentHash": "65a8991eac57d5cdff5d565d40c11555a593d1d481310161ea4e14d33d846aeb"
   },
   "headings": [
     {
@@ -59,7 +59,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "Read [Pricing Architecture and Operations](/docs/modules/gcomm/pricing/docs/pricing-architecture-and-operations) and the [business guide](/docs/commerce/how-to-configure-and-operate-pricing)."
+      "text": "Read Pricing Architecture and Operations (canonical documentation: `capability.commerce.technical-reference`) and the [business guide](/docs/commerce/how-to-configure-and-operate-pricing)."
     },
     {
       "kind": "heading",
@@ -74,13 +74,6 @@
     }
   ],
   "links": [
-    {
-      "label": "Pricing Architecture and Operations",
-      "target": "docs/pricing-architecture-and-operations.md",
-      "kind": "internal",
-      "route": "/docs/modules/gcomm/pricing/docs/pricing-architecture-and-operations",
-      "anchor": ""
-    },
     {
       "label": "business guide",
       "target": "../../gDocs/commerce/how-to-configure-and-operate-pricing.md",

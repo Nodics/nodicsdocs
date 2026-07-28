@@ -46,6 +46,7 @@
         "Write from business overview through concepts, runtime, configuration, customization, tutorial, operations/security, and technical reference as applicable.",
         "Use beginner-friendly examples, explicit limitations, maturity, ownership, failure behavior, and verification.",
         "For third-party integrations, document provider-neutral contracts, prebuilt adapters and maturity, selection, extension, lifecycle, import/export interaction, operations, and tests.",
+        "Use small declarative diagrams for non-trivial pipelines, workflows, import/export lifecycles, publishing flows, authentication boundaries, provider routing, event delivery, and runtime startup sequences when the visual makes three or more dependent steps easier to understand.",
         "Use stable codes, explicit navigation order, reviewed media, and implementation evidence; do not embed secrets, local paths, scripts, or raw executable HTML."
       ]
     },
@@ -148,11 +149,11 @@
         "**Public documentation**",
         "The `gDocs` module contains permanent public business, user, developer, architecture, security, operations, and reference documentation.",
         "**Temporary root documentation workspace**",
-        "The root `docs/` folder is an untracked, non-runtime workspace for temporary inventories, checklists, audits, drafts, proposed architecture, unresolved decisions, implementation backlogs, and action plans. It is not the Nodics documentation module or a source of runtime truth. Promote only functionality that has been implemented in authoritative Nodics contracts and verified into `gDocs`, a module `README.md`, or a module `docs/` folder.",
+        "The root `docs/` folder is an untracked, non-runtime workspace for temporary inventories, checklists, audits, drafts, proposed architecture, unresolved decisions, implementation backlogs, and action plans. It is not the Nodics documentation module or a source of runtime truth. Promote only functionality that has been implemented in authoritative Nodics contracts and verified into the canonical documentation content pack, a concise module `README.md`, or AI/developer contracts.",
         "Permanent repository documentation describes current implemented behavior. A plan may change during implementation, so it must not be linked into the public documentation journey or generated module context as though it were available. After implementation, reconcile the plan with the delivered source and tests, then promote only the implemented sections and leave unresolved work in root `docs/`.",
         "**Module README files**",
         "Each module README explains the purpose, behavior, configuration, extension points, and tests for that module.",
-        "Use [Module Documentation Index](/docs/reference/modules) to connect public task guides to module-owned README and docs pages.",
+        "Use [Module Documentation Index](/docs/reference/modules) to connect public task guides to module-owned READMEs and canonical pages.",
         "**AI and implementation contracts**",
         "`AGENTS.md` and `gSetup/llm` contain rules for AI tools and developers changing the codebase. They guide implementation work and do not replace user-facing documentation.",
         "**Generated documentation**",
@@ -165,7 +166,7 @@
       "sourceAnchor": "documentation-source-map",
       "paragraphs": [
         "Use the right documentation layer for the right audience.",
-        "| Documentation | Audience | Purpose |\n| --- | --- | --- |\n| Root `README.md` | New visitors, evaluators, and developers | Explain what Nodics is, why it exists, and where to start. |\n| `gDocs` | Business owners, evaluators, users, application developers, framework developers, operators, and technical leads | Provide business decision journeys and task-based guides such as setup, APIs, data, jobs, security, testing, and deployment. |\n| Module `README.md` files | Developers working inside one capability | Explain module purpose, owned schemas/routes/services/data/tests, configuration, extension paths, and verification. |\n| Module `docs/` folders | Developers needing deeper module detail | Hold permanent module documentation that belongs with the product. |\n| `gDocs/reference/module-documentation-index.md` | Users and developers moving from guide pages to module details | Maps task-based documentation to the module README and module docs that own exact capability behavior. |\n| `AGENTS.md` | AI tools and developers changing code | Define local implementation behavior, ownership boundaries, and safety rules. |\n| `gSetup/llm` | AI tools, automation, and developers doing implementation work | Define cross-cutting contracts, prompts, standards, generated context rules, and structure guidance. |\n| Generated LLM context | AI tools and reviewers | Summarize source-derived module facts and documentation gaps after regeneration. |"
+        "| Documentation | Audience | Purpose |\n| --- | --- | --- |\n| Root `README.md` | New visitors, evaluators, and developers | Explain what Nodics is, why it exists, and where to start. |\n| `gDocs` | Business owners, evaluators, users, application developers, framework developers, operators, and technical leads | Provide business decision journeys and task-based guides such as setup, APIs, data, jobs, security, testing, and deployment. |\n| Module `README.md` files | Developers working inside one capability | Explain module purpose, owned schemas/routes/services/data/tests, configuration, extension paths, and verification. |\n| Canonical documentation content pack | Business users, operators, developers, and AI tools needing full detail | Own permanent capability, solution, tutorial, operations, security, and reference content. |\n| `gDocs/reference/module-documentation-index.md` | Users and developers moving from guide pages to module details | Maps task-based documentation to the module README and canonical pages that explain exact capability behavior. |\n| `AGENTS.md` | AI tools and developers changing code | Define local implementation behavior, ownership boundaries, and safety rules. |\n| `gSetup/llm` | AI tools, automation, and developers doing implementation work | Define cross-cutting contracts, prompts, standards, generated context rules, and structure guidance. |\n| Generated LLM context | AI tools and reviewers | Summarize source-derived module facts and documentation gaps after regeneration. |"
       ]
     },
     {
@@ -209,6 +210,7 @@
         "Purpose.",
         "When to use it.",
         "Step-by-step process.",
+        "A small process diagram when a pipeline, workflow, lifecycle, integration, or data movement has several dependent steps.",
         "Files or folders involved.",
         "Which layer owns each change.",
         "Where code should be written.",
@@ -227,13 +229,14 @@
       "sourceAnchor": "write-for-partial-discovery",
       "paragraphs": [
         "Most readers and AI tools will not read the whole documentation site. Write so that the nearest module boundary is safe and useful by itself:",
+        "capability guidance in the canonical documentation content pack.",
         "`llm/examples/`.",
         "Do not force a reader to discover an unrelated planning note before learning a security, authority, persistence, or extension rule."
       ],
       "items": [
         "Put global rules in root `AGENTS.md`.",
         "Put module ownership and prohibitions in the nearest `AGENTS.md`.",
-        "Put human capability guidance in the module README and module `docs/`.",
+        "Put concise local orientation in the module README and detailed human",
         "Put concise machine-oriented rules and examples in `llm/contracts/` and",
         "Protect critical rules with tests.",
         "Link the public task journey in `gDocs` to the owning module."

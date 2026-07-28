@@ -29,7 +29,7 @@
       "heading": "Model",
       "items": [
         "Stable product and variant identity.",
-        "Categories, classifications, attributes, media references, units, relationships, bundles, and lifecycle.",
+        "Categories, classifications, attributes, Product media assignments, units, relationships, bundles, and lifecycle.",
         "Flexible types including physical goods, services, digital items, land, real-estate, and agricultural assets through extensible schemas.",
         "Catalog and version context without duplicating CMS, Pricing, Inventory, or Units authority."
       ]
@@ -67,7 +67,7 @@
       "items": [
         "Units and classifications.",
         "Categories and catalog.",
-        "CMS or media references.",
+        "CMS or `nMedia` references for presentation and product assets.",
         "Variant and related-product identities.",
         "Store/Site eligibility where configured.",
         "Publishing target and search projection."
@@ -76,7 +76,7 @@
     {
       "heading": "Example",
       "paragraphs": [
-        "A phone product defines brand, model, descriptions, categories, media, and variants by storage and color. Product publishes these approved identities online.",
+        "A phone product defines brand, model, descriptions, categories, media assignments, and variants by storage and color. The primary image, thumbnail, gallery images, swatches, manuals, and videos can point to `nMedia` media items or media sets. Product publishes the approved product graph online while `nMedia` remains responsible for where files live and how delivery descriptors are resolved.",
         "Pricing attaches contextual prices and Inventory records variant stock. A missing price or unavailable zone does not corrupt Product; the composed customer result reports the missing capability outcome."
       ]
     },

@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "gDocs/development/how-to-customize-and-extend-nodics.md",
     "type": "gdocs",
-    "contentHash": "047cb03b66fbf74a7560bd1debc4289486bd4b24143b8a28385cb9c76a9f058f"
+    "contentHash": "299870ed64da2605c43576063400eee6b4f3191b1d62b7303b9340d49397fd7c"
   },
   "headings": [
     {
@@ -266,7 +266,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "When a user or AI tool asks for a customization, first identify the row in this table. If no row fits, inspect the owning module docs before inventing a new extension path."
+      "text": "When a user or AI tool asks for a customization, first identify the row in this table. If no row fits, inspect the owning module README and canonical documentation before inventing a new extension path."
     },
     {
       "kind": "heading",

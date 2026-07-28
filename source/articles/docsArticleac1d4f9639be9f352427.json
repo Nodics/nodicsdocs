@@ -1,0 +1,159 @@
+{
+  "code": "docsArticleac1d4f9639be9f352427",
+  "title": "Media Management",
+  "route": "/docs/modules/gframework/nmedia",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nMedia/README.md",
+    "type": "module-readme",
+    "contentHash": "9fee7ba6b8f5092e7c8e5371b2123b79af0e307916743c97db68fb39f4b6ecd3"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Media Management",
+      "anchor": "media-management"
+    },
+    {
+      "level": 2,
+      "text": "Core Principle",
+      "anchor": "core-principle"
+    },
+    {
+      "level": 2,
+      "text": "Production Storage Model",
+      "anchor": "production-storage-model"
+    },
+    {
+      "level": 2,
+      "text": "Implemented First Slice",
+      "anchor": "implemented-first-slice"
+    },
+    {
+      "level": 2,
+      "text": "Extension Guidance",
+      "anchor": "extension-guidance"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Media Management",
+      "anchor": "media-management"
+    },
+    {
+      "kind": "paragraph",
+      "text": "`gFramework/nMedia` is the Nodics framework capability for uploaded files, external media, storage providers, media metadata, reusable media sets, and media references."
+    },
+    {
+      "kind": "paragraph",
+      "text": "It exists because many Nodics capabilities need files, but none of them should own file storage by themselves:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "CMS pages and components need images, documents, and responsive media.",
+        "Product catalogs need product images, documents, videos, and variant galleries.",
+        "Import/export needs uploaded files that become governed import sources.",
+        "Documentation and future websites need image and file assets.",
+        "Axis needs a UI for selecting, uploading, and referencing media, but Axis must not decide storage paths."
+      ]
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Core Principle",
+      "anchor": "core-principle"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Media is a framework capability. CMS, Product, Import, Documentation, Axis, and custom modules reference media; they do not own binary lifecycle."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Frontend clients may request a media purpose or folder, but the backend resolves the storage provider, base path, generated storage key, checksum, access URL, lifecycle state, and security policy."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Production Storage Model",
+      "anchor": "production-storage-model"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Production systems usually do not store static files on the same application process disk. `nMedia` therefore separates:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "storage provider: where bytes live;",
+        "access URL: how authorized users or systems retrieve bytes;",
+        "media metadata: the governed model record that other modules reference;",
+        "folder policy: allowed file types, file size limits, retention, access behavior, and generated key strategy."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "The OOTB provider is `local`, intended for development and simple deployments. NAS, S3, Azure Blob, GCP Storage, or CDN-backed providers must implement the same provider contract instead of changing callers."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Implemented First Slice",
+      "anchor": "implemented-first-slice"
+    },
+    {
+      "kind": "paragraph",
+      "text": "This module currently provides the authoritative media contracts and local-provider storage resolution:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "provider-based configuration in `config/properties.js`;",
+        "schemas for media folders, formats, media items, media sets, media set entries, and media references;",
+        "storage key generation that never trusts raw caller paths;",
+        "local provider path/URL resolution;",
+        "route metadata for upload policy discovery;",
+        "tests that protect provider selection and path traversal boundaries."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "The HTTP multipart parser and Axis upload UI are intentionally separate follow-up work. HTTP parsing belongs to `gFramework/nRouter`; Axis only consumes backend contracts."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Extension Guidance",
+      "anchor": "extension-guidance"
+    },
+    {
+      "kind": "paragraph",
+      "text": "To add an S3 provider later:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Add a provider service such as `DefaultS3MediaStorageProviderService`.",
+        "Register it in `media.storage.providers.s3.service`.",
+        "Keep credentials in secure runtime configuration, not in source.",
+        "Preserve the same returned descriptor shape as the local provider.",
+        "Add guarded live-provider tests and deterministic contract tests."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not put S3-specific logic into CMS, Product, Import, or Axis."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

@@ -24,6 +24,7 @@ function duplicates(values) {
 }
 
 const compatibility = readJson('compatibility.json');
+const contentPack = readJson('manifest/docs-content-pack.json');
 const packageMetadata = readJson('package.json');
 const registry = readJson('source/canonical-pages.json');
 const retired = readJson('source/retired-pages.json');
@@ -50,12 +51,33 @@ const routeSet = new Set(sourcePages.map(page => page.route));
 
 if (compatibility.pack !== 'nodicsdocs') errors.push('compatibility.pack must be nodicsdocs');
 if (compatibility.contentContractVersion !== 1) errors.push('Unsupported content contract version');
+if (contentPack.pack !== compatibility.pack) {
+    errors.push('Content-pack contract pack does not match compatibility metadata');
+}
+if (contentPack.contractVersion !== compatibility.contentContractVersion) {
+    errors.push('Content-pack contract version does not match compatibility metadata');
+}
 if (generated.sourceMode !== 'canonical') errors.push('Generated sourceMode must be canonical');
 if (generated.sourceAuthority !== 'source/pages') {
     errors.push('Generated sourceAuthority must be source/pages');
 }
+if (generated.sourceMode !== contentPack.sourceMode) {
+    errors.push('Generated sourceMode does not match docs-content-pack.json');
+}
+if (generated.sourceAuthority !== contentPack.sourceAuthority) {
+    errors.push('Generated sourceAuthority does not match docs-content-pack.json');
+}
 if (generated.version !== packageMetadata.version) {
     errors.push('Generated content-pack version does not match package.json');
+}
+if (contentPack.version !== packageMetadata.version) {
+    errors.push('docs-content-pack.json version does not match package.json');
+}
+if (generated.accessMode !== contentPack.accessMode) {
+    errors.push('Generated accessMode does not match docs-content-pack.json');
+}
+if (JSON.stringify(generated.sites) !== JSON.stringify(contentPack.sites)) {
+    errors.push('Generated target Sites do not match docs-content-pack.json');
 }
 if (generated.articles !== sourcePages.length) errors.push('Generated canonical article count mismatch');
 if (generated.articles !== registry.pages.length) errors.push('Canonical registry projection mismatch');

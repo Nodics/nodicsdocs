@@ -1,0 +1,289 @@
+{
+  "code": "docsArticleb245821e16d76ec74ae6",
+  "title": "Module Health Operations",
+  "route": "/docs/modules/gexp/backoffice/docs/module-health-operations",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gExp/backoffice/docs/module-health-operations.md",
+    "type": "module-doc",
+    "contentHash": "e2a06e3a462026792dc777fb80fc9e1f94843d137b1cce55190bd555d0a58ad5"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Module Health Operations",
+      "anchor": "module-health-operations"
+    },
+    {
+      "level": 2,
+      "text": "What this capability answers",
+      "anchor": "what-this-capability-answers"
+    },
+    {
+      "level": 2,
+      "text": "Business-user workflow",
+      "anchor": "business-user-workflow"
+    },
+    {
+      "level": 2,
+      "text": "State and freshness",
+      "anchor": "state-and-freshness"
+    },
+    {
+      "level": 2,
+      "text": "API and security",
+      "anchor": "api-and-security"
+    },
+    {
+      "level": 2,
+      "text": "Failure and recovery examples",
+      "anchor": "failure-and-recovery-examples"
+    },
+    {
+      "level": 2,
+      "text": "Customization and verification",
+      "anchor": "customization-and-verification"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Module Health Operations",
+      "anchor": "module-health-operations"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "What this capability answers",
+      "anchor": "what-this-capability-answers"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Module Health helps an authorized business operator answer two questions:"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Is a Nodics module available through at least one registered runtime?",
+        "Which registered environment, server, and node produced a healthy,"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "unavailable, stale, or missing readiness observation?"
+    },
+    {
+      "kind": "paragraph",
+      "text": "A **module** is a capability such as Profile, CMS, Workflow, or BackOffice. A **runtime instance** is one running Nodics process selected by environment, server, and optional node coordinates. One process may host many modules in `monoServer`; distributed topologies may have several processes for a module."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics System owns liveness and readiness. Nodics configuration owns selected topology and active modules. BackOffice owns freshness-bounded observations and registered-instance presentation only. Module Health is not a second health or deployment-topology authority."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The detail and refresh routes resolve path parameters through the standard Nodics HTTP request wrapper as well as direct service-test requests. On-demand refresh is limited to registered client-callable instances. Modules without a callable endpoint retain heartbeat visibility but cannot be actively probed through Axis."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Business-user workflow",
+      "anchor": "business-user-workflow"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Sign in to Axis with an employee account that has"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "`backoffice.registry.admin.view`."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Open **Operations and Integration > Module Health**.",
+        "Interpret the summary:"
+      ]
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "**Healthy**: every registered instance is freshly ready.",
+        "**Degraded**: at least one instance is ready and another is unavailable or"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "unknown."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "**Unavailable**: every fresh registered instance is unavailable.",
+        "**Unknown**: no fresh reliable conclusion exists."
+      ]
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Search by module, environment, server, or state.",
+        "Select a module to inspect registered nodes, last heartbeat, last readiness"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "observation, freshness, and bounded reason code."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "With `backoffice.registry.refresh`, choose **Check now**. This reuses the"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "existing observer and does not create a browser poller."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Do not interpret a missing instance as proof that an expected node failed. An expired or intentionally deregistered instance is no longer active registry data. Expected cluster membership remains deployment/topology policy."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "State and freshness",
+      "anchor": "state-and-freshness"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Instance state is `UP`, `UNAVAILABLE`, or `UNKNOWN`. Freshness is:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`FRESH`: observation is within"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "`backofficeRegistry.availability.staleAfterMs`;"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`STALE`: prior evidence is too old to support a conclusion;",
+        "`MISSING`: the active lease has not produced an observation."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "Only stable reasons are returned: `READINESS_NOT_UP`, `OBSERVATION_TIMEOUT`, `HEALTH_OBSERVATION_FAILED`, `OBSERVATION_STALE`, and `OBSERVATION_MISSING`. Raw readiness payloads, provider errors, stacks, credentials, private configuration, and secrets are never returned."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "API and security",
+      "anchor": "api-and-security"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Axis reuses:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`GET /nodics/backoffice/v0/registry/admin/modules`",
+        "`GET /nodics/backoffice/v0/registry/admin/modules/:moduleName`",
+        "`POST /nodics/backoffice/v0/registry/admin/modules/:moduleName/refresh`"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "List/detail require `backoffice.registry.admin.view`; refresh requires `backoffice.registry.refresh`. Human administration rejects service tokens and preserves tenant consistency. Backend authorization remains authoritative even when Axis hides a control."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The detail response combines the client-safe lease with the sanitized projection owned by `DefaultBackofficeAvailabilityService`. It adds no health route, schema loader, registry, scheduler, or topology authority."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Every runtime package owns its default business-facing label through `package.json.nodics.displayName`. The module loader remains authoritative for physical parent/child relationships and canonical identity. Registration observes that metadata; BackOffice does not maintain a duplicate label or hierarchy configuration."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The underlying `moduleName` remains the immutable identifier used for API paths, filtering, authorization, audit, and refresh. Administrative list responses include `displayName`, `parentModule`, and `canonicalIdentity`. Group availability is derived from observed non-group descendants: all ready is `UP`, all unavailable is `UNAVAILABLE`, all unknown is `UNKNOWN`, and a mixed result is `DEGRADED`. This summary does not replace System readiness or infer missing cluster members."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Failure and recovery examples",
+      "anchor": "failure-and-recovery-examples"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "If two Profile nodes are ready and one returns `DOWN`, Profile is"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "`DEGRADED`. Axis identifies the registered unavailable node. Normal renewal or an authorized refresh records recovery."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "A timeout appears as `UNAVAILABLE`, `FRESH`, and"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "`OBSERVATION_TIMEOUT`. Operators inspect the process, network, TLS, allowlist, and timeout; they never manually mark it healthy."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "Stale evidence appears as `UNKNOWN`, `STALE`, and `OBSERVATION_STALE`; it"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "never remains falsely healthy."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "A `monoServer` process failure affects every hosted module. Use distributed"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "local topology to prove that one failed replicated node degrades only its module."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Customization and verification",
+      "anchor": "customization-and-verification"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Projects may override timing and host policy through layered `properties.js` or replace the observer through a later module while preserving semantics, bounded disclosure, authorization, and lifecycle. Do not add an Axis health database, a second polling service, or direct provider checks."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Evidence covers healthy, negative readiness, transport failure, timeout, stale/missing evidence, multi-instance aggregation, permission rejection, refresh throttling, consolidated and distributed topology, recovery, responsive rendering, keyboard access, and registration regression."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

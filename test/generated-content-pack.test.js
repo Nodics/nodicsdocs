@@ -11,6 +11,14 @@ function records(relativePath) {
     return Object.values(require(path.join(root, relativePath)));
 }
 
+function canonicalPageCount() {
+    const { walkFiles } = require('../scripts/lib/content-utils');
+    return walkFiles(
+        path.join(root, 'source', 'pages'),
+        filePath => filePath.endsWith('.json')
+    ).length;
+}
+
 test('generated content pack preserves CMS relationships', () => {
     const manifest = JSON.parse(
         fs.readFileSync(path.join(root, 'manifest', 'generated-content-pack.json'), 'utf8')
@@ -151,11 +159,14 @@ test('canonical generation is deterministic and isolates the legacy snapshot', (
     const manifest = JSON.parse(
         fs.readFileSync(path.join(root, 'manifest', 'generated-content-pack.json'), 'utf8')
     );
+    const migrationManifest = JSON.parse(
+        fs.readFileSync(path.join(root, 'manifest', 'documentation-manifest.json'), 'utf8')
+    );
     const legacyFiles = fs.readdirSync(path.join(root, 'source', 'articles'));
     assert.strictEqual(manifest.sourceMode, 'canonical');
     assert.strictEqual(manifest.sourceAuthority, 'source/pages');
-    assert.strictEqual(manifest.articles, 159);
-    assert.strictEqual(manifest.legacySnapshotArticles, 424);
+    assert.strictEqual(manifest.articles, canonicalPageCount());
+    assert.strictEqual(manifest.legacySnapshotArticles, migrationManifest.articleCount);
     assert(legacyFiles.length > 0);
 
     const routes = records('data/core/data/documentation/nodicsDocumentationRouteData.js');

@@ -259,35 +259,6 @@ function main() {
             'Replace remaining active `gDocs` references, then produce the module README reduction and `gDocs` archive/retirement manifest.'
         );
     }
-    const lines = [
-        '# Documentation Cutover Readiness',
-        '',
-        `Decision: **${report.decision.replace('_', '-')}**`,
-        '',
-        `Canonical pages: **${pages.length}/${registeredCodes.length}**`,
-        '',
-        `Migration evidence: **${migration.review.reviewed}/${migration.sources.total} reviewed**`,
-        '',
-        `Current generated release: **${generated.articles} canonical pages** from \`${generated.sourceAuthority}\``,
-        '',
-        '## Automated checks',
-        '',
-        '| Check | Status |',
-        '| --- | --- |',
-        ...checks.map(check => `| ${check.code} | ${check.status} |`),
-        '',
-        '## Blocking work',
-        '',
-        ...blockingWork.map((item, index) => `${index + 1}. ${item}`),
-        '',
-        'No legacy article, `gDocs` file, or module README should be deleted during these steps.',
-        '',
-        'Machine-readable evidence: `manifest/cutover-readiness.json`.'
-    ];
-    fs.writeFileSync(
-        path.join(root, 'docs', 'cutover-readiness.md'),
-        `${lines.join('\n')}\n`
-    );
     console.log(
         `Cutover audit: ${report.decision} ` +
         `(${blockers.length} blocked, ${pending.length} pending)`

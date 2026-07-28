@@ -18,7 +18,7 @@
   "depth": "guided",
   "status": "implemented",
   "owner": "Import definitions, format adapters, dataCore processors, and target schema/search services",
-  "lastVerified": "2026-07-26",
+  "lastVerified": "2026-07-28",
   "summary": "A governed import resolves trusted headers, narrows tenant scope, parses and validates input, dispatches finalized models through target services, and records run evidence.",
   "supportingEvidence": [
     "nodics:gFramework/nData/nImport/README.md",
@@ -32,6 +32,26 @@
         "CSV, Excel, JSON, and trusted JavaScript definitions owned by active modules.",
         "Push-based API inputs that meet the governed contract.",
         "Named remote sources supplied by a project/provider adapter; arbitrary request URLs and credentials are forbidden."
+      ]
+    },
+    {
+      "heading": "Importing a file from Axis",
+      "paragraphs": [
+        "A business user usually thinks of file import as one action: choose a file, validate it, and import it. Nodics intentionally splits that behind the scenes so each backend authority does only its own job.",
+        "First, Axis uploads the selected file through Media Management. Media Management validates the file type and size, stores it using the configured storage provider, calculates checksum, and creates a media record. Axis receives a media identity such as `mediaCode`; it does not receive a server filesystem path.",
+        "Second, Axis starts a governed import with that media identity by calling `POST /nodics/system/v0/import/media`. The request passes `mediaCode`, `definitionCode`, and optionally `options.validateOnly`. Import resolves the trusted media source through Media Management, loads the active import definition, creates run-local headers, stages the file into import-run-owned storage, and then either validates only or executes the existing import pipeline.",
+        "This pattern works locally and in clustered production. The browser never decides where files are stored, and the import runner never depends on a temporary folder owned by one frontend request."
+      ],
+      "code": "Employee selects supplier-products.xlsx in Axis\n  -> Axis uploads file to nMedia with folderCode=importSources\n  -> nMedia stores bytes and returns mediaCode\n  -> Axis calls POST /nodics/system/v0/import/media with mediaCode and definitionCode\n  -> nImport loads the active importDefinition and generates a run-local header\n  -> nImport stages the media into an import-run workspace\n  -> nImport validates only or runs the existing file import pipeline\n  -> Import history records success, rejected rows, counts, and recovery data"
+    },
+    {
+      "heading": "What must not happen",
+      "items": [
+        "Axis must not pass `/tmp`, a user laptop path, a mounted NAS path, a bucket key, or a signed URL as import authority.",
+        "Import must not parse multipart browser uploads; Media Management owns media upload parsing and storage.",
+        "Media Management must not parse import rows, execute schema writes, or decide business mapping.",
+        "A project module must not create a second upload table, a second importer, or a direct persistence shortcut for one file source.",
+        "A public response must not expose absolute server paths, object-store keys, credentials, or provider internals."
       ]
     },
     {

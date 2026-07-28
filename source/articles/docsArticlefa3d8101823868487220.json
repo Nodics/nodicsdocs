@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "gContent/cms/README.md",
     "type": "module-readme",
-    "contentHash": "4048082cdb2b60b9d00d3b8817ed7c486084ba6cf796f8aeb1e0c5fa7cbcfaff"
+    "contentHash": "d46a5b6e5ffc20e19fe1b458e63762cb007c9924515cdd2d7103b40d362b1208"
   },
   "headings": [
     {
@@ -175,7 +175,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "See `docs/content-delivery-contract.md` for the schema, security, extension, and operational contract."
+      "text": "See canonical documentation `capability.content-publishing.technical-reference` for the schema, security, extension, and operational contract."
     },
     {
       "kind": "heading",
@@ -193,7 +193,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "See `docs/publication-manifest-contract.md` for authority, migration, extension, and fail-closed delivery behavior."
+      "text": "See canonical documentation `capability.content-publishing.technical-reference` for authority, migration, extension, and fail-closed delivery behavior."
     },
     {
       "kind": "paragraph",

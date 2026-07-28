@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "gDocs/development/how-to-create-apis.md",
     "type": "gdocs",
-    "contentHash": "e548c0348c344f8e3f378a1480ffb9118e4b341b61935a7ecdce081e245de512"
+    "contentHash": "ca4edeb9623469efbbc47852ae7c143960ffc843902e2692b985ee874f801f6c"
   },
   "headings": [
     {
@@ -298,7 +298,7 @@
     {
       "kind": "unordered-list",
       "items": [
-        "[nRouter](/docs/modules/gframework/nrouter) and [Router Framework](/docs/modules/gframework/nrouter/docs/router-framework) for route definitions, Express registration, request pipelines, security, response handlers, cache, and OpenAPI.",
+        "[nRouter](/docs/modules/gframework/nrouter) and Router Framework (canonical documentation: `capability.apis-routing.technical-reference`) for route definitions, Express registration, request pipelines, security, response handlers, cache, and OpenAPI.",
         "[nController](/docs/modules/gframework/ncontroller) for controller request mapping.",
         "[nFacade](/docs/modules/gframework/nfacade) for orchestration boundaries.",
         "[nService](/docs/modules/gframework/nservice) for service behavior and generated CRUD service flow.",
@@ -617,13 +617,6 @@
       "target": "../../gFramework/nRouter/README.md",
       "kind": "internal",
       "route": "/docs/modules/gframework/nrouter",
-      "anchor": ""
-    },
-    {
-      "label": "Router Framework",
-      "target": "../../gFramework/nRouter/docs/router-framework.md",
-      "kind": "internal",
-      "route": "/docs/modules/gframework/nrouter/docs/router-framework",
       "anchor": ""
     },
     {

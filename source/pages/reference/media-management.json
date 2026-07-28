@@ -1,0 +1,288 @@
+{
+  "code": "capability.media-management.reference",
+  "title": "Media Management",
+  "route": "/docs/reference/media-management",
+  "section": "reference",
+  "family": "technical-reference",
+  "parent": "section:reference",
+  "order": 62,
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "operator",
+    "framework-maintainer",
+    "ai-tool"
+  ],
+  "readerIntent": "Understand how Nodics manages uploaded files and reusable media without letting CMS, Product, Import, Axis, or project modules duplicate storage authority.",
+  "priorKnowledge": "Basic understanding of files, URLs, CMS assets, Product images, or data import files is helpful but not required.",
+  "depth": "reference",
+  "status": "implemented",
+  "owner": "nMedia owns media lifecycle, media-specific multipart upload parsing, and provider-neutral storage contracts; nRouter only invokes the route-declared parser; caller modules own business references.",
+  "lastVerified": "2026-07-28",
+  "summary": "Media Management is the framework authority for file metadata, media folders, formats, media sets, references, and provider-based storage resolution. The first implemented provider is local storage for local development; production providers such as NAS, S3, Azure Blob, Google Cloud Storage, or CDN-backed storage are added behind the same nMedia contract.",
+  "supportingEvidence": [
+    "nodics:gFramework/nMedia/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "What media means in Nodics",
+      "paragraphs": [
+        "Media means a file or external asset that the platform must recognize, secure, store, reference, deliver, or use in another process. A media item can be an image for a CMS page, a product photograph, a PDF manual, an import spreadsheet, a documentation image, or a future video or downloadable asset.",
+        "The important idea is that the file itself is not owned by Product, CMS, Import, Axis, or a customer website. Those capabilities own their business meaning. Media Management owns the reusable lifecycle around the file: folder policy, allowed type, storage provider, storage key, checksum, URL, lifecycle state, and safe reference.",
+        "This keeps Nodics from growing many slightly different upload implementations. Without a shared media layer, CMS could invent one image table, Product could invent another image table, Import could accept a raw folder path, and Axis could accidentally become a storage authority. That would create duplicate paths, security holes, and difficult upgrades."
+      ]
+    },
+    {
+      "heading": "Business outcome",
+      "items": [
+        "Business users can upload or select assets once and reuse them in CMS, Product, Import, Documentation, or later customer-specific workflows.",
+        "Administrators can configure where files live for each environment without changing frontend code or caller modules.",
+        "Operators can move production storage from local development disk to NAS, cloud object storage, or CDN-backed delivery by changing provider configuration and provider implementation.",
+        "Developers and partners can extend media behavior without touching CMS, Product, Import, or Axis business logic.",
+        "AI tools get a single authority path to follow when generating file upload, asset reference, import-from-file, or content-asset functionality."
+      ]
+    },
+    {
+      "heading": "Authority and module boundaries",
+      "paragraphs": [
+        "nMedia is the authority for media lifecycle and media-specific upload parsing. nRouter owns route dispatch and invokes the parser declared by the route. nImport owns import pipeline execution. CMS owns content components and pages. Product owns product data and product media references. Axis owns frontend rendering and interaction.",
+        "A frontend may ask to upload a file for a purpose such as importSources or cmsAssets. It must not send a raw filesystem path, NAS path, bucket path, or authoritative public URL. The backend chooses the provider and creates the storage key.",
+        "A caller module stores only a media code, media set code, or media reference code. It should not copy provider configuration or create another storage path resolver."
+      ]
+    },
+    {
+      "heading": "Production storage model",
+      "paragraphs": [
+        "In production, static files commonly live outside the application server. They may be stored on a shared NAS volume, an object store such as S3, Azure Blob, or Google Cloud Storage, or a CDN-backed storage service. Local filesystem storage is useful for local development and simple deployments, but it should not be the design limit.",
+        "Nodics therefore separates storage location from access URL. Storage location answers where the bytes live. Access URL answers how an authorized browser, backend service, CDN, or import process can retrieve the file. Some files are public, some are private, and some should be delivered only through a short-lived signed URL or backend stream.",
+        "All provider base paths, buckets, containers, base URLs, key strategies, limits, and folder policies belong in layered `properties.js`. Production credentials belong in secure runtime configuration or provider-owned secret handling, never in package metadata, generated docs, sample data, or a frontend repository."
+      ]
+    },
+    {
+      "heading": "Current implementation scope",
+      "items": [
+        "The implemented first slice creates the nMedia framework module under `gFramework/nMedia`.",
+        "It defines schemas for media folders, media formats, media items, media sets, media set entries, and generic media references.",
+        "It defines provider-based storage configuration with local, NAS, S3, Azure Blob, and Google Cloud Storage provider slots. Only local is implemented and enabled by default.",
+        "It validates file descriptors against folder and upload policy.",
+        "It generates provider-relative storage keys on the backend and rejects unsafe traversal keys.",
+        "It resolves local provider storage descriptors without exposing absolute local paths to public callers.",
+        "It exposes secured storage policy, storage location, and media upload route metadata behind the `mediaManagement` API exposure category.",
+        "It uses an nMedia-owned multipart upload body parser declared on the media upload route; nRouter only invokes that route-declared handler.",
+        "It exposes a secured internal reference lookup that lets domain modules validate `mediaCode` and `mediaSetCode` without reading generated media CRUD services directly.",
+        "It exposes a backend-only media import source resolver that lets nImport stage an import-capable media item without exposing provider paths to Axis.",
+        "Axis UI upload is still a follow-up. Axis must call nMedia upload and import contracts instead of writing files or provider paths directly."
+      ]
+    },
+    {
+      "heading": "Where the implementation lives",
+      "items": [
+        "`gFramework/nMedia/AGENTS.md` is the agent and contributor contract for this module.",
+        "`gFramework/nMedia/config/properties.js` owns provider, folder, format, upload policy, and key-generation defaults.",
+        "`gFramework/nMedia/src/schemas/schemas.js` owns the media item, folder, format, media set, media-set-entry, and reference schemas.",
+        "`gFramework/nMedia/src/service/storage/defaultMediaStoragePolicyService.js` validates caller file descriptors against backend policy.",
+        "`gFramework/nMedia/src/service/storage/defaultMediaStorageKeyService.js` generates safe provider-relative keys and rejects unsafe paths.",
+        "`gFramework/nMedia/src/service/storage/defaultMediaStorageProviderRegistryService.js` resolves the active provider without exposing provider details to callers.",
+        "`gFramework/nMedia/src/service/storage/provider/defaultLocalMediaStorageProviderService.js` is the local-development provider implementation.",
+        "`gFramework/nMedia/src/service/storage/defaultMediaMultipartUploadBodyParserHandlerService.js` parses multipart media upload requests into bounded `req.body` and `req.files` descriptors.",
+        "`gFramework/nMedia/src/service/storage/defaultMediaUploadService.js` stores nMedia-parsed upload files through the active provider and persists generated media metadata.",
+        "`gFramework/nMedia/src/service/storage/defaultMediaImportSourceResolverService.js` resolves active import-capable media into backend-only descriptors for nImport.",
+        "`gFramework/nMedia/src/service/reference/defaultMediaReferenceLookupService.js` validates media item and media set references for domain modules.",
+        "`gFramework/nMedia/src/router/routers.js`, controller, and facade files expose only secured management contracts.",
+        "`gFramework/nMedia/test/*` protects route, schema, provider, policy, key-safety, and path-traversal behavior."
+      ]
+    },
+    {
+      "heading": "Lifecycle flow",
+      "paragraphs": [
+        "The lifecycle below is intentionally backend-owned. A caller can describe the file and purpose, but nMedia decides the policy, provider, storage key, descriptor, and persisted metadata."
+      ],
+      "code": "Browser or API client uploads multipart file\n  -> nRouter resolves the secured media upload route\n  -> nRouter invokes the route-declared nMedia parser\n  -> nMedia parser validates content type and upload limits\n  -> nMedia parser returns req.body and req.files descriptors\n  -> nMedia validates folder, MIME, extension, and size policy\n  -> nMedia selects active provider\n  -> nMedia calculates checksum and generates a safe storage key\n  -> Provider stores the file\n  -> nMedia records media metadata\n  -> CMS, Product, Import, Docs, or Axis stores a media reference only"
+    },
+    {
+      "heading": "Uploading a media file",
+      "paragraphs": [
+        "The upload route accepts one file as multipart form data. A business user or developer selects the purpose through `folderCode`, such as `importSources`, `cmsAssets`, or `productAssets`. The frontend may also pass `formatCode`, `mediaCode`, `name`, and `description`, but it does not choose a filesystem path, cloud key, NAS path, or public URL.",
+        "The nMedia route declares `mediaMultipartUploadBodyParserHandler`. nRouter invokes that handler, but nMedia owns the multipart upload semantics. The handler checks that the request is multipart, applies configured file and field limits from `media.upload`, and creates a bounded in-memory descriptor under `req.files`. nRouter does not create media records, enforce media policy, or write files.",
+        "nMedia receives the parsed descriptor, validates it against backend media policy, calculates checksum, stores the bytes through the active provider, and persists the generated media item. This keeps upload parsing, media lifecycle, and caller business meaning separate."
+      ],
+      "code": "POST /nodics/media/v0/storage/upload\nContent-Type: multipart/form-data\n\nfile=<uploaded file>\nfolderCode=importSources\nformatCode=importFile\nmediaCode=optional-code\nname=Optional display name\n\nResponse\n  -> media.code\n  -> providerCode\n  -> storageKey\n  -> url when provider policy exposes one\n  -> checksum\n  -> status READY"
+    },
+    {
+      "heading": "Core schemas",
+      "table": {
+        "headers": [
+          "Schema",
+          "Purpose",
+          "Who should use it"
+        ],
+        "rows": [
+          [
+            "mediaFolder",
+            "Defines a governed folder policy such as importSources, cmsAssets, or productAssets.",
+            "Administrators and project developers configuring allowed files and retention."
+          ],
+          [
+            "mediaFormat",
+            "Defines an asset purpose or variant such as original, thumbnail, desktop, mobile, or importFile.",
+            "CMS, Product, and rendering experiences that need responsive or purpose-based media."
+          ],
+          [
+            "media",
+            "Represents one stored or externally resolved media item with provider, storage key, type, size, checksum, URL, access, and lifecycle state.",
+            "All modules that need to reference one concrete file."
+          ],
+          [
+            "mediaSet",
+            "Groups multiple media variants into one reusable logical asset.",
+            "Product galleries, CMS responsive images, localized assets, and future content authoring."
+          ],
+          [
+            "mediaSetEntry",
+            "Links one media item to a media set with optional format, role, locale, order, dimensions, and state.",
+            "Any capability that needs variants instead of a single file."
+          ],
+          [
+            "mediaReference",
+            "Links a business object owned by another module to a media item or media set.",
+            "Product, CMS, Import, Documentation, and future custom modules."
+          ]
+        ]
+      }
+    },
+    {
+      "heading": "Reference lookup for caller modules",
+      "paragraphs": [
+        "Caller modules often need to validate a media item or media set before saving their own business record. Product, for example, must know that a primary product image points to a usable nMedia record. It should not load generated media CRUD records directly or copy storage details into Product.",
+        "The nMedia reference lookup contract accepts `referenceType: MEDIA` for one concrete media item or `referenceType: MEDIA_SET` for one reusable media set. The caller sends `referenceCode`; nMedia checks lifecycle policy and returns only a bounded validation projection.",
+        "The projection intentionally avoids storage authority. It does not return local filesystem paths, provider storage keys, signed URLs, generated delivery URLs, cloud bucket names, or credentials as caller-owned truth. Future delivery descriptors should come from an explicit nMedia-owned delivery contract, not from Product, CMS, Import, Axis, or project modules."
+      ],
+      "code": "Product media assignment\n  -> mediaReferenceCode owned by Product\n  -> mediaSetCode or mediaCode checked by nMedia reference lookup\n  -> role, locale, order, alt text owned by Product\n\nnMedia reference lookup\n  -> validates MEDIA or MEDIA_SET\n  -> returns safe bounded projection\n  -> never transfers storage-provider authority"
+    },
+    {
+      "heading": "Storage provider configuration",
+      "paragraphs": [
+        "The default `media.storage.defaultProvider` is `local`. Provider definitions live under `media.storage.providers`. Each provider declares whether it is enabled and which provider service implements it.",
+        "The local provider uses `basePath` and `baseUrl`. A relative `basePath` is resolved under the Nodics home directory. An absolute `basePath` may point to a mounted directory, but it should be configured only by trusted backend configuration.",
+        "Provider configuration is intentionally module-level by default. Environments, servers, and nodes should override only real deployment differences such as a production NAS mount, cloud bucket name, region, or base URL."
+      ],
+      "code": "media: {\n  storage: {\n    defaultProvider: 'local',\n    providers: {\n      local: {\n        enabled: true,\n        service: 'DefaultLocalMediaStorageProviderService',\n        basePath: 'runtime/media',\n        baseUrl: '/nodics/media/v0/content'\n      },\n      s3: {\n        enabled: false,\n        service: 'DefaultS3MediaStorageProviderService',\n        bucket: '',\n        region: '',\n        baseUrl: ''\n      }\n    }\n  }\n}"
+    },
+    {
+      "heading": "Generated storage keys",
+      "paragraphs": [
+        "nMedia generates provider-relative storage keys instead of accepting raw paths from callers. The current strategy creates a key from tenant, enterprise, folder prefix, UTC year, UTC month, and a backend-safe media identifier.",
+        "For example, an import spreadsheet uploaded by the default tenant and enterprise can resolve to `default/default/imports/2026/07/upload-1.xlsx`. The local provider may store that under its configured base path, while an S3 provider may use the same key inside a bucket.",
+        "Raw caller keys are rejected unless an internal trusted service explicitly opts into a governed override. Even trusted keys still pass traversal validation."
+      ]
+    },
+    {
+      "heading": "How CMS and Product should use media",
+      "paragraphs": [
+        "CMS components should reference a media item or media set for images, PDFs, documents, and other presentation assets. CMS still owns page and component structure; it does not own file storage.",
+        "Product should reference media for product images, gallery images, manuals, or other asset attachments. Product still owns product identity, attributes, variants, categories, and publication. It does not become a storage provider.",
+        "A media set lets one business asset point to several variants. For example, a product gallery image can have original, thumbnail, mobile, desktop, large, and zoom entries. A CMS banner can later add localized or responsive variants without changing CMS storage ownership."
+      ]
+    },
+    {
+      "heading": "How product galleries should use media sets",
+      "paragraphs": [
+        "A product normally needs more than one image. It may have a thumbnail for listing pages, a main image for the product detail page, a zoom image, mobile and desktop versions, a video, a PDF manual, and several gallery views such as front, side, packaging, lifestyle, or color-swatch images.",
+        "Nodics models this in two layers. nMedia owns the reusable media set: one logical asset with many concrete files or variants. Product owns the business assignment: why this set belongs to a product, whether it is the primary image, thumbnail image, gallery image, swatch, manual, or video, and what order or visibility rules apply.",
+        "This means Product media assignment records live in the Product/Catalog module, not in nMedia. The Product-owned schema stores the product item, `mediaReferenceCode`, `mediaSetCode` or `mediaCode`, role, position, locale, lifecycle, and publishing behavior. It validates the media reference through nMedia. It does not store storage provider, raw file path, bucket key, generated URL, checksum, or upload policy because those remain nMedia authority."
+      ],
+      "code": "Product\n  -> ProductMediaAssignment[] owned by Product/Catalog\n       role: primary | thumbnail | gallery | swatch | manual | video\n       sequence, locale, catalog version, store/channel visibility\n       mediaSetCode or mediaCode\n\nMediaSet owned by nMedia\n  -> MediaSetEntry[]\n       format: original | thumbnail | mobile | desktop | large | zoom\n       mediaCode, width, height, locale, fallback order\n\nMedia owned by nMedia\n  -> providerCode, storageKey, URL, mimeType, checksum, size, access, status"
+    },
+    {
+      "heading": "How import should use media",
+      "paragraphs": [
+        "The import pipeline already knows how to process files staged on the server. The implemented `POST /nodics/system/v0/import/media` route lets nImport reference a `mediaCode`, load an active `importDefinition`, ask nMedia to resolve a trusted backend import-source descriptor, and stage the media into an import-run-owned workspace.",
+        "Axis should upload the file through the media upload API, receive a media code, and then call the import API using that media code and a selected definition code. Axis should not pass `/tmp`, browser-selected paths, NAS paths, object-store keys, bucket names, provider URLs, or credentials to import.",
+        "This keeps file upload, storage policy, and import processing separate while allowing business users to import CSV, JSON, Excel, or other governed files from the Back Office UI. In a cluster, this is also the only safe model because the node that receives the upload may not be the node that executes the import."
+      ]
+    },
+    {
+      "heading": "Security and failure behavior",
+      "items": [
+        "All management routes are secured and exposure-gated.",
+        "Public descriptors do not expose absolute local filesystem paths.",
+        "Path traversal, absolute keys, URL-like keys, missing extensions, disallowed extensions, disallowed MIME types, and oversized files are rejected.",
+        "Provider secrets must not appear in OpenAPI responses, logs, error messages, generated documentation, or frontend state.",
+        "A provider outage must fail the media operation; callers must not silently switch to another provider unless a governed failover contract is implemented and tested.",
+        "Media deletion and retention must be lifecycle-aware. Future cleanup must avoid deleting files still referenced by CMS, Product, Import history, Documentation, or other modules."
+      ]
+    },
+    {
+      "heading": "Customize and extend safely",
+      "paragraphs": [
+        "The smallest safe customization is a layered `properties.js` override. For example, a project can select an S3 provider by enabling `media.storage.providers.s3`, setting `media.storage.defaultProvider`, and supplying provider-safe configuration through the project or environment layer.",
+        "The next safe customization is a provider service that implements the nMedia provider contract. The provider should be registered in configuration and should return the same descriptor shape as the local provider. It should not require CMS, Product, Import, or Axis to know provider-specific logic.",
+        "Do not copy nMedia services into a project module. Do not add a second media table inside CMS or Product. Do not make Axis write files directly to S3, NAS, or the server filesystem. Do not let import accept browser-supplied raw storage paths."
+      ],
+      "code": "media: {\n  storage: {\n    defaultProvider: 's3',\n    providers: {\n      s3: {\n        enabled: true,\n        service: 'DefaultS3MediaStorageProviderService',\n        bucket: 'company-nodics-media',\n        region: 'ap-south-1',\n        baseUrl: 'https://cdn.company.example'\n      }\n    }\n  }\n}"
+    },
+    {
+      "heading": "Provider maturity",
+      "table": {
+        "headers": [
+          "Provider",
+          "Status",
+          "Use"
+        ],
+        "rows": [
+          [
+            "Local",
+            "Implemented first slice",
+            "Local development and simple deployments. Production use requires careful shared storage and backup review."
+          ],
+          [
+            "NAS",
+            "Configured placeholder",
+            "Future on-prem or enterprise shared filesystem provider."
+          ],
+          [
+            "S3",
+            "Configured placeholder",
+            "Future cloud object storage provider with guarded live tests."
+          ],
+          [
+            "Azure Blob",
+            "Configured placeholder",
+            "Future Azure object storage provider with guarded live tests."
+          ],
+          [
+            "Google Cloud Storage",
+            "Configured placeholder",
+            "Future GCP object storage provider with guarded live tests."
+          ]
+        ]
+      }
+    },
+    {
+      "heading": "Verification",
+      "items": [
+        "`node gFramework/nMedia/test/mediaStorageProviderContract.test.js` validates provider selection, safe generated keys, local storage resolution, local write behavior, extension limits, size limits, and path traversal rejection.",
+        "`node gFramework/nMedia/test/mediaMultipartUploadBodyParserContract.test.js` validates nMedia-owned multipart parser ownership, positive parsing, invalid content type rejection, and configured file-size limit rejection.",
+        "`node gFramework/nMedia/test/mediaImportSourceResolverContract.test.js` validates backend-only import-source resolution, import-folder/format policy, and active media status checks.",
+        "`node gFramework/nMedia/test/mediaUploadContract.test.js` validates upload storage, checksum generation, metadata persistence through the generated media service, missing-file rejection, and unavailable metadata-service rejection.",
+        "`node gFramework/nMedia/test/mediaRouteContract.test.js` validates secured route metadata and `mediaManagement` exposure gating.",
+        "`node gFramework/nMedia/test/mediaReferenceLookupContract.test.js` validates secured media item and media set reference lookup without leaking storage authority.",
+        "`node gFramework/nMedia/test/mediaSchemaContract.test.js` validates core schema presence and required storage/reference fields.",
+        "`node gFramework/nMedia/test/mediaBusinessOwnershipBoundary.test.js` validates that nMedia owns reusable media sets and does not take Product, CMS, Import, or Documentation business assignments.",
+        "Future Axis upload UI tests and import-by-media integration tests must prove the browser never sends raw storage paths to import.",
+        "Future live providers require guarded live tests for credentials, bucket/container access, network failure, retry behavior, cleanup, URL generation, and secret redaction."
+      ]
+    },
+    {
+      "heading": "What is intentionally not implemented yet",
+      "items": [
+        "Signed URL generation is not implemented yet.",
+        "Media transformation or image resizing is not implemented yet.",
+        "External cloud provider adapters are configured placeholders, not production-ready providers.",
+        "Axis does not yet expose media upload, selection, or import-from-media UI."
+      ]
+    }
+  ]
+}

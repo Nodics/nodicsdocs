@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "gDocs/commerce/how-to-manage-stores.md",
     "type": "gdocs",
-    "contentHash": "982c56f34a136e3c9478b7a61c8259664d3199ee512c81013f172b7b3570f1ab"
+    "contentHash": "8d0085e66bc3690103035eca63137f2b96e8c41508e432c2bef7bea0d382cbea"
   },
   "headings": [
     {
@@ -229,7 +229,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "For technical details, read the [Store module guide](/docs/modules/gcomm/store/docs/store-foundation) and [Store, CMS Site, and Integration](/docs/modules/gcomm/store/docs/store-site-and-integration)."
+      "text": "For technical details, read the Store module guide (canonical documentation: `capability.commerce.technical-reference`) and Store, CMS Site, and Integration (canonical documentation: `capability.commerce.technical-reference`)."
     },
     {
       "kind": "heading",
@@ -255,20 +255,6 @@
       "target": "how-to-model-stores-and-websites.md",
       "kind": "internal",
       "route": "/docs/commerce/how-to-model-stores-and-websites",
-      "anchor": ""
-    },
-    {
-      "label": "Store module guide",
-      "target": "../../gComm/store/docs/store-foundation.md",
-      "kind": "internal",
-      "route": "/docs/modules/gcomm/store/docs/store-foundation",
-      "anchor": ""
-    },
-    {
-      "label": "Store, CMS Site, and Integration",
-      "target": "../../gComm/store/docs/store-site-and-integration.md",
-      "kind": "internal",
-      "route": "/docs/modules/gcomm/store/docs/store-site-and-integration",
       "anchor": ""
     },
     {

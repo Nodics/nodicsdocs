@@ -26,7 +26,23 @@
     "nodics:gComm/product/README.md",
     "nodics:gComm/pricing/README.md",
     "nodics:gComm/inventory/README.md",
-    "nodics:gCore/units/README.md"
+    "nodics:gCore/units/README.md",
+    "nodics:gComm/inventory/docs/inventory-operations-and-integrations.md",
+    "nodics:gComm/inventory/docs/stock-allocation-foundation.md",
+    "nodics:gComm/inventory/docs/stock-availability-foundation.md",
+    "nodics:gComm/inventory/docs/stock-core.md",
+    "nodics:gComm/inventory/docs/stock-pool-foundation.md",
+    "nodics:gComm/inventory/docs/stock-reconciliation-foundation.md",
+    "nodics:gComm/inventory/docs/stock-reservation-foundation.md",
+    "nodics:gComm/inventory/docs/stock-sourcing-foundation.md",
+    "nodics:gComm/inventory/docs/stock-transfer-foundation.md",
+    "nodics:gComm/inventory/docs/warehouse-foundation.md",
+    "nodics:gComm/pricing/docs/pricing-architecture-and-operations.md",
+    "nodics:gComm/product/docs/product-p0-operations.md",
+    "nodics:gComm/product/docs/product-release-readiness.md",
+    "nodics:gComm/store/docs/store-foundation.md",
+    "nodics:gComm/store/docs/store-site-and-integration.md",
+    "nodics:gExp/storefront/docs/storefront-foundation.md"
   ],
   "sections": [
     {
@@ -77,6 +93,1415 @@
         "Independent authorization, validation, persistence, cache, search, version, workflow, and publishing authority.",
         "Staged/Online topology, target transport, derived refresh, audit, reconciliation, rollback, and compensation.",
         "Positive, negative, boundary, contract, integration, cross-tenant, performance, failure, security, and regression tests."
+      ]
+    },
+    {
+      "heading": "Complete guide: Inventory operations and integrations",
+      "migratedFrom": "nodics:gComm/inventory/docs/inventory-operations-and-integrations.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "Inventory exposes bounded read-only operational projections for Balances, Movements, Reservations, Allocations, Transfers, and Reconciliation findings. These routes require human authentication plus `inventory.operations.read`. They accept only documented scalar filters and never expose generated CRUD, arbitrary database operators, credentials, or internal enterprise fields.",
+        "BackOffice connects directly to Inventory and uses `/operations/*` routes. Configure `inventory.operations.maximumResultCount` to bound each page. Mutation continues through the existing intent APIs and orchestration services.",
+        "Movement checkpoints are immutable service-created snapshots. Create one only when the Balance has no pending Movement. Reconstruction starts from the newest checkpoint and accepts only a contiguous chain of applied Movement revisions. It reconstructs on-hand quantity; Reservation state cannot be reconstructed from Movement history and must be reconciled through Reservation evidence.",
+        "External WMS/POS dispatch is disabled by default. Configure named providers under `inventory.externalProviders.providers` with a type, Nodics module name, connection name, allowed operations, timeout, and retry limit. Callers supply a provider code and operation—not a URL or credential. The adapter uses a runtime-bound internal token and persists idempotent operation evidence. Provider responses do not directly edit Stock; accepted business changes must return through Stock Movement or the relevant Inventory intent."
+      ]
+    },
+    {
+      "heading": "Operator checklist",
+      "migratedFrom": "nodics:gComm/inventory/docs/inventory-operations-and-integrations.md",
+      "sourceAnchor": "operator-checklist",
+      "items": [
+        "Grant `inventory.operations.read` only to operational roles.",
+        "Schedule checkpoint creation through the existing CronJob module using service identity.",
+        "Investigate non-contiguous reconstruction before creating corrections.",
+        "Enable one provider at a time in a controlled environment and verify timeout, retry, duplicate, and failure behavior.",
+        "Never place provider secrets in Inventory configuration; the connector module owns its credentials."
+      ]
+    },
+    {
+      "heading": "Complete guide: Stock allocation foundation",
+      "migratedFrom": "nodics:gComm/inventory/docs/stock-allocation-foundation.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "Stock Allocation assigns Order demand to one or more active Stock Reservations. Order remains authoritative for the order and line; Inventory stores only stable demand references and supply-assignment evidence.",
+        "An allocation records requested, allocated, backordered, and fulfilled exact quantities. Assignments reference reservations, their Warehouses, Stock Balances, and eventual applied ISSUE movements. A line may therefore split across Warehouses without copying Stock or Order data.",
+        "Lifecycle states are `PENDING`, `ALLOCATED`, `PARTIALLY_ALLOCATED`, `BACKORDERED`, `PARTIALLY_FULFILLED`, `FULFILLED`, `RELEASED`, `CANCELLED`, and `FAILED`.",
+        "Allocation creation is idempotent. Every assignment must match one ACTIVE reservation exactly by item, Unit, and quantity. Partial allocation is controlled by `inventory.stockAllocation.allowPartial`; assignment count is bounded by `maximumAssignments`.",
+        "Cancellation and release delegate to the existing Reservation orchestration. Fulfillment is derived from applied reservation-linked Stock ISSUE evidence rather than caller claims. Generated Allocation persistence is private and hard deletion is rejected.",
+        "The module-internal service-token APIs are `/references/stock-allocations/allocate`, `/cancel`, `/release`, and `/fulfill`. Cache providers are not allocation or quantity authorities."
+      ]
+    },
+    {
+      "heading": "Business Meaning",
+      "migratedFrom": "nodics:gComm/inventory/docs/stock-availability-foundation.md",
+      "sourceAnchor": "business-meaning",
+      "paragraphs": [
+        "Availability reports recorded ON_HAND, active reservation holds, and `AVAILABLE_TO_SELL = ON_HAND - reservedQuantity` across Warehouses selected by Stock Sourcing. It is not an allocation, available-to-promise delivery date, or guaranteed fulfilment.",
+        "The service follows one authority path:",
+        "`request context → Stock Sourcing → active Pool memberships → Stock Balances → Units conversion → exact total and evidence`",
+        "It creates no Availability table and changes no Stock. Online Inventory remains authoritative; staged publishing applies to Inventory configuration, not operational balances."
+      ]
+    },
+    {
+      "heading": "Operating Flow",
+      "migratedFrom": "nodics:gComm/inventory/docs/stock-availability-foundation.md",
+      "sourceAnchor": "operating-flow",
+      "items": [
+        "Activate Warehouses, Pools, memberships, sourcing Policy, and Rules in Online Inventory.",
+        "A trusted module calls `POST /nodics/inventory/v0/references/stock-availability/evaluate` with context and item identity.",
+        "Inventory resolves ordered Pools and active/effective memberships, deduplicates Warehouses, reads matching enterprise-scoped balances, converts Units through the Units authority, and adds decimal strings exactly.",
+        "The response returns ON_HAND, reserved, and AVAILABLE_TO_SELL totals, Pool/Warehouse order, balance evidence, revisions, and evaluation time.",
+        "A zero result is valid when no Pool, Warehouse, or Balance matches."
+      ]
+    },
+    {
+      "heading": "Direct Storefront delivery",
+      "migratedFrom": "nodics:gComm/inventory/docs/stock-availability-foundation.md",
+      "sourceAnchor": "direct-storefront-delivery",
+      "paragraphs": [
+        "An anonymous customer application first resolves its hostname through Storefront and receives a short-lived opaque handle. It calls `POST /nodics/inventory/v0/delivery/storefront/stock-availability/evaluate`, sends that handle in `x-nodics-storefront-context`, and supplies only item type, item code, Unit, optional target scale, and optional evaluation time.",
+        "Inventory introspects the handle for the `inventory` audience with its module service identity. The trusted projection supplies tenant, enterprise, Store, country, and channel. Browser-supplied `context`, tenant, enterprise, customer segment, zone, or fulfillment fields are not carried into sourcing. Inventory then invokes the existing cached Availability chain; it does not create another availability calculator or store.",
+        "The public projection returns item, ON_HAND, reserved, AVAILABLE_TO_SELL, Unit, type, and evaluation time. It deliberately omits enterprise identity, Pool codes, Warehouse codes, Balance identities, revisions, and evidence. Trusted modules continue using `/references/stock-availability/evaluate` when operational evidence is required. Missing, expired, wrong-audience, incomplete, or unavailable context fails with `ERR_INV_00052` rather than accepting browser scope."
+      ]
+    },
+    {
+      "heading": "Security And Boundaries",
+      "migratedFrom": "nodics:gComm/inventory/docs/stock-availability-foundation.md",
+      "sourceAnchor": "security-and-boundaries",
+      "paragraphs": [
+        "The operational route is module-internal, uses `authSecurity.internalToken.routePermission`, and accepts only service tokens. The public Storefront route grants no mutation authority and must complete audience-bound introspection before evaluation. Enterprise identity comes from trusted authentication or introspection, never request JSON. Configured maximum Warehouses, Balances, evidence entries, target scale, and exact rounding prevent unbounded work. Human/BackOffice administration remains separately permissioned.",
+        "Availability caching is implemented through `DefaultStockAvailabilityCacheService` and provider-neutral `DefaultCacheService`. Keys include enterprise, item, Unit, scale, and normalized sourcing context while nCache partitions physical storage by tenant. Explicit historical evaluation bypasses cache by default.",
+        "Balance, Pool membership, Pool, Sourcing Policy, and Sourcing Rule writes invalidate the tenant Availability prefix. nCache propagates invalidation for local providers and avoids redundant events for shared providers. Every hit revalidates the referenced Balance revisions before serving quantities, preventing a stale repopulation race from becoming authoritative. Cache failures fall back to direct evaluation; Stock Balance always remains the authority.",
+        "Configure `inventory.stockAvailabilityCache` and `cache.inventory.channels.availability` in layered `properties.js`. Select exactly one of `local`, `redis`, or `hazelcast` for the channel."
+      ]
+    },
+    {
+      "heading": "Customization And Operations",
+      "migratedFrom": "nodics:gComm/inventory/docs/stock-availability-foundation.md",
+      "sourceAnchor": "customization-and-operations",
+      "paragraphs": [
+        "Layer `inventory.stockAvailability` for bounds, default scale, rounding, and service-token enforcement. Layer `inventory.storefrontContext` for introspection module, bootstrap tenant, local preference, timeout, attempts, and response-size bounds. Replace `DefaultStockAvailabilityService` only through a later module and preserve sourcing authority, enterprise isolation, Units conversion, exact arithmetic, evidence, and read-only behavior. A transport override must preserve the `inventory` audience and fail-closed behavior. Never copy balances into another availability store.",
+        "Monitor request latency, sourcing latency, Warehouse/Balance counts, conversion failures, evidence-boundary failures, and zero-result rates without logging sensitive customer context. If Units or persistence fails, fail the request rather than return a partial total."
+      ]
+    },
+    {
+      "heading": "Verification",
+      "migratedFrom": "nodics:gComm/inventory/docs/stock-availability-foundation.md",
+      "sourceAnchor": "verification",
+      "paragraphs": [
+        "```bash\nnode gComm/inventory/test/stockAvailabilityFoundation.test.js\nnode gComm/inventory/test/inventoryStorefrontAvailabilityContract.test.js\nnpm run build\nnpm run test:basic\n```",
+        "Tests cover sourcing order, membership deduplication, exact mixed-Unit ON_HAND/reserved/ATS aggregation, evidence, zero/limit behavior, service-token rejection, and route security."
+      ]
+    },
+    {
+      "heading": "Complete guide: Stock Core",
+      "migratedFrom": "nodics:gComm/inventory/docs/stock-core.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "Stock Core records the exact on-hand quantity of an item at an enterprise-owned Warehouse and optional Warehouse Location. It also preserves the movement evidence that explains every accepted or rejected change."
+      ]
+    },
+    {
+      "heading": "Business Model",
+      "migratedFrom": "nodics:gComm/inventory/docs/stock-core.md",
+      "sourceAnchor": "business-model",
+      "paragraphs": [
+        "A Stock Balance is identified by enterprise, Warehouse, optional Location, item type, item code, and optional batch, condition, and owner. Those fields allow one SKU, land parcel, liquid, weighed item, serialized category, or other business item to be separated without creating a second stock authority.",
+        "The balance stores an exact decimal string, Unit, dimension vector, scale, and revision. A Stock Movement stores the idempotency key, movement type, original quantity, normalized delta, expected revision, result, actor, reason, source, and failure evidence."
+      ]
+    },
+    {
+      "heading": "Applying A Movement",
+      "migratedFrom": "nodics:gComm/inventory/docs/stock-core.md",
+      "sourceAnchor": "applying-a-movement",
+      "paragraphs": [
+        "Replaying the same idempotency key with the same intent returns the recorded result and does not apply the quantity twice. Reusing that key for a different stock, original quantity/Unit, normalized delta, movement type, reason, balance Unit, or expected revision fails.",
+        "If the process stops after the balance update but before terminal movement state is persisted, replay detects `lastMovementCode` plus the resulting revision and completes the original movement without changing the balance again."
+      ],
+      "items": [
+        "Resolve the authenticated enterprise.",
+        "Validate the Warehouse, optional Location, and Unit through their owning services.",
+        "Ask Units to normalize the original quantity and Unit exactly into the balance Unit. Consolidated and modular deployments use the same Units intent contract.",
+        "Create or recover the idempotency-keyed `PENDING` movement.",
+        "compare-and-set the balance at the caller's expected revision.",
+        "Mark the movement `APPLIED`, or `REJECTED` for a safe business failure."
+      ]
+    },
+    {
+      "heading": "Configuration",
+      "migratedFrom": "nodics:gComm/inventory/docs/stock-core.md",
+      "sourceAnchor": "configuration",
+      "paragraphs": [
+        "Configure `inventory.stock` in `properties.js`:",
+        "Configure `inventory.unitsReference` in `properties.js`:",
+        "Tokens and endpoints do not belong in Inventory configuration. Nodics supplies the tenant-bound internal token and resolves module transport.",
+        "Layer project values through normal Nodics configuration. Do not put runtime Stock policy in `package.json`."
+      ],
+      "items": [
+        "`movementTypes` is the allow-list of business movement classifications.",
+        "`allowNegative` controls whether a movement may take on-hand below zero.",
+        "`defaultScale` defines stored decimal precision when the caller omits it.",
+        "`roundingMode` controls exact normalization; `UNNECESSARY` fails rather than silently rounding.",
+        "`maximumRetries` is reserved for a later bounded provider retry contract and is not used by Stock Core yet.",
+        "`moduleName`, `apiVersion`, and `apiName` locate Units through existing `servers` configuration;",
+        "`requestTimeoutMs` and `maximumAttempts` bound remote work;",
+        "`preferLocal` uses the same Units intent service directly when co-hosted."
+      ]
+    },
+    {
+      "heading": "Developer Contract",
+      "migratedFrom": "nodics:gComm/inventory/docs/stock-core.md",
+      "sourceAnchor": "developer-contract",
+      "paragraphs": [
+        "Use `DefaultStockMovementService.apply(request)`. Generated services for `stockBalance` and `stockMovementRecord` are persistence details and are guarded by interceptors. Direct save, update, or delete is rejected unless the owning repository supplies the internal mutation marker. Reads remain enterprise scoped.",
+        "Keep quantities as decimal strings. `movement.unitCode` is the original Unit; when omitted it defaults to the balance `stock.unitCode`. JavaScript floating-point arithmetic is not an accepted Stock path. Units remains the authority for Units, dimensions, arithmetic, factors, geography, and rounding in both local and remote deployments."
+      ]
+    },
+    {
+      "heading": "Implemented Boundary",
+      "migratedFrom": "nodics:gComm/inventory/docs/stock-core.md",
+      "sourceAnchor": "implemented-boundary",
+      "paragraphs": [
+        "Stock Core supports co-hosted or separately deployed Units and exact same-Unit, direct-factor, or inverse-factor conversion into the balance Unit. It does not yet implement multi-hop conversion graphs, reservations, allocations, available-to-sell, sourcing, coordinated Warehouse transfers, public or BackOffice routes, or external provider synchronization."
+      ]
+    },
+    {
+      "heading": "Failure And Recovery",
+      "migratedFrom": "nodics:gComm/inventory/docs/stock-core.md",
+      "sourceAnchor": "failure-and-recovery",
+      "paragraphs": [
+        "Keep a `PENDING` movement when an infrastructure failure leaves the outcome uncertain. Replay is the recovery mechanism; do not guess or apply a second movement."
+      ],
+      "items": [
+        "invalid Warehouse, Location, Unit, movement type, or reason: reject before balance mutation;",
+        "unavailable, incompatible, ambiguous, inexact, timed-out, or malformed Units conversion: reject before movement/balance persistence;",
+        "idempotency-key reuse with another intent: reject with `ERR_INV_00012`;",
+        "stale expected revision: record `REJECTED` and return `ERR_INV_00013`;",
+        "disallowed negative result: record `REJECTED` and return `ERR_INV_00014`;",
+        "ambiguous terminal-state persistence: reload evidence and fail with `ERR_INV_00015` if it cannot be reconciled."
+      ]
+    },
+    {
+      "heading": "Verification",
+      "migratedFrom": "nodics:gComm/inventory/docs/stock-core.md",
+      "sourceAnchor": "verification",
+      "paragraphs": [
+        "```bash\nnode gComm/inventory/test/stockMovementCore.test.js\nnode gComm/inventory/test/inventoryUnitsReferenceProvider.test.js\n```",
+        "The tests cover exact receipt and issue arithmetic, gram-to-kilogram conversion, local/remote provider parity, service-token headers, malformed/timeout failure, replay idempotency, optimistic revision conflict, negative-stock rejection, and direct-mutation protection."
+      ]
+    },
+    {
+      "heading": "Purpose",
+      "migratedFrom": "nodics:gComm/inventory/docs/stock-pool-foundation.md",
+      "sourceAnchor": "purpose",
+      "paragraphs": [
+        "A Stock Pool is a reusable, enterprise-owned grouping of Warehouses. It lets a later sourcing policy refer to one logical group such as UAE Fulfillment, Northern Pickup, or Returns Warehouses instead of repeating Warehouse lists.",
+        "A Pool never owns or copies Stock quantities. `stockBalance` remains the quantity authority at its Warehouse and optional Location. A Pool also does not contain product, country, zone, channel, customer-segment, or delivery rules; those conditions belong to the later Sourcing capability."
+      ]
+    },
+    {
+      "heading": "Data Contracts",
+      "migratedFrom": "nodics:gComm/inventory/docs/stock-pool-foundation.md",
+      "sourceAnchor": "data-contracts",
+      "paragraphs": [
+        "`stockPool` contains:",
+        "`stockPoolMember` contains:",
+        "A Warehouse may belong to several Pools. It may appear only once in the same Pool. Membership priority does not reserve, move, aggregate, or promise Stock."
+      ],
+      "items": [
+        "authenticated `enterpriseCode`;",
+        "stable business `poolCode` and derived internal `code`;",
+        "business name and optional description;",
+        "configured type and lifecycle status;",
+        "optional effective-from and effective-to dates.",
+        "authenticated enterprise and Pool code;",
+        "one authoritative Inventory Warehouse code;",
+        "integer priority, where a lower number is considered earlier by Stock Sourcing;",
+        "lifecycle status and optional effective dates."
+      ]
+    },
+    {
+      "heading": "Business Workflow",
+      "migratedFrom": "nodics:gComm/inventory/docs/stock-pool-foundation.md",
+      "sourceAnchor": "business-workflow",
+      "paragraphs": [
+        "Do not delete Pool records. Retirement keeps historical sourcing and operational evidence interpretable."
+      ],
+      "items": [
+        "Create a Pool in `DRAFT` with a stable Pool code, name, and type.",
+        "Add one or more Warehouse memberships in `DRAFT` and set their priorities.",
+        "Confirm every Warehouse belongs to the authenticated enterprise and has not been retired.",
+        "Activate the Pool and Warehouse before activating the membership.",
+        "Suspend a Pool or membership for a reversible operational pause.",
+        "To retire a Pool, retire all memberships first and then retire the Pool."
+      ]
+    },
+    {
+      "heading": "Configuration And Customization",
+      "migratedFrom": "nodics:gComm/inventory/docs/stock-pool-foundation.md",
+      "sourceAnchor": "configuration-and-customization",
+      "paragraphs": [
+        "Layer `inventory.stockPool` and `inventory.stockPoolMember` in `properties.js`. Pool types, statuses, transitions, and priority bounds are configurable. A project can add a type such as `COLD_CHAIN` in a later module without changing Inventory source.",
+        "Prefer the smallest later-layer property or service override. Preserve enterprise isolation, derived identities, authoritative Warehouse validation, ordered membership, lifecycle history, and no-hard-delete behavior. Do not add a second Pool registry or copy Warehouse/Stock data into Pool documents."
+      ]
+    },
+    {
+      "heading": "Security And Operations",
+      "migratedFrom": "nodics:gComm/inventory/docs/stock-pool-foundation.md",
+      "sourceAnchor": "security-and-operations",
+      "paragraphs": [
+        "Generated Pool services and CRUD routers are private in this slice. Human or BackOffice administration requires a later intent API with explicit human permissions and negative security tests. Module service tokens must remain separate from human login.",
+        "Operators should monitor rejected enterprise scope, missing/retired dependencies, invalid transitions, duplicate membership, and retirement dependency errors. Back up Pools and memberships with Warehouse and Stock collections. Restore Warehouses before memberships."
+      ]
+    },
+    {
+      "heading": "Current Boundary",
+      "migratedFrom": "nodics:gComm/inventory/docs/stock-pool-foundation.md",
+      "sourceAnchor": "current-boundary",
+      "paragraphs": [
+        "Implemented: Pool and Warehouse membership schemas, enterprise scope, classification, priority, effective dates, lifecycle, dependency validation, retirement ordering, private persistence, and customization configuration.",
+        "Implemented separately: declarative sourcing Policies and Rules. Not implemented: sourcing intent APIs/caching, availability aggregation, product/channel/zone/segment eligibility, reservations, allocations, public or BackOffice APIs, events, cache/search projections, or external integrations."
+      ]
+    },
+    {
+      "heading": "Verification",
+      "migratedFrom": "nodics:gComm/inventory/docs/stock-pool-foundation.md",
+      "sourceAnchor": "verification",
+      "paragraphs": [
+        "```bash\nnode gComm/inventory/test/stockPoolFoundation.test.js\n```",
+        "The test covers positive creation, derived identity, membership dependency, activation safety, immutable identity, priority boundary, retirement ordering, enterprise mismatch, no-hard-delete behavior, private schemas, interceptors, and later-layer Pool type customization."
+      ]
+    },
+    {
+      "heading": "Complete guide: Stock reconciliation foundation",
+      "migratedFrom": "nodics:gComm/inventory/docs/stock-reconciliation-foundation.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "Reconciliation detects inconsistencies without silently rewriting Stock. Service identities run bounded, dry-first scans. Repairable findings enter the existing Nodics Workflow engine. Each workflow action independently declares whether it is manual or automatic; the workflow is not globally classified as manual or automatic. Service identities execute approved corrections through Stock Movement.",
+        "The scanner detects reserved-quantity mismatches, forbidden negative balances, Allocation quantity inconsistencies, Transfer quantity inconsistencies, pending Movements, and stale Reservation transitions. Findings and runs are immutable operational evidence. Only negative balances have an automatic repair in this slice: an idempotent `CORRECTION` movement after human approval. Every other finding requires investigation through its owning lifecycle.",
+        "Configure batch size, total finding limit, stale-transition age, and dry-run default under `inventory.stockReconciliation` in `properties.js`. A run uses one idempotency key and a persisted per-evidence cursor; invoke the same request until its state is `COMPLETED`. CronJob may invoke the internal scan endpoint. Human approval uses `inventory.reconciliation.approve`; scan and repair routes require service tokens.",
+        "`inventory.stockReconciliation.workflow` maps each finding type to `MANUAL` or `AUTOMATIC`. The OOTB manual graph contains an automatic head, a manual review action, and an automatic completion action. The OOTB automatic graph contains an automatic head and automatic completion action. Projects may layer different actions and channels through normal Workflow initializer data. Rejection and error use Workflow-owned terminal channels.",
+        "Manual completion records the authenticated human approver, then calls the internal repair endpoint with a runtime-bound module token. Automatic completion records the workflow carrier as approval evidence and requires service identity throughout. An automatic action never records itself as a human user.",
+        "The scanner does not reconstruct on-hand quantity from movement history because no opening-balance checkpoint contract exists yet. Treating an incomplete movement window as Stock truth would create false corrections. Add that capability only after a governed checkpoint and retention contract is implemented."
+      ]
+    },
+    {
+      "heading": "Complete guide: Stock reservation foundation",
+      "migratedFrom": "nodics:gComm/inventory/docs/stock-reservation-foundation.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "Inventory owns operational Stock truth. A reservation temporarily holds part of a `stockBalance`; cache providers accelerate reads but never own quantity."
+      ]
+    },
+    {
+      "heading": "Lifecycle",
+      "migratedFrom": "nodics:gComm/inventory/docs/stock-reservation-foundation.md",
+      "sourceAnchor": "lifecycle",
+      "paragraphs": [
+        "`PENDING` is recovery evidence while the hold compare-and-set is attempted. A successful hold becomes `ACTIVE`. `RELEASE_PENDING` makes a partially persisted release safely replayable. Business cancellation and release produce `CANCELLED` or `RELEASED`; the CronJob-facing expiry command produces `EXPIRED`. Insufficient stock produces `REJECTED`.",
+        "`CONSUMED` means fulfillment accepted the reservation, but the quantity remains held until an `ISSUE` Stock Movement references the reservation. That movement decreases `quantity` and `reservedQuantity` together under the same balance revision. This prevents availability from reopening between checkout and fulfillment."
+      ]
+    },
+    {
+      "heading": "Availability",
+      "migratedFrom": "nodics:gComm/inventory/docs/stock-reservation-foundation.md",
+      "sourceAnchor": "availability",
+      "paragraphs": [
+        "For each eligible balance:",
+        "`AVAILABLE_TO_SELL = ON_HAND - reservedQuantity`",
+        "The Availability service converts both quantities through Units before aggregation. It returns exact canonical decimal strings and evidence for each contributing balance."
+      ]
+    },
+    {
+      "heading": "Operations",
+      "migratedFrom": "nodics:gComm/inventory/docs/stock-reservation-foundation.md",
+      "sourceAnchor": "operations",
+      "paragraphs": [
+        "The module-internal, service-token-only commands are:",
+        "Reserve requires an enterprise-scoped `stockCode`, positive exact quantity in the balance Unit, idempotency key, reason, and bounded TTL. Replaying the same intent returns the original reservation; reusing its key for another intent fails.",
+        "Configure TTL, retry, and expiry batch boundaries under `inventory.stockReservation` in `properties.js`. Projects can schedule the expiry endpoint using the existing CronJob module; Inventory does not create another scheduler."
+      ],
+      "items": [
+        "`POST /references/stock-reservations/reserve`",
+        "`POST /references/stock-reservations/release`",
+        "`POST /references/stock-reservations/cancel`",
+        "`POST /references/stock-reservations/consume`",
+        "`POST /internal/stock-reservations/expire`"
+      ]
+    },
+    {
+      "heading": "Current boundary",
+      "migratedFrom": "nodics:gComm/inventory/docs/stock-reservation-foundation.md",
+      "sourceAnchor": "current-boundary",
+      "paragraphs": [
+        "This foundation does not cache Availability. That is deliberate: cache invalidation should be added only with a governed mutation-event contract. Direct balance or reservation writes and hard deletion of evidence are rejected."
+      ]
+    },
+    {
+      "heading": "Purpose And Ownership",
+      "migratedFrom": "nodics:gComm/inventory/docs/stock-sourcing-foundation.md",
+      "sourceAnchor": "purpose-and-ownership",
+      "paragraphs": [
+        "Stock Sourcing converts an authenticated enterprise request context into an ordered list of eligible Stock Pool references. A Policy groups Rules; each Rule declares simple criteria and Pools to include or exclude.",
+        "Inventory owns this decision. Stock Pools still own only Warehouse membership, Stock Balance owns quantities, and later Availability and Reservation slices consume the result. This foundation does not read or change quantities, promise fulfilment, reserve Stock, call external WMS systems, or execute a workflow or script."
+      ]
+    },
+    {
+      "heading": "Business Workflow",
+      "migratedFrom": "nodics:gComm/inventory/docs/stock-sourcing-foundation.md",
+      "sourceAnchor": "business-workflow",
+      "paragraphs": [
+        "Example: an INCLUDE Rule for `{countryCode: 'AE', channelCode: ['WEB','APP']}` selects `uae-fulfilment`; a later EXCLUDE Rule for `{fulfillmentType: 'DELIVERY'}` can remove `pickup-only`."
+      ],
+      "items": [
+        "Create a Policy in `DRAFT`, assign a lower numeric priority when it should run earlier, and choose `FIRST_MATCH` or `COLLECT_MATCHES`.",
+        "Create Rules under it using configured criteria such as country, zone, store, channel, customer segment, fulfilment type, item type, or item.",
+        "Reference existing Stock Pools in business order and choose `INCLUDE` or `EXCLUDE`.",
+        "Activate Pools, Policy, and Rules. An active Rule requires its Policy and every Pool to be active.",
+        "Evaluate a request. Matching Rules return Pool codes, not Stock promises. An `EXCLUDE` Rule removes and blocks its Pool for that evaluation.",
+        "Suspend for temporary rollback. Retire every Rule before its Policy. History cannot be deleted."
+      ]
+    },
+    {
+      "heading": "Data, Matching, And Lifecycle",
+      "migratedFrom": "nodics:gComm/inventory/docs/stock-sourcing-foundation.md",
+      "sourceAnchor": "data-matching-and-lifecycle",
+      "items": [
+        "`stockSourcingPolicy` owns enterprise identity, Policy code, name, priority, selection mode, status, and effective dates.",
+        "`stockSourcingRule` owns Policy/Rule identity, priority, outcome, declarative criteria, ordered Pool codes, status, and effective dates.",
+        "Identities and parent Policy are immutable. Default states are `DRAFT`, `ACTIVE`, `SUSPENDED`, and `RETIRED`.",
+        "Generated persistence is private and interceptor-protected. The only API is the module-internal sourcing intent described below; no public or BackOffice CRUD exists.",
+        "Criterion values are strings, numbers, booleans, or non-empty arrays. All criteria match; arrays match by overlap.",
+        "Unknown keys, `$` operators, nested objects, and scripts are rejected. Priority plus stable identity makes results deterministic."
+      ]
+    },
+    {
+      "heading": "Configuration And Customization",
+      "migratedFrom": "nodics:gComm/inventory/docs/stock-sourcing-foundation.md",
+      "sourceAnchor": "configuration-and-customization",
+      "paragraphs": [
+        "Layer `inventory.stockSourcing` in project, environment, server, node, tenant, or customer `properties.js`. It owns statuses, transitions, selection modes, outcomes, context keys, priority bounds, and maximum Pools per Rule.",
+        "To add `projectQualifier`, extend `contextKeys` in a later module. Do not copy the evaluator, accept database queries, embed JavaScript, duplicate Pool membership, or bypass persistence interceptors. A project may replace `DefaultStockSourcingEvaluationService` through service layering while preserving enterprise isolation, deterministic output, and side-effect-free evaluation."
+      ]
+    },
+    {
+      "heading": "Security, Operations, Performance, And Recovery",
+      "migratedFrom": "nodics:gComm/inventory/docs/stock-sourcing-foundation.md",
+      "sourceAnchor": "security-operations-performance-and-recovery",
+      "paragraphs": [
+        "Enterprise identity comes only from authenticated claims. Human and anonymous tokens are rejected.",
+        "`POST /nodics/inventory/v0/references/stock-sourcing/evaluate` accepts `context` and optional ISO `at`. It uses `authSecurity.internalToken.routePermission`, `apiExposure: moduleInternal`, and requires `tokenType: service`. The transport bounds request bytes, context keys, values per key, value length, and result count. It returns only enterprise code, ordered Pool codes, matched Rule codes, evaluation time, and an optional server-derived correlation identifier. It never accepts enterprise identity in the body or returns Policy records, criteria, Warehouse membership, balances, or availability.",
+        "Correct rejected Policy, Rule, Pool lifecycle, criterion, priority, or date data and retry. Suspension is the operational rollback. Include Policy and Rule history in database backup/restore. Future API observability should record correlation and matched identifiers without logging sensitive customer context by default.",
+        "The evaluator fetches active Policies and active Rules per Policy. `DefaultStockSourcingCacheService` caches only its safe result through `DefaultCacheService`; Inventory never imports a provider adapter. The default `cache.inventory.channels.sourcing.engine` is `local`. Projects may select `redis`, or a compliant Hazelcast adapter, through normal cache layering without changing Inventory.",
+        "The bundled Hazelcast adapter is implemented with the official client but remains disabled by default. Enable and live-qualify it only for deployments selecting Hazelcast. If a configured cache read or write fails at request time, sourcing evaluates directly. Inventory does not silently activate another provider.",
+        "Keys contain a SHA-256 digest of normalized context plus authenticated enterprise identity and remain tenant-partitioned by `nCache`. Explicit historical `at` requests bypass cache by default. TTL never crosses the next known Policy/Rule effective-date boundary. Successful Pool, Pool membership, Policy, and Rule saves/updates flush the tenant sourcing prefix; `nCache` propagates invalidation to peer nodes for local providers and avoids redundant peer events for distributed providers. Invalidation failure is surfaced because silently retaining stale sourcing is unsafe.",
+        "Use existing `nCache` diagnostics for hit, miss, error, latency, resource, layer, module, channel, and tenant evidence. Context and key material are never used as metric dimensions. Configure enablement, TTL, maximum key length, explicit-time caching, channel, and module name through `inventory.stockSourcingCache`; configure the provider through `cache.inventory.channels.sourcing`."
+      ]
+    },
+    {
+      "heading": "Verification",
+      "migratedFrom": "nodics:gComm/inventory/docs/stock-sourcing-foundation.md",
+      "sourceAnchor": "verification",
+      "paragraphs": [
+        "```bash\nnode gComm/inventory/test/stockSourcingFoundation.test.js\nnode gComm/inventory/test/stockSourcingIntentContract.test.js\nnode gComm/inventory/test/stockSourcingCacheContract.test.js\nnpm run build\nnpm run test:basic\n```",
+        "The tests cover creation, dependencies, matching, ordering, exclusion, no-match behavior, unsupported/operator criteria, immutable identity, retirement ordering, enterprise mismatch, customization, no hard delete, route security, bounded transport, safe projection, result scope, controller delegation, cache hit/miss/failure fallback, tenant/enterprise key isolation, effective-date TTL, invalidation hooks, and provider-neutral selection."
+      ]
+    },
+    {
+      "heading": "Complete guide: Stock transfer foundation",
+      "migratedFrom": "nodics:gComm/inventory/docs/stock-transfer-foundation.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "Inventory coordinates transfers through existing Stock Movements. Dispatch creates an idempotent `TRANSFER_OUT`; receipt creates an idempotent `TRANSFER_IN`. The transfer record stores source/destination references, exact requested/dispatched/received quantities, operation keys, movement evidence, and lifecycle state.",
+        "Transfers support partial dispatch and receipt. Receipt cannot exceed dispatched quantity and dispatch cannot exceed requested quantity. Only an undispatched `DRAFT` transfer may be cancelled. Interrupted movement calls are safe to replay because every leg has a stable idempotency key; transfer revision conflicts fail for reconciliation.",
+        "States are `DRAFT`, `IN_TRANSIT`, `PARTIALLY_RECEIVED`, `RECEIVED`, `CANCELLED`, and `RECONCILIATION_REQUIRED`. Damage and loss quantities are reserved in the model for the next governed discrepancy/reconciliation slice; callers must not edit them directly."
+      ]
+    },
+    {
+      "heading": "Business Purpose",
+      "migratedFrom": "nodics:gComm/inventory/docs/warehouse-foundation.md",
+      "sourceAnchor": "business-purpose",
+      "paragraphs": [
+        "A warehouse is the enterprise-owned logical authority that will later hold and fulfill stock. A warehouse location is an optional position inside it, such as receiving, storage, aisle, rack, bin, sales floor, back room, pickup, returns, quarantine, or damaged stock.",
+        "This foundation does not yet expose a business API or BackOffice page. Intent-specific administration APIs and permissions follow in a later slice."
+      ]
+    },
+    {
+      "heading": "Business Lifecycle",
+      "migratedFrom": "nodics:gComm/inventory/docs/warehouse-foundation.md",
+      "sourceAnchor": "business-lifecycle",
+      "paragraphs": [
+        "Create a warehouse in `DRAFT`, verify its identity and metadata, and move it to `ACTIVE`. An active warehouse may be `SUSPENDED` temporarily or `RETIRED` permanently. A suspended warehouse may return to active. A retired warehouse cannot be reactivated.",
+        "```text\nDRAFT → ACTIVE → SUSPENDED → ACTIVE\n  └────→ RETIRED ←────┘\n```",
+        "Locations use the same transitions. Retire child locations before their parent and every location before its warehouse. Never hard-delete these records; future stock, ledger, transfer, store, and audit references require history."
+      ]
+    },
+    {
+      "heading": "Enterprise Isolation And Identity",
+      "migratedFrom": "nodics:gComm/inventory/docs/warehouse-foundation.md",
+      "sourceAnchor": "enterprise-isolation-and-identity",
+      "paragraphs": [
+        "Every operation resolves enterprise identity from authenticated claims. A body or query attempting another enterprise fails. The tenant selects the database boundary; `enterpriseCode` enforces the business-owner boundary inside it.",
+        "Business codes may repeat across enterprises because the primary code is derived:",
+        "```text\nenterpriseA::warehouse::dubaiCentral\nenterpriseB::warehouse::dubaiCentral\nenterpriseA::location::dubaiCentral::receiving\n```",
+        "Users supply `warehouseCode` and `locationCode`; they do not construct or override internal `code`."
+      ]
+    },
+    {
+      "heading": "Location Hierarchy",
+      "migratedFrom": "nodics:gComm/inventory/docs/warehouse-foundation.md",
+      "sourceAnchor": "location-hierarchy",
+      "paragraphs": [
+        "A location either has no parent or names one non-retired parent in the same enterprise and warehouse. The service derives `path` and `depth`, rejects self parenting and cycles, and enforces `inventory.location.maxDepth`.",
+        "```text\nstorage                       depth 0, path [storage]\n└── aisleA                    depth 1, path [storage, aisleA]\n    └── rack01                depth 2, path [storage, aisleA, rack01]\n        └── bin05            depth 3, path [storage, aisleA, rack01, bin05]\n```",
+        "Parentage is immutable. Later stock movement uses governed transfers rather than rewriting historical location identity."
+      ]
+    },
+    {
+      "heading": "Administrator Configuration",
+      "migratedFrom": "nodics:gComm/inventory/docs/warehouse-foundation.md",
+      "sourceAnchor": "administrator-configuration",
+      "paragraphs": [
+        "Layer configuration instead of editing OOTB inventory:",
+        "```js\nmodule.exports = {\n    inventory: {\n        warehouse: {\n            types: ['PHYSICAL', 'VIRTUAL', 'STORE', 'MICRO_FULFILLMENT'],\n            statuses: ['DRAFT', 'ACTIVE', 'SUSPENDED', 'RETIRED']\n        },\n        location: {\n            maxDepth: 6,\n            types: ['RECEIVING', 'ZONE', 'AISLE', 'RACK', 'BIN']\n        }\n    }\n};\n```",
+        "Verify effective array merging for the project. Removing a classification used by persisted records requires a governed migration. Changing the identity separator after data exists is also an identity migration."
+      ]
+    },
+    {
+      "heading": "Developer Contract",
+      "migratedFrom": "nodics:gComm/inventory/docs/warehouse-foundation.md",
+      "sourceAnchor": "developer-contract",
+      "paragraphs": [
+        "Schemas live in `src/schemas/schemas.js`; generated services own persistence. Interceptors execute before generated save/get/update/remove operations so callers cannot bypass foundation governance accidentally.",
+        "codes, derives identities, and scopes queries.",
+        "effective dates, identity, transitions, retirement, and deletion.",
+        "parent, path, depth, identity, transitions, children, and deletion.",
+        "Do not call a database provider directly. Do not create another warehouse loader, hierarchy engine, lifecycle, or tenant/enterprise resolver."
+      ],
+      "items": [
+        "`DefaultInventoryEnterpriseScopeService` resolves claims, validates business",
+        "`DefaultInventoryWarehouseFoundationService` validates classifications,",
+        "`DefaultInventoryWarehouseLocationFoundationService` validates the warehouse,"
+      ]
+    },
+    {
+      "heading": "OOTB Customization",
+      "migratedFrom": "nodics:gComm/inventory/docs/warehouse-foundation.md",
+      "sourceAnchor": "ootb-customization",
+      "paragraphs": [
+        "Add classifications through a later module's properties and prove the effective configuration in its test. For another enterprise claim contract, replace the smallest scope method while retaining mismatch rejection and query scoping. For extra location rules, layer an interceptor or replace the smallest validation method rather than copying the module."
+      ]
+    },
+    {
+      "heading": "Failures And Recovery",
+      "migratedFrom": "nodics:gComm/inventory/docs/warehouse-foundation.md",
+      "sourceAnchor": "failures-and-recovery",
+      "paragraphs": [
+        "| Error | Meaning | Recovery |\n| --- | --- | --- |\n| `ERR_INV_00001` | No authenticated enterprise claim | Authenticate through Profile with the correct enterprise |\n| `ERR_INV_00002` | Body/query enterprise mismatch | Remove caller-owned scope or use the correct enterprise |\n| `ERR_INV_00003` | Invalid warehouse identity, classification, or dates | Correct the code/policy/data |\n| `ERR_INV_00004` | Invalid lifecycle transition | Follow the configured transition sequence |\n| `ERR_INV_00005` | Invalid location hierarchy or retirement order | Correct parent/warehouse/depth or retire children first |\n| `ERR_INV_00006` | Stable identity or parentage change | Create a new record and govern migration |\n| `ERR_INV_00007` | Hard delete attempted | Retire the record |\n| `ERR_INV_00008` | Warehouse has non-retired locations | Retire locations from leaves to root |\n| `ERR_INV_00009` | Warehouse reference is unavailable | Verify tenant, enterprise, code, lifecycle, and Inventory availability |\n| `ERR_INV_00010` | Non-service identity used internal lookup | Use the existing tenant-scoped module service token |",
+        "A failed validation does not reach persistence. Stock atomicity, idempotency, and recovery are not claimed until the stock slice is implemented."
+      ]
+    },
+    {
+      "heading": "Internal Warehouse Reference Lookup",
+      "migratedFrom": "nodics:gComm/inventory/docs/warehouse-foundation.md",
+      "sourceAnchor": "internal-warehouse-reference-lookup",
+      "paragraphs": [
+        "`POST /nodics/inventory/v0/references/warehouses/resolve` is an Inventory-owned module-to-module intent route. It requires the existing internal service-token permission, authenticated tenant, and enterprise context; human access tokens are rejected. The request accepts only `warehouseCode`.",
+        "The safe response contains enterprise code, warehouse code, status, type, country, and capabilities. It never returns internal primary identity, address, external references, operational details, or credentials. Missing, retired, duplicate, malformed, and cross-enterprise targets fail closed."
+      ]
+    },
+    {
+      "heading": "Security And Operations",
+      "migratedFrom": "nodics:gComm/inventory/docs/warehouse-foundation.md",
+      "sourceAnchor": "security-and-operations",
+      "paragraphs": [
+        "reference intent route is enabled.",
+        "locations."
+      ],
+      "items": [
+        "Generated CRUD routers are disabled; only the service-token Warehouse",
+        "Human and service authentication remain separate Profile/nAuth concerns.",
+        "Enterprise identity comes from authenticated claims, not request bodies.",
+        "External references contain identifiers only, never credentials.",
+        "Monitor repeated scope mismatch, hierarchy, transition, and retirement errors.",
+        "Restore a warehouse with its location hierarchy; never restore orphaned"
+      ]
+    },
+    {
+      "heading": "Verification",
+      "migratedFrom": "nodics:gComm/inventory/docs/warehouse-foundation.md",
+      "sourceAnchor": "verification",
+      "paragraphs": [
+        "```bash\nnode gComm/inventory/test/inventoryWarehouseSchemaContract.test.js\nnode gComm/inventory/test/inventoryWarehouseFoundationService.test.js\nnode gComm/inventory/test/inventoryWarehouseReferenceContract.test.js\nnpm run llm:generate\nnpm run llm:validate\nnpm run quality:docs\n```",
+        "Focused tests cover schema/index boundaries, private routing, interceptor wiring, identity, lifecycle, hierarchy, missing enterprise, cross-enterprise rejection, invalid codes/transitions, immutable identity, missing/self parents, depth, retirement order, hard-delete rejection, and configuration extension."
+      ]
+    },
+    {
+      "heading": "Purpose and terminology",
+      "migratedFrom": "nodics:gComm/pricing/docs/pricing-architecture-and-operations.md",
+      "sourceAnchor": "purpose-and-terminology",
+      "paragraphs": [
+        "Pricing answers one bounded question: **which base price applies to this item, quantity, unit, currency, customer, and selling context at this time?**",
+        "Pricing does not calculate tax, evaluate promotions, convert currency by default, own products/customers/stores/units, or publish through a private mechanism."
+      ],
+      "items": [
+        "A **Price List** is a reusable commercial collection, such as UAE Retail or Wholesale Contract prices.",
+        "A **Price List Assignment** makes a list eligible for an enterprise, country, site, store, channel, customer segment, or customer.",
+        "A **Price Group** groups item or customer references without copying their authoritative records.",
+        "A **Price** is one exact amount qualified by list, item or Item Group, optional customer or Customer Group, currency, unit, quantity tier, channel, and validity.",
+        "**Staged** is the versioned business-editing runtime. **Online** is the separate non-versioned runtime serving application traffic."
+      ]
+    },
+    {
+      "heading": "Ownership and integration",
+      "migratedFrom": "nodics:gComm/pricing/docs/pricing-architecture-and-operations.md",
+      "sourceAnchor": "ownership-and-integration",
+      "paragraphs": [
+        "Pricing owns `priceList`, `priceListAssignment`, `priceGroup`, `priceGroupMember`, and `price`. Store supplies Store identity, Profile supplies enterprise/customer identity, Product supplies item identity, and Units supplies Unit definitions and conversions. Configured reference providers validate those references without copying master data. The implemented Store provider uses the local generated Store service when co-hosted or Store's service-token-only `/references/stores/resolve` intent when modular.",
+        "Workflow governs manual and automatic approval actions. `nPublish` owns publication state, audit, activation, rollback, and provider selection. `DefaultCacheService` owns provider-neutral cache access. Human BackOffice login remains separate from service tokens used by resolution and Staged-to-Online transport. BackOffice discovers `pricing-management` from self-registered module metadata, but Pricing remains the API and data authority."
+      ]
+    },
+    {
+      "heading": "Human management and safe preview APIs",
+      "migratedFrom": "nodics:gComm/pricing/docs/pricing-architecture-and-operations.md",
+      "sourceAnchor": "human-management-and-safe-preview-apis",
+      "paragraphs": [
+        "Generated CRUD routers remain disabled. A separately deployed BackOffice client uses explicit Pricing intents:",
+        "| Intent | Method and path | Permission | Result |\n| --- | --- | --- | --- |\n| Browse | `GET /management/:resource` | `pricing.backoffice.read` | Bounded safe projection using scalar allow-listed filters |\n| Read | `GET /management/:resource/:businessCode` | `pricing.backoffice.read` | One enterprise-owned record |\n| Create | `POST /management/:resource` | `pricing.backoffice.manage` | Save through generated service and interceptors |\n| Update | `PATCH /management/:resource/:businessCode` | `pricing.backoffice.manage` | Validated update by immutable business identity |\n| Retire | `POST /management/:resource/:businessCode/retire` | `pricing.backoffice.manage` | Lifecycle transition without hard deletion |\n| Validate | `POST /management/preview/validate` | `pricing.backoffice.preview` | Non-persistent validation and normalization |\n| Conflicts | `POST /management/preview/conflicts` | `pricing.backoffice.preview` | Exact qualifier and date-overlap detection |\n| Simulate | `POST /management/preview/simulate` | `pricing.backoffice.preview` | Non-cached, non-persistent deterministic resolution |\n| Submit | `POST /management/publications/submit` | `pricing.backoffice.manage` | Creates and releases an idempotently identified Workflow carrier |",
+        "Resources are `priceLists`, `assignments`, `groups`, `memberships`, and `prices`. Routes accept human access tokens only, and the management service independently rejects service identities. Enterprise ownership comes from authenticated claims; client `enterpriseCode` and internal `code` are discarded. Result counts, preview candidates, and payload bytes are bounded by `pricing.management` properties.",
+        "Conflict preview finds equal Price qualifiers within the same list, currency, Unit, quantity tier, channel, and overlapping dates. Simulation remains the final safety check because assignments and group memberships can create ambiguity across different records."
+      ]
+    },
+    {
+      "heading": "Deterministic resolution",
+      "migratedFrom": "nodics:gComm/pricing/docs/pricing-architecture-and-operations.md",
+      "sourceAnchor": "deterministic-resolution",
+      "paragraphs": [
+        "The request supplies item, exact quantity, unit, currency, and optional country/site/store/channel/customer/group context. The resolver:",
+        "The default scope order is Customer, Customer Segment, Store, Channel, Site, Country, Enterprise. Projects may change the numeric specificity in layered `properties.js` and test the resulting contract."
+      ],
+      "items": [
+        "Derives enterprise ownership from authenticated claims.",
+        "Rejects unknown context keys and oversized arrays.",
+        "Loads active, effective assignments matching the context.",
+        "Removes explicitly excluded Price Lists.",
+        "Loads active, effective Price Lists and Pricing-owned group memberships.",
+        "Requires exact currency and Unit matches.",
+        "Rejects inactive, expired, future, wrong-channel, wrong-item, wrong-customer, and unmet quantity-tier candidates.",
+        "Orders candidates by configured scope specificity, customer specificity, item specificity, greatest eligible quantity tier, assignment priority, then Price List priority.",
+        "Fails with `ERR_PRICE_00035` when two candidates still have the same business rank."
+      ]
+    },
+    {
+      "heading": "Direct Storefront price delivery",
+      "migratedFrom": "nodics:gComm/pricing/docs/pricing-architecture-and-operations.md",
+      "sourceAnchor": "direct-storefront-price-delivery",
+      "paragraphs": [
+        "An anonymous customer application first resolves its hostname through Storefront and receives a short-lived opaque handle. It then calls `POST /delivery/storefront/prices/resolve` with that handle in `x-nodics-storefront-context` and supplies only the item, exact decimal-string quantity, Unit, and optional evaluation time. Pricing introspects the handle for the `pricing` audience using a module service identity. The trusted projection supplies tenant, enterprise, Site, Store, currency, and channel.",
+        "Caller-supplied `currencyCode`, `context`, tenant, enterprise, customer, segment, or contract qualifiers are not carried into resolution. This prevents the Electronics website from selecting an Apparel Price List and prevents an anonymous caller from claiming customer eligibility. Pricing then invokes the same `DefaultPriceResolutionFacade`, deterministic resolver, published Online records, and provider-neutral cache used by internal callers. Missing, expired, wrong-audience, incomplete, or unavailable context fails with `ERR_PRICE_00065`; it never falls back to browser scope.",
+        "The existing `POST /references/prices/resolve` route remains service-token-only for trusted modules that already possess an authenticated enterprise and approved resolution context. Human BackOffice management remains separate from both delivery paths."
+      ]
+    },
+    {
+      "heading": "Exact values",
+      "migratedFrom": "nodics:gComm/pricing/docs/pricing-architecture-and-operations.md",
+      "sourceAnchor": "exact-values",
+      "paragraphs": [
+        "`amount`, `minimumQuantity`, and request `quantity` are decimal strings. Scientific notation, negative values, excessive digits, and excessive scale are rejected. `unitFactor` is a bounded positive integer. Runtime comparisons align decimal scales with `BigInt`; JavaScript floating point is not used.",
+        "Currency conversion is disabled by default. A missing exact-currency price fails clearly. A future configured exchange-rate provider may add conversion without moving exchange-rate authority into Pricing."
+      ]
+    },
+    {
+      "heading": "Staged approval and Online activation",
+      "migratedFrom": "nodics:gComm/pricing/docs/pricing-architecture-and-operations.md",
+      "sourceAnchor": "staged-approval-and-online-activation",
+      "paragraphs": [
+        "All five business schemas are non-versioned in the reusable module so ordinary and Online runtimes do not require the versioned database contract. A Staged server module must override those Pricing schema fragments with `isVersionedEnabled: true`, exactly as the existing CMS Staged server does. That server also activates the versioned database/nPublish modules and sets `pricing.publication.runtimeRole: STAGED`. On Staged, create a generic nPublish request with domain `pricing`, root type `PRICE_LIST`, root code, and exact source version. nPublish freezes the Price List, assignments, Prices, referenced Pricing Groups, and memberships as immutable dependency identities.",
+        "The OOTB Pricing contribution seeds two Workflow heads. `pricingPublicationManualFlow` routes first to a human review action and publishes only after `SUCCESS`. `pricingPublicationAutomaticFlow` routes directly to the same automatic publish action. `pricing.workflow.defaultMode` selects the default and each submission may explicitly select an allowed mode. This preserves the principle that a workflow is a collection of independently manual or automatic actions; the publisher itself is always automatic after approval.",
+        "Submission requires a stable `submissionCode`, Price List code, exact positive Staged source version, and one or more associated `{schemaName, code, versionId}` items. The enterprise-scoped carrier identity makes retries idempotent. Associated item identities become approval evidence, while the Pricing publication adapter remains responsible for freezing the complete dependency graph. Projects may replace the workflow graph through later init-data contributions without replacing the Workflow engine or nPublish lifecycle.",
+        "After validation and the configured Workflow approval, the Pricing version provider:",
+        "The target requires `runtimeRole: ONLINE` and `publishEnabled !== true`. It verifies manifest hash and contract version, imports the frozen records idempotently, switches the enterprise/Price-List pointer with revision compare-and-set, stores a receipt, and invalidates resolution cache. Rollback reactivates an already deployed immutable manifest through the same authority."
+      ],
+      "items": [
+        "Requires `pricing.publication.runtimeRole: STAGED`.",
+        "Builds an integrity-hashed immutable manifest.",
+        "Uses the configured Nodics module transport and internal service token.",
+        "Requires a named connection to a distinct Online Pricing runtime; `default` is rejected.",
+        "Sends an idempotent deployment request."
+      ]
+    },
+    {
+      "heading": "Configuration",
+      "migratedFrom": "nodics:gComm/pricing/docs/pricing-architecture-and-operations.md",
+      "sourceAnchor": "configuration",
+      "paragraphs": [
+        "Configure only through layered `properties.js`:",
+        "Never place these runtime settings in `package.json`."
+      ],
+      "items": [
+        "identity syntax and enterprise requirement;",
+        "statuses and lifecycle transitions;",
+        "scope types and specificity;",
+        "priorities, group types, decimal bounds, unit-factor bound, and candidate limits;",
+        "reference providers;",
+        "exact-currency or explicitly provided conversion policy;",
+        "cache channel, TTL, and key bounds;",
+        "Storefront introspection module, bootstrap tenant, timeout, retry, response-size, and local/co-hosted preference;",
+        "Staged/Online role, target module connection, retries, timeout, size, and manifest contract versions.",
+        "workflow enablement, allowed modes, default mode, workflow codes, and associated-item bounds."
+      ]
+    },
+    {
+      "heading": "Security and data protection",
+      "migratedFrom": "nodics:gComm/pricing/docs/pricing-architecture-and-operations.md",
+      "sourceAnchor": "security-and-data-protection",
+      "paragraphs": [
+        "Generated CRUD routers are disabled. Human management routes accept access tokens only and use `pricing.backoffice.read`, `pricing.backoffice.manage`, or `pricing.backoffice.preview`. Internal price resolution and Online target routes use `authSecurity.internalToken.routePermission`. The public Storefront delivery route grants no mutation authority and requires active audience-bound introspection before Pricing constructs trusted identity and commercial scope. Enterprise ownership never comes from a browser payload. Arbitrary query operators, provider URLs, credentials, and executable rules are not accepted. Target messages carry service authentication and correlation identity; manifests contain commercial configuration, not credentials."
+      ]
+    },
+    {
+      "heading": "Performance and observability",
+      "migratedFrom": "nodics:gComm/pricing/docs/pricing-architecture-and-operations.md",
+      "sourceAnchor": "performance-and-observability",
+      "paragraphs": [
+        "Reads are bounded by `maximumCandidates` and group-member limits. Online responses can be cached through the configured nCache channel, which may use local, Redis, or Hazelcast without Pricing coupling to an adapter. Cache keys hash enterprise plus the complete request. Explicit historical-time evaluations bypass cache by default. Writes, successful activation, and rollback invalidate the Pricing prefix across the selected cache provider.",
+        "Operations should record request/correlation ID, tenant, enterprise, selected Price/List/Assignment codes, evaluated time, publication code and revision, manifest hash, target receipt, cache outcome, duration, and sanitized error code. Do not log customer secrets, service tokens, or entire manifests."
+      ]
+    },
+    {
+      "heading": "Failure and recovery",
+      "migratedFrom": "nodics:gComm/pricing/docs/pricing-architecture-and-operations.md",
+      "sourceAnchor": "failure-and-recovery",
+      "items": [
+        "**No list (`ERR_PRICE_00033`)**: verify assignments, scopes, status, dates, and authenticated enterprise.",
+        "**No price (`ERR_PRICE_00034`)**: verify item/group membership, quantity tier, currency, Unit, channel, and validity.",
+        "**Ambiguity (`ERR_PRICE_00035`)**: correct overlapping assignments or Price records; do not disable fail-closed behavior merely to hide bad configuration.",
+        "**Management forbidden (`ERR_PRICE_00022`)**: use a human access token with the necessary permission; never reuse a service token.",
+        "**Invalid management input (`ERR_PRICE_00023`)**: use a documented resource and scalar filters only.",
+        "**Preview overlap**: inspect conflicts, narrow dates or qualifiers, retire the obsolete record, then preview again.",
+        "**Staged role failure**: enable Pricing publication only on the versioned Staged runtime.",
+        "**Target unavailable**: keep the publication approved but not Online, restore module connectivity/service authentication, then retry idempotently.",
+        "**Integrity failure**: reject the manifest, investigate transport/storage corruption, and regenerate from the frozen Staged version.",
+        "**Pointer conflict**: reload Online status and retry through nPublish; never edit the pointer directly.",
+        "**Bad Online release**: request rollback through nPublish to a previously deployed manifest.",
+        "**Rejected workflow**: correct the Staged records and submit a new governed release; no Online deployment occurs.",
+        "**Workflow unavailable (`ERR_PRICE_00027`)**: verify the Workflow module and Pricing workflow seed data are active on Staged; do not bypass approval with direct publication calls.",
+        "**Invalid submission (`ERR_PRICE_00026`)**: provide stable submission identity, exact Staged version, and bounded associated versioned items.",
+        "**Storefront context required (`ERR_PRICE_00065`)**: resolve the current hostname again and send the new opaque handle; verify Storefront, its security-state cache, and service-token introspection rather than accepting caller scope."
+      ]
+    },
+    {
+      "heading": "Customization",
+      "migratedFrom": "nodics:gComm/pricing/docs/pricing-architecture-and-operations.md",
+      "sourceAnchor": "customization",
+      "paragraphs": [
+        "Use later modules to override properties or compose providers. To add a scope, add the type and specificity, supply trusted context in an override of `scopeValues`, configure reference validation when applicable, and add resolution/publication/cache tests. Do not copy schemas, fork the resolver, create a new publisher, or access a cache adapter directly."
+      ]
+    },
+    {
+      "heading": "Verification",
+      "migratedFrom": "nodics:gComm/pricing/docs/pricing-architecture-and-operations.md",
+      "sourceAnchor": "verification",
+      "paragraphs": [
+        "Focused tests cover schema/interceptor contracts, tenant isolation, exact values, ranking, ambiguity, publication boundaries, human/service separation, safe projections, hostile filters, enterprise-field stripping, retirement, conflict preview, and non-persistent simulation.",
+        "Run:",
+        "```bash\nnode gComm/pricing/test/pricingFoundationContract.test.js\nnode gComm/pricing/test/priceResolutionContract.test.js\nnode gComm/pricing/test/pricingStorefrontResolutionContract.test.js\nnode gComm/pricing/test/pricingPublicationContract.test.js\nnode gComm/pricing/test/pricingManagementContract.test.js\nnode gComm/pricing/test/pricingPublicationWorkflowContract.test.js\nnode startio/envs/startioLocal/cmsOnlineServer/test/publicationTopologyContract.test.js\n```"
+      ]
+    },
+    {
+      "heading": "Business overview",
+      "migratedFrom": "nodics:gComm/product/docs/product-p0-operations.md",
+      "sourceAnchor": "business-overview",
+      "paragraphs": [
+        "A Product Item gives every sellable or managed offering a stable identity that other modules can reference. A Product Item can represent a product family, SKU, service, asset, or bundle. An Identifier adds another recognized code, such as a barcode, manufacturer code, parcel reference, or title reference, without changing the primary Product identity.",
+        "Product descriptions do not contain live prices or stock. Pricing and Inventory use the Product Item reference while remaining responsible for their own data.",
+        "A Product Category organizes Items for navigation or merchandising inside one Catalog. It is different from an `nCatalog` sub-catalog: sub-catalogs organize Catalogs, while Product Categories organize Product Items."
+      ]
+    },
+    {
+      "heading": "Roles and prerequisites",
+      "migratedFrom": "nodics:gComm/product/docs/product-p0-operations.md",
+      "sourceAnchor": "roles-and-prerequisites",
+      "paragraphs": [
+        "The current module provides API intents for a future BackOffice client; it does not provide a BackOffice frontend."
+      ],
+      "items": [
+        "A reader needs `product.backoffice.read`.",
+        "A maintainer needs `product.backoffice.manage`.",
+        "The authenticated user must have an enterprise context.",
+        "The target Catalog must already exist and be active in `nCatalog`.",
+        "A referenced base Unit must exist in Units."
+      ]
+    },
+    {
+      "heading": "Create and maintain an Item",
+      "migratedFrom": "nodics:gComm/product/docs/product-p0-operations.md",
+      "sourceAnchor": "create-and-maintain-an-item",
+      "paragraphs": [
+        "allows it.",
+        "The system derives the internal identity from enterprise, Catalog, item type, and item code. Those identity fields cannot be changed later."
+      ],
+      "items": [
+        "Choose the owning Catalog.",
+        "Choose an enabled item type.",
+        "Enter a stable item code and name.",
+        "Optionally enter a description and base Unit.",
+        "Mark the Item sellable or stock-managed only when the configured item type",
+        "Create the Item through the Product management intent.",
+        "Move it through an allowed configured lifecycle transition.",
+        "Retire it when it must no longer be used. Do not delete it."
+      ]
+    },
+    {
+      "heading": "Add an Identifier",
+      "migratedFrom": "nodics:gComm/product/docs/product-p0-operations.md",
+      "sourceAnchor": "add-an-identifier",
+      "paragraphs": [
+        "integration.",
+        "Invalid Catalogs, Units, item references, types, identities, and lifecycle changes fail without creating or changing a record."
+      ],
+      "items": [
+        "Confirm the Product Item exists and is not retired.",
+        "Select a configured identifier type.",
+        "Provide an identifier record code and its external value.",
+        "Mark it primary only when that meaning is appropriate for the consuming",
+        "Create the Identifier through the Product management intent."
+      ]
+    },
+    {
+      "heading": "Create and maintain Categories",
+      "migratedFrom": "nodics:gComm/product/docs/product-p0-operations.md",
+      "sourceAnchor": "create-and-maintain-categories",
+      "paragraphs": [
+        "primary flag, and optional effective dates.",
+        "The hierarchy rejects missing parents, retired parents, self-parenting, cycles, and paths deeper than the configured maximum. Retire active assignments and child Categories before retiring their parent."
+      ],
+      "items": [
+        "Choose the Catalog that owns the Category.",
+        "Enter a permanent Category code and name.",
+        "For a child Category, select an active parent in the same Catalog.",
+        "Set its order, navigation flag, and optional effective dates.",
+        "Create the Category through the Product management intent.",
+        "Assign Items using an Assignment code, Category, Item type/code, position,"
+      ]
+    },
+    {
+      "heading": "Define classifications and typed Attributes",
+      "migratedFrom": "nodics:gComm/product/docs/product-p0-operations.md",
+      "sourceAnchor": "define-classifications-and-typed-attributes",
+      "paragraphs": [
+        "enumeration, reference, or measured.",
+        "minimum and maximum values.",
+        "string while Units validates the Unit identity.",
+        "Localized Attributes require a valid locale on every value. Non-localized Attributes reject locale data. A Product Item reference needs both its Item type and Item code. Attribute Definitions and Classes cannot be retired while active Values, Classes, or assignments still depend on them."
+      ],
+      "items": [
+        "Create Attribute Definitions before creating a Classification Class.",
+        "Choose the exact value type: text, boolean, integer, decimal, date,",
+        "Choose whether the Attribute is localized or multi-valued and set its",
+        "For an enumeration, provide the complete allowed-value list.",
+        "For a measured Attribute, require a Unit. Product stores the exact decimal",
+        "Create a Classification Class with its allowed and required Attribute codes.",
+        "Add typed Attribute Values to the Product Item.",
+        "Activate the Item-to-class assignment after all required values exist."
+      ]
+    },
+    {
+      "heading": "Create variants",
+      "migratedFrom": "nodics:gComm/product/docs/product-p0-operations.md",
+      "sourceAnchor": "create-variants",
+      "paragraphs": [
+        "A base Product describes a family such as a shirt or phone. A variant is the specific sellable Item selected by a customer, such as a red medium shirt. The variant remains an ordinary Product Item, so Inventory can own its stock and Pricing can independently target it.",
+        "default is `PRODUCT`.",
+        "`ASSET`.",
+        "selection dimension, such as colour and size.",
+        "every variant must provide it.",
+        "select one Attribute Value for every required axis.",
+        "values are active.",
+        "Nodics derives `combinationKey` from typed value content, not from the value record code. Two records that both mean colour red and size medium are the same combination and cannot identify two variants under one base. Callers must not supply or modify this key.",
+        "Retire Variant Assignments before retiring an axis they use. A variant cannot be its own base, and configured graph depth and cycle checks protect projects that extend the default base/variant type policy."
+      ],
+      "items": [
+        "Create and activate the base Item using a configured base Item type. The",
+        "Create and activate every sellable variant Item. The defaults are `SKU` and",
+        "Create non-localized, single-valued Attribute Definitions for each",
+        "Add the matching Attribute Values to every variant Item.",
+        "Create ordered Variant Axes on the base Item. Mark an axis required when",
+        "Create a Variant Assignment from the base Item to each variant Item and",
+        "Activate the assignment only after the base Item, variant Item, axes, and"
+      ]
+    },
+    {
+      "heading": "Add relations, bundles, packaging, and media",
+      "migratedFrom": "nodics:gComm/product/docs/product-p0-operations.md",
+      "sourceAnchor": "add-relations-bundles-packaging-and-media",
+      "paragraphs": [
+        "Use a Product Relation for a governed association such as accessory, compatible, replacement, substitute, cross-sell, up-sell, or related. Choose the source, target, type, order, and optional effective dates. Product rejects self-links, duplicates, disallowed cross-Catalog links, excessive cardinality, and cycles for configured acyclic types. Symmetric types treat the reverse link as the same business relation.",
+        "For a Bundle:",
+        "Units-owned Unit code, order, and optional flag.",
+        "duplicate positions, self-components, cycles, and scientific notation.",
+        "For Packaging, record package type, contained quantity and Unit, and optional length, width, height, and weight. All three dimensions must be supplied together with one dimension Unit. Weight requires its own Unit. Product stores exact strings; Units remains responsible for conversion.",
+        "For Media, record a Product-owned media reference code plus exactly one `nMedia` reference: `mediaCode` for one concrete file or `mediaSetCode` for a reusable set of variants such as original, thumbnail, mobile, desktop, large, and zoom. Product owns role, locale, order, and alt text; `nMedia` owns provider paths, generated URLs, checksums, MIME policy, upload limits, and binary lifecycle."
+      ],
+      "items": [
+        "Create the owning `BUNDLE` Item and every component Item.",
+        "Add each component with a stable Entry code, exact positive quantity,",
+        "Retain finite nested-Bundle depth. Product rejects duplicate components,"
+      ]
+    },
+    {
+      "heading": "Approve and publish Product changes",
+      "migratedFrom": "nodics:gComm/product/docs/product-p0-operations.md",
+      "sourceAnchor": "approve-and-publish-product-changes",
+      "paragraphs": [
+        "The Staged and Online runtimes use different databases. A business user never copies Product records directly to Online.",
+        "Item and exact version, approval mode, and the exact changed-item versions.",
+        "path. A flow may contain manual and automatic actions; mode selects the supplied default flow, not a second Workflow engine.",
+        "unchanged.",
+        "and hashes an immutable manifest, and sends it with an internal service token to the configured distinct Online Product connection.",
+        "idempotently, atomically activates the Catalog pointer, and records a receipt. Duplicate delivery returns the already active release.",
+        "The previous pointer remains authoritative if validation or target delivery fails before activation. Operators should correct the dependency, connection, token, size, or contract issue and retry the governed publication rather than writing Online data manually."
+      ],
+      "items": [
+        "Create or update Product data in the versioned Staged runtime.",
+        "Submit a Product publication with a stable submission code, root Product",
+        "Workflow creates either the configured manual review action or automatic",
+        "A reviewer approves or rejects manual work. Rejection leaves Online",
+        "The terminal automatic action calls the existing `nPublish` lifecycle.",
+        "Product freezes only the bounded business-active Catalog graph at exact versions, builds",
+        "Online verifies integrity and contract version, imports records",
+        "Rollback through `nPublish` reactivates a previously accepted manifest."
+      ]
+    },
+    {
+      "heading": "Read and operate Online Product delivery",
+      "migratedFrom": "nodics:gComm/product/docs/product-p0-operations.md",
+      "sourceAnchor": "read-and-operate-online-product-delivery",
+      "paragraphs": [
+        "Authenticated customers call the Product Online item operation with Catalog, Item type, Item code, optional locale, and an allow-listed comma-separated expansion list. The service first resolves the enterprise-scoped active Catalog pointer, loads and verifies its immutable manifest, and projects only safe fields. It never reads a partly imported release.",
+        "Supported expansions are identifiers, categories, attributes, classifications, variants, relations, bundles, packaging, and media. Limits in `product.delivery` bound expansion count and records. A missing Item returns a stable `found: false` response for the active release; a missing or corrupt release fails closed.",
+        "Product delivery caching uses `DefaultCacheService`. The key contains trusted enterprise, Catalog, Item, locale, expansions, and active release. Select NodeCache, Redis, or Hazelcast through the one active nCache channel provider; never call those adapters from Product. A cache outage falls back to the verified manifest.",
+        "After activation or rollback, Product creates a durable projection job. Cache invalidation and nSearch indexing run independently. A failed search operation records `PARTIAL` state while the Product release remains Online; retry resumes only incomplete work. Search is a discoverability projection and never Product authority.",
+        "Operators with `product.operations.read` can inspect active/previous release, pointer revision, manifest hash/version/record count, receipts, correlation ID, and projection states. Operators with `product.operations.manage` can run a bounded reconciliation retry. Customer reads, human operations, and internal publication transport retain separate permissions and token types."
+      ]
+    },
+    {
+      "heading": "Failure and recovery",
+      "migratedFrom": "nodics:gComm/product/docs/product-p0-operations.md",
+      "sourceAnchor": "failure-and-recovery",
+      "paragraphs": [
+        "duplicate Catalog record in Product.",
+        "module connection.",
+        "connection, then retry the same intent.",
+        "cannot be reactivated under the default policy.",
+        "Categories first.",
+        "cardinality, enumeration value, exact-number syntax, and Unit.",
+        "and confirm the Item, Class, and Definitions are active.",
+        "Definition and a unique axis position and Attribute for that base Item.",
+        "axes have values owned by that variant, and the semantic combination is new.",
+        "then retry the axis retirement.",
+        "associated schema/code/version, permission, enterprise, and configured mode.",
+        "never edit and resend a signed manifest under the same identity.",
+        "retry through `nPublish`; do not point Staged at the Online database.",
+        "or reconcile; do not overwrite the pointer outside its revision contract.",
+        "bypass validation with generated persistence APIs.",
+        "Creation and updates are safe to retry only according to the normal persistence contract of the calling integration. Product management does not add a separate bulk-import idempotency contract."
+      ],
+      "items": [
+        "Missing enterprise: authenticate in the correct enterprise context.",
+        "Unknown Catalog: create or activate it through `nCatalog`; do not create a",
+        "Unknown Unit: correct the Unit through Units or configure the proper Units",
+        "Provider unavailable: restore the authoritative module or its configured",
+        "Invalid lifecycle transition: choose an allowed next state. A retired record",
+        "Category retirement blocked: retire its active Item assignments and child",
+        "Attribute value rejected: verify its Definition type, locale, ordinal,",
+        "Classification activation rejected: add all required active Attribute Values",
+        "Variant axis rejected: use an active non-localized, single-valued Attribute",
+        "Variant assignment rejected: confirm the variant is sellable, all required",
+        "Axis retirement blocked: retire all Variant Assignments using that axis,",
+        "Publication rejected before Workflow: verify the root Item and every",
+        "Manifest rejected Online: investigate size, contract version, or integrity;",
+        "Online unavailable: restore the configured distinct module connection and",
+        "Pointer conflict: reload target status and let the governed lifecycle retry",
+        "Duplicate or ambiguous record: investigate identity/data quality; never"
+      ]
+    },
+    {
+      "heading": "Developer architecture",
+      "migratedFrom": "nodics:gComm/product/docs/product-p0-operations.md",
+      "sourceAnchor": "developer-architecture",
+      "paragraphs": [
+        "`productItem`, `productIdentifier`, `productCategory`, and `productCategoryAssignment`, `productAttributeDefinition`, `productAttributeValue`, `productClassificationClass`, and `productClassificationAssignment`, `productVariantAxis`, and `productVariantAssignment` are Product-owned schemas with generated internal services and disabled generated routers. Schema interceptors add authenticated enterprise scope, derive identities, validate references, enforce immutable fields, validate lifecycle transitions, and reject hard deletion.",
+        "`DefaultProductManagementService` exposes allow-listed human operations and safe fields. `DefaultProductItemReferenceService` exposes a service-token-only projection. `DefaultProductCatalogReferenceProviderService` composes the local `DefaultCatalogService`. `DefaultProductUnitsReferenceProviderService` composes the local or modular Units intent. `DefaultProductCategoryService` validates same-Catalog hierarchy, graph bounds, assignments, and safe retirement. `DefaultProductClassificationService` enforces typed storage, locale and cardinality rules, exact numbers, Unit references, required Class values, and classification dependency retirement. `DefaultProductVariantService` composes those existing Product authorities to validate axes and assignments. It derives canonical combinations, enforces sellable-variant and cardinality policy, traverses the association graph with a configured bound, and blocks unsafe axis retirement. It does not copy Attribute Values into a second value model. `DefaultProductCompositionService` validates relations, Bundle Entries, Packaging, and Product-owned Media References that point to `nMedia` media items or media sets without copying binary-storage or delivery authority. Publication services implement Product's domain adapter, immutable manifest, version provider, internal-token transport, Online target, Workflow bridge, and replaceable projection hook while delegating lifecycle to `nPublish`.",
+        "All limits, types, lifecycle transitions, and provider selections are layered under `product` in `properties.js`. Projects can override individual service methods or extend the effective schema in a later module."
+      ]
+    },
+    {
+      "heading": "Deployment and observability",
+      "migratedFrom": "nodics:gComm/product/docs/product-p0-operations.md",
+      "sourceAnchor": "deployment-and-observability",
+      "paragraphs": [
+        "Product can run in a consolidated composition or its own modular composition. Catalog must currently be co-hosted with Product; Units may be local or remote. Health/readiness should treat missing mandatory Product dependencies as a composition error before business traffic is admitted.",
+        "Use existing Nodics request, error, authentication, module-call, and database observability. Preserve correlation and authenticated actor context. Product does not introduce a new logger, registry, scheduler, cache engine, search engine, or event bus.",
+        "For high-volume variant families, keep `maximumAxesPerBase`, `maximumVariantsPerBase`, and `maximumHierarchyDepth` finite. The validation path performs bounded reads by enterprise, Catalog, base Item, axis, variant Item, and combination. Monitor validation latency and conflict error rates using the existing request and database telemetry.",
+        "For publication, monitor Workflow carrier, publication code, correlation ID, source version, dependency count, manifest bytes/hash, delivery attempts, target receipt, pointer revision, and rollback result. Back up Staged version history and the Online manifest, receipt, pointer, and non-versioned Product records using the configured database provider. Restore and reconciliation must preserve tenant and enterprise boundaries."
+      ]
+    },
+    {
+      "heading": "Backup, migration, and troubleshooting",
+      "migratedFrom": "nodics:gComm/product/docs/product-p0-operations.md",
+      "sourceAnchor": "backup-migration-and-troubleshooting",
+      "paragraphs": [
+        "Back up Product records using the configured database provider's governed backup process. Preserve both Items and Identifiers and their enterprise and Catalog scope. Import/export must use existing Nodics data capabilities; no Product-specific parallel importer exists.",
+        "Before changing identity rules, inventory all persisted references from Pricing, Inventory, and integrations. Product identity fields are immutable, so identity migration requires an explicitly designed migration rather than an ordinary update."
+      ]
+    },
+    {
+      "heading": "Verification",
+      "migratedFrom": "nodics:gComm/product/docs/product-p0-operations.md",
+      "sourceAnchor": "verification",
+      "paragraphs": [
+        "Run the focused tests listed in the module README, including `productCategoryContract.test.js` and `productClassificationContract.test.js` and `productVariantContract.test.js`, `productCompositionContract.test.js` and `productPublicationContract.test.js`, and `productOnlineDeliveryAndProjectionContract.test.js`. Then regenerate schema artifacts and run generated, configuration, documentation, and basic regression tests at the integration boundary. The complete positive, negative, boundary, security, integration, recovery, and regression mapping is maintained in `product-release-readiness.md`."
+      ]
+    },
+    {
+      "heading": "Complete guide: Product Release-Readiness Evidence",
+      "migratedFrom": "nodics:gComm/product/docs/product-release-readiness.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "This page records the verified P4 acceptance boundary for the implemented Product capability. It is an evidence map, not a second test runner or runtime authority. Product tests exercise Product behavior; Nodics release suites own cross-module and regression execution."
+      ]
+    },
+    {
+      "heading": "Acceptance evidence",
+      "migratedFrom": "nodics:gComm/product/docs/product-release-readiness.md",
+      "sourceAnchor": "acceptance-evidence",
+      "paragraphs": [
+        "| Required behavior | Expected result | Primary automated evidence |\n| --- | --- | --- |\n| Valid Product creation and references | Enterprise identity is derived and Catalog/Units references resolve | `productFoundationContract.test.js` |\n| Invalid type, reference, identity, or lifecycle input | Operation fails closed without creating a parallel authority | Foundation, Category, Classification, Variant, and Composition contract tests |\n| Tenant and enterprise isolation | Reads and writes cannot cross authenticated scope | `productFoundationContract.test.js`, `productManagementAndReferenceContract.test.js`, `productOnlineDeliveryAndProjectionContract.test.js` |\n| Human and internal authentication separation | Human management/operations use access tokens; publication and reference transport use service tokens | Management, Publication, and Online Delivery contract tests |\n| Missing exact source or frozen dependency | Publication is rejected before Online activation | `productPublicationContract.test.js` |\n| Oversized dependency graph or manifest | Configured bounds reject the release | `productPublicationContract.test.js` |\n| Duplicate submission or delivery | Existing immutable manifest and receipt are reused idempotently | `productPublicationContract.test.js` |\n| Unsupported contract or tampered manifest | Online rejects the payload before import or pointer activation | `productPublicationContract.test.js` |\n| Stale Online pointer revision | Atomic activation fails and the previous release remains active | `productPublicationContract.test.js` |\n| Target outage | Staged publication fails closed and the previous Online release remains authoritative | Product publication contract and modular topology publication probe |\n| Cache or search projection failure | Online activation remains valid; durable job records incomplete work | `productOnlineDeliveryAndProjectionContract.test.js` |\n| Projection retry | Reconciliation retries only unfinished work | `productOnlineDeliveryAndProjectionContract.test.js` |\n| Rollback | A previously accepted manifest is reactivated and a rollback receipt is retained | `productPublicationContract.test.js` |\n| Restart recovery | Module registration and publication state recover in modular topology | `startioLocalRuntimeTopology.test.js` |\n| Layered customization | Configured item types and providers remain replaceable without copying authorities | `productProviderAndOverrideContract.test.js` and the Product LLM examples |"
+      ]
+    },
+    {
+      "heading": "Operator acceptance procedure",
+      "migratedFrom": "nodics:gComm/product/docs/product-release-readiness.md",
+      "sourceAnchor": "operator-acceptance-procedure",
+      "paragraphs": [
+        "Staged enables Product versioning.",
+        "a human username/password token on the publication route.",
+        "active pointer revision, and projection job.",
+        "unchanged. Restore the target and retry through `nPublish`.",
+        "provider, and run bounded reconciliation.",
+        "cache invalidation, and search projection state.",
+        "Production sizing must use representative enterprise Catalog volume and the deployment's actual database, network, cache, and search providers. The contract tests prove correctness and bounds; they do not claim universal capacity figures."
+      ],
+      "items": [
+        "Confirm Staged and Online use separate databases or schemas and that only",
+        "Confirm the target connection uses internal module authentication. Never put",
+        "Publish an approved test release and verify its manifest hash, receipt,",
+        "Repeat the same delivery and verify that it creates no duplicate receipt.",
+        "Simulate an unavailable target and verify that the earlier Online pointer is",
+        "Simulate a search projection failure, verify the `PARTIAL` job, restore the",
+        "Roll back to the earlier accepted manifest and verify the pointer, receipt,"
+      ]
+    },
+    {
+      "heading": "Verification commands",
+      "migratedFrom": "nodics:gComm/product/docs/product-release-readiness.md",
+      "sourceAnchor": "verification-commands",
+      "paragraphs": [
+        "Run every `gComm/product/test/*.test.js` test, then regenerate LLM context and run `npm run build`, `npm run quality:docs`, and `npm run test:full`. The release is acceptable only when focused, generated, security, topology, integration, and regression checks all pass.",
+        "When a Product source, configuration, contract, or test changes, regenerate the module context rather than editing `llm/generated/` by hand."
+      ]
+    },
+    {
+      "heading": "Business Purpose",
+      "migratedFrom": "nodics:gComm/store/docs/store-foundation.md",
+      "sourceAnchor": "business-purpose",
+      "paragraphs": [
+        "A Store represents the customer-facing business unit through which an enterprise sells, serves, hands over, or accepts returned products. A Store can be physical, online, hybrid, a dark store, or a pickup point. A Store is not a warehouse: it may hold no inventory authority and may be served by zero, one, or many Inventory warehouses."
+      ]
+    },
+    {
+      "heading": "Ownership Boundary",
+      "migratedFrom": "nodics:gComm/store/docs/store-foundation.md",
+      "sourceAnchor": "ownership-boundary",
+      "paragraphs": [
+        "`gComm/store` owns Store identity, lifecycle, descriptive channels/capabilities, Store-to-Warehouse assignment policy, and the commercial association between Stores and CMS Sites. `gComm/inventory` owns Warehouse identity and lifecycle. `gContent/cms` owns Site, content-catalog, page, template, component, and content state. Store records references and validates them through their owning modules; it does not copy Warehouse or CMS state.",
+        "Address, geography, product, stock, availability, reservation, sourcing, POS, and customer-channel authorities are outside this slice. Pricing owns Price Lists and validates Store-scoped assignments through Store. `addressRef`, `channels`, country codes, and locale codes remain references/applicability metadata, not copied master data."
+      ]
+    },
+    {
+      "heading": "Data Contracts",
+      "migratedFrom": "nodics:gComm/store/docs/store-foundation.md",
+      "sourceAnchor": "data-contracts",
+      "paragraphs": [
+        "This heading groups the detailed subsections that immediately follow."
+      ]
+    },
+    {
+      "heading": "Store",
+      "migratedFrom": "nodics:gComm/store/docs/store-foundation.md",
+      "sourceAnchor": "store",
+      "paragraphs": [
+        "Business users provide `storeCode`, `name`, type, optional country/timezone/address reference, channels, capabilities, external references, and effective dates. The persistence boundary derives `code` as `enterprise::store::storeCode` and supplies enterprise ownership from authenticated claims.",
+        "Default types are `PHYSICAL`, `ONLINE`, `HYBRID`, `DARK_STORE`, and `PICKUP_POINT`. Default states are `DRAFT`, `ACTIVE`, `SUSPENDED`, and `RETIRED`."
+      ]
+    },
+    {
+      "heading": "Store Warehouse Assignment",
+      "migratedFrom": "nodics:gComm/store/docs/store-foundation.md",
+      "sourceAnchor": "store-warehouse-assignment",
+      "paragraphs": [
+        "An assignment connects exactly one Store to exactly one Inventory Warehouse in the same enterprise. The derived identity is `enterprise::storeWarehouse::storeCode::warehouseCode`. `purposes` is required; defaults supported by configuration are `FULFILLMENT`, `PICKUP`, `RETURNS`, and `REPLENISHMENT`. Lower `priority` values indicate earlier consideration within the same purpose, but this slice does not implement sourcing selection.",
+        "Effective dates describe intended validity. They do not start a scheduler. Consumers must apply effective-date rules when that behavior is implemented."
+      ]
+    },
+    {
+      "heading": "Store Content Site Binding",
+      "migratedFrom": "nodics:gComm/store/docs/store-foundation.md",
+      "sourceAnchor": "store-content-site-binding",
+      "paragraphs": [
+        "A binding connects one CMS-owned Site to a bounded, unique list of Store codes inside one authenticated enterprise. This supports one Store with several country/channel Sites and one shared Site serving several Stores. `cmsSiteCode` is uniquely claimed by one binding in the tenant, so it cannot silently become a cross-enterprise authority path. A primary Store may be selected only from `storeCodes`.",
+        "The derived identity is `enterprise::storeSite::bindingCode`. Optional channels, countries, locales, priority, and effective dates describe applicability. Store retirement is rejected while a non-retired Site binding still references that Store. The binding does not select pages or execute templates; CMS and the separate frontend retain those responsibilities."
+      ]
+    },
+    {
+      "heading": "Operating Procedure",
+      "migratedFrom": "nodics:gComm/store/docs/store-foundation.md",
+      "sourceAnchor": "operating-procedure",
+      "paragraphs": [
+        "Expected rejection cases include missing enterprise claims, cross-enterprise payload/query values, invalid business codes, missing or retired Store/Warehouse targets, missing CMS Sites, duplicate Site ownership, invalid/duplicate Store lists, an invalid primary Store, unknown purposes, out-of-range priority, reversed effective dates, forbidden lifecycle transitions, identity changes, Store retirement with live dependencies, and hard deletion."
+      ],
+      "items": [
+        "Confirm the authenticated operator belongs to the target enterprise.",
+        "Create a Store in `DRAFT`; check its identity, country, timezone, address reference, and classification.",
+        "Activate the Store only after business review.",
+        "Create the required Inventory Warehouses separately. They remain authoritative in Inventory.",
+        "Create one assignment per Store/Warehouse pair. Select one or more purposes and a non-negative priority.",
+        "Activate assignments after both endpoints and effective dates are verified.",
+        "Suspend an assignment to stop future consumers from considering it without destroying history.",
+        "To retire a Store, retire all of its assignments first, then retire the Store.",
+        "Create required CMS Sites/catalogs in CMS, then create and activate Store Site bindings.",
+        "Retire all live Site bindings before retiring a referenced Store."
+      ]
+    },
+    {
+      "heading": "Configuration And Customization",
+      "migratedFrom": "nodics:gComm/store/docs/store-foundation.md",
+      "sourceAnchor": "configuration-and-customization",
+      "paragraphs": [
+        "Defaults live in `config/properties.js`. Later layers may extend Store types, assignment purposes, priority boundaries, lifecycle transitions, management limits, and local/remote Warehouse reference settings. Prefer configuration before replacing services.",
+        "If a project needs a rule configuration cannot express, override the smallest foundation/provider service in a later module. Preserve enterprise isolation, deterministic identity, owning-module reference validation, no-hard-delete behavior, and lifecycle history. Do not copy schemas, loaders, registries, or Warehouse state. Storefront, not Store, owns website composition."
+      ]
+    },
+    {
+      "heading": "Security And Authorization",
+      "migratedFrom": "nodics:gComm/store/docs/store-foundation.md",
+      "sourceAnchor": "security-and-authorization",
+      "paragraphs": [
+        "Generated schema routers remain disabled. Explicit `/management/:resource` intent routes accept human access tokens and require `store.backoffice.read` or `store.backoffice.manage`. The `/references/stores/resolve` intent accepts service tokens only. Authentication claims are the enterprise authority; payload/query values may never override them.",
+        "Human username/password login remains a Profile concern. Module-to-module authentication must use the existing internal token contract; Store does not create another authentication path."
+      ]
+    },
+    {
+      "heading": "Operations, Performance, And Observability",
+      "migratedFrom": "nodics:gComm/store/docs/store-foundation.md",
+      "sourceAnchor": "operations-performance-and-observability",
+      "paragraphs": [
+        "Composite indexes scope Store codes by enterprise and assignments by enterprise plus Store/Warehouse. Consumers should query with enterprise and business keys, use bounded limits, and avoid scanning all assignments. Foundation errors use `ERR_STORE_*` codes. Do not log authentication tokens or secret external credentials; `externalReferences` is for non-secret identifiers only.",
+        "Warehouse validation supports both topologies. Co-hosted modules use the generated Inventory service locally. Separately hosted modules use Nodics module communication and Inventory's service-token-only reference route. Remote requests carry a tenant-scoped internal bearer token and authenticated enterprise header, use configured timeout/retry limits, and accept bounded projections. No association persists before pre-save validation succeeds.",
+        "Configure Inventory through `store.warehouseReference`, management limits through `store.management`, and Store reference policy through `store.referenceLookup`. Tokens and endpoint secrets do not belong there; Nodics supplies runtime internal tokens and resolves endpoints through `servers` configuration.",
+        "Back up Store and assignment collections with the tenant database. Restore both while preserving derived codes and references. Restore Inventory consistently before revalidating assignments."
+      ]
+    },
+    {
+      "heading": "Troubleshooting",
+      "migratedFrom": "nodics:gComm/store/docs/store-foundation.md",
+      "sourceAnchor": "troubleshooting",
+      "items": [
+        "Enterprise context required: authenticate with an enterprise-bound principal; do not add enterprise ownership only to the payload.",
+        "Warehouse capability required or warehouse missing: start/configure Inventory and confirm the Warehouse exists in the same tenant and enterprise.",
+        "Remote lookup unavailable: verify `servers.inventory`, Inventory routing, the internal token, enterprise header, network path, and timeout policy. Never bypass validation or copy Warehouse state into Store.",
+        "Store cannot retire: list non-retired Warehouse assignments, retire them, then retry. Storefront references should be handled by the Storefront lifecycle before a Store is retired.",
+        "Classification rejected: inspect the effective layered Store configuration and add the classification through a later module with tests.",
+        "Identity immutable: create a replacement record and retire the old record; do not rename identity fields in place."
+      ]
+    },
+    {
+      "heading": "Verification",
+      "migratedFrom": "nodics:gComm/store/docs/store-foundation.md",
+      "sourceAnchor": "verification",
+      "paragraphs": [
+        "Run focused tests first:",
+        "```bash\nnode gComm/store/test/storeFoundationSchemaContract.test.js\nnode gComm/store/test/storeFoundationService.test.js\nnode gComm/store/test/storeManagementContract.test.js\n```",
+        "Then regenerate governed artifacts and run repository gates:",
+        "```bash\nnpm run llm:generate\nnpm run llm:validate\nnpm run quality:docs\nnpm run build\nnpm run test:basic\n```",
+        "The tests cover positive creation and associations, multi-Store Site binding, enterprise isolation, human/service auth boundaries, bounded projections, invalid codes/lists, missing references, duplicate Site ownership, priority/lifecycle rejection, immutable identity, safe retirement, hard-delete rejection, private generated routers, explicit intent routes, local/remote transport, and layered customization."
+      ]
+    },
+    {
+      "heading": "Complete guide: Store and Storefront Integration",
+      "migratedFrom": "nodics:gComm/store/docs/store-site-and-integration.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "Store owns Store identity, lifecycle, and Store-to-Warehouse assignments. It exposes a bounded service-token reference API so Pricing, Storefront, and other modules can validate active Stores without copying them.",
+        "Storefront owns hostname, CMS Site, and Store composition. CMS owns Sites and content catalogs. This replaces the earlier Store-owned Site-binding path, which was removed to prevent duplicate authority.",
+        "For setup examples, human and service authentication, exact-host rules, operations, troubleshooting, and verification, read [Storefront Foundation](/docs/reference/commerce) and [How To Model Stores And Website Experiences](/docs/capabilities/commerce/storefront/modeling)."
+      ]
+    },
+    {
+      "heading": "What problem does this solve?",
+      "migratedFrom": "nodics:gExp/storefront/docs/storefront-foundation.md",
+      "sourceAnchor": "what-problem-does-this-solve",
+      "paragraphs": [
+        "An enterprise may operate `apparel.nodics.com` and `electronics.nodics.com` in the same tenant. Each hostname can select a different CMS Site, content catalog, Store, product catalog, language, currency, country, and channel. Storefront holds that customer-experience composition without copying records owned by other modules.",
+        "Configure it in this order:"
+      ],
+      "items": [
+        "CMS creates the Site and owns its content catalog relationship.",
+        "Store creates commercial or physical Store records.",
+        "nCatalog owns catalogs; Storefront validates product catalog codes through that existing authority.",
+        "Storefront creates a `storefront` record referencing one CMS Site and one or more Stores.",
+        "Storefront creates `storefrontEndpoint` records mapping exact hostnames to that Storefront.",
+        "After review, operators activate both records. A customer request can then resolve the context."
+      ]
+    },
+    {
+      "heading": "The two records",
+      "migratedFrom": "nodics:gExp/storefront/docs/storefront-foundation.md",
+      "sourceAnchor": "the-two-records",
+      "paragraphs": [
+        "`storefront` is tenant-local and enterprise-owned. Its stable identity is `storefrontCode`. Every default Store, product catalog, locale, currency, or channel must belong to its corresponding list. CMS Site and Store references are checked through their owning modules before persistence.",
+        "`storefrontEndpoint` is stored in the configured bootstrap tenant, `default` by default. Nodics needs this small global lookup because the hostname discovers the target tenant. It maps one normalized exact DNS hostname to `tenantCode`, `enterpriseCode`, and `storefrontCode`. Wildcards, URL strings, ports, IP addresses, user information, and single-label hosts are rejected.",
+        "Several endpoint records may point to the same Storefront. One Storefront can reference several Stores, so one CMS Site may intentionally serve those Stores without duplicating CMS ownership."
+      ]
+    },
+    {
+      "heading": "Beginner example",
+      "migratedFrom": "nodics:gExp/storefront/docs/storefront-foundation.md",
+      "sourceAnchor": "beginner-example",
+      "paragraphs": [
+        "Create the tenant-local Storefront through protected management:",
+        "```json\n{\n  \"storefrontCode\": \"electronicsWeb\",\n  \"name\": \"Electronics UAE\",\n  \"cmsSiteCode\": \"electronicsSite\",\n  \"storeCodes\": [\"electronicsDubai\", \"electronicsAbuDhabi\"],\n  \"defaultStoreCode\": \"electronicsDubai\",\n  \"productCatalogCodes\": [\"electronicsProduct\"],\n  \"defaultProductCatalogCode\": \"electronicsProduct\",\n  \"countryCodes\": [\"AE\"],\n  \"defaultCountryCode\": \"AE\",\n  \"localeCodes\": [\"en-AE\", \"ar-AE\"],\n  \"defaultLocaleCode\": \"en-AE\",\n  \"currencyCodes\": [\"AED\"],\n  \"defaultCurrencyCode\": \"AED\",\n  \"channelCodes\": [\"WEB\"],\n  \"defaultChannelCode\": \"WEB\",\n  \"status\": \"DRAFT\"\n}\n```",
+        "Then create its endpoint:",
+        "```json\n{\n  \"hostname\": \"electronics.nodics.com\",\n  \"storefrontCode\": \"electronicsWeb\",\n  \"canonical\": true,\n  \"scheme\": \"https\",\n  \"status\": \"DRAFT\"\n}\n```",
+        "The authenticated request supplies enterprise and tenant ownership. Clients must not supply or trust `enterpriseCode`; Nodics derives it from the human access token. Activate the Storefront first, then its endpoint.",
+        "Only one non-retired endpoint may be canonical for a Storefront. Alias endpoints set `canonical` to `false`. An endpoint cannot become `ACTIVE` until its target Storefront is active. Retire every endpoint before retiring the Storefront. Invalid schemes, statuses, lifecycle transitions, and effective dates fail before persistence.",
+        "New and updated endpoints receive a derived `canonicalKey` protected by a sparse unique index. The sparse index permits an in-place upgrade from the first Storefront release; update legacy endpoint records once during deployment to backfill the key before relying on database-level race protection."
+      ]
+    },
+    {
+      "heading": "APIs and identity separation",
+      "migratedFrom": "nodics:gExp/storefront/docs/storefront-foundation.md",
+      "sourceAnchor": "apis-and-identity-separation",
+      "paragraphs": [
+        "Human operators use access tokens and `storefront.backoffice.read` or `storefront.backoffice.manage` on `/management/storefronts` and `/management/endpoints`. Operations users use an access token with `storefront.operations.read` on `/operations/diagnostics`. Both services reject module service identities, providing defense beyond route configuration.",
+        "Customer clients use public `GET /context/resolve`. The resolver uses only the trusted HTTP request hostname. A `hostname` in query or body input is ignored. The result excludes tenant and enterprise internals and returns a client-safe Site, Store, catalog, locale, currency, country, and channel context."
+      ]
+    },
+    {
+      "heading": "Public delivery contract and client compatibility",
+      "migratedFrom": "nodics:gExp/storefront/docs/storefront-foundation.md",
+      "sourceAnchor": "public-delivery-contract-and-client-compatibility",
+      "paragraphs": [
+        "The resolver has an explicit, independently versioned delivery contract. A client may send `x-nodics-client-contract-version` with a positive integer. When the header is absent, Storefront assumes the configured minimum supported version. The response includes `x-nodics-storefront-contract-version` and `x-request-id`, allowing support teams to correlate a client response without exposing tenant or enterprise authority.",
+        "Minor compatible releases may add optional fields. Removing or changing the meaning or type of an existing field requires increasing `contractVersion`; deployments must retain a suitable compatibility window by configuring `minimumClientContractVersion`. These values belong in layered `properties.js`, not `package.json`.",
+        "Successful responses use the configured `Cache-Control` policy and an ETag calculated from stable client data, excluding the per-request correlation ID. A repeated request with a matching `If-None-Match` receives HTTP 304 without a response body. HTTP 429 from nRouter and HTTP 503 from Storefront capacity protection include `Retry-After`; clients should wait that duration and then retry with bounded backoff. Exact success, error, header, compatibility, and conditional-response shapes are published in the generated OpenAPI contract.",
+        "Example request:",
+        "```http\nGET /context/resolve HTTP/1.1\nHost: electronics.nodics.com\nx-nodics-client-contract-version: 1\nIf-None-Match: \"previous-etag\"\n```",
+        "Applications should treat the Storefront response as bootstrap context. They pass only the documented routing hints to CMS, Product, Pricing, and Inventory; they never forward a tenant, enterprise, permission, human token, or internal service token from this payload. Each target module remains authoritative for trusted identity, access, and business validation."
+      ],
+      "items": [
+        "A supported client version receives HTTP 200 and `compatibility.state: COMPATIBLE`.",
+        "A client newer than the server receives HTTP 200 and `compatibility.state: DEGRADED`; it must use only fields it understands.",
+        "A client older than `minimumClientContractVersion` receives HTTP 426 with stable error `ERR_STOREFRONT_00015`.",
+        "A malformed or non-positive version receives HTTP 400 with `ERR_STOREFRONT_00012`."
+      ]
+    },
+    {
+      "heading": "Opaque context access for direct module delivery",
+      "migratedFrom": "nodics:gExp/storefront/docs/storefront-foundation.md",
+      "sourceAnchor": "opaque-context-access-for-direct-module-delivery",
+      "paragraphs": [
+        "Every successful HTTP 200 resolution issues `contextAccess.handle`, its required header name, and its short lifetime. The value is cryptographically random and opaque: it is not a JWT and contains no browser-readable tenant, enterprise, permission, service token, or routing payload. The client sends it as `x-nodics-storefront-context` to a supported direct delivery endpoint. HTTP 304 does not issue a new handle; refresh the Storefront context when the previous handle expires.",
+        "The handle is a short-lived bearer reference. Opacity prevents clients from reading or editing its context, but it does not prove which browser currently possesses it. Use TLS, prevent referrer/header logging, avoid durable browser storage, apply the existing nRouter edge controls, and keep the lifetime short. A client presenting the Apparel handle always receives Apparel-derived projections even if its payload claims Electronics values.",
+        "Call public `POST /context/refresh` before expiry to rotate a handle. Rotation atomically consumes the predecessor, so only one concurrent refresh can succeed and the previous handle becomes inactive immediately. If creation of the successor fails after consumption, the client must resolve the hostname again; Storefront chooses denial over restoring ambiguous security state. An authenticated module may call `POST /context/revoke` with its service token and a handle. Exact-key invalidation uses the same `DefaultCacheService` channel and distributed invalidation contract; it does not create a revocation database or second registry.",
+        "For a compromised or administratively disabled Storefront, an operations user with `storefront.operations.manage` calls `POST /operations/context-access/revoke-storefront`. Storefront replaces that tenant/enterprise/Storefront generation, making every handle issued under an earlier generation inactive without scanning cache keys. Moving a Storefront to `SUSPENDED` or `RETIRED` invokes the same operation before persistence; if generation storage is unavailable, the lifecycle change fails instead of claiming that immediate revocation succeeded. Reactivation does not restore an older handle. Newly resolved handles use the latest generation.",
+        "```http\nPOST /nodics/storefront/v0/operations/context-access/revoke-storefront HTTP/1.1\nAuthorization: Bearer <human access token>\nContent-Type: application/json\n\n{\"storefrontCode\":\"electronicsWeb\",\"reason\":\"suspected context theft\"}\n```",
+        "The route derives tenant and enterprise from the authenticated human request. A service token cannot use this operator route, while the exact-handle internal revocation route continues requiring a service token. This preserves human and module identity separation.",
+        "Anonymous clients remain unbound by default. A higher-risk deployment may enable `contextAccess.binding.enabled` and require a client-generated random value of at least 32 characters in `x-nodics-storefront-binding`. The client sends the same value when resolving and calling CMS, Product, Pricing, or Inventory, and supplies it as `binding` when refreshing. Storefront stores only its SHA-256 digest, uses timing-safe comparison, and fails closed on missing or wrong proof. This reduces replay when a handle is stolen without its separate binding value, but it is not device attestation. Never derive the value from IP address, user agent, tenant, or a human access token. Human login/logout and Storefront context remain separate identity lifecycles.",
+        "```http\nPOST /nodics/storefront/v0/context/refresh HTTP/1.1\nContent-Type: application/json\n\n{\"handle\":\"<current opaque handle>\"}\n```",
+        "Storefront stores the ephemeral active-state record through `DefaultCacheService`. A target module authenticates itself with the existing module service token and calls `POST /context/introspect` with the handle and its own audience. Storefront returns `active: true` only when the handle exists, is unexpired, permits that audience, and its cache state is readable. It returns only that module's context projection. Invalid syntax, expiry, wrong audience, cache miss, cache outage, and ambiguous state return inactive; the customer request then fails closed.",
+        "Product, CMS, Pricing, and Inventory are implemented consumers. Call `GET /online/storefront/items/:itemType/:itemCode` for Product, `GET /delivery/storefront/pages/resolve?path=/home` for CMS, `POST /delivery/storefront/prices/resolve` for Pricing, or `POST /delivery/storefront/stock-availability/evaluate` for Inventory with the handle. Product derives tenant, enterprise, Product Catalog, and locale; CMS derives tenant, enterprise, Site, locale, and channel; Pricing derives tenant, enterprise, Site, Store, currency, and channel; Inventory derives tenant, enterprise, Store, country, and channel. Each replaces or ignores caller scope overrides and retains its own data, identity, bounds, cache, and delivery authority.",
+        "For a single Storefront node, the local cache engine is sufficient. Multi-node or autoscaled Storefront deployments must select an enabled shared Redis or supported distributed engine for the `contextAccess` channel; otherwise issuance, rotation, revocation, and introspection may disagree between nodes and safely deny traffic. The engine must provide TTL, atomic consume, exact-key invalidation, and distributed consistency. Never enable cache fallback for this channel: silently moving security state to a different provider would make active-state decisions topology-dependent. Keep TLS, module authentication, rate limits, response bounds, sanitized audit records, and short timeouts enabled on introspection.",
+        "Lifecycle diagnostics expose only aggregate issued, refreshed, individually revoked, bulk-revoked, and rejected counts. They never contain handles, binding values, generations, hashes, tenant codes, or context. Alert on unusual refresh rejection, bulk revocation, or cache error rates, and investigate with request IDs rather than secrets. During a cache incident, introspection and refresh fail closed; clients resolve again after the provider is healthy. During suspected theft, revoke the exact handle or the affected Storefront, rotate relevant client state, and review whether optional binding and a shorter TTL should be enabled.",
+        "`generationTtlSeconds` must always exceed `ttlSeconds`; the default is 360 seconds for a 120-second handle. This guarantees that a revocation marker outlives every handle it invalidates. Keep both records in the same non-fallback `contextAccess` channel. Cache eviction or a full security-channel loss also removes active handles, so access fails closed. Do not persist generations in a new database or add a cache-key index."
+      ]
+    },
+    {
+      "heading": "Audit evidence and incident response",
+      "migratedFrom": "nodics:gExp/storefront/docs/storefront-foundation.md",
+      "sourceAnchor": "audit-evidence-and-incident-response",
+      "paragraphs": [
+        "`DefaultStorefrontContextAuditService` records sanitized outcomes for issuance, refresh rejection and success, individual revocation, bulk revocation, lifecycle-triggered revocation, and security-state write failure. Approved fields are event type, outcome, stable reason code, operation, audience, request correlation, Storefront scope, and timestamp. A human principal ID and token type are included only after an authenticated administrative operation. Handles, bindings, hashes, generations, context data, authorization headers, passwords, cookies, remote payloads, and free-form operator reasons are always discarded.",
+        "By default, evidence is written through the module logger and delivery failures do not reverse a completed revocation. Configure `publisherService` only for an existing audit writer exposing `record(event)`. To bridge sanitized events to NEMS, enable `events` and retain `DefaultEventService`; its configured module transport and event delivery remain authoritative. Storefront does not implement a retry queue, audit database, or message broker client.",
+        "High-volume successful issuance is deterministically sampled with `issueSuccessSampleRate`, `0.1` by default. A value of `1` records every success and `0` suppresses successful-issuance evidence. Refresh rejection, individual revocation, bulk revocation, lifecycle revocation, and every failure are never sampled. Sampling changes telemetry volume only; it never changes handle issuance, validation, or cache state.",
+        "```js\nmodule.exports = {\n    storefront: {\n        contextAccess: {\n            audit: {\n                enabled: true,\n                publisherService: 'ProjectAuditPublisherService',\n                events: {\n                    enabled: true,\n                    publisherService: 'DefaultEventService',\n                    eventName: 'storefront.context.lifecycle',\n                    target: 'storefront',\n                    type: 'ASYNC'\n                }\n            }\n        },\n        observability: {\n            thresholds: {\n                contextAccessRejected: 20,\n                contextAccessBulkRevoked: 5,\n                contextAuditDeliveryFailures: 1\n            }\n        }\n    }\n};\n```",
+        "For an incident, an operator should:",
+        "Alerts `CONTEXT_ACCESS_REJECTION_RATE`, `CONTEXT_ACCESS_BULK_REVOCATION_RATE`, and `CONTEXT_AUDIT_DELIVERY_FAILURE` are derived from configurable process counters. They are operational signals, not a durable evidence ledger. Evidence retention, legal hold, backup, access control, encryption, and deletion periods belong to the configured enterprise audit destination.",
+        "This design follows the active-state and protected-introspection model of RFC 7662 and the resource-local enforcement principle of zero-trust architecture. It is deliberately not a general OAuth access token and grants no mutation permission.",
+        "```http\nGET /nodics/product/v0/online/storefront/items/SKU/IPHONE-17 HTTP/1.1\nHost: product.example.internal\nx-nodics-storefront-context: <opaque handle from Storefront>\n```",
+        "```http\nPOST /nodics/pricing/v0/delivery/storefront/prices/resolve HTTP/1.1\nContent-Type: application/json\nx-nodics-storefront-context: <opaque handle from Storefront>\n\n{\"item\":{\"itemType\":\"SKU\",\"itemCode\":\"IPHONE-17\"},\"quantity\":\"1\",\"unitCode\":\"piece\"}\n```",
+        "```http\nPOST /nodics/inventory/v0/delivery/storefront/stock-availability/evaluate HTTP/1.1\nContent-Type: application/json\nx-nodics-storefront-context: <opaque handle from Storefront>\n\n{\"item\":{\"itemType\":\"SKU\",\"itemCode\":\"IPHONE-17\",\"unitCode\":\"piece\"}}\n```",
+        "The response also provides a `downstream` convenience projection. It maps the same resolved values to the parameter names currently consumed by CMS, Product, Pricing, and Inventory. These values are routing hints, not delegated authority: every target module continues deriving tenant and enterprise through its own trusted request pipeline and validating its own business rules.",
+        "```json\n{\n  \"downstream\": {\n    \"cms\": { \"site\": \"electronicsSite\", \"locale\": \"en-AE\", \"channel\": \"WEB\" },\n    \"product\": { \"catalogCode\": \"electronicsProduct\", \"locale\": \"en-AE\" },\n    \"pricing\": { \"siteCode\": \"electronicsSite\", \"storeCode\": \"electronicsDubai\", \"currencyCode\": \"AED\", \"channelCode\": \"WEB\" },\n    \"inventory\": { \"storeCode\": \"electronicsDubai\", \"countryCode\": \"AE\", \"channelCode\": \"WEB\" }\n  }\n}\n```",
+        "When modules run separately, Storefront uses Nodics internal service authentication. Co-hosted deployments call the same owning services locally. `properties.js` controls module paths, timeout, attempts, and local preference; there is no second registry or direct cross-module database authority."
+      ],
+      "items": [
+        "Confirm the affected tenant, enterprise, and Storefront from trusted management data—not from a reported handle.",
+        "Invoke Storefront-wide revocation with a bounded reason category and retain the request ID.",
+        "Verify `bulkRevoked` increased and that older handles introspect as inactive.",
+        "Check `contextAudit` delivery counters and the configured audit/NEMS destination using the request ID.",
+        "If evidence publication failed, keep the revocation in force and restore the existing audit or event delivery authority; do not reissue old handles.",
+        "Shorten handle TTL or enable binding through governed runtime configuration when the risk assessment requires it.",
+        "Resolve fresh contexts only after the Storefront and dependent modules are confirmed healthy."
+      ]
+    },
+    {
+      "heading": "Lifecycle, operations, and performance",
+      "migratedFrom": "nodics:gExp/storefront/docs/storefront-foundation.md",
+      "sourceAnchor": "lifecycle-operations-and-performance",
+      "paragraphs": [
+        "Both records use `DRAFT`, `ACTIVE`, `SUSPENDED`, and `RETIRED`. Hard deletion is rejected so routing history remains auditable. Effective dates can further bound active records. Publish DNS or gateway changes only after records are active; suspend or retire an endpoint before taking the experience offline.",
+        "Context resolution uses Nodics `DefaultCacheService`; Storefront does not implement or call a cache provider directly. The deterministic key is an opaque SHA-256 value derived from the normalized trusted hostname. The entry is partitioned by the configured bootstrap tenant, contains a Storefront cache-contract version, and expires after a bounded TTL. By default the `context` channel uses the local NodeCache provider for 60 seconds.",
+        "After a Storefront or hostname endpoint is created or updated, schema post-interceptors flush the `storefrontContext:` prefix. The existing nCache contract propagates that invalidation to peer nodes when the selected provider is node-local and suppresses redundant propagation for shared providers. Lifecycle changes, hostname changes, composition-reference changes, and default-context changes therefore use the same invalidation path. The public router cache remains disabled because this service-level cache owns the context key and mutation contract; enabling both would introduce two stale-response paths.",
+        "Cache is an optimization, never routing authority. A miss, disabled channel, unsupported cached contract version, or provider failure falls through to database-backed endpoint and Storefront resolution. Failed authoritative resolution is not cached, so an unknown or inactive hostname cannot become a durable negative entry. The TTL bounds stale exposure if an invalidation event is lost.",
+        "Configure the provider in a later project, environment, server, or node `properties.js` layer:",
+        "```js\nmodule.exports = {\n    cache: {\n        storefront: {\n            channels: {\n                context: { enabled: true, fallback: true, engine: 'redis', ttl: 60 }\n            }\n        }\n    },\n    storefront: {\n        contextCache: { enabled: true, ttlSeconds: 60 }\n    }\n};\n```",
+        "Use `engine: 'local'`, `engine: 'redis'`, or `engine: 'hazelcast'` only when that engine is enabled by the effective deployment. A connection URL does not enable an engine. Keep the channel TTL and `contextCache.ttlSeconds` aligned; `contextCache.ttlSeconds` controls each Storefront write. Set `contextCache.enabled: false` for direct authoritative resolution during incident diagnosis. Change `contractVersion` when a later module makes an incompatible cached-value change; older entries will be ignored and refreshed."
+      ]
+    },
+    {
+      "heading": "Traffic resilience and runtime behavior",
+      "migratedFrom": "nodics:gExp/storefront/docs/storefront-foundation.md",
+      "sourceAnchor": "traffic-resilience-and-runtime-behavior",
+      "paragraphs": [
+        "The public resolver uses three existing or composed protection layers:",
+        "All Storefront policies are read from effective `CONFIG` at operation time. A runtime property activation can therefore change TTL, negative TTL, concurrency, queue size, coalescing, timeout, attempts, response bounds, provider preference, readiness requirements, and alert thresholds without changing Storefront source. Existing runtime configuration preview, approval, audit, activation, rollback, and tenant governance remain authoritative; do not add a Storefront-specific configuration database or loader.",
+        "```js\nmodule.exports = {\n    storefront: {\n        traffic: {\n            enabled: true,\n            requireHttpRateLimit: true,\n            coalescingEnabled: true,\n            maximumConcurrentResolutions: 64,\n            maximumQueuedResolutions: 256,\n            maximumInFlightKeys: 512\n        },\n        contextCache: {\n            negativeCachingEnabled: true,\n            negativeTtlSeconds: 5\n        },\n        cmsSiteReference: {\n            requestTimeoutMs: 2000,\n            maximumAttempts: 2,\n            maximumResponseBytes: 262144\n        },\n        storeReference: {\n            requestTimeoutMs: 2000,\n            maximumAttempts: 2,\n            maximumResponseBytes: 262144\n        }\n    }\n};\n```",
+        "An unknown or inactive valid hostname receives `ERR_STOREFRONT_00009`. When enabled, that result is cached for only `negativeTtlSeconds` to suppress repeated database scans during invalid-host traffic. Invalid hostname syntax is rejected before cache access and is never cached. Creating, activating, suspending, retiring, or changing an endpoint flushes the same `storefrontContext:` namespace, so activating a previously unknown hostname removes its negative entry. Keep negative TTL lower than the positive TTL.",
+        "When capacity is exhausted, excess distinct-host work receives `ERR_STOREFRONT_00014` with HTTP 503. Requests already executing continue. Identical-host requests share one promise and every success or failure removes its in-flight key. Operators may raise or lower concurrency at runtime; queued work uses the latest effective value when the scheduler drains. Large increases must follow database, cache, CMS, Store, connection-pool, and event-loop capacity testing.",
+        "Remote reference POSTs are read-only and carry an internal idempotency key, allowing `DefaultModuleService` to apply bounded retry safely. The shared `serviceCommunication.retry` policy decides retryable status/error codes and backoff; `storefront.cmsSiteReference.maximumAttempts` and `storefront.storeReference.maximumAttempts` cap attempts for these calls. The shared circuit breaker prevents repeated network calls during target outages. Redirects are disabled and response sizes are bounded.",
+        "The Nodics request pipeline supplies the trusted normalized `request.host`. Query and body hostnames are ignored. `X-Forwarded-Host` is ignored unless both the Storefront `host.trustForwardedHost` policy and deployment proxy trust are deliberately enabled. A forwarded-host policy with disabled nRouter proxy trust is configuration-invalid. Configure the trusted proxy boundary at the environment/server layer; never enable it only to make an individual request work.",
+        "Monitor success and `ERR_STOREFRONT_*` by hostname, correlation ID, module, and status code. Use nCache diagnostics for Storefront `context` hit, miss, put, error, and prefix-flush outcomes. Never log access tokens, internal tokens, full customer headers, or unhashed cache-key material. Alert on a falling hit ratio, repeated provider errors, failed invalidation, missing active contexts, CMS/Store reference failures, and latency approaching reference timeouts."
+      ],
+      "items": [
+        "nRouter `httpHardening.rateLimit` owns edge-facing per-process HTTP throttling. Storefront does not implement a second IP-address authority.",
+        "`DefaultStorefrontTrafficService` coalesces simultaneous requests for the same opaque hostname key and bounds distinct active/queued resolutions.",
+        "`DefaultModuleService` owns remote CMS/Store timeout, safe retry, connection pooling, and per-target circuit breaking."
+      ]
+    },
+    {
+      "heading": "Production diagnostics and readiness",
+      "migratedFrom": "nodics:gExp/storefront/docs/storefront-foundation.md",
+      "sourceAnchor": "production-diagnostics-and-readiness",
+      "paragraphs": [
+        "Storefront registers these checks with the existing secured nSystem readiness details:",
+        "`GET /operations/diagnostics` returns a `READY`, `DEGRADED`, or `NOT_READY` assessment, stable alert codes, provider availability, observed CMS/Store success and failure counters, aggregate resolution latency and outcomes, and tenant-redacted nCache operation totals. It never returns hostnames, tenant codes, enterprise codes, principals, tokens, dependency URLs, physical cache keys, cached values, or downstream payloads.",
+        "Example response shape:",
+        "```json\n{\n  \"assessment\": { \"state\": \"READY\", \"alerts\": [], \"checkedAt\": \"2026-07-22T12:00:00.000Z\" },\n  \"dependencies\": {\n    \"cmsSiteReferenceProvider\": { \"status\": \"AVAILABLE\", \"observations\": { \"attempts\": 120, \"successes\": 120, \"failures\": 0 } },\n    \"storeReferenceProvider\": { \"status\": \"AVAILABLE\", \"observations\": { \"attempts\": 120, \"successes\": 119, \"failures\": 1 } },\n    \"contextCache\": { \"status\": \"AVAILABLE\" }\n  },\n  \"resolution\": { \"resolutions\": 1000, \"successes\": 998, \"failures\": 2, \"cacheHitPercent\": 88.4, \"averageLatencyMs\": 7.6 },\n  \"cache\": { \"available\": true, \"totalOperations\": 1120, \"operations\": {} }\n}\n```",
+        "Counters are process-local and reset on process restart. An environment may override `DefaultStorefrontObservabilityService` to export them to its monitoring platform, but it must retain the same sanitized boundary and must not replace nCache or nSystem as the cache and readiness authorities.",
+        "Default operational alerts are:",
+        "Tune `storefront.observability.thresholds` through environment or server `properties.js`. Evaluate rate alerts only after `minimumSamples`; this prevents noisy alerts during startup. Threshold changes do not require new services, loaders, or metric stores.",
+        "`storefrontPerformanceContract.test.js` supplies repeatable process-level evidence for the cache-hit and diagnostics paths. Its iteration count and budgets come from `storefront.observability.performance`, so capacity-test environments can tighten them without editing the test. This micro-benchmark protects accidental hot-path regressions; it does not replace gateway, network, database, cache-cluster, or full workload capacity testing.",
+        "`storefrontContextAccessPerformanceContract.test.js` separately measures issuance, introspection, rotation, individual revocation, bulk revocation, and sampled audit dispatch. It also proves that concurrent refresh has exactly one winner, revoke/introspection converges to inactive, a cache outage fails closed, and recovery restores only handles that remain valid. Its iteration count and budgets come from `storefront.contextAccess.performance`.",
+        "The default process-level 500-operation budgets are intentionally generous CI regression guards, not production service-level objectives. Establish production values with representative network latency, encryption, Redis or Hazelcast topology, NEMS/audit destinations, payload sizes, tenant counts, and failure injection. Local cache is suitable only for a single Storefront node. Shared Redis or Hazelcast is required for horizontally scaled context access; keep fallback disabled and verify TTL, atomic consume, key invalidation, and shared generation visibility before traffic cutover.",
+        "Capacity planning should include at least two reads per successful introspection, one active handle entry per browser context, one generation entry per recently revoked Storefront, refresh read/consume/write traffic, and unsampled failure/revocation audit volume. Start with 120-second handles and a generation TTL at least three times longer. Increase TTL only after evaluating stolen-handle exposure and cache capacity. If generation lookup becomes a measured bottleneck, design a revocation-safe distributed optimization separately; never add an unbounded process-local generation cache that can accept revoked handles.",
+        "Example capacity-test override:",
+        "```js\nmodule.exports = {\n    storefront: {\n        contextAccess: {\n            performance: {\n                iterations: 10000,\n                maximumIssueBatchMs: 5000,\n                maximumIntrospectionBatchMs: 5000,\n                maximumRefreshBatchMs: 7500,\n                maximumIndividualRevokeBatchMs: 5000,\n                maximumBulkRevokeBatchMs: 5000,\n                maximumAuditBatchMs: 1000\n            }\n        }\n    }\n};\n```",
+        "The standard Nodics basic/full test governance includes the Storefront suite automatically. It verifies public schemas and headers, compatibility boundaries, ETag behavior, target-module handoff ownership, cache and invalidation, dependency transport, observability, resilience, persistence integration, and performance. Developers may run the focused suite through `node gFramework/nTooling/bin/nodics-tool.js test:suite --suite=storefront` before the broader repository regression.",
+        "`storefrontCrossModuleJourneyContract.test.js` resolves Apparel and Electronics in one tenant and enterprise, issues distinct opaque handles, and proves CMS Site, Product Catalog, Pricing Store/currency, and Inventory Store/country/channel isolation. It repeats the four consumers through Nodics modular transport, verifies service authentication and audience binding, replaces hostile payload scope, and fails closed on expiry or security-state cache outage. This is an integration contract over existing authorities; it does not add a backend-for-frontend or compose domain responses.",
+        "Back up bootstrap-tenant endpoints and tenant-local Storefront records. Restore tenant dependencies before enabling endpoint traffic. Deployment health should confirm CMS and Store reference contracts when modules are separate."
+      ],
+      "items": [
+        "`storefrontConfiguration`: required; validates cache key, TTL, contract-version, and observability thresholds.",
+        "`storefrontCmsReferenceProvider`: required; confirms the CMS Site reference provider service is loaded.",
+        "`storefrontStoreReferenceProvider`: required; confirms the Store reference provider service is loaded.",
+        "`storefrontContextCache`: optional by default because cache failure falls back to authoritative resolution. Set `observability.readiness.cacheRequired: true` only when the deployment intentionally requires cache for traffic readiness.",
+        "`RESOLUTION_FAILURE_RATE`",
+        "`CACHE_ERROR_RATE`",
+        "`CMS_REFERENCE_FAILURE_RATE`",
+        "`STORE_REFERENCE_FAILURE_RATE`",
+        "`AVERAGE_LATENCY_HIGH`",
+        "`MAXIMUM_LATENCY_HIGH`",
+        "`TRAFFIC_CAPACITY_REJECTED`",
+        "configuration failures such as `CACHE_TTL_INVALID`"
+      ]
+    },
+    {
+      "heading": "Production activation checklist",
+      "migratedFrom": "nodics:gExp/storefront/docs/storefront-foundation.md",
+      "sourceAnchor": "production-activation-checklist",
+      "items": [
+        "Create and activate the CMS Site, Stores, and nCatalog catalogs in the target tenant.",
+        "Create the Storefront in `DRAFT`; verify every default belongs to its configured list.",
+        "Create one canonical endpoint in `DRAFT`, plus optional non-canonical aliases.",
+        "Activate the Storefront, then activate its endpoints.",
+        "Configure DNS and TLS at the edge. Preserve the original `Host` header. Do not trust `X-Forwarded-Host` unless a later deployment module explicitly replaces the resolver behind a trusted-proxy policy.",
+        "Call `GET /context/resolve` through the real gateway hostname and confirm the resolved values.",
+        "Resolve the hostname twice and confirm an nCache miss/put followed by a hit. Update a harmless Storefront value and confirm prefix invalidation followed by a refreshed result.",
+        "Exercise direct CMS, Product, Pricing, and Inventory calls with `downstream`; confirm every target module rejects foreign or invalid context.",
+        "Test a cache-provider outage. Resolution must continue from authoritative data. Then test a CMS or Store dependency outage: uncached resolution must fail closed and recover on the next request without registry edits or process restart.",
+        "Call secured nSystem readiness details and `/operations/diagnostics`; confirm the four Storefront checks, sanitized dependency observations, cache totals, and expected alert state.",
+        "Monitor `ERR_STOREFRONT_00005`, `ERR_STOREFRONT_00009`, `ERR_STOREFRONT_00010`, cache-provider errors, invalidation outcomes, and stable operational alert codes by correlation ID.",
+        "For shutdown, retire aliases and the canonical endpoint before retiring the Storefront."
+      ]
+    },
+    {
+      "heading": "Cache recovery and troubleshooting",
+      "migratedFrom": "nodics:gExp/storefront/docs/storefront-foundation.md",
+      "sourceAnchor": "cache-recovery-and-troubleshooting",
+      "items": [
+        "Old values after a management update: verify the post-interceptor completed, inspect nCache prefix-flush diagnostics, and confirm peer invalidation is configured for local cache nodes. Do not manually edit cache storage as a normal operating procedure.",
+        "Cache engine unavailable: keep the database and CMS/Store references healthy; Storefront falls through automatically. Disable `storefront.contextCache.enabled` temporarily only through a governed configuration layer if provider errors are affecting latency.",
+        "Poor hit ratio: verify the edge preserves a stable normalized hostname, confirm TTL is positive, and check that unrelated bulk management updates are not repeatedly flushing the channel.",
+        "Diagnostics show `CMS_REFERENCE_FAILURE_RATE` or `STORE_REFERENCE_FAILURE_RATE`: inspect correlated module transport logs and target module readiness. Diagnostics intentionally omit target URLs and business identifiers.",
+        "Readiness shows the cache down but traffic still succeeds: this is expected when `cacheRequired` is false; authoritative resolution remains available. Make cache required only after capacity testing proves the deployment needs it.",
+        "`TRAFFIC_CAPACITY_REJECTED`: check active, queued, and in-flight counts; identify invalid-host traffic at the trusted gateway; tune nRouter rate limits before increasing Storefront concurrency.",
+        "A newly activated hostname still appears missing: confirm endpoint post-update invalidation succeeded on every local-cache node. A negative entry is never valid beyond its configured short TTL.",
+        "CMS/Store circuit open: restore the target module and allow the shared recovery timeout to enter half-open state. Do not bypass the circuit with a direct transport call.",
+        "Deployment changes cached payload shape: increment `storefront.contextCache.contractVersion`. Existing entries become misses and are safely replaced.",
+        "Restore: restore tenant-local Storefronts and bootstrap-tenant endpoints first, then flush the Storefront context prefix or wait for TTL expiry before reopening traffic."
+      ]
+    },
+    {
+      "heading": "Repeatable Electronics and Apparel setup",
+      "migratedFrom": "nodics:gExp/storefront/docs/storefront-foundation.md",
+      "sourceAnchor": "repeatable-electronics-and-apparel-setup",
+      "paragraphs": [
+        "Use the existing Nodics import authority or the protected management APIs; do not add a Storefront-specific loader.",
+        "| Hostname | Storefront | CMS Site | Default Store | Product catalog |\n| --- | --- | --- | --- | --- |\n| `electronics.nodics.com` | `electronicsWeb` | `electronicsSite` | `electronicsDubai` | `electronicsProduct` |\n| `apparel.nodics.com` | `apparelWeb` | `apparelSite` | `apparelDubai` | `apparelProduct` |",
+        "Create or import tenant-local Storefront records first. Create hostname endpoints in the configured bootstrap tenant only after their target Storefronts exist. Keep both record types in `DRAFT` during review; activation remains a governed operation rather than an import side effect."
+      ]
+    },
+    {
+      "heading": "Extension rules",
+      "migratedFrom": "nodics:gExp/storefront/docs/storefront-foundation.md",
+      "sourceAnchor": "extension-rules",
+      "items": [
+        "Reuse an owning module reference API before adding a lookup.",
+        "Store only customer-experience choices here; do not copy mutable CMS, Store, Product, Pricing, or Inventory data.",
+        "Put application policy in layered `properties.js`, not `package.json`.",
+        "Keep `defaultSampleService.js` as the untouched generator placeholder.",
+        "Add positive, negative, boundary, contract, integration, and regression tests for each new dimension.",
+        "Document implemented behavior here; keep future action plans in ignored root `docs/`."
+      ]
+    },
+    {
+      "heading": "Verification",
+      "migratedFrom": "nodics:gExp/storefront/docs/storefront-foundation.md",
+      "sourceAnchor": "verification",
+      "paragraphs": [
+        "```bash\nnode gExp/storefront/test/storefrontContract.test.js\nnode gExp/storefront/test/storefrontApiContract.test.js\nnode gExp/storefront/test/storefrontContextCacheContract.test.js\nnode gExp/storefront/test/storefrontCrossModuleJourneyContract.test.js\nnode gExp/storefront/test/storefrontDownstreamHandoffContract.test.js\nnode gExp/storefront/test/storefrontObservabilityContract.test.js\nnode gExp/storefront/test/storefrontPerformanceContract.test.js\nnode gExp/storefront/test/storefrontTrafficResilienceContract.test.js\nnode gExp/storefront/test/storefrontReferenceTransportContract.test.js\nnode gExp/storefront/test/storefrontProductionHardeningContract.test.js\nnode gExp/storefront/test/storefrontPersistenceIntegration.test.js\nnode gContent/cms/test/cmsSiteReferenceContract.test.js\nnode gComm/store/test/storeManagementContract.test.js\nnode gComm/pricing/test/pricingStoreReferenceProviderContract.test.js\n```"
       ]
     }
   ]

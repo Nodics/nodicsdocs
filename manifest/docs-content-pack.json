@@ -1,0 +1,11 @@
+{
+  "pack": "nodicsdocs",
+  "version": "0.3.9",
+  "contractVersion": 1,
+  "sourceMode": "canonical",
+  "sourceAuthority": "source/pages",
+  "sites": [
+    "axisCmsSite"
+  ],
+  "accessMode": "AUTHENTICATED"
+}

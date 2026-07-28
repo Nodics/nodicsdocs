@@ -99,15 +99,28 @@ function sectionsFromArticle(article, evidenceId) {
 
 function main() {
     const decisions = readJson('source/migration-decisions.json').decisions;
+    const migrationRegister = readJson('manifest/migration-register.json');
     const articles = articleByEvidenceId();
     const pages = pageFilesByCode();
-    const eligible = decisions.filter(decision =>
+    const entryPointAndGDocs = decisions.filter(decision =>
         (
             decision.evidenceId === 'nodics:README.md' ||
             decision.evidenceId.startsWith('nodics:gDocs/')
         ) &&
         ['merge', 'rewrite', 'retain'].includes(decision.disposition)
     );
+    const specializedModuleDocuments = migrationRegister.entries
+        .filter(entry =>
+            entry.sourceType === 'module-doc' &&
+            !entry.sourcePath.endsWith('/docs/README.md') &&
+            ['merge', 'rewrite', 'retain'].includes(entry.disposition)
+        )
+        .map(entry => ({
+            evidenceId: entry.evidenceId,
+            disposition: entry.disposition,
+            destinationCode: entry.destinationCode
+        }));
+    const eligible = [...entryPointAndGDocs, ...specializedModuleDocuments];
 
     const decisionsByDestination = new Map();
     eligible.forEach(decision => {
@@ -139,7 +152,8 @@ function main() {
     });
 
     console.log(
-        `Synchronized complete instructional detail from ${eligible.length} entry-point and gDocs sources ` +
+        `Synchronized complete instructional detail from ${entryPointAndGDocs.length} entry-point and gDocs sources ` +
+        `and ${specializedModuleDocuments.length} specialized module documents ` +
         `into ${decisionsByDestination.size} canonical pages`
     );
 }

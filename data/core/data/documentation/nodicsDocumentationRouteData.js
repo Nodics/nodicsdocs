@@ -1830,6 +1830,18 @@ module.exports = {
         "active": true
     },
     "record152": {
+        "code": "docsRouteca2ab7fa1fb42d082e24",
+        "site": "axisCmsSite",
+        "path": "/docs/reference/media-management",
+        "locale": "en",
+        "channel": "web",
+        "page": "docsPageba732a438341b2e2d0eb",
+        "routeType": "PAGE",
+        "deliveryState": "ONLINE",
+        "accessMode": "AUTHENTICATED",
+        "active": true
+    },
+    "record153": {
         "code": "docsRoutee38fa174ee1bd7f0b23c",
         "site": "axisCmsSite",
         "path": "/docs/reference/learning-assessment",
@@ -1841,7 +1853,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record153": {
+    "record154": {
         "code": "docsRoutea4db5e542cf2f01309a6",
         "site": "axisCmsSite",
         "path": "/docs/reference/customer-reviews",
@@ -1853,7 +1865,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record154": {
+    "record155": {
         "code": "docsRoutee3a99a967fe51dd86a6a",
         "site": "axisCmsSite",
         "path": "/docs/reference/kyc",
@@ -1865,7 +1877,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record155": {
+    "record156": {
         "code": "docsRoute5bbd9f8955f8a2344641",
         "site": "axisCmsSite",
         "path": "/docs/reference/glossary",
@@ -1877,7 +1889,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record156": {
+    "record157": {
         "code": "docsRoute9e2fe19e739f61fb67b8",
         "site": "axisCmsSite",
         "path": "/docs/reference/licensing",
@@ -1889,7 +1901,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record157": {
+    "record158": {
         "code": "docsRoute43ba6aee3e7711254ffb",
         "site": "axisCmsSite",
         "path": "/docs/reference/modules",
@@ -1901,7 +1913,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record158": {
+    "record159": {
         "code": "docsRoute918dd193ade596c0ee7b",
         "site": "axisCmsSite",
         "path": "/docs/reference/maturity",
@@ -1913,7 +1925,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record159": {
+    "record160": {
         "code": "docsRoutef4d9fbe7c7ce2f3a349b",
         "site": "axisCmsSite",
         "path": "/docs",

@@ -1,0 +1,217 @@
+{
+  "code": "docsArticle5f475d0e250b381d4f85",
+  "title": "Init, Core, and Sample Data Releases",
+  "route": "/docs/modules/gframework/ndata/nimport/import/docs/data-release-import-contract",
+  "category": "modules",
+  "audience": [
+    "business",
+    "developer",
+    "operator"
+  ],
+  "source": {
+    "repository": "nodics",
+    "path": "gFramework/nData/nImport/import/docs/data-release-import-contract.md",
+    "type": "module-doc",
+    "contentHash": "aa3d92feacfd1f43414def177da3072ad126ee2b2d345ed5d75ab47148619370"
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Init, Core, and Sample Data Releases",
+      "anchor": "init-core-and-sample-data-releases"
+    },
+    {
+      "level": 2,
+      "text": "Purpose and ownership",
+      "anchor": "purpose-and-ownership"
+    },
+    {
+      "level": 2,
+      "text": "Immutable release contract",
+      "anchor": "immutable-release-contract"
+    },
+    {
+      "level": 2,
+      "text": "Operator workflow",
+      "anchor": "operator-workflow"
+    },
+    {
+      "level": 2,
+      "text": "Configuration and extension",
+      "anchor": "configuration-and-extension"
+    },
+    {
+      "level": 2,
+      "text": "API and permission boundaries",
+      "anchor": "api-and-permission-boundaries"
+    },
+    {
+      "level": 2,
+      "text": "Failure, recovery, and verification",
+      "anchor": "failure-recovery-and-verification"
+    }
+  ],
+  "blocks": [
+    {
+      "kind": "heading",
+      "level": 1,
+      "text": "Init, Core, and Sample Data Releases",
+      "anchor": "init-core-and-sample-data-releases"
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Purpose and ownership",
+      "anchor": "purpose-and-ownership"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Nodics separates three data lifecycles. **Initialization data** establishes security-sensitive bootstrap identities and records required by dependent capabilities. **Core data** establishes governed baseline configuration and business records. **Sample data** supplies optional demonstrations for explicitly permitted non-production environments."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The `import` module owns discovery, integrity checks, validation, execution, installation state, and history. BackOffice advertises navigation and Axis presents the operator experience. Neither reads module data folders, orders files, writes models, or creates a second importer."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The owning `import` capability is router-enabled and registers its authorized endpoint with BackOffice. Axis resolves that registered module connection; it must not route these operations through System or BackOffice."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Immutable release contract",
+      "anchor": "immutable-release-contract"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Every module-owned `data/init`, `data/core`, or `data/sample` directory contains `manifest.json` with the module, type, semantic version, description, and SHA-256 checksum of every release file."
+    },
+    {
+      "kind": "code",
+      "language": "bash",
+      "text": "npm run data:manifests\nnpm run data:manifests -- --release profile:init=1.0.3"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The first command creates missing manifests but rejects changed files under an existing version. The second explicitly versions an intentional change. Nodics rejects same-version checksum changes and rejects downgrades unless a project has explicitly enabled governed downgrade policy."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Operator workflow",
+      "anchor": "operator-workflow"
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Open **Operations and Integration → Imports and Exports** in Axis.",
+        "Select Initialization, Core, or Sample data.",
+        "Review backend-discovered active-module releases and installation states.",
+        "Select releases and choose **Validate selected**. This invokes the ordinary"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "importer in validation-only mode without persisting business records."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
+        "Choose **Install or update selected** only after successful validation.",
+        "Review the import run and refreshed catalogue.",
+        "If permissions or navigation changed, sign out and sign in so Profile issues"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "a new permission-filtered session."
+    },
+    {
+      "kind": "paragraph",
+      "text": "States include `NOT_INSTALLED`, `CURRENT`, `UPDATE_AVAILABLE`, `RUNNING`, `FAILED`, and integrity or downgrade warnings. Axis displays these states; it does not calculate them."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Configuration and extension",
+      "anchor": "configuration-and-extension"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Defaults live under `data.dataReleases` in the import module. Environment or server layers override only genuine runtime differences. Sample execution is disabled by default and enabled for local development only."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Projects may layer `DefaultDataReleaseService`, but must preserve active-module discovery, server-owned paths, path containment, checksums, semantic versions, tenant isolation, existing model services, type-specific permissions, nImport execution, and client-safe responses. Never add direct database access, another filesystem loader, a browser import engine, or a parallel BackOffice authority."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "API and permission boundaries",
+      "anchor": "api-and-permission-boundaries"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`GET /nodics/import/v0/data-releases` — `import.release.view`",
+        "`POST /nodics/import/v0/data-releases/preflight` —"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "`import.release.validate`"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`POST /nodics/import/v0/data-releases/init/imports` — `import.init.run`",
+        "`POST /nodics/import/v0/data-releases/core/imports` — `import.core.run`",
+        "`POST /nodics/import/v0/data-releases/sample/imports` —"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "`import.sample.run`"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "`GET /nodics/import/v0/run/history` — `import.history.view`",
+        "`GET /nodics/import/v0/run/history/:runId` —"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "`import.history.detail.view`"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Fixed type-specific routes prevent the request body from switching to another data class. Backend authorization remains authoritative when Axis hides an action."
+    },
+    {
+      "kind": "paragraph",
+      "text": "For existing installations, catalogue and preflight also accept the historical `import.core.run` administrator permission. This bounded upgrade bridge prevents the new read permission from hiding the operation required to install it. Execution remains protected by fixed type-specific permissions. Projects must not extend this compatibility rule to unrelated permissions."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Failure, recovery, and verification",
+      "anchor": "failure-recovery-and-verification"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Missing, incompatible, symlinked, escaping, or checksum-invalid releases fail before execution. A release changed after selection is rejected. A second process-local run for the same tenant and type is rejected. Failed attempts do not falsely mark a version installed. Responses never expose paths, secrets, credentials, or stack traces."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The process-local execution lock supports the local reference runtime. A distributed deployment must layer a project-approved provider-atomic lock before enabling multiple executors for the same tenant and type."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Verify manifest governance, positive installation, validation-only behavior, disabled sample policy, stale selection, checksum tampering, route permissions, history authorization, normal schema import, integration, and regression behavior. Run repository build and generated-context checks before release."
+    }
+  ],
+  "links": [],
+  "media": [],
+  "unsupported": []
+}

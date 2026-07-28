@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "gAi/aiKnowledge/README.md",
     "type": "module-readme",
-    "contentHash": "deba1a8ef10993ba51a900dd6605bb631a11e42c94ce4e0cdd2d1822f2e2da92"
+    "contentHash": "0c86e5def145c3f4cec362014f45a7a6573c0b243a91449498f02cf22a78f507"
   },
   "headings": [
     {
@@ -176,18 +176,10 @@
     },
     {
       "kind": "paragraph",
-      "text": "See [Runtime operations](/docs/modules/gai/aiknowledge/docs) for beginner, operator, security, recovery, customization, and troubleshooting guidance."
+      "text": "See Runtime operations (canonical documentation: `capability.ai.technical-reference`) for beginner, operator, security, recovery, customization, and troubleshooting guidance."
     }
   ],
-  "links": [
-    {
-      "label": "Runtime operations",
-      "target": "docs/README.md",
-      "kind": "internal",
-      "route": "/docs/modules/gai/aiknowledge/docs",
-      "anchor": ""
-    }
-  ],
+  "links": [],
   "media": [],
   "unsupported": []
 }

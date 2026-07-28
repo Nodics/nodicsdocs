@@ -20,12 +20,27 @@ function argument(name, fallback) {
 }
 
 const root = path.resolve(__dirname, '..');
-const sites = argument('sites', '').split(',').map(value => value.trim()).filter(Boolean);
-const accessMode = argument('access', 'PUBLIC').toUpperCase();
 
 function readJson(relativePath) {
     return JSON.parse(fs.readFileSync(path.join(root, relativePath), 'utf8'));
 }
+
+function readOptionalJson(relativePath, fallback) {
+    const absolutePath = path.join(root, relativePath);
+    if (!fs.existsSync(absolutePath)) return fallback;
+    return JSON.parse(fs.readFileSync(absolutePath, 'utf8'));
+}
+
+function csvArgument(name, fallback) {
+    const value = argument(name, undefined);
+    const source = value === undefined ? fallback : value;
+    if (!source) return [];
+    return source.split(',').map(entry => entry.trim()).filter(Boolean);
+}
+
+const contentPack = readOptionalJson('manifest/docs-content-pack.json', {});
+const sites = csvArgument('sites', (contentPack.sites || []).join(','));
+const accessMode = argument('access', contentPack.accessMode || 'AUTHENTICATED').toUpperCase();
 
 function uniqueHeadingAnchor(heading, usedAnchors) {
     const base = slug(heading);

@@ -122,7 +122,7 @@
       "sourceAnchor": "what-comes-later",
       "paragraphs": [
         "Sourcing rules will decide when an application, country, delivery zone, channel, Store, customer segment, or item may use a Pool. Availability will then calculate eligible Stock from the member Warehouses. Neither behavior is part of the current Pool foundation.",
-        "For configuration, extension, security, recovery, and test details, read the [Stock Pool foundation contract](/docs/reference/commerce)."
+        "For configuration, extension, security, recovery, and test details, read the Stock Pool foundation contract (canonical documentation: `capability.commerce.technical-reference`)."
       ]
     },
     {

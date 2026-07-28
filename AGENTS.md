@@ -40,16 +40,31 @@ environment URLs, Git operations, or another import engine here.
   limitations rather than presenting planned behavior as available.
 - Navigation order is explicit governed data. Never derive the learning journey
   from filenames, alphabetical order, module discovery order, or import order.
-- WordPress, `gDocs`, root documentation, module READMEs, and module documents
-  are migration evidence. They are not parallel authorities after a canonical
-  article is approved.
-- Follow `docs/information-architecture.md` and
-  `docs/migration-and-retirement-policy.md` for all migration work.
-- Every external-provider capability must follow
-  `docs/provider-documentation-standard.md`. Document provider-neutral
-  ownership, prebuilt adapters and maturity, selection, how to add a provider,
-  lifecycle, import/export and cross-capability interaction, operations, and
-  verification. Record why an inapplicable section does not apply.
+- WordPress, `gDocs`, root documentation, module READMEs, and retired module
+  documents are migration evidence. They are not parallel authorities after a
+  canonical article is approved. A module keeps one concise `README.md`; do not
+  recreate a module `docs/` directory.
+- Every module and project still retains a concise high-level `README.md` as
+  its local entry point. Migration may retire duplicated detailed guides, but
+  never remove that README; it must retain purpose, ownership, major
+  capabilities, setup and verification entry points, extension boundaries,
+  and links to canonical documentation.
+- Retired specialized module documents remain immutable under
+  `source/articles` with their migration register disposition and canonical
+  destination. Migration refresh must preserve those snapshots after their
+  former module paths are removed.
+- Every external-provider capability must document provider-neutral
+  ownership, prebuilt providers and maturity, selection, building a provider,
+  lifecycle and resilience, import and export interaction,
+  cross-capability assessment, and operations and verification. This applies to database,
+  cache, search, messaging, AI, storage, identity, notification, and payment
+  integrations. Record why an inapplicable section does not apply.
+- Complex process pages should include small declarative diagrams when they
+  materially improve comprehension. Use them for pipelines, workflows,
+  import/export, publishing, authentication, provider routing, event delivery,
+  and runtime startup sequences that contain three or more dependent steps.
+  Pair every diagram with beginner-friendly prose and do not use diagrams to
+  present planned behavior as implemented.
 - Every implemented capability family must contain one canonical
   **Customize and extend safely** section. It identifies the supported
   project-owned later layer, prohibited framework edits or parallel
@@ -65,10 +80,18 @@ use-case, and generation principles are owned by Nodics at
 not redefine those developer and AI-tool rules.
 
 This repository applies the Nodics contract to canonical structured content.
-`docs/content-contract.md` owns content-pack metadata, safe blocks, stable
-identity, generation, release, and CMS projection. Page structure is governed
-by `docs/information-architecture.md`; source synchronization and retirement are
-governed by `docs/migration-and-retirement-policy.md`.
+Canonical pages carry stable codes and routes, explicit navigation, audiences,
+learning depth, provenance, ownership, verification context, and safe
+structured blocks. Supported blocks are headings, images, paragraphs, ordered
+and unordered lists, blockquotes, code, and tables. Navigation, previous/next
+relationships, and migration dispositions are explicit data, never inferred
+from filenames or module order.
+
+Every migration source receives a retain, merge, rewrite, archive, or reject
+decision. Retain, merge, and rewrite decisions preserve unique verified
+examples, configuration, extension, security, operations, failure,
+troubleshooting, and verification guidance. No source is retired without a
+recorded disposition and destination or reason.
 
 ## Safety and compatibility
 

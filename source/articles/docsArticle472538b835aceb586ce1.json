@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "gCore/units/README.md",
     "type": "module-readme",
-    "contentHash": "bfe31acbcefb597f7984beda190386cfbbef83d6abfbe289b82acc16bfc77472"
+    "contentHash": "d102f0d449cfbbe219118821fd598529c9b27ecc4687bc1bb49dd85382b05932"
   },
   "headings": [
     {
@@ -59,7 +59,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "Read [Units Foundation](/docs/modules/gcore/units/docs/units-foundation), the [deployment and integration guide](/docs/modules/gcore/units/docs/units-deployment-and-integration), and the [business guide](/docs/data/how-to-use-units-and-land-measurements)."
+      "text": "Read Units Foundation (canonical documentation: `capability.units.technical-reference`), the deployment and integration guide (canonical documentation: `capability.units.technical-reference`), and the [business guide](/docs/data/how-to-use-units-and-land-measurements)."
     },
     {
       "kind": "heading",
@@ -74,20 +74,6 @@
     }
   ],
   "links": [
-    {
-      "label": "Units Foundation",
-      "target": "docs/units-foundation.md",
-      "kind": "internal",
-      "route": "/docs/modules/gcore/units/docs/units-foundation",
-      "anchor": ""
-    },
-    {
-      "label": "deployment and integration guide",
-      "target": "docs/units-deployment-and-integration.md",
-      "kind": "internal",
-      "route": "/docs/modules/gcore/units/docs/units-deployment-and-integration",
-      "anchor": ""
-    },
     {
       "label": "business guide",
       "target": "../../gDocs/data/how-to-use-units-and-land-measurements.md",

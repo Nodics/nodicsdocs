@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "gFramework/nData/nImport/import/README.md",
     "type": "module-readme",
-    "contentHash": "4d231083c0bb2082017e34de1de9781f846eb0b977606646f2af50ab813194fb"
+    "contentHash": "fe853233df023b37986406b845ed283762391ec9553fa714deb2c2a3beea01e0"
   },
   "headings": [
     {
@@ -39,6 +39,11 @@
       "level": 2,
       "text": "Data Feeding Patterns",
       "anchor": "data-feeding-patterns"
+    },
+    {
+      "level": 2,
+      "text": "Multi-format examples",
+      "anchor": "multi-format-examples"
     },
     {
       "level": 2,
@@ -79,7 +84,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "It also owns disabled-by-default, versioned content-pack installation and updates. See [Governed Content-Pack Import](/docs/modules/gframework/ndata/nimport/import/docs/content-pack-import-contract) for the local `nodicsdocs` workspace, Axis administrator journey, configuration, security, update, extension and verification contracts."
+      "text": "It also owns disabled-by-default, versioned content-pack installation and updates. See Governed Content-Pack Import (canonical documentation: `capability.data-exchange.technical-reference`) for the local `nodicsdocs` workspace, Axis administrator journey, configuration, security, update, extension and verification contracts."
     },
     {
       "kind": "heading",
@@ -199,6 +204,33 @@
     {
       "kind": "paragraph",
       "text": "Both patterns must use the same import pipeline and diagnostics model. Do not add a direct persistence path for one source just because its data arrives by API, file drop, CronJob, or remote adapter."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Multi-format examples",
+      "anchor": "multi-format-examples"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The import module keeps committed processor fixtures in `test/fixtures/multi-format` for the built-in file formats:"
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "trusted module-owned JavaScript data definitions;",
+        "JSON arrays;",
+        "CSV tabular records;",
+        "Excel workbooks."
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "`multiFormatDataProcessors.test.js` reads those fixture files directly. This protects the end-to-end parser contract and gives developers concrete examples without making the examples part of runtime bootstrap. If a project needs a real supplier, ERP, PIM, CMS, or partner file import, create project-owned headers, mapping, source configuration, adapter or local-file trigger, and tests through the existing import lifecycle instead of copying these fixtures into framework startup data."
+    },
+    {
+      "kind": "paragraph",
+      "text": "`gCore/profile/data/sample/tenant` restores the older Profile tenant local-file import example as module-owned sample data. It uses the standard `headers/` and `data/` structure: CSV, XLSX, and legacy XLS headers live under one `headers/` folder and their files live under one `data/` folder. Each header uses its own `dataFilePrefix` (`defaultTenantCsvData`, `defaultTenantExcelData`, or `defaultTenantLegacyExcelData`) so the import engine can safely match same-capability files without per-format folders. The legacy `.xls` file is kept as historical reference only; the current validated spreadsheet path is `.xlsx`."
     },
     {
       "kind": "heading",
@@ -378,7 +410,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "Generated/finalized files and reports are owned by the selected server module. Validation-only mode can inspect headers, files, target schemas/services, and processors without persistence."
+      "text": "Generated/finalized files and reports are owned by the selected server module. Data-release preflight validates the immutable manifest, requested version, upgrade policy, active-module authority, tenant context, and installed state without invoking import handlers. Only execute/install operations call the init, core, or sample import pipeline. Lower-level validation-only import processing remains available inside provider-owned import flows, but the BackOffice data-release validate action must remain side-effect-free."
     },
     {
       "kind": "heading",
@@ -583,15 +615,7 @@
       "text": "Headers are source definitions. Projects customize import behavior by adding or overriding headers and services in later active modules, then proving the effective behavior with import tests."
     }
   ],
-  "links": [
-    {
-      "label": "Governed Content-Pack Import",
-      "target": "docs/content-pack-import-contract.md",
-      "kind": "internal",
-      "route": "/docs/modules/gframework/ndata/nimport/import/docs/content-pack-import-contract",
-      "anchor": ""
-    }
-  ],
+  "links": [],
   "media": [],
   "unsupported": []
 }

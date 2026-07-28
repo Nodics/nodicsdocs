@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "gFramework/nData/nExport/export/README.md",
     "type": "module-readme",
-    "contentHash": "5d99d1678e4a9ac82a09786080ddcdd954732d80701cb0f455acf7f6d3659b87"
+    "contentHash": "8edd29882edc7a351149374d084e0cff667dd80d7ab586de9ce07d9becbe648b"
   },
   "headings": [
     {
@@ -100,7 +100,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "For the full engineering contract, read [Export Process Framework](/docs/modules/gframework/ndata/nexport/export/docs/export-process-framework)."
+      "text": "For the full engineering contract, read Export Process Framework (canonical documentation: `capability.data-exchange.technical-reference`)."
     },
     {
       "kind": "heading",
@@ -206,13 +206,6 @@
     }
   ],
   "links": [
-    {
-      "label": "Export Process Framework",
-      "target": "docs/export-process-framework.md",
-      "kind": "internal",
-      "route": "/docs/modules/gframework/ndata/nexport/export/docs/export-process-framework",
-      "anchor": ""
-    },
     {
       "label": "nExport",
       "target": "../README.md",

@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "gDocs/commerce/how-stock-movements-work.md",
     "type": "gdocs",
-    "contentHash": "ad9620552c26774e78ebf03190b7aad660b15cf05b78f5e300250b8b95851630"
+    "contentHash": "375cd12085876f9c2345f5d8d5c72d9cf66d64a667775154d03e55b8d8816a92"
   },
   "headings": [
     {
@@ -118,7 +118,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "Developers and operators should read the Inventory module's [Stock Core contract](/docs/modules/gcomm/inventory/docs/stock-core) for configuration, extension rules, failure codes, and verification."
+      "text": "Developers and operators should read the Inventory module's Stock Core contract (canonical documentation: `capability.commerce.technical-reference`) for configuration, extension rules, failure codes, and verification."
     },
     {
       "kind": "heading",
@@ -138,13 +138,6 @@
     }
   ],
   "links": [
-    {
-      "label": "Stock Core contract",
-      "target": "../../gComm/inventory/docs/stock-core.md",
-      "kind": "internal",
-      "route": "/docs/modules/gcomm/inventory/docs/stock-core",
-      "anchor": ""
-    },
     {
       "label": "How Warehouse Management Works",
       "target": "how-to-manage-warehouses.md",

@@ -203,7 +203,7 @@
       "paragraphs": [
         "Track failures by error code, dimension, geography, enterprise, and correlation identifier. Monitor latency and availability when Units is remote. Avoid logging sensitive quantities, prices, or parcel details merely to diagnose a conversion.",
         "Back up Dimensions, Units, and Conversions together. Restore Dimensions first, then Units, then Conversions. Test representative business volume in the actual deployment; framework correctness tests are not universal capacity evidence.",
-        "Read the [Units module guide](/docs/reference/units) for schemas, arithmetic, regional selection, recovery, and tests, and the [deployment and integration guide](/docs/reference/units) for configuration and topology decisions."
+        "Read the Units module guide (canonical documentation: `capability.units.technical-reference`) for schemas, arithmetic, regional selection, recovery, and tests, and the deployment and integration guide (canonical documentation: `capability.units.technical-reference`) for configuration and topology decisions."
       ]
     },
     {

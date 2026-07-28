@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "gComm/store/README.md",
     "type": "module-readme",
-    "contentHash": "2f40281a230d50013a25bb83006798841c29ca00c17940164471e460b65ca1fc"
+    "contentHash": "7abbbd99c723a191add5a12cfa42af90393e48f8e1e4b3933a32e0c8b2857341"
   },
   "headings": [
     {
@@ -56,7 +56,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "Read [Store Foundation](/docs/modules/gcomm/store/docs/store-foundation), [Store, Site, and Integration](/docs/modules/gcomm/store/docs/store-site-and-integration), the [Store and website modeling guide](/docs/commerce/how-to-model-stores-and-websites), and the [business guide](/docs/commerce/how-to-manage-stores)."
+      "text": "Read Store Foundation (canonical documentation: `capability.commerce.technical-reference`), Store, Site, and Integration (canonical documentation: `capability.commerce.technical-reference`), the [Store and website modeling guide](/docs/commerce/how-to-model-stores-and-websites), and the [business guide](/docs/commerce/how-to-manage-stores)."
     },
     {
       "kind": "paragraph",
@@ -69,20 +69,6 @@
     }
   ],
   "links": [
-    {
-      "label": "Store Foundation",
-      "target": "docs/store-foundation.md",
-      "kind": "internal",
-      "route": "/docs/modules/gcomm/store/docs/store-foundation",
-      "anchor": ""
-    },
-    {
-      "label": "Store, Site, and Integration",
-      "target": "docs/store-site-and-integration.md",
-      "kind": "internal",
-      "route": "/docs/modules/gcomm/store/docs/store-site-and-integration",
-      "anchor": ""
-    },
     {
       "label": "Store and website modeling guide",
       "target": "../../gDocs/commerce/how-to-model-stores-and-websites.md",

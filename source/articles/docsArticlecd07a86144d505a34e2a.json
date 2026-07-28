@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "startio/envs/startioLocal/README.md",
     "type": "module-readme",
-    "contentHash": "220aa3e582e8172a6e0e42918384f5161178f9c8fa3f6d8858334387367e58e5"
+    "contentHash": "051d836bb91a7d8c9dffd786ee4382aa3ad8b74bd8a9b96a1ccaab6d5f3a44cc"
   },
   "headings": [
     {
@@ -65,18 +65,10 @@
     },
     {
       "kind": "paragraph",
-      "text": "See [the local backend topology guide](/docs/modules/startio/envs/startiolocal/docs/local-backend-runtime-topologies) for ports, startup commands, expected results, and troubleshooting."
+      "text": "See the local backend topology guide (canonical documentation: `operations.runtime-topology-reference`) for ports, startup commands, expected results, and troubleshooting."
     }
   ],
-  "links": [
-    {
-      "label": "the local backend topology guide",
-      "target": "docs/local-backend-runtime-topologies.md",
-      "kind": "internal",
-      "route": "/docs/modules/startio/envs/startiolocal/docs/local-backend-runtime-topologies",
-      "anchor": ""
-    }
-  ],
+  "links": [],
   "media": [],
   "unsupported": []
 }

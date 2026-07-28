@@ -26,7 +26,8 @@
     "nodics:gFramework/nAuth/README.md",
     "nodics:gFramework/nToken/README.md",
     "nodics:gFramework/nRouter/README.md",
-    "nodics:gFramework/nCache/README.md"
+    "nodics:gFramework/nCache/README.md",
+    "nodics:gCore/profile/docs/enterprise-management-search.md"
   ],
   "sections": [
     {
@@ -84,6 +85,120 @@
         "Run focused Profile and nAuth contracts, the auth P2 suite, and the required live Redis release gate for production qualification.",
         "Cover positive, negative, boundary, contract, integration, distributed-race, security, performance, provider outage, recovery, upgrade, and regression behavior.",
         "Verify customer registration cannot assign privileged groups/permissions/API keys, service-only routes reject human tokens, tenant boundaries hold across modules, browser refresh is single-use, and logs/audit remain credential-free."
+      ]
+    },
+    {
+      "heading": "What This Capability Does",
+      "migratedFrom": "nodics:gCore/profile/docs/enterprise-management-search.md",
+      "sourceAnchor": "what-this-capability-does",
+      "paragraphs": [
+        "Enterprise search gives an authorized employee a safe way to find enterprise records for administrative work. Typical examples are selecting an enterprise before creating related data, confirming whether an enterprise is active, or asking Axis Assistant to find an enterprise by code.",
+        "Profile remains the business, validation, authorization, and persistence owner. BackOffice supplies current contract discovery, while Assistant supplies conversation and governed tool orchestration. Neither stores a second enterprise list.",
+        "Confirmed creation is exposed separately at `POST /nodics/profile/v0/enterprises`. It requires a human access token, `profile.enterprise.create`, bounded input, and an idempotency key. Profile checks duplicate code and uses the generated `DefaultEnterpriseService`; an AI module never writes the enterprise collection directly. Axis Assistant first creates and approves an immutable confirmation, then calls Profile or hands the approved work to Workflow."
+      ]
+    },
+    {
+      "heading": "Before You Start",
+      "migratedFrom": "nodics:gCore/profile/docs/enterprise-management-search.md",
+      "sourceAnchor": "before-you-start",
+      "paragraphs": [
+        "The caller must:",
+        "`profile.enterprise.create` for creation;",
+        "Customer, service, module, and cron credentials are not accepted. The default bootstrap grants the permission to `runtimeConfigAdminUserGroup`; projects should grant it only to employee groups that genuinely need cross-enterprise administration."
+      ],
+      "items": [
+        "authenticate through the Profile employee login flow;",
+        "receive a human `access` token;",
+        "belong to a group that resolves `profile.enterprise.search` for search and",
+        "send the bearer token through the normal Nodics request pipeline."
+      ]
+    },
+    {
+      "heading": "Business User Workflow",
+      "migratedFrom": "nodics:gCore/profile/docs/enterprise-management-search.md",
+      "sourceAnchor": "business-user-workflow",
+      "paragraphs": [
+        "An authorized employee may search without filters to receive the first bounded page, or use exact filters:",
+        "```text\nGET /nodics/profile/v0/enterprises/search?code=default\nGET /nodics/profile/v0/enterprises/search?name=Default%20Enterprise&active=true\nGET /nodics/profile/v0/enterprises/search?page=2&limit=25\n```",
+        "The result contains `page`, `limit`, `count`, and `items`. Each item may contain the configured safe fields such as enterprise code, name, active state, tenant code, parent-enterprise code, and timestamps.",
+        "Expected rejected journeys include an employee without the permission, a customer or service credential, an unknown/operator filter, an invalid active value, or pagination beyond the configured boundary. Correct the credential, permission, or filter and retry. There is no partial write or rollback because this operation is read-only."
+      ]
+    },
+    {
+      "heading": "Axis Assistant Workflow",
+      "migratedFrom": "nodics:gCore/profile/docs/enterprise-management-search.md",
+      "sourceAnchor": "axis-assistant-workflow",
+      "paragraphs": [
+        "The inactive OOTB `axisAssistantReadOnly` policy allowlists the logical tool `profile.enterprise.search`. A project or local environment may activate a reviewed layered policy. At execution time:",
+        "OpenAPI observation;",
+        "and projection;",
+        "enters model context.",
+        "Model output cannot choose a URL, HTTP method, credential, permission result, or unapproved response field.",
+        "For confirmed creation, the employee first selects an existing unassigned tenant or completes the separately governed tenant-creation process. An enterprise owns one tenant under the current Profile schema, so attempting to associate a tenant that already belongs to another enterprise is rejected by the Profile management service before persistence and remains protected by the authoritative unique tenant database contract. The enterprise record itself is stored through Profile's configured default enterprise store; `tenantCode` is the business association and must not be used as a second database-model selection path.",
+        "Axis Assistant binds the operation, arguments, employee, tenant context, expiry, revision, and idempotency key into `assistantConfirmation`. Changed arguments or replay return conflict, expired confirmations return gone, and unsupported mutations return bad request. Direct execution forwards the human bearer to Profile. When `workflowCode` is selected, Assistant creates an active Workflow item and returns a durable carrier code; Workflow, not Assistant, owns all later manual or automatic actions."
+      ],
+      "items": [
+        "Assistant loads the employee-filtered BackOffice bootstrap;",
+        "it resolves operation `profile_searchenterprises` from the current Profile",
+        "it verifies read-only method and permission stability;",
+        "it forwards the employee bearer and scalar arguments to Profile;",
+        "Profile performs final authentication, authorization, validation, querying,",
+        "Assistant applies its own top-level result-field allowlist before the data"
+      ]
+    },
+    {
+      "heading": "Configuration",
+      "migratedFrom": "nodics:gCore/profile/docs/enterprise-management-search.md",
+      "sourceAnchor": "configuration",
+      "paragraphs": [
+        "Layer the smallest required fragment instead of copying Profile:",
+        "```js\nmodule.exports = {\n    enterpriseManagement: {\n        search: {\n            defaultResultCount: 25,\n            maximumResultCount: 100,\n            maximumPageNumber: 10000,\n            maximumCodeLength: 128,\n            maximumNameLength: 256,\n            projectedFields: ['code', 'name', 'active', 'tenant', 'updatedAt']\n        }\n    }\n};\n```",
+        "Smaller result bounds or a smaller projection are safe customizations. Adding a field requires a disclosure review and tests. Do not add credentials, contacts, addresses, unrestricted metadata, or recursive references."
+      ]
+    },
+    {
+      "heading": "Architecture And Data Contract",
+      "migratedFrom": "nodics:gCore/profile/docs/enterprise-management-search.md",
+      "sourceAnchor": "architecture-and-data-contract",
+      "paragraphs": [
+        "The router delegates to `DefaultEnterpriseManagementController`, then `DefaultEnterpriseManagementFacade`, then `DefaultEnterpriseManagementService`. The service calls the existing generated `DefaultEnterpriseService` with the configured default enterprise tenant, caller authentication evidence, exact filters, `recursive: false`, stable code sorting, and bounded pagination.",
+        "The enterprise schema and generated service remain authoritative. This design does not use nSearch or Elasticsearch because the implemented filters are bounded exact database queries and Profile search indexing is not enabled. If a future measured requirement needs full-text search, extend the existing nSearch authority rather than adding a second index."
+      ]
+    },
+    {
+      "heading": "Security, Operations, And Performance",
+      "migratedFrom": "nodics:gCore/profile/docs/enterprise-management-search.md",
+      "sourceAnchor": "security-operations-and-performance",
+      "paragraphs": [
+        "enterprise data or bearer tokens.",
+        "metrics; do not label metrics with enterprise names or employee identifiers.",
+        "the contract. BackOffice and Assistant do not become runtime authorities.",
+        "procedures. This read-only projection introduces no migration or duplicate state."
+      ],
+      "items": [
+        "Apply gateway and module rate limits appropriate to administrative users.",
+        "Audit authentication and authorization outcomes without logging returned",
+        "Monitor latency, stable error code, and result count with fixed-cardinality",
+        "Keep `maximumResultCount` aligned with response-size and database objectives.",
+        "Deploy Profile in monoServer or a separate Profile server without changing",
+        "Back up and restore enterprise records through existing Profile/database"
+      ]
+    },
+    {
+      "heading": "Partner Extension Example",
+      "migratedFrom": "nodics:gCore/profile/docs/enterprise-management-search.md",
+      "sourceAnchor": "partner-extension-example",
+      "paragraphs": [
+        "A partner that needs a non-sensitive `regionCode` may add it to the enterprise schema through the normal later module layer, add it to layered `projectedFields`, update the disclosure documentation, and extend the focused projection test. The partner must not copy the enterprise model, create an Assistant-owned enterprise collection, or bypass Profile permissions."
+      ]
+    },
+    {
+      "heading": "Verification",
+      "migratedFrom": "nodics:gCore/profile/docs/enterprise-management-search.md",
+      "sourceAnchor": "verification",
+      "paragraphs": [
+        "```text\nnode gCore/profile/test/enterpriseManagementSearchContract.test.js\nnode gAi/aiAssistant/test/aiAssistantGovernedReadToolContract.test.js\nnode gAi/aiAssistant/test/aiAssistantConfirmationAndWorkflowContract.test.js\nnpm run test:profile\nnpm run llm:generate\nnpm run llm:validate\n```",
+        "The focused contract proves positive filtering, default-tenant authority, human-only access, unsafe-query rejection, pagination boundaries, sensitive field exclusion, and matching OOTB/local Assistant tool identities."
       ]
     }
   ]

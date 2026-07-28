@@ -100,7 +100,7 @@
         "Inventory verifies the handle for its own audience and derives the correct tenant, enterprise, Store, country, and channel. The browser cannot select another website's sourcing rules by submitting its own context. The result returns ON_HAND, reserved, and AVAILABLE_TO_SELL totals but hides internal Pools, Warehouses, Balance records, revisions, and enterprise identity.",
         "An expired or unverifiable handle is denied. Resolve the hostname again and retry with a fresh handle; do not add tenant, enterprise, Store, or sourcing information to the browser payload. Trusted services that require operational evidence use the separate service-token-only reference intent.",
         "Operators configure Storefront introspection under `inventory.storefrontContext` in layered `properties.js`. Multi-node Storefront deployments require a shared security-state cache so any node can introspect a recently issued handle. Inventory Availability cache failure remains fail-open to authoritative Stock calculation, but Storefront security-state failure remains fail-closed.",
-        "Read the [technical Availability contract](/docs/reference/commerce) for configuration, security, evidence, customization, deployment, and tests."
+        "Read the technical Availability contract (canonical documentation: `capability.commerce.technical-reference`) for configuration, security, evidence, customization, deployment, and tests."
       ]
     },
     {

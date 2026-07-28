@@ -90,6 +90,17 @@
       ]
     },
     {
+      "heading": "Customize and extend safely",
+      "paragraphs": [
+        "Contribute project-specific reviewers, workflow actions, content types, and publication mappings through later WCMS, Workflow, CMS, and nPublish layers while preserving their existing authority boundaries."
+      ],
+      "items": [
+        "Do not edit reusable publishing framework source, activate a rejected carrier, or create a second staged-to-online publication path.",
+        "Verify manual and automatic actions, approval and rejection, idempotent retry, target validation, authorization, failure recovery, rollback, and regression.",
+        "Rollback restores the previous versioned workflow definition and publication mapping through the same governed authority."
+      ]
+    },
+    {
       "heading": "Complete guide: How To Approve And Publish Content",
       "migratedFrom": "nodics:gDocs/content/how-to-approve-and-publish-content.md",
       "sourceAnchor": null,
@@ -186,17 +197,6 @@
       ]
     },
     {
-      "heading": "Customize and extend safely",
-      "paragraphs": [
-        "Contribute project-specific reviewers, workflow actions, content types, and publication mappings through later WCMS, Workflow, CMS, and nPublish layers while preserving their existing authority boundaries."
-      ],
-      "items": [
-        "Do not edit reusable publishing framework source, activate a rejected carrier, or create a second staged-to-online publication path.",
-        "Verify manual and automatic actions, approval and rejection, idempotent retry, target validation, authorization, failure recovery, rollback, and regression.",
-        "Rollback restores the previous versioned workflow definition and publication mapping through the same governed authority."
-      ]
-    },
-    {
       "heading": "Customize The Workflow",
       "migratedFrom": "nodics:gDocs/content/how-to-approve-and-publish-content.md",
       "sourceAnchor": "customize-the-workflow",
@@ -272,9 +272,9 @@
       "migratedFrom": "nodics:gDocs/content/how-to-approve-and-publish-content.md",
       "sourceAnchor": "related-detail",
       "items": [
-        "[CMS publication manifest contract](/docs/reference/content-publishing)",
-        "[WCMS approval-to-publication contract](/docs/reference/content-publishing)",
-        "[nPublish lifecycle contract](/docs/reference/content-publishing)",
+        "CMS publication manifest contract (canonical documentation: `capability.content-publishing.technical-reference`)",
+        "WCMS approval-to-publication contract (canonical documentation: `capability.content-publishing.technical-reference`)",
+        "nPublish lifecycle contract (canonical documentation: `capability.content-publishing.technical-reference`)",
         "[How users, tenants, and permissions work](/docs/security/users-tenants-permissions)",
         "[How to test Nodics changes](/docs/build/testing)"
       ]

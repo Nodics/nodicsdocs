@@ -140,7 +140,7 @@
       "sourceAnchor": "current-scope",
       "paragraphs": [
         "The implemented capability is the exact on-hand ledger with modular exact Unit conversion. Reservations, allocations, available-to-sell, sourcing, coordinated transfers, BackOffice screens, and public Stock APIs are not part of this slice.",
-        "Developers and operators should read the Inventory module's [Stock Core contract](/docs/reference/commerce) for configuration, extension rules, failure codes, and verification."
+        "Developers and operators should read the Inventory module's Stock Core contract (canonical documentation: `capability.commerce.technical-reference`) for configuration, extension rules, failure codes, and verification."
       ]
     },
     {

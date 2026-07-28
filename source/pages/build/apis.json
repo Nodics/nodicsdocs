@@ -189,7 +189,7 @@
         "For exact implementation details, read:"
       ],
       "items": [
-        "[nRouter](/docs/reference/apis-routing) and [Router Framework](/docs/reference/apis-routing) for route definitions, Express registration, request pipelines, security, response handlers, cache, and OpenAPI.",
+        "[nRouter](/docs/reference/apis-routing) and Router Framework (canonical documentation: `capability.apis-routing.technical-reference`) for route definitions, Express registration, request pipelines, security, response handlers, cache, and OpenAPI.",
         "[nController](/docs/reference/apis-routing) for controller request mapping.",
         "[nFacade](/docs/reference/services-facades) for orchestration boundaries.",
         "[nService](/docs/reference/services-facades) for service behavior and generated CRUD service flow.",

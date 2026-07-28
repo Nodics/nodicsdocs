@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "gAi/aiProviders/README.md",
     "type": "module-readme",
-    "contentHash": "f6e2a46ba6a86d620d3e5eb50c56b14a969a72d3c6415f273876dfebcd67bae9"
+    "contentHash": "3ac20d33ff7cc99fd864e9d721b7b7cffd6a92e0ed6f33b51b4ab56fb70b122f"
   },
   "headings": [
     {
@@ -46,11 +46,11 @@
     },
     {
       "kind": "paragraph",
-      "text": "Token economics and optimization are mandatory. See [AI Token Economics and Optimization](/docs/modules/gai/aiproviders/docs/token-economics-and-optimization) and the beginner-to-expert [Persistent AI Token Ledger Guide](/docs/modules/gai/aiproviders/docs/persistent-token-ledger-guide)."
+      "text": "Token economics and optimization are mandatory. See AI Token Economics and Optimization (canonical documentation: `capability.ai.technical-reference`) and the beginner-to-expert Persistent AI Token Ledger Guide (canonical documentation: `capability.ai.technical-reference`)."
     },
     {
       "kind": "paragraph",
-      "text": "OpenAI Responses, Anthropic Messages, and Google Gemini/Vertex AI adapters are implemented as disabled provider modules. Each adapter owns only vendor translation, conservative estimation, cancellation, normalized streaming deltas, and normalized usage. Selection, credentials, pricing, reservations, retry/fallback, caching, rate limits, and kill switches remain parent gateway responsibilities."
+      "text": "OpenAI Responses, Anthropic Messages, and Google Gemini/Vertex AI adapters are implemented as disabled provider modules. Each adapter owns only vendor translation, conservative estimation, cancellation, normalized streaming deltas, normalized usage, endpoint/protocol defaults, the conventional opaque secret reference, and reviewed vendor pricing contributions. Selection, credential resolution, pricing validation and application, reservations, retry/fallback, caching, rate limits, and kill switches remain parent gateway responsibilities."
     },
     {
       "kind": "paragraph",
@@ -59,6 +59,10 @@
     {
       "kind": "paragraph",
       "text": "Callers provide a usage-profile code, normalized operation, request, and governed context. They cannot provide a provider or model. An adapter is selectable only when its module is active, it is registered, its configuration is enabled, and it supports the requested capability."
+    },
+    {
+      "kind": "paragraph",
+      "text": "Configuration ownership follows the Nodics hierarchy without copying complete provider blocks into generated topologies. Vendor provider modules contribute endpoint/protocol defaults, conventional secret references, and reviewed model pricing. Project modules own reusable application and token policy. Environment modules contain only real deployment differences. Server and node modules may activate provider modules and contribute only gateway enablement plus concise profile/provider/model selection. They must not redefine endpoints, secret references, pricing, token policy, resilience, ledger, or provider-neutral security."
     },
     {
       "kind": "paragraph",
@@ -78,22 +82,7 @@
       "text": "node gAi/aiProviders/test/aiProviderGatewayContract.test.js\nnode gAi/aiProviders/test/aiTokenEconomicsContract.test.js\nnode gAi/aiProviders/test/aiPersistentTokenLedgerContract.test.js\nnode gAi/aiProviders/test/aiProviderOperationalControlsContract.test.js"
     }
   ],
-  "links": [
-    {
-      "label": "AI Token Economics and Optimization",
-      "target": "docs/token-economics-and-optimization.md",
-      "kind": "internal",
-      "route": "/docs/modules/gai/aiproviders/docs/token-economics-and-optimization",
-      "anchor": ""
-    },
-    {
-      "label": "Persistent AI Token Ledger Guide",
-      "target": "docs/persistent-token-ledger-guide.md",
-      "kind": "internal",
-      "route": "/docs/modules/gai/aiproviders/docs/persistent-token-ledger-guide",
-      "anchor": ""
-    }
-  ],
+  "links": [],
   "media": [],
   "unsupported": []
 }

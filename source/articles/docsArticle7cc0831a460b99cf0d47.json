@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "gDocs/ai/how-ai-cost-governance-works.md",
     "type": "gdocs",
-    "contentHash": "22e3ffc03ff7239d29e3f8a349e583a5fc1166b66c9872a21426d4b6791ee9ef"
+    "contentHash": "56d62da509409d876fca2255719bfb2d569d0827dc05dcd983a21b88995fe5f7"
   },
   "headings": [
     {
@@ -316,7 +316,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "[Persistent AI Token Ledger Guide](/docs/modules/gai/aiproviders/docs/persistent-token-ledger-guide)"
+      "text": "Persistent AI Token Ledger Guide (canonical documentation: `capability.ai.technical-reference`)"
     },
     {
       "kind": "unordered-list",
@@ -328,13 +328,6 @@
     }
   ],
   "links": [
-    {
-      "label": "Persistent AI Token Ledger Guide",
-      "target": "../../gAi/aiProviders/docs/persistent-token-ledger-guide.md",
-      "kind": "internal",
-      "route": "/docs/modules/gai/aiproviders/docs/persistent-token-ledger-guide",
-      "anchor": ""
-    },
     {
       "label": "AI Providers",
       "target": "../../gAi/aiProviders/README.md",

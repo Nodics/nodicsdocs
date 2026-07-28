@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "gDocs/commerce/how-to-model-stores-and-websites.md",
     "type": "gdocs",
-    "contentHash": "ee430c0483e98d683e9f5f8c3e2ab538117b3ba50cfb0e4a0f6a7d5e289efede"
+    "contentHash": "ebfd89ba5afcb000f55ef13cf41ac7980f945ccf67932017c53a1e47fa00709d"
   },
   "headings": [
     {
@@ -158,7 +158,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "For complete payloads, permissions, lifecycle, security, operations, customization, and tests, use [Storefront Foundation](/docs/modules/gexp/storefront/docs/storefront-foundation)."
+      "text": "For complete payloads, permissions, lifecycle, security, operations, customization, and tests, use Storefront Foundation (canonical documentation: `capability.commerce.technical-reference`)."
     },
     {
       "kind": "heading",
@@ -178,13 +178,6 @@
     }
   ],
   "links": [
-    {
-      "label": "Storefront Foundation",
-      "target": "../../gExp/storefront/docs/storefront-foundation.md",
-      "kind": "internal",
-      "route": "/docs/modules/gexp/storefront/docs/storefront-foundation",
-      "anchor": ""
-    },
     {
       "label": "How To Manage Stores",
       "target": "how-to-manage-stores.md",

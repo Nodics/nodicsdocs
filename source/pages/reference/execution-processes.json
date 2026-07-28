@@ -20,7 +20,8 @@
   "lastVerified": "2026-07-26",
   "summary": "Every pipeline identifies owner, context, node graph, terminals, side effects, extension points, error semantics, observability, and tests.",
   "supportingEvidence": [
-    "nodics:gFramework/nPipeline/README.md"
+    "nodics:gFramework/nPipeline/README.md",
+    "nodics:gFramework/nPipeline/docs/pipeline-framework.md"
   ],
   "sections": [
     {
@@ -71,6 +72,387 @@
         "Tenant/auth assumptions, side effects, idempotency, retry, compensation, timeout, and cancellation.",
         "Dynamic governance, trace context, safe logs/metrics, and cleanup.",
         "Positive, negative, boundary, contract, integration, override, repeated-execution, failure, performance, and regression tests."
+      ]
+    },
+    {
+      "heading": "Complete guide: Nodics Pipeline Framework",
+      "migratedFrom": "nodics:gFramework/nPipeline/docs/pipeline-framework.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "Pipelines are the Nodics mechanism for running ordered, configurable, and overrideable runtime behavior. A pipeline turns a business or platform process into named steps. Each step is visible in source, can be tested independently, and can be extended by a later active module without changing out-of-the-box framework code.",
+        "Use this guide when you need to understand, define, extend, customize, or test a Nodics pipeline."
+      ]
+    },
+    {
+      "heading": "What A Pipeline Is",
+      "migratedFrom": "nodics:gFramework/nPipeline/docs/pipeline-framework.md",
+      "sourceAnchor": "what-a-pipeline-is",
+      "paragraphs": [
+        "A pipeline is a named process definition stored in `src/pipelines/pipelines.js`. It contains:",
+        "Each node points to either:",
+        "`DefaultModelsGetInitializerService.validateRequest`; or",
+        "handler such as `modelQueryBuilderPipeline`.",
+        "At runtime, callers start a pipeline through:",
+        "```javascript\nSERVICE.DefaultPipelineService.start('modelsGetInitializerPipeline', request, {});\n```",
+        "The request object carries tenant, module, schema, route, auth, model, query, search, import, or event context. The response object is the shared accumulator used by pipeline nodes to pass success, error, target, and intermediate output through the chain."
+      ],
+      "items": [
+        "`startNode`: the first node to execute.",
+        "`hardStop`: whether nested pipeline errors should stop the parent pipeline.",
+        "`handleError`: the error handler node to use.",
+        "`nodes`: named execution steps.",
+        "a service function, using `type: 'function'` and a handler such as",
+        "another pipeline, using a non-function type such as `type: 'process'` and a"
+      ]
+    },
+    {
+      "heading": "Why Pipelines Exist",
+      "migratedFrom": "nodics:gFramework/nPipeline/docs/pipeline-framework.md",
+      "sourceAnchor": "why-pipelines-exist",
+      "paragraphs": [
+        "Pipelines make framework behavior configurable without hiding it inside one large service method. They give Nodics a consistent way to apply:",
+        "The important principle is simple: when behavior needs ordered lifecycle control, the order belongs in a pipeline definition, and the implementation of each step belongs in loader-visible services."
+      ],
+      "items": [
+        "validation;",
+        "access checks;",
+        "query building;",
+        "default value application;",
+        "interceptors;",
+        "validators;",
+        "processors;",
+        "persistence or provider calls;",
+        "cache lookup and invalidation;",
+        "response shaping;",
+        "event dispatch;",
+        "diagnostics and error traceability."
+      ]
+    },
+    {
+      "heading": "Runtime Flow",
+      "migratedFrom": "nodics:gFramework/nPipeline/docs/pipeline-framework.md",
+      "sourceAnchor": "runtime-flow",
+      "paragraphs": [
+        "service is available.",
+        "pipeline starts a named pipeline through `DefaultPipelineService.start`.",
+        "pipeline.",
+        "definition.",
+        "The base `defaultPipeline` contributes standard terminal nodes:",
+        "```javascript\nmodule.exports = {\n    defaultPipeline: {\n        nodes: {\n            successEnd: {\n                type: 'function',\n                handler: 'DefaultPipelineService.handleSucessEnd'\n            },\n            handleError: {\n                type: 'function',\n                handler: 'DefaultPipelineService.handleErrorEnd'\n            }\n        }\n    }\n};\n```",
+        "Every concrete pipeline automatically receives these terminal nodes unless a later layer intentionally overrides them."
+      ],
+      "items": [
+        "Active modules are resolved by Nodics startup.",
+        "`nPipeline` loads every active module's `src/pipelines/pipelines.js`.",
+        "Definitions are merged through the active module hierarchy.",
+        "Persisted pipeline models are merged when the generated pipeline model",
+        "A service, controller, facade, router, listener, cron job, or another",
+        "`DefaultPipelineService` merges `defaultPipeline` with the requested",
+        "`PipelineHead` builds `PipelineNode` instances from the effective",
+        "`PipelineHead` executes the `startNode`.",
+        "Each node calls `process.nextSuccess`, `process.stop`, or `process.error`.",
+        "Success reaches `successEnd`; errors reach `handleError`."
+      ]
+    },
+    {
+      "heading": "Pipeline Node Contract",
+      "migratedFrom": "nodics:gFramework/nPipeline/docs/pipeline-framework.md",
+      "sourceAnchor": "pipeline-node-contract",
+      "paragraphs": [
+        "A normal service-backed node has this shape:",
+        "```javascript\nvalidateRequest: {\n    type: 'function',\n    handler: 'DefaultModelsGetInitializerService.validateRequest',\n    success: 'checkAccess'\n}\n```",
+        "The handler must be a loader-visible service function with this signature:",
+        "```javascript\nvalidateRequest: function (request, response, process) {\n    if (!request || !request.schemaModel) {\n        process.error(request, response, new CLASSES.NodicsError('Invalid request'));\n        return;\n    }\n    process.nextSuccess(request, response);\n}\n```",
+        "A handler must:",
+        "to the lifecycle contract;",
+        "`process.error`;",
+        "continue;",
+        "context;",
+        "`CLASSES.SearchError`, `CLASSES.DataError`, or the owning module's error type.",
+        "Do not hide pipeline behavior in private closures or files outside `src/service`. A later module must be able to override one function without copying an entire framework file."
+      ],
+      "items": [
+        "read required input from `request`;",
+        "write shared output to `request` or `response` only when that output belongs",
+        "call exactly one of `process.nextSuccess`, `process.stop`, or",
+        "return immediately after `process.error` when the function could otherwise",
+        "preserve tenant, auth, module, schema, route, search, import, and event",
+        "use framework error classes such as `CLASSES.NodicsError`,"
+      ]
+    },
+    {
+      "heading": "Success, Stop, Target, And Error",
+      "migratedFrom": "nodics:gFramework/nPipeline/docs/pipeline-framework.md",
+      "sourceAnchor": "success-stop-target-and-error",
+      "paragraphs": [
+        "`process.nextSuccess(request, response)` moves to the node named by the current node's `success` property.",
+        "`process.stop(request, response, success)` skips the remaining normal nodes and routes directly to `successEnd`. Use it when the pipeline has completed early, such as a cache hit.",
+        "`response.targetNode` supports branching when a node has a success map:",
+        "```javascript\nredirectRequest: {\n    type: 'function',\n    handler: 'DefaultRequestHandlerPipelineService.redirectRequest',\n    success: {\n        securedRequest: 'handleSecuredRequest',\n        nonSecureRequest: 'handleNonSecuredRequest'\n    }\n}\n```",
+        "The handler sets `response.targetNode = 'securedRequest'` or `response.targetNode = 'nonSecureRequest'`, and `PipelineHead` chooses the next node.",
+        "`process.error(request, response, error)` enriches the error with pipeline context, then routes to the configured error node. Error context can include pipeline name, pipeline id, node name, handler, tenant, module, schema, index, event, import run, route, and operation details."
+      ]
+    },
+    {
+      "heading": "Processors Are Not Pipeline Nodes",
+      "migratedFrom": "nodics:gFramework/nPipeline/docs/pipeline-framework.md",
+      "sourceAnchor": "processors-are-not-pipeline-nodes",
+      "paragraphs": [
+        "A processor is a configured handler that transforms or prepares data. A pipeline node can execute processors, but the processor itself is not the pipeline controller.",
+        "For example, the database bulk save pipeline has a `preProcessor` node:",
+        "```javascript\npreProcessor: {\n    type: 'function',\n    handler: 'DefaultModelsSaveInitializerService.preProcessor',\n    success: 'processModels'\n}\n```",
+        "That node reads schema interceptor configuration such as `preSaveProcessor` and uses `DefaultProcessorHandlerService.executeProcessors` to run the configured processor handlers sequentially.",
+        "This separation matters:",
+        "Use processors for data transformation, enrichment, normalization, mapping, or target-contract shaping. Use pipelines for lifecycle orchestration."
+      ],
+      "items": [
+        "the pipeline owns lifecycle order;",
+        "the service node owns the step behavior;",
+        "the processor owns targeted data transformation;",
+        "schema, search, import, or export definitions decide which processors apply;",
+        "later modules can override any of those layers independently."
+      ]
+    },
+    {
+      "heading": "Real Example: API Request Pipeline",
+      "migratedFrom": "nodics:gFramework/nPipeline/docs/pipeline-framework.md",
+      "sourceAnchor": "real-example-api-request-pipeline",
+      "paragraphs": [
+        "`gFramework/nRouter/src/pipelines/pipelines.js` defines `requestHandlerPipeline`.",
+        "The request pipeline handles every API request before a controller is called:",
+        "The secured branch validates the secured request, API key, auth token, request data, and access. The non-secured branch resolves enterprise and tenant context. This is why route security decisions are made before controller execution and why login routes can remain pre-authentication while internal token routes stay secured.",
+        "When customizing request behavior, add a later-module pipeline definition and service function for the new step. Examples include request tracing, rate limits, custom tenant lookup, request normalization, or additional access checks."
+      ],
+      "items": [
+        "`helpRequest`: handles framework help behavior.",
+        "`parseHeader`: normalizes request headers.",
+        "`parseBody`: normalizes request body.",
+        "`handleSpecialRequest`: handles special framework request cases.",
+        "`redirectRequest`: chooses secured or non-secured flow.",
+        "`handleSecuredRequest`: runs `handleSecuredRequestPipeline`.",
+        "`handleNonSecuredRequest`: runs `handleNonSecuredRequestPipeline`.",
+        "`lookupCache`: checks API response cache.",
+        "`handleRequest`: dispatches to the registered controller.",
+        "`successEnd`: returns the success response."
+      ]
+    },
+    {
+      "heading": "Real Example: Database Get Pipeline",
+      "migratedFrom": "nodics:gFramework/nPipeline/docs/pipeline-framework.md",
+      "sourceAnchor": "real-example-database-get-pipeline",
+      "paragraphs": [
+        "Generated CRUD services call:",
+        "```javascript\nSERVICE.DefaultPipelineService.start('modelsGetInitializerPipeline', request, {});\n```",
+        "`modelsGetInitializerPipeline` performs the schema read lifecycle:",
+        "This pipeline is tenant-aware, schema-aware, cache-aware, and access-policy aware. A customer project should customize read behavior by changing schema configuration, interceptors, validators, services, or a later pipeline definition. It should not edit generated CRUD services."
+      ],
+      "items": [
+        "`validateRequest`: verifies required request and schema context.",
+        "`checkAccess`: verifies read permission.",
+        "`buildQuery`: prepares effective query.",
+        "`buildOptions`: prepares query options.",
+        "`lookupCache`: returns early on DAO/schema-item cache hit.",
+        "`applyPreInterceptors`: runs configured pre-read interceptors.",
+        "`applyPreValidators`: runs configured pre-read validators.",
+        "`executeQuery`: calls the active model/DAO implementation.",
+        "`populateSubModels`: populates configured relations.",
+        "`populateVirtualProperties`: computes virtual properties.",
+        "`applyPostValidators`: runs post-read validators.",
+        "`applyPostInterceptors`: runs post-read interceptors.",
+        "`updateCache`: stores cacheable results.",
+        "`applyReadAccessPolicies`: removes data the caller cannot see."
+      ]
+    },
+    {
+      "heading": "Real Example: Database Save Pipelines",
+      "migratedFrom": "nodics:gFramework/nPipeline/docs/pipeline-framework.md",
+      "sourceAnchor": "real-example-database-save-pipelines",
+      "paragraphs": [
+        "Bulk save and single save are intentionally split.",
+        "`modelsSaveInitializerPipeline` handles the bulk request:",
+        "`modelSaveInitializerPipeline` handles one model:",
+        "This design lets bulk behavior, single-model behavior, query building, default values, validation, nested save, cache invalidation, and events be customized independently."
+      ],
+      "items": [
+        "`validateInput`: requires a non-empty model list.",
+        "`preProcessor`: runs configured bulk pre-save processors.",
+        "`processModels`: delegates each model to `modelSaveInitializerPipeline`.",
+        "`postProcessor`: runs configured bulk post-save processors.",
+        "custom `successEnd`: returns bulk success and failure details.",
+        "`validateModel`: verifies object input.",
+        "`checkAccess`: verifies write permission.",
+        "`enforceCreateAccessPolicies`: applies schema create policies.",
+        "`buildQuery`: runs `modelQueryBuilderPipeline`.",
+        "`applyDefaultValues`: applies schema defaults.",
+        "`removeVirtualProperties`: removes non-persistent values.",
+        "`applyPreInterceptors`: runs pre-save interceptors.",
+        "`applyPreValidators`: runs pre-save validators.",
+        "`applyValidators`: runs schema validators.",
+        "`handleNestedModelsSave`: persists nested models when configured.",
+        "`saveModel`: calls the active model/DAO implementation.",
+        "`populateSubModels`: populates configured relations.",
+        "`populateVirtualProperties`: computes virtual values.",
+        "`applyPostValidators`: runs post-save validators.",
+        "`applyPostInterceptors`: runs post-save interceptors.",
+        "`triggerModelChangeEvent`: emits model change events.",
+        "`invalidateRouterCache`: clears API response cache.",
+        "`invalidateSchemaItemCache`: clears schema-item cache.",
+        "`successEnd`: returns the saved model."
+      ]
+    },
+    {
+      "heading": "Real Example: Search Pipelines",
+      "migratedFrom": "nodics:gFramework/nPipeline/docs/pipeline-framework.md",
+      "sourceAnchor": "real-example-search-pipelines",
+      "paragraphs": [
+        "Search modules define provider-neutral search lifecycles. Examples include:",
+        "The `doSearchModelInitializerPipeline` follows the same lifecycle style as database get:",
+        "The search indexer uses processors differently: index definitions can configure processors that run while indexer data is being fetched and shaped. Those processors should be used for search-specific transformation, not for changing the pipeline engine."
+      ],
+      "items": [
+        "`doGetModelsInitializerPipeline`;",
+        "`doSearchModelInitializerPipeline`;",
+        "`doSaveModelsInitializerPipeline`;",
+        "`doRefreshIndexInitializerPipeline`;",
+        "`doHealthCheckClusterInitializerPipeline`;",
+        "indexer pipelines.",
+        "validate request and search model;",
+        "build search options;",
+        "check search cache;",
+        "apply pre interceptors;",
+        "apply pre validators;",
+        "execute provider query;",
+        "populate virtual properties;",
+        "apply post validators;",
+        "apply post interceptors;",
+        "update search cache;",
+        "return the response."
+      ]
+    },
+    {
+      "heading": "Defining A New Pipeline",
+      "migratedFrom": "nodics:gFramework/nPipeline/docs/pipeline-framework.md",
+      "sourceAnchor": "defining-a-new-pipeline",
+      "paragraphs": [
+        "Create or update the owning module's `src/pipelines/pipelines.js`.",
+        "Example:",
+        "```javascript\nmodule.exports = {\n    sampleApprovalPipeline: {\n        startNode: 'validateRequest',\n        hardStop: true,\n        handleError: 'handleError',\n        nodes: {\n            validateRequest: {\n                type: 'function',\n                handler: 'DefaultSampleApprovalPipelineService.validateRequest',\n                success: 'loadContext'\n            },\n            loadContext: {\n                type: 'function',\n                handler: 'DefaultSampleApprovalPipelineService.loadContext',\n                success: 'applyRules'\n            },\n            applyRules: {\n                type: 'function',\n                handler: 'DefaultSampleApprovalPipelineService.applyRules',\n                success: 'successEnd'\n            }\n        }\n    }\n};\n```",
+        "Then create a loader-visible service, for example `src/service/pipeline/defaultSampleApprovalPipelineService.js`:",
+        "```javascript\nmodule.exports = {\n    validateRequest: function (request, response, process) {\n        if (!request || !request.tenant) {\n            process.error(request, response, new CLASSES.NodicsError('Tenant is required'));\n            return;\n        }\n        process.nextSuccess(request, response);\n    },\n\n    loadContext: function (request, response, process) {\n        response.context = response.context || {};\n        process.nextSuccess(request, response);\n    },\n\n    applyRules: function (request, response, process) {\n        response.success = {\n            code: 'SUC_SAMPLE_00000',\n            result: response.context\n        };\n        process.nextSuccess(request, response);\n    }\n};\n```",
+        "The service file should follow the normal Nodics export-style contract so a later module can override only `applyRules` or any other individual function."
+      ]
+    },
+    {
+      "heading": "Extending An Existing Pipeline",
+      "migratedFrom": "nodics:gFramework/nPipeline/docs/pipeline-framework.md",
+      "sourceAnchor": "extending-an-existing-pipeline",
+      "paragraphs": [
+        "To extend a framework pipeline from a customer/project module:",
+        "active module.",
+        "Example: add a customer audit step after database save events:",
+        "```javascript\nmodule.exports = {\n    modelSaveInitializerPipeline: {\n        nodes: {\n            triggerModelChangeEvent: {\n                type: 'function',\n                handler: 'DefaultModelSaveInitializerService.triggerModelChangeEvent',\n                success: 'writeCustomerAudit'\n            },\n            writeCustomerAudit: {\n                type: 'function',\n                handler: 'DefaultCustomerModelAuditPipelineService.writeCustomerAudit',\n                success: 'invalidateRouterCache'\n            }\n        }\n    }\n};\n```",
+        "The custom service belongs in the customer/project module:",
+        "```javascript\nmodule.exports = {\n    writeCustomerAudit: function (request, response, process) {\n        // Write audit using tenant and schema context from request.\n        process.nextSuccess(request, response);\n    }\n};\n```",
+        "Do not copy the full framework pipeline unless the whole lifecycle is being replaced. A focused node contribution keeps the custom module smaller and makes future framework upgrades easier."
+      ],
+      "items": [
+        "Create the same `src/pipelines/pipelines.js` contribution in the later",
+        "Define only the pipeline nodes that need to change or be added.",
+        "Add new service functions under `src/service`.",
+        "Preserve request, response, tenant, auth, and error contracts.",
+        "Add tests proving the effective pipeline order and behavior.",
+        "Regenerate generated context."
+      ]
+    },
+    {
+      "heading": "Replacing A Node Implementation",
+      "migratedFrom": "nodics:gFramework/nPipeline/docs/pipeline-framework.md",
+      "sourceAnchor": "replacing-a-node-implementation",
+      "paragraphs": [
+        "When the pipeline order is correct but one step needs custom behavior, override the service method rather than changing the pipeline definition.",
+        "Framework service:",
+        "```javascript\nmodule.exports = {\n    applyDefaultValues: function (request, response, process) {\n        // framework behavior\n    }\n};\n```",
+        "Later module service with the same loader-visible service name:",
+        "```javascript\nmodule.exports = {\n    applyDefaultValues: function (request, response, process) {\n        // customer behavior\n        process.nextSuccess(request, response);\n    }\n};\n```",
+        "Because services are merged through active module hierarchy, this replaces only that function while keeping the rest of the framework service intact."
+      ]
+    },
+    {
+      "heading": "Runtime Pipeline Configuration",
+      "migratedFrom": "nodics:gFramework/nPipeline/docs/pipeline-framework.md",
+      "sourceAnchor": "runtime-pipeline-configuration",
+      "paragraphs": [
+        "Source definitions are the primary source of truth. Runtime pipeline models can also update the effective `PIPELINE` registry when the pipeline schema and generated service are available. Runtime changes are handled through `pipelineSave`, `pipelineUpdated`, and pipeline removal events.",
+        "Use runtime pipeline models for governed activation, tenant-aware operational changes, or admin-managed behavior where the platform explicitly supports it. Do not use runtime pipeline models as a hidden architecture source. Source, tests, module guidance, and generated context must still describe the capability contract."
+      ]
+    },
+    {
+      "heading": "Testing Pipeline Changes",
+      "migratedFrom": "nodics:gFramework/nPipeline/docs/pipeline-framework.md",
+      "sourceAnchor": "testing-pipeline-changes",
+      "paragraphs": [
+        "Every pipeline change needs tests at the right boundary.",
+        "For framework pipeline changes, add tests beside the owning module. Recent examples include:",
+        "Tests should prove:",
+        "Run the focused test first, then the owning suite. Regenerate LLM context after source or documentation changes:",
+        "```bash\nnode gFramework/nTooling/bin/nodics-tool.js test:suite --suite=governance\nnode gFramework/nTooling/bin/nodics-tool.js test:suite --suite=search\nnpm run llm:generate\nnpm run llm:validate\nnpm run quality:docs\n```"
+      ],
+      "items": [
+        "`gFramework/nRouter/test/requestPipelineResponseContract.test.js`;",
+        "`gFramework/nDatabase/database/test/modelsGetInitializerPipelineContract.test.js`;",
+        "`gFramework/nDatabase/database/test/modelSaveInitializerPipelineContract.test.js`;",
+        "`gFramework/nDatabase/database/test/modelsSaveInitializerPipelineContract.test.js`;",
+        "`gFramework/nDatabase/database/test/modelsRemoveUpdateInitializerPipelineContract.test.js`;",
+        "`gFramework/nSearch/search/test/searchPipelineInitializerContract.test.js`.",
+        "invalid input is rejected early;",
+        "access and tenant context are preserved;",
+        "cache hit paths do not mutate cached objects;",
+        "processors, validators, and interceptors are called in the expected order;",
+        "nested pipelines receive cloned or isolated mutable input where required;",
+        "partial failures are reported safely;",
+        "success and error responses have stable shapes;",
+        "errors include useful pipeline context;",
+        "a later module can override the intended extension point."
+      ]
+    },
+    {
+      "heading": "Documentation Checklist",
+      "migratedFrom": "nodics:gFramework/nPipeline/docs/pipeline-framework.md",
+      "sourceAnchor": "documentation-checklist",
+      "paragraphs": [
+        "When adding or changing a pipeline, update:",
+        "Document the pipeline's purpose, owner, start node, node order, request shape, response shape, tenant/auth assumptions, processors/interceptors/validators, side effects, failure behavior, customization path, and tests."
+      ],
+      "items": [
+        "the owning module `README.md`;",
+        "the canonical capability page when the behavior needs detailed explanation;",
+        "`AGENTS.md` or module `AGENTS.md` when AI/developer behavior changes;",
+        "LLM contracts or examples under `gSetup/llm` when the rule is cross-module;",
+        "generated LLM context by running `npm run llm:generate`."
+      ]
+    },
+    {
+      "heading": "What To Avoid",
+      "migratedFrom": "nodics:gFramework/nPipeline/docs/pipeline-framework.md",
+      "sourceAnchor": "what-to-avoid",
+      "paragraphs": [
+        "Avoid:",
+        "members;",
+        "or file path values in pipeline handlers;",
+        "modules;",
+        "regenerating."
+      ],
+      "items": [
+        "editing out-of-the-box framework files for customer-only behavior;",
+        "creating pipeline-support services outside `src/service`;",
+        "exporting a single function when the service should export mergeable object",
+        "hardcoding tenant, server, node, customer, provider, index, database, queue,",
+        "swallowing errors instead of calling `process.error`;",
+        "calling both `process.error` and `process.nextSuccess` from one failure path;",
+        "mutating cached data returned from cache without cloning it first;",
+        "using processors to hide lifecycle order;",
+        "using pipelines for business workflow state machines that belong to workflow",
+        "changing generated services directly instead of changing definitions and"
       ]
     }
   ]

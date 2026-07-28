@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "gCore/profile/README.md",
     "type": "module-readme",
-    "contentHash": "0ca4237e64402e12b4c6b75b55e451c0a85f419a5ed878b934cef8f7136b09ae"
+    "contentHash": "63abe63ff9da29c0bb1809cb106461603dc041b0f4eaa9b4f9893014d8e79a03"
   },
   "headings": [
     {
@@ -59,6 +59,11 @@
       "level": 2,
       "text": "Mandatory identity bootstrap",
       "anchor": "mandatory-identity-bootstrap"
+    },
+    {
+      "level": 2,
+      "text": "Tenant Local File Import Examples",
+      "anchor": "tenant-local-file-import-examples"
     },
     {
       "level": 2,
@@ -228,7 +233,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "This operation reuses the generated `DefaultEnterpriseService` against the Profile-owned default-tenant enterprise store. It is not a second search index, schema loader, registry, or persistence path. BackOffice discovers it from the effective OpenAPI contract, and Assistant may invoke it only when the reviewed tool policy also allowlists `profile.enterprise.search` with operation ID `profile_searchenterprises`. See [Enterprise Management Search](/docs/modules/gcore/profile/docs/enterprise-management-search)."
+      "text": "This operation reuses the generated `DefaultEnterpriseService` against the Profile-owned default-tenant enterprise store. It is not a second search index, schema loader, registry, or persistence path. BackOffice discovers it from the effective OpenAPI contract, and Assistant may invoke it only when the reviewed tool policy also allowlists `profile.enterprise.search` with operation ID `profile_searchenterprises`. See Enterprise Management Search (canonical documentation: `capability.identity-access.technical-reference`)."
     },
     {
       "kind": "paragraph",
@@ -345,6 +350,29 @@
     {
       "kind": "paragraph",
       "text": "Projects can replace the service list, override the reconciler in a later module layer, extend `identityGovernance.migration.groupTargets`, or disable automatic group reconciliation. Missing service principals or credentials are not silently recreated; those remain fail-closed governed recovery operations."
+    },
+    {
+      "kind": "heading",
+      "level": 2,
+      "text": "Tenant Local File Import Examples",
+      "anchor": "tenant-local-file-import-examples"
+    },
+    {
+      "kind": "paragraph",
+      "text": "Profile keeps historical tenant local-file import examples under `data/sample/tenant`. These examples include CSV, XLSX, and legacy XLS `defaultTenantData` records with matching headers, but they are not active startup data. This placement lets developers and Axis import workflows intentionally test or demonstrate Profile tenant imports through the sample import process without creating example tenants during normal framework bootstrap."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The sample data uses the normal Nodics structure:"
+    },
+    {
+      "kind": "code",
+      "language": "text",
+      "text": "gCore/profile/data/sample/tenant/\n  headers/\n  data/"
+    },
+    {
+      "kind": "paragraph",
+      "text": "The legacy `.xls` example is preserved as historical reference only; the validated spreadsheet path is `.xlsx`. The contract test `gFramework/nData/nImport/import/test/profileTenantLocalFileImportContract.test.js` proves header discovery, data-file prefix matching, file-type resolution, processor execution, and tenant schema dispatch metadata through the existing `nImport` local-import lifecycle."
     },
     {
       "kind": "heading",
@@ -509,13 +537,6 @@
     }
   ],
   "links": [
-    {
-      "label": "Enterprise Management Search",
-      "target": "docs/enterprise-management-search.md",
-      "kind": "internal",
-      "route": "/docs/modules/gcore/profile/docs/enterprise-management-search",
-      "anchor": ""
-    },
     {
       "label": "gCore",
       "target": "../README.md",

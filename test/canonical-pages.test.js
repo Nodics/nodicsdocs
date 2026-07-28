@@ -75,7 +75,7 @@ test('search journey covers engines, provider extension, lifecycle, import, expo
 
 test('provider documentation standard governs every external adapter family', () => {
     const standard = fs.readFileSync(
-        path.join(root, 'docs', 'provider-documentation-standard.md'),
+        path.join(root, 'AGENTS.md'),
         'utf8'
     );
     [

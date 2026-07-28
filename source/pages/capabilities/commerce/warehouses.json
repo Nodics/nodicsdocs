@@ -168,7 +168,7 @@
       "paragraphs": [
         "Warehouse/location classifications, transitions, identity format, and maximum depth come from `inventory` properties. Customize them in a later project, environment, server, node, tenant, or customer layer. Do not edit OOTB inventory.",
         "Generated schema services are private in this release. Developers integrate through generated services and persistence interceptors; they must not call the database provider directly. Public or BackOffice administration requires a later intent-API slice with human permissions and negative security tests.",
-        "See the module-level [Warehouse Foundation contract](/docs/reference/commerce) for exact fields, properties, services, interceptors, errors, customization, recovery, and test commands."
+        "See the module-level Warehouse Foundation contract (canonical documentation: `capability.commerce.technical-reference`) for exact fields, properties, services, interceptors, errors, customization, recovery, and test commands."
       ]
     },
     {

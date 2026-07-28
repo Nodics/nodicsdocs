@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "gDocs/commerce/how-stock-sourcing-works.md",
     "type": "gdocs",
-    "contentHash": "997e371fab3adfce362a4f2ab111b32d316e419df2d7403ff0508be74613362b"
+    "contentHash": "a7c8d5324738547049951d7829e6894d7c7d97a8a52f6dc33fc43fff29a18c35"
   },
   "headings": [
     {
@@ -92,7 +92,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "Read the [Stock Sourcing foundation contract](/docs/modules/gcomm/inventory/docs/stock-sourcing-foundation) for schemas, configuration, security, customization, recovery, and tests."
+      "text": "Read the Stock Sourcing foundation contract (canonical documentation: `capability.commerce.technical-reference`) for schemas, configuration, security, customization, recovery, and tests."
     },
     {
       "kind": "heading",
@@ -109,13 +109,6 @@
     }
   ],
   "links": [
-    {
-      "label": "Stock Sourcing foundation contract",
-      "target": "../../gComm/inventory/docs/stock-sourcing-foundation.md",
-      "kind": "internal",
-      "route": "/docs/modules/gcomm/inventory/docs/stock-sourcing-foundation",
-      "anchor": ""
-    },
     {
       "label": "How To Manage Stock Pools",
       "target": "how-to-manage-stock-pools.md",

@@ -211,7 +211,7 @@
       "migratedFrom": "nodics:gDocs/ai/how-ai-cost-governance-works.md",
       "sourceAnchor": "continue",
       "paragraphs": [
-        "[Persistent AI Token Ledger Guide](/docs/reference/ai)"
+        "Persistent AI Token Ledger Guide (canonical documentation: `capability.ai.technical-reference`)"
       ],
       "items": [
         "Detailed business, operator, and developer guide:",

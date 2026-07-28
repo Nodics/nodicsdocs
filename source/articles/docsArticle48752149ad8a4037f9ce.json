@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "gFramework/nConfig/README.md",
     "type": "module-readme",
-    "contentHash": "40bc560398ecbc6690df4c7c09e9f69ad1a0d6ba511773d10d02e5020b6b281b"
+    "contentHash": "422710a7a1d3b966f647a026a9f0017677d89fac5163c21a4f232782f0093df1"
   },
   "headings": [
     {
@@ -337,7 +337,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "Process startup, readiness, draining, shutdown, and provider cleanup follow the [runtime lifecycle and resilience contract](/docs/modules/gframework/nconfig/docs/runtime-lifecycle-resilience-contract). `nConfig` owns the single signal coordinator; later modules contribute bounded hooks instead of installing parallel process handlers."
+      "text": "Process startup, readiness, draining, shutdown, and provider cleanup follow the runtime lifecycle and resilience contract (canonical documentation: `capability.configuration.technical-reference`). `nConfig` owns the single signal coordinator; later modules contribute bounded hooks instead of installing parallel process handlers."
     },
     {
       "kind": "heading",
@@ -654,19 +654,12 @@
       "items": [
         "Public guide: [How Configuration Works](/docs/configuration/how-configuration-works)",
         "Runtime structure: [How Nodics Is Organized](/docs/architecture/how-nodics-is-organized)",
-        "Lifecycle detail: [Runtime Lifecycle And Resilience Contract](/docs/modules/gframework/nconfig/docs/runtime-lifecycle-resilience-contract)",
+        "Lifecycle detail: Runtime Lifecycle And Resilience Contract (canonical documentation: `capability.configuration.technical-reference`)",
         "Framework map: [gFramework](/docs/modules/gframework)"
       ]
     }
   ],
   "links": [
-    {
-      "label": "runtime lifecycle and resilience contract",
-      "target": "docs/runtime-lifecycle-resilience-contract.md",
-      "kind": "internal",
-      "route": "/docs/modules/gframework/nconfig/docs/runtime-lifecycle-resilience-contract",
-      "anchor": ""
-    },
     {
       "label": "How Configuration Works",
       "target": "../../gDocs/configuration/how-configuration-works.md",
@@ -679,13 +672,6 @@
       "target": "../../gDocs/architecture/how-nodics-is-organized.md",
       "kind": "internal",
       "route": "/docs/architecture/how-nodics-is-organized",
-      "anchor": ""
-    },
-    {
-      "label": "Runtime Lifecycle And Resilience Contract",
-      "target": "docs/runtime-lifecycle-resilience-contract.md",
-      "kind": "internal",
-      "route": "/docs/modules/gframework/nconfig/docs/runtime-lifecycle-resilience-contract",
       "anchor": ""
     },
     {

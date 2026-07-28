@@ -39,6 +39,7 @@ function migratedContent(sections) {
 }
 
 const decisions = readJson('source/migration-decisions.json').decisions;
+const migrationRegister = readJson('manifest/migration-register.json');
 const articles = new Map(walkFiles(
     path.join(root, 'source', 'articles'),
     filePath => filePath.endsWith('.json')
@@ -54,13 +55,25 @@ const pages = new Map(walkFiles(
     return [page.code, page];
 }));
 
-const eligible = decisions.filter(decision =>
+const entryPointAndGDocs = decisions.filter(decision =>
     (
         decision.evidenceId === 'nodics:README.md' ||
         decision.evidenceId.startsWith('nodics:gDocs/')
     ) &&
     ['merge', 'rewrite', 'retain'].includes(decision.disposition)
 );
+const specializedModuleDocuments = migrationRegister.entries
+    .filter(entry =>
+        entry.sourceType === 'module-doc' &&
+        !entry.sourcePath.endsWith('/docs/README.md') &&
+        ['merge', 'rewrite', 'retain'].includes(entry.disposition)
+    )
+    .map(entry => ({
+        evidenceId: entry.evidenceId,
+        disposition: entry.disposition,
+        destinationCode: entry.destinationCode
+    }));
+const eligible = [...entryPointAndGDocs, ...specializedModuleDocuments];
 
 eligible.forEach(decision => {
     const article = articles.get(decision.evidenceId);
@@ -95,7 +108,11 @@ eligible.forEach(decision => {
     }
 });
 
-console.log(`User-facing entry-point and gDocs sources requiring preservation: ${eligible.length}`);
+console.log(
+    `Sources requiring preservation: ${eligible.length} ` +
+    `(${entryPointAndGDocs.length} entry-point and gDocs, ` +
+    `${specializedModuleDocuments.length} specialized module documents)`
+);
 console.log(`Sources with complete canonical detail: ${eligible.length - new Set(
     errors.map(error => error.split(': nodics:')[1]).filter(Boolean)
 ).size}`);

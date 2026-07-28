@@ -22,7 +22,22 @@
   "lastVerified": "2026-07-26",
   "summary": "BackOffice owns registry/control-plane contracts and CMS seed content; Axis owns responsive renderers; business modules own APIs, data, validation, authorization, and execution.",
   "supportingEvidence": [
-    "nodics:gExp/backoffice/README.md"
+    "nodics:gExp/backoffice/README.md",
+    "nodics:gExp/backoffice/docs/administrative-security-contract.md",
+    "nodics:gExp/backoffice/docs/api-catalogue-contract.md",
+    "nodics:gExp/backoffice/docs/availability-observation-contract.md",
+    "nodics:gExp/backoffice/docs/axis-content-catalog.md",
+    "nodics:gExp/backoffice/docs/backend-acceptance-report.md",
+    "nodics:gExp/backoffice/docs/backend-release-readiness.md",
+    "nodics:gExp/backoffice/docs/capability-discovery-contract.md",
+    "nodics:gExp/backoffice/docs/contract-history-lifecycle.md",
+    "nodics:gExp/backoffice/docs/core-data-operations.md",
+    "nodics:gExp/backoffice/docs/environment-deployment-contract.md",
+    "nodics:gExp/backoffice/docs/module-health-operations.md",
+    "nodics:gExp/backoffice/docs/module-registry-contract.md",
+    "nodics:gExp/backoffice/docs/performance-and-scale-contract.md",
+    "nodics:gExp/backoffice/docs/registry-administration-contract.md",
+    "nodics:gExp/backoffice/docs/registry-operations-runbook.md"
   ],
   "sections": [
     {
@@ -72,6 +87,907 @@
       "items": [
         "Employee-only browser session, exact CORS/CSRF, HttpOnly refresh, in-memory access token, target authorization, module/service credential separation.",
         "Registration retry/recovery, stale lease, duplicate instance, mono/distributed topology, CMS fallback, contract drift, direct-module outage, responsive/webview, accessibility, positive, negative, boundary, integration, and regression tests."
+      ]
+    },
+    {
+      "heading": "Identity boundary",
+      "migratedFrom": "nodics:gExp/backoffice/docs/administrative-security-contract.md",
+      "sourceAnchor": "identity-boundary",
+      "paragraphs": [
+        "Human administrative operations use authenticated human access sessions and action-specific permissions. Service identities remain restricted to module registration and deregistration and are rejected from registry administration, diagnostics, manual refresh, and contract decision operations even if a service credential is accidentally granted an administrative permission.",
+        "The authenticated principal is required. When request and identity tenant are both present they must match. Target modules retain final tenant and business authorization for their own APIs."
+      ]
+    },
+    {
+      "heading": "Permission matrix",
+      "migratedFrom": "nodics:gExp/backoffice/docs/administrative-security-contract.md",
+      "sourceAnchor": "permission-matrix",
+      "paragraphs": [
+        "| Operation | Permission |\n| --- | --- |\n| Client-safe module discovery | `backoffice.registry.view` |\n| Client bootstrap | `backoffice.bootstrap.view` |\n| Registry diagnostics | `backoffice.registry.diagnostics.view` |\n| Administrative inventory/detail | `backoffice.registry.admin.view` |\n| Manual availability/discovery refresh | `backoffice.registry.refresh` |\n| Contract current/history/compare | `backoffice.contract.view` |\n| Contract approval | `backoffice.contract.approve` |\n| Contract rejection | `backoffice.contract.reject` |\n| Contract rollback | `backoffice.contract.rollback` |"
+      ]
+    },
+    {
+      "heading": "Refresh abuse protection",
+      "migratedFrom": "nodics:gExp/backoffice/docs/administrative-security-contract.md",
+      "sourceAnchor": "refresh-abuse-protection",
+      "paragraphs": [
+        "Refresh is limited per tenant, principal, and module using layered `backofficeRegistry.administration` policy. A bounded client-supplied `Idempotency-Key` deduplicates in-flight work and briefly reuses completed results. Counter and result maps are time-bounded and size-bounded. These rules augment the existing Nodics route authorization and global HTTP hardening; they do not create another authentication or permission authority."
+      ]
+    },
+    {
+      "heading": "Audit disclosure",
+      "migratedFrom": "nodics:gExp/backoffice/docs/administrative-security-contract.md",
+      "sourceAnchor": "audit-disclosure",
+      "paragraphs": [
+        "Administrative success and contract-decision audits may contain principal, token type, tenant, trace, correlation, and request identifiers. Tokens, authorization headers, endpoints, raw health content, and provider errors are never retained."
+      ]
+    },
+    {
+      "heading": "Required validation",
+      "migratedFrom": "nodics:gExp/backoffice/docs/administrative-security-contract.md",
+      "sourceAnchor": "required-validation",
+      "paragraphs": [
+        "Changes require human success, service-token rejection, missing-principal, cross-tenant, permission-route, rate-boundary, independent-principal, idempotency replay/in-flight, bounded-state, correlation-redaction, integration, topology, and regression tests.",
+        "When `backofficeRegistry.operations.production.enabled` is true, operational configuration also requires HTTPS-only module coordinates, non-empty discovery and availability host allowlists, distributed registry storage, strict audit and alert delivery acknowledgements, service-token rejection, and stable human principals. These checks validate configuration posture without replacing the target module, Profile, network, secret, or deployment authorities."
+      ]
+    },
+    {
+      "heading": "API Schemas",
+      "migratedFrom": "nodics:gExp/backoffice/docs/api-catalogue-contract.md",
+      "sourceAnchor": "api-schemas",
+      "paragraphs": [
+        "`src/schemas/apiContracts.js` is the source definition for registration batch, module registration, module lease, discovery, bootstrap, compatibility, and diagnostics JSON contracts. The registration route uses the same definition in OpenAPI metadata. `DefaultBackofficeContractService` enforces bounded fields, module-name syntax, unique arrays, batch identity consistency, catalogue field allowlists, and the absence of undeclared fields.",
+        "Tokens, credentials, secrets, provider configuration, and arbitrary metadata are not valid registration fields. Adding a contract field requires a source schema change, validation change, tests, documentation, and generated-context regeneration."
+      ]
+    },
+    {
+      "heading": "Module-Owned Catalogue Metadata",
+      "migratedFrom": "nodics:gExp/backoffice/docs/api-catalogue-contract.md",
+      "sourceAnchor": "module-owned-catalogue-metadata",
+      "paragraphs": [
+        "A module may contribute `backofficeCapabilities.<moduleName>` from its own layered `config/properties.js`:",
+        "composition provider;",
+        "routes, semantic icon keys, business groups, parent relationships, perspectives, required context dimensions, feature state, ordering, non-executable badge-provider references, and optional permissions. A navigation-entry icon overrides the module-level icon for that destination. Clients own the executable/vector rendering and must fall back safely for an unknown key.",
+        "Navigation identifiers are unique inside the contributing module. `parentId` may reference only another item in the same contribution. Missing parents, self-parenting, cycles, unknown context dimensions, excessive lists, unknown fields, and executable badge definitions are rejected during registration. `HIDDEN` entries are removed by BackOffice. Permission filtering also removes descendants whose parent is not authorized, so Axis never receives an orphaned tree. `DISABLED` and `PREVIEW` are presentation states; they do not bypass target-route authorization or feature governance.",
+        "The smallest supported customization is a later-layer override of the owning module's `backofficeCapabilities.<moduleName>.navigation`. Do not copy the catalogue into BackOffice, Axis, CMS content, or a project-specific menu loader. Labels and localization keys remain declarative content; badge providers reference a module and operation identifier but never contain a URL, credential, expression, or executable code.",
+        "BackOffice observes this metadata during module registration. It does not keep a manually duplicated catalogue. Target modules remain authoritative for their routes, schemas, data, permissions, validation, and business behavior. Normalized discovery snapshots and UI-composition selection follow `capability-discovery-contract.md`.",
+        "OpenAPI normalization preserves both the standard singular `x-nodics.permission` value and any plural `x-nodics.permissions` values as one deduplicated permission list. This lets employee-filtered clients and governed Assistant tools compare the target module's complete permission contract. BackOffice reports that metadata; the target route still makes the final authorization decision."
+      ],
+      "items": [
+        "`enabled` controls catalogue contribution, not module activation;",
+        "`capabilityId`, `displayName`, `category`, and `icon` are client-safe labels;",
+        "`contractVersion` and `minimumClientContractVersion` drive compatibility;",
+        "`requiredPermissions` filters module discovery;",
+        "`roles` declares how the module participates in BackOffice;",
+        "`discovery` references existing module-owned contract endpoints;",
+        "`uiComposition` may declare non-executable defaults only for a declared UI",
+        "`navigation` contributes identifiers, labels, localization keys, logical"
+      ]
+    },
+    {
+      "heading": "Compatibility Negotiation",
+      "migratedFrom": "nodics:gExp/backoffice/docs/api-catalogue-contract.md",
+      "sourceAnchor": "compatibility-negotiation",
+      "paragraphs": [
+        "Clients may send `x-nodics-client-contract-version` to the bootstrap route. The value must be a positive integer. When omitted, BackOffice uses its configured minimum client contract version.",
+        "module contract.",
+        "Compatibility is advisory discovery state. It does not activate, deactivate, proxy, or modify a module. The bootstrap response reports an overall state and one state for each authorized catalogue module."
+      ],
+      "items": [
+        "`COMPATIBLE`: client version meets or exceeds the module contract version.",
+        "`DEGRADED`: client satisfies the module minimum but is older than the current",
+        "`INCOMPATIBLE`: client is older than the module's minimum supported version."
+      ]
+    },
+    {
+      "heading": "Audit Events",
+      "migratedFrom": "nodics:gExp/backoffice/docs/api-catalogue-contract.md",
+      "sourceAnchor": "audit-events",
+      "paragraphs": [
+        "BackOffice records sanitized registration, renewal, deregistration, rejection, expiry, compatibility, and store-failure events. An environment or project module may configure a publisher service. Audit fields are allowlisted; event bodies never contain tokens, credentials, provider URLs, registration bodies, or stored leases. Audit publication follows configured fail-open or fail-closed policy."
+      ]
+    },
+    {
+      "heading": "Authority and purpose",
+      "migratedFrom": "nodics:gExp/backoffice/docs/availability-observation-contract.md",
+      "sourceAnchor": "authority-and-purpose",
+      "paragraphs": [
+        "Target modules and Nodics System remain authoritative for runtime health and readiness. BackOffice observes the existing low-disclosure public readiness contract and provides a freshness-bounded client summary. It does not add a second health endpoint, execute provider-specific checks, alter target readiness, or make module traffic readiness depend on BackOffice.",
+        "An active lease proves only that a runtime recently registered. It is not a health result. Likewise, a failed BackOffice observation does not stop or restart the target runtime."
+      ]
+    },
+    {
+      "heading": "Collection and security",
+      "migratedFrom": "nodics:gExp/backoffice/docs/availability-observation-contract.md",
+      "sourceAnchor": "collection-and-security",
+      "paragraphs": [
+        "Availability collection is asynchronous to registration. Registrations from the same runtime instance are deduplicated, so one process readiness endpoint is not polled once for every hosted module. Periodic registration renewal triggers bounded refresh according to `backofficeRegistry.availability`. After a failed observation, the first renewal may retry after `failureRetryIntervalMs`; repeated failures use `failureBackoffMultiplier` up to `maxFailureBackoffMs`. This allows a runtime whose readiness becomes `UP` just after registration to recover promptly without creating an unbounded polling loop. Successful observations return to the normal `refreshIntervalMs` cadence.",
+        "Example layered configuration:",
+        "```js\nbackofficeRegistry: {\n    availability: {\n        refreshIntervalMs: 10000,\n        failureRetryIntervalMs: 5000,\n        failureBackoffMultiplier: 2,\n        maxFailureBackoffMs: 60000\n    }\n}\n```",
+        "The example retries the first failed observation after five seconds. Continued failure increases the interval without exceeding sixty seconds. Projects customize these values in the applicable project, environment, server, node, tenant, or customer `properties.js` layer; they must not add a second polling service or health authority.",
+        "The request uses the registered endpoint's exact origin and the configured relative health path. It shares discovery's scheme, credential, fragment, and host validation; redirects, timeout, response-size, refresh, freshness, and optional host-allowlist policy are layered configuration. Only public, low-disclosure readiness is called, without a human or internal token.",
+        "BackOffice retains only module/instance identity, normalized state, timestamps, and a stable failure code. It never retains or returns raw health responses, checks, credentials, endpoints in diagnostics, stack traces, or provider details."
+      ]
+    },
+    {
+      "heading": "Operational transitions and metrics",
+      "migratedFrom": "nodics:gExp/backoffice/docs/availability-observation-contract.md",
+      "sourceAnchor": "operational-transitions-and-metrics",
+      "paragraphs": [
+        "The observer emits an operational event only when a module's aggregate state changes. Initial-state publication is disabled by default to avoid deployment and restart event storms, and repeated identical results are deduplicated. Recovery is a transition and is emitted once. Event publication is asynchronous to registration and application traffic and fails open.",
+        "`backofficeRegistry.availability.events` controls publication, initial-state behavior, the existing Nodics publisher service, event name, target, and type. The default publisher is `DefaultEventService`; projects may replace the publisher through normal layered service and configuration overrides. This is an observability bridge over the normalized observation, not another health or event authority.",
+        "Event data is limited to module and runtime identity, environment/server/node coordinates supplied by authenticated registration, previous/current state, stable reason code, and observation time. It excludes endpoint, credentials, raw readiness content, stack traces, and transport/provider messages.",
+        "Diagnostics include attempts and outcomes, readiness versus transport failure, timeouts, stale reads, suppressed refreshes, in-flight deduplication, state transitions, publication outcomes, and bounded probe-duration aggregates. These process-local operational counters may be exported by a governed observability integration; they are not billing or durable audit authority."
+      ]
+    },
+    {
+      "heading": "State and aggregation",
+      "migratedFrom": "nodics:gExp/backoffice/docs/availability-observation-contract.md",
+      "sourceAnchor": "state-and-aggregation",
+      "paragraphs": [
+        "An instance observation is `UP` only when the target readiness contract reports `UP`. A negative response or bounded transport failure is `UNAVAILABLE`. A missing or stale observation is `UNKNOWN`.",
+        "Module state across currently leased instances is:",
+        "unknown;",
+        "Responses include counts of active, healthy, unavailable, and unknown instances, but no private per-instance diagnostic payload. UI-composition selection accepts only an `UP` or `DEGRADED` provider; otherwise bootstrap uses the static recovery-shell fallback.",
+        "The secured administrative detail route may project an active instance's normalized state, freshness, observation time, and stable reason together with its already-approved environment/server/node coordinates. This is the same observation used by aggregation, not another probe or health authority. Raw responses and provider diagnostics remain excluded."
+      ],
+      "items": [
+        "`UP` when every instance is freshly up;",
+        "`DEGRADED` when at least one instance is up and another is unavailable or",
+        "`UNAVAILABLE` when every fresh observation is unavailable;",
+        "`UNKNOWN` when no reliable fresh conclusion exists."
+      ]
+    },
+    {
+      "heading": "Lifecycle and diagnostics",
+      "migratedFrom": "nodics:gExp/backoffice/docs/availability-observation-contract.md",
+      "sourceAnchor": "lifecycle-and-diagnostics",
+      "paragraphs": [
+        "Observations disappear after the final lease for a runtime instance is removed or expires. BackOffice restart begins with `UNKNOWN` process cache and rebuilds fresh observations through registration reconciliation. This is intentionally different from durable contract history.",
+        "Secured registry diagnostics expose only tracked/inflight counts, bounded operational counters, stable last-failure code, and timestamps."
+      ]
+    },
+    {
+      "heading": "Operator troubleshooting",
+      "migratedFrom": "nodics:gExp/backoffice/docs/availability-observation-contract.md",
+      "sourceAnchor": "operator-troubleshooting",
+      "paragraphs": [
+        "If a module remains `UNAVAILABLE`:",
+        "registration heartbeat settings;",
+        "failure category;",
+        "registration renewal to trigger recovery.",
+        "Do not mark a module healthy manually and do not create a second registry record. A readiness response of `DOWN` is resolved at the target runtime. A transport failure is resolved through endpoint, network, TLS, allowlist, or deployment configuration. BackOffice publishes one recovery transition when the normalized aggregate returns to `UP` or `DEGRADED`."
+      ],
+      "items": [
+        "call the target runtime's public `/nodics/system/v0/health/ready` endpoint;",
+        "confirm that the registered origin and health path belong to that runtime;",
+        "compare `failureRetryIntervalMs`, failure backoff, freshness, lease, and",
+        "inspect secured BackOffice diagnostics for the stable readiness or transport",
+        "correct the target dependency or configuration and allow the existing"
+      ]
+    },
+    {
+      "heading": "Required validation",
+      "migratedFrom": "nodics:gExp/backoffice/docs/availability-observation-contract.md",
+      "sourceAnchor": "required-validation",
+      "paragraphs": [
+        "Changes require tests for success, negative readiness, transport failure, timeout bounds, response bounds, redirect and host policy, deduplication, freshness expiry, removal, multi-instance aggregation, recovery fallback, sanitized transition publication and deduplication, publication failure, sanitized diagnostics, module restart, BackOffice restart, and consolidated and modular topologies."
+      ]
+    },
+    {
+      "heading": "What this capability provides",
+      "migratedFrom": "nodics:gExp/backoffice/docs/axis-content-catalog.md",
+      "sourceAnchor": "what-this-capability-provides",
+      "paragraphs": [
+        "The BackOffice module contributes the initial content records used to compose Nodics Axis pages. Nodics Axis is an employee-only business administration application. Customers may be managed as business data, but customer accounts cannot use Axis.",
+        "The implemented core package creates:",
+        "This package contains no React code, authentication logic, API credentials, endpoint URLs, executable HTML, or business operations."
+      ],
+      "items": [
+        "`axisContentCatalog`;",
+        "`axisCmsSite`;",
+        "the public `/login` employee sign-in page;",
+        "the public `/forgot-password` employee recovery page;",
+        "the authenticated `/dashboard` employee page;",
+        "the authenticated `/lock-screen` employee re-verification page;",
+        "two page templates and their named slots;",
+        "declarative page and component type contracts;",
+        "logical renderer mappings;",
+        "client-safe component properties; and",
+        "ordered page-to-component relationships."
+      ]
+    },
+    {
+      "heading": "Ownership",
+      "migratedFrom": "nodics:gExp/backoffice/docs/axis-content-catalog.md",
+      "sourceAnchor": "ownership",
+      "paragraphs": [
+        "BackOffice owns the Axis-specific reference records because they package the BackOffice experience. Existing Nodics capabilities remain authoritative:",
+        "| Concern | Authority |\n| --- | --- |\n| Catalog schema and persistence | nCatalog |\n| CMS sites, pages, templates, slots, components, routes, and delivery | CMS |\n| Core-data execution, diagnostics, and history | nData import |\n| Employee authentication and recovery | Profile |\n| Module discovery and Axis bootstrap | BackOffice |\n| Rendering, interaction, accessibility, and responsive behavior | Nodics Axis |",
+        "Do not copy these schemas or create a BackOffice content loader. Project modules customize the records through later layered core-data contributions."
+      ]
+    },
+    {
+      "heading": "Security model",
+      "migratedFrom": "nodics:gExp/backoffice/docs/axis-content-catalog.md",
+      "sourceAnchor": "security-model",
+      "paragraphs": [
+        "Public visibility is explicit and minimal:",
+        "The authentication template uses a responsive split layout. On desktop, the `showcase` slot provides the left-side Nodics narrative while `brand`, `introduction`, `authentication`, `assistance`, and `legal` remain independent right-side content segments. On mobile webviews, the showcase panel is hidden and the employee form becomes the primary single-column experience. Content editors may change approved text and highlights, but cannot change the trusted Axis renderer implementation or inject executable presentation code.",
+        "The public pages permit an unauthenticated browser to obtain presentation only. Credentials and future employee recovery requests go to Profile, not CMS or BackOffice. The current recovery page does not claim to send instructions because Profile does not yet expose an approved employee self-recovery contract. A valid customer account must never receive an Axis employee session.",
+        "CMS route authorization and each target module's API authorization remain mandatory. Hiding a component in Nodics Axis is not an authorization control."
+      ],
+      "items": [
+        "`/login` is `PUBLIC`;",
+        "`/forgot-password` is `PUBLIC`;",
+        "every component referenced by either public page is `PUBLIC`;",
+        "`/dashboard` is `AUTHENTICATED`; and",
+        "every dashboard component is `AUTHENTICATED`;",
+        "`/lock-screen` is `AUTHENTICATED`; and",
+        "every lock-screen component is `AUTHENTICATED`."
+      ]
+    },
+    {
+      "heading": "Public Axis bootstrap",
+      "migratedFrom": "nodics:gExp/backoffice/docs/axis-content-catalog.md",
+      "sourceAnchor": "public-axis-bootstrap",
+      "paragraphs": [
+        "Before an employee has a token, Axis calls `GET /nodics/backoffice/v0/bootstrap/public`. This endpoint returns only the currently observed client-callable Profile and CMS endpoints, Axis CMS composition identifiers, locale, channel, fallback mode, and contract version.",
+        "It does not return module inventory, instance identifiers, server or node coordinates, lease timestamps, health details, permissions, secrets, or credentials. BackOffice derives the two endpoints from active module self-registration, so this does not create a manually maintained endpoint authority.",
+        "The endpoint fails closed when Profile or CMS is not actively registered, the client contract version is unsupported, or public bootstrap is disabled. Projects may override `backofficeRegistry.publicBootstrap` through normal configuration layering while preserving the low-disclosure contract.",
+        "After employee authentication, Axis calls the existing secured `GET /nodics/backoffice/v0/bootstrap` endpoint with the human bearer token. That response remains permission-filtered and separate from public discovery. It includes the authenticated request tenant code as client-safe context. Axis uses that value for contextual display and destructive-operation confirmation; it must not infer or override tenant authority in the browser."
+      ]
+    },
+    {
+      "heading": "Importing the records",
+      "migratedFrom": "nodics:gExp/backoffice/docs/axis-content-catalog.md",
+      "sourceAnchor": "importing-the-records",
+      "paragraphs": [
+        "These records live under `gExp/backoffice/data/core`. They are intentionally imported through the existing nData core-import operation and are not written when BackOffice starts.",
+        "For local development:",
+        "BackOffice.",
+        "module list and the intended tenant context.",
+        "The headers use `saveAll` and stable `code` queries so repeated imports use the standard idempotent import path instead of creating duplicate identities. The import-run fingerprint also prevents an unchanged completed core package from being dispatched again. A second identical request therefore succeeds without adding another catalog, page, component, relationship, or completed run-history record.",
+        "Starting or restarting `monoServer` does not execute this package. Existing Axis records remain unchanged until an authorized operator explicitly invokes the core-import operation again. This separation is intentional: module startup registers runtime capability state, while nData import remains the only authority that creates the Axis CMS reference data.",
+        "Current local development deliberately uses records marked `ONLINE` while CMS publication mode is disabled. This is not a second publisher. Staged approval and nPublish integration remain deferred until the basic Axis composition and renderers are implemented."
+      ],
+      "items": [
+        "Start a Nodics runtime containing nCatalog, CMS, nData import, Profile, and",
+        "Authenticate as an employee allowed to execute the governed core import.",
+        "Invoke the standard core-import operation with `backoffice` in the selected",
+        "Inspect the import-run result and history for rejected or skipped records.",
+        "Confirm that the four Axis routes resolve with their declared access mode.",
+        "Start Nodics Axis only after the core import succeeds."
+      ]
+    },
+    {
+      "heading": "Customizing content",
+      "migratedFrom": "nodics:gExp/backoffice/docs/axis-content-catalog.md",
+      "sourceAnchor": "customizing-content",
+      "paragraphs": [
+        "A project may contribute later records with the same stable codes to refine labels, messages, templates, slots, component order, or approved renderer contracts. Preserve these rules:",
+        "behavior never belong in content;"
+      ],
+      "items": [
+        "renderer values are logical keys, never URLs or executable module paths;",
+        "component properties contain client-safe presentation data only;",
+        "Profile endpoints, credentials, secrets, permission decisions, and workflow",
+        "a public page may contain only public components;",
+        "post-login pages and components remain authenticated; and",
+        "customer-facing functionality belongs to the customer application, not Axis."
+      ]
+    },
+    {
+      "heading": "Employee idle and lock policy",
+      "migratedFrom": "nodics:gExp/backoffice/docs/axis-content-catalog.md",
+      "sourceAnchor": "employee-idle-and-lock-policy",
+      "paragraphs": [
+        "After authentication, the secured BackOffice bootstrap includes `axisPolicy`. Version 1 contains only implemented client behavior:",
+        "The layered fail-safe default is configured under `properties.js#backofficeAxisPolicy`. Tenant-scoped operator changes are stored in the private `backofficeAxisPolicy` schema. Axis does not read that schema directly. BackOffice resolves the effective value and returns a client-safe projection through `/bootstrap`.",
+        "Authorized operators can inspect or update the policy through:",
+        "```text\nGET /nodics/backoffice/v0/axis/policy\nPUT /nodics/backoffice/v0/axis/policy\n```",
+        "An update requires `backoffice.axis.policy.update`, a human principal, and the current `expectedRevision`. The initial persistent write expects revision `0`. Later writes compare and advance the stored revision. Values below 60 seconds or above 86,400 seconds are rejected. Service tokens cannot perform the human operator update.",
+        "Example:",
+        "```json\n{\n  \"screenLockEnabled\": true,\n  \"idleTimeoutSeconds\": 900,\n  \"expectedRevision\": 0\n}\n```",
+        "If the persistent store cannot be read, BackOffice returns the configured safe default rather than disabling screen lock. Operators should still investigate the logged persistence failure because their latest override may not be active.",
+        "Axis observes browser activity, locks the presentation when the effective deadline is reached, and uses the authenticated `/lock-screen` CMS page. The password is submitted directly to Profile for re-authentication and is never stored. Unlock obtains a fresh in-memory employee session and refreshes the authorized bootstrap policy before returning to the prior protected route. Choosing “Not you? Sign out” invokes Profile logout and returns to employee login.",
+        "This is a presentation lock, not an authorization substitute. Target modules continue validating every bearer token, and token expiry or revocation still requires a normal login."
+      ],
+      "items": [
+        "`screenLockEnabled`;",
+        "`idleTimeoutSeconds`;",
+        "`contractVersion`;",
+        "optimistic `revision`; and",
+        "`source`, which is `DEFAULT` or `PERSISTED`."
+      ]
+    },
+    {
+      "heading": "Current limitations",
+      "migratedFrom": "nodics:gExp/backoffice/docs/axis-content-catalog.md",
+      "sourceAnchor": "current-limitations",
+      "paragraphs": [
+        "Profile employee self-recovery integration and live dashboard module data are not implemented. Recovery content and rendering exist, but the submit action must remain unavailable until Profile owns an approved anti-enumeration, rate-limited recovery contract.",
+        "The initial dashboard components intentionally contain empty placeholder collections. They must not be presented as real operational values."
+      ]
+    },
+    {
+      "heading": "Verification",
+      "migratedFrom": "nodics:gExp/backoffice/docs/axis-content-catalog.md",
+      "sourceAnchor": "verification",
+      "paragraphs": [
+        "Run:",
+        "```bash\nnode gExp/backoffice/test/axisContentCatalogDataContract.test.js\nnode gExp/backoffice/test/backofficeAxisPolicyService.test.js\nnode gContent/cms/test/cmsContentDeliveryContract.test.js\nnode gFramework/nData/nImport/import/test/systemCoreSampleDataCatalog.test.js\nnpm run test:import\n```",
+        "The focused contract validates catalog ownership, renderer mappings, template and slot references, component types, route access, public composition safety, dashboard authentication, non-executable properties, stable idempotent header queries, and required record relationships.",
+        "The local lifecycle acceptance also covers a clean database, zero Axis records after monoServer startup, one explicit BackOffice core import, an unchanged second import, successful public login and recovery delivery, anonymous dashboard rejection, authenticated employee dashboard delivery, and an unchanged record set after runtime restart."
+      ]
+    },
+    {
+      "heading": "Decision",
+      "migratedFrom": "nodics:gExp/backoffice/docs/backend-acceptance-report.md",
+      "sourceAnchor": "decision",
+      "paragraphs": [
+        "The BackOffice backend capability is accepted for continued integration and environment validation. It is not yet approved for production deployment. Nodics Axis remains outside this acceptance boundary.",
+        "This decision is based on the repository state validated through 2026-07-22. The formal clean-checkout gate passed under supported Node 24.18.0 after correcting local build composition so the authoritative `monoServer` environment includes `gExp` and therefore regenerates BackOffice schema services used by modular runtimes."
+      ]
+    },
+    {
+      "heading": "Evidence collected",
+      "migratedFrom": "nodics:gExp/backoffice/docs/backend-acceptance-report.md",
+      "sourceAnchor": "evidence-collected",
+      "paragraphs": [
+        "| Area | Evidence | Result |\n| --- | --- | --- |\n| Clean dependency and generation flow | `npm run release:check -- --execute --full` ran `npm ci`, clean, build, LLM validation, documentation quality, basic tests, and the full suite | Passed |\n| Dependency audit | `npm ci` audited 521 packages | Passed with zero reported vulnerabilities |\n| BackOffice contracts | Focused module, route, API, registry, discovery, history, availability, security, performance, audit, and operational-readiness tests | Passed |\n| `monoServer` runtime | Module communication, public/protected readiness, 94 registered active modules, client-safe projection, complete process restart, re-registration, and durable CMS contract recovery | Passed on 2026-07-22 |\n| Human HTTP security journey | Profile employee password login issued a human Bearer token; BackOffice Registry and Bootstrap returned 200; bad password and missing token returned 401; insufficient permission and a service token on the human administration route returned 403 | Passed on 2026-07-22 |\n| Modular runtime | Eight configured module runtimes, direct module communication, public readiness, and protected readiness detail | Passed on 2026-07-22 |\n| Distributed human security | Profile-to-BackOffice HTTP login and Bearer use passed before restart, after Profile restart, and after BackOffice restart; tenant and negative 401/403 boundaries remained enforced | Passed on 2026-07-22 |\n| Registry-derived direct connections | Eight advertised endpoints returned 200; CMS required explicit Staged/Online selection; capability filtering retained schema owners; internal Data Processor and Publisher exposed no endpoint | Passed on 2026-07-22 |\n| Registration and recovery | 497 active leases, 90 registered modules, contract discovery, CMS Staged restart reconciliation, BackOffice restart recovery, and availability recovery | Passed on 2026-07-22 |\n| CMS runtime identity | CMS Staged and CMS Online retained distinct process identities and endpoints, remained visible as two sanitized administrative instances, and aggregated into one CMS catalogue capability | Passed on 2026-07-22 |\n| Clean-build regression | BackOffice boundary test requires `gExp` in the consolidated build authority; modular topology proves generated persistence services are usable after clean/build | Passed |\n| Generated contracts | Schema/API generated tests, OpenAPI generation, documentation governance, and module LLM validation included in the release gate | Passed |\n| Live Redis adapter | Existing guarded nCache Redis contract executed against the local provider | Passed on 2026-07-20 |\n| Live distributed lease store | Two independent Redis clients proved shared visibility, TTL expiry, atomic stale-delete rejection, interruption failure, restored-client recovery, isolated scanning, and scoped cleanup | Passed on 2026-07-20 |\n| Multi-process lease coordination | Separate Node.js processes proved shared visibility and stale-process protection through the nCache-owned Redis bridge | Passed on 2026-07-20 |\n| Live provider load | 5,000 leases at concurrency 64, complete cross-client scan, and environment-owned latency enforcement | Passed locally in 30.541 ms on 2026-07-20 |\n| Audit and alert delivery contract | Strict acknowledgement, unavailable/unacknowledged failure, sanitized payload, and unchanged-state deduplication | Passed with test publishers |\n| Production security posture | Fail-closed validation for distributed storage, HTTPS, host allowlists, human administration, and strict audit/alert publishers | Passed with layered contract fixtures |",
+        "Counts are observations from this validation run, not production sizing guarantees. They may change as the active module composition evolves."
+      ]
+    },
+    {
+      "heading": "Behavior covered",
+      "migratedFrom": "nodics:gExp/backoffice/docs/backend-acceptance-report.md",
+      "sourceAnchor": "behavior-covered",
+      "paragraphs": [
+        "The automated evidence covers positive, negative, boundary, contract, integration, and regression behavior for the implemented backend scope:",
+        "reconciliation;",
+        "in-process registration shortcut;",
+        "BackOffice business-operation proxy;",
+        "instances without exposing lease expiry, credentials, or configuration authority;",
+        "APIs without a BackOffice proxy or invented default route;",
+        "credential, insufficient permission, and service-token rejection boundaries;",
+        "activation, and rollback behavior;",
+        "and alert-state calculation;",
+        "performance limits."
+      ],
+      "items": [
+        "asynchronous authenticated module registration, renewal, expiry, and restart",
+        "`monoServer` registration and whole-process restart recovery without adding an",
+        "client-safe inventory and direct-module connection metadata without a",
+        "environment/server/node coordinates that distinguish observed runtime",
+        "explicit multi-instance endpoint selection and direct calls to module-owned",
+        "human administrative identity separation from module/service identity;",
+        "real local HTTP login, Bearer propagation, missing credential, invalid",
+        "tenant and permission enforcement, refresh throttling, and idempotency;",
+        "bounded discovery, immutable contract history, approval, rejection,",
+        "availability aggregation, readiness policy, metrics, sanitized audit events,",
+        "concurrency, queue, backoff, pagination, scan, lease, and refresh structural"
+      ]
+    },
+    {
+      "heading": "Required production evidence",
+      "migratedFrom": "nodics:gExp/backoffice/docs/backend-acceptance-report.md",
+      "sourceAnchor": "required-production-evidence",
+      "paragraphs": [
+        "The following gates were not proven by this local acceptance run and remain mandatory before production approval:",
+        "using governed TLS, credentials, network policy, and the final nCache configuration. Local Redis evidence does not qualify that infrastructure.",
+        "provider and the production database topology. Local evidence covers independent clients, separate lease-store processes, and application restart recovery, but not the final orchestrated deployment.",
+        "administrative scan, and refresh load with accepted latency and saturation budgets.",
+        "external adapters, then prove routing, dashboards, and operator acknowledgement. Local evidence uses contract test publishers.",
+        "origin exposure, database access, retention, and operational permissions."
+      ],
+      "items": [
+        "Repeat the live Redis contracts against the selected deployment provider",
+        "Run complete multi-replica BackOffice application runtimes against that",
+        "Execute deployment-sized registration, renewal, discovery, availability,",
+        "Execute the acknowledged audit and alert contracts using the selected",
+        "Complete security review of environment secrets, TLS, network policy,"
+      ]
+    },
+    {
+      "heading": "Release posture",
+      "migratedFrom": "nodics:gExp/backoffice/docs/backend-acceptance-report.md",
+      "sourceAnchor": "release-posture",
+      "paragraphs": [
+        "Until every required production item has an owner and evidence, deploy only to development or controlled integration environments. Preserve the distributed lease namespace and durable contract database during rollback, and use the existing environment layering for all provider and deployment configuration."
+      ]
+    },
+    {
+      "heading": "Release boundary",
+      "migratedFrom": "nodics:gExp/backoffice/docs/backend-release-readiness.md",
+      "sourceAnchor": "release-boundary",
+      "paragraphs": [
+        "This checklist covers the BackOffice backend capability only. Nodics Axis and other frontend code remain a separate future application and release stream. Target modules remain responsible for their APIs, authorization, health, and business data."
+      ]
+    },
+    {
+      "heading": "Environment configuration",
+      "migratedFrom": "nodics:gExp/backoffice/docs/backend-release-readiness.md",
+      "sourceAnchor": "environment-configuration",
+      "paragraphs": [
+        "Production-like environment modules should override reusable defaults through the existing `envs` hierarchy. A typical policy requires distributed leases and tunes workload-specific thresholds without embedding provider secrets:",
+        "```js\nmodule.exports = {\n    backofficeRegistry: {\n        audit: {\n            enabled: true,\n            failClosed: true,\n            requireAcknowledgement: true,\n            publisherService: 'EnvironmentBackofficeAuditPublisher'\n        },\n        store: {\n            mode: 'distributed',\n            moduleName: 'backoffice',\n            engineName: 'redis',\n            keyPrefix: 'replace-with-environment-owned-prefix:'\n        },\n        operations: {\n            requireDistributedStore: true,\n            production: {\n                enabled: true,\n                requireHttpsOnly: true,\n                requireHostAllowlists: true,\n                requireStrictAudit: true,\n                requireStrictAlerts: true\n            },\n            alerts: {\n                enabled: true,\n                failClosed: true,\n                requireAcknowledgement: true,\n                publisherService: 'EnvironmentBackofficeAlertPublisher'\n            },\n            minimumSamples: 20,\n            thresholds: {\n                availabilityFailurePercent: 20,\n                availabilityQueuePercent: 70,\n                discoveryFailurePercent: 20,\n                storeErrors: 1,\n                conditionalDeleteConflicts: 10,\n                refreshThrottles: 1\n            }\n        }\n    }\n};\n```",
+        "Production configuration must also set strict acknowledged audit delivery and environment-owned discovery/availability host allowlists. Publisher service names are extension points implemented by the environment integration module; BackOffice does not own a second monitoring transport.",
+        "Provider URLs and credentials belong in governed secret/external configuration. Validate lease/sweep, readiness timeout/freshness, probe concurrency/queue, failure backoff, administrative rate/idempotency, audit, and contract-retention settings against the expected replica and module count."
+      ]
+    },
+    {
+      "heading": "Go-live gates",
+      "migratedFrom": "nodics:gExp/backoffice/docs/backend-release-readiness.md",
+      "sourceAnchor": "go-live-gates",
+      "paragraphs": [
+        "restart, provider interruption/recovery, and active contract reconstruction."
+      ],
+      "items": [
+        "Run `npm run release:check -- --execute --full` from a clean candidate.",
+        "Generate and validate BackOffice OpenAPI and module LLM context.",
+        "Prove the configured distributed store and atomic conditional delete support.",
+        "Verify readiness contributors for registry store and operational policy.",
+        "Verify human/service identity separation and every permission in the matrix.",
+        "Exercise module crash expiry, rolling module restart, BackOffice replica",
+        "Confirm diagnostics show `READY` with no unexplained alert codes.",
+        "Run environment-sized registration, renewal, probe, scan, and refresh load.",
+        "Confirm alert routing and sanitized audit delivery.",
+        "Record accepted residual risks, owners, and rollback decision authority."
+      ]
+    },
+    {
+      "heading": "Rollback",
+      "migratedFrom": "nodics:gExp/backoffice/docs/backend-release-readiness.md",
+      "sourceAnchor": "rollback",
+      "paragraphs": [
+        "Roll back application replicas using the deployment platform while preserving the distributed lease namespace and durable contract database. Do not delete leases or contract history as part of binary rollback. If a new deployment changed configuration only, restore the previous environment-layer revision and roll replicas. Confirm atomic lease renewal, active contract hash/revision, readiness, diagnostics, and module registration recovery before closing the incident."
+      ]
+    },
+    {
+      "heading": "Current residual risks",
+      "migratedFrom": "nodics:gExp/backoffice/docs/backend-release-readiness.md",
+      "sourceAnchor": "current-residual-risks",
+      "paragraphs": [
+        "deployment topology and require environment-owned load evidence.",
+        "unvalidated until the separate Nodics Axis workstream begins."
+      ],
+      "items": [
+        "Real provider throughput and latency depend on the selected nCache engine and",
+        "Alert delivery depends on the configured monitoring/audit integration.",
+        "Frontend usability, browser security, and direct-module client behavior remain"
+      ]
+    },
+    {
+      "heading": "Authority and ownership",
+      "migratedFrom": "nodics:gExp/backoffice/docs/capability-discovery-contract.md",
+      "sourceAnchor": "authority-and-ownership",
+      "paragraphs": [
+        "Target modules remain authoritative for schemas, routers, permissions, generated OpenAPI, jobs, workflows, import/export, and business behavior. A module declares only BackOffice provider roles and safe relative discovery coordinates in `config/properties.js#backofficeCapabilities.<moduleName>`. BackOffice must not add another schema or router loader and must not allow administrators to edit discovered target-module contracts.",
+        "The initial discovery source is the effective runtime OpenAPI artifact already owned and exposed by System through its secured internal contract route at the module-declared relative path. BackOffice normalizes only operations whose `x-nodics.moduleName` matches the authenticated registration. Generated OpenAPI remains the source contract; the normalized snapshot is observed client metadata."
+      ]
+    },
+    {
+      "heading": "Bounded asynchronous discovery",
+      "migratedFrom": "nodics:gExp/backoffice/docs/capability-discovery-contract.md",
+      "sourceAnchor": "bounded-asynchronous-discovery",
+      "paragraphs": [
+        "Registration and traffic readiness never wait for discovery. After an accepted lease, `DefaultBackofficeDiscoveryService` schedules a deduplicated refresh using the shared Nodics HTTP transport. The request uses the registered endpoint's exact origin plus the declared relative path. Credentials, fragments, protocol- relative paths, disallowed schemes, disallowed configured hosts, redirects, oversized responses, excessive paths, and excessive operations are rejected.",
+        "Refresh cadence, timeout, size limits, operation limits, redirect behavior, and optional host allowlists come from layered `backofficeRegistry.discovery` configuration. Named-environment values belong under the existing `envs` module hierarchy."
+      ]
+    },
+    {
+      "heading": "Snapshots and change classification",
+      "migratedFrom": "nodics:gExp/backoffice/docs/capability-discovery-contract.md",
+      "sourceAnchor": "snapshots-and-change-classification",
+      "paragraphs": [
+        "Normalized snapshots contain only module name, contract type and version, operation identifiers, paths, methods, schema names, operation names, permissions, discovery time, and a deterministic SHA-256 hash. Raw untrusted OpenAPI documents are not copied into the client catalogue.",
+        "Changes are classified as `INITIAL`, `UNCHANGED`, `NON_BREAKING`, `POTENTIALLY_BREAKING`, or `BREAKING`. Removed operations and changed operation paths or methods are breaking. Permission changes are potentially breaking. Added operations are non-breaking. A breaking candidate never replaces the last safe active snapshot. Every normalized observation is persisted through the BackOffice-owned generated model services. The durable active-hash pointer is the current-selection and replica-concurrency authority; the process snapshot cache is rebuilt from it and registration reconciliation. Breaking candidates require explicit revision-protected approval, and retained safe snapshots may be selected through audited rollback as defined by the [contract history lifecycle](/docs/reference/backoffice)."
+      ]
+    },
+    {
+      "heading": "UI composition provider",
+      "migratedFrom": "nodics:gExp/backoffice/docs/capability-discovery-contract.md",
+      "sourceAnchor": "ui-composition-provider",
+      "paragraphs": [
+        "A module may declare `UI_COMPOSITION_PROVIDER` plus non-executable default site, catalogue, page, and fallback identifiers. BackOffice selects one authorized, active, client-compatible provider using an optional layered preference and returns it in bootstrap. It does not proxy CMS traffic or accept JavaScript, renderer bundles, credentials, or arbitrary URLs. When no provider is safe, bootstrap returns the static recovery-shell fallback."
+      ]
+    },
+    {
+      "heading": "Purpose and authority",
+      "migratedFrom": "nodics:gExp/backoffice/docs/contract-history-lifecycle.md",
+      "sourceAnchor": "purpose-and-authority",
+      "paragraphs": [
+        "BackOffice retains bounded, normalized observations of module-owned effective contracts so administrators can review compatibility changes without creating a second contract authority. Target schemas, routers, permissions, OpenAPI, and runtime behavior remain authoritative. A retained snapshot cannot edit or deploy a target-module contract.",
+        "The immutable snapshot hash is the observation identity. The separate durable activation record selects the current safe observation for a module and is the concurrency authority across BackOffice replicas. Process-memory discovery state is only a cache and is hydrated from that durable pointer after restart."
+      ]
+    },
+    {
+      "heading": "Lifecycle",
+      "migratedFrom": "nodics:gExp/backoffice/docs/contract-history-lifecycle.md",
+      "sourceAnchor": "lifecycle",
+      "paragraphs": [
+        "Every discovery is saved idempotently as one immutable normalized snapshot. `INITIAL`, `UNCHANGED`, and `NON_BREAKING` observations activate automatically. `POTENTIALLY_BREAKING` and `BREAKING` observations enter `PENDING_APPROVAL` and cannot replace the current pointer without an explicit administrator decision.",
+        "Snapshot states are `DISCOVERED`, `ACTIVE`, `PENDING_APPROVAL`, `REJECTED`, and `SUPERSEDED`. Pointer selection remains authoritative if a process stops between the pointer compare-and-set and the denormalized snapshot-state update. Reads of the current contract therefore resolve the pointer and then its immutable snapshot.",
+        "Every active read and post-activation decision reconciles denormalized snapshot states from the pointer. The pointed snapshot becomes `ACTIVE`; any other stale `ACTIVE` snapshot becomes `SUPERSEDED`. Reconciliation uses each snapshot's revision and fails if the pointer references a missing immutable snapshot. If a state write is interrupted after the pointer commits, the decision path repairs the state and returns the pointer-authoritative result. Repair writes use Nodics' governed system identity; a human viewer's read permission is never elevated into repair authority.",
+        "Approval and rollback advance the pointer with optimistic compare-and-set using the caller's expected activation revision. Rejection also verifies that revision, preventing a stale review from deciding a candidate after another administrator has changed the active contract. Every mutation requires a bounded reason and records the authenticated principal and sanitized audit metadata. A rejected snapshot cannot be a rollback target."
+      ]
+    },
+    {
+      "heading": "API and authorization",
+      "migratedFrom": "nodics:gExp/backoffice/docs/contract-history-lifecycle.md",
+      "sourceAnchor": "api-and-authorization",
+      "paragraphs": [
+        "The lifecycle API exposes current, bounded history, comparison, approval, rejection, and rollback operations. Reads require `backoffice.contract.view`. Mutations use distinct `backoffice.contract.approve`, `backoffice.contract.reject`, and `backoffice.contract.rollback` permissions. Runtime configuration viewers receive read access; runtime configuration administrators receive decision access. Target-module permissions and human authentication remain independent and are never replaced by these permissions.",
+        "Module names and SHA-256 coordinates are validated before persistence access. History limits are positive, bounded by layered configuration, and sorted newest first. Responses contain normalized operations and schemas plus decision metadata; they never contain raw source documents, credentials, tokens, private topology, or executable UI content."
+      ]
+    },
+    {
+      "heading": "Persistence, retention, and recovery",
+      "migratedFrom": "nodics:gExp/backoffice/docs/contract-history-lifecycle.md",
+      "sourceAnchor": "persistence-retention-and-recovery",
+      "paragraphs": [
+        "The two BackOffice-owned schemas use ordinary Nodics generated model services and persistence pipelines. No custom database connection, loader, or parallel repository authority is introduced. The operational tenant follows existing request/default-tenant resolution.",
+        "Retention is configured per module. The active and pending snapshots are always protected; only older inactive history is eligible for removal. Registration and discovery remain asynchronous to module readiness. Persistence failure is reported in discovery diagnostics and never causes a breaking observation to replace the last durable safe pointer.",
+        "Secured registry diagnostics include sanitized contract-history counters, reconciliation attempts, repairs and failures, retention runs and removals, last reconciliation timestamps, and bounded counts of pending approvals and active selections. Counts are capped by `contractHistory.diagnosticsLimit`. Persistence errors expose a stable failure code only, never database messages, documents, connection details, or credentials."
+      ]
+    },
+    {
+      "heading": "Required validation",
+      "migratedFrom": "nodics:gExp/backoffice/docs/contract-history-lifecycle.md",
+      "sourceAnchor": "required-validation",
+      "paragraphs": [
+        "Changes to this contract require positive, negative, boundary, contract, integration, and regression coverage. At minimum test deterministic snapshots, safe automatic activation, pending breaking changes, authorization routes, invalid coordinates and limits, stale and concurrent revisions, rejection, rollback restrictions, bounded retention, repository restart recovery, and modular runtime discovery with generated persistence services. The modular gate must restart BackOffice and prove that a durable contract hash and activation revision survive while process-memory leases and discovery caches reconcile."
+      ]
+    },
+    {
+      "heading": "Purpose",
+      "migratedFrom": "nodics:gExp/backoffice/docs/core-data-operations.md",
+      "sourceAnchor": "purpose",
+      "paragraphs": [
+        "Core data is the version-controlled baseline data contributed by active Nodics modules. It can include permission groups, configuration records, catalog records, and other module-owned defaults required by an environment.",
+        "Nodics Axis exposes **Administration > Core Data** only to employees whose effective permissions include `import.core.run`. The page invokes the existing nImport core-data API; BackOffice contributes only the permission-filtered navigation entry and does not become another importer."
+      ]
+    },
+    {
+      "heading": "Business operator workflow",
+      "migratedFrom": "nodics:gExp/backoffice/docs/core-data-operations.md",
+      "sourceAnchor": "business-operator-workflow",
+      "paragraphs": [
+        "records.",
+        "changed. Existing access tokens are not silently elevated.",
+        "Core import is not a module-startup side effect. Operators run it explicitly when installing an environment or after deployed core-data contributions change."
+      ],
+      "items": [
+        "Sign in to Nodics Axis with an authorized administrative employee account.",
+        "Open **Administration > Core Data**.",
+        "Review the warning explaining that the import may create or update baseline",
+        "Choose **Import or update core data** and confirm the operation.",
+        "Wait for the governed nImport result.",
+        "Sign out and sign in again when permissions or other session-derived policy"
+      ]
+    },
+    {
+      "heading": "Ownership and security",
+      "migratedFrom": "nodics:gExp/backoffice/docs/core-data-operations.md",
+      "sourceAnchor": "ownership-and-security",
+      "paragraphs": [
+        "the `/nodics/system/v0/import/core` operation.",
+        "never stores the token or receives database credentials."
+      ],
+      "items": [
+        "nImport owns discovery, validation, ordering, persistence, diagnostics, and",
+        "Owning modules continue to own their contributed records.",
+        "BackOffice owns the navigation metadata only.",
+        "Axis owns confirmation, progress, success, and safe error presentation only.",
+        "The backend requires `import.core.run`; hiding the menu is not authorization.",
+        "Axis sends the in-memory employee access token and enterprise context. It"
+      ]
+    },
+    {
+      "heading": "Failure and recovery",
+      "migratedFrom": "nodics:gExp/backoffice/docs/core-data-operations.md",
+      "sourceAnchor": "failure-and-recovery",
+      "paragraphs": [
+        "An unauthorized request is rejected by the backend. A transport or import failure remains visible without implying that all records were changed. Operators should inspect the authoritative nImport run diagnostics before retrying. Retrying uses the same core import authority and its duplicate and idempotency protections."
+      ]
+    },
+    {
+      "heading": "Customization",
+      "migratedFrom": "nodics:gExp/backoffice/docs/core-data-operations.md",
+      "sourceAnchor": "customization",
+      "paragraphs": [
+        "Projects extend core data through the existing layered module data contract. They must not add a second frontend importer, write collections directly, or copy framework-owned baseline records merely to expose them in Axis."
+      ]
+    },
+    {
+      "heading": "Complete guide: BackOffice Environment Deployment Contract",
+      "migratedFrom": "nodics:gExp/backoffice/docs/environment-deployment-contract.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "BackOffice does not define named deployment environments. Environment identity, server composition, node coordinates, provider settings, secret sources, and operational policy are resolved through the existing group modules below the `envs` module group and the normal Nodics layering order.",
+        "An environment module may configure:",
+        "Reusable BackOffice source, tests, and documentation must not hardcode an environment name, environment endpoint, deployment credential, or provider URL. Server definitions compose active modules and coordinates; modules remain the capability and registration unit.",
+        "Each environment should verify startup registration, heartbeat renewal, graceful deregistration, crash expiry, BackOffice restart, module restart, provider interruption, replica visibility, secured diagnostics, and audit delivery using environment-owned test or release configuration."
+      ],
+      "items": [
+        "memory or distributed registry-store mode;",
+        "the nCache module and engine selected for distributed leases;",
+        "an environment-safe registry key namespace;",
+        "lease TTL, retry interval, heartbeat interval, and request timeout;",
+        "audit publisher and audit failure policy;",
+        "readiness thresholds and operational alert integration;",
+        "workload credential or infrastructure identity configuration."
+      ]
+    },
+    {
+      "heading": "What this capability answers",
+      "migratedFrom": "nodics:gExp/backoffice/docs/module-health-operations.md",
+      "sourceAnchor": "what-this-capability-answers",
+      "paragraphs": [
+        "Module Health helps an authorized business operator answer two questions:",
+        "unavailable, stale, or missing readiness observation?",
+        "A **module** is a capability such as Profile, CMS, Workflow, or BackOffice. A **runtime instance** is one running Nodics process selected by environment, server, and optional node coordinates. One process may host many modules in `monoServer`; distributed topologies may have several processes for a module.",
+        "Nodics System owns liveness and readiness. Nodics configuration owns selected topology and active modules. BackOffice owns freshness-bounded observations and registered-instance presentation only. Module Health is not a second health or deployment-topology authority.",
+        "The detail and refresh routes resolve path parameters through the standard Nodics HTTP request wrapper as well as direct service-test requests. On-demand refresh is limited to registered client-callable instances. Modules without a callable endpoint retain heartbeat visibility but cannot be actively probed through Axis."
+      ],
+      "items": [
+        "Is a Nodics module available through at least one registered runtime?",
+        "Which registered environment, server, and node produced a healthy,"
+      ]
+    },
+    {
+      "heading": "Business-user workflow",
+      "migratedFrom": "nodics:gExp/backoffice/docs/module-health-operations.md",
+      "sourceAnchor": "business-user-workflow",
+      "paragraphs": [
+        "`backoffice.registry.admin.view`.",
+        "unknown.",
+        "observation, freshness, and bounded reason code.",
+        "existing observer and does not create a browser poller.",
+        "Do not interpret a missing instance as proof that an expected node failed. An expired or intentionally deregistered instance is no longer active registry data. Expected cluster membership remains deployment/topology policy."
+      ],
+      "items": [
+        "Sign in to Axis with an employee account that has",
+        "Open **Operations and Integration > Module Health**.",
+        "Interpret the summary:",
+        "**Healthy**: every registered instance is freshly ready.",
+        "**Degraded**: at least one instance is ready and another is unavailable or",
+        "**Unavailable**: every fresh registered instance is unavailable.",
+        "**Unknown**: no fresh reliable conclusion exists.",
+        "Search by module, environment, server, or state.",
+        "Select a module to inspect registered nodes, last heartbeat, last readiness",
+        "With `backoffice.registry.refresh`, choose **Check now**. This reuses the"
+      ]
+    },
+    {
+      "heading": "State and freshness",
+      "migratedFrom": "nodics:gExp/backoffice/docs/module-health-operations.md",
+      "sourceAnchor": "state-and-freshness",
+      "paragraphs": [
+        "Instance state is `UP`, `UNAVAILABLE`, or `UNKNOWN`. Freshness is:",
+        "`backofficeRegistry.availability.staleAfterMs`;",
+        "Only stable reasons are returned: `READINESS_NOT_UP`, `OBSERVATION_TIMEOUT`, `HEALTH_OBSERVATION_FAILED`, `OBSERVATION_STALE`, and `OBSERVATION_MISSING`. Raw readiness payloads, provider errors, stacks, credentials, private configuration, and secrets are never returned."
+      ],
+      "items": [
+        "`FRESH`: observation is within",
+        "`STALE`: prior evidence is too old to support a conclusion;",
+        "`MISSING`: the active lease has not produced an observation."
+      ]
+    },
+    {
+      "heading": "API and security",
+      "migratedFrom": "nodics:gExp/backoffice/docs/module-health-operations.md",
+      "sourceAnchor": "api-and-security",
+      "paragraphs": [
+        "Axis reuses:",
+        "List/detail require `backoffice.registry.admin.view`; refresh requires `backoffice.registry.refresh`. Human administration rejects service tokens and preserves tenant consistency. Backend authorization remains authoritative even when Axis hides a control.",
+        "The detail response combines the client-safe lease with the sanitized projection owned by `DefaultBackofficeAvailabilityService`. It adds no health route, schema loader, registry, scheduler, or topology authority.",
+        "Every runtime package owns its default business-facing label through `package.json.nodics.displayName`. The module loader remains authoritative for physical parent/child relationships and canonical identity. Registration observes that metadata; BackOffice does not maintain a duplicate label or hierarchy configuration.",
+        "The underlying `moduleName` remains the immutable identifier used for API paths, filtering, authorization, audit, and refresh. Administrative list responses include `displayName`, `parentModule`, and `canonicalIdentity`. Group availability is derived from observed non-group descendants: all ready is `UP`, all unavailable is `UNAVAILABLE`, all unknown is `UNKNOWN`, and a mixed result is `DEGRADED`. This summary does not replace System readiness or infer missing cluster members."
+      ],
+      "items": [
+        "`GET /nodics/backoffice/v0/registry/admin/modules`",
+        "`GET /nodics/backoffice/v0/registry/admin/modules/:moduleName`",
+        "`POST /nodics/backoffice/v0/registry/admin/modules/:moduleName/refresh`"
+      ]
+    },
+    {
+      "heading": "Failure and recovery examples",
+      "migratedFrom": "nodics:gExp/backoffice/docs/module-health-operations.md",
+      "sourceAnchor": "failure-and-recovery-examples",
+      "paragraphs": [
+        "`DEGRADED`. Axis identifies the registered unavailable node. Normal renewal or an authorized refresh records recovery.",
+        "`OBSERVATION_TIMEOUT`. Operators inspect the process, network, TLS, allowlist, and timeout; they never manually mark it healthy.",
+        "never remains falsely healthy.",
+        "local topology to prove that one failed replicated node degrades only its module."
+      ],
+      "items": [
+        "If two Profile nodes are ready and one returns `DOWN`, Profile is",
+        "A timeout appears as `UNAVAILABLE`, `FRESH`, and",
+        "Stale evidence appears as `UNKNOWN`, `STALE`, and `OBSERVATION_STALE`; it",
+        "A `monoServer` process failure affects every hosted module. Use distributed"
+      ]
+    },
+    {
+      "heading": "Customization and verification",
+      "migratedFrom": "nodics:gExp/backoffice/docs/module-health-operations.md",
+      "sourceAnchor": "customization-and-verification",
+      "paragraphs": [
+        "Projects may override timing and host policy through layered `properties.js` or replace the observer through a later module while preserving semantics, bounded disclosure, authorization, and lifecycle. Do not add an Axis health database, a second polling service, or direct provider checks.",
+        "Evidence covers healthy, negative readiness, transport failure, timeout, stale/missing evidence, multi-instance aggregation, permission rejection, refresh throttling, consolidated and distributed topology, recovery, responsive rendering, keyboard access, and registration regression."
+      ]
+    },
+    {
+      "heading": "Complete guide: BackOffice Module Registry Contract",
+      "migratedFrom": "nodics:gExp/backoffice/docs/module-registry-contract.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "BackOffice owns observed module-instance leases. Nodics configuration owns declared endpoints and active modules; target modules own business contracts and authorization. The registry must never become a second configuration loader, service router, or data-plane proxy.",
+        "Every active module in a runtime instance is reported asynchronously after startup in one bounded registration batch using a runtime-bound internal service token. Router-enabled client-callable modules include their approved endpoint; service-only, configuration, and supporting modules register without inventing an HTTP endpoint. Registrations are idempotent by module and runtime instance identity, renewed before lease expiry, and removed during graceful drain when possible. BackOffice unavailability never blocks traffic startup. Stale leases expire when processes crash or cannot deregister.",
+        "`DefaultBackofficeRegistryStoreService` is the single asynchronous lease-store boundary. Memory mode supports local and single-instance deployments. Distributed mode obtains the configured engine client from nCache, applies the lease TTL at provider write time, and enumerates leases using bounded incremental SCAN. It never creates a Redis client, loader, signal handler, or lifecycle path. A production multi-replica deployment enables the nCache distributed engine and sets `backofficeRegistry.store.mode` to `distributed`. Replica behavior is tested against one shared store contract.",
+        "Distributed expiry uses an atomic expiry-coordinate comparison at this store boundary. A stale sweep cannot delete a lease renewed by another replica, and a provider without atomic conditional deletion fails closed. After each sweep, process-local availability and discovery state is reconciled against active leases without deleting durable active or pending contract history.",
+        "Registration and deregistration require a service token whose declared runtime instance matches the request and whose module claims contain every module in a registration batch. Human username/password sessions never register modules. Production deployments may replace service-token issuance with workload identity, but must preserve these claims and route permissions.",
+        "Profile validates bounded, unique, syntactically valid module declarations. It does not compare a caller's module composition with Profile's own active-module list because server composition is local runtime state, not Profile authority. The authenticated workload credential is responsible for who may request those claims; production should use per-runtime credentials or infrastructure workload identity rather than one shared bootstrap credential.",
+        "Discovery returns only configured client-safe fields. Tokens, credentials, secret references, internal headers, request bodies, private topology settings, and registration expiry internals are never returned to the frontend. Environment, server, and optional node names are safe observed coordinates used to distinguish runtime instances such as CMS Staged and CMS Online; they are derived from registration and never become topology configuration authority. Discovery filters modules using the authenticated caller's permissions. The bootstrap route returns that same authorized catalogue plus contract-version metadata and a freshness-bounded observation of target-owned public readiness; it is not authoritative health, topology, activation, or business configuration.",
+        "The local topology contract first starts `monoServer`, proves every active module self-registers with one process identity, validates the client-safe projection, restarts the process, and proves registration and durable contract selection recover. The modular phase starts every configured runtime, restarts Profile, and proves its replacement identity appears without losing unrelated leases. A human logs in over HTTP at Profile and uses the returned Bearer token directly at BackOffice before restart, after Profile restart, and after BackOffice restart; tenant, permission, and human-versus-service boundaries remain enforced. It then restarts CMS Staged and proves it remains distinct from uninterrupted CMS Online while both aggregate under one CMS capability. Finally, BackOffice restart recovers leases, readiness observations, discovery, and the durable contract pointer.",
+        "The modular contract selects Profile, NEMS, Cronjob, Data Consumer, Workflow, CMS Staged, CMS Online, and BackOffice from the registry projection and calls their advertised endpoints directly. Multiple CMS instances require an explicit server selector; the registry never guesses. Data Processor and Data Publisher remain registered internal composition modules without invented client endpoints. Capability filtering uses declared ownership metadata and never creates a parallel catalogue. Child-process IPC is used only for test observation and adds no production diagnostics or routing API."
+      ]
+    },
+    {
+      "heading": "Approach",
+      "migratedFrom": "nodics:gExp/backoffice/docs/performance-and-scale-contract.md",
+      "sourceAnchor": "approach",
+      "paragraphs": [
+        "Core Nodics performance gates use deterministic path and operation-count budgets, plus timing evidence. They do not enforce machine-specific latency thresholds. Projects and deployment environments may increase workloads and add real distributed-provider load tests through later configuration layers.",
+        "Defaults live under `backofficeRegistry.benchmark` and cover registration batch size, lease inventory size, hosted modules per runtime, concurrent idempotent refreshes, administrative result/page scans, readiness probes per runtime, and refresh executions per idempotency key."
+      ]
+    },
+    {
+      "heading": "Protected fast paths",
+      "migratedFrom": "nodics:gExp/backoffice/docs/performance-and-scale-contract.md",
+      "sourceAnchor": "protected-fast-paths",
+      "paragraphs": [
+        "readiness observation.",
+        "visible through sanitized diagnostics.",
+        "configured store-scan budget.",
+        "refresh once."
+      ],
+      "items": [
+        "Registration persists the bounded module batch but never awaits discovery or",
+        "Modules hosted by one runtime share one readiness probe.",
+        "Process-wide readiness work uses configurable active and queued ceilings.",
+        "Unavailable targets use a configurable refresh backoff.",
+        "Queue overflow fails open for registration and application traffic and is",
+        "Administrative inventory returns at most 100 entries and stays within the",
+        "Concurrent refresh requests with one idempotency key execute the underlying"
+      ]
+    },
+    {
+      "heading": "Evidence and deployment tests",
+      "migratedFrom": "nodics:gExp/backoffice/docs/performance-and-scale-contract.md",
+      "sourceAnchor": "evidence-and-deployment-tests",
+      "paragraphs": [
+        "`backofficePerformanceContract.test.js` prints sanitized workload and elapsed timing evidence while enforcing structural budgets. Release environments should add sustained registration/renewal, real distributed-store, slow readiness, replica restart, and store degradation tests sized for their topology. Raw endpoints, credentials, tenant data, or provider diagnostics must not appear in reports.",
+        "The guarded Redis release gate accepts environment-owned live workload budgets:",
+        "```sh\nNODICS_CACHE_REDIS_URL=redis://isolated-host:6379 \\\nNODICS_BACKOFFICE_LOAD_LEASES=5000 \\\nNODICS_BACKOFFICE_LOAD_CONCURRENCY=64 \\\nNODICS_BACKOFFICE_LOAD_MAX_MS=30000 \\\nnpm run test:backoffice:redis:release\n```",
+        "The gate fails when values are not positive integers, the latency budget is exceeded, or the second provider client cannot scan the complete workload. Environment owners must size these values from expected module instances, replicas, renewal frequency, and recovery bursts."
+      ]
+    },
+    {
+      "heading": "Boundary",
+      "migratedFrom": "nodics:gExp/backoffice/docs/registry-administration-contract.md",
+      "sourceAnchor": "boundary",
+      "paragraphs": [
+        "Registry administration reads the same active lease store used by registration and bootstrap. It does not maintain a second module inventory, topology source, health authority, contract loader, or scheduler. Nodics runtime configuration, target readiness, and target OpenAPI remain authoritative."
+      ]
+    },
+    {
+      "heading": "Operations and permissions",
+      "migratedFrom": "nodics:gExp/backoffice/docs/registry-administration-contract.md",
+      "sourceAnchor": "operations-and-permissions",
+      "paragraphs": [
+        "provides bounded filtering by module, capability, environment, server, availability, and compatibility.",
+        "`backoffice.registry.admin.view` and returns sanitized current leases and the normalized aggregate availability.",
+        "`backoffice.registry.refresh` and invokes the existing availability and discovery observers. It does not create another refresh queue or poller.",
+        "Search is capped at 100 results per request. Invalid pagination, state, compatibility, and module coordinates fail closed. Refresh of an unknown or non-client-callable module is rejected rather than reported as successful."
+      ],
+      "items": [
+        "`GET /registry/admin/modules` requires `backoffice.registry.admin.view` and",
+        "`GET /registry/admin/modules/:moduleName` requires",
+        "`POST /registry/admin/modules/:moduleName/refresh` requires"
+      ]
+    },
+    {
+      "heading": "Disclosure and audit",
+      "migratedFrom": "nodics:gExp/backoffice/docs/registry-administration-contract.md",
+      "sourceAnchor": "disclosure-and-audit",
+      "paragraphs": [
+        "Responses use the configured client-safe lease projection. They never return service tokens, credentials, raw readiness responses, stack traces, provider messages, lease-expiry internals, or durable contract documents. The projection includes environment, server, optional node, and `clientCallable` coordinates so operators and clients can distinguish safe direct-call instances such as CMS Staged and CMS Online. These observed coordinates never become configuration or topology authority. Refresh is audited with module and outcome only. Target APIs remain responsible for final business authorization.",
+        "When several active instances own the same module, consumers select using an explicit governed coordinate such as environment and server. For example, `cmsStagedServer` and `cmsOnlineServer` are both valid CMS registrations; the client chooses authoring or delivery rather than accepting a registry-defined default. Non-client-callable modules remain observable but never receive a fabricated endpoint."
+      ]
+    },
+    {
+      "heading": "Validation",
+      "migratedFrom": "nodics:gExp/backoffice/docs/registry-administration-contract.md",
+      "sourceAnchor": "validation",
+      "paragraphs": [
+        "Changes require route-permission, filter, pagination, invalid-boundary, sanitization, missing-module, refresh reuse, audit, OpenAPI, modular topology, and regression tests. Local modular acceptance also filters by declared `schema` capability, rejects ambiguous CMS selection, and calls each selected client endpoint directly."
+      ]
+    },
+    {
+      "heading": "Production Store Configuration",
+      "migratedFrom": "nodics:gExp/backoffice/docs/registry-operations-runbook.md",
+      "sourceAnchor": "production-store-configuration",
+      "paragraphs": [
+        "The BackOffice registry does not create a provider client. Enable a distributed nCache engine for the `backoffice` module, then select it through layered BackOffice configuration:",
+        "```js\nmodule.exports = {\n    backofficeRegistry: {\n        store: {\n            mode: 'distributed',\n            moduleName: 'backoffice',\n            engineName: 'redis',\n            keyPrefix: 'registry:lease:'\n        }\n    },\n    cache: {\n        backoffice: {\n            engines: {\n                redis: {\n                    enabled: true,\n                    options: { url: process.env.NODICS_CACHE_REDIS_URL }\n                }\n            }\n        }\n    }\n};\n```",
+        "Supply the URL through governed secret or external configuration. Do not commit credentials, disable TLS verification, or create a BackOffice-owned Redis SDK connection. Use a deployment-specific key prefix when multiple environments share infrastructure."
+      ]
+    },
+    {
+      "heading": "Readiness and Diagnostics",
+      "migratedFrom": "nodics:gExp/backoffice/docs/registry-operations-runbook.md",
+      "sourceAnchor": "readiness-and-diagnostics",
+      "paragraphs": [
+        "The configured store contributes a required `backofficeRegistryStore` readiness check. Distributed mode is unavailable when nCache has no configured engine client or the provider client reports `isReady === false`.",
+        "The secured registry diagnostics response exposes only active module-lease counts; registration lifecycle counters; store mode and availability; store operation counters; contract reconciliation and retention counters; bounded pending-approval and active-selection counts; and last success/error timestamps. It never returns provider URLs, credentials, keys, stored lease bodies, tokens, or headers.",
+        "Operational assessment reports `READY`, `DEGRADED`, or `NOT_READY` with stable alert codes. Invalid required configuration or an unavailable registry store is `NOT_READY`. Failure ratios, queue saturation, store errors, renewal conflicts, discovery failures, and administrative throttling are `DEGRADED`; they do not replace the owning subsystem's metrics or target-module health.",
+        "Route stable alert codes to the environment monitoring system:"
+      ],
+      "items": [
+        "page for `REGISTRY_STORE_UNAVAILABLE` and configuration failures;",
+        "investigate `REGISTRY_STORE_ERRORS` and `LEASE_RENEWAL_CONFLICTS`;",
+        "scale or tune for `AVAILABILITY_QUEUE_SATURATED`;",
+        "inspect target/runtime health for `AVAILABILITY_FAILURE_RATE`;",
+        "inspect target contracts for `DISCOVERY_FAILURE_RATE`;",
+        "inspect clients and permissions for `ADMIN_REFRESH_THROTTLED`."
+      ]
+    },
+    {
+      "heading": "Failure and Recovery",
+      "migratedFrom": "nodics:gExp/backoffice/docs/registry-operations-runbook.md",
+      "sourceAnchor": "failure-and-recovery",
+      "paragraphs": [
+        "retries on `retryIntervalMs`.",
+        "BackOffice readiness becomes DOWN; business modules continue their own work.",
+        "memory mode reconciles through module retries and heartbeats.",
+        "repair stale denormalized `ACTIVE`/`SUPERSEDED` states left by an interrupted decision without changing the target module's authoritative contract."
+      ],
+      "items": [
+        "If BackOffice is unavailable, module traffic remains ready and registration",
+        "After successful registration, renewal uses `heartbeatIntervalMs`.",
+        "If the distributed store is unavailable, registry operations fail closed and",
+        "Graceful module drain removes all leases for that runtime identity.",
+        "Crash leases disappear through provider TTL even when no sweeper runs.",
+        "BackOffice restart recovers shared leases immediately in distributed mode;",
+        "Contract history always recovers from its durable active pointer. Active reads"
+      ]
+    },
+    {
+      "heading": "Rollout Verification",
+      "migratedFrom": "nodics:gExp/backoffice/docs/registry-operations-runbook.md",
+      "sourceAnchor": "rollout-verification",
+      "paragraphs": [
+        "Profile, confirm unrelated leases remain and a new human login reaches BackOffice with the same tenant context.",
+        "activation revision and that reconciliation failures remain zero.",
+        "changes without stopping target-module traffic.",
+        "payloads contain no credentials, endpoints, or provider messages.",
+        "Use `npm run test:topology:consolidated` for governed `monoServer` registration, safe-projection, whole-process restart, and durable-pointer recovery. Use `npm run test:topology:modular` for CMS Staged/Online identity separation, Profile and CMS restart reconciliation, distributed human authentication, explicit direct-endpoint selection, and BackOffice durable-pointer recovery. If the local administrator predates the bootstrap sample, provide its current value only through `NODICS_TOPOLOGY_ADMIN_PASSWORD`; never commit or log it. Use the guarded Redis live test in an isolated environment before production release:",
+        "```sh\nNODICS_CACHE_REDIS_URL=redis://isolated-host:6379 npm run test:backoffice:redis:release\n```",
+        "The live gate uses a unique key namespace, two independent provider clients, separate OS-process operations, and scoped cleanup. It validates replica visibility, provider TTL, atomic stale-delete protection, fail-closed interruption, restored-client recovery, configurable concurrent lease load, and incremental scan completeness. It does not replace complete application-replica testing, TLS, network-policy, secret, or production-database validation.",
+        "Production mode is enabled only from the deployment environment layer. It requires distributed storage, HTTPS-only target endpoints, discovery and availability host allowlists, strict human administration, and acknowledged fail-closed audit and alert publishers. Invalid production policy makes BackOffice operational readiness `NOT_READY`."
+      ],
+      "items": [
+        "Confirm the nCache distributed engine is enabled and ready.",
+        "Confirm BackOffice readiness reports the registry-store contributor UP.",
+        "Confirm diagnostics report `mode: distributed` and `available: true`.",
+        "Restart one module runtime and confirm its old identity is replaced. For",
+        "Kill a disposable runtime without drain and confirm expiry after lease TTL.",
+        "Restart one BackOffice replica and confirm other replicas retain leases.",
+        "Confirm the restarted replica reports the same active contract hash and",
+        "Interrupt and restore the distributed provider; confirm BackOffice readiness",
+        "Confirm operational assessment returns `READY` after recovery and alert/audit"
       ]
     }
   ]

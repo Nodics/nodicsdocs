@@ -18,12 +18,15 @@
   "depth": "reference",
   "status": "implemented",
   "owner": "Nodics import/export contracts and configured provider modules",
-  "lastVerified": "2026-07-26",
+  "lastVerified": "2026-07-28",
   "summary": "A production definition identifies its owner, tenant, source or destination, data contract, limits, processing, policy, run evidence, failure semantics, and provider maturity.",
   "supportingEvidence": [
     "nodics:gFramework/nData/nImport/README.md",
     "nodics:gFramework/nData/nExport/README.md",
-    "nodics:gFramework/nData/dataCore/README.md"
+    "nodics:gFramework/nData/dataCore/README.md",
+    "nodics:gFramework/nData/nExport/export/docs/export-process-framework.md",
+    "nodics:gFramework/nData/nImport/import/docs/content-pack-import-contract.md",
+    "nodics:gFramework/nData/nImport/import/docs/data-release-import-contract.md"
   ],
   "sections": [
     {
@@ -41,6 +44,22 @@
         "Core data import is explicit and idempotent; server startup does not repeatedly duplicate persistent sample or application data.",
         "Search indexing, cache invalidation, events, and derived refresh occur after authoritative writes and reconcile independently when partial failure occurs."
       ]
+    },
+    {
+      "heading": "Media-backed file import contract",
+      "paragraphs": [
+        "Browser-facing file import is not a raw-path import. Axis uploads files through nMedia, receives a media identity, and calls `POST /nodics/system/v0/import/media` with `mediaCode`, `definitionCode`, and optional `options.validateOnly`. nMedia owns upload parsing, storage provider selection, generated storage keys, checksums, folder policy, lifecycle state, and media metadata. nImport owns import definitions, import-run staging, parsers, target dispatch, diagnostics, and history.",
+        "The implemented media import route creates server-owned staging before the existing local import pipeline runs. This matters because local import processing can move processed files, and because a clustered runtime cannot rely on a browser-selected path or one node's temporary disk.",
+        "This contract also protects provider neutrality. A project can move media storage from local disk to NAS, S3, Azure Blob, Google Cloud Storage, or another provider without changing Axis or import definitions. nImport asks nMedia for a trusted backend descriptor; Axis never receives provider internals."
+      ],
+      "items": [
+        "Accept media identity, not raw paths, from frontend clients.",
+        "Resolve only active import-capable media, normally under `folderCode=importSources` and `formatCode=importFile`.",
+        "Reject public URLs, local absolute paths, object-store keys, bucket names, provider credentials, and unsigned client-owned descriptors as import authority.",
+        "Record the source media code, checksum, definition, tenant, module scope, and diagnostics in import run history.",
+        "Keep multipart upload parsing in nMedia and import row parsing in nImport."
+      ],
+      "code": "Axis upload step\n  -> POST /nodics/media/v0/storage/upload\n  -> folderCode=importSources\n  -> formatCode=importFile\n  -> returns mediaCode\n\nAxis import step\n  -> POST /nodics/system/v0/import/media\n  -> mediaCode=<mediaCode>\n  -> definitionCode=<active importDefinition>\n  -> options.validateOnly=true for validation-only\n\nBackend execution\n  -> nImport resolves media through nMedia\n  -> nImport loads importDefinition\n  -> nImport generates a temporary run-local header\n  -> nImport stages into run-owned workspace\n  -> nImport validates only or executes existing file import pipeline"
     },
     {
       "heading": "Export lifecycle",
@@ -76,6 +95,344 @@
         "Empty, maximum, batch, streaming, timeout, retry, restart, and partial-failure boundaries.",
         "Schema/search/cache/event/job/workflow/publishing integration.",
         "Live provider, security, performance, recovery, compatibility, and regression."
+      ]
+    },
+    {
+      "heading": "Complete guide: Export Process Framework",
+      "migratedFrom": "nodics:gFramework/nData/nExport/export/docs/export-process-framework.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "`export` owns the shared outbound data contract for Nodics. It is the place where export requests are normalized, governed, and delegated to an active implementation. Format modules and provider/project modules plug into this contract; they do not replace it with private shortcuts."
+      ]
+    },
+    {
+      "heading": "Current Runtime Contract",
+      "migratedFrom": "nodics:gFramework/nData/nExport/export/docs/export-process-framework.md",
+      "sourceAnchor": "current-runtime-contract",
+      "paragraphs": [
+        "The current framework implementation is intentionally fail-closed.",
+        "Implemented today:",
+        "`request.export`.",
+        "until a later active module provides real export behavior.",
+        "`DefaultSchemaReadAccessPolicyService.applyExportPolicies` when that service is active.",
+        "or formatter cannot mutate the selected source models in memory.",
+        "for GET and POST, but the default service still rejects until implemented.",
+        "This is the correct default for an enterprise platform. Export is a data egress capability, so the framework must not leak data because a generic module is active."
+      ],
+      "items": [
+        "`DataExportController.export` normalizes HTTP body and query parameters into",
+        "`DataExportFacade.export` delegates to `SERVICE.DataExportService.export`.",
+        "`DataExportService.export` rejects with a clear not-configured Nodics error",
+        "`DataExportService.applyExportAccessPolicies` delegates to",
+        "Export access-policy filtering runs on export-safe model copies so a policy",
+        "`/system/export` is exposed through `nSystem` as a secured control-plane route"
+      ]
+    },
+    {
+      "heading": "Target Architecture",
+      "migratedFrom": "nodics:gFramework/nData/nExport/export/docs/export-process-framework.md",
+      "sourceAnchor": "target-architecture",
+      "paragraphs": [
+        "A production exporter should follow this lifecycle:",
+        "permission.",
+        "services.",
+        "a project-owned format module.",
+        "duration, failure reason, and retry information.",
+        "Do not allow a request to provide arbitrary service names, filesystem paths, URLs, credentials, bucket names, queue names, or target-system contracts."
+      ],
+      "items": [
+        "Resolve a governed export definition by name.",
+        "Resolve tenant, authenticated principal, access groups, and route",
+        "Validate allowed filters, format, destination alias, and delivery policy.",
+        "Load source data through generated schema services or owning domain",
+        "Apply schema/property export access policies before rendering.",
+        "Apply export processors, validators, and interceptors.",
+        "Render data through a format module such as JSON, CSV, Excel, JavaScript, or",
+        "Deliver output only to a governed destination alias.",
+        "Record diagnostics, counts, destination metadata, checksum/fingerprint,",
+        "Return a sanitized export result to the caller."
+      ]
+    },
+    {
+      "heading": "Module Boundaries",
+      "migratedFrom": "nodics:gFramework/nData/nExport/export/docs/export-process-framework.md",
+      "sourceAnchor": "module-boundaries",
+      "paragraphs": [
+        "The shared `export` module owns:",
+        "Format modules own rendering only:",
+        "Project or provider modules own:",
+        "message publication, or enterprise gateways;"
+      ],
+      "items": [
+        "request normalization;",
+        "fail-closed default behavior;",
+        "access-policy delegation;",
+        "export-safe copy behavior;",
+        "shared lifecycle contracts;",
+        "tests for default framework invariants.",
+        "`jsonExport`: JSON payload shape and serialization;",
+        "`csvExport`: CSV column ordering, delimiter, escaping, and record rendering;",
+        "`excelExport`: workbook, worksheet, header, and cell rendering;",
+        "`jsExport`: trusted active-module JavaScript rendering or transformation.",
+        "export definitions;",
+        "target-system contracts;",
+        "field mapping and transformation;",
+        "delivery providers such as filesystem, SFTP, object storage, API push,",
+        "credentials, endpoints, destination aliases, and retry policy;",
+        "live-provider release tests."
+      ]
+    },
+    {
+      "heading": "Security Contract",
+      "migratedFrom": "nodics:gFramework/nData/nExport/export/docs/export-process-framework.md",
+      "sourceAnchor": "security-contract",
+      "paragraphs": [
+        "Export must be treated as controlled data egress.",
+        "Every implementation must define:",
+        "Broad access such as `userGroup` is not sufficient for a production export operation. It is acceptable only while the default service fails closed."
+      ],
+      "items": [
+        "action-specific route permission;",
+        "tenant scope;",
+        "authenticated principal and access groups;",
+        "allowed source schema/service;",
+        "allowed filters and maximum result/window size;",
+        "export access-policy behavior;",
+        "safe destination aliases;",
+        "sanitized diagnostics;",
+        "audit/run history;",
+        "retry and failure handling."
+      ]
+    },
+    {
+      "heading": "Testing Strategy",
+      "migratedFrom": "nodics:gFramework/nData/nExport/export/docs/export-process-framework.md",
+      "sourceAnchor": "testing-strategy",
+      "paragraphs": [
+        "Framework export tests must prove:",
+        "Production export implementations must add:",
+        "behavior without editing Nodics framework code."
+      ],
+      "items": [
+        "request normalization for GET and POST;",
+        "default fail-closed behavior;",
+        "access-policy delegation;",
+        "selected models are not mutated by export policy filtering;",
+        "route metadata remains secured.",
+        "positive export behavior;",
+        "missing/invalid export definition behavior;",
+        "unauthorized user and tenant-isolation behavior;",
+        "forbidden filter, format, and destination behavior;",
+        "access-policy redaction behavior;",
+        "rendering tests for the selected format;",
+        "delivery-provider contract tests;",
+        "sanitized error/diagnostic tests;",
+        "retry or resumability tests when supported;",
+        "override/customization tests proving a later module can change export"
+      ]
+    },
+    {
+      "heading": "Backlog",
+      "migratedFrom": "nodics:gFramework/nData/nExport/export/docs/export-process-framework.md",
+      "sourceAnchor": "backlog",
+      "paragraphs": [
+        "The framework still needs a complete governed export engine before export is a production data-egress feature. Required future work includes:"
+      ],
+      "items": [
+        "source-backed export definitions;",
+        "action-specific route permissions;",
+        "trusted operation and destination allowlists;",
+        "export diagnostics and run history;",
+        "format renderer service contracts;",
+        "delivery provider contracts;",
+        "checksum/fingerprint support;",
+        "duplicate-run or idempotency support where required;",
+        "retry and failure lifecycle;",
+        "DaaS examples for product catalog delivery to multiple target systems."
+      ]
+    },
+    {
+      "heading": "Business overview",
+      "migratedFrom": "nodics:gFramework/nData/nImport/import/docs/content-pack-import-contract.md",
+      "sourceAnchor": "business-overview",
+      "paragraphs": [
+        "A content pack is a versioned set of Nodics import headers and data maintained outside the framework repository. Configured packs currently include `nodicsDocumentation`, supplied by `nodicsdocs`, and `axisDocumentation`, supplied directly by the `nodicsaxis` repository. Importing a pack makes its CMS documentation product available without copying its authored repository into Nodics.",
+        "The capability is disabled by default. When an administrator enables it, Axis can report whether documentation is absent, current, being imported, unavailable, or has an update. Employees with view permission can see state. Only employees with run permission can install or update it."
+      ]
+    },
+    {
+      "heading": "Local workspace prerequisite",
+      "migratedFrom": "nodics:gFramework/nData/nImport/import/docs/content-pack-import-contract.md",
+      "sourceAnchor": "local-workspace-prerequisite",
+      "paragraphs": [
+        "The local source resolver expects sibling repositories:",
+        "```text\nnodicsRoot/\n├── nodics/\n├── nodicsaxis/\n└── nodicsdocs/\n```",
+        "Use pinned published repository revisions. `nodicsdocs` currently supplies `manifest/generated-content-pack.json`; frontend/customer projects use the standard `manifest/docs-content-pack.json`. Every repository commits its `data/core` directory as a directly importable release artifact. An operator does not install dependencies, run generation, or create a `.work` staging directory.",
+        "Nodics validates every committed file's SHA-256 hash and the aggregate release checksum. It then copies `data/core` into server-owned temporary staging. Nodics never gives the moving local-import pipeline the source-controlled directory, and clients never submit a filesystem path.",
+        "The import run is not complete merely because schema writes have been dispatched. Every processed file must first reach its governed success location. Only then may the run be marked complete and content-pack staging be removed. An archival failure fails the run and preserves diagnostics instead of reporting a false successful installation.",
+        "Server-owned staging cleanup occurs only after authoritative import completion. If cleanup itself fails after every record and file has completed, Nodics logs the cleanup failure for operations but does not convert an already successful business import into a failed API response. Residual staging remains server-owned and may be removed through operational housekeeping.",
+        "One import-run identity follows the release through header finalization, finalized-file processing, and model dispatch. Therefore the persisted diagnostics describe the complete operation: records read, finalized, dispatched, succeeded, skipped, and failed all belong to the same run. A nested pipeline must propagate this object rather than create an untraceable parallel diagnostic path.",
+        "Import-run duplicate protection includes the content-pack code, immutable version, and release checksum. Re-importing the same release remains idempotent, while a valid later release cannot be mistaken for an earlier completed run merely because both use the local import pipeline.",
+        "Installed-version resolution uses the persisted completion timestamps returned by the schema-backed import-run service. It does not rely solely on a database adapter honoring model-level sort options, so the latest completed release is selected consistently across supported adapters."
+      ]
+    },
+    {
+      "heading": "Enabling the pack",
+      "migratedFrom": "nodics:gFramework/nData/nImport/import/docs/content-pack-import-contract.md",
+      "sourceAnchor": "enabling-the-pack",
+      "paragraphs": [
+        "Override only the required property in a later project or environment `properties.js`:",
+        "```js\nmodule.exports = {\n    data: {\n        contentPacks: {\n            enabled: true\n        }\n    }\n};\n```",
+        "The framework definition remains in `gFramework/nData/nImport/import/config/properties.js`. Do not copy the service, controller, facade, route, or import pipeline into a project module."
+      ]
+    },
+    {
+      "heading": "Axis administrator journey",
+      "migratedFrom": "nodics:gFramework/nData/nImport/import/docs/content-pack-import-contract.md",
+      "sourceAnchor": "axis-administrator-journey",
+      "paragraphs": [
+        "bootstrap.",
+        "source's configured pack status, such as `nodicsDocumentation` or `axisDocumentation`.",
+        "documentation**.",
+        "and invokes the existing local import lifecycle.",
+        "offers **Update documentation**.",
+        "The **Swaggers** product does not use a content pack. It renders the active System Swagger/OpenAPI contract and remains governed by the runtime `openApiContract` exposure policy.",
+        "If the feature is disabled, Axis shows setup guidance and no import action. If the source is missing or invalid, it shows a safe recovery message. Internal paths, checksums, stack traces, credentials, and import payloads are never returned to Axis."
+      ],
+      "items": [
+        "Sign in to Axis as an employee.",
+        "Open **Help and Documentation**.",
+        "Axis renders the permission-filtered documentation products from BackOffice",
+        "For a CMS product, Axis asks the registered System module for the selected",
+        "If it is not installed and the source is valid, select **Import",
+        "Nodics verifies the configured source and release, creates isolated staging,",
+        "After successful import, Axis opens the authenticated CMS product.",
+        "When a newer version is detected, Axis keeps the installed product usable and"
+      ]
+    },
+    {
+      "heading": "Update rules",
+      "migratedFrom": "nodics:gFramework/nData/nImport/import/docs/content-pack-import-contract.md",
+      "sourceAnchor": "update-rules",
+      "paragraphs": [
+        "was changed in place.",
+        "Headers use stable record codes and `saveAll` queries by `code`, so new records are created and changed records are updated rather than duplicated. Physical removal and atomic catalog-version activation are not claimed by this first contract; a later release must compose CMS catalog versioning, Workflow and `nPublish` rather than adding deletion or publication logic to nImport.",
+        "Because this first local contract reuses the standard multi-record import lifecycle, a failed update may have applied valid records before a later record failed. Operators must review import-run diagnostics and retry the same immutable release. Exact all-or-nothing content activation requires the later CMS catalog-version and nPublish composition described above."
+      ],
+      "items": [
+        "Same version and same checksum: no-op.",
+        "Newer version: import through the same staged local-import lifecycle.",
+        "Same version with a different checksum: reject because the published release",
+        "Older version: reject unless a later layer explicitly enables downgrades.",
+        "Failed update: report failure and keep the Wiki route available for recovery."
+      ]
+    },
+    {
+      "heading": "API and security",
+      "migratedFrom": "nodics:gFramework/nData/nImport/import/docs/content-pack-import-contract.md",
+      "sourceAnchor": "api-and-security",
+      "paragraphs": [
+        "System exposes the existing nImport capability:",
+        "```text\nGET  /nodics/system/v0/content-packs/:packCode\nPOST /nodics/system/v0/content-packs/:packCode/imports\n```",
+        "The routes require `import.contentPack.view` and `import.contentPack.run`, respectively. Backend authorization is authoritative; an Axis button is never authorization. Requests retain employee identity, tenant context, correlation information and import-run history.",
+        "The import request has no source path body. Source selection is owned by layered `data.contentPacks` configuration; allowing a browser or caller to choose a server filesystem path would bypass the content-pack allowlist and release-integrity contract."
+      ]
+    },
+    {
+      "heading": "Extension and deployment",
+      "migratedFrom": "nodics:gFramework/nData/nImport/import/docs/content-pack-import-contract.md",
+      "sourceAnchor": "extension-and-deployment",
+      "paragraphs": [
+        "Later modules may override `DefaultContentPackService` to provide a governed remote artifact source or distributed import lock. They must preserve manifest validation, immutable versions, tenant scope, server-owned staging, sanitized status, import history and dispatch through `DefaultImportService`.",
+        "Local sibling discovery is for local development. Cloud environments should replace source resolution with an approved object-store, artifact repository or other governed adapter. Secrets and absolute developer paths must not appear in properties, request bodies, manifests or client responses."
+      ]
+    },
+    {
+      "heading": "Verification",
+      "migratedFrom": "nodics:gFramework/nData/nImport/import/docs/content-pack-import-contract.md",
+      "sourceAnchor": "verification",
+      "paragraphs": [
+        "```bash\nnode gFramework/nData/nImport/import/test/contentPackService.test.js\nnode gFramework/nData/nImport/import/test/contentPackRouteContract.test.js\nnode gFramework/nData/nImport/import/test/importFileArchivalLifecycle.test.js\nnode gFramework/nData/nImport/import/test/importDiagnosticsPropagation.test.js\nnode gFramework/nSystem/test/systemRouteContract.test.js\n```",
+        "The tests cover disabled, missing, valid, duplicate, update, downgrade, source-integrity, staging-safety, permission-route and regression behavior."
+      ]
+    },
+    {
+      "heading": "Purpose and ownership",
+      "migratedFrom": "nodics:gFramework/nData/nImport/import/docs/data-release-import-contract.md",
+      "sourceAnchor": "purpose-and-ownership",
+      "paragraphs": [
+        "Nodics separates three data lifecycles. **Initialization data** establishes security-sensitive bootstrap identities and records required by dependent capabilities. **Core data** establishes governed baseline configuration and business records. **Sample data** supplies optional demonstrations for explicitly permitted non-production environments.",
+        "The `import` module owns discovery, integrity checks, validation, execution, installation state, and history. BackOffice advertises navigation and Axis presents the operator experience. Neither reads module data folders, orders files, writes models, or creates a second importer.",
+        "The owning `import` capability is router-enabled and registers its authorized endpoint with BackOffice. Axis resolves that registered module connection; it must not route these operations through System or BackOffice."
+      ]
+    },
+    {
+      "heading": "Immutable release contract",
+      "migratedFrom": "nodics:gFramework/nData/nImport/import/docs/data-release-import-contract.md",
+      "sourceAnchor": "immutable-release-contract",
+      "paragraphs": [
+        "Every module-owned `data/init`, `data/core`, or `data/sample` directory contains `manifest.json` with the module, type, semantic version, description, and SHA-256 checksum of every release file.",
+        "```bash\nnpm run data:manifests\nnpm run data:manifests -- --release profile:init=1.0.3\n```",
+        "The first command creates missing manifests but rejects changed files under an existing version. The second explicitly versions an intentional change. Nodics rejects same-version checksum changes and rejects downgrades unless a project has explicitly enabled governed downgrade policy."
+      ]
+    },
+    {
+      "heading": "Operator workflow",
+      "migratedFrom": "nodics:gFramework/nData/nImport/import/docs/data-release-import-contract.md",
+      "sourceAnchor": "operator-workflow",
+      "paragraphs": [
+        "importer in validation-only mode without persisting business records.",
+        "a new permission-filtered session.",
+        "States include `NOT_INSTALLED`, `CURRENT`, `UPDATE_AVAILABLE`, `RUNNING`, `FAILED`, and integrity or downgrade warnings. Axis displays these states; it does not calculate them."
+      ],
+      "items": [
+        "Open **Operations and Integration → Imports and Exports** in Axis.",
+        "Select Initialization, Core, or Sample data.",
+        "Review backend-discovered active-module releases and installation states.",
+        "Select releases and choose **Validate selected**. This invokes the ordinary",
+        "Choose **Install or update selected** only after successful validation.",
+        "Review the import run and refreshed catalogue.",
+        "If permissions or navigation changed, sign out and sign in so Profile issues"
+      ]
+    },
+    {
+      "heading": "Configuration and extension",
+      "migratedFrom": "nodics:gFramework/nData/nImport/import/docs/data-release-import-contract.md",
+      "sourceAnchor": "configuration-and-extension",
+      "paragraphs": [
+        "Defaults live under `data.dataReleases` in the import module. Environment or server layers override only genuine runtime differences. Sample execution is disabled by default and enabled for local development only.",
+        "Projects may layer `DefaultDataReleaseService`, but must preserve active-module discovery, server-owned paths, path containment, checksums, semantic versions, tenant isolation, existing model services, type-specific permissions, nImport execution, and client-safe responses. Never add direct database access, another filesystem loader, a browser import engine, or a parallel BackOffice authority."
+      ]
+    },
+    {
+      "heading": "API and permission boundaries",
+      "migratedFrom": "nodics:gFramework/nData/nImport/import/docs/data-release-import-contract.md",
+      "sourceAnchor": "api-and-permission-boundaries",
+      "paragraphs": [
+        "`import.release.validate`",
+        "`import.sample.run`",
+        "`import.history.detail.view`",
+        "Fixed type-specific routes prevent the request body from switching to another data class. Backend authorization remains authoritative when Axis hides an action.",
+        "For existing installations, catalogue and preflight also accept the historical `import.core.run` administrator permission. This bounded upgrade bridge prevents the new read permission from hiding the operation required to install it. Execution remains protected by fixed type-specific permissions. Projects must not extend this compatibility rule to unrelated permissions."
+      ],
+      "items": [
+        "`GET /nodics/import/v0/data-releases` — `import.release.view`",
+        "`POST /nodics/import/v0/data-releases/preflight` —",
+        "`POST /nodics/import/v0/data-releases/init/imports` — `import.init.run`",
+        "`POST /nodics/import/v0/data-releases/core/imports` — `import.core.run`",
+        "`POST /nodics/import/v0/data-releases/sample/imports` —",
+        "`GET /nodics/import/v0/run/history` — `import.history.view`",
+        "`GET /nodics/import/v0/run/history/:runId` —"
+      ]
+    },
+    {
+      "heading": "Failure, recovery, and verification",
+      "migratedFrom": "nodics:gFramework/nData/nImport/import/docs/data-release-import-contract.md",
+      "sourceAnchor": "failure-recovery-and-verification",
+      "paragraphs": [
+        "Missing, incompatible, symlinked, escaping, or checksum-invalid releases fail before execution. A release changed after selection is rejected. A second process-local run for the same tenant and type is rejected. Failed attempts do not falsely mark a version installed. Responses never expose paths, secrets, credentials, or stack traces.",
+        "The process-local execution lock supports the local reference runtime. A distributed deployment must layer a project-approved provider-atomic lock before enabling multiple executors for the same tenant and type.",
+        "Verify manifest governance, positive installation, validation-only behavior, disabled sample policy, stale selection, checksum tampering, route permissions, history authorization, normal schema import, integration, and regression behavior. Run repository build and generated-context checks before release."
       ]
     }
   ]

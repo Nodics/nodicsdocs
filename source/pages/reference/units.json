@@ -20,7 +20,9 @@
   "lastVerified": "2026-07-26",
   "summary": "Every unit has stable identity, dimension, canonical conversion, precision, rounding, lifecycle, localization, and tests.",
   "supportingEvidence": [
-    "nodics:gCore/units/README.md"
+    "nodics:gCore/units/README.md",
+    "nodics:gCore/units/docs/units-deployment-and-integration.md",
+    "nodics:gCore/units/docs/units-foundation.md"
   ],
   "sections": [
     {
@@ -69,6 +71,152 @@
         "Code, name, symbol, dimension, active state, canonical unit, factor, offset where supported, scale, precision, and rounding.",
         "Tenant/global ownership, localization, aliases, version compatibility, and deprecation.",
         "Positive, invalid, incompatible-dimension, boundary, precision, round-trip, integration, and regression tests."
+      ]
+    },
+    {
+      "heading": "Choose A Topology",
+      "migratedFrom": "nodics:gCore/units/docs/units-deployment-and-integration.md",
+      "sourceAnchor": "choose-a-topology",
+      "paragraphs": [
+        "A Nodics module defines ownership, configuration, extension, and testing. It does not require a dedicated server. Choose transport independently from capability ownership.",
+        "| Situation | Recommended topology | Reason |\n| --- | --- | --- |\n| Inventory is the only current consumer | Co-host `units` with `inventory` | Lowest latency and no network dependency |\n| Product or Pricing also needs conversion in the same runtime | Co-host one `units` module with those active modules | All consumers use one in-process authority |\n| Several independently scaled runtimes require centrally governed definitions | Deploy Units separately and configure each consumer's Units connection | One remote authority without copying definitions |\n| A consumer only stores a Unit code and performs no conversion | Keep the reference and validate through its configured provider | The consumer must not create its own registry |",
+        "Running Units by itself is technically supported but usually provides no business outcome until a domain such as Inventory, Product, Pricing, shipping, agriculture, or real estate consumes it."
+      ]
+    },
+    {
+      "heading": "Co-hosted Consumption",
+      "migratedFrom": "nodics:gCore/units/docs/units-deployment-and-integration.md",
+      "sourceAnchor": "co-hosted-consumption",
+      "paragraphs": [
+        "Activate `units` in the consuming runtime's module composition. The consumer's configured provider calls `DefaultUnitsReferenceService.convertInternal`. There is no HTTP hop, but Units remains the authority. Do not call generated Unit persistence services from domain logic.",
+        "Conceptual input:",
+        "```json\n{\n  \"quantity\": \"1000\",\n  \"fromUnitCode\": \"G\",\n  \"toUnitCode\": \"KG\",\n  \"targetScale\": 3,\n  \"roundingMode\": \"UNNECESSARY\"\n}\n```",
+        "The exact result is `1.000 KG`. The actual response also includes the selected Unit and conversion evidence so the consumer can retain traceability."
+      ]
+    },
+    {
+      "heading": "Remote Consumption",
+      "migratedFrom": "nodics:gCore/units/docs/units-deployment-and-integration.md",
+      "sourceAnchor": "remote-consumption",
+      "paragraphs": [
+        "When Units is deployed separately, the consuming module uses `DefaultModuleService`, its configured `servers.units` connection, and the runtime service token to call:",
+        "```text\nPOST /nodics/units/v0/references/units/convert\nAuthorization: Bearer <runtime service token>\nx-enterprise-code: <authenticated enterprise>\n```",
+        "The route accepts only `quantity`, Unit codes, target scale, rounding mode, optional geography, and effective time. It does not expose master-data CRUD. A human username/password or access token is not a substitute for the service token.",
+        "Configure the connection in the active environment/server `properties.js`. Do not put endpoints, credentials, timeouts, or retries in `package.json`. Consumer modules may expose `preferLocal`, timeout, and maximum-attempt policy; changing transport must not change conversion meaning."
+      ]
+    },
+    {
+      "heading": "Configuration Reference",
+      "migratedFrom": "nodics:gCore/units/docs/units-deployment-and-integration.md",
+      "sourceAnchor": "configuration-reference",
+      "paragraphs": [
+        "| Property | Default | Operational meaning |\n| --- | --- | --- |\n| `units.maximumScale` | `18` | Highest permitted output decimal scale |\n| `units.maximumConversionDigits` | `128` | Bounds exact numerator and denominator size |\n| `units.referenceConversion.requireServiceToken` | `true` | Keeps remote conversion module-only |\n| `units.referenceConversion.maximumDefinitionResults` | `20` | Fails closed when definition lookup is unexpectedly broad |\n| `units.referenceConversion.multiHopEnabled` | `false` | Requires an explicit decision before graph conversion |\n| `units.referenceConversion.maximumHops` | `4` | Bounds an enabled conversion path |\n| `units.referenceConversion.maximumGraphConversions` | `200` | Bounds graph loading and traversal |\n| `units.dimensions` | Common dimensions | Allow-list for supported dimension codes |\n| `units.geographicScopeLevels` | Global through locality | Allow-list for regional specificity |\n| `units.allowedTransitions` | Governed lifecycle map | Controls activation, suspension, and retirement |",
+        "Override policy in later project, environment, server, node, tenant, or customer layers. Keep only static module metadata in `package.json`."
+      ]
+    },
+    {
+      "heading": "Domain Integration Rules",
+      "migratedFrom": "nodics:gCore/units/docs/units-deployment-and-integration.md",
+      "sourceAnchor": "domain-integration-rules",
+      "paragraphs": [
+        "movements, reservations, and availability.",
+        "dimensions, and weight; it owns descriptive meaning.",
+        "yield; Units only normalizes the declared measurement.",
+        "Never snapshot the Units registry into a consumer, maintain a second conversion table, or use JavaScript floating-point arithmetic for authoritative values."
+      ],
+      "items": [
+        "Inventory stores exact quantity strings and Unit codes; it owns balances,",
+        "Product stores Unit references for measured attributes, packaging,",
+        "Pricing stores the Unit basis for a price; it owns monetary resolution.",
+        "Land and agriculture modules retain the type and evidence of an area or"
+      ]
+    },
+    {
+      "heading": "Security And Operations",
+      "migratedFrom": "nodics:gCore/units/docs/units-deployment-and-integration.md",
+      "sourceAnchor": "security-and-operations",
+      "paragraphs": [
+        "Enterprise definitions resolve only within authenticated enterprise context, with governed global fallback. Generated CRUD routers remain disabled. A project that needs human master-data administration must add a narrowly permissioned intent or governed import in a later module; it must not enable generic generated CRUD as a shortcut.",
+        "Monitor conversion rejection by error code, dimension, selected geography, and correlation identifier. Avoid logging sensitive business quantities or parcel data. Back up Dimensions, Units, and Conversions together and restore them in that order.",
+        "Capacity-test remote Units with representative conversion volume and latency. High-volume consumers should normally co-host Units unless centralized remote governance provides enough value to justify the network dependency."
+      ]
+    },
+    {
+      "heading": "Purpose And Ownership",
+      "migratedFrom": "nodics:gCore/units/docs/units-foundation.md",
+      "sourceAnchor": "purpose-and-ownership",
+      "paragraphs": [
+        "Units supplies exact numbers, dimensions, UOM definitions, conversion factors, regional meaning, and rounding. Inventory owns stock; Product owns packaging meaning; Pricing owns money per unit; agriculture owns field/crop/yield meaning; real estate owns parcels, title, zoning, legal/surveyed/built-up/carpet/cultivable area classifications; geospatial modules own coordinates and polygons.",
+        "A polygon-calculated area, surveyed area, registered area, and operator-entered area may differ. Keep each value with its evidence/source and use Units only to normalize or compare it.",
+        "Units is normally co-hosted with its consuming business modules. Its separate service route is an optional transport choice, not a requirement that every Nodics module run on a different server. See [Units Deployment And Integration](/docs/reference/units)."
+      ]
+    },
+    {
+      "heading": "Exact Value Contract",
+      "migratedFrom": "nodics:gCore/units/docs/units-foundation.md",
+      "sourceAnchor": "exact-value-contract",
+      "paragraphs": [
+        "Callers provide canonical decimal strings such as `12`, `12.500`, or `-0.25`. Numbers such as JavaScript `0.1` are rejected because they may already contain binary floating-point error. Conversion factors use positive integer `numerator` and `denominator`. The exact service multiplies through BigInt and applies an explicit target scale and rounding mode.",
+        "Supported rounding defaults are `UNNECESSARY`, `DOWN`, `UP`, `HALF_UP`, and `HALF_EVEN`. `UNNECESSARY` rejects any operation that loses precision. The default maximum output scale is 18 and is layered configuration."
+      ]
+    },
+    {
+      "heading": "Dimensions And Compound Units",
+      "migratedFrom": "nodics:gCore/units/docs/units-foundation.md",
+      "sourceAnchor": "dimensions-and-compound-units",
+      "paragraphs": [
+        "Default dimensions include COUNT, MASS, VOLUME, LENGTH, AREA, TIME, and PERCENTAGE. A `dimensionVector` records integer base exponents: area is `{ LENGTH: 2 }`; velocity can be `{ LENGTH: 1, TIME: -1 }`; crop yield can be `{ MASS: 1, LENGTH: -2 }`. Conversions require equal normalized vectors.",
+        "Derived Unit components describe unit codes and integer exponents. A domain may therefore represent kilograms per hectare, litres per square metre, price per square foot, or livestock per acre without changing Units ownership."
+      ]
+    },
+    {
+      "heading": "Regional Land Units",
+      "migratedFrom": "nodics:gCore/units/docs/units-foundation.md",
+      "sourceAnchor": "regional-land-units",
+      "paragraphs": [
+        "A traditional name such as bigha may have different legal conversion factors by country, state/province, district, or locality. `unitConversion` supports GLOBAL, COUNTRY, SUBDIVISION, and LOCALITY scopes plus effective dates. Selection chooses exactly one most-specific active rule. Two equally specific matches are an error. Missing required geography is an error.",
+        "Standard examples such as square metre, square foot, acre, and hectare normally use global conversions. Region-dependent names such as bigha, kanal, marla, cent, or guntha must be configured only with verified local/legal factors; the framework does not claim one universal value."
+      ]
+    },
+    {
+      "heading": "Data And Lifecycle",
+      "migratedFrom": "nodics:gCore/units/docs/units-foundation.md",
+      "sourceAnchor": "data-and-lifecycle",
+      "paragraphs": [
+        "Dimensions, units, and conversions may be GLOBAL or ENTERPRISE scoped. Enterprise definitions require a matching authenticated enterprise. Codes are stable and internal identities are derived. Definitions begin in DRAFT and are intended to move through ACTIVE, SUSPENDED, and RETIRED states. Hard deletion is rejected so historical business evidence stays interpretable.",
+        "Generated services are internal and generated CRUD routers are disabled. The implemented module-internal route `POST /nodics/units/v0/references/units/convert` accepts a canonical quantity, source Unit, target Unit, target scale, optional rounding, geography, and effective time. It requires a Nodics service token and returns an allow-listed exact result plus selected Unit and conversion evidence.",
+        "The implemented module does not expose a human master-data administration API. Projects currently contribute governed definitions through existing Nodics initialization/import mechanisms or add a narrowly secured later-layer intent. Do not enable generic generated CRUD merely to obtain an administration screen.",
+        "The same `DefaultUnitsReferenceService.convertInternal` contract is used when caller and Units are co-hosted. Separately deployed callers use the route through `DefaultModuleService` and `servers.units`; this changes transport only, not authority or conversion behavior.",
+        "Selection prefers an authenticated ENTERPRISE Unit over GLOBAL fallback. For conversions it first chooses the most-specific matching geography and then an ENTERPRISE definition over a GLOBAL definition at the same geography. Direct and reverse factors are supported. Missing, hidden, incompatible, excessive, or ambiguous results fail closed.",
+        "Optional multi-hop conversion is configured under `units.referenceConversion` and is disabled by default. When enabled, Units builds a bounded graph from visible, active, effective conversion records, selects one scoped rule per edge, and chooses one unambiguous shortest path. Factors are composed and reduced as exact integers before a single rounding step. Cycles, graph size, hop count, factor digits, and ambiguous shortest paths fail closed."
+      ]
+    },
+    {
+      "heading": "Customization",
+      "migratedFrom": "nodics:gCore/units/docs/units-foundation.md",
+      "sourceAnchor": "customization",
+      "paragraphs": [
+        "Use later-layer `units` properties to extend dimensions, unit kinds, rounding modes, scale limits, or geographic levels where safe. Add definitions through project data/schema layers. Replace the smallest arithmetic or selection provider only when necessary and preserve canonical strings, exact factors, compatibility, deterministic specificity, and failure behavior.",
+        "`units.referenceConversion.requireServiceToken` and `maximumDefinitionResults`, `multiHopEnabled`, `maximumHops`, and `maximumGraphConversions` govern the internal route and bounded reads. A project may replace the reference service or transport facade in a later module, but it must retain exact arithmetic, visibility rules, deterministic selection, service-only access, and the allow-listed response.",
+        "Never copy the registry into Inventory, agriculture, real estate, Product, Pricing, or another module. Those modules should retain their business classification and reference Units codes."
+      ]
+    },
+    {
+      "heading": "Security, Operations, And Recovery",
+      "migratedFrom": "nodics:gCore/units/docs/units-foundation.md",
+      "sourceAnchor": "security-operations-and-recovery",
+      "paragraphs": [
+        "Keep enterprise definitions scoped to authenticated claims. Treat conversion changes as governed master-data changes because they affect stock, land, yield, and price calculations. Audit activation and retirement, monitor ambiguity/incompatibility/rounding errors, and never log sensitive parcel or commercial payloads merely to diagnose arithmetic.",
+        "Back up all three collections together. Restore Unit and Dimension definitions before conversions. Historical transactions should retain original value/unit plus normalized value, scale, rounding, conversion code/version, geography, and calculation time when consuming modules implement them."
+      ]
+    },
+    {
+      "heading": "Verification",
+      "migratedFrom": "nodics:gCore/units/docs/units-foundation.md",
+      "sourceAnchor": "verification",
+      "paragraphs": [
+        "```bash\nnode gCore/units/test/exactUnitsAndRegionalConversion.test.js\nnode gCore/units/test/unitsFoundationContract.test.js\nnode gCore/units/test/unitsReferenceConversionContract.test.js\nnpm run llm:generate\nnpm run llm:validate\nnpm run quality:docs\nnpm run build\nnpm run test:basic\n```",
+        "Tests cover exact positive/negative arithmetic, repeating factors, mandatory rounding, half-up/even boundaries, numeric-input rejection, compatible/incompatible compound vectors, regional land specificity, ambiguity, enterprise scope, malformed factors/geography, configuration extension, private generated CRUD, secured intent routing, direct/reverse conversion, and no-hard-delete behavior."
       ]
     }
   ]

@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "gComm/product/README.md",
     "type": "module-readme",
-    "contentHash": "205e85744ad2ee8f3e9a796f196cc091ef8304d99fbdb3497b326a12c08cb817"
+    "contentHash": "f269000f0f222c10e0d57e588d39f0c6b496f1384496cf84d1fafc70519f5928"
   },
   "headings": [
     {
@@ -267,7 +267,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "See [Product foundation, Category, Classification, and Variant operations](/docs/modules/gcomm/product/docs/product-p0-operations) for business and developer procedures and [Product release-readiness evidence](/docs/modules/gcomm/product/docs/product-release-readiness) for the P4 validation matrix."
+      "text": "See Product foundation, Category, Classification, and Variant operations (canonical documentation: `capability.commerce.technical-reference`) for business and developer procedures and Product release-readiness evidence (canonical documentation: `capability.commerce.technical-reference`) for the P4 validation matrix."
     },
     {
       "kind": "heading",
@@ -280,22 +280,7 @@
       "text": "Dedicated large-Catalog migration/import tooling and deployment-specific capacity certification are outside the implemented Product scope. Use existing Nodics import/export and database backup authorities; binary media, Pricing, and Inventory remain separate authorities."
     }
   ],
-  "links": [
-    {
-      "label": "Product foundation, Category, Classification, and Variant operations",
-      "target": "docs/product-p0-operations.md",
-      "kind": "internal",
-      "route": "/docs/modules/gcomm/product/docs/product-p0-operations",
-      "anchor": ""
-    },
-    {
-      "label": "Product release-readiness evidence",
-      "target": "docs/product-release-readiness.md",
-      "kind": "internal",
-      "route": "/docs/modules/gcomm/product/docs/product-release-readiness",
-      "anchor": ""
-    }
-  ],
+  "links": [],
   "media": [],
   "unsupported": []
 }

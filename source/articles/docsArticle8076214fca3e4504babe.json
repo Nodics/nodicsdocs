@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "gExp/storefront/README.md",
     "type": "module-readme",
-    "contentHash": "a239770e9b3cab36b9813d95966f3766052cbd00655ec77974acd044b15b5424"
+    "contentHash": "432f7833139c8ad5ea2b69fe3c8a91a4af46df20af985ae3a437a01a60aa9edb"
   },
   "headings": [
     {
@@ -39,7 +39,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "Start with [the beginner and developer guide](/docs/modules/gexp/storefront/docs/storefront-foundation). The public resolver is `GET /context/resolve`; protected human management is under `/management/:resource` for `storefronts` and `endpoints`."
+      "text": "Start with the beginner and developer guide (canonical documentation: `capability.commerce.technical-reference`). The public resolver is `GET /context/resolve`; protected human management is under `/management/:resource` for `storefronts` and `endpoints`."
     },
     {
       "kind": "paragraph",
@@ -81,15 +81,7 @@
       "text": "node gExp/storefront/test/storefrontContract.test.js\nnode gExp/storefront/test/storefrontApiContract.test.js\nnode gExp/storefront/test/storefrontContextCacheContract.test.js\nnode gExp/storefront/test/storefrontContextAccessContract.test.js\nnode gExp/storefront/test/storefrontCrossModuleJourneyContract.test.js\nnode gExp/storefront/test/storefrontDownstreamHandoffContract.test.js\nnode gExp/storefront/test/storefrontObservabilityContract.test.js\nnode gExp/storefront/test/storefrontPerformanceContract.test.js\nnode gExp/storefront/test/storefrontTrafficResilienceContract.test.js\nnode gExp/storefront/test/storefrontReferenceTransportContract.test.js\nnode gExp/storefront/test/storefrontProductionHardeningContract.test.js\nnode gExp/storefront/test/storefrontPersistenceIntegration.test.js"
     }
   ],
-  "links": [
-    {
-      "label": "the beginner and developer guide",
-      "target": "docs/storefront-foundation.md",
-      "kind": "internal",
-      "route": "/docs/modules/gexp/storefront/docs/storefront-foundation",
-      "anchor": ""
-    }
-  ],
+  "links": [],
   "media": [],
   "unsupported": []
 }

@@ -54,6 +54,15 @@ const sources = [
     ...moduleDocuments.map(filePath => ({ filePath, sourceType: 'module-doc' }))
 ].sort((left, right) => left.filePath.localeCompare(right.filePath));
 
+const retiredModuleDocumentArticles = fs.existsSync(articleRoot)
+    ? walkFiles(articleRoot, filePath => filePath.endsWith('.json'))
+        .map(filePath => JSON.parse(fs.readFileSync(filePath, 'utf8')))
+        .filter(article =>
+            article.source?.type === 'module-doc' &&
+            !fs.existsSync(path.join(nodicsRoot, article.source.path))
+        )
+    : [];
+
 fs.rmSync(articleRoot, { recursive: true, force: true });
 fs.mkdirSync(articleRoot, { recursive: true });
 fs.mkdirSync(assetRoot, { recursive: true });
@@ -69,7 +78,7 @@ sources.forEach(source => {
     routeBySource.set(path.resolve(source.filePath), route || '/docs');
 });
 
-const articles = sources.map(source => {
+const currentArticles = sources.map(source => {
     const markdown = fs.readFileSync(source.filePath, 'utf8');
     const relative = path.relative(nodicsRoot, source.filePath).replaceAll(path.sep, '/');
     const normalizedMarkdown = markdown.replace(
@@ -155,6 +164,10 @@ const articles = sources.map(source => {
         unsupported: parsed.unsupported
     };
 });
+const currentCodes = new Set(currentArticles.map(article => article.code));
+const articles = currentArticles.concat(
+    retiredModuleDocumentArticles.filter(article => !currentCodes.has(article.code))
+).sort((left, right) => left.code.localeCompare(right.code));
 
 articles.forEach(article => writeJson(path.join(articleRoot, `${article.code}.json`), article));
 writeJson(path.join(repositoryRoot, 'manifest', 'documentation-manifest.json'), {
@@ -174,6 +187,7 @@ writeJson(path.join(repositoryRoot, 'manifest', 'migration-report.json'), {
     gDocsPages: gDocsFiles.length,
     moduleReadmes: moduleReadmes.length,
     moduleDocuments: moduleDocuments.length,
+    retiredModuleDocumentSnapshots: retiredModuleDocumentArticles.length,
     articles: articles.length,
     unsupportedArticles: articles.filter(article => article.unsupported.length > 0).map(article => article.code),
     missingMedia: articles.flatMap(article =>
@@ -192,5 +206,6 @@ writeJson(path.join(repositoryRoot, 'manifest', 'migration-report.json'), {
 
 console.log(
     `Migrated ${articles.length} documentation sources ` +
-    `(${gDocsFiles.length} gDocs, ${moduleReadmes.length} module READMEs, ${moduleDocuments.length} module docs)`
+    `(${gDocsFiles.length} gDocs, ${moduleReadmes.length} module READMEs, ` +
+    `${moduleDocuments.length} live module docs, ${retiredModuleDocumentArticles.length} retired module-doc snapshots)`
 );

@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "gDocs/documentation/how-to-maintain-documentation.md",
     "type": "gdocs",
-    "contentHash": "ea918543d310168612cf2cceebeebced886d5ebf36644ff3c167def8273d164f"
+    "contentHash": "013c24b913130f1d627c59b9ba5f9df079c2a7fa45d3c9ad1ae1c91f535afcd3"
   },
   "headings": [
     {
@@ -123,7 +123,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "The root `docs/` folder is an untracked, non-runtime workspace for temporary inventories, checklists, audits, drafts, proposed architecture, unresolved decisions, implementation backlogs, and action plans. It is not the Nodics documentation module or a source of runtime truth. Promote only functionality that has been implemented in authoritative Nodics contracts and verified into `gDocs`, a module `README.md`, or a module `docs/` folder."
+      "text": "The root `docs/` folder is an untracked, non-runtime workspace for temporary inventories, checklists, audits, drafts, proposed architecture, unresolved decisions, implementation backlogs, and action plans. It is not the Nodics documentation module or a source of runtime truth. Promote only functionality that has been implemented in authoritative Nodics contracts and verified into the canonical documentation content pack, a concise module `README.md`, or AI/developer contracts."
     },
     {
       "kind": "paragraph",
@@ -139,7 +139,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "Use [Module Documentation Index](/docs/reference/module-documentation-index) to connect public task guides to module-owned README and docs pages."
+      "text": "Use [Module Documentation Index](/docs/reference/module-documentation-index) to connect public task guides to module-owned READMEs and canonical pages."
     },
     {
       "kind": "paragraph",
@@ -191,14 +191,14 @@
           "Explain module purpose, owned schemas/routes/services/data/tests, configuration, extension paths, and verification."
         ],
         [
-          "Module `docs/` folders",
-          "Developers needing deeper module detail",
-          "Hold permanent module documentation that belongs with the product."
+          "Canonical documentation content pack",
+          "Business users, operators, developers, and AI tools needing full detail",
+          "Own permanent capability, solution, tutorial, operations, security, and reference content."
         ],
         [
           "`gDocs/reference/module-documentation-index.md`",
           "Users and developers moving from guide pages to module details",
-          "Maps task-based documentation to the module README and module docs that own exact capability behavior."
+          "Maps task-based documentation to the module README and canonical pages that explain exact capability behavior."
         ],
         [
           "`AGENTS.md`",
@@ -326,7 +326,16 @@
       "items": [
         "Put global rules in root `AGENTS.md`.",
         "Put module ownership and prohibitions in the nearest `AGENTS.md`.",
-        "Put human capability guidance in the module README and module `docs/`.",
+        "Put concise local orientation in the module README and detailed human"
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "text": "capability guidance in the canonical documentation content pack."
+    },
+    {
+      "kind": "ordered-list",
+      "items": [
         "Put concise machine-oriented rules and examples in `llm/contracts/` and"
       ]
     },

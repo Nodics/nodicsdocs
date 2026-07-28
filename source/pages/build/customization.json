@@ -99,7 +99,7 @@
       "sourceAnchor": "customization-decision-table",
       "paragraphs": [
         "| Need | Customize here | Example |\n| --- | --- | --- |\n| Change business rule for one customer | Project module | Customer-specific order approval rule |\n| Change a value by environment | Environment `config/properties.js` | QA uses a different search endpoint |\n| Change active modules or ports for one process | Server `config/properties.js` | Local runs all modules together |\n| Assign scheduled work to one instance | Node configuration | Only node 1 runs a publishing job |\n| Change data placement for one business | Tenant/runtime configuration | Dedicated tenant uses private database/search/cache |\n| Add Oracle database support | Database provider module or project provider module | Implement provider contract without changing generic database services |\n| Change route permission by project | Route override or `permissionConfig` property | Internal token permission differs by deployment |\n| Change import validation for a customer | Project import service/interceptor/pipeline | Reject or transform customer-specific data |",
-        "When a user or AI tool asks for a customization, first identify the row in this table. If no row fits, inspect the owning module docs before inventing a new extension path."
+        "When a user or AI tool asks for a customization, first identify the row in this table. If no row fits, inspect the owning module README and canonical documentation before inventing a new extension path."
       ]
     },
     {

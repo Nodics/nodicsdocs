@@ -201,17 +201,16 @@
       "migratedFrom": "nodics:gDocs/commerce/how-to-create-and-identify-products.md",
       "sourceAnchor": "add-related-products-bundles-packaging-and-media",
       "paragraphs": [
-        "cross-sells, up-sells, and related Items.",
-        "Units-owned Units. Product does not reserve component stock or calculate a bundle price.",
-        "decimal strings and select existing Units.",
-        "text. Upload and binary storage remain outside Product.",
-        "Nodics rejects self-links, duplicates, configured graph cycles, unsafe media URIs, incomplete measurements, and unknown Units or Items."
+        "Use Product-owned associations when the relationship is part of the Product graph. Relations describe accessories, compatibility, replacements, substitutes, cross-sells, up-sells, and related Items. Bundle Entries add ordered components with exact quantities and Units-owned Unit codes. Packaging records contained quantity, dimensions, and weight with exact decimal strings and existing Units.",
+        "Use Product Media References when a Product needs a primary image, thumbnail, gallery image, swatch, zoom image, video, manual, or datasheet. Product stores the Product-owned role, order, locale, alt text, and exactly one `nMedia` reference: either `mediaCode` for one concrete file or `mediaSetCode` for a reusable set of variants. Upload, generated URLs, provider keys, MIME policy, checksums, and binary storage remain outside Product.",
+        "Nodics rejects self-links, duplicates, configured graph cycles, media assignments that point to both or neither `mediaCode` and `mediaSetCode`, incomplete measurements, and unknown Units or Items."
       ],
       "items": [
-        "Use Relations for accessories, compatibility, replacements, substitutes,",
-        "Use Bundle Entries to add ordered components with exact quantities and",
-        "Use Packaging for contained quantity, dimensions, and weight. Enter exact",
-        "Use Media References for ordered HTTPS links, type, role, locale, and alt"
+        "Create or select the Product Item that owns the association.",
+        "For related products, choose the configured relation type and target Item.",
+        "For bundles, provide exact component quantity and Unit.",
+        "For packaging, provide paired measurement values and Units.",
+        "For media, upload or select the asset through Media Management first, then save the Product media assignment using `mediaCode` or `mediaSetCode`."
       ]
     },
     {

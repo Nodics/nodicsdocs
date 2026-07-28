@@ -21,7 +21,10 @@
   "lastVerified": "2026-07-26",
   "summary": "A publishable domain defines version enablement, dependencies, validation, workflow mapping, manifest, deployment, derived refresh, audit, reconciliation, and rollback.",
   "supportingEvidence": [
-    "nodics:gFramework/nPublish/README.md"
+    "nodics:gFramework/nPublish/README.md",
+    "nodics:gContent/cms/docs/content-delivery-contract.md",
+    "nodics:gContent/cms/docs/publication-manifest-contract.md",
+    "nodics:gContent/cms/docs/site-reference-contract.md"
   ],
   "sections": [
     {
@@ -71,6 +74,152 @@
         "Workflow provider, approvers, validation, dependencies, manifest/export shape, domain adapter, and authenticated deployment.",
         "Revision, idempotency, timeout, retry, unknown completion, journal, audit projection, reconciliation, rollback, and compensation.",
         "Cache invalidation, search indexing, events, observability, security, positive, negative, boundary, contract, integration, failure, performance, and regression tests."
+      ]
+    },
+    {
+      "heading": "Ownership",
+      "migratedFrom": "nodics:gContent/cms/docs/content-delivery-contract.md",
+      "sourceAnchor": "ownership",
+      "paragraphs": [
+        "`gContent/cms` owns reusable content schemas, route resolution, bounded graph assembly, delivery projection, and CMS mutation hooks. `nCatalog` remains a generic catalog foundation. Authentication, routing, caching, events, search, import/export, publishing, and workflow remain owned by their existing Nodics capabilities.",
+        "Consumer and project modules own concrete sites, catalogs, routes, templates, renderer implementations, and content. CMS stores logical renderer keys but does not store executable frontend code, filesystem paths, scripts, or remote renderer URLs."
+      ]
+    },
+    {
+      "heading": "Models",
+      "migratedFrom": "nodics:gContent/cms/docs/content-delivery-contract.md",
+      "sourceAnchor": "models",
+      "paragraphs": [
+        "its kind, contract version, and optional declarative property schema.",
+        "The component-association composite identity is `source + target + slot`. `DefaultCmsContractValidationService` separately rejects an occupied `source + slot + index` position. Reordering multiple items should use a future atomic authoring operation rather than uncoordinated CRUD calls."
+      ],
+      "items": [
+        "`cmsPageRoute` uniquely scopes a path by site, locale, and channel.",
+        "`cmsPageTemplate` declares a logical renderer contract and owned slots.",
+        "`cmsSlotDefinition` constrains slot cardinality and allowed component types.",
+        "`cmsTypeCode` remains the single page/component type authority and declares",
+        "`cmsComponentDetail` orders a target component within a source and slot."
+      ]
+    },
+    {
+      "heading": "Delivery Resolution",
+      "migratedFrom": "nodics:gContent/cms/docs/content-delivery-contract.md",
+      "sourceAnchor": "delivery-resolution",
+      "paragraphs": [
+        "The resolver requires tenant context plus `site` and `path`. Locale and channel come from the request or layered defaults. It resolves exactly one active route and page, loads associations and components in breadth-first batches, rejects ambiguous identities, and enforces `cms.delivery.maxDepth` and `cms.delivery.maxComponents`.",
+        "The response contract version is `1`. Only explicitly projected delivery properties are returned. Internal persistence, audit, authorization, and authoring metadata are not copied into the response.",
+        "Page and component renderer metadata is resolved from the authoritative `cmsTypeCode2Renderer` mapping. Delivery returns the logical `renderer` key and its `rendererContractVersion`; a content-record override may change the key but does not create another version authority. The mapping also declares supported delivery channels, deprecation state, and an optional replacement renderer. Delivery projects these as `rendererChannels`, `rendererDeprecated`, and `rendererReplacement`, allowing clients to reject unsupported channels and teams to migrate content without immediately breaking existing pages. Page delivery also preserves the template code and adds a client-safe `templateContract` containing only its code, logical renderer key, and major contract version. Immutable publication manifests project the same fields so direct and published delivery do not diverge."
+      ]
+    },
+    {
+      "heading": "Security",
+      "migratedFrom": "nodics:gContent/cms/docs/content-delivery-contract.md",
+      "sourceAnchor": "security",
+      "paragraphs": [
+        "The public endpoint uses Nodics' explicit `publicAccess` route category; merely setting `secured: false` is not sufficient. Public delivery must contain only routes explicitly marked `ONLINE` and `PUBLIC`. New route records default to `DRAFT` and `AUTHENTICATED`, so incomplete authoring records fail closed. The authenticated endpoint uses the normal secured request pipeline and `cms.delivery.authenticated.read`. Neither route is a human login route and neither changes module-to-module authentication contracts.",
+        "The dedicated Storefront endpoint is public at the HTTP boundary, but it does not accept browser-selected Site or tenant scope. The browser supplies an absolute application `path` and the opaque `x-nodics-storefront-context` handle. `DefaultCmsStorefrontContextProviderService` introspects that handle locally or through existing module transport using a service token and the `cms` audience. It establishes tenant, enterprise, Site, locale, and channel before the normal CMS facade and delivery service execute.",
+        "The handle is not decoded by CMS and does not replace CMS authority. Storefront decides only whether the short-lived context is active and which CMS routing projection it contains. CMS still validates the absolute path, resolves one Online route, loads the immutable publication manifest when enabled, enforces graph bounds, and projects safe content. Missing handle, wrong audience, expiry, cache miss/outage, Storefront outage, missing publication, and ambiguous content fail closed.",
+        "For modular deployment, configure `cms.storefrontContext` with the Storefront module name, API path, bootstrap tenant, timeout, attempt count, and response bound. Redirects remain disabled. A later provider override must preserve service authentication, audience binding, bounded transport, and override rejection."
+      ]
+    },
+    {
+      "heading": "Client-safe failure responses",
+      "migratedFrom": "nodics:gContent/cms/docs/content-delivery-contract.md",
+      "sourceAnchor": "client-safe-failure-responses",
+      "paragraphs": [
+        "Delivery maps invalid context or paths to `400`, protected component access to `403`, missing route/page/template/publication records to `404`, and bounded graph-limit violations to `422`. Axis and other clients must handle these stable statuses without displaying backend stack traces, queries, or record payloads.",
+        "CMS delivery errors use the module-owned `ERR_CMS_*` status catalogue. Do not invent symbolic codes outside the Nodics `ERR_` convention: `NodicsError` resolves response status and client-safe messages only through the registered status catalogue, and an unregistered symbolic value would incorrectly fall back to the generic system error."
+      ]
+    },
+    {
+      "heading": "Caching And Invalidation",
+      "migratedFrom": "nodics:gContent/cms/docs/content-delivery-contract.md",
+      "sourceAnchor": "caching-and-invalidation",
+      "paragraphs": [
+        "The routes use Nodics router caching. CMS mutations call the existing tenant-aware `DefaultCacheService.invalidateResource` contract for the configured delivery router resources. This intentionally uses the active cache engine, channel mapping, and cross-node invalidation behavior instead of creating a CMS cache implementation.",
+        "The effective router cache prefixes are configured through `cms.delivery.cacheResourceNames`. Defaults cover `resolvePublicPage` and `resolveAuthenticatedPage`; imports and other CMS mutations invalidate both. Later layers may extend this bounded list when they add another cacheable CMS delivery operation, without introducing a parallel cache authority."
+      ]
+    },
+    {
+      "heading": "Customization",
+      "migratedFrom": "nodics:gContent/cms/docs/content-delivery-contract.md",
+      "sourceAnchor": "customization",
+      "paragraphs": [
+        "Later-loaded modules may override schemas, route definitions, layered `cms.delivery` and `cms.renderer` properties, controller/facade members, resolver methods, validation methods, and cache-invalidation methods. Overrides must preserve tenant isolation, safe projection, bounded resolution, explicit public access, Storefront introspection where selected, and secured permission checks."
+      ]
+    },
+    {
+      "heading": "Current Boundary",
+      "migratedFrom": "nodics:gContent/cms/docs/content-delivery-contract.md",
+      "sourceAnchor": "current-boundary",
+      "paragraphs": [
+        "This contract provides bounded direct, authenticated, and Storefront-context delivery. Staged-to-Online publication uses the separately documented Workflow and nPublish manifest contract. Executable frontend rendering and binary DAM storage remain outside CMS backend ownership; projects may add specialized authoring experiences without bypassing the implemented delivery authorities."
+      ]
+    },
+    {
+      "heading": "Governed Contract Migration",
+      "migratedFrom": "nodics:gContent/cms/docs/content-delivery-contract.md",
+      "sourceAnchor": "governed-contract-migration",
+      "paragraphs": [
+        "`cms.migration` configures a version, explicit legacy renderer mappings, explicit route mappings, and identifier mappings requiring cascade review. Secured preview computes tenant-scoped type, renderer, slot/order, and route changes without writing. Apply persists the same computed change classes through existing generated schema services and records a redacted `cmsMigrationAudit`. Rollback restores the audited snapshot. Missing route mappings and identifier cascades remain explicit manual actions; migration does not invent URLs from page codes or rename primary identities blindly."
+      ]
+    },
+    {
+      "heading": "Complete guide: CMS Publication Manifest Contract",
+      "migratedFrom": "nodics:gContent/cms/docs/publication-manifest-contract.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "CMS integrates with the generic `nPublish` lifecycle through `DefaultCmsPublicationAdapterService` and `DefaultCmsPublicationVersionProviderService`. CMS owns content dependency and delivery interpretation; `nPublish` remains the lifecycle and audit authority; versioned database variants remain the physical version authority."
+      ]
+    },
+    {
+      "heading": "Immutable release unit",
+      "migratedFrom": "nodics:gContent/cms/docs/publication-manifest-contract.md",
+      "sourceAnchor": "immutable-release-unit",
+      "paragraphs": [
+        "The supported default root is `pageRoute`. Validation resolves the exact route, page, component association, component, template, and slot versions. The Staged system stores those identities and a client-safe delivery snapshot in an immutable `cmsPublicationManifest` release package.",
+        "Staged and Online are always separate systems or database/schema authorities. The configured target transport sends the immutable package with a module service token to the Online CMS target. The target validates integrity, imports the complete manifest idempotently, records a deployment receipt, and only then switches its target-local `cmsOnlinePublicationPointer`.",
+        "The three target routes declare `authTokenTypes: ['service']` in addition to the configurable internal-token permission. Missing credentials, API-key identities, and human access tokens therefore fail before controller execution. Staged also fails locally when no tenant-scoped internal token is available.",
+        "The pointer selects one manifest for a tenant-scoped site, path, locale, channel, and access-mode scope and uses an optimistic revision update. Activation replays are idempotent. Rollback is sent to the target and can select only a release previously deployed there. Staged never writes the Online database or pointer directly.",
+        "Concurrent identical first deployments converge on one deterministic pointer and one deployment receipt. A conflicting pointer revision fails with a governed conflict instead of overwriting another release."
+      ]
+    },
+    {
+      "heading": "Delivery authority",
+      "migratedFrom": "nodics:gContent/cms/docs/publication-manifest-contract.md",
+      "sourceAnchor": "delivery-authority",
+      "paragraphs": [
+        "`cms.publication.enabled` selects the delivery authority:",
+        "There is no runtime fallback between these modes. Operators must build and activate manifests before enabling manifest delivery for a tenant deployment. Missing pointers or manifests fail closed.",
+        "The Staged runtime configures `cms.publication.targetTransportProvider` and target module connection settings. The default is `null`, so publishing fails closed until an explicit target is configured. The supplied module transport uses `DefaultModuleService`, existing server/module resolution, internal bearer tokens, bounded timeouts, retries, and deterministic idempotency keys. The Staged correlation ID is propagated through the internal request and is stored on the target manifest, active pointer, and deployment receipt.",
+        "If Online is unavailable, Staged records an auditable `FAILED` terminal state and Online retains its previous pointer. After the target recovers, operators submit a new publication identity for the same source version; failed audit history is not silently rewritten.",
+        "Every deployment must declare `cms.publication.runtimeRole` explicitly as `STAGED` or `ONLINE`. Source version lookup, manifest construction, deployment, and rollback initiation fail outside `STAGED`. Target import, pointer switching, status, and target rollback fail outside `ONLINE`; they also fail if the Online process activates `publishEnabled`. The target module connection cannot use the default/self alias.",
+        "Default CMS keeps publication and per-schema versioning disabled so deployments without a versioned database variant continue to start normally. A project or environment layer enabling manifest publication must also activate the existing versioned database contract and override the selected CMS schemas with `isVersionedEnabled: true`. Do not force versioning into unrelated CMS deployments."
+      ],
+      "items": [
+        "`false` keeps the existing route/page/component delivery contract active;",
+        "`true` requires an Online manifest pointer and serves only its frozen snapshot."
+      ]
+    },
+    {
+      "heading": "Customization",
+      "migratedFrom": "nodics:gContent/cms/docs/publication-manifest-contract.md",
+      "sourceAnchor": "customization",
+      "paragraphs": [
+        "Projects may extend `cms.publication.rootTypes` and override adapter, manifest, or version-provider services through the normal module hierarchy. Extensions must retain exact-version reads, bounded dependency traversal, tenant isolation, deterministic manifest integrity, pointer compare-and-set, idempotent activation, and rollback behavior."
+      ]
+    },
+    {
+      "heading": "Complete guide: CMS Site Reference Contract",
+      "migratedFrom": "nodics:gContent/cms/docs/site-reference-contract.md",
+      "sourceAnchor": null,
+      "paragraphs": [
+        "CMS is the sole authority for `cmsSite`, its catalog reference, and the content reachable through that Site. Other modules must not copy the Site schema or infer its existence from duplicated configuration.",
+        "The implemented `POST /references/sites/resolve` route accepts a Nodics service token only. It validates one bounded `cmsSiteCode`, reads the active Site in the current tenant, and returns only `cmsSiteCode`, `name`, and `catalogCode`. A missing Site returns `found: false`; an access token or invalid code fails closed.",
+        "Store uses this route only when CMS runs in another modular process. When co-hosted, Store calls `DefaultCmsSiteService` locally with the same tenant and active-Site rule. `store.cmsSiteReference` selects the module name, API path, timeout, retries, and local preference. Runtime endpoints continue to come from `servers`; secrets never belong in module properties.",
+        "This contract validates a reference. It does not transfer CMS authority, grant content access, select a frontend renderer, or establish enterprise ownership. Store's enterprise-scoped binding owns the commerce association; CMS continues to own Site/catalog/content.",
+        "Verify with:",
+        "```bash\nnode gContent/cms/test/cmsSiteReferenceContract.test.js\nnode gComm/store/test/storeContentSiteBindingContract.test.js\n```"
       ]
     }
   ]

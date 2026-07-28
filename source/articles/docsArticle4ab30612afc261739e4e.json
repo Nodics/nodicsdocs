@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "gDocs/data/how-to-use-units-and-land-measurements.md",
     "type": "gdocs",
-    "contentHash": "1c4386c6a1f3ca9555834f83f2327221fc22b89140ca530ad4b8fe0520e2a641"
+    "contentHash": "153cbdb7da8ad1fca528cdc99f671d33f8fa4cfee4accf3b283a39d40aa746b7"
   },
   "headings": [
     {
@@ -365,7 +365,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "Read the [Units module guide](/docs/modules/gcore/units/docs/units-foundation) for schemas, arithmetic, regional selection, recovery, and tests, and the [deployment and integration guide](/docs/modules/gcore/units/docs/units-deployment-and-integration) for configuration and topology decisions."
+      "text": "Read the Units module guide (canonical documentation: `capability.units.technical-reference`) for schemas, arithmetic, regional selection, recovery, and tests, and the deployment and integration guide (canonical documentation: `capability.units.technical-reference`) for configuration and topology decisions."
     },
     {
       "kind": "heading",
@@ -385,20 +385,6 @@
     }
   ],
   "links": [
-    {
-      "label": "Units module guide",
-      "target": "../../gCore/units/docs/units-foundation.md",
-      "kind": "internal",
-      "route": "/docs/modules/gcore/units/docs/units-foundation",
-      "anchor": ""
-    },
-    {
-      "label": "deployment and integration guide",
-      "target": "../../gCore/units/docs/units-deployment-and-integration.md",
-      "kind": "internal",
-      "route": "/docs/modules/gcore/units/docs/units-deployment-and-integration",
-      "anchor": ""
-    },
     {
       "label": "How Warehouse Management Works",
       "target": "../commerce/how-to-manage-warehouses.md",

@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "gFramework/nData/nImport/import/docs/README.md",
     "type": "module-doc",
-    "contentHash": "e105e91c154d29091538c8cbf758eb93d9fe1364d1eba049fb68823fa126f529"
+    "contentHash": "60c38e01c35fdcfae7a17c55f7ec0607aa2ff72b1ac80775e18e9472a6e9399a"
   },
   "headings": [
     {
@@ -39,9 +39,31 @@
     {
       "kind": "paragraph",
       "text": "Update this folder whenever module behavior, public contracts, security posture, lifecycle, or customization rules change."
+    },
+    {
+      "kind": "unordered-list",
+      "items": [
+        "[Init, Core, and Sample Data Releases](/docs/modules/gframework/ndata/nimport/import/docs/data-release-import-contract)",
+        "[External Documentation Content Packs](/docs/modules/gframework/ndata/nimport/import/docs/content-pack-import-contract)"
+      ]
     }
   ],
-  "links": [],
+  "links": [
+    {
+      "label": "Init, Core, and Sample Data Releases",
+      "target": "data-release-import-contract.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata/nimport/import/docs/data-release-import-contract",
+      "anchor": ""
+    },
+    {
+      "label": "External Documentation Content Packs",
+      "target": "content-pack-import-contract.md",
+      "kind": "internal",
+      "route": "/docs/modules/gframework/ndata/nimport/import/docs/content-pack-import-contract",
+      "anchor": ""
+    }
+  ],
   "media": [],
   "unsupported": []
 }

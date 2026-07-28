@@ -180,7 +180,7 @@
       "paragraphs": [
         "Projects can extend Store types, assignment purposes, priority bounds, Site-binding bounds/applicability, lifecycle transitions, and local/remote reference settings through later-layer `properties.js` configuration. More complex rules can replace the smallest validation/provider service through Nodics layering.",
         "Customizations must keep enterprise isolation, derived identities, Inventory/CMS reference validation, human-versus-service authentication, and historical records. Do not create a second Store, Warehouse, or CMS Site registry or copy owning-module state into Store.",
-        "For technical details, read the [Store module guide](/docs/reference/commerce) and [Store, CMS Site, and Integration](/docs/reference/commerce)."
+        "For technical details, read the Store module guide (canonical documentation: `capability.commerce.technical-reference`) and Store, CMS Site, and Integration (canonical documentation: `capability.commerce.technical-reference`)."
       ]
     },
     {

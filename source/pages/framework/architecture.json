@@ -536,7 +536,7 @@
         "Facade or service orchestration.",
         "Data access, search, cache, event, or workflow behavior.",
         "Response and diagnostics handling.",
-        "[nRouter](/docs/reference/apis-routing) and [Router Framework](/docs/reference/apis-routing) for API route registration, request pipeline behavior, security, and controller dispatch.",
+        "[nRouter](/docs/reference/apis-routing) and Router Framework (canonical documentation: `capability.apis-routing.technical-reference`) for API route registration, request pipeline behavior, security, and controller dispatch.",
         "[nController](/docs/reference/apis-routing) for controller request mapping.",
         "[nService](/docs/reference/services-facades) for service contracts after controller handoff."
       ]
@@ -639,7 +639,7 @@
         "steps may pause, resume, retry, split, or continue through events;",
         "a business operation needs lifecycle state;",
         "multiple services or modules must participate in a governed order.",
-        "[nPipeline](/docs/reference/execution-processes) and [Pipeline Framework](/docs/reference/execution-processes) for ordered process execution and customization.",
+        "[nPipeline](/docs/reference/execution-processes) and Pipeline Framework (canonical documentation: `capability.execution-processes.technical-reference`) for ordered process execution and customization.",
         "[nbpm](/docs/reference/workflows) for stateful workflow lifecycle behavior.",
         "[nEvent](/docs/reference/events-messaging) for event-driven extension behavior."
       ]

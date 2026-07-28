@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "gDocs/platform/how-platform-capabilities-work.md",
     "type": "gdocs",
-    "contentHash": "41697801a683a4eb116bb703dea0340a8874d481bd435b91a81eedb830ebde0d"
+    "contentHash": "307af8d9e1c1925b51fa274a0f4708fe1ec4510151d8d3df8cb5510471e5a9d4"
   },
   "headings": [
     {
@@ -349,7 +349,7 @@
     {
       "kind": "unordered-list",
       "items": [
-        "[nRouter](/docs/modules/gframework/nrouter) and [Router Framework](/docs/modules/gframework/nrouter/docs/router-framework) for API route registration, request pipeline behavior, security, and controller dispatch.",
+        "[nRouter](/docs/modules/gframework/nrouter) and Router Framework (canonical documentation: `capability.apis-routing.technical-reference`) for API route registration, request pipeline behavior, security, and controller dispatch.",
         "[nController](/docs/modules/gframework/ncontroller) for controller request mapping.",
         "[nService](/docs/modules/gframework/nservice) for service contracts after controller handoff."
       ]
@@ -520,7 +520,7 @@
     {
       "kind": "unordered-list",
       "items": [
-        "[nPipeline](/docs/modules/gframework/npipeline) and [Pipeline Framework](/docs/modules/gframework/npipeline/docs/pipeline-framework) for ordered process execution and customization.",
+        "[nPipeline](/docs/modules/gframework/npipeline) and Pipeline Framework (canonical documentation: `capability.execution-processes.technical-reference`) for ordered process execution and customization.",
         "[nbpm](/docs/modules/gframework/nbpm) for stateful workflow lifecycle behavior.",
         "[nEvent](/docs/modules/gframework/nevent) for event-driven extension behavior."
       ]
@@ -1069,13 +1069,6 @@
       "anchor": ""
     },
     {
-      "label": "Router Framework",
-      "target": "../../gFramework/nRouter/docs/router-framework.md",
-      "kind": "internal",
-      "route": "/docs/modules/gframework/nrouter/docs/router-framework",
-      "anchor": ""
-    },
-    {
       "label": "nController",
       "target": "../../gFramework/nController/README.md",
       "kind": "internal",
@@ -1094,13 +1087,6 @@
       "target": "../../gFramework/nPipeline/README.md",
       "kind": "internal",
       "route": "/docs/modules/gframework/npipeline",
-      "anchor": ""
-    },
-    {
-      "label": "Pipeline Framework",
-      "target": "../../gFramework/nPipeline/docs/pipeline-framework.md",
-      "kind": "internal",
-      "route": "/docs/modules/gframework/npipeline/docs/pipeline-framework",
       "anchor": ""
     },
     {

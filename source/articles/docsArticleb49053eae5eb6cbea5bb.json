@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "gDocs/commerce/how-to-manage-warehouses.md",
     "type": "gdocs",
-    "contentHash": "c7c74dea6bbd5593223f5299467c2c4b50aef4c3396ef9b9f0e1414341e638c2"
+    "contentHash": "0bee511377d286e557be04072c1240f834b2c73033a6628a1816ca56e2406359"
   },
   "headings": [
     {
@@ -233,7 +233,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "See the module-level [Warehouse Foundation contract](/docs/modules/gcomm/inventory/docs/warehouse-foundation) for exact fields, properties, services, interceptors, errors, customization, recovery, and test commands."
+      "text": "See the module-level Warehouse Foundation contract (canonical documentation: `capability.commerce.technical-reference`) for exact fields, properties, services, interceptors, errors, customization, recovery, and test commands."
     },
     {
       "kind": "heading",
@@ -278,13 +278,6 @@
     }
   ],
   "links": [
-    {
-      "label": "Warehouse Foundation contract",
-      "target": "../../gComm/inventory/docs/warehouse-foundation.md",
-      "kind": "internal",
-      "route": "/docs/modules/gcomm/inventory/docs/warehouse-foundation",
-      "anchor": ""
-    },
     {
       "label": "How Nodics Is Organized",
       "target": "../architecture/how-nodics-is-organized.md",

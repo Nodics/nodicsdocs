@@ -163,6 +163,12 @@
       "aliases": ["import", "export", "data exchange"]
     },
     {
+      "code": "media-management",
+      "title": "Media Management",
+      "order": 185,
+      "aliases": ["media", "upload", "file storage", "asset", "image", "document", "storage provider"]
+    },
+    {
       "code": "content-publishing",
       "title": "Content Management and Publishing",
       "order": 190,

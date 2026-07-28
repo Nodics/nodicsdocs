@@ -1,6 +1,6 @@
 {
   "contractVersion": 1,
-  "generatedAt": "2026-07-27T14:53:05.881Z",
+  "generatedAt": "2026-07-28T17:17:33.464Z",
   "decision": "NO_GO",
   "blockers": [
     "gdocs-link-retirement"
@@ -14,8 +14,8 @@
       "code": "canonical-completeness",
       "status": "PASS",
       "evidence": {
-        "registered": 159,
-        "authored": 159,
+        "registered": 160,
+        "authored": 160,
         "missingAuthored": [],
         "unregisteredAuthored": []
       }
@@ -24,20 +24,19 @@
       "code": "canonical-navigation-links",
       "status": "PASS",
       "evidence": {
-        "routes": 159,
-        "canonicalLinks": 638,
+        "routes": 160,
+        "canonicalLinks": 619,
         "brokenLinks": [],
         "sectionCounts": {
-          "discover": 1,
+          "discover": 2,
           "evaluate": 5,
           "getting-started": 2,
-          "framework": 1,
           "capabilities": 74,
           "solutions": 3,
           "build": 17,
           "security": 12,
           "operations": 11,
-          "reference": 33
+          "reference": 34
         }
       }
     },
@@ -47,16 +46,16 @@
       "evidence": {
         "audienceCounts": {
           "evaluator": 27,
-          "business-user": 72,
-          "administrator": 83,
-          "developer": 146,
-          "architect": 141,
+          "business-user": 73,
+          "administrator": 84,
+          "developer": 147,
+          "architect": 142,
           "security-reviewer": 51,
-          "operator": 105,
-          "framework-maintainer": 46,
-          "ai-tool": 135
+          "operator": 106,
+          "framework-maintainer": 47,
+          "ai-tool": 136
         },
-        "capabilityAliases": 102,
+        "capabilityAliases": 109,
         "note": "Canonical source has titles, summaries, intent, audiences, content, and taxonomy aliases. Runtime search behavior still requires the canonical CMS projection and Axis validation."
       }
     },
@@ -65,18 +64,18 @@
       "status": "PASS",
       "evidence": {
         "sources": {
-          "nodics": 424,
+          "nodics": 428,
           "wordpress": 25,
-          "total": 449
+          "total": 453
         },
         "review": {
-          "reviewed": 449,
+          "reviewed": 453,
           "pending": 0,
           "unknownDecisionIds": []
         },
         "dispositions": {
           "archive": 48,
-          "merge": 330,
+          "merge": 334,
           "rewrite": 51,
           "retain": 1,
           "reject": 19
@@ -88,11 +87,11 @@
       "code": "canonical-content-pack-projection",
       "status": "PASS",
       "evidence": {
-        "canonicalPages": 159,
-        "legacyArticles": 424,
-        "generatedArticles": 159,
-        "generatedPages": 159,
-        "generatedRoutes": 160,
+        "canonicalPages": 160,
+        "legacyArticles": 428,
+        "generatedArticles": 160,
+        "generatedPages": 160,
+        "generatedRoutes": 161,
         "sites": [
           "axisCmsSite"
         ],
@@ -137,8 +136,8 @@
       "evidence": {
         "nodicsRootAvailable": true,
         "remainingReferencesOutsideGdocs": {
-          "files": 68,
-          "references": 966
+          "files": 61,
+          "references": 956
         },
         "note": "Do not remove gDocs until active navigation, source links, generated context, and module README links use canonical destinations."
       }

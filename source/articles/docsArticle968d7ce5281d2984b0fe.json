@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "gFramework/nData/nExport/README.md",
     "type": "module-readme",
-    "contentHash": "31ee6ce44a88c54911e0b91cd8b19058ebc89bb5a3e0701f793a2a39b50286a8"
+    "contentHash": "5a349ec1c051df071049e4d1a2a6d2460f71e89fec0611420ddcb2e8673875dd"
   },
   "headings": [
     {
@@ -162,7 +162,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "The detailed shared engine contract is documented in [Export Process Framework](/docs/modules/gframework/ndata/nexport/export/docs/export-process-framework)."
+      "text": "The detailed shared engine contract is documented in Export Process Framework (canonical documentation: `capability.data-exchange.technical-reference`)."
     },
     {
       "kind": "heading",
@@ -282,13 +282,6 @@
     }
   ],
   "links": [
-    {
-      "label": "Export Process Framework",
-      "target": "export/docs/export-process-framework.md",
-      "kind": "internal",
-      "route": "/docs/modules/gframework/ndata/nexport/export/docs/export-process-framework",
-      "anchor": ""
-    },
     {
       "label": "export",
       "target": "export/README.md",

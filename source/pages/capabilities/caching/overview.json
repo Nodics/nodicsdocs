@@ -106,6 +106,17 @@
       ]
     },
     {
+      "heading": "Customize and extend safely",
+      "paragraphs": [
+        "Use a later project properties layer for channel, provider, TTL, cacheability, and invalidation choices. Add a provider only through the normalized cache adapter and registry so business callers remain unchanged."
+      ],
+      "items": [
+        "Do not edit reusable cache framework source or call NodeCache, Redis, or Hazelcast clients from business services.",
+        "Verify default and overridden policy, tenant isolation, hit and miss, expiry, invalidation, provider outage, reconnect, rollback, and regression.",
+        "Rollback removes the project override or provider registration and restores the inherited channel policy without changing authoritative business data."
+      ]
+    },
+    {
       "heading": "Complete guide: How Cache Works",
       "migratedFrom": "nodics:gDocs/platform/how-cache-works.md",
       "sourceAnchor": null,
@@ -345,17 +356,6 @@
         "```bash\nNODICS_CACHE_REDIS_URL=redis://127.0.0.1:6379 npm run test:cache:release\n```",
         "Run broader checks when cache changes touch routing, schemas, search, auth, runtime configuration, or topology:",
         "```bash\nnpm run test:runtime-overrides\nnpm run test:config\nnpm run llm:validate\nnpm run quality:docs\n```"
-      ]
-    },
-    {
-      "heading": "Customize and extend safely",
-      "paragraphs": [
-        "Use a later project properties layer for channel, provider, TTL, cacheability, and invalidation choices. Add a provider only through the normalized cache adapter and registry so business callers remain unchanged."
-      ],
-      "items": [
-        "Do not edit reusable cache framework source or call NodeCache, Redis, or Hazelcast clients from business services.",
-        "Verify default and overridden policy, tenant isolation, hit and miss, expiry, invalidation, provider outage, reconnect, rollback, and regression.",
-        "Rollback removes the project override or provider registration and restores the inherited channel policy without changing authoritative business data."
       ]
     },
     {

@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "gDocs/commerce/how-to-configure-and-operate-pricing.md",
     "type": "gdocs",
-    "contentHash": "6a4a7e0c73631d35d882640d9b1605d0af4381c679c2c944b195854986464bf1"
+    "contentHash": "492e44e2f2656d567d7140090f97ff9b1bed4cfe093c5776ca198be747e101b2"
   },
   "headings": [
     {
@@ -282,7 +282,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "Implementation details and extension rules are in the Pricing module's [architecture guide](/docs/modules/gcomm/pricing/docs/pricing-architecture-and-operations)."
+      "text": "Implementation details and extension rules are in the Pricing module's architecture guide (canonical documentation: `capability.commerce.technical-reference`)."
     },
     {
       "kind": "heading",
@@ -300,13 +300,6 @@
     }
   ],
   "links": [
-    {
-      "label": "architecture guide",
-      "target": "../../gComm/pricing/docs/pricing-architecture-and-operations.md",
-      "kind": "internal",
-      "route": "/docs/modules/gcomm/pricing/docs/pricing-architecture-and-operations",
-      "anchor": ""
-    },
     {
       "label": "How Store Management Works",
       "target": "how-to-manage-stores.md",

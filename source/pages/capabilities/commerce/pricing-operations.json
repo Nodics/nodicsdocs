@@ -220,7 +220,7 @@
       "sourceAnchor": "runtime-verification",
       "paragraphs": [
         "Run `npm run test:topology:modular` to exercise the implemented Staged-to-Online Pricing lifecycle with separate databases. The suite verifies manual and automatic actions, rejection without Online change, replay, cache refresh, restart recovery, rollback, target outage failure, recovery, and rejection of unauthenticated target calls.",
-        "Implementation details and extension rules are in the Pricing module's [architecture guide](/docs/reference/commerce)."
+        "Implementation details and extension rules are in the Pricing module's architecture guide (canonical documentation: `capability.commerce.technical-reference`)."
       ],
       "items": [
         "Configure `pricing.management.maximumResultCount`, `maximumPreviewRecords`, and `maximumPayloadBytes` for deployment scale; do not remove the bounds.",

@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "gDocs/reference/module-documentation-index.md",
     "type": "gdocs",
-    "contentHash": "5eb6c217fedb3c8eaa5369261345162f007094b494b9d2c40fd8888ca31534bc"
+    "contentHash": "6036cce08968bae43c23e717055764a82b532db3f5a2b62ea69d4ad8a285d18b"
   },
   "headings": [
     {
@@ -111,12 +111,12 @@
         "Start with the task guide that matches what you want to do.",
         "Use this index to find the owning capability module.",
         "Read the module `README.md` for the exact implementation contract.",
-        "Read the module `docs/` pages when the capability has deeper framework"
+        "Read the canonical capability pages when the module README points to deeper"
       ]
     },
     {
       "kind": "paragraph",
-      "text": "guides."
+      "text": "framework guides."
     },
     {
       "kind": "ordered-list",
@@ -237,7 +237,7 @@
       "rows": [
         [
           "API routes, Express binding, request pipeline, security, OpenAPI, Swagger UI",
-          "[nRouter](/docs/modules/gframework/nrouter), [Router Framework](/docs/modules/gframework/nrouter/docs/router-framework), and [nSystem](/docs/modules/gframework/nsystem)",
+          "[nRouter](/docs/modules/gframework/nrouter), Router Framework (canonical documentation: `capability.apis-routing.technical-reference`), and [nSystem](/docs/modules/gframework/nsystem)",
           "You need to create, secure, expose, customize, document, or debug APIs."
         ],
         [
@@ -334,7 +334,7 @@
       "rows": [
         [
           "Pipeline framework",
-          "[nPipeline](/docs/modules/gframework/npipeline) and [Pipeline Framework](/docs/modules/gframework/npipeline/docs/pipeline-framework)",
+          "[nPipeline](/docs/modules/gframework/npipeline) and Pipeline Framework (canonical documentation: `capability.execution-processes.technical-reference`)",
           "You need ordered lifecycle execution, custom pipeline nodes, processors vs pipeline nodes, or pipeline overrides."
         ],
         [
@@ -466,7 +466,7 @@
       "rows": [
         [
           "AI provider governance and token ledger",
-          "[aiProviders](/docs/modules/gai/aiproviders) and [Persistent AI Token Ledger Guide](/docs/modules/gai/aiproviders/docs/persistent-token-ledger-guide)",
+          "[aiProviders](/docs/modules/gai/aiproviders) and Persistent AI Token Ledger Guide (canonical documentation: `capability.ai.technical-reference`)",
           "You need provider-neutral AI selection, exact token/cost planning, persistent budgets, reservations, usage evidence, or AI ledger administration."
         ],
         [
@@ -520,7 +520,7 @@
       "rows": [
         [
           "[How To Create APIs](/docs/development/how-to-create-apis)",
-          "[nRouter](/docs/modules/gframework/nrouter), [Router Framework](/docs/modules/gframework/nrouter/docs/router-framework), [nController](/docs/modules/gframework/ncontroller), [nFacade](/docs/modules/gframework/nfacade), [nService](/docs/modules/gframework/nservice)"
+          "[nRouter](/docs/modules/gframework/nrouter), Router Framework (canonical documentation: `capability.apis-routing.technical-reference`), [nController](/docs/modules/gframework/ncontroller), [nFacade](/docs/modules/gframework/nfacade), [nService](/docs/modules/gframework/nservice)"
         ],
         [
           "[How To Work With Data](/docs/data/how-to-work-with-data)",
@@ -528,7 +528,7 @@
         ],
         [
           "[How Platform Capabilities Work](/docs/platform/how-platform-capabilities-work)",
-          "[nPipeline](/docs/modules/gframework/npipeline), [Pipeline Framework](/docs/modules/gframework/npipeline/docs/pipeline-framework), [nCache](/docs/modules/gframework/ncache), [nEms](/docs/modules/gframework/nems), [nEvent](/docs/modules/gframework/nevent), [nDynamo](/docs/modules/gframework/ndynamo)"
+          "[nPipeline](/docs/modules/gframework/npipeline), Pipeline Framework (canonical documentation: `capability.execution-processes.technical-reference`), [nCache](/docs/modules/gframework/ncache), [nEms](/docs/modules/gframework/nems), [nEvent](/docs/modules/gframework/nevent), [nDynamo](/docs/modules/gframework/ndynamo)"
         ],
         [
           "[How Cache Works](/docs/platform/how-cache-works)",
@@ -548,7 +548,7 @@
         ],
         [
           "[How AI Cost Governance Works](/docs/ai/how-ai-cost-governance-works)",
-          "[aiProviders](/docs/modules/gai/aiproviders), [AI Token Economics](/docs/modules/gai/aiproviders/docs/token-economics-and-optimization), [Persistent AI Token Ledger](/docs/modules/gai/aiproviders/docs/persistent-token-ledger-guide)"
+          "[aiProviders](/docs/modules/gai/aiproviders), AI Token Economics (canonical documentation: `capability.ai.technical-reference`), Persistent AI Token Ledger (canonical documentation: `capability.ai.technical-reference`)"
         ],
         [
           "[Assistant, AI Providers, and Knowledge Guide](/docs/ai/assistant-provider-and-knowledge-guide)",
@@ -568,7 +568,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "If a page explains the exact behavior owned by one module, it belongs in that module's `README.md` or `docs/` folder."
+      "text": "If a page explains the exact behavior owned by one module, its concise orientation belongs in the module `README.md` and its detailed guidance belongs in the canonical documentation content pack."
     },
     {
       "kind": "paragraph",
@@ -651,13 +651,6 @@
       "target": "../../gFramework/nRouter/README.md",
       "kind": "internal",
       "route": "/docs/modules/gframework/nrouter",
-      "anchor": ""
-    },
-    {
-      "label": "Router Framework",
-      "target": "../../gFramework/nRouter/docs/router-framework.md",
-      "kind": "internal",
-      "route": "/docs/modules/gframework/nrouter/docs/router-framework",
       "anchor": ""
     },
     {
@@ -756,13 +749,6 @@
       "target": "../../gFramework/nPipeline/README.md",
       "kind": "internal",
       "route": "/docs/modules/gframework/npipeline",
-      "anchor": ""
-    },
-    {
-      "label": "Pipeline Framework",
-      "target": "../../gFramework/nPipeline/docs/pipeline-framework.md",
-      "kind": "internal",
-      "route": "/docs/modules/gframework/npipeline/docs/pipeline-framework",
       "anchor": ""
     },
     {
@@ -906,13 +892,6 @@
       "anchor": ""
     },
     {
-      "label": "Persistent AI Token Ledger Guide",
-      "target": "../../gAi/aiProviders/docs/persistent-token-ledger-guide.md",
-      "kind": "internal",
-      "route": "/docs/modules/gai/aiproviders/docs/persistent-token-ledger-guide",
-      "anchor": ""
-    },
-    {
       "label": "aiAssistant",
       "target": "../../gAi/aiAssistant/README.md",
       "kind": "internal",
@@ -966,13 +945,6 @@
       "target": "../../gFramework/nRouter/README.md",
       "kind": "internal",
       "route": "/docs/modules/gframework/nrouter",
-      "anchor": ""
-    },
-    {
-      "label": "Router Framework",
-      "target": "../../gFramework/nRouter/docs/router-framework.md",
-      "kind": "internal",
-      "route": "/docs/modules/gframework/nrouter/docs/router-framework",
       "anchor": ""
     },
     {
@@ -1057,13 +1029,6 @@
       "target": "../../gFramework/nPipeline/README.md",
       "kind": "internal",
       "route": "/docs/modules/gframework/npipeline",
-      "anchor": ""
-    },
-    {
-      "label": "Pipeline Framework",
-      "target": "../../gFramework/nPipeline/docs/pipeline-framework.md",
-      "kind": "internal",
-      "route": "/docs/modules/gframework/npipeline/docs/pipeline-framework",
       "anchor": ""
     },
     {
@@ -1260,20 +1225,6 @@
       "target": "../../gAi/aiProviders/README.md",
       "kind": "internal",
       "route": "/docs/modules/gai/aiproviders",
-      "anchor": ""
-    },
-    {
-      "label": "AI Token Economics",
-      "target": "../../gAi/aiProviders/docs/token-economics-and-optimization.md",
-      "kind": "internal",
-      "route": "/docs/modules/gai/aiproviders/docs/token-economics-and-optimization",
-      "anchor": ""
-    },
-    {
-      "label": "Persistent AI Token Ledger",
-      "target": "../../gAi/aiProviders/docs/persistent-token-ledger-guide.md",
-      "kind": "internal",
-      "route": "/docs/modules/gai/aiproviders/docs/persistent-token-ledger-guide",
       "anchor": ""
     },
     {

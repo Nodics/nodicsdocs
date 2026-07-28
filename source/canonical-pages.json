@@ -287,6 +287,13 @@
       "title": "Import and Export Implementation Reference"
     },
     {
+      "code": "capability.media-management.reference",
+      "section": "reference",
+      "capability": "media-management",
+      "family": "technical-reference",
+      "title": "Media Management"
+    },
+    {
       "code": "capability.units.tutorial",
       "section": "capabilities",
       "capability": "commerce",

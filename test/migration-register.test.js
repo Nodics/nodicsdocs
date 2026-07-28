@@ -17,6 +17,9 @@ const canonicalPages = JSON.parse(
 const register = JSON.parse(
     fs.readFileSync(path.join(root, 'manifest', 'migration-register.json'), 'utf8')
 );
+const migrationManifest = JSON.parse(
+    fs.readFileSync(path.join(root, 'manifest', 'documentation-manifest.json'), 'utf8')
+);
 
 test('taxonomy has explicit unique ordering and capability-first names', () => {
     assert.equal(new Set(taxonomy.sections.map(section => section.code)).size, taxonomy.sections.length);
@@ -33,7 +36,7 @@ test('taxonomy has explicit unique ordering and capability-first names', () => {
 });
 
 test('migration register accounts for every discovered source', () => {
-    assert.equal(register.sources.nodics, 424);
+    assert.equal(register.sources.nodics, migrationManifest.articleCount);
     assert.equal(register.sources.wordpress, 25);
     assert.equal(register.entries.length, register.sources.total);
     assert.equal(new Set(register.entries.map(entry => entry.evidenceId)).size, register.entries.length);

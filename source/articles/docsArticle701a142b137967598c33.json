@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "gExp/backoffice/docs/availability-observation-contract.md",
     "type": "module-doc",
-    "contentHash": "c7edbd2c576644a5b9f56298a7e7aaf01542a718542bfd4a2c59a98cd8fec057"
+    "contentHash": "11d26736c451a19c5b4780adfd346f43ba6a1e0a913e0b3d27220dc68f5072c7"
   },
   "headings": [
     {
@@ -165,6 +165,10 @@
     {
       "kind": "paragraph",
       "text": "Responses include counts of active, healthy, unavailable, and unknown instances, but no private per-instance diagnostic payload. UI-composition selection accepts only an `UP` or `DEGRADED` provider; otherwise bootstrap uses the static recovery-shell fallback."
+    },
+    {
+      "kind": "paragraph",
+      "text": "The secured administrative detail route may project an active instance's normalized state, freshness, observation time, and stable reason together with its already-approved environment/server/node coordinates. This is the same observation used by aggregation, not another probe or health authority. Raw responses and provider diagnostics remain excluded."
     },
     {
       "kind": "heading",

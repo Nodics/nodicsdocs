@@ -3806,6 +3806,31 @@ module.exports = {
         "active": true
     },
     "record152": {
+        "code": "docsPageba732a438341b2e2d0eb",
+        "name": "Media Management",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponentba732a438341b2e2d0eb",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record153": {
         "code": "docsPage28ec9122a0abb63ec67c",
         "name": "Learning and Assessment Technical Reference",
         "cmsSite": [
@@ -3830,7 +3855,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record153": {
+    "record154": {
         "code": "docsPagede1c5924757831ccbd23",
         "name": "Customer Reviews Technical Reference",
         "cmsSite": [
@@ -3855,7 +3880,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record154": {
+    "record155": {
         "code": "docsPage1fe04bd89fabfcafc046",
         "name": "Know Your Customer Technical Reference",
         "cmsSite": [
@@ -3880,7 +3905,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record155": {
+    "record156": {
         "code": "docsPage4cf7c6603dc2c676c419",
         "name": "Nodics Glossary",
         "cmsSite": [
@@ -3905,7 +3930,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record156": {
+    "record157": {
         "code": "docsPage519b2e39bfe87f12def3",
         "name": "Licensing and Source Header Contract",
         "cmsSite": [
@@ -3930,7 +3955,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record157": {
+    "record158": {
         "code": "docsPage2d712f71468e3e802762",
         "name": "Module Implementation Reference",
         "cmsSite": [
@@ -3955,7 +3980,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record158": {
+    "record159": {
         "code": "docsPage474ba108c1d86f4c6a29",
         "name": "Provider and Capability Maturity",
         "cmsSite": [

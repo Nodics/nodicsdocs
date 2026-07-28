@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "gFramework/nPipeline/README.md",
     "type": "module-readme",
-    "contentHash": "6e975cc09fd4fd3d08417b45a86bbc5fb02dd0637279a8f4f51d44271a5441be"
+    "contentHash": "2c78140c7767c7f8d6938216ae024ca5034d7ce13615c09506a6d5be9358756a"
   },
   "headings": [
     {
@@ -93,7 +93,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "Detailed pipeline framework documentation is maintained in [docs/pipeline-framework.md](/docs/modules/gframework/npipeline/docs/pipeline-framework)."
+      "text": "Detailed pipeline framework documentation is maintained as canonical documentation `capability.execution-processes.technical-reference`."
     },
     {
       "kind": "paragraph",
@@ -311,7 +311,7 @@
     {
       "kind": "unordered-list",
       "items": [
-        "Detailed framework: [Pipeline Framework](/docs/modules/gframework/npipeline/docs/pipeline-framework)",
+        "Detailed framework: Pipeline Framework (canonical documentation: `capability.execution-processes.technical-reference`)",
         "Public platform guide: [How Platform Capabilities Work](/docs/platform/how-platform-capabilities-work)",
         "Business workflow modules: [workflow](/docs/modules/gcore/workflow)",
         "Framework map: [gFramework](/docs/modules/gframework)"
@@ -319,20 +319,6 @@
     }
   ],
   "links": [
-    {
-      "label": "docs/pipeline-framework.md",
-      "target": "docs/pipeline-framework.md",
-      "kind": "internal",
-      "route": "/docs/modules/gframework/npipeline/docs/pipeline-framework",
-      "anchor": ""
-    },
-    {
-      "label": "Pipeline Framework",
-      "target": "docs/pipeline-framework.md",
-      "kind": "internal",
-      "route": "/docs/modules/gframework/npipeline/docs/pipeline-framework",
-      "anchor": ""
-    },
     {
       "label": "How Platform Capabilities Work",
       "target": "../../gDocs/platform/how-platform-capabilities-work.md",

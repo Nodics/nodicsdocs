@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "gContent/cms/docs/content-delivery-contract.md",
     "type": "module-doc",
-    "contentHash": "c1f950a7e7b2ac93752d3cd4f6a388d6fd4da1015995e1f32d15c21dc6d4cd7f"
+    "contentHash": "d85add9ed265b7d435da43aa8c4e78829dc814a8d4d80618c3426c830092d77c"
   },
   "headings": [
     {
@@ -165,6 +165,10 @@
     {
       "kind": "paragraph",
       "text": "Delivery maps invalid context or paths to `400`, protected component access to `403`, missing route/page/template/publication records to `404`, and bounded graph-limit violations to `422`. Axis and other clients must handle these stable statuses without displaying backend stack traces, queries, or record payloads."
+    },
+    {
+      "kind": "paragraph",
+      "text": "CMS delivery errors use the module-owned `ERR_CMS_*` status catalogue. Do not invent symbolic codes outside the Nodics `ERR_` convention: `NodicsError` resolves response status and client-safe messages only through the registered status catalogue, and an unregistered symbolic value would incorrectly fall back to the generic system error."
     },
     {
       "kind": "heading",

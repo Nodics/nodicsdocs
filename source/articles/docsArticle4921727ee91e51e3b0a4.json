@@ -12,7 +12,7 @@
     "repository": "nodics",
     "path": "gComm/inventory/README.md",
     "type": "module-readme",
-    "contentHash": "dae19f4253a1edd57033bdef3c5ee7803566087a70601b97e69bf0762e1847ba"
+    "contentHash": "c657f6d98ce7371f446dd85ca8ac4978287c6d4f3a098e6aaa8bed2d4a3a7906"
   },
   "headings": [
     {
@@ -85,117 +85,46 @@
     },
     {
       "kind": "paragraph",
-      "text": "Read [the warehouse foundation contract](/docs/modules/gcomm/inventory/docs/warehouse-foundation) for business operations, administrator configuration, developer behavior, customization, failures, and troubleshooting."
+      "text": "Read the warehouse foundation contract (canonical documentation: `capability.commerce.technical-reference`) for business operations, administrator configuration, developer behavior, customization, failures, and troubleshooting."
     },
     {
       "kind": "paragraph",
-      "text": "Read [the Stock Core contract](/docs/modules/gcomm/inventory/docs/stock-core) before adding stock APIs, reservation logic, multi-hop conversion, availability, or provider customizations."
+      "text": "Read the Stock Core contract (canonical documentation: `capability.commerce.technical-reference`) before adding stock APIs, reservation logic, multi-hop conversion, availability, or provider customizations."
     },
     {
       "kind": "paragraph",
-      "text": "Read [the Stock Pool foundation](/docs/modules/gcomm/inventory/docs/stock-pool-foundation) before adding availability aggregation or Pool administration APIs."
+      "text": "Read the Stock Pool foundation (canonical documentation: `capability.commerce.technical-reference`) before adding availability aggregation or Pool administration APIs."
     },
     {
       "kind": "paragraph",
-      "text": "Read [the Stock Sourcing foundation](/docs/modules/gcomm/inventory/docs/stock-sourcing-foundation) before adding sourcing intent APIs, availability, reservation, or cached evaluation."
+      "text": "Read the Stock Sourcing foundation (canonical documentation: `capability.commerce.technical-reference`) before adding sourcing intent APIs, availability, reservation, or cached evaluation."
     },
     {
       "kind": "paragraph",
-      "text": "Read [the Stock Availability foundation](/docs/modules/gcomm/inventory/docs/stock-availability-foundation) before adding Availability caching or allocation promises."
+      "text": "Read the Stock Availability foundation (canonical documentation: `capability.commerce.technical-reference`) before adding Availability caching or allocation promises."
     },
     {
       "kind": "paragraph",
-      "text": "Read [the Stock Reservation foundation](/docs/modules/gcomm/inventory/docs/stock-reservation-foundation) before extending checkout holds, expiry, or fulfillment consumption."
+      "text": "Read the Stock Reservation foundation (canonical documentation: `capability.commerce.technical-reference`) before extending checkout holds, expiry, or fulfillment consumption."
     },
     {
       "kind": "paragraph",
-      "text": "Read [the Stock Allocation foundation](/docs/modules/gcomm/inventory/docs/stock-allocation-foundation) before integrating Order demand, split fulfillment, or backorders."
+      "text": "Read the Stock Allocation foundation (canonical documentation: `capability.commerce.technical-reference`) before integrating Order demand, split fulfillment, or backorders."
     },
     {
       "kind": "paragraph",
-      "text": "Read [the Stock Transfer foundation](/docs/modules/gcomm/inventory/docs/stock-transfer-foundation) before moving Stock between Warehouses or extending discrepancy handling."
+      "text": "Read the Stock Transfer foundation (canonical documentation: `capability.commerce.technical-reference`) before moving Stock between Warehouses or extending discrepancy handling."
     },
     {
       "kind": "paragraph",
-      "text": "Read [the Stock Reconciliation foundation](/docs/modules/gcomm/inventory/docs/stock-reconciliation-foundation) before adding scheduled scans, findings, approvals, or repairs."
+      "text": "Read the Stock Reconciliation foundation (canonical documentation: `capability.commerce.technical-reference`) before adding scheduled scans, findings, approvals, or repairs."
     },
     {
       "kind": "paragraph",
-      "text": "Read [Inventory Operations and Integrations](/docs/modules/gcomm/inventory/docs/inventory-operations-and-integrations) before exposing BackOffice reads, creating Movement checkpoints, or enabling WMS/POS connectors."
+      "text": "Read Inventory Operations and Integrations (canonical documentation: `capability.commerce.technical-reference`) before exposing BackOffice reads, creating Movement checkpoints, or enabling WMS/POS connectors."
     }
   ],
-  "links": [
-    {
-      "label": "the warehouse foundation contract",
-      "target": "docs/warehouse-foundation.md",
-      "kind": "internal",
-      "route": "/docs/modules/gcomm/inventory/docs/warehouse-foundation",
-      "anchor": ""
-    },
-    {
-      "label": "the Stock Core contract",
-      "target": "docs/stock-core.md",
-      "kind": "internal",
-      "route": "/docs/modules/gcomm/inventory/docs/stock-core",
-      "anchor": ""
-    },
-    {
-      "label": "the Stock Pool foundation",
-      "target": "docs/stock-pool-foundation.md",
-      "kind": "internal",
-      "route": "/docs/modules/gcomm/inventory/docs/stock-pool-foundation",
-      "anchor": ""
-    },
-    {
-      "label": "the Stock Sourcing foundation",
-      "target": "docs/stock-sourcing-foundation.md",
-      "kind": "internal",
-      "route": "/docs/modules/gcomm/inventory/docs/stock-sourcing-foundation",
-      "anchor": ""
-    },
-    {
-      "label": "the Stock Availability foundation",
-      "target": "docs/stock-availability-foundation.md",
-      "kind": "internal",
-      "route": "/docs/modules/gcomm/inventory/docs/stock-availability-foundation",
-      "anchor": ""
-    },
-    {
-      "label": "the Stock Reservation foundation",
-      "target": "docs/stock-reservation-foundation.md",
-      "kind": "internal",
-      "route": "/docs/modules/gcomm/inventory/docs/stock-reservation-foundation",
-      "anchor": ""
-    },
-    {
-      "label": "the Stock Allocation foundation",
-      "target": "docs/stock-allocation-foundation.md",
-      "kind": "internal",
-      "route": "/docs/modules/gcomm/inventory/docs/stock-allocation-foundation",
-      "anchor": ""
-    },
-    {
-      "label": "the Stock Transfer foundation",
-      "target": "docs/stock-transfer-foundation.md",
-      "kind": "internal",
-      "route": "/docs/modules/gcomm/inventory/docs/stock-transfer-foundation",
-      "anchor": ""
-    },
-    {
-      "label": "the Stock Reconciliation foundation",
-      "target": "docs/stock-reconciliation-foundation.md",
-      "kind": "internal",
-      "route": "/docs/modules/gcomm/inventory/docs/stock-reconciliation-foundation",
-      "anchor": ""
-    },
-    {
-      "label": "Inventory Operations and Integrations",
-      "target": "docs/inventory-operations-and-integrations.md",
-      "kind": "internal",
-      "route": "/docs/modules/gcomm/inventory/docs/inventory-operations-and-integrations",
-      "anchor": ""
-    }
-  ],
+  "links": [],
   "media": [],
   "unsupported": []
 }
