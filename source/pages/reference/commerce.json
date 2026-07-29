@@ -941,7 +941,7 @@
         "Units-owned Unit code, order, and optional flag.",
         "duplicate positions, self-components, cycles, and scientific notation.",
         "For Packaging, record package type, contained quantity and Unit, and optional length, width, height, and weight. All three dimensions must be supplied together with one dimension Unit. Weight requires its own Unit. Product stores exact strings; Units remains responsible for conversion.",
-        "For Media, record a Product-owned media reference code plus exactly one `nMedia` reference: `mediaCode` for one concrete file or `mediaSetCode` for a reusable set of variants such as original, thumbnail, mobile, desktop, large, and zoom. Product owns role, locale, order, and alt text; `nMedia` owns provider paths, generated URLs, checksums, MIME policy, upload limits, and binary lifecycle."
+        "For Media, record a Product-owned `productMediaCode` plus exactly one `nMedia` target: `mediaCode` for one concrete file or `mediaSetCode` for a reusable set of variants such as original, thumbnail, mobile, desktop, large, and zoom. Product owns role, locale, order, and alt text; `nMedia` owns provider paths, generated URLs, checksums, MIME policy, upload limits, and binary lifecycle."
       ],
       "items": [
         "Create the owning `BUNDLE` Item and every component Item.",
