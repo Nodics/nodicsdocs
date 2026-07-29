@@ -270,7 +270,7 @@
     {
       "heading": "How import should use media",
       "paragraphs": [
-        "The import pipeline already knows how to process files staged on the server. The implemented `POST /nodics/system/v0/import/media` route lets nImport reference a `mediaCode`, load an active `importDefinition`, ask nMedia to resolve a trusted backend import-source descriptor, and stage the media into an import-run-owned workspace.",
+        "The import pipeline already knows how to process files staged on the server. The implemented `POST /nodics/import/v0/media` route lets nImport reference a `mediaCode`, use the selected target schema, ask nMedia to resolve a trusted backend import-source descriptor, and stage the media into an import-run-owned workspace.",
         "Axis should upload the file through the media upload API, receive a media code, and then call the import API using that media code and a selected definition code. Axis should not pass `/tmp`, browser-selected paths, NAS paths, object-store keys, bucket names, provider URLs, or credentials to import.",
         "This keeps file upload, storage policy, and import processing separate while allowing business users to import CSV, JSON, Excel, or other governed files from the Back Office UI. In a cluster, this is also the only safe model because the node that receives the upload may not be the node that executes the import."
       ]

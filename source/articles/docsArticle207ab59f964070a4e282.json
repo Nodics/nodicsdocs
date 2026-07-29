@@ -115,7 +115,7 @@
     },
     {
       "kind": "paragraph",
-      "text": "the `/nodics/system/v0/import/core` operation."
+      "text": "the `/nodics/import/v0/core/install` operation."
     },
     {
       "kind": "unordered-list",

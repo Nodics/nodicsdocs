@@ -48,7 +48,7 @@
     {
       "heading": "Media-backed file import contract",
       "paragraphs": [
-        "Browser-facing file import is not a raw-path import. Axis uploads files through nMedia, receives a media identity, and calls `POST /nodics/system/v0/import/media` with `mediaCode`, `definitionCode`, and optional `options.validateOnly`. nMedia owns upload parsing, storage provider selection, generated storage keys, checksums, folder policy, lifecycle state, and media metadata. nImport owns import definitions, import-run staging, parsers, target dispatch, diagnostics, and history.",
+        "Browser-facing file import is not a raw-path import. Axis uploads files through nMedia, receives a media identity, and calls `POST /nodics/import/v0/media` with `mediaCode`, selected target schema metadata, and optional `options.validateOnly`. nMedia owns upload parsing, storage provider selection, generated storage keys, checksums, folder policy, lifecycle state, and media metadata. nImport owns import-run staging, parsers, target dispatch, diagnostics, and history.",
         "The implemented media import route creates server-owned staging before the existing local import pipeline runs. This matters because local import processing can move processed files, and because a clustered runtime cannot rely on a browser-selected path or one node's temporary disk.",
         "This contract also protects provider neutrality. A project can move media storage from local disk to NAS, S3, Azure Blob, Google Cloud Storage, or another provider without changing Axis or import definitions. nImport asks nMedia for a trusted backend descriptor; Axis never receives provider internals."
       ],
@@ -59,7 +59,7 @@
         "Record the source media code, checksum, definition, tenant, module scope, and diagnostics in import run history.",
         "Keep multipart upload parsing in nMedia and import row parsing in nImport."
       ],
-      "code": "Axis upload step\n  -> POST /nodics/media/v0/storage/upload\n  -> folderCode=importSources\n  -> formatCode=importFile\n  -> returns mediaCode\n\nAxis import step\n  -> POST /nodics/system/v0/import/media\n  -> mediaCode=<mediaCode>\n  -> definitionCode=<active importDefinition>\n  -> options.validateOnly=true for validation-only\n\nBackend execution\n  -> nImport resolves media through nMedia\n  -> nImport loads importDefinition\n  -> nImport generates a temporary run-local header\n  -> nImport stages into run-owned workspace\n  -> nImport validates only or executes existing file import pipeline"
+      "code": "Axis upload step\n  -> POST /nodics/media/v0/storage/upload\n  -> folderCode=importSources\n  -> formatCode=importFile\n  -> returns mediaCode\n\nAxis import step\n  -> POST /nodics/import/v0/media\n  -> mediaCode=<mediaCode>\n  -> target module/schema/operation selected by the employee\n  -> options.validateOnly=true for validation-only\n\nBackend execution\n  -> nImport resolves media through nMedia\n  -> nImport builds a governed import run for the selected schema\n  -> nImport generates a temporary run-local header\n  -> nImport stages into run-owned workspace\n  -> nImport validates only or executes existing file import pipeline"
     },
     {
       "heading": "Export lifecycle",
@@ -416,11 +416,15 @@
         "For existing installations, catalogue and preflight also accept the historical `import.core.run` administrator permission. This bounded upgrade bridge prevents the new read permission from hiding the operation required to install it. Execution remains protected by fixed type-specific permissions. Projects must not extend this compatibility rule to unrelated permissions."
       ],
       "items": [
-        "`GET /nodics/import/v0/data-releases` — `import.release.view`",
-        "`POST /nodics/import/v0/data-releases/preflight` —",
-        "`POST /nodics/import/v0/data-releases/init/imports` — `import.init.run`",
-        "`POST /nodics/import/v0/data-releases/core/imports` — `import.core.run`",
-        "`POST /nodics/import/v0/data-releases/sample/imports` —",
+        "`GET /nodics/import/v0/init` — `import.release.view`",
+        "`POST /nodics/import/v0/init/validate` — `import.init.validate`",
+        "`POST /nodics/import/v0/init/install` — `import.init.run`",
+        "`GET /nodics/import/v0/core` — `import.release.view`",
+        "`POST /nodics/import/v0/core/validate` — `import.core.validate`",
+        "`POST /nodics/import/v0/core/install` — `import.core.run`",
+        "`GET /nodics/import/v0/sample` — `import.release.view`",
+        "`POST /nodics/import/v0/sample/validate` — `import.sample.validate`",
+        "`POST /nodics/import/v0/sample/install` —",
         "`GET /nodics/import/v0/run/history` — `import.history.view`",
         "`GET /nodics/import/v0/run/history/:runId` —"
       ]

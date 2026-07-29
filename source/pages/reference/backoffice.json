@@ -672,7 +672,7 @@
       "migratedFrom": "nodics:gExp/backoffice/docs/core-data-operations.md",
       "sourceAnchor": "ownership-and-security",
       "paragraphs": [
-        "the `/nodics/system/v0/import/core` operation.",
+        "the `/nodics/import/v0/core/install` operation.",
         "never stores the token or receives database credentials."
       ],
       "items": [

@@ -153,8 +153,8 @@
     {
       "kind": "unordered-list",
       "items": [
-        "`GET /nodics/import/v0/data-releases` — `import.release.view`",
-        "`POST /nodics/import/v0/data-releases/preflight` —"
+        "`GET /nodics/import/v0/init` — `import.release.view`",
+        "`POST /nodics/import/v0/init/validate` — `import.init.validate`"
       ]
     },
     {
@@ -164,9 +164,13 @@
     {
       "kind": "unordered-list",
       "items": [
-        "`POST /nodics/import/v0/data-releases/init/imports` — `import.init.run`",
-        "`POST /nodics/import/v0/data-releases/core/imports` — `import.core.run`",
-        "`POST /nodics/import/v0/data-releases/sample/imports` —"
+        "`POST /nodics/import/v0/init/install` — `import.init.run`",
+        "`GET /nodics/import/v0/core` — `import.release.view`",
+        "`POST /nodics/import/v0/core/validate` — `import.core.validate`",
+        "`POST /nodics/import/v0/core/install` — `import.core.run`",
+        "`GET /nodics/import/v0/sample` — `import.release.view`",
+        "`POST /nodics/import/v0/sample/validate` — `import.sample.validate`",
+        "`POST /nodics/import/v0/sample/install` —"
       ]
     },
     {
