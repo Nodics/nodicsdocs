@@ -1,0 +1,10 @@
+---
+description: Nodics documentation content-pack contract
+alwaysApply: true
+---
+
+Follow `AGENTS.md` as the canonical AI/developer instruction contract.
+
+Keep this repository focused on source-controlled documentation content packs.
+Do not add backend logic, frontend renderer implementations, credentials,
+environment URLs, Git operations, or another import engine here.
