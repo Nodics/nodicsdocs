@@ -19,7 +19,7 @@
   "depth": "implementation",
   "status": "implemented",
   "owner": "Inventory owns stock; Units owns reusable measurement definitions",
-  "lastVerified": "2026-07-26",
+  "lastVerified": "2026-08-01",
   "summary": "Inventory manages pools, warehouse balances, reservations, allocations, movements, transfers, reconciliation, sourcing, and availability using normalized Units contracts.",
   "supportingEvidence": [
     "nodics:gComm/inventory/README.md",
@@ -70,6 +70,30 @@
         "A land or agriculture implementation may use hectares, square metres, parcels, or harvest attributes. The unit definition is reusable, while domain-specific eligibility and stock meaning remain in the owning application capability.",
         "Verify fractional quantities, rounding boundaries, incompatible dimensions, duplicate reservation, concurrent decrement, expiry, transfer in transit, reconciliation variance, staged publication, and cache/search refresh.",
         "Operators monitor negative-balance prevention, aged reservations, failed movements, reconciliation drift, hot warehouse contention, projection lag, provider availability, and correlation identifiers from command through derived reads."
+      ]
+    },
+    {
+      "heading": "Axis and BackOffice exposure",
+      "items": [
+        "Inventory contributes Stock and Inventory navigation under Commerce Operations using module-owned BackOffice metadata. Axis consumes this metadata and uses reusable schema workbench components for stock balances, pools, warehouses, reservations, transfers, reconciliation, and sourcing records.",
+        "Availability is a governed operational view, not just one stored schema value. Axis may expose availability search or explanation views only when they call Inventory-owned contracts.",
+        "Units remain a reusable framework capability. Commerce screens may show unit references or selectable units, but unit identity and conversion rules stay in Units."
+      ]
+    },
+    {
+      "heading": "Permissions and security",
+      "items": [
+        "Inventory BackOffice visibility uses `inventory.operations.read` for the current read-oriented operations slice. Mutation routes require stronger Inventory permissions and command-specific authorization.",
+        "Backend services must resolve tenant, enterprise, Store, warehouse, pool, product, unit, and service context. Axis filters or selections are never authorization by themselves.",
+        "Stock quantities, warehouse locations, provider evidence, and reconciliation findings can be sensitive operational data. Audit manual adjustments, provider callbacks, import runs, and repair actions."
+      ]
+    },
+    {
+      "heading": "Customize and extend safely",
+      "items": [
+        "Customer modules may add warehouse attributes, sourcing rules, provider connectors, reconciliation policies, BackOffice presentation metadata, and import/export data through later project layers.",
+        "Do not duplicate Inventory balances in Product, Store, Pricing, CMS, or Axis. Those capabilities request Inventory outcomes or store references only.",
+        "Verify custom Inventory behavior with concurrency, idempotency, reservation expiry, transfer, reconciliation, authorization, provider-failure, import/export, and rollback tests."
       ]
     }
   ]

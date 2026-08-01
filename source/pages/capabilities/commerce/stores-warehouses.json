@@ -19,7 +19,7 @@
   "depth": "implementation",
   "status": "implemented",
   "owner": "Store owns selling-location/channel configuration; Inventory owns warehouses and sourcing eligibility",
-  "lastVerified": "2026-07-26",
+  "lastVerified": "2026-08-01",
   "summary": "Stores represent commercial customer touchpoints; warehouses represent stock-holding or fulfillment locations that can serve configurable scopes.",
   "supportingEvidence": [
     "nodics:gComm/store/README.md",
@@ -67,6 +67,30 @@
         "The iPhone may be sellable only in zones one, two, and three even when units physically exist elsewhere. Sellability, delivery coverage, safety stock, and sourcing priority therefore participate separately.",
         "Verify tenant and enterprise consistency, active dates, country/channel compatibility, warehouse service areas, pickup eligibility, exclusions, fallbacks, and the behavior when a preferred warehouse is unavailable.",
         "Operational checks include orphan relationships, cyclic or contradictory priority, capacity exhaustion, stale online configuration, cross-tenant access, cache invalidation, and an explanation of why a source was selected or rejected."
+      ]
+    },
+    {
+      "heading": "Axis and BackOffice exposure",
+      "items": [
+        "Store contributes Store navigation under Commerce Operations through backend-owned BackOffice metadata. Axis renders Stores and fulfillment associations through reusable schema workbench components.",
+        "Warehouse pages belong to Inventory even when they appear near Store operations in the user journey. Axis may group them together visually, but the backend ownership remains separate.",
+        "If a project introduces a dedicated Store Location schema, that schema should be contributed by the owning module and surfaced through backend navigation metadata instead of hardcoded in Axis."
+      ]
+    },
+    {
+      "heading": "Permissions and security",
+      "items": [
+        "BackOffice visibility for Store records is gated by `store.backoffice.read`; create, update, delete, and fulfillment-association operations require backend-enforced manage permissions.",
+        "Store, warehouse, Site, country, channel, currency, and catalog relationships must be validated against tenant and enterprise scope on the backend.",
+        "Operational users should see safe commercial and fulfillment projections, not raw provider credentials, private logistics notes, or cross-enterprise configuration."
+      ]
+    },
+    {
+      "heading": "Customize and extend safely",
+      "items": [
+        "Customer modules may add store attributes, eligibility policy, fulfillment association rules, BackOffice layout metadata, imports, exports, and publication behavior through later layers.",
+        "Do not collapse Store and Warehouse into one copied model. Link them through governed assignment records while Inventory remains stock authority.",
+        "Verify custom Store behavior with tenant/enterprise isolation, relationship validation, fulfillment fallback, Axis workbench rendering, import/export, publication, and rollback tests."
       ]
     }
   ]

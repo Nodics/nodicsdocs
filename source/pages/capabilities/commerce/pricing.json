@@ -19,7 +19,7 @@
   "depth": "implementation",
   "status": "implemented",
   "owner": "Pricing capability",
-  "lastVerified": "2026-07-26",
+  "lastVerified": "2026-08-01",
   "summary": "Price lists and price groups organize prices; resolution filters eligible entries and applies deterministic priority and specificity for the trusted context.",
   "supportingEvidence": [
     "nodics:gComm/pricing/README.md"
@@ -70,6 +70,30 @@
         "Among eligible entries it applies configured priority and specificity. The negotiated customer entry wins only when the authenticated principal and trusted context prove that relationship; a browser-supplied customer code is insufficient.",
         "If two entries are equally eligible and no documented tie-breaker exists, fail as ambiguous instead of silently choosing an unstable result. If no entry is eligible, return a deliberate not-priced outcome rather than zero.",
         "Acceptance tests cover boundary dates, quantity tiers, unit compatibility, currency, store/site/segment specificity, unauthorized context injection, deterministic ties, staged-to-online publishing, invalidation, provider failure, and regression of existing prices."
+      ]
+    },
+    {
+      "heading": "Axis and BackOffice exposure",
+      "items": [
+        "Pricing contributes its Commerce Operations navigation metadata from the backend. Axis renders Price Lists, Prices, Price Groups, and Price Assignments through reusable schema workbench components.",
+        "Promotions and Coupons remain planned until an owning backend capability exists; documentation and navigation must not imply those features are available.",
+        "Business-specific pricing dashboards should reuse the same query, grid, export, and detail components while keeping price resolution and mutation in Pricing services."
+      ]
+    },
+    {
+      "heading": "Permissions and security",
+      "items": [
+        "BackOffice visibility is gated by `pricing.backoffice.read`; manage operations require explicit Pricing permissions and must be enforced by backend routes.",
+        "The resolver must ignore untrusted browser-supplied tenant, customer, segment, Store, Site, currency, and channel claims unless the backend proves them from authenticated context.",
+        "Price data, eligibility, and publication state are commercial controls. Audit manual overrides, imports, publishing actions, ambiguous resolution failures, and cache invalidation."
+      ]
+    },
+    {
+      "heading": "Customize and extend safely",
+      "items": [
+        "Customer modules may add price dimensions, tie-break rules, validation, import/export data, projection logic, and BackOffice presentation metadata through later layers.",
+        "Do not copy prices into Product, Storefront, CMS, or Axis components. Those layers reference Pricing outcomes and remain consumers.",
+        "Verify custom Pricing behavior with resolver contract tests, boundary-date and unit tests, authorization tests, import/export checks, publication/cache invalidation checks, and rollback of the customer layer."
       ]
     }
   ]

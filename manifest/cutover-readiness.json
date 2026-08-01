@@ -1,6 +1,6 @@
 {
   "contractVersion": 1,
-  "generatedAt": "2026-07-28T17:17:33.464Z",
+  "generatedAt": "2026-08-01T10:50:27.173Z",
   "decision": "NO_GO",
   "blockers": [
     "gdocs-link-retirement"
@@ -14,8 +14,8 @@
       "code": "canonical-completeness",
       "status": "PASS",
       "evidence": {
-        "registered": 160,
-        "authored": 160,
+        "registered": 161,
+        "authored": 161,
         "missingAuthored": [],
         "unregisteredAuthored": []
       }
@@ -24,14 +24,14 @@
       "code": "canonical-navigation-links",
       "status": "PASS",
       "evidence": {
-        "routes": 160,
+        "routes": 161,
         "canonicalLinks": 619,
         "brokenLinks": [],
         "sectionCounts": {
           "discover": 2,
           "evaluate": 5,
           "getting-started": 2,
-          "capabilities": 74,
+          "capabilities": 75,
           "solutions": 3,
           "build": 17,
           "security": 12,
@@ -46,14 +46,14 @@
       "evidence": {
         "audienceCounts": {
           "evaluator": 27,
-          "business-user": 73,
-          "administrator": 84,
-          "developer": 147,
-          "architect": 142,
+          "business-user": 74,
+          "administrator": 85,
+          "developer": 148,
+          "architect": 143,
           "security-reviewer": 51,
-          "operator": 106,
+          "operator": 107,
           "framework-maintainer": 47,
-          "ai-tool": 136
+          "ai-tool": 137
         },
         "capabilityAliases": 109,
         "note": "Canonical source has titles, summaries, intent, audiences, content, and taxonomy aliases. Runtime search behavior still requires the canonical CMS projection and Axis validation."
@@ -87,11 +87,11 @@
       "code": "canonical-content-pack-projection",
       "status": "PASS",
       "evidence": {
-        "canonicalPages": 160,
+        "canonicalPages": 161,
         "legacyArticles": 428,
-        "generatedArticles": 160,
-        "generatedPages": 160,
-        "generatedRoutes": 161,
+        "generatedArticles": 161,
+        "generatedPages": 161,
+        "generatedRoutes": 162,
         "sites": [
           "axisCmsSite"
         ],
@@ -136,8 +136,8 @@
       "evidence": {
         "nodicsRootAvailable": true,
         "remainingReferencesOutsideGdocs": {
-          "files": 61,
-          "references": 956
+          "files": 6,
+          "references": 823
         },
         "note": "Do not remove gDocs until active navigation, source links, generated context, and module README links use canonical destinations."
       }

@@ -19,7 +19,7 @@
   "depth": "guided",
   "status": "implemented",
   "owner": "Composed commerce capabilities; each retains its authority",
-  "lastVerified": "2026-07-26",
+  "lastVerified": "2026-08-01",
   "summary": "Authoring publishes exact approved Product, Price, Stock, Store, and content forms to Online; customer requests resolve trusted context and query each owning module directly.",
   "supportingEvidence": [
     "nodics:gExp/storefront/README.md",
@@ -77,6 +77,22 @@
         "If authoritative persistence succeeds but search indexing or cache invalidation fails, record a recoverable derived-state failure and reconcile it; do not roll back silently or claim that the old projection is authoritative.",
         "During a customer request, a missing optional recommendation may degrade safely, while an untrusted context, ambiguous price, incompatible unit, or uncertain stock commitment must fail according to the owning contract.",
         "Complete acceptance records positive, negative, boundary, contract, integration, security, performance, observability, recovery, and regression results for every module boundary rather than testing only the final page."
+      ]
+    },
+    {
+      "heading": "Axis and BackOffice exposure",
+      "items": [
+        "Axis groups commerce authoring and operations from backend BackOffice navigation metadata. Catalog focuses on product/categorization/enrichment/publishing records; Commerce Operations groups pricing, stock, stores, carts, and orders.",
+        "Reusable Axis workbench components provide search, query builder, configurable sortable grids, export, create/update where authorized, and reusable schema detail panels. Business-specific views are layered later when they add value.",
+        "Disabled or planned items such as Payments, Shipments, Returns, Refunds, Delivery Modes, Payment Modes, Tax Records, Fraud Checks, Promotions, and Coupons must stay visibly planned or hidden until an owning backend capability exists."
+      ]
+    },
+    {
+      "heading": "Customize and extend safely",
+      "items": [
+        "Customer projects customize commerce through later project modules: extend schemas, permissions, validation, import/export data, publication adapters, and BackOffice metadata without editing framework modules.",
+        "Do not build an Axis-only commerce control plane or duplicate Product, Pricing, Inventory, Store, Cart, Order, Units, CMS, or nMedia state. Axis is an experience client over backend-owned contracts.",
+        "Verify end-to-end customizations with module contract tests, BackOffice bootstrap/navigation tests, route-scoped Axis tests, import/export checks, permission filtering, publication/recovery tests, and rollback procedures for the customer layer."
       ]
     }
   ]
