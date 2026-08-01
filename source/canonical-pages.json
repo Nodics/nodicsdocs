@@ -224,6 +224,13 @@
       "title": "Content Management and Publishing"
     },
     {
+      "code": "capability.content-publishing.wcms-authoring-model",
+      "section": "capabilities",
+      "capability": "content-publishing",
+      "family": "runtime-behavior",
+      "title": "Web Content Management Model"
+    },
+    {
       "code": "capability.content-publishing.runtime",
       "section": "operations",
       "capability": "content-publishing",

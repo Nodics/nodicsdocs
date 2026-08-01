@@ -1,0 +1,194 @@
+{
+  "code": "capability.content-publishing.wcms-authoring-model",
+  "title": "Web Content Management Model",
+  "route": "/docs/capabilities/content-publishing/wcms-authoring-model",
+  "section": "capabilities",
+  "family": "runtime-behavior",
+  "parent": "page:capability.content-publishing.overview",
+  "order": 5,
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Understand the WCMS authoring objects that Axis exposes and how Nodics implements, governs, and customizes them.",
+  "priorKnowledge": "Know tenants, enterprises, catalogs, schema modeling, media, Workflow, and staged-to-online publishing.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "gContent/cms owns CMS authoring, delivery, renderer contracts, and publication manifests; gContent/wcms owns approval workflow bridge; nPublish owns publication lifecycle",
+  "lastVerified": "2026-08-01",
+  "summary": "The WCMS model organizes websites, catalogs, page types, templates, slots, components, routes, navigation, restrictions, media references, and publication evidence through backend-owned schemas and configuration.",
+  "supportingEvidence": [
+    "nodics:gContent/cms/README.md",
+    "nodics:gContent/cms/docs/content-delivery-contract.md",
+    "nodics:gContent/cms/docs/publication-manifest-contract.md",
+    "nodics:gContent/cms/docs/site-reference-contract.md",
+    "nodics:gContent/wcms/README.md",
+    "nodics:gFramework/nPublish/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "What is the Web Content Management model?",
+      "paragraphs": [
+        "The Web Content Management model is the backend-owned structure used to author, preview, approve, publish, and deliver content experiences. Axis may provide business screens for these objects, but it does not own their lifecycle, schema, permissions, route resolution, media storage, or publishing rules.",
+        "A typical business journey starts with a Website and content catalog, defines allowed page and component types, composes pages from templates, slots, and components, applies navigation and restrictions, then publishes an approved version through the governed publishing lifecycle."
+      ]
+    },
+    {
+      "heading": "Authority and lifecycle",
+      "items": [
+        "CMS owns content schemas, page and component modeling, logical renderer contracts, route resolution, bounded delivery projection, media references, and content mutation hooks.",
+        "WCMS contributes approval workflow integration for content authoring and does not replace the generic Workflow or nPublish capabilities.",
+        "nPublish owns provider-neutral publication states, revisions, audit, reconciliation, rollback, and target activation.",
+        "nMedia owns binary storage, metadata, lifecycle, private/public delivery, downloads, and media-set behavior.",
+        "Axis renders backend-provided data, help, and documentation links; it must not hardcode business rules or become a second content-model authority."
+      ]
+    },
+    {
+      "heading": "Websites",
+      "paragraphs": [
+        "A Website represents the governed experience context for a storefront, brand site, country site, microsite, or enterprise digital channel. It is the business-facing entry point that ties content authoring and delivery to tenant, enterprise, catalog, locale, channel, and routing decisions.",
+        "In implementation, the Website is modeled by the CMS Site schema and referenced by routes, pages, catalogs, and delivery resolution. Storefront and BackOffice clients may select or display the Website, but CMS remains authoritative for whether the Site is active, which routes belong to it, and which content catalog is resolved.",
+        "Customer projects customize Website behavior by extending the CMS Site schema, adding project-specific properties, layering validation, permissions, import/export data, and BackOffice presentation metadata. They must not fork CMS delivery, store raw frontend renderer code, or bypass tenant and enterprise context."
+      ]
+    },
+    {
+      "heading": "Content Catalogs",
+      "paragraphs": [
+        "Content catalogs organize authored CMS content into governed collections such as staged and online catalogs, brand catalogs, country catalogs, or campaign catalogs. They provide scope and lifecycle boundaries without duplicating the content objects themselves.",
+        "Nodics reuses catalog foundations while CMS decides how catalogs participate in content delivery and publication. Later project modules can add catalog attributes, default relationships, data import rules, or approval policies through layered schema and service configuration."
+      ]
+    },
+    {
+      "heading": "Page and Component Types",
+      "paragraphs": [
+        "Type codes define which page and component models are allowed in CMS. They connect business content concepts to backend schemas and approved logical renderer contracts.",
+        "A type code is not executable UI. It may describe business meaning, allowed properties, renderer compatibility, validation expectations, and supported channels. Axis resolves logical renderer keys from backend contracts and rejects unsupported or unsafe renderer metadata."
+      ]
+    },
+    {
+      "heading": "Component Type Groups",
+      "paragraphs": [
+        "Component type groups help authors and administrators organize reusable building blocks such as banners, hero content, navigation elements, media blocks, product teasers, and editorial fragments.",
+        "Groups are presentation and governance metadata. They should improve authoring discovery without becoming a permission bypass or a parallel component registry."
+      ]
+    },
+    {
+      "heading": "Renderer Mappings",
+      "paragraphs": [
+        "Renderer mappings translate backend type codes to approved logical renderer keys and contract versions. They let CMS content remain declarative while Axis, Storefront, or another client owns the actual executable renderer implementation.",
+        "Nodics deliberately prohibits storing TypeScript imports, React component names, filesystem paths, remote scripts, or HTML implementation in content. A customer project customizes rendering by contributing approved renderer mappings and client renderer implementations, not by placing executable code into CMS records."
+      ]
+    },
+    {
+      "heading": "Page Templates",
+      "paragraphs": [
+        "Page templates define the governed layout structure for a page. A template declares which slots exist, how they are interpreted by a logical renderer, and which constraints apply before a page can be previewed or published.",
+        "Templates are backend content contracts. Axis can administer them through schema-backed UI, but CMS owns validation, dependency resolution, versioning, and publication behavior."
+      ]
+    },
+    {
+      "heading": "Slot Definitions",
+      "paragraphs": [
+        "Slot definitions describe where components can appear and how many items a slot can hold. Slots make page composition explicit instead of embedding layout decisions directly in each component.",
+        "CMS validates slot cardinality, allowed component types, ordering, and occupied slot positions. Customer modules can add new slot policies through layered schema and service extensions."
+      ]
+    },
+    {
+      "heading": "Pages",
+      "paragraphs": [
+        "Pages are authored content records that select a page type, template, route participation, component associations, restrictions, and delivery state. A page becomes visible only through an allowed route and delivery policy.",
+        "Publishing must use the exact approved page version and dependency graph. A previously approved page does not authorize a newer mutable draft."
+      ]
+    },
+    {
+      "heading": "Components",
+      "paragraphs": [
+        "Components are reusable content blocks that appear inside page or container slots. They hold declarative properties, references, localization data, media references, and renderer contract metadata.",
+        "CMS components should remain content records. Business logic stays in owning services, validation, workflows, publication adapters, and client renderers."
+      ]
+    },
+    {
+      "heading": "Component Media",
+      "paragraphs": [
+        "Component media records connect CMS components to governed media assets without exposing raw storage paths. nMedia owns upload, storage provider selection, visibility, lifecycle, private delivery, downloads, and media sets.",
+        "CMS validates whether a component is allowed to reference a media item or media set. Publishing and delivery should carry safe media references, not backend filesystem or provider secrets."
+      ]
+    },
+    {
+      "heading": "Page Routes",
+      "paragraphs": [
+        "Page routes map safe browser paths to CMS pages for a specific Site, locale, and channel. Route resolution is backend-owned and must fail closed for ambiguous, inactive, draft, or unauthorized records.",
+        "Storefront context may identify the active Site and catalog, but CMS still validates the route and projects only client-safe delivery data."
+      ]
+    },
+    {
+      "heading": "Navigation Nodes",
+      "paragraphs": [
+        "Navigation nodes model menus, trees, and links that point to pages, routes, or approved external targets. They provide business-managed navigation while preserving backend validation and delivery safety.",
+        "Customer projects may add navigation node types, visibility rules, or renderer hints through configuration and schemas. They must not let navigation execute scripts or bypass route authorization."
+      ]
+    },
+    {
+      "heading": "Restriction Types",
+      "paragraphs": [
+        "Restriction types define reusable visibility policy categories such as user group, catalog, country, channel, time window, device, campaign, or custom business context.",
+        "The type declares what a restriction means; the owning validation and delivery services decide how it is evaluated."
+      ]
+    },
+    {
+      "heading": "Restrictions",
+      "paragraphs": [
+        "Restrictions are configured instances that control whether pages, components, slots, or navigation nodes are visible for a specific request context.",
+        "Restrictions should be explicit, testable, and tenant-aware. A missing or unsupported restriction must fail safely rather than expose content by accident."
+      ]
+    },
+    {
+      "heading": "Publishing",
+      "paragraphs": [
+        "Publishing moves an approved staged content release to an online authority through nPublish and the CMS publication adapter. It does not copy the latest mutable draft and does not write the target database directly.",
+        "Publication requests, status, manifests, deployment receipts, and audit records are evidence of this lifecycle. Axis can group those records for users, but the publication state machine remains backend-owned."
+      ]
+    },
+    {
+      "heading": "Publishing Requests",
+      "paragraphs": [
+        "A publishing request identifies the exact domain, root type, root code, source version, target, tenant, dependencies, idempotency identity, and workflow evidence to publish."
+      ]
+    },
+    {
+      "heading": "Staged-to-Online Status",
+      "paragraphs": [
+        "Staged-to-online status shows which approved content version is active online, which deployment target accepted it, and whether derived projections such as cache or search need reconciliation."
+      ]
+    },
+    {
+      "heading": "Publication Manifests",
+      "paragraphs": [
+        "A publication manifest is the immutable release package that records the resolved page, route, template, slot, component, media, renderer, and dependency graph used for deployment."
+      ]
+    },
+    {
+      "heading": "Publishing History",
+      "paragraphs": [
+        "Publishing history stores deployment receipts and historical evidence so operators can audit outcomes, investigate unknown completion, and recover or roll back safely."
+      ]
+    },
+    {
+      "heading": "Publishing Audit",
+      "paragraphs": [
+        "Publishing audit is the query-friendly projection of authoritative publication transitions. It supports operations and compliance without replacing the publication journal."
+      ]
+    },
+    {
+      "heading": "Customize and extend safely",
+      "paragraphs": [
+        "Customize WCMS by adding a later-loaded project, customer, environment, server, or node module that extends schemas, properties, validation, services, workflow actions, renderer mappings, content data, import/export definitions, permissions, tests, and documentation.",
+        "Do not modify reusable framework modules for customer-specific content, do not duplicate CMS delivery or nPublish lifecycle behavior, do not store executable frontend code in CMS, and do not expose media storage paths. Verify tenant and enterprise isolation, schema extension, route resolution, renderer mapping rejection, media reference validation, publication, rollback, import/export, security, accessibility, and regression."
+      ]
+    }
+  ]
+}
