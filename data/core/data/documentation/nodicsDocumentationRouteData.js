@@ -1386,6 +1386,18 @@ module.exports = {
         "active": true
     },
     "record115": {
+        "code": "docsRouteeac8b03f43babd3e4e72",
+        "site": "axisCmsSite",
+        "path": "/docs/capabilities/commerce/inventory-types",
+        "locale": "en",
+        "channel": "web",
+        "page": "docsPage664ab24fff2577e5f8e9",
+        "routeType": "PAGE",
+        "deliveryState": "ONLINE",
+        "accessMode": "AUTHENTICATED",
+        "active": true
+    },
+    "record116": {
         "code": "docsRoutebe6bf8027dfb1dcd2304",
         "site": "axisCmsSite",
         "path": "/docs/capabilities/commerce/end-to-end",
@@ -1397,7 +1409,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record116": {
+    "record117": {
         "code": "docsRoute5c855c282522d003b8c7",
         "site": "axisCmsSite",
         "path": "/docs/reference/commerce",
@@ -1409,7 +1421,103 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record117": {
+    "record118": {
+        "code": "docsRoute2ea9cd7994d6e1d4adef",
+        "site": "axisCmsSite",
+        "path": "/docs/capabilities/commerce/beginner-guide",
+        "locale": "en",
+        "channel": "web",
+        "page": "docsPagefc830787cda290849d85",
+        "routeType": "PAGE",
+        "deliveryState": "ONLINE",
+        "accessMode": "AUTHENTICATED",
+        "active": true
+    },
+    "record119": {
+        "code": "docsRoute101e235ed7f2dc4cdbe3",
+        "site": "axisCmsSite",
+        "path": "/docs/capabilities/commerce/checkout-journey",
+        "locale": "en",
+        "channel": "web",
+        "page": "docsPage2a142a4d63ad1af7b78f",
+        "routeType": "PAGE",
+        "deliveryState": "ONLINE",
+        "accessMode": "AUTHENTICATED",
+        "active": true
+    },
+    "record120": {
+        "code": "docsRoute1d8c65f08fb908a20309",
+        "site": "axisCmsSite",
+        "path": "/docs/capabilities/commerce/payment-methods-and-providers",
+        "locale": "en",
+        "channel": "web",
+        "page": "docsPage73b54560be362aa1b3ea",
+        "routeType": "PAGE",
+        "deliveryState": "ONLINE",
+        "accessMode": "AUTHENTICATED",
+        "active": true
+    },
+    "record121": {
+        "code": "docsRoutead038800b05f17337009",
+        "site": "axisCmsSite",
+        "path": "/docs/capabilities/commerce/shipping-modes-and-delivery-partners",
+        "locale": "en",
+        "channel": "web",
+        "page": "docsPage3346eb415e04fa997cf6",
+        "routeType": "PAGE",
+        "deliveryState": "ONLINE",
+        "accessMode": "AUTHENTICATED",
+        "active": true
+    },
+    "record122": {
+        "code": "docsRoutef7d5996b59e8854272ac",
+        "site": "axisCmsSite",
+        "path": "/docs/capabilities/commerce/provider-integration-guide",
+        "locale": "en",
+        "channel": "web",
+        "page": "docsPage851b83fe1ce445d26d46",
+        "routeType": "PAGE",
+        "deliveryState": "ONLINE",
+        "accessMode": "AUTHENTICATED",
+        "active": true
+    },
+    "record123": {
+        "code": "docsRoute9cb58da692d850af7ebf",
+        "site": "axisCmsSite",
+        "path": "/docs/capabilities/commerce/customization-lifecycle",
+        "locale": "en",
+        "channel": "web",
+        "page": "docsPagee438295e905555b2cdb5",
+        "routeType": "PAGE",
+        "deliveryState": "ONLINE",
+        "accessMode": "AUTHENTICATED",
+        "active": true
+    },
+    "record124": {
+        "code": "docsRoute4170bb9c2905eaa21459",
+        "site": "axisCmsSite",
+        "path": "/docs/capabilities/commerce/failure-retry-reconciliation",
+        "locale": "en",
+        "channel": "web",
+        "page": "docsPage7b314a3996439518919c",
+        "routeType": "PAGE",
+        "deliveryState": "ONLINE",
+        "accessMode": "AUTHENTICATED",
+        "active": true
+    },
+    "record125": {
+        "code": "docsRoute3ec48c6ee2b6d0827008",
+        "site": "axisCmsSite",
+        "path": "/docs/capabilities/commerce/axis-operations-guide",
+        "locale": "en",
+        "channel": "web",
+        "page": "docsPage0a41f30b25f7ee479ee7",
+        "routeType": "PAGE",
+        "deliveryState": "ONLINE",
+        "accessMode": "AUTHENTICATED",
+        "active": true
+    },
+    "record126": {
         "code": "docsRouteea68efe91146b74377da",
         "site": "axisCmsSite",
         "path": "/docs/capabilities/ai",
@@ -1421,7 +1529,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record118": {
+    "record127": {
         "code": "docsRoutefd868588e3780e7b1fcf",
         "site": "axisCmsSite",
         "path": "/docs/capabilities/ai/providers",
@@ -1433,7 +1541,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record119": {
+    "record128": {
         "code": "docsRoute849f8ec9deeed160ea7a",
         "site": "axisCmsSite",
         "path": "/docs/capabilities/ai/token-governance",
@@ -1445,7 +1553,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record120": {
+    "record129": {
         "code": "docsRoute2f559097ce77affb487a",
         "site": "axisCmsSite",
         "path": "/docs/capabilities/ai/knowledge",
@@ -1457,7 +1565,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record121": {
+    "record130": {
         "code": "docsRouteea758d444fda80da3395",
         "site": "axisCmsSite",
         "path": "/docs/capabilities/ai/assistant",
@@ -1469,7 +1577,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record122": {
+    "record131": {
         "code": "docsRoute28fb89982b0669a1b7df",
         "site": "axisCmsSite",
         "path": "/docs/capabilities/ai/agentic-processes",
@@ -1481,7 +1589,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record123": {
+    "record132": {
         "code": "docsRoute8240f06170bf5f27c02a",
         "site": "axisCmsSite",
         "path": "/docs/capabilities/ai/partner-customization",
@@ -1493,7 +1601,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record124": {
+    "record133": {
         "code": "docsRoute121b2d7b9ecbbf9f72fa",
         "site": "axisCmsSite",
         "path": "/docs/reference/ai",
@@ -1505,7 +1613,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record125": {
+    "record134": {
         "code": "docsRouteef769453b1225ac09168",
         "site": "axisCmsSite",
         "path": "/docs/solutions/data-as-service",
@@ -1517,7 +1625,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record126": {
+    "record135": {
         "code": "docsRoutee6bbc0da7a65f736f8ae",
         "site": "axisCmsSite",
         "path": "/docs/solutions/backoffice/schema-workbench",
@@ -1529,7 +1637,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record127": {
+    "record136": {
         "code": "docsRoutee1b27ef0667b4a147d7d",
         "site": "axisCmsSite",
         "path": "/docs/reference/backoffice",
@@ -1541,7 +1649,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record128": {
+    "record137": {
         "code": "docsRoute53bf3211d830a56daede",
         "site": "axisCmsSite",
         "path": "/docs/solutions/backoffice/workspace-context",
@@ -1553,7 +1661,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record129": {
+    "record138": {
         "code": "docsRoute9289799a447677a40bdc",
         "site": "axisCmsSite",
         "path": "/docs/build/application-capability",
@@ -1565,7 +1673,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record130": {
+    "record139": {
         "code": "docsRoute1338519e3f93733a2f23",
         "site": "axisCmsSite",
         "path": "/docs/build/apis",
@@ -1577,7 +1685,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record131": {
+    "record140": {
         "code": "docsRoute5ab04f1d3369f8747dfe",
         "site": "axisCmsSite",
         "path": "/docs/build/customization",
@@ -1589,7 +1697,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record132": {
+    "record141": {
         "code": "docsRoute9269b252af76a41445b0",
         "site": "axisCmsSite",
         "path": "/docs/build/testing",
@@ -1601,7 +1709,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record133": {
+    "record142": {
         "code": "docsRoute634952e1cd7efac6cce0",
         "site": "axisCmsSite",
         "path": "/docs/build/documentation",
@@ -1613,7 +1721,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record134": {
+    "record143": {
         "code": "docsRoutec9ce64741a24b93337ef",
         "site": "axisCmsSite",
         "path": "/docs/build/examples",
@@ -1625,7 +1733,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record135": {
+    "record144": {
         "code": "docsRoute5d48405bc0c2fbe80636",
         "site": "axisCmsSite",
         "path": "/docs/capabilities/identity-security",
@@ -1637,7 +1745,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record136": {
+    "record145": {
         "code": "docsRouteb535aa1af9f262cd1f72",
         "site": "axisCmsSite",
         "path": "/docs/capabilities/identity-security/authentication",
@@ -1649,7 +1757,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record137": {
+    "record146": {
         "code": "docsRoute70134712ab0b1808f3a5",
         "site": "axisCmsSite",
         "path": "/docs/capabilities/identity-security/authorization",
@@ -1661,7 +1769,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record138": {
+    "record147": {
         "code": "docsRoute403e0c58a36328df0c45",
         "site": "axisCmsSite",
         "path": "/docs/capabilities/identity-security/tenancy",
@@ -1673,7 +1781,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record139": {
+    "record148": {
         "code": "docsRoute8b6dee2008f78539c309",
         "site": "axisCmsSite",
         "path": "/docs/capabilities/identity-security/governance",
@@ -1685,7 +1793,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record140": {
+    "record149": {
         "code": "docsRoute4bc31dc5616e7c597ece",
         "site": "axisCmsSite",
         "path": "/docs/security/evidence",
@@ -1697,7 +1805,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record141": {
+    "record150": {
         "code": "docsRoute40c97a4bc28f479f8b09",
         "site": "axisCmsSite",
         "path": "/docs/security/users-tenants-permissions",
@@ -1709,7 +1817,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record142": {
+    "record151": {
         "code": "docsRoute4f41f757bd704c7a7649",
         "site": "axisCmsSite",
         "path": "/docs/security/backoffice-browser-sessions",
@@ -1721,7 +1829,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record143": {
+    "record152": {
         "code": "docsRoute9ccfb9bd5c8d0b40da50",
         "site": "axisCmsSite",
         "path": "/docs/security/shared-responsibility",
@@ -1733,7 +1841,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record144": {
+    "record153": {
         "code": "docsRoute7e97a8694206a3c0fbbf",
         "site": "axisCmsSite",
         "path": "/docs/reference/identity-access",
@@ -1745,7 +1853,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record145": {
+    "record154": {
         "code": "docsRoute6f8a14435b76df6bb6d3",
         "site": "axisCmsSite",
         "path": "/docs/capabilities/operational-governance",
@@ -1757,7 +1865,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record146": {
+    "record155": {
         "code": "docsRoutee30ae1108e9f420cbbf6",
         "site": "axisCmsSite",
         "path": "/docs/capabilities/operational-governance/runtime",
@@ -1769,7 +1877,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record147": {
+    "record156": {
         "code": "docsRoutede98e70a4d6ec93ea7c2",
         "site": "axisCmsSite",
         "path": "/docs/reference/operational-governance",
@@ -1781,7 +1889,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record148": {
+    "record157": {
         "code": "docsRoute61a8ba51f7f25fd922f5",
         "site": "axisCmsSite",
         "path": "/docs/reference/runtime-governance",
@@ -1793,7 +1901,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record149": {
+    "record158": {
         "code": "docsRoutea3249ec7179042fbd75f",
         "site": "axisCmsSite",
         "path": "/docs/operations/production",
@@ -1805,7 +1913,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record150": {
+    "record159": {
         "code": "docsRoutebdc2857e77d9760a3eb9",
         "site": "axisCmsSite",
         "path": "/docs/operations/local-runtime",
@@ -1817,7 +1925,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record151": {
+    "record160": {
         "code": "docsRoute5e11056192243264207d",
         "site": "axisCmsSite",
         "path": "/docs/reference/runtime-topology",
@@ -1829,7 +1937,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record152": {
+    "record161": {
         "code": "docsRoute4249c00dcef8eaead6c8",
         "site": "axisCmsSite",
         "path": "/docs/operations/deployment",
@@ -1841,7 +1949,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record153": {
+    "record162": {
         "code": "docsRouteca2ab7fa1fb42d082e24",
         "site": "axisCmsSite",
         "path": "/docs/reference/media-management",
@@ -1853,7 +1961,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record154": {
+    "record163": {
         "code": "docsRoutee38fa174ee1bd7f0b23c",
         "site": "axisCmsSite",
         "path": "/docs/reference/learning-assessment",
@@ -1865,7 +1973,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record155": {
+    "record164": {
         "code": "docsRoutea4db5e542cf2f01309a6",
         "site": "axisCmsSite",
         "path": "/docs/reference/customer-reviews",
@@ -1877,7 +1985,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record156": {
+    "record165": {
         "code": "docsRoutee3a99a967fe51dd86a6a",
         "site": "axisCmsSite",
         "path": "/docs/reference/kyc",
@@ -1889,7 +1997,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record157": {
+    "record166": {
         "code": "docsRoute5bbd9f8955f8a2344641",
         "site": "axisCmsSite",
         "path": "/docs/reference/glossary",
@@ -1901,7 +2009,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record158": {
+    "record167": {
         "code": "docsRoute9e2fe19e739f61fb67b8",
         "site": "axisCmsSite",
         "path": "/docs/reference/licensing",
@@ -1913,7 +2021,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record159": {
+    "record168": {
         "code": "docsRoute43ba6aee3e7711254ffb",
         "site": "axisCmsSite",
         "path": "/docs/reference/modules",
@@ -1925,7 +2033,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record160": {
+    "record169": {
         "code": "docsRoute918dd193ade596c0ee7b",
         "site": "axisCmsSite",
         "path": "/docs/reference/maturity",
@@ -1937,7 +2045,7 @@ module.exports = {
         "accessMode": "AUTHENTICATED",
         "active": true
     },
-    "record161": {
+    "record170": {
         "code": "docsRoutef4d9fbe7c7ce2f3a349b",
         "site": "axisCmsSite",
         "path": "/docs",

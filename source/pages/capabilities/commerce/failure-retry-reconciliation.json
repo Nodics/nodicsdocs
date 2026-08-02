@@ -1,0 +1,86 @@
+{
+  "code": "commerce.failure-retry-reconciliation",
+  "title": "Commerce Failure, Retry, and Reconciliation",
+  "route": "/docs/capabilities/commerce/failure-retry-reconciliation",
+  "section": "capabilities",
+  "family": "operations-security-troubleshooting",
+  "parent": "page:capability.commerce.overview",
+  "order": 140,
+  "audiences": [
+    "operator",
+    "administrator",
+    "developer",
+    "architect",
+    "ai-tool"
+  ],
+  "readerIntent": "Understand how commerce failures should be made visible, safe to retry, and reconcilable.",
+  "priorKnowledge": "Read checkout, inventory, payment, and delivery pages.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "Commerce operations and owning capability teams",
+  "lastVerified": "2026-08-02",
+  "summary": "Commerce operations need idempotency, provider evidence, workflow state, audit, and reconciliation because checkout and fulfillment cross money, stock, shipment, customer, and third-party boundaries.",
+  "supportingEvidence": [
+    "nodics:gComm/inventory/docs/inventory-operations-and-integrations.md",
+    "nodics:gComm/inventory/docs/stock-reconciliation-foundation.md",
+    "nodics:gComm/cart/README.md",
+    "nodics:gComm/order/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Why failure handling is first-class",
+      "paragraphs": [
+        "Commerce failures are rarely harmless. A timeout during checkout could mean payment was authorized but the response was lost. A delivery-provider failure could mean a label was created externally but not stored internally. A stock update failure could overpromise inventory if it is retried incorrectly.",
+        "Nodics should make these states explicit, safe to inspect, safe to retry where allowed, and recoverable through reconciliation rather than hiding them behind generic errors."
+      ]
+    },
+    {
+      "heading": "Common failure categories",
+      "items": [
+        "Validation failure: missing product, inactive store, invalid address, unsupported payment method, or unavailable delivery mode.",
+        "Context failure: wrong tenant, enterprise, site, country, currency, customer, channel, or permissions.",
+        "Pricing failure: missing price, ambiguous price, expired price, currency mismatch, or total recalculation mismatch.",
+        "Inventory failure: insufficient stock, reservation conflict, stale balance revision, unavailable warehouse, or overbooking limit exceeded.",
+        "Payment failure: authorization denied, provider timeout, duplicate callback, capture mismatch, refund failure, or reconciliation discrepancy.",
+        "Fulfillment failure: label creation failed, carrier unavailable, warehouse rejection, pickup failure, tracking mismatch, or return exception.",
+        "Derived-state failure: cache invalidation, search indexing, event delivery, notification, or reporting projection fails after authoritative state succeeds."
+      ]
+    },
+    {
+      "heading": "Retry rules",
+      "items": [
+        "Retry only operations that have an idempotency key or a safe read-before-write reconciliation path.",
+        "Do not retry money movement, stock movement, label creation, or shipment booking as a blind duplicate.",
+        "Keep retry policy per provider and per operation: maximum attempts, timeout, backoff, circuit breaker, and escalation behavior.",
+        "Expose retry actions in Axis only when backend metadata marks the operation retryable and the user has permission.",
+        "Record every retry attempt with actor, reason, correlation id, previous status, new status, and provider evidence."
+      ]
+    },
+    {
+      "heading": "Reconciliation rules",
+      "items": [
+        "Reconciliation compares Nodics state with provider state or derived projections and records a finding when they diverge.",
+        "Payment reconciliation checks transaction amount, currency, method, provider, order, authorization, capture, refund, settlement, and chargeback evidence.",
+        "Fulfillment reconciliation checks shipment booking, label, carrier tracking, warehouse status, delivery proof, cancellation, return, and exception evidence.",
+        "Inventory reconciliation checks balances, movements, reservations, allocations, warehouse/provider updates, and stock reconstruction.",
+        "Publishing reconciliation checks Online persistence, cache invalidation, search indexing, event delivery, and target version evidence."
+      ]
+    },
+    {
+      "heading": "Axis operations experience",
+      "items": [
+        "Business users should see clear statuses, not internal stack traces.",
+        "Operators should see enough evidence to decide whether to retry, reconcile, escalate, or mark as manually resolved.",
+        "Dangerous actions such as refund, cancel, re-dispatch, or force-resolve should be permissioned and audited separately.",
+        "Every detail panel should use reusable schema/detail components and backend action metadata so Payment, Fulfillment, Inventory, and Order behave consistently."
+      ]
+    },
+    {
+      "heading": "Beginner-safe explanation",
+      "paragraphs": [
+        "If checkout touches money, stock, or delivery, the system must assume that the external system may have succeeded even when the local request timed out. That is why idempotency and reconciliation are not optional enterprise features.",
+        "A good commerce platform does not just say `try again`. It records what it tried, what may have happened, how to check it, who is allowed to fix it, and what evidence proves the final state."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "code": "commerce.payment-methods-providers",
+  "title": "Payment Methods and Providers",
+  "route": "/docs/capabilities/commerce/payment-methods-and-providers",
+  "section": "capabilities",
+  "family": "configuration-customization",
+  "parent": "page:capability.commerce.overview",
+  "order": 100,
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Understand payment methods, payment providers, payment policy, and how to add new integrations.",
+  "priorKnowledge": "Read Checkout Journey and Lifecycle.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "Payment capability owner",
+  "lastVerified": "2026-08-02",
+  "summary": "Payment separates business methods from provider adapters so enterprises can configure Card, Cash on Delivery, Wallet, Advance, Offline, or custom methods independently from CyberSource, Stripe, PayPal, bank, or manual providers.",
+  "supportingEvidence": [
+    "nodics:gComm/cart/README.md",
+    "nodics:gComm/order/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Method and provider are different",
+      "paragraphs": [
+        "A payment method is the business-facing way a customer or operator pays: Card, Cash on Delivery, Wallet, Bank Transfer, Advance Payment, Account Credit, Gift Card, Offline Invoice, or a customer-specific method.",
+        "A payment provider is the executable integration behind a method: CyberSource, Stripe, PayPal, a bank gateway, a wallet provider, a COD collection service, an ERP, a manual back-office handler, or a customer adapter.",
+        "This separation matters because one Card method can use different providers by enterprise, country, currency, channel, risk level, amount, or rollout strategy. One provider can also support multiple methods."
+      ]
+    },
+    {
+      "heading": "Payment flow",
+      "items": [
+        "Checkout asks Payment which methods are eligible for the current tenant, enterprise, store, customer, cart, currency, country, channel, and amount.",
+        "The selected method is validated by payment policy.",
+        "Provider policy selects the provider adapter and runtime behavior such as authorize, capture, deferred collect, refund, void, retry, reconcile, or manual review.",
+        "The provider adapter executes the external or internal command using governed credentials and idempotency keys.",
+        "Payment records provider evidence and exposes safe status back to Cart, Order, Axis, and workflows.",
+        "Order stores payment references and summary evidence, but Payment remains the authority for transaction details and reconciliation."
+      ]
+    },
+    {
+      "heading": "Common payment methods",
+      "items": [
+        "Card: credit or debit card, usually requiring tokenization, authorization, capture, void, refund, and dispute handling.",
+        "Wallet: Apple Pay, Google Pay, PayPal Wallet, local wallet, or other stored-value integrations.",
+        "Cash on Delivery: payment is collected during delivery, often tied to fulfillment and carrier policy.",
+        "Bank Transfer: offline or asynchronous confirmation by bank reference or ERP reconciliation.",
+        "Advance Payment: partial payment collected before fulfillment, often used for pre-order, backorder, overbooking, custom goods, or high-value items.",
+        "Account Credit: B2B credit line, invoice terms, customer balance, or loyalty credit.",
+        "Offline Payment: manual approval or external process where no real-time gateway call is made."
+      ]
+    },
+    {
+      "heading": "Provider service and policy design",
+      "paragraphs": [
+        "Payment should not store all provider behavior as bulky configuration. Runtime behavior belongs in services and adapters. Configuration should identify available methods, providers, policy defaults, feature flags, limits, and registration metadata.",
+        "A provider service can aggregate provider adapters. A provider policy service decides whether a provider is allowed and which action is permitted. Individual adapters implement the provider-specific protocol."
+      ],
+      "items": [
+        "PaymentMethodService resolves enterprise-scoped business methods.",
+        "PaymentProviderService resolves available provider adapters.",
+        "PaymentProviderPolicyService evaluates policy for provider selection and allowed operations.",
+        "PaymentAdapter implementations execute provider-specific authorize, capture, refund, void, retry, and reconcile behavior.",
+        "Axis reads backend metadata and displays methods, providers, statuses, and lifecycle actions without knowing provider secrets."
+      ]
+    },
+    {
+      "heading": "Adding a new payment method",
+      "items": [
+        "Create or extend a customer module that depends on Payment.",
+        "Define method metadata such as code, name, supported currencies, countries, channels, customer types, minimum/maximum amount, enabled flag, and Axis help metadata.",
+        "Add validation and policy services if the method has special rules.",
+        "Connect the method to one or more providers through configuration and provider policy.",
+        "Add contract tests for eligibility, denial, checkout allocation, authorization behavior, order projection, and Axis visibility.",
+        "Document business meaning, operations, failure handling, and customization rules."
+      ]
+    },
+    {
+      "heading": "Adding a new provider",
+      "items": [
+        "Create provider adapter code in the owning payment or customer module.",
+        "Register provider capability: supported methods, currencies, countries, operations, retry behavior, timeout, idempotency, webhook handling, and reconciliation support.",
+        "Store credentials in secure runtime secret infrastructure, not in content, schema records, generated docs, or Axis UI.",
+        "Implement sandbox and production endpoint handling through runtime configuration.",
+        "Record provider references and normalized status evidence for every operation.",
+        "Test duplicate requests, duplicate callbacks, provider timeout, partial failure, authorization/capture mismatch, refund, retry, and reconciliation."
+      ]
+    },
+    {
+      "heading": "Security and governance",
+      "items": [
+        "Never expose gateway credentials, raw tokens, private customer payment data, or provider payloads in Axis grids or public delivery responses.",
+        "Use idempotency keys for all provider commands that can create money movement.",
+        "Separate authorization, capture, refund, void, retry, and reconcile permissions.",
+        "Treat payment status from a provider callback as untrusted until it is matched to a known transaction, method, provider, amount, currency, tenant, enterprise, order, and idempotency record.",
+        "Audit user, system, provider, request, response, normalized decision, and correlation identifiers."
+      ]
+    }
+  ]
+}

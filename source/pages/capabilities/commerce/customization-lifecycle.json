@@ -1,0 +1,95 @@
+{
+  "code": "commerce.customization-lifecycle",
+  "title": "Customize Commerce in Customer Modules",
+  "route": "/docs/capabilities/commerce/customization-lifecycle",
+  "section": "capabilities",
+  "family": "configuration-customization",
+  "parent": "page:capability.commerce.overview",
+  "order": 130,
+  "audiences": [
+    "developer",
+    "architect",
+    "administrator",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Learn how customer projects customize commerce without forking framework modules or duplicating state.",
+  "priorKnowledge": "Read the commerce overview and the capability page you want to extend.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "Commerce framework and customer extension owners",
+  "lastVerified": "2026-08-02",
+  "summary": "Customer modules customize commerce through layered schemas, services, policies, adapters, workflows, pipelines, imports, Axis metadata, tests, and documentation while preserving framework ownership.",
+  "supportingEvidence": [
+    "nodics:gComm/store/README.md",
+    "nodics:gComm/product/README.md",
+    "nodics:gComm/pricing/README.md",
+    "nodics:gComm/inventory/README.md",
+    "nodics:gComm/cart/README.md",
+    "nodics:gComm/order/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Customization principle",
+      "paragraphs": [
+        "The framework should provide reusable capability foundations. Customer projects should extend them in customer modules. Framework modules should not be edited for customer-specific payment providers, delivery partners, attributes, validations, UI labels, reports, or operations.",
+        "A customization is healthy when the owning module still owns the state, the customer module adds only the required extension, and Axis remains backend-driven."
+      ]
+    },
+    {
+      "heading": "What can be customized",
+      "items": [
+        "Schema properties, nested inline objects, referenced child models, indexes, validation, and import/export data.",
+        "Service implementations, adapter implementations, provider policy, calculation policy, eligibility policy, and lifecycle actions.",
+        "Pipeline steps for single operations such as save, price resolution, checkout placement, reservation, authorization, or publish.",
+        "Workflow definitions for long-running business processes such as approval, fulfillment, refund, return, exception handling, and third-party handoff.",
+        "BackOffice and Axis metadata: navigation, page heading, help, documentation links, list columns, forms, detail fields, actions, and renderer mappings.",
+        "Documentation pages and evidence records for project-specific behavior."
+      ]
+    },
+    {
+      "heading": "What should not be customized by duplication",
+      "items": [
+        "Do not create a second Product table for UI convenience.",
+        "Do not store stock quantity in Product or Cart when Inventory is the authority.",
+        "Do not put provider credentials or protocol logic into Axis or CMS content.",
+        "Do not hard-code project-specific payment or delivery behavior in generic checkout.",
+        "Do not fork framework services when a provider adapter, policy service, or later-layer override can solve the requirement.",
+        "Do not add frontend-only rules that are not enforced by backend policy."
+      ]
+    },
+    {
+      "heading": "Step-by-step extension process",
+      "items": [
+        "Identify the owning capability: Product, Pricing, Inventory, Cart, Order, Payment, Fulfillment, Store, Storefront, CMS, Units, Workflow, Pipeline, or another module.",
+        "Decide whether the requirement is data, validation, calculation, provider integration, workflow, UI presentation, documentation, or operations.",
+        "Add a customer module with the right dependency order so it layers after the framework module.",
+        "Add only the schema fields, services, policies, adapters, or metadata required by the requirement.",
+        "Add tests for positive behavior, denial, cross-tenant isolation, permission filtering, failure, retry, idempotency, and backward compatibility.",
+        "Expose the result in Axis through backend-driven content and reusable renderers instead of page-specific frontend duplication.",
+        "Document what the extension changes, how to configure it, how to operate it, and how to roll it back."
+      ]
+    },
+    {
+      "heading": "Pipeline and workflow usage",
+      "paragraphs": [
+        "Use a pipeline when one operation needs many deterministic steps. Example: checkout placement validates cart, recalculates totals, confirms stock, authorizes payment, creates order, writes evidence, and returns a result.",
+        "Use a workflow when a business process spans multiple tasks, systems, users, or time. Example: fraud review, warehouse pick-pack-ship, refund approval, provider reconciliation, or document delivery to a third-party application."
+      ],
+      "items": [
+        "Pipeline steps should be small, testable, idempotent where needed, and owned by the module that performs the operation.",
+        "Workflow steps should carry business state, approval state, retry state, and evidence across departments or systems.",
+        "Customer modules can add or replace steps through configuration and services, but must preserve the contract of the owning operation."
+      ]
+    },
+    {
+      "heading": "Axis customization",
+      "items": [
+        "Axis should render lists, tables, detail panels, previews, query builders, forms, help icons, documentation links, and lifecycle actions through reusable components.",
+        "Backend content and component models decide which page, component, renderer, fields, columns, and actions apply.",
+        "If a customer adds schema fields, Axis should be able to display them through schema-driven metadata or configurable grid/detail definitions.",
+        "If a customer adds a provider action, Axis should display it only when backend metadata exposes the action and the logged-in user has permission."
+      ]
+    }
+  ]
+}

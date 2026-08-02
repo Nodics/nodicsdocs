@@ -1,0 +1,106 @@
+{
+  "code": "commerce.beginner-guide",
+  "title": "Commerce for Beginners",
+  "route": "/docs/capabilities/commerce/beginner-guide",
+  "section": "capabilities",
+  "family": "overview",
+  "parent": "page:capability.commerce.overview",
+  "order": 80,
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Understand eCommerce language, lifecycle, and Nodics ownership before reading the technical pages.",
+  "priorKnowledge": "No deep commerce knowledge required.",
+  "depth": "overview",
+  "status": "implemented",
+  "owner": "Composed commerce capability owners",
+  "lastVerified": "2026-08-02",
+  "summary": "A beginner-oriented explanation of how catalog, product, price, stock, cart, payment, delivery, order, and post-order operations work together without losing module ownership.",
+  "supportingEvidence": [
+    "nodics:gExp/storefront/README.md",
+    "nodics:gComm/store/README.md",
+    "nodics:gComm/product/README.md",
+    "nodics:gComm/pricing/README.md",
+    "nodics:gComm/inventory/README.md",
+    "nodics:gComm/cart/README.md",
+    "nodics:gComm/order/README.md",
+    "nodics:gCore/units/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "What is Commerce?",
+      "paragraphs": [
+        "eCommerce is the business capability that lets an organization present products or services, price them, confirm availability, accept orders, take payment, deliver goods, and support post-order activity through digital channels.",
+        "A customer sees a simple journey: browse, add to cart, checkout, pay, receive, return if needed. A platform sees many separate business authorities working together: catalog, product, price, inventory, cart, payment, fulfillment, order, communication, audit, and reporting."
+      ]
+    },
+    {
+      "heading": "The simple customer journey",
+      "items": [
+        "Discover: a website, app, marketplace, or API presents content and products.",
+        "Evaluate: product information, images, price, availability, taxes, promotions, and delivery promises help the customer decide.",
+        "Commit intent: the customer adds one or more items to a cart.",
+        "Checkout: the customer chooses address, delivery option, payment method, and confirms the purchase.",
+        "Place order: the platform validates the final cart, creates an order, commits governed stock/payment evidence, and starts fulfillment.",
+        "Fulfill: warehouse, pickup, digital delivery, carrier, or partner processes complete delivery.",
+        "Operate after sale: cancellation, return, refund, invoice, notification, reconciliation, and customer service use the recorded evidence."
+      ]
+    },
+    {
+      "heading": "How Nodics separates responsibility",
+      "items": [
+        "Product describes what is being sold. It does not decide price, stock, delivery, or payment.",
+        "Pricing decides monetary value in context. It does not edit product identity or stock balances.",
+        "Inventory decides stock, reservations, allocations, warehouses, pools, sourcing, pre-order, backorder, and overbooking policy.",
+        "Cart records pre-order customer intent and can change while the customer is shopping.",
+        "Order records the final commercial projection created from checkout. It should be stable enough for audit, fulfillment, payment, and customer service.",
+        "Payment owns payment methods, provider adapters, authorization/capture/refund evidence, retries, and reconciliation.",
+        "Fulfillment owns delivery modes, carrier/provider adapters, consignments, shipments, labels, tracking, returns, and warehouse handoff evidence.",
+        "CMS and Storefront own the customer presentation context and website resolution, not the authoritative commerce data."
+      ]
+    },
+    {
+      "heading": "Why this matters for customization",
+      "paragraphs": [
+        "Enterprise projects rarely use exactly one payment gateway, one warehouse, one shipping provider, one tax rule, or one catalog structure. Nodics keeps capabilities modular so customers can add a new module layer with extra schema fields, validation, provider adapters, policies, Axis metadata, and documentation without changing the framework module.",
+        "The safest customization rule is: extend the owning module or add a later customer module that composes it. Do not duplicate the same business state in Axis, Storefront, or another module just because the UI needs to display it."
+      ]
+    },
+    {
+      "heading": "Beginner glossary",
+      "items": [
+        "Catalog: a governed collection of products or content used for authoring and delivery.",
+        "Product: the business identity of an item or service.",
+        "Variant: a sellable variation such as size, color, storage, or configuration.",
+        "Price: the resolved monetary amount for a product in a context such as currency, customer, channel, date, or quantity.",
+        "Stock: inventory quantity controlled by warehouse, pool, unit, and policy.",
+        "Cart entry: an item in a cart, usually product plus quantity and selected options.",
+        "Order entry: the final order-side copy of the commercial line after placement.",
+        "Delivery group: a checkout grouping such as ship-to-address, pickup, digital delivery, or scheduled delivery.",
+        "Payment group: a checkout grouping such as card payment, wallet, cash on delivery, advance, or offline payment.",
+        "Allocation: a quantity-level relationship that says which part of a line belongs to which delivery, payment, reservation, or fulfillment evidence.",
+        "Provider: an external or internal implementation such as Stripe, PayPal, CyberSource, DHL, FedEx, Aramex, a warehouse system, or a custom ERP connector.",
+        "Policy: backend-governed rules that decide whether a method, provider, stock behavior, or action is allowed."
+      ]
+    },
+    {
+      "heading": "Recommended reading order",
+      "items": [
+        "Commerce for Beginners.",
+        "Checkout Journey and Lifecycle.",
+        "Inventory and Stock Types.",
+        "Payment Methods and Providers.",
+        "Shipping Modes and Delivery Partners.",
+        "External Commerce Provider Integrations.",
+        "Customize Commerce in Customer Modules.",
+        "End-to-End Commerce Publishing and Runtime.",
+        "Commerce Technical Reference."
+      ]
+    }
+  ]
+}

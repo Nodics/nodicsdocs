@@ -2881,6 +2881,31 @@ module.exports = {
         "active": true
     },
     "record115": {
+        "code": "docsPage664ab24fff2577e5f8e9",
+        "name": "Inventory and Stock Types",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent664ab24fff2577e5f8e9",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record116": {
         "code": "docsPage7fb48ae1fc5179f345e5",
         "name": "End-to-End Commerce Publishing and Runtime",
         "cmsSite": [
@@ -2905,7 +2930,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record116": {
+    "record117": {
         "code": "docsPage3b8e67efd3bc7096e702",
         "name": "Commerce Technical Reference",
         "cmsSite": [
@@ -2930,7 +2955,207 @@ module.exports = {
         ],
         "active": true
     },
-    "record117": {
+    "record118": {
+        "code": "docsPagefc830787cda290849d85",
+        "name": "Commerce for Beginners",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponentfc830787cda290849d85",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record119": {
+        "code": "docsPage2a142a4d63ad1af7b78f",
+        "name": "Checkout Journey and Lifecycle",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent2a142a4d63ad1af7b78f",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record120": {
+        "code": "docsPage73b54560be362aa1b3ea",
+        "name": "Payment Methods and Providers",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent73b54560be362aa1b3ea",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record121": {
+        "code": "docsPage3346eb415e04fa997cf6",
+        "name": "Shipping Modes and Delivery Partners",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent3346eb415e04fa997cf6",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record122": {
+        "code": "docsPage851b83fe1ce445d26d46",
+        "name": "External Commerce Provider Integrations",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent851b83fe1ce445d26d46",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record123": {
+        "code": "docsPagee438295e905555b2cdb5",
+        "name": "Customize Commerce in Customer Modules",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponente438295e905555b2cdb5",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record124": {
+        "code": "docsPage7b314a3996439518919c",
+        "name": "Commerce Failure, Retry, and Reconciliation",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent7b314a3996439518919c",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record125": {
+        "code": "docsPage0a41f30b25f7ee479ee7",
+        "name": "Axis Commerce Operations Guide",
+        "cmsSite": [
+            "axisCmsSite"
+        ],
+        "typeCode": "nodicsDocumentationArticlePageType",
+        "template": "nodicsDocumentationArticleTemplate",
+        "renderer": "documentation.page.article",
+        "cmsComponents": [
+            {
+                "target": "nodicsDocumentationNavigation",
+                "slot": "navigation",
+                "index": 5,
+                "active": true
+            },
+            {
+                "target": "docsComponent0a41f30b25f7ee479ee7",
+                "slot": "article",
+                "index": 10,
+                "active": true
+            }
+        ],
+        "active": true
+    },
+    "record126": {
         "code": "docsPagebf0db14a8ac97f3b5a9c",
         "name": "AI Providers, Knowledge, and Assistants",
         "cmsSite": [
@@ -2955,7 +3180,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record118": {
+    "record127": {
         "code": "docsPagee2d1da3e65aa0302695c",
         "name": "AI Providers and Adapter Selection",
         "cmsSite": [
@@ -2980,7 +3205,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record119": {
+    "record128": {
         "code": "docsPagee2fa434590c24286c0ec",
         "name": "AI Token and Cost Governance",
         "cmsSite": [
@@ -3005,7 +3230,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record120": {
+    "record129": {
         "code": "docsPage5d8bfa3a75e66fa7c372",
         "name": "AI Knowledge and Retrieval-Augmented Generation",
         "cmsSite": [
@@ -3030,7 +3255,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record121": {
+    "record130": {
         "code": "docsPage90fbd46886191084a951",
         "name": "AI Assistant",
         "cmsSite": [
@@ -3055,7 +3280,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record122": {
+    "record131": {
         "code": "docsPage756e105aeb2b56bc1db9",
         "name": "Agentic Business Processes",
         "cmsSite": [
@@ -3080,7 +3305,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record123": {
+    "record132": {
         "code": "docsPage4c4bde8868dd198eeeee",
         "name": "Partner AI Customization",
         "cmsSite": [
@@ -3105,7 +3330,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record124": {
+    "record133": {
         "code": "docsPage7269022ff8f6ba5cd27c",
         "name": "AI Technical Reference",
         "cmsSite": [
@@ -3130,7 +3355,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record125": {
+    "record134": {
         "code": "docsPage8aec84848b9e1b32f097",
         "name": "Nodics as Data as a Service",
         "cmsSite": [
@@ -3155,7 +3380,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record126": {
+    "record135": {
         "code": "docsPage701d8227e549035b010d",
         "name": "Manage Business Data with Schema Workbench",
         "cmsSite": [
@@ -3180,7 +3405,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record127": {
+    "record136": {
         "code": "docsPage0f6a2d622ce6ad1da3bf",
         "name": "BackOffice Technical Reference",
         "cmsSite": [
@@ -3205,7 +3430,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record128": {
+    "record137": {
         "code": "docsPagecb43aa36616329e38640",
         "name": "Understand the Nodics Axis Workspace Context",
         "cmsSite": [
@@ -3230,7 +3455,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record129": {
+    "record138": {
         "code": "docsPage1a49b2ef89becaaf3d52",
         "name": "Create Application Functionality",
         "cmsSite": [
@@ -3255,7 +3480,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record130": {
+    "record139": {
         "code": "docsPage5c15b8d69a176f4348ab",
         "name": "Create Nodics APIs",
         "cmsSite": [
@@ -3280,7 +3505,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record131": {
+    "record140": {
         "code": "docsPagee8352f2420e749d85422",
         "name": "Customize and Extend Nodics",
         "cmsSite": [
@@ -3305,7 +3530,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record132": {
+    "record141": {
         "code": "docsPageab9cad2bd1b14117e02f",
         "name": "Test Nodics Changes",
         "cmsSite": [
@@ -3330,7 +3555,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record133": {
+    "record142": {
         "code": "docsPagea024028466cad1d55ce1",
         "name": "Maintain Nodics Documentation",
         "cmsSite": [
@@ -3355,7 +3580,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record134": {
+    "record143": {
         "code": "docsPagedc67a4d11148d9e849fa",
         "name": "Common Nodics Implementation Examples",
         "cmsSite": [
@@ -3380,7 +3605,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record135": {
+    "record144": {
         "code": "docsPage1a01756e10fa43a37a8c",
         "name": "Identity and Security Boundaries",
         "cmsSite": [
@@ -3405,7 +3630,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record136": {
+    "record145": {
         "code": "docsPage6800a5217acf7fb5bf99",
         "name": "Authentication and Session Lifecycle",
         "cmsSite": [
@@ -3430,7 +3655,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record137": {
+    "record146": {
         "code": "docsPage3e97893ed82ead749454",
         "name": "Authorization and Ownership",
         "cmsSite": [
@@ -3455,7 +3680,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record138": {
+    "record147": {
         "code": "docsPage173172acc075ca1b5761",
         "name": "Tenants, Enterprises, and Identity Models",
         "cmsSite": [
@@ -3480,7 +3705,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record139": {
+    "record148": {
         "code": "docsPage1dd24f53b3369c1eac6f",
         "name": "Security Governance and Production Evidence",
         "cmsSite": [
@@ -3505,7 +3730,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record140": {
+    "record149": {
         "code": "docsPagea351d1383d0dca764347",
         "name": "Security Evidence Guide",
         "cmsSite": [
@@ -3530,7 +3755,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record141": {
+    "record150": {
         "code": "docsPageb5d0949bbf86ef36725a",
         "name": "Users, Tenants, and Permissions",
         "cmsSite": [
@@ -3555,7 +3780,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record142": {
+    "record151": {
         "code": "docsPage22c458603d9810e1b422",
         "name": "Secure BackOffice Browser Sessions",
         "cmsSite": [
@@ -3580,7 +3805,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record143": {
+    "record152": {
         "code": "docsPage538f245990520c503231",
         "name": "Security Shared-Responsibility Model",
         "cmsSite": [
@@ -3605,7 +3830,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record144": {
+    "record153": {
         "code": "docsPage200263fac87a20cc8c41",
         "name": "Identity and Access Implementation Reference",
         "cmsSite": [
@@ -3630,7 +3855,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record145": {
+    "record154": {
         "code": "docsPage2f515d5a973a80ee8000",
         "name": "Observability and Operational Governance",
         "cmsSite": [
@@ -3655,7 +3880,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record146": {
+    "record155": {
         "code": "docsPage6a84edc82a96e4731c5c",
         "name": "Lifecycle, Signals, and Incident Recovery",
         "cmsSite": [
@@ -3680,7 +3905,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record147": {
+    "record156": {
         "code": "docsPagec36e2fba1ce371e3d477",
         "name": "Operational Governance Technical Reference",
         "cmsSite": [
@@ -3705,7 +3930,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record148": {
+    "record157": {
         "code": "docsPagea8c8b82a8e5696d59c2d",
         "name": "Runtime Governance Implementation Reference",
         "cmsSite": [
@@ -3730,7 +3955,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record149": {
+    "record158": {
         "code": "docsPage7423bdb8c4cd24943d54",
         "name": "Production Operating Model",
         "cmsSite": [
@@ -3755,7 +3980,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record150": {
+    "record159": {
         "code": "docsPage76eaea707fb821b56ae4",
         "name": "Run and Debug Nodics",
         "cmsSite": [
@@ -3780,7 +4005,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record151": {
+    "record160": {
         "code": "docsPaged8b8d4d1985f09a88157",
         "name": "Runtime Topology Reference",
         "cmsSite": [
@@ -3805,7 +4030,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record152": {
+    "record161": {
         "code": "docsPage841067777724497369fd",
         "name": "Prepare Nodics for Deployment",
         "cmsSite": [
@@ -3830,7 +4055,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record153": {
+    "record162": {
         "code": "docsPageba732a438341b2e2d0eb",
         "name": "Media Management",
         "cmsSite": [
@@ -3855,7 +4080,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record154": {
+    "record163": {
         "code": "docsPage28ec9122a0abb63ec67c",
         "name": "Learning and Assessment Technical Reference",
         "cmsSite": [
@@ -3880,7 +4105,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record155": {
+    "record164": {
         "code": "docsPagede1c5924757831ccbd23",
         "name": "Customer Reviews Technical Reference",
         "cmsSite": [
@@ -3905,7 +4130,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record156": {
+    "record165": {
         "code": "docsPage1fe04bd89fabfcafc046",
         "name": "Know Your Customer Technical Reference",
         "cmsSite": [
@@ -3930,7 +4155,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record157": {
+    "record166": {
         "code": "docsPage4cf7c6603dc2c676c419",
         "name": "Nodics Glossary",
         "cmsSite": [
@@ -3955,7 +4180,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record158": {
+    "record167": {
         "code": "docsPage519b2e39bfe87f12def3",
         "name": "Licensing and Source Header Contract",
         "cmsSite": [
@@ -3980,7 +4205,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record159": {
+    "record168": {
         "code": "docsPage2d712f71468e3e802762",
         "name": "Module Implementation Reference",
         "cmsSite": [
@@ -4005,7 +4230,7 @@ module.exports = {
         ],
         "active": true
     },
-    "record160": {
+    "record169": {
         "code": "docsPage474ba108c1d86f4c6a29",
         "name": "Provider and Capability Maturity",
         "cmsSite": [

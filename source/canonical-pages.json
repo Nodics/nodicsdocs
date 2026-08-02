@@ -812,11 +812,74 @@
       "title": "Stock, Warehouses, and Units"
     },
     {
+      "code": "commerce.inventory-types",
+      "section": "capabilities",
+      "capability": "commerce",
+      "family": "runtime-behavior",
+      "title": "Inventory and Stock Types"
+    },
+    {
       "code": "capability.commerce.end-to-end",
       "section": "capabilities",
       "capability": "commerce",
       "family": "tutorial-example",
       "title": "End-to-End Commerce Publishing and Runtime"
+    },
+    {
+      "code": "commerce.beginner-guide",
+      "section": "capabilities",
+      "capability": "commerce",
+      "family": "overview",
+      "title": "Commerce for Beginners"
+    },
+    {
+      "code": "commerce.checkout-journey",
+      "section": "capabilities",
+      "capability": "commerce",
+      "family": "concepts-architecture",
+      "title": "Checkout Journey and Lifecycle"
+    },
+    {
+      "code": "commerce.payment-methods-providers",
+      "section": "capabilities",
+      "capability": "commerce",
+      "family": "configuration-customization",
+      "title": "Payment Methods and Providers"
+    },
+    {
+      "code": "commerce.shipping-delivery-partners",
+      "section": "capabilities",
+      "capability": "commerce",
+      "family": "configuration-customization",
+      "title": "Shipping Modes and Delivery Partners"
+    },
+    {
+      "code": "commerce.provider-integration-guide",
+      "section": "capabilities",
+      "capability": "commerce",
+      "family": "configuration-customization",
+      "title": "External Commerce Provider Integrations"
+    },
+    {
+      "code": "commerce.customization-lifecycle",
+      "section": "capabilities",
+      "capability": "commerce",
+      "family": "configuration-customization",
+      "title": "Customize Commerce in Customer Modules"
+    },
+    {
+      "code": "commerce.failure-retry-reconciliation",
+      "section": "capabilities",
+      "capability": "commerce",
+      "family": "operations-security-troubleshooting",
+      "title": "Commerce Failure, Retry, and Reconciliation"
+    },
+    {
+      "code": "commerce.axis-operations-guide",
+      "section": "capabilities",
+      "capability": "commerce",
+      "family": "operations-security-troubleshooting",
+      "title": "Axis Commerce Operations Guide"
     },
     {
       "code": "capability.observability-governance.technical-reference",

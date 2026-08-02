@@ -19,14 +19,16 @@
   "depth": "guided",
   "status": "implemented",
   "owner": "Composed commerce capabilities; each retains its authority",
-  "lastVerified": "2026-08-01",
-  "summary": "Authoring publishes exact approved Product, Price, Stock, Store, and content forms to Online; customer requests resolve trusted context and query each owning module directly.",
+  "lastVerified": "2026-08-02",
+  "summary": "Authoring publishes exact approved Product, Price, Stock, Store, and content forms to Online; checkout then composes Cart, Inventory, Payment, Order, and Fulfillment without merging their authority.",
   "supportingEvidence": [
     "nodics:gExp/storefront/README.md",
     "nodics:gComm/store/README.md",
     "nodics:gComm/product/README.md",
     "nodics:gComm/pricing/README.md",
     "nodics:gComm/inventory/README.md",
+    "nodics:gComm/cart/README.md",
+    "nodics:gComm/order/README.md",
     "nodics:gCore/units/README.md"
   ],
   "sections": [
@@ -62,11 +64,33 @@
       ]
     },
     {
+      "heading": "Checkout, payment, and fulfillment",
+      "items": [
+        "Cart and Order share the same commercial structure at different lifecycle stages. Cart owns pre-order intent; Order owns the immutable order projection created through checkout placement.",
+        "Line entries, delivery groups, delivery allocations, payment groups, and payment allocations are first-class submodels so one item quantity can be split across addresses, warehouses, carriers, and payment methods.",
+        "Payment separates business methods from provider adapters. Card, Cash on Delivery, Wallet, Advance, Offline, or customer methods are enterprise-scoped payment methods; CyberSource, Stripe, PayPal, bank, wallet, deferred, or manual handlers are payment providers selected by policy.",
+        "Fulfillment separates shipping modes from carrier providers. Standard, Express, Pickup, Local Delivery, or customer modes are business delivery choices; carrier, aggregator, pickup-network, or local-delivery providers execute labels, tracking, and handoff through adapters.",
+        "Inventory owns stock, reservations, allocations, transfers, sourcing, pre-order, backorder, and overbooking policy. Checkout may request holds and allocation evidence, but it does not mutate stock directly.",
+        "Promotion remains a later strategy layer. Checkout data structures keep discounts and tax evidence separable so promotions can be added without changing the allocation model."
+      ]
+    },
+    {
+      "heading": "Distributed delivery and payment example",
+      "items": [
+        "A cart has one product entry with quantity `3`. Checkout may split that entry into two delivery allocations: quantity `2` to Address A and quantity `1` to Address B.",
+        "The same entry can be split into payment allocations: quantity `2` or its calculated amount authorized by Card, and quantity `1` deferred to Cash on Delivery or another configured method.",
+        "Each allocated quantity can later attach inventory allocation evidence. Where a business requires serial-number tracking, the customer module extends the allocation evidence to point to serialized inventory records without bypassing Inventory.",
+        "If available stock is insufficient, Inventory policy decides whether reservation should fail, use backorder, use pre-order capacity, or accept allowed overbooking with an advance-payment requirement. Payment collects only the governed amount and method selected by checkout policy."
+      ]
+    },
+    {
       "heading": "Verification",
       "items": [
         "Two websites and catalogs under one tenant/enterprise.",
         "Context spoofing, wrong audience, inactive Store/Site, and cross-tenant denial.",
         "Missing/ambiguous product, price, stock, unit conversion, and warehouse scope.",
+        "Split delivery and split payment for one line item and for partial quantity of the same line item.",
+        "Provider outage, retry, reconciliation, overbooking limits, advance-charge requirements, idempotency replay, and duplicate fulfillment/payment command prevention.",
         "Staged approval, target outage, partial derived refresh, retry, reconciliation, rollback, cache/search consistency, load, security, and regression."
       ]
     },
@@ -82,9 +106,10 @@
     {
       "heading": "Axis and BackOffice exposure",
       "items": [
-        "Axis groups commerce authoring and operations from backend BackOffice navigation metadata. Catalog focuses on product/categorization/enrichment/publishing records; Commerce Operations groups pricing, stock, stores, carts, and orders.",
+        "Axis groups commerce authoring and operations from backend BackOffice navigation metadata. Catalog focuses on product/categorization/enrichment/publishing records; Commerce Operations groups pricing, stock, stores, carts, orders, payment, and fulfillment.",
         "Reusable Axis workbench components provide search, query builder, configurable sortable grids, export, create/update where authorized, and reusable schema detail panels. Business-specific views are layered later when they add value.",
-        "Disabled or planned items such as Payments, Shipments, Returns, Refunds, Delivery Modes, Payment Modes, Tax Records, Fraud Checks, Promotions, and Coupons must stay visibly planned or hidden until an owning backend capability exists."
+        "Lifecycle actions are backend metadata. Axis can display Payment retry/reconciliation and Fulfillment label/dispatch/return actions as planned or executable depending on whether the owning module exposes an operation route.",
+        "Disabled or planned items such as Tax Records, Fraud Checks, Promotions, and Coupons must stay visibly planned or hidden until an owning backend capability exists."
       ]
     },
     {

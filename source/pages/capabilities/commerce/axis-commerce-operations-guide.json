@@ -1,0 +1,91 @@
+{
+  "code": "commerce.axis-operations-guide",
+  "title": "Axis Commerce Operations Guide",
+  "route": "/docs/capabilities/commerce/axis-operations-guide",
+  "section": "capabilities",
+  "family": "operations-security-troubleshooting",
+  "parent": "page:capability.commerce.overview",
+  "order": 150,
+  "audiences": [
+    "business-user",
+    "administrator",
+    "operator",
+    "developer",
+    "architect",
+    "ai-tool"
+  ],
+  "readerIntent": "Understand how commerce should appear in Nodics Axis without rebuilding separate page-specific functionality.",
+  "priorKnowledge": "Understand Axis as a BackOffice client over backend-owned contracts.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "Axis BackOffice and commerce capability owners",
+  "lastVerified": "2026-08-02",
+  "summary": "Axis commerce pages should use backend-driven navigation, reusable schema list/detail components, query builder, lifecycle actions, help metadata, documentation links, and consistent selection behavior.",
+  "supportingEvidence": [
+    "nodics:gComm/store/README.md",
+    "nodics:gComm/product/README.md",
+    "nodics:gComm/pricing/README.md",
+    "nodics:gComm/inventory/README.md",
+    "nodics:gComm/cart/README.md",
+    "nodics:gComm/order/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Axis is a client, not a commerce authority",
+      "paragraphs": [
+        "Axis helps business users manage commerce data and operations. It must not own product, price, stock, cart, order, payment, or fulfillment state. It should display and invoke backend-owned contracts through reusable components.",
+        "If a page looks similar to Schema Workbench, that is acceptable only when it adds business grouping, help, documentation, safe defaults, and action context. It should not duplicate CRUD logic or create a second implementation path."
+      ]
+    },
+    {
+      "heading": "Reusable UI patterns",
+      "items": [
+        "Navigation groups and pages come from backend BackOffice metadata.",
+        "List/grid components support backend-driven columns, order, sorting, export, pagination, vertical scroll, horizontal scroll, and configurable visibility.",
+        "Search and advanced query use the shared query builder where schema data is listed.",
+        "Selecting a row opens the reusable schema detail panel under the list, not a page-specific view pattern.",
+        "Referenced schema values are clickable and can open related detail while keeping the current row context visible.",
+        "Media fields use reusable media preview/detail components where applicable.",
+        "Each page heading can show reusable info and documentation icons backed by framework documentation links.",
+        "Lifecycle actions are displayed from backend metadata and only enabled when permission and backend operation support exist."
+      ]
+    },
+    {
+      "heading": "Commerce navigation expectation",
+      "items": [
+        "Catalog: catalogs, catalog versions, categories, products, variants, units, keywords, classification, publishing, and enrichment.",
+        "Commerce Operations: stores, warehouses, stock, carts, orders, payment, fulfillment, delivery, returns, operational failures, audit, and reconciliation.",
+        "Future sections can add promotions, coupons, tax, fraud, notification, customer service, subscription, marketplace, and analytics when backend capabilities exist."
+      ]
+    },
+    {
+      "heading": "Page behavior expectation",
+      "items": [
+        "A Products page should show product-specific list, search, create/update where authorized, product detail, media references, price/stock references, and documentation links.",
+        "A Stock page should show balances, reservations, allocations, movements, sourcing, reconciliation, and operational actions grouped by business meaning.",
+        "A Payment page should show methods, providers, transaction evidence, lifecycle actions, retries, and reconciliation with sensitive data hidden.",
+        "A Fulfillment page should show modes, providers, consignments, shipments, labels, tracking, returns, lifecycle actions, and reconciliation.",
+        "A generic Workbench view remains available for administrators and developers, but business pages should group data by the task the user is trying to complete."
+      ]
+    },
+    {
+      "heading": "Documentation integration",
+      "items": [
+        "The info icon explains the business meaning in one or two short lines.",
+        "The documentation icon opens framework documentation for the selected concept, not only Axis application documentation.",
+        "If framework documentation does not exist for a visible concept, that is a documentation gap and should be fixed before the page is considered complete.",
+        "Customer modules can add or override documentation links through backend content/component metadata."
+      ]
+    },
+    {
+      "heading": "Acceptance checklist",
+      "items": [
+        "No page-specific duplicated table/detail/query/media preview logic when a reusable component exists.",
+        "No hard-coded help copy or documentation URLs in Axis when backend metadata can provide them.",
+        "No action button without backend-owned lifecycle metadata and permission checks.",
+        "Consistent spacing, header background, hover color, sorting, export, grid settings, pagination, and selected-row behavior across commerce pages.",
+        "Schema-driven field additions from customer modules can appear in lists/details through backend metadata."
+      ]
+    }
+  ]
+}

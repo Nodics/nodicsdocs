@@ -1,0 +1,105 @@
+{
+  "code": "commerce.inventory-types",
+  "title": "Inventory and Stock Types",
+  "route": "/docs/capabilities/commerce/inventory-types",
+  "section": "capabilities",
+  "family": "runtime-behavior",
+  "parent": "page:capability.commerce.stock-units",
+  "order": 120,
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Understand the inventory states and policies needed for checkout, fulfillment, and enterprise operations.",
+  "priorKnowledge": "Read Stock, Warehouses, and Units.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "Inventory capability owner",
+  "lastVerified": "2026-08-02",
+  "summary": "Inventory separates on-hand stock, available-to-sell, reservations, allocations, pre-order, backorder, overbooking, serialized stock, movements, and reconciliation so checkout can make safe commitments.",
+  "supportingEvidence": [
+    "nodics:gComm/inventory/README.md",
+    "nodics:gComm/inventory/docs/stock-core.md",
+    "nodics:gComm/inventory/docs/stock-availability-foundation.md",
+    "nodics:gComm/inventory/docs/stock-reservation-foundation.md",
+    "nodics:gComm/inventory/docs/stock-allocation-foundation.md",
+    "nodics:gDocs/commerce/how-stock-movements-work.md",
+    "nodics:gComm/inventory/docs/stock-sourcing-foundation.md",
+    "nodics:gComm/inventory/docs/inventory-operations-and-integrations.md"
+  ],
+  "sections": [
+    {
+      "heading": "Inventory is more than a number",
+      "paragraphs": [
+        "A product page often shows a simple message such as `In stock`. Internally, that result may depend on warehouse balances, stock pools, reserved quantities, damaged stock, safety stock, unit conversion, sourcing zones, backorder policy, pre-order limits, external WMS evidence, and checkout commitments.",
+        "Nodics treats Inventory as the authority for these decisions. Product identifies the item. Cart and Order request commitments. Inventory calculates and records whether the business can safely promise the quantity."
+      ]
+    },
+    {
+      "heading": "Core stock concepts",
+      "items": [
+        "On-hand stock: recorded physical or logical quantity currently held by the business.",
+        "Available-to-sell: quantity that can be offered after reservations, safety rules, and policy deductions.",
+        "Reserved stock: quantity temporarily held for cart, order, or process demand before fulfillment allocation.",
+        "Allocated stock: quantity assigned to a specific order, warehouse, or fulfillment path.",
+        "Issued stock: quantity removed from inventory through shipment, pickup, consumption, adjustment, or another movement.",
+        "Returned stock: quantity coming back through return handling, inspection, restock, quarantine, or disposal.",
+        "Safety stock: protected quantity that should not be sold except by policy override.",
+        "Damaged or quarantined stock: quantity that exists physically but should not be promised to customers."
+      ]
+    },
+    {
+      "heading": "Pre-order, backorder, and overbooking",
+      "items": [
+        "Pre-order means the business intentionally sells before stock is physically available, usually against a planned future supply date or launch capacity.",
+        "Backorder means the customer order is accepted when current stock is insufficient, with fulfillment expected after replenishment.",
+        "Allowed overbooking means the business intentionally accepts demand above the configured pre-order or stock capacity. It must be explicit policy, not accidental negative stock.",
+        "For example, a product may have pre-order capacity `100` and allowed overbooking `20`. Checkout may accept up to `120`, but the overbooked quantity can require advance payment, extra approval, different promise messaging, or stricter cancellation rules.",
+        "Overbooking should always record policy evidence: original capacity, current committed quantity, overbooking allowance, accepted overbooked quantity, required advance amount, user/system actor, and effective time."
+      ]
+    },
+    {
+      "heading": "Serialized and quantity-level inventory",
+      "paragraphs": [
+        "Some products are not just anonymous quantities. Electronics, vehicles, luxury goods, regulated items, warranties, repairable goods, and rentals may require serial numbers or asset identities. In that case, quantity `3` may become three individual stock units, each with its own serial number, condition, warranty, or provider evidence.",
+        "Nodics should keep the normal quantity model for most commerce flows and allow customer modules to extend allocation evidence with serialized inventory references when the business requires it."
+      ],
+      "items": [
+        "Use quantity-level reservation and allocation for standard stock.",
+        "Use serialized evidence when one physical unit must be tracked independently.",
+        "Do not put serial-number business logic into Product or Axis. Inventory remains the authority."
+      ]
+    },
+    {
+      "heading": "External inventory providers",
+      "paragraphs": [
+        "Many enterprises use warehouse management systems, point-of-sale systems, ERPs, marketplace inventory feeds, or third-party logistics partners. Nodics must integrate with those systems through provider adapters and reconciliation, not by exposing internal stock tables directly.",
+        "External providers can report availability, accept reservations, confirm allocations, provide shipment evidence, or send movement updates. Nodics records the provider evidence and applies authoritative Inventory changes through governed operations."
+      ]
+    },
+    {
+      "heading": "Inventory decisions during checkout",
+      "items": [
+        "Is the requested product and unit eligible for sale in the current store/site/country/channel?",
+        "Which warehouses, pools, or providers can source the requested quantity?",
+        "How much is on-hand, reserved, available-to-sell, pre-orderable, backorderable, or overbookable?",
+        "Can the requested quantity be split across warehouses or delivery groups?",
+        "Should the system reserve immediately, reserve after payment authorization, or defer reservation until order approval?",
+        "If stock changes while checkout is in progress, should checkout fail, retry, recalculate, or accept according to policy?"
+      ]
+    },
+    {
+      "heading": "Customization guidance",
+      "items": [
+        "Add new inventory policy through customer module configuration and services, not by changing Product or Cart.",
+        "Add external WMS, POS, ERP, or marketplace integration through provider adapters with idempotency and reconciliation.",
+        "Add serialized inventory by extending Inventory schemas and allocation evidence while preserving the same Cart and Order contracts.",
+        "Expose new Axis fields through backend presentation metadata and reusable schema detail/list components."
+      ]
+    }
+  ]
+}

@@ -48,9 +48,26 @@
     {
       "heading": "Capability ownership",
       "items": [
-        "Storefront owns hostname and website context, Store owns commercial touchpoints, Product owns identity and catalog data, Pricing owns monetary resolution, and Inventory owns stock.",
-        "Units owns reusable measurement semantics, CMS owns presentation content, Workflow owns approval, and nPublish owns staged-to-Online orchestration.",
+        "Storefront owns hostname and website context, Store owns commercial touchpoints, Product owns identity and catalog data, Pricing owns monetary resolution, Inventory owns stock, Cart owns pre-order intent, Order owns immutable order projection, Payment owns provider transaction evidence, and Fulfillment owns consignment, shipment, warehouse-task, tracking, and return evidence.",
+        "Units owns reusable measurement semantics, CMS owns presentation content, Workflow owns approval/business processes, Pipeline owns single-operation step orchestration, and nPublish owns staged-to-Online orchestration.",
         "Composition happens through authenticated contracts; BackOffice and Storefront do not proxy every business operation or duplicate authoritative records."
+      ]
+    },
+    {
+      "heading": "Checkout allocation model",
+      "items": [
+        "Cart and Order use delivery groups, delivery allocations, payment groups, and payment allocations so delivery and payment can be split independently at line-entry quantity level.",
+        "A single product entry with quantity `3` may allocate quantity `2` to one address and quantity `1` to another address. Payment allocation can split the same commercial demand across Card, Cash on Delivery, Wallet, Advance, Offline, or customer-defined methods.",
+        "Payment method and provider are different extension layers. Card is a method; CyberSource, Stripe, PayPal, deferred, or manual adapters are providers. Fulfillment follows the same pattern: shipping mode is the customer-facing choice, carrier provider is the executable adapter boundary.",
+        "Enterprise-scoped payment methods, payment providers, shipping modes, and carrier providers must not be globally unique across tenants or enterprises. Customer modules can add methods, providers, modes, policies, adapters, validation, and Axis metadata through later-layer configuration and services."
+      ]
+    },
+    {
+      "heading": "Inventory commitments and overbooking",
+      "items": [
+        "Inventory decides stock, reservation, allocation, backorder, pre-order, and overbooking behavior. Checkout asks for governed evidence; it does not directly mutate balances.",
+        "Allowed overbooking is explicit policy, not hidden negative stock. For example, a pre-order capacity of `100` plus an overbooking allowance of `20` may accept 120 units, with Payment policy requiring an advance amount for the overbooked quantity.",
+        "Serialized inventory, parcel-level attributes, warranty identities, or regulated goods can be added by extending Inventory and allocation evidence in customer modules while preserving the same Cart, Order, Payment, and Fulfillment boundaries."
       ]
     },
     {

@@ -20,8 +20,8 @@
   "depth": "overview",
   "status": "implemented",
   "owner": "Storefront, Store, Product, Pricing, Inventory, Units, and publishing capability owners",
-  "lastVerified": "2026-07-26",
-  "summary": "Nodics composes website context, stores, products, prices, and stock at runtime while each capability retains its own schemas, services, policies, publishing, and operational authority.",
+  "lastVerified": "2026-08-02",
+  "summary": "Nodics composes website context, stores, products, prices, stock, cart, order, payment, and fulfillment at runtime while each capability retains its own schemas, services, policies, publishing, and operational authority.",
   "supportingEvidence": [
     "nodics:gExp/storefront/README.md",
     "nodics:gComm/store/README.md",
@@ -71,6 +71,15 @@
     {
       "heading": "Continue",
       "items": [
+        "Commerce for Beginners",
+        "Checkout Journey and Lifecycle",
+        "Inventory and Stock Types",
+        "Payment Methods and Providers",
+        "Shipping Modes and Delivery Partners",
+        "External Commerce Provider Integrations",
+        "Customize Commerce in Customer Modules",
+        "Commerce Failure, Retry, and Reconciliation",
+        "Axis Commerce Operations Guide",
         "Storefront and Website Resolution",
         "Stores and Warehouses",
         "Product Catalog",

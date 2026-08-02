@@ -1,0 +1,102 @@
+{
+  "code": "commerce.provider-integration-guide",
+  "title": "External Commerce Provider Integrations",
+  "route": "/docs/capabilities/commerce/provider-integration-guide",
+  "section": "capabilities",
+  "family": "configuration-customization",
+  "parent": "page:capability.commerce.overview",
+  "order": 120,
+  "audiences": [
+    "developer",
+    "architect",
+    "operator",
+    "administrator",
+    "ai-tool"
+  ],
+  "readerIntent": "Learn the reusable pattern for integrating payment gateways, delivery partners, warehouses, ERPs, and other commerce providers.",
+  "priorKnowledge": "Read payment, delivery, inventory, and checkout pages.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "Commerce integration and owning capability teams",
+  "lastVerified": "2026-08-02",
+  "summary": "External integrations should use method/mode configuration, provider registries, provider policy services, adapters, secure credentials, idempotency, workflows, and reconciliation instead of framework edits or UI-only workarounds.",
+  "supportingEvidence": [
+    "nodics:gComm/inventory/docs/inventory-operations-and-integrations.md",
+    "nodics:gComm/cart/README.md",
+    "nodics:gComm/order/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Provider integration pattern",
+      "paragraphs": [
+        "Most enterprise commerce systems integrate with external services: payment gateways, tax engines, shipping carriers, warehouse management systems, ERPs, fraud engines, customer notification platforms, marketplaces, and analytics providers.",
+        "The same architectural pattern should repeat everywhere: business-facing method or mode, provider registration, provider policy, provider adapter, secure connector, normalized evidence, retry, reconciliation, and Axis visibility."
+      ]
+    },
+    {
+      "heading": "Layered responsibilities",
+      "items": [
+        "Method or mode: business choice such as Card, Cash on Delivery, Standard Delivery, Pickup, or Backorder Approval.",
+        "Provider: executable implementation such as Stripe, CyberSource, DHL, Aramex, SAP ERP, Oracle WMS, or customer adapter.",
+        "Provider policy: decides which provider and action are allowed for the current context.",
+        "Adapter: translates Nodics commands into provider-specific API calls or file exchanges.",
+        "Connector: owns transport, credentials, endpoints, timeouts, retries, TLS, and secret access.",
+        "Evidence model: records normalized provider result, external reference, status, correlation id, and reconciliation state.",
+        "Workflow: coordinates long-running human/system tasks after the immediate pipeline completes.",
+        "Axis metadata: exposes safe operational visibility and authorized lifecycle actions."
+      ]
+    },
+    {
+      "heading": "Configuration-first does not mean code in properties",
+      "paragraphs": [
+        "Configuration should describe what is enabled, what codes exist, which provider is mapped, and which limits or feature flags apply. It should not become a bulky service implementation.",
+        "Runtime decisions, provider aggregation, protocol handling, normalization, and policy evaluation belong in services, adapters, utilities, and workflow actions. Customer modules can replace or extend those services without editing framework files."
+      ]
+    },
+    {
+      "heading": "Secure integration checklist",
+      "items": [
+        "No provider secrets in content, schema records, generated documentation, browser JavaScript, or Axis responses.",
+        "Use tenant and enterprise scope on all provider registrations and business methods/modes.",
+        "Use idempotency keys for money movement, inventory commitment, label creation, shipment booking, and external state-changing calls.",
+        "Validate webhook or callback signatures before changing internal state.",
+        "Normalize provider statuses into Nodics statuses and retain raw payload only in protected evidence storage if required.",
+        "Set timeouts, retry limits, circuit breaker policy, and fallback behavior per provider.",
+        "Record correlation identifiers across pipeline, workflow, provider call, audit, logs, and Axis detail views.",
+        "Separate permissions for view, execute, retry, reconcile, cancel, refund, dispatch, and admin configuration."
+      ]
+    },
+    {
+      "heading": "Integration lifecycle",
+      "items": [
+        "Discover provider capabilities, required credentials, supported operations, callback model, rate limits, sandbox mode, production mode, and certification rules.",
+        "Model the business method/mode and provider registration in backend configuration or schema as appropriate.",
+        "Implement provider policy and adapter services in the owning module or a customer extension module.",
+        "Add contract tests using sandbox/fake providers before connecting production credentials.",
+        "Expose safe provider state, health, and lifecycle actions in Axis through backend-driven metadata.",
+        "Document setup, customization, failure modes, recovery, audit, and operations for business users and developers.",
+        "Run staging certification, load testing, failure testing, idempotency replay testing, and rollback planning before production enablement."
+      ]
+    },
+    {
+      "heading": "Examples",
+      "items": [
+        "Stripe card provider: Card method remains the same; provider policy selects Stripe for selected enterprises and currencies; adapter implements authorize/capture/refund; reconciliation reads Stripe events.",
+        "PayPal wallet provider: Wallet method maps to PayPal provider; adapter handles redirect or tokenized approval; webhook validates final capture status.",
+        "DHL delivery provider: Standard or Express Delivery maps to DHL in covered zones; adapter quotes services, creates labels, tracks parcels, and reconciles exceptions.",
+        "Local fleet provider: Local Delivery maps to a customer module adapter; workflow can assign driver, schedule delivery, record proof, and trigger notifications.",
+        "ERP credit provider: Account Credit method maps to ERP provider; adapter checks credit limit and posts invoice evidence asynchronously."
+      ]
+    },
+    {
+      "heading": "Anti-patterns",
+      "items": [
+        "Putting provider business logic into `properties.js` instead of services/adapters.",
+        "Letting Axis call external payment or delivery providers directly.",
+        "Hard-coding Stripe, PayPal, CyberSource, DHL, or any partner into generic checkout logic.",
+        "Using provider status as authoritative without matching tenant, enterprise, order, amount, currency, method, provider, and idempotency evidence.",
+        "Creating duplicate payment, stock, shipment, or order state in customer modules instead of extending the owning capability."
+      ]
+    }
+  ]
+}

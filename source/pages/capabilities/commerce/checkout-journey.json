@@ -1,0 +1,113 @@
+{
+  "code": "commerce.checkout-journey",
+  "title": "Checkout Journey and Lifecycle",
+  "route": "/docs/capabilities/commerce/checkout-journey",
+  "section": "capabilities",
+  "family": "concepts-architecture",
+  "parent": "page:capability.commerce.overview",
+  "order": 90,
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Understand how a cart becomes an order while delivery, payment, and inventory stay quantity-aware.",
+  "priorKnowledge": "Read Commerce for Beginners.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "Cart, Order, Inventory, Payment, Fulfillment, Pricing, and Store owners",
+  "lastVerified": "2026-08-02",
+  "summary": "Checkout converts a mutable cart into an order by validating price, stock, delivery, payment, and business policy while preserving allocation evidence at line-entry quantity level.",
+  "supportingEvidence": [
+    "nodics:gComm/cart/README.md",
+    "nodics:gComm/order/README.md",
+    "nodics:gComm/pricing/README.md",
+    "nodics:gComm/inventory/README.md",
+    "nodics:gComm/store/README.md",
+    "nodics:gCore/units/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Cart and order are related, not identical",
+      "paragraphs": [
+        "A cart is the customer's editable purchase intent. It can accept item changes, quantity changes, address changes, payment changes, recalculation, validation errors, and abandoned states.",
+        "An order is the durable result of successful checkout. It keeps the commercial evidence needed for fulfillment, payment capture, invoice, cancellation, return, refund, customer service, analytics, and audit.",
+        "Because cart and order share the same business concepts, many submodels must either work for both lifecycle stages or have a deliberate conversion path. Nodics uses delivery groups, delivery allocations, payment groups, and payment allocations so quantity-level intent can be copied or projected safely from Cart to Order."
+      ]
+    },
+    {
+      "heading": "Checkout lifecycle",
+      "items": [
+        "Load cart with trusted tenant, enterprise, site, store, customer, channel, currency, locale, country, and effective time.",
+        "Validate cart entries, products, variants, quantities, units, and availability of required data.",
+        "Recalculate price, taxes, charges, discounts where implemented, and totals from backend authorities.",
+        "Collect delivery groups such as address shipment, pickup, digital delivery, scheduled delivery, or customer-defined mode.",
+        "Collect payment groups such as card, wallet, cash on delivery, advance, account credit, or customer-defined method.",
+        "Create quantity-level allocations that map line entries to delivery groups and payment groups.",
+        "Ask Inventory for reservation/allocation evidence according to the configured stock policy.",
+        "Ask Payment for authorization, deferred-payment, advance, or offline evidence according to payment policy.",
+        "Create Order and order-side submodels with stable references and immutable checkout evidence.",
+        "Start fulfillment, notification, reporting, and reconciliation workflows after the order is created."
+      ]
+    },
+    {
+      "heading": "Distributed delivery example",
+      "paragraphs": [
+        "The hard case is not two different products going to two addresses. The hard case is one cart line with one product and quantity `3`, where quantity `2` must go to Address A and quantity `1` must go to Address B.",
+        "This means the delivery split cannot live only at cart header level. It must be represented as allocations linked back to the cart entry quantity. The same pattern works after order placement for shipment, consignment, tracking, and return processing."
+      ],
+      "items": [
+        "Cart entry: product `phone-128gb`, quantity `3`, unit `piece`.",
+        "Delivery group A: Address A, Standard Delivery, quantity allocation `2`.",
+        "Delivery group B: Address B, Pickup or Express Delivery, quantity allocation `1`.",
+        "Inventory may source allocation A from Warehouse 1 and allocation B from Warehouse 2, depending on sourcing policy.",
+        "Fulfillment later converts delivery allocations into consignments, shipment tasks, tracking events, and delivery evidence."
+      ]
+    },
+    {
+      "heading": "Distributed payment example",
+      "paragraphs": [
+        "Payment may also split at quantity or amount level. For example, quantity `2` may be paid by card while quantity `1` is cash on delivery, wallet, or advance payment. Some businesses also split by amount: gift card covers part of the total and card covers the rest.",
+        "Nodics should keep both patterns available. Quantity allocation is useful when payment is tied to specific shipped goods. Amount allocation is useful when payment instruments contribute to the same total."
+      ],
+      "items": [
+        "Payment group A: Card method using a configured provider adapter, authorization amount for quantity `2`.",
+        "Payment group B: Cash on Delivery method, deferred collection amount for quantity `1`.",
+        "Payment evidence records method, provider, policy result, authorization/capture/deferred status, idempotency key, and provider reference where applicable.",
+        "Order does not need to know provider secrets. It stores governed payment evidence and links to Payment-owned records."
+      ]
+    },
+    {
+      "heading": "Pipeline versus workflow",
+      "paragraphs": [
+        "Checkout placement is a single business operation with many deterministic steps. That makes it a pipeline: validate, enrich, price, reserve, authorize, persist, project, and respond. Each step has a clear input and output and the whole operation should be idempotent.",
+        "Post-order activity is a broader business process. Approval, warehouse handoff, provider notification, shipment, customer email, fraud review, refund, return, and third-party reconciliation may happen across time and departments. That makes it a workflow."
+      ]
+    },
+    {
+      "heading": "What must be stored as evidence",
+      "items": [
+        "The cart and order identity, version, tenant, enterprise, site, store, customer, currency, and channel.",
+        "The product and variant identities used at placement time.",
+        "The unit and quantity used for each line, delivery allocation, payment allocation, reservation, and fulfillment action.",
+        "The price/tax/charge/discount evidence used to calculate totals.",
+        "The delivery mode, delivery provider, address, warehouse, consignment, and tracking evidence when applicable.",
+        "The payment method, provider, authorization, capture, refund, reconciliation, and failure evidence when applicable.",
+        "The user, system, pipeline, workflow, and provider action that caused each state transition."
+      ]
+    },
+    {
+      "heading": "Acceptance checks",
+      "items": [
+        "One cart with multiple products, multiple addresses, multiple payment methods, and multiple warehouses.",
+        "One product line with quantity split across two addresses and two payment methods.",
+        "Partial stock availability with fail, backorder, pre-order, and overbooking policies.",
+        "Provider timeout, duplicate callback, duplicate checkout placement, stale cart, stale price, and stale stock evidence.",
+        "Order projection accuracy after cart conversion and no direct mutation of Inventory, Payment, or Fulfillment internal state by Cart."
+      ]
+    }
+  ]
+}

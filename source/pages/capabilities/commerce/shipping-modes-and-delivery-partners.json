@@ -1,0 +1,105 @@
+{
+  "code": "commerce.shipping-delivery-partners",
+  "title": "Shipping Modes and Delivery Partners",
+  "route": "/docs/capabilities/commerce/shipping-modes-and-delivery-partners",
+  "section": "capabilities",
+  "family": "configuration-customization",
+  "parent": "page:capability.commerce.overview",
+  "order": 110,
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Understand shipping modes, carrier providers, delivery planning, and how to integrate external delivery partners.",
+  "priorKnowledge": "Read Checkout Journey and Lifecycle.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "Fulfillment capability owner",
+  "lastVerified": "2026-08-02",
+  "summary": "Fulfillment separates customer-facing shipping modes from delivery partner providers so enterprises can configure delivery behavior without hard-coding carriers or warehouse processes.",
+  "supportingEvidence": [
+    "nodics:gComm/cart/README.md",
+    "nodics:gComm/order/README.md",
+    "nodics:gComm/store/README.md",
+    "nodics:gComm/inventory/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Shipping mode and carrier provider are different",
+      "paragraphs": [
+        "A shipping or delivery mode is the business option selected by the customer or operator: Standard Delivery, Express Delivery, Same Day, Scheduled Delivery, Store Pickup, Local Delivery, Digital Delivery, Freight, Installation Delivery, or a customer-specific mode.",
+        "A delivery provider is the executable partner or system: DHL, FedEx, UPS, Aramex, Delhivery, Shiprocket, a local fleet, a third-party logistics provider, a warehouse management system, a pickup network, or a customer adapter.",
+        "Nodics should let enterprises add modes and providers independently. A Standard Delivery mode may route to different providers by country, zone, warehouse, weight, promise date, product type, enterprise, or cost policy."
+      ]
+    },
+    {
+      "heading": "Delivery planning inputs",
+      "items": [
+        "Tenant, enterprise, site, store, country, region, channel, currency, customer, and effective time.",
+        "Cart/order entries, product type, quantity, unit, package dimensions, weight, hazardous or regulated flags, and digital/physical classification.",
+        "Delivery address, pickup store, pickup slot, scheduled time, service zone, warehouse eligibility, and carrier coverage.",
+        "Inventory sourcing result: warehouse, pool, reservation, allocation, stock type, and promise constraints.",
+        "Business policy: shipping mode availability, free-shipping threshold, COD eligibility, provider priority, excluded products, split-shipment rules, and service-level agreement."
+      ]
+    },
+    {
+      "heading": "Distributed delivery",
+      "paragraphs": [
+        "A cart can have multiple delivery groups. More importantly, one line quantity can be split across multiple delivery groups. This allows the same product quantity to be shipped partly to one address and partly to another address, or partly delivered now and partly later.",
+        "The delivery allocation is the key model. It connects line entry quantity to delivery group, inventory reservation/allocation evidence, provider evidence, and fulfillment status."
+      ],
+      "items": [
+        "Delivery group A: ship quantity `2` to Address A using Standard Delivery.",
+        "Delivery group B: ship quantity `1` to Address B using Express Delivery.",
+        "Fulfillment may create separate consignments and labels for each group.",
+        "Returns can reference the original delivery allocation to decide pickup address, refund rules, and restock behavior."
+      ]
+    },
+    {
+      "heading": "External delivery partner integration",
+      "items": [
+        "Register the carrier provider through backend configuration and provider service metadata.",
+        "Use a provider adapter for rate quote, service availability, label creation, shipment booking, tracking refresh, pickup scheduling, cancellation, and return label creation.",
+        "Store credentials securely outside documentation, content, and Axis.",
+        "Normalize provider responses into fulfillment evidence instead of exposing raw carrier payloads to other modules.",
+        "Use idempotency for label creation, shipment booking, pickup booking, and cancellation.",
+        "Reconcile provider tracking and internal fulfillment status on schedule or webhook."
+      ]
+    },
+    {
+      "heading": "Adding a shipping mode",
+      "items": [
+        "Create mode metadata: code, name, delivery type, allowed countries, channels, stores, customer groups, product constraints, minimum/maximum weight, enabled flag, and Axis help metadata.",
+        "Attach policy for eligibility, quote behavior, delivery promise, payment constraints, split-shipment constraints, and return eligibility.",
+        "Map mode to one or more providers through fulfillment provider policy.",
+        "Add create/update/list/detail Axis metadata so business users can manage modes through backend-driven components.",
+        "Test availability, denial, provider routing, delivery allocation, order projection, fulfillment action metadata, and documentation links."
+      ]
+    },
+    {
+      "heading": "Operational lifecycle",
+      "items": [
+        "Plan: choose mode, provider, warehouse, package, and delivery promise.",
+        "Reserve or allocate: connect delivery allocation to inventory evidence.",
+        "Create consignment or shipment: prepare fulfillment unit for warehouse or provider.",
+        "Generate label or handoff: call provider or local warehouse adapter.",
+        "Track: update status from provider events or warehouse scans.",
+        "Deliver: mark completed with evidence.",
+        "Return or exception: start return, failed delivery, reschedule, refund, replacement, or investigation workflow."
+      ]
+    },
+    {
+      "heading": "Security and governance",
+      "items": [
+        "Do not allow browser-supplied provider, warehouse, tenant, or enterprise values to broaden fulfillment scope.",
+        "Separate read, create label, dispatch, cancel, return, and reconcile permissions.",
+        "Avoid exposing raw internal warehouse paths, carrier credentials, full provider payloads, or private customer address data outside authorized surfaces.",
+        "Audit provider command identity, request/response summary, user/system actor, correlation id, retry attempt, and normalized result."
+      ]
+    }
+  ]
+}
