@@ -1,0 +1,25 @@
+{
+  "code": "capability.notifications.verification",
+  "title": "Notification Verification and Security",
+  "route": "/docs/capabilities/notifications/verification",
+  "section": "security",
+  "family": "security",
+  "parent": "page:capability.notifications.overview",
+  "order": 30,
+  "audiences": ["developer", "architect", "security-reviewer", "operator", "ai-tool"],
+  "readerIntent": "Design and validate secure OTP, consent, recipient, provider, evidence, and tenant boundaries.",
+  "priorKnowledge": "Understand Notification lifecycle and configuration.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "notifyVerification and notifyCore security contracts",
+  "lastVerified": "2026-08-04",
+  "summary": "Notification verification treats OTPs, destinations, credentials, rendered content, callbacks, and delivery evidence as high-sensitivity boundaries.",
+  "supportingEvidence": ["nodics:gFramework/nEvent/docs/README.md"],
+  "sections": [
+    {"heading": "Security rules", "items": ["Authenticate token type, tenant, enterprise, site, permission, scenario owner, recipient reference, and idempotency before delivery.", "Resolve destinations and consent from authorities; callers provide references rather than arbitrary raw addresses for governed flows.", "Keep OTPs and protected values transient. Persist hashes, masks, names, lengths, codes, references, status, and timings only.", "Resolve credentials from secret references inside adapters. Never return, persist, log, search, emit, or render raw credentials/provider payloads.", "Verify callback signature over raw bytes, timestamp, account/tenant binding, event uniqueness and replay before normalization where callbacks exist."]},
+    {"heading": "OTP lifecycle", "items": ["Create an expiring single-use challenge with cooldown and attempt bounds, deliver through an approved verification scenario, and never return the raw OTP.", "Validation uses constant-time comparison or the configured secure OTP authority, increments bounded attempts, rejects expiry/reuse, and records safe evidence.", "Provider-managed verification is disabled until its provider-specific security and data-governance contract is qualified."]},
+    {"heading": "Required tests", "items": ["Valid, invalid, expired, replayed, duplicate and concurrent requests; cross-tenant/site/principal access; missing permission; arbitrary recipient; consent denial; quiet hours and rate limits.", "Template injection, undeclared/protected values, oversized content, attachment bounds, secret-like keys, safe preview, immutable evidence, deletion denial and retention.", "Provider timeout, retry, fallback, total outage, callback signature/replay, reconciliation, secret rotation, circuit/readiness, load, incident and recovery."]},
+    {"heading": "Tenant and role isolation", "items": ["Test customer, support, content author, checker, provider administrator, operator, and service identities independently. A permission for one lifecycle action must not imply another.", "Bind every read and mutation to authenticated tenant and enterprise scope. Reject caller-supplied scope conflicts without revealing whether a record, recipient, account, or challenge exists elsewhere."]},
+    {"heading": "Evidence interpretation", "items": ["Passing deterministic adapters and contract tests proves framework behavior, not live provider certification.", "A production claim requires environment-backed evidence for the exact customer account, sender, region, callback endpoint, traffic profile, monitoring, recovery, and legal/security approvals."]}
+  ]
+}

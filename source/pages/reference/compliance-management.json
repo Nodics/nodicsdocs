@@ -1,0 +1,79 @@
+{
+  "code": "platform.compliance-management.technical-reference",
+  "title": "Compliance Management",
+  "route": "/docs/reference/compliance-management",
+  "section": "reference",
+  "family": "technical-reference",
+  "parent": "section:reference",
+  "order": 225,
+  "audiences": [
+    "business-user",
+    "administrator",
+    "developer",
+    "architect",
+    "security-reviewer",
+    "operator",
+    "ai-tool"
+  ],
+  "readerIntent": "Understand the consolidated compliance capability group and its backend-governed Axis management surface.",
+  "priorKnowledge": "No framework knowledge is required for the overview; extension sections assume Nodics layered configuration and module ownership.",
+  "depth": "reference",
+  "status": "implemented",
+  "owner": "gCompliance/complianceCore for shared governance; each sibling compliance capability owns its domain state and processes",
+  "lastVerified": "2026-08-04",
+  "summary": "Compliance Management gives authorized employees one Axis section for compliance configuration, operations, review, evidence, and audit while backend modules retain all authority.",
+  "supportingEvidence": [
+    "nodics:gOptional/kyc/README.md",
+    "nodics:gOptional/kyc/kycCore/README.md"
+  ],
+  "sections": [
+    {
+      "heading": "Business overview",
+      "items": [
+        "Compliance Management is one governed workplace in Axis, not one giant backend module. Employees see only enabled capabilities, tenant or enterprise context, pages, fields, records, and actions allowed by authenticated backend contracts.",
+        "KYC is the first consolidated capability. AML, sanctions, due diligence, monitoring, reporting, or another regulated domain can join as sibling capabilities without copying identity verification or creating another console.",
+        "Axis presents configuration and processes; it never becomes the authority for policy, decisions, evidence, secrets, Workflow, Pipelines, providers, audit, or retention."
+      ]
+    },
+    {
+      "heading": "Architecture and ownership",
+      "items": [
+        "gCompliance is composition-only. complianceCore owns shared terminology, safe presentation defaults, common governance policy, and the root compliance-management navigation item.",
+        "Each domain capability owns its schemas, services, intent APIs, workflows, pipelines, providers, permissions, audit events, operational health, and child navigation metadata.",
+        "Profile remains identity authority, nMedia remains private-file authority, Workflow remains long-running process authority, and nPipeline remains deterministic execution authority."
+      ]
+    },
+    {
+      "heading": "Configuration and processes in Axis",
+      "items": [
+        "The backend bootstrap combines the shared parent and authorized domain children. Child items explicitly name complianceCore as the parent module so composition is bounded and unambiguous.",
+        "Configuration pages use schema-backed Workbench contracts and sensitive changes remain subject to backend authorization, validation, optimistic concurrency, maker-checker, audit, and feature state.",
+        "Operational pages expose bounded queues, cases, decisions, provider readiness, masked evidence metadata, and audit projections. Secrets and raw regulated evidence never enter browser state."
+      ]
+    },
+    {
+      "heading": "Customize and extend safely",
+      "items": [
+        "A customer adds a later-loaded project module to override shared compliance defaults or domain-specific configuration. The customer contribution must preserve tenant isolation, least privilege, masking, immutable audit, legal hold, and backend authorization.",
+        "A new domain is a sibling capability under the compliance group and contributes child navigation beneath compliance-management. Do not edit framework source, copy an existing capability, publish another compliance root, or hardcode a route catalogue in Axis.",
+        "Verify metadata, structure, focused domain behavior, authenticated bootstrap composition, unauthorized behavior, safe failure, generated AI context, canonical documentation, and full regression suites. Rollback removes the later contribution and restores inherited configuration without mutating evidence."
+      ]
+    },
+    {
+      "heading": "Operations, security, and release",
+      "items": [
+        "Monitor authorization failures, queue age, workflow stalls, provider availability, policy changes, maker-checker backlog, evidence access, retention and legal-hold jobs, audit delivery, and client contract compatibility.",
+        "Test wrong tenant and enterprise, missing permission, stale revision, duplicate or replayed request, provider outage, partial discovery, unavailable capability, masking, narrow-screen and keyboard behavior, recovery, and audit integrity.",
+        "Framework capability evidence does not certify a customer solution. Production release requires customer legal, security, privacy, provider, infrastructure, operations, performance, recovery, and independent assurance evidence."
+      ]
+    },
+    {
+      "heading": "Troubleshooting and recovery",
+      "items": [
+        "If the section is absent, verify complianceCore activation, authenticated bootstrap compatibility, effective employee permission, tenant context, and feature state. Do not add a local Axis route as a workaround.",
+        "If a child page is absent, verify that its owning domain capability is active and that its parentId and parentModuleName resolve to the shared compliance-management item.",
+        "If an action fails, preserve the record and entered safe evidence, display only the bounded backend code and message, refresh authoritative state, and retry or escalate only when policy allows. Provider or Workflow recovery remains a backend operation."
+      ]
+    }
+  ]
+}

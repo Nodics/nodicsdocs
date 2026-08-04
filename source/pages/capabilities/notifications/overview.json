@@ -1,0 +1,25 @@
+{
+  "code": "capability.notifications.overview",
+  "title": "Notifications and Messaging",
+  "route": "/docs/capabilities/notifications",
+  "section": "capabilities",
+  "family": "overview",
+  "parent": "section:capabilities",
+  "order": 175,
+  "audiences": ["evaluator", "business-user", "administrator", "developer", "architect", "security-reviewer", "operator", "ai-tool"],
+  "readerIntent": "Understand the centralized, provider-neutral notification capability and its business value, boundaries, and maturity.",
+  "priorKnowledge": "No implementation knowledge is required.",
+  "depth": "overview",
+  "status": "implemented",
+  "owner": "gNotify for delivery orchestration; business capabilities own notification intent and context",
+  "lastVerified": "2026-08-04",
+  "summary": "Nodics centralizes templates, policy, consent evidence, rendering, provider selection, persisted outcomes, verification, and Axis operations without taking business ownership from Order, Profile, Workflow, KYC, or customer modules.",
+  "supportingEvidence": ["nodics:gFramework/nEvent/docs/README.md"],
+  "sections": [
+    {"heading": "What is Notifications and Messaging?", "items": ["Business owners publish a bounded intent once; Notification applies governed channel, policy, template, recipient, consent, provider, retry, evidence, and outcome handling.", "Decision makers gain consistent security, operations, localization, audit, provider portability, and customer customization. They still own provider contracts, regional consent, sender registration, cost, deliverability, accessibility, incident response, and production certification.", "The included local, SMTP, and Twilio modules are foundations. Source availability or a passing contract test is not live production qualification."]},
+    {"heading": "Beginner mental model", "items": ["A scenario explains why a message is sent. A message type controls consent, risk, retention, approval, and retry. A channel defines content constraints. A template version supplies approved content. A provider and account deliver it.", "The business capability owns the event and values. Notification owns how an accepted intent is safely delivered. Profile or Customer owns communication preference evidence.", "Axis is an operations client. It displays permission-filtered backend workspaces and invokes one authorized lifecycle action; it never contains delivery policy or provider credentials."]},
+    {"heading": "Lifecycle", "items": ["Business event or secured API intent → effective policy → consent evidence → active template/version → allowlisted context → safe rendering → provider selection → persisted request → attempt → normalized event → owner result.", "Duplicate idempotency returns the persisted result without sending again. Suppression is a governed terminal outcome. Temporary provider failure can select an allowed fallback or persist a retry state.", "Human approval and long recovery use Workflow; bounded technical delivery and retry use Pipelines."]},
+    {"heading": "Implementation status", "items": ["The provider-neutral policy, persistence, Pipeline, safe rendering, event, verification, API, and Axis foundations are implemented and covered by deterministic tests.", "A customer deployment remains responsible for selecting and certifying real providers, accounts, senders, regions, legal controls, monitoring, load, recovery, and independent assurance."]},
+    {"heading": "Continue", "items": ["Configuration and customer customization", "Business and Axis operations", "Verification and security", "Commerce notification journeys", "Technical reference"]}
+  ]
+}

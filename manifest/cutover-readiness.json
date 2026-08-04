@@ -1,6 +1,6 @@
 {
   "contractVersion": 1,
-  "generatedAt": "2026-08-01T10:50:27.173Z",
+  "generatedAt": "2026-08-04T09:57:45.922Z",
   "decision": "NO_GO",
   "blockers": [
     "gdocs-link-retirement"
@@ -14,8 +14,8 @@
       "code": "canonical-completeness",
       "status": "PASS",
       "evidence": {
-        "registered": 161,
-        "authored": 161,
+        "registered": 181,
+        "authored": 181,
         "missingAuthored": [],
         "unregisteredAuthored": []
       }
@@ -24,19 +24,19 @@
       "code": "canonical-navigation-links",
       "status": "PASS",
       "evidence": {
-        "routes": 161,
-        "canonicalLinks": 619,
+        "routes": 181,
+        "canonicalLinks": 621,
         "brokenLinks": [],
         "sectionCounts": {
           "discover": 2,
           "evaluate": 5,
           "getting-started": 2,
-          "capabilities": 75,
+          "capabilities": 89,
           "solutions": 3,
-          "build": 17,
-          "security": 12,
-          "operations": 11,
-          "reference": 34
+          "build": 18,
+          "security": 13,
+          "operations": 12,
+          "reference": 37
         }
       }
     },
@@ -45,15 +45,15 @@
       "status": "PASS",
       "evidence": {
         "audienceCounts": {
-          "evaluator": 27,
-          "business-user": 74,
-          "administrator": 85,
-          "developer": 148,
-          "architect": 143,
-          "security-reviewer": 51,
-          "operator": 107,
-          "framework-maintainer": 47,
-          "ai-tool": 137
+          "evaluator": 30,
+          "business-user": 86,
+          "administrator": 101,
+          "developer": 166,
+          "architect": 160,
+          "security-reviewer": 59,
+          "operator": 125,
+          "framework-maintainer": 50,
+          "ai-tool": 156
         },
         "capabilityAliases": 109,
         "note": "Canonical source has titles, summaries, intent, audiences, content, and taxonomy aliases. Runtime search behavior still requires the canonical CMS projection and Axis validation."
@@ -87,11 +87,11 @@
       "code": "canonical-content-pack-projection",
       "status": "PASS",
       "evidence": {
-        "canonicalPages": 161,
+        "canonicalPages": 181,
         "legacyArticles": 428,
-        "generatedArticles": 161,
-        "generatedPages": 161,
-        "generatedRoutes": 162,
+        "generatedArticles": 181,
+        "generatedPages": 181,
+        "generatedRoutes": 182,
         "sites": [
           "axisCmsSite"
         ],
@@ -136,8 +136,8 @@
       "evidence": {
         "nodicsRootAvailable": true,
         "remainingReferencesOutsideGdocs": {
-          "files": 6,
-          "references": 823
+          "files": 3,
+          "references": 819
         },
         "note": "Do not remove gDocs until active navigation, source links, generated context, and module README links use canonical destinations."
       }

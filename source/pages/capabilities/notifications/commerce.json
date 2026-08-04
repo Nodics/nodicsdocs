@@ -1,0 +1,24 @@
+{
+  "code": "capability.notifications.commerce",
+  "title": "Commerce Notification Journeys",
+  "route": "/docs/capabilities/notifications/commerce",
+  "section": "capabilities",
+  "family": "business-journey",
+  "parent": "page:capability.notifications.overview",
+  "order": 40,
+  "audiences": ["business-user", "evaluator", "developer", "operator", "ai-tool"],
+  "readerIntent": "Understand Order, Return, Refund, Fulfillment, Workflow, and support notification ownership and outcomes.",
+  "priorKnowledge": "Understand basic commerce lifecycle concepts.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "Commerce capabilities own intent; Notification owns delivery",
+  "lastVerified": "2026-08-04",
+  "summary": "Commerce owners emit versioned, idempotent notification intents after authoritative transitions and consume bounded outcomes without coupling to providers.",
+  "supportingEvidence": ["nodics:gFramework/nEvent/docs/README.md"],
+  "sections": [
+    {"heading": "Journeys", "items": ["Order confirmation: Order commits the order and publishes customer/order references plus an allowlisted context intent; Notification selects permitted email, SMS, or in-app delivery.", "Cancellation or Return support escalation: Order/Fulfillment persists lifecycle state first, then emits a correlated intent. Delivery failure never rolls back committed owner state; recovery remains explicit.", "Refund approval: Order/Workflow targets an approver through the workflow scenario; no payment credentials or provider payloads enter the message context.", "Shipment update: Fulfillment owns shipment/tracking meaning and emits normalized status plus a governed link; Notification applies preference and channel/provider policy.", "Operational failure: Notification can notify an authorized operations audience using safe codes and references, never original protected content."]},
+    {"heading": "Financial and privacy boundaries", "items": ["Use formatted totals and safe business references only. Never include PAN, CVV, payment tokens, provider responses, full address, fraud payload, credentials, or unrestricted notes.", "The source capability owns whether and when a notification is appropriate. Notification policy may suppress or defer delivery but cannot change Order, Payment, Inventory, Fulfillment, Tax, or Workflow state.", "Customer preference changes are resolved from Profile/Customer evidence at send time; Notification does not create a second consent record."]},
+    {"heading": "Operational outcomes", "items": ["Owners receive request code, normalized status/result/failure, correlation and owner reference. They do not receive vendor payloads.", "Duplicate source events reuse deterministic notification idempotency and never produce a second transport call.", "Monitor delivery failures separately from business completion and provide support with an authorized resend/recovery path rather than manual provider access."]},
+    {"heading": "Acceptance evidence", "items": ["Prove committed owner state before intent publication, durable correlation and history, suppression, successful delivery, exact duplicate, provider fallback, total outage, retry/reconciliation, customer policy override, tenant isolation, permission filtering, and safe Axis investigation.", "Validate cancellation, Return/RMA, Refund, approval, shipment, and exception journeys with their owning Order, Payment, Inventory, Fulfillment, Workflow, and support contracts rather than isolated message examples."]}
+  ]
+}

@@ -140,6 +140,48 @@
       "title": "Create and Operate Scheduled Jobs"
     },
     {
+      "code": "capability.notifications.overview",
+      "section": "capabilities",
+      "capability": "notifications",
+      "family": "overview",
+      "title": "Notifications and Messaging"
+    },
+    {
+      "code": "capability.notifications.configuration",
+      "section": "capabilities",
+      "capability": "notifications",
+      "family": "configuration-customization",
+      "title": "Configure and Customize Notifications"
+    },
+    {
+      "code": "capability.notifications.operations",
+      "section": "operations",
+      "capability": "notifications",
+      "family": "operations-security-troubleshooting",
+      "title": "Operate Notifications in Axis"
+    },
+    {
+      "code": "capability.notifications.verification",
+      "section": "security",
+      "capability": "notifications",
+      "family": "security",
+      "title": "Notification Verification and Security"
+    },
+    {
+      "code": "capability.notifications.commerce",
+      "section": "capabilities",
+      "capability": "notifications",
+      "family": "business-journey",
+      "title": "Commerce Notification Journeys"
+    },
+    {
+      "code": "capability.notifications.technical-reference",
+      "section": "reference",
+      "capability": "notifications",
+      "family": "technical-reference",
+      "title": "Notifications Technical Reference"
+    },
+    {
       "code": "capability.scheduled-jobs.overview",
       "section": "capabilities",
       "capability": "scheduled-jobs",
@@ -946,6 +988,12 @@
       "title": "Customer Reviews Implementation Reference"
     },
     {
+      "code": "platform.compliance-management.technical-reference",
+      "section": "reference",
+      "family": "technical-reference",
+      "title": "Compliance Management"
+    },
+    {
       "code": "solution.kyc.technical-reference",
       "section": "reference",
       "family": "technical-reference",
@@ -1157,6 +1205,34 @@
       "section": "reference",
       "family": "technical-reference",
       "title": "Provider and Capability Maturity"
+    },
+    {
+      "code": "capability.commerce.order-lifecycle",
+      "section": "capabilities",
+      "capability": "commerce",
+      "family": "overview",
+      "title": "Order Cancellation, Return, and Refund"
+    },
+    {
+      "code": "capability.commerce.order-lifecycle.operations",
+      "section": "capabilities",
+      "capability": "commerce",
+      "family": "operations-security-troubleshooting",
+      "title": "Operate Cancellation, Return, and Refund in Axis"
+    },
+    {
+      "code": "capability.commerce.order-lifecycle.customization",
+      "section": "build",
+      "capability": "commerce",
+      "family": "configuration-customization",
+      "title": "Customize Order Lifecycle Safely"
+    },
+    {
+      "code": "capability.commerce.order-lifecycle.technical-reference",
+      "section": "reference",
+      "capability": "commerce",
+      "family": "technical-reference",
+      "title": "Order Lifecycle Technical Reference"
     }
   ]
 }

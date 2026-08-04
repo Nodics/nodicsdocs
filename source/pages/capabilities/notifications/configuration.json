@@ -1,0 +1,24 @@
+{
+  "code": "capability.notifications.configuration",
+  "title": "Configure and Customize Notifications",
+  "route": "/docs/capabilities/notifications/configuration",
+  "section": "capabilities",
+  "family": "configuration-customization",
+  "parent": "page:capability.notifications.overview",
+  "order": 10,
+  "audiences": ["administrator", "developer", "architect", "operator", "ai-tool"],
+  "readerIntent": "Configure channels, scenarios, message types, policies, providers, templates, resilience, and customer overrides without forking framework code.",
+  "priorKnowledge": "Read Notifications and Messaging.",
+  "depth": "guided",
+  "status": "implemented",
+  "owner": "notifyCore defaults with project, environment, tenant, site, and customer layers",
+  "lastVerified": "2026-08-04",
+  "summary": "Every meaningful notification difference is layered through configuration, governed records, replaceable services, Pipeline nodes, value builders, adapters, and backend Axis metadata.",
+  "supportingEvidence": ["nodics:gFramework/nEvent/docs/README.md"],
+  "sections": [
+    {"heading": "Configuration families", "items": ["Channels define compatible fields, formats, sizes, attachment and preview rules.", "Scenarios define owner, audience, required values, allowed channels and message types, risk, and help route.", "Message types define consent, approval, risk, retention, audit, retry, and recipient restrictions.", "Delivery policies layer tenant/site/channel/scenario/type matching, quiet hours, rate windows, consent, retry/fallback, provider order, version, approval, and effective dates.", "Provider records and accounts define adapter service, channel coverage, readiness, sandbox/live environment, sender identity, secret reference, timeout, health, and error classification."]},
+    {"heading": "Customize and extend safely", "items": ["Create a customer module loading after notifyCore and the selected owner/provider modules.", "Override only the required configuration key or contribute a higher-priority active notifyDeliveryPolicy. Do not copy the framework policy service.", "Add an owner value-builder service for business context and declare every allowed variable. Protected values remain transient and produce masked/hash evidence only.", "For a new vendor, implement the provider-neutral adapter, readiness, safe normalization, secret-reference, timeout, retry, idempotency and callback contracts in a provider module.", "Contribute backend navigation/help metadata when the customer needs a specialized workspace; reuse Axis Workbench and lifecycle actions.", "Test inherited defaults, the override, invalid configuration, permission, tenant isolation, duplicate delivery, provider failure, rollback, generated context, Axis, and documentation."]},
+    {"heading": "Example override", "items": ["A customer can add an active high-priority policy matching orderConfirmation/email with maximumPerWindow 2, customerSmtp before fallback, local quiet hours, and a customer retry policy.", "The same customer module can replace the order notification value builder or one Pipeline node while preserving the Router → Controller → Facade → Service → Pipeline → owner/provider chain.", "Rollback deactivates or removes the later contribution and restores inherited defaults; it does not delete delivery evidence or rewrite active template history."]},
+    {"heading": "Prohibited shortcuts", "items": ["Do not hardcode a customer name, destination, provider, consent exception, or retry rule in framework code.", "Do not store raw secrets, OTP, provider payloads, rendered protected content, PAN/CVV, or arbitrary recipients.", "Do not create another template or consent authority in Order, KYC, Profile, Axis, or a customer UI."]}
+  ]
+}

@@ -252,15 +252,24 @@
       ]
     },
     {
+      "heading": "gCompliance",
+      "migratedFrom": "nodics:gDocs/reference/module-catalog.md",
+      "sourceAnchor": "gcompliance",
+      "items": [
+        "[gCompliance](/docs/reference/compliance-management) — `group`; `gCompliance`",
+        "[complianceCore](/docs/reference/compliance-management) — `capability`; `gCompliance/complianceCore`",
+        "[kyc](/docs/reference/compliance-kyc) — `group`; `gCompliance/kyc`",
+        "[kycApi](/docs/reference/compliance-kyc) — `capability`; `gCompliance/kyc/kycApi`",
+        "[kycCore](/docs/reference/compliance-kyc) — `capability`; `gCompliance/kyc/kycCore`",
+        "[kycSchema](/docs/reference/compliance-kyc) — `capability`; `gCompliance/kyc/kycSchema`"
+      ]
+    },
+    {
       "heading": "gOptional",
       "migratedFrom": "nodics:gDocs/reference/module-catalog.md",
       "sourceAnchor": "goptional",
       "items": [
-        "[gOptional](/docs/reference/modules) — `group`; `gOptional`",
-        "[kyc](/docs/reference/kyc) — `group`; `gOptional/kyc`",
-        "[kycApi](/docs/reference/kyc) — `capability`; `gOptional/kyc/kycApi`",
-        "[kycCore](/docs/reference/kyc) — `capability`; `gOptional/kyc/kycCore`",
-        "[kycSchema](/docs/reference/kyc) — `capability`; `gOptional/kyc/kycSchema`"
+        "[gOptional](/docs/reference/modules) — `group`; `gOptional`"
       ]
     },
     {

@@ -1,7 +1,7 @@
 {
   "code": "solution.kyc.technical-reference",
   "title": "Know Your Customer Technical Reference",
-  "route": "/docs/reference/kyc",
+  "route": "/docs/reference/compliance-kyc",
   "section": "reference",
   "family": "technical-reference",
   "parent": "section:reference",
@@ -15,12 +15,12 @@
     "operator",
     "ai-tool"
   ],
-  "readerIntent": "Understand the optional KYC capability and its high-sensitivity governance requirements.",
+  "readerIntent": "Understand the KYC capability, its Axis management surface, extension model, current maturity, and high-sensitivity governance requirements.",
   "priorKnowledge": "Understand customer identity, workflows, providers, security, audit, and retention.",
   "depth": "reference",
   "status": "implemented",
-  "owner": "Optional KYC capability; Profile retains customer identity ownership",
-  "lastVerified": "2026-07-26",
+  "owner": "gCompliance/kyc; complianceCore owns shared governance and Profile retains customer identity ownership",
+  "lastVerified": "2026-08-04",
   "summary": "KYC coordinates verification cases, evidence references, checks, decisions, provider interactions, and audit without duplicating customer identity or exposing sensitive evidence broadly.",
   "supportingEvidence": [
     "nodics:gOptional/kyc/README.md",
@@ -29,6 +29,15 @@
     "nodics:gOptional/kyc/kycApi/README.md"
   ],
   "sections": [
+    {
+      "heading": "Start here for business users",
+      "items": [
+        "Authorized employees use the single Axis Compliance Management section for KYC cases, review queues, subject status, masked document metadata, policies and requirements, providers, and audit evidence.",
+        "Axis displays backend-published pages and actions only. It does not decide eligibility, approve a case, store identity evidence, choose a provider, or bypass maker-checker rules.",
+        "A missing page or action normally means the capability, feature state, tenant context, or employee permission is not effective; administrators should inspect backend configuration and authorization rather than adding a frontend shortcut.",
+        "For decision makers, the value is one reusable identity-verification authority across onboarding, checkout, payment, refund, and order lifecycle. The trade-off is that jurisdiction, provider, privacy, legal, infrastructure, and operational qualification remain customer responsibilities."
+      ]
+    },
     {
       "heading": "Authority and case model",
       "items": [
@@ -40,17 +49,19 @@
     {
       "heading": "Verification lifecycle",
       "items": [
-        "Open validates identity reference, purpose, consent, jurisdiction, duplicate/active cases, policy, retention, and required checks.",
-        "Automatic provider checks and manual reviewer actions may coexist in Workflow, but the KYC service owns final state and target authorization.",
-        "Pending, information-required, under-review, approved, rejected, expired, revoked, appealed, and closed transitions carry reason, actor, evidence, revision, and audit."
+        "Submission resolves authenticated tenant, enterprise, subject, entry point, consent, dynamic policy, required documents, private nMedia references, and idempotency before atomically creating or reconciling profile, case, consent, document, and audit evidence.",
+        "Automatic provider checks and manual reviewer actions coexist through Pipeline and Workflow. Normalized checks and append-only decisions project case/profile state; KYC owns final state and target authorization.",
+        "Manual review supports assignment, claim, takeover, information request, escalation, SLA, maker submission, independent checker approval or rejection, override, reversal, high-risk approval, policy exception, close, and expiry.",
+        "A scheduled CronJob-owned lifecycle marks expiry and re-verification, notifies the subject, continues Workflow, audits outcomes, coordinates legal hold, and asks nMedia to delete elapsed document content."
       ]
     },
     {
       "heading": "Provider boundary",
       "items": [
         "Adapters receive minimum required data through configured endpoints and secret references, normalize provider status and errors, and never expose vendor SDKs to Profile or clients.",
-        "Timeout after submission creates an uncertain check reconciled by provider reference; blind replay may duplicate cost or verification.",
-        "Provider selection, residency, supported document types, rate, timeout, retry, circuit, fallback, webhook verification, and data deletion are explicit configuration."
+        "Timeout after submission creates an uncertain check reconciled by provider reference before retry; completed execution evidence makes repeated calls idempotent. Retry classification, exponential bounded backoff, readiness, sandbox/live guard, circuit opening, and failover are persisted and observable.",
+        "Webhooks require raw-body cryptographic verification, provider/account/tenant mapping, current or rotated secret reference, timestamp tolerance, unique provider event identity, and replay rejection before normalization.",
+        "The included mock provider is deterministic test evidence, not a production provider. A real provider remains project-selected and requires credentials, licensing, jurisdiction, residency, live guards, security review, load, outage, callback, reconciliation, and deletion evidence."
       ]
     },
     {
@@ -79,9 +90,42 @@
       ]
     },
     {
-      "heading": "Production evidence",
+      "heading": "Configuration and customer customization",
       "items": [
-        "Data minimization, encryption, field masking, purpose/consent, residency, retention/deletion, access review, provider outage, duplicate/replay, manual override, audit integrity, incident response, legal review, performance, and regression tests."
+        "Framework defaults resolve through Nodics project, environment, server, node, tenant, and customer layers. Customer modules override only owned differences such as verification levels, exact minor-unit thresholds, jurisdiction and risk rules, document requirements, consent, expiry, retention, masking, permissions, rate windows, providers, workflows, and Axis presentation metadata.",
+        "Add provider integrations beneath the provider-neutral KYC adapter contract. Keep credentials in governed secret references and keep vendor payloads out of KYC records, logs, events, search, Axis, and generated documentation.",
+        "Add new compliance domains as siblings under gCompliance and attach their authorized Axis pages to compliance-management. Do not copy KYC into a customer module, add a second compliance console, or move lifecycle authority into Axis.",
+        "Meaningful services, provider adapters, policy resolution, Pipeline nodes, Workflow definitions, rate limits, schedules, and metadata are replaceable from later customer modules. Preserve service names/contracts or contribute a later configured selector; never edit framework defaults for one customer.",
+        "Rollback removes the later customer contribution or provider activation and restores inherited defaults; it must not delete or rewrite regulated evidence. Re-run structure, generated context, focused contracts, cross-capability tests, Axis tests, and environment journeys after every override."
+      ]
+    },
+    {
+      "heading": "Beginner tutorial: verify one customer",
+      "items": [
+        "1. Upload each required document through a private nMedia folder bound to the kycDocuments purpose, enterprise, subject owner, MIME/size policy, retention boundary, and no reuse.",
+        "2. Submit the case with tenant, enterprise, CUSTOMER subject, entry point, idempotency key, correlation ID, accepted consent version, and nMedia codes. A repeat with the same scoped idempotency key returns the same case.",
+        "3. In Axis Compliance Management, open KYC Cases. Use detail panels for normalized checks, masked documents, review tasks, decisions, provider attempts, and redacted audit. Never request raw provider or file paths.",
+        "4. If review is required, claim or assign the task, record only bounded safe notes, request an independent checker where policy requires it, and complete an authorized explicit action.",
+        "5. The consuming capability requests an expiring eligibility decision. It stores only the decision reference and honors invalidation; it never accepts a caller-supplied KYC profile."
+      ]
+    },
+    {
+      "heading": "Operations, security, recovery, and release evidence",
+      "items": [
+        "Monitor case and review age, SLA breach, provider readiness/error/latency/circuit, callback rejection/replay, retry and recovery, eligibility denial, rate rejection, sensitive access, lifecycle deletion/hold, notification failure, Workflow stall, and audit persistence.",
+        "Backup KYC database and nMedia metadata/content consistently, protect keys and secret references separately, test point-in-time restore in isolation, reconcile restored cases/provider events/media before reopening traffic, and never restore deleted content across a legal deletion boundary without approved legal authority.",
+        "Incident response must preserve immutable evidence, revoke or rotate affected service/provider credentials, pause live calls or schedules through configuration, bound customer communication, reconcile uncertain provider outcomes, and record approval before recovery.",
+        "Production evidence includes data minimization, encryption, masking, purpose and consent, residency, retention/deletion/legal hold, role and tenant isolation, provider qualification, duplicate/replay/concurrency, maker-checker, outage/reconciliation, backup/restore, load, accessibility, audit integrity, incident response, legal review, and full regression.",
+        "Implementation evidence is not certification. Do not describe the customer solution or a real provider as production-ready until its jurisdiction-specific legal, privacy, security, infrastructure, provider, performance, recovery, and independent assurance gates pass."
+      ]
+    },
+    {
+      "heading": "Technical reference",
+      "items": [
+        "Primary intent routes: submit case, case action, review-task action, document delivery, eligibility evaluation, signed provider webhook, provider configuration action, provider-policy action, and operations dashboard. All are secured and permissioned; generated KYC schema CRUD is private.",
+        "Primary configuration families: kyc.policy, kyc.documents, kyc.persistence, kyc.eligibility, kyc.providerExecution, kyc.providerWebhook, kyc.workflows, kyc.lifecycle, kyc.rateLimit, kyc.operations, and compliance.kycEnforcement.",
+        "Stable ownership: gCompliance/complianceCore composes shared governance and Axis root; gCompliance/kyc owns KYC; Profile owns identities; nMedia owns binary lifecycle; Workflow owns long-running execution; CronJob owns scheduling; Notification owns delivery; consumer modules own their business lifecycle.",
+        "Verification commands: run focused Compliance/KYC/nMedia/Notification/Order contracts, npm run llm:generate then npm run llm:validate, npm run structure:audit, backend basic tests, nodicsaxis verify, nodicsdocs generate/verify, and explicitly enabled environment E2E suites."
       ]
     }
   ]

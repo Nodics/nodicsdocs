@@ -1,0 +1,24 @@
+{
+  "code": "capability.notifications.operations",
+  "title": "Operate Notifications in Axis",
+  "route": "/docs/capabilities/notifications/operations",
+  "section": "operations",
+  "family": "operations-security-troubleshooting",
+  "parent": "page:capability.notifications.overview",
+  "order": 20,
+  "audiences": ["business-user", "administrator", "operator", "security-reviewer", "ai-tool"],
+  "readerIntent": "Publish templates, qualify providers, investigate delivery, run safe tests, and recover failures through permissioned Axis operations.",
+  "priorKnowledge": "Know the tenant, enterprise, scenario, and employee role.",
+  "depth": "implementation",
+  "status": "implemented",
+  "owner": "Notification backend operations presented by Axis",
+  "lastVerified": "2026-08-04",
+  "summary": "Axis provides business guidance, safe operational summaries, shared record details, and backend-owned actions without exposing secrets or becoming a control plane.",
+  "supportingEvidence": ["nodics:gFramework/nEvent/docs/README.md"],
+  "sections": [
+    {"heading": "Role journeys", "items": ["Content administrator: create a draft template/version, preview with safe samples, obtain independent approval, publish, retire, or roll back.", "Messaging administrator: govern scenarios, channels, message types, layered policies, providers, and secret-reference accounts.", "Operator/support: inspect request/attempt status, owner reference, normalized failure, provider health, suppression reason, retry state, and next authorized recovery action.", "Security reviewer: verify permissions, maker-checker evidence, secret references, consent evidence, test-recipient policy, masking, retention, and immutable history.", "Business owner: trace the bounded result to the source order, workflow, profile, or KYC record without viewing message secrets."]},
+    {"heading": "Controlled test-send", "items": ["The Test Console invokes the secured test-send operation with notify.test.send permission, an allowed non-production environment, an approved recipient reference, and safe declared sample values.", "The request traverses normal policy, rendering, provider sandbox, persistence, attempt, event, and diagnostics. It is marked TEST_SEND and returns no credentials or protected content.", "Production, arbitrary destinations, prohibited keys, unavailable sandbox accounts, and missing permission fail closed."]},
+    {"heading": "Investigate and recover", "items": ["SENT means the provider accepted the message; DELIVERED requires trusted provider evidence where supported. RETRY_SCHEDULED means bounded recovery is available. FAILED requires normalized code/provider readiness review. SUPPRESSED requires preference/policy review, not bypass.", "Use the diagnostics summary for bounded status counts, then open the request and attempts. Never ask operators to inspect raw provider payloads or logs containing content.", "For uncertain outcomes reconcile by stable provider reference/idempotency before retry. Use Workflow for long-running or human-approved recovery."]},
+    {"heading": "Production checklist", "items": ["Selected account and region; legal/consent and sender registration; secret rotation; readiness and health; sandbox and live guards; timeouts and rate limits; duplicate/idempotency; retry/fallback; signed callbacks and replay defense where applicable; observability; outage/reconciliation; rollback; load; backup/restore; incident exercise."]}
+  ]
+}

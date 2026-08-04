@@ -637,6 +637,16 @@ function main() {
         path.join(root, 'source', 'articles'),
         filePath => filePath.endsWith('.json')
     ).length;
+    writeJson(path.join(root, 'manifest', 'docs-content-pack.json'), {
+        ...contentPack,
+        pack: compatibility.pack,
+        version: packageMetadata.version,
+        contractVersion: compatibility.contentContractVersion,
+        sourceMode: 'canonical',
+        sourceAuthority: 'source/pages',
+        sites,
+        accessMode
+    });
     writeJson(path.join(root, 'manifest', 'generated-content-pack.json'), {
         pack: compatibility.pack,
         version: packageMetadata.version,

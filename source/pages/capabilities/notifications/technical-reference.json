@@ -1,0 +1,26 @@
+{
+  "code": "capability.notifications.technical-reference",
+  "title": "Notifications Technical Reference",
+  "route": "/docs/capabilities/notifications/technical-reference",
+  "section": "reference",
+  "family": "technical-reference",
+  "parent": "page:capability.notifications.overview",
+  "order": 50,
+  "audiences": ["developer", "architect", "administrator", "security-reviewer", "operator", "framework-maintainer", "ai-tool"],
+  "readerIntent": "Use the stable module, API, model, Pipeline, provider, event, Axis, and verification contracts.",
+  "priorKnowledge": "Read the overview, configuration, operations, and security pages.",
+  "depth": "reference",
+  "status": "implemented",
+  "owner": "gNotify",
+  "lastVerified": "2026-08-04",
+  "summary": "Reference for extending and operating the Notification capability while preserving owner boundaries and replaceability.",
+  "supportingEvidence": ["nodics:gFramework/nEvent/docs/README.md"],
+  "sections": [
+    {"heading": "Modules and authority", "items": ["gNotify is composition-only. notifySchema owns private persistence models; notifyCore owns provider-neutral orchestration; notifyVerification owns challenges; notifyApi owns secured transport routes; provider modules own vendor behavior.", "Business capabilities own intent and value builders. Profile/Customer owns preference evidence. Workflow owns human/long-running recovery. Axis owns presentation only."]},
+    {"heading": "Private models", "items": ["Channel, scenario, message type, delivery policy, template, immutable template version, variable definition, provider, provider account, message context evidence, delivery request, delivery attempt, suppression, in-app notification, verification challenge.", "Generated routers are disabled. Domain services and interceptors guard lifecycle mutation and prohibit hard deletion of evidence."]},
+    {"heading": "Routes", "items": ["Service-only send and retry; access/service verification create/validate; access-only test-send, provider-account governance, diagnostics, preview, publish, retire, rollback, inbox and acknowledge. Every route is secured, token-scoped, permissioned, and uses explicit Controller → Facade operations.", "Customer modules replace services or contribute later routes/metadata through normal layering; do not expose a generic invoke operation or generated delivery CRUD."]},
+    {"heading": "Delivery Pipeline", "items": ["validateRequest, resolveScenario, resolveChannel, resolveRecipientAndConsent, resolveTemplate, resolveContext, renderContent, selectProvider, persistRequest, sendMessage, normalizeResult/failure, persistAttempt/suppression, publishEvent, end.", "Exact duplicate idempotency terminates before provider delivery. Retry uses a separate bounded Pipeline and business-owned context rehydration. Human approvals and uncertain long recovery use Workflow."]},
+    {"heading": "Provider contract", "items": ["Minimum input: request/channel/recipient reference, selected account, transient rendered channel content, stable idempotency, deadline. Minimum output: normalized status/result/failure, safe provider reference, retry classification, latency and bounded evidence.", "Production adapters require explicit activation, secret reference, readiness, timeout, rate/retry/fallback, idempotency, callback/reconciliation behavior, observability, recovery, environment tests and rollback."]},
+    {"heading": "Verification commands", "items": ["Run focused gNotify contracts and persisted runtime journeys; combined Notification/KYC/Order suites; npm run llm:generate then npm run llm:validate; structure audit and basic backend tests; nodicsaxis verify/build; nodicsdocs verify; explicitly enabled environment/provider/topology tests.", "Generated metadata, static source inspection, fake transports, or green unit tests never substitute for the environment-backed portions of production qualification.", "Record exact commands, environment identity, selected provider/account, fixtures, outcomes, failures and recovery evidence. Re-run after configuration, adapter, policy, template, permission, topology, secret, framework, Axis, or documentation changes."]}
+  ]
+}
